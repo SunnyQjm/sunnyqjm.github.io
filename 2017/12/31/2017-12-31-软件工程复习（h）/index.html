@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="要求掌握UML图的绘制方法，需求规范概述Unified Modeling Language(UML) 统一建模语言 1977.11.17，OMG采纳 ==&amp;gt; ISO标准 ==&amp;gt; 事实的工业标准   元元模型（meta_metamodel）层 由UML中最基本的元素“事物（thing）”组成   元模型（metamodel）层 这一层的每个概念都是元元模型中“事物”概念的实例   模型">
+<meta name="keywords" content="学习,笔记,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程复习（八）">
+<meta property="og:url" content="http://yoursite.com/2017/12/31/2017-12-31-软件工程复习（h）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="要求掌握UML图的绘制方法，需求规范概述Unified Modeling Language(UML) 统一建模语言 1977.11.17，OMG采纳 ==&amp;gt; ISO标准 ==&amp;gt; 事实的工业标准   元元模型（meta_metamodel）层 由UML中最基本的元素“事物（thing）”组成   元模型（metamodel）层 这一层的每个概念都是元元模型中“事物”概念的实例   模型">
+<meta property="og:locale" content="en-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_72.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_73.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_74.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_75.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_76.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_77.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_78.jpg">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程复习（八）">
+<meta name="twitter:description" content="要求掌握UML图的绘制方法，需求规范概述Unified Modeling Language(UML) 统一建模语言 1977.11.17，OMG采纳 ==&amp;gt; ISO标准 ==&amp;gt; 事实的工业标准   元元模型（meta_metamodel）层 由UML中最基本的元素“事物（thing）”组成   元模型（metamodel）层 这一层的每个概念都是元元模型中“事物”概念的实例   模型">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_72.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/31/2017-12-31-软件工程复习（h）/"/>
+
+
+
+
+
+  <title>软件工程复习（八） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/31/2017-12-31-软件工程复习（h）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程复习（八）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
+                2017-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
+</blockquote>
+<ul>
+<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
+<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
+</ul>
+</li>
+<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
+<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
+</ul>
+</li>
+<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
+<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
+</ul>
+<blockquote>
+<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
+<ul>
+<li>视图（view）<ul>
+<li>通常包括多个图</li>
+</ul>
+</li>
+<li>图（diagram）</li>
+<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
+<li>通用机制（general mechanism）<ul>
+<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
+<li>比如：构造型，标签值，笔记（写注释）等</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
+<ul>
+<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
+<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
+<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
+<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
+<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
+<li>静态图描述系统的静态结构，包括：<ul>
+<li><strong>类图</strong>（class diagram）</li>
+<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
+</ul>
+</li>
+<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
+</ul>
+</li>
+<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
+<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
+<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
+<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
+<li>这类图描述对象间的交互关系，包括<ul>
+<li><strong>顺序图</strong>（sequence diagram）</li>
+<li><strong>协作图</strong>（collaboration diagram）</li>
+</ul>
+</li>
+<li>描述一个场景中若干个类的交互（动态协作）</li>
+</ul>
+</li>
+<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
+<li>这类图提供关于系统实现方面的信息，包括：<ul>
+<li>构件图（component diagram）</li>
+<li>配置图（deployment diagram）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_72.jpg" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_73.jpg" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_74.jpg" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_75.jpg" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_76.jpg" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_77.jpg" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_78.jpg" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（i）/" rel="next" title="软件工程复习（九）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（九）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（k）/" rel="prev" title="软件工程复习（十一）">
+                软件工程复习（十一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#要求掌握UML图的绘制方法，需求规范"><span class="nav-number">1.</span> <span class="nav-text">要求掌握UML图的绘制方法，需求规范</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#元元模型（meta-metamodel）层"><span class="nav-number">1.1.1.</span> <span class="nav-text">元元模型（meta_metamodel）层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#元模型（metamodel）层"><span class="nav-number">1.1.2.</span> <span class="nav-text">元模型（metamodel）层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模型（model）层"><span class="nav-number">1.1.3.</span> <span class="nav-text">模型（model）层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户模型（user-model）层"><span class="nav-number">1.1.4.</span> <span class="nav-text">用户模型（user model）层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML的表示法"><span class="nav-number">1.2.</span> <span class="nav-text">UML的表示法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UML中的图"><span class="nav-number">1.3.</span> <span class="nav-text">UML中的图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用例图-（use-case-diagram）"><span class="nav-number">1.3.1.</span> <span class="nav-text">用例图 （use-case diagram）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态图（static-diagram）"><span class="nav-number">1.3.2.</span> <span class="nav-text">静态图（static diagram）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#行为图（behavior-diagram）"><span class="nav-number">1.3.3.</span> <span class="nav-text">行为图（behavior diagram）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交互图-（interaction-diagram）"><span class="nav-number">1.3.4.</span> <span class="nav-text">交互图 （interaction diagram）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现图（implementation-diagram）"><span class="nav-number">1.3.5.</span> <span class="nav-text">实现图（implementation diagram）</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

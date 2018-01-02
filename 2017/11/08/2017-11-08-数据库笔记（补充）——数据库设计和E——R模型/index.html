@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,学习,笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="实体—联系模型  实体集 实体（entity）：现实世界中一个可以区别于其他对象的一个“事物”或对象 实体集（entity set）：相同类型（即具有相同性质/属性）的实体的集合 外延（extension）：属于实体集的实体的实际集合 ps: 实体集和外延的关系类似于之前讲的模式和实例的关系   属性（attribute）：实体集中每个成员所具有的描述性性质 值（value）：每个实体的每个属性">
+<meta name="keywords" content="数据库,学习,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库笔记（补充）——数据库设计和E——R模型">
+<meta property="og:url" content="http://yoursite.com/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="实体—联系模型  实体集 实体（entity）：现实世界中一个可以区别于其他对象的一个“事物”或对象 实体集（entity set）：相同类型（即具有相同性质/属性）的实体的集合 外延（extension）：属于实体集的实体的实际集合 ps: 实体集和外延的关系类似于之前讲的模式和实例的关系   属性（attribute）：实体集中每个成员所具有的描述性性质 值（value）：每个实体的每个属性">
+<meta property="og:locale" content="en-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-401cb7a8533ae4c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-3efdb480d2cbdab7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-8326ccc00ed7b43e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-46db5dae213b6bc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1c38fc5cfb403d5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-2cd9d60543960ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-783c1d6c2b081798.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库笔记（补充）——数据库设计和E——R模型">
+<meta name="twitter:description" content="实体—联系模型  实体集 实体（entity）：现实世界中一个可以区别于其他对象的一个“事物”或对象 实体集（entity set）：相同类型（即具有相同性质/属性）的实体的集合 外延（extension）：属于实体集的实体的实际集合 ps: 实体集和外延的关系类似于之前讲的模式和实例的关系   属性（attribute）：实体集中每个成员所具有的描述性性质 值（value）：每个实体的每个属性">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/7222676-401cb7a8533ae4c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/"/>
+
+
+
+
+
+  <title>数据库笔记（补充）——数据库设计和E——R模型 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库笔记（补充）——数据库设计和E——R模型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
+                2017-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="实体—联系模型"><a href="#实体—联系模型" class="headerlink" title="实体—联系模型"></a>实体—联系模型</h2></blockquote>
+<ul>
+<li><h3 id="实体集"><a href="#实体集" class="headerlink" title="实体集"></a>实体集</h3><ul>
+<li>实体（entity）：现实世界中一个可以区别于其他对象的一个“事物”或对象</li>
+<li>实体集（entity set）：相同类型（<strong><em>即具有相同性质/属性</em></strong>）的实体的集合</li>
+<li>外延（extension）：属于实体集的实体的实际集合<blockquote>
+<p>ps: 实体集和外延的关系类似于之前讲的<a href="http://www.jianshu.com/p/c7f7d50edfa3" target="_blank" rel="noopener">模式和实例的关系</a></p>
+</blockquote>
+</li>
+<li>属性（attribute）：实体集中每个成员所具有的描述性性质</li>
+<li>值（value）：每个实体的每个属性都有一个<strong>值</strong></li>
+</ul>
+</li>
+<li><h3 id="联系集"><a href="#联系集" class="headerlink" title="联系集"></a>联系集</h3><ul>
+<li><p>联系（relationship）：多个实体间的相互关联</p>
+</li>
+<li><p>联系集（relationship set）： 相同类型联系的集合</p>
+</li>
+<li>实体集之间的关联称之为参与：实体集E<sub>1</sub>, E<sub>2</sub>, E<sub>3</sub> <strong>参与</strong> 联系集R</li>
+<li>联系也可以具有 <strong>描述性属性</strong></li>
+<li>实体在联系中扮演的功能称为<strong>角色</strong></li>
+<li>参与联系集的实体集的数目称为<strong>联系集的度</strong>， 二元联系集的度为2</li>
+</ul>
+</li>
+<li><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><p>域（domain）/ 值集：每个 <strong>属性</strong> 都有一个 <strong>可取值的集合</strong> ，称为该属性的 <strong>域</strong> 或 <strong>值集</strong></p>
+</li>
+<li><p>简单（simple） 和复合（composite）属性</p>
+<ul>
+<li>简单属性不可以再分成更小的部分，而复合属性可以(例如下面的name即为复合属性)<br><img src="http://upload-images.jianshu.io/upload_images/7222676-401cb7a8533ae4c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></li>
+</ul>
+</li>
+<li>单值（single-value）和多值（multivalued）属性<ul>
+<li>单值：一个实体在的单值属性只对应一个值</li>
+<li>多值：一个实体的多值属性可以对应多个值（如，phone_number）</li>
+</ul>
+</li>
+<li><h4 id="派生（derived）属性"><a href="#派生（derived）属性" class="headerlink" title="派生（derived）属性"></a>派生（derived）属性</h4><ul>
+<li><p>派生属性的值可以从别的相关属性或实体派生出来</p>
+<ul>
+<li>eg.:银行账户的余额可以从账户的存取款明细中计算出来</li>
+</ul>
+</li>
+<li><p>派生属性在原则上是不用保存的，但是有时候保存派生属性可以节约计算时间（空间换时间）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><ul>
+<li><h4 id="映射基数约束"><a href="#映射基数约束" class="headerlink" title="映射基数约束"></a>映射基数约束</h4><ul>
+<li>一对一（one-to-one）</li>
+<li>一对多（one-to-many）</li>
+<li>多对一（many-to-one）</li>
+<li>多对多（many-to-many）</li>
+</ul>
+</li>
+<li><h4 id="参与约束"><a href="#参与约束" class="headerlink" title="参与约束"></a>参与约束</h4><ul>
+<li><p>全部参与：实体集E的每一个实体都参与到联系集R的至少一个联系中</p>
+</li>
+<li><p>部分参与：实体集E中只有部分实体参与到联系集R的联系中</p>
+</li>
+</ul>
+</li>
+<li><h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><ul>
+<li>超码</li>
+<li>候选码</li>
+<li>主码</li>
+</ul>
+</li>
+<li><p>####　从实体集中删除冗余属性</p>
+<ul>
+<li>要点： <strong>删除其他实体的主键</strong></li>
+<li>其他实体的主键相当于外建的存在，一般属于联系集的属性</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>instructor(ID, name, dept_name, salary)，其中ID为主键</p>
+</li>
+<li><p>department(dept_name, building, budget)，其中dept_name为主键</p>
+</li>
+<li>属性dept_name在两个表中都出现了，所以它属于冗余属性，他又是department的主键，故应该将其从instructor表中移除（实际数据库实现的时候instructor表中是有一个dept_name属性的，他作为一个外建存在，实际上是两者的联系集是简单的1对多的关系，便没有单独成表，而是采用外键相联系）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="实体——联系图"><a href="#实体——联系图" class="headerlink" title="实体——联系图"></a>实体——联系图</h2></blockquote>
+<ul>
+<li><h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><ul>
+<li><h4 id="分成两部分的矩形-代表-实体集"><a href="#分成两部分的矩形-代表-实体集" class="headerlink" title="分成两部分的矩形 代表 实体集"></a><strong>分成两部分的矩形</strong> 代表 <strong>实体集</strong></h4><p><img src="http://upload-images.jianshu.io/upload_images/7222676-3efdb480d2cbdab7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+</li>
+<li><p><strong>菱形</strong> 代表 <strong>联系集</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-8326ccc00ed7b43e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+</li>
+<li><p><strong>未分割的矩形</strong> 代表 <strong>联系集的属性</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-46db5dae213b6bc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+</li>
+<li><p><strong>线段</strong> 将实体集连接到联系集</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1c38fc5cfb403d5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+</li>
+<li><p><strong>虚线</strong> 将联系集属性连接到联系集</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-2cd9d60543960ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+</li>
+<li><strong>双线</strong> 显示实体在联系集中的参与度(用双线与联系集相连表示全部参与)</li>
+<li><strong>双菱形</strong> 代表连接到弱实体集的 <strong>标志性实体集</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-783c1d6c2b081798.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
+</li>
+<li><h3 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h3><ul>
+<li>一对一</li>
+<li>一对多</li>
+<li>多对一</li>
+<li>多对多</li>
+</ul>
+</li>
+<li><h3 id="balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"><a href="#balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集" class="headerlink" title="balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"></a>balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集</h3></li>
+<li><h3 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h3><ul>
+<li><p>定义：没有足够的属性以形成主码的实体集称之为 <strong>弱实体集（weak entity set）</strong></p>
+</li>
+<li><p>先举个栗子：(由于简书不支持下划线的写法，所以下面表中所有的主码都用斜体表示)</p>
+<ul>
+<li><strong>course</strong> (<strong><em>course_id</em></strong>, titles, credits)</li>
+<li><strong>section</strong> (<strong><em>sec_id</em></strong>, <strong><em>semester</em></strong>, <strong><em>year</em></strong>)</li>
+<li><p>对于上面的两个实体集，参与如下联系集</p>
+<ul>
+<li>sec_course(course_id, sec_id, semester, year)</li>
+</ul>
+</li>
+<li><p>上面的section实体集实际上就是一个弱联系集</p>
+<ul>
+<li>一个section实体如果不与一个course对相关联是毫无意义的，并且只有sec_id, semester, year三个属性也是决定不了一个section的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>弱实体集必须于另一个称作标识（identifying）或属主和实体集（owner entity set）的实体集相关联才有意义</li>
+<li>虽然弱实体集没有主码，但是本身仍要有在依赖于强实体集的基础上的进一步区分的方法，<strong>弱实体集的分辨符/部分码</strong>（discriminator）便可以用来做进一步的区分<ul>
+<li>上述例子中的sec_id, semester, year便组成了section的分辨符</li>
+<li>在画ER图的时候，组成分辨符的属性底下画虚线（可参见教材 图7-5）</li>
+</ul>
+</li>
+<li>弱实体集的主码由 <strong>标识实体集的主码</strong> 加上 <strong>该弱实体集的分辨符</strong> 构成</li>
+<li><h4 id="ER图中的表示"><a href="#ER图中的表示" class="headerlink" title="ER图中的表示"></a>ER图中的表示</h4><ul>
+<li>组成分辨符的属性底下画虚线，而不是实线</li>
+<li>关联弱实体集和标识性强实体集的联系集以双菱形表示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"><a href="#接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了" class="headerlink" title="接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"></a>接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了</h3></li>
+</ul>
+<blockquote>
+<h2 id="ER图转换为关系模式"><a href="#ER图转换为关系模式" class="headerlink" title="ER图转换为关系模式"></a>ER图转换为关系模式</h2><p>这个不难下面简单列几点注意事项</p>
+</blockquote>
+<ul>
+<li><strong>复合属性</strong><ul>
+<li>将每个子属性单独作为一个属性来处理</li>
+</ul>
+</li>
+<li><strong>派生属性</strong><ul>
+<li>不显示表示出来</li>
+</ul>
+</li>
+<li><strong>多值属性</strong><ul>
+<li>单独成表</li>
+</ul>
+</li>
+<li><strong>弱实体集转换</strong><ul>
+<li>对于从弱实体集转换而来的模式，该模式的主码由其所依赖的强实体集的主码与弱实体集的分辨符组成</li>
+</ul>
+</li>
+<li><strong>联系集</strong><ul>
+<li>多对多的情况一定单独成表</li>
+<li>联系集拥有描述性属性的情况单独成表</li>
+<li>其它情况下均可不单独成表<ul>
+<li>一对一情况下讲任意实体集的主键作为另一个实体集的外建均可</li>
+<li>一对多和多对一的情况下，将“一”端的主键作为”多”端的外建</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" rel="next" title="数据库笔记（十二）——函数依赖理论和分解算法">
+                <i class="fa fa-chevron-left"></i> 数据库笔记（十二）——函数依赖理论和分解算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" rel="prev" title="数据库笔记（补充）——候选码的确定方法">
+                数据库笔记（补充）——候选码的确定方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#实体—联系模型"><span class="nav-number">1.</span> <span class="nav-text">实体—联系模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#实体集"><span class="nav-number">1.1.</span> <span class="nav-text">实体集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#联系集"><span class="nav-number">1.2.</span> <span class="nav-text">联系集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#属性"><span class="nav-number">1.3.</span> <span class="nav-text">属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#派生（derived）属性"><span class="nav-number">1.3.1.</span> <span class="nav-text">派生（derived）属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#约束"><span class="nav-number">1.4.</span> <span class="nav-text">约束</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#映射基数约束"><span class="nav-number">1.4.1.</span> <span class="nav-text">映射基数约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参与约束"><span class="nav-number">1.4.2.</span> <span class="nav-text">参与约束</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#码"><span class="nav-number">1.4.3.</span> <span class="nav-text">码</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体——联系图"><span class="nav-number">2.</span> <span class="nav-text">实体——联系图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本结构"><span class="nav-number">2.1.</span> <span class="nav-text">基本结构</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分成两部分的矩形-代表-实体集"><span class="nav-number">2.1.1.</span> <span class="nav-text">分成两部分的矩形 代表 实体集</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#映射基数"><span class="nav-number">2.2.</span> <span class="nav-text">映射基数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"><span class="nav-number">2.3.</span> <span class="nav-text">balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#弱实体集"><span class="nav-number">2.4.</span> <span class="nav-text">弱实体集</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ER图中的表示"><span class="nav-number">2.4.1.</span> <span class="nav-text">ER图中的表示</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"><span class="nav-number">2.5.</span> <span class="nav-text">接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ER图转换为关系模式"><span class="nav-number">3.</span> <span class="nav-text">ER图转换为关系模式</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

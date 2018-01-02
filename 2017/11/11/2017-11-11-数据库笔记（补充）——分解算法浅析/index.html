@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,学习,笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF BCNF 分解算法 教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版） 该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）    伪代码实现">
+<meta name="keywords" content="数据库,学习,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库笔记（补充）——分解算法浅析">
+<meta property="og:url" content="http://yoursite.com/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF BCNF 分解算法 教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版） 该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）    伪代码实现">
+<meta property="og:locale" content="en-Hans">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库笔记（补充）——分解算法浅析">
+<meta name="twitter:description" content="写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF BCNF 分解算法 教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版） 该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）    伪代码实现">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/"/>
+
+
+
+
+
+  <title>数据库笔记（补充）——分解算法浅析 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库笔记（补充）——分解算法浅析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-11-11T00:00:00+08:00">
+                2017-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF</p>
+<h2 id="BCNF-分解算法"><a href="#BCNF-分解算法" class="headerlink" title="BCNF 分解算法"></a>BCNF 分解算法</h2><ul>
+<li>教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版）</li>
+<li>该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="伪代码实现"><a href="#伪代码实现" class="headerlink" title="伪代码实现"></a>伪代码实现</h3><p>对满足1NF的模式R<u, f="">作如下处理可分解成满足BCNF范式的模式R<sub>1</sub>, R<sub>2</sub>, …, R<sub>n</sub></u,></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">result := &#123;R&#125;;</span><br><span class="line">        done := <span class="keyword">false</span>;</span><br><span class="line">        计算F+;</span><br><span class="line">        <span class="keyword">while</span>(not done) <span class="keyword">do</span></span><br><span class="line">              <span class="keyword">if</span>(result中存在模式Ri不属于BCNF)</span><br><span class="line">              then begin</span><br><span class="line">                      令 α→β 为一个在Ri上成立的非平凡函数依赖，满足 α→β ∈ F+， 并且 α∩β  = ∅;</span><br><span class="line">                      result := (result - Ri) ∪ (Ri - β) ∪ (α, β)</span><br><span class="line">              end</span><br><span class="line">              <span class="keyword">else</span> done := <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="先来分析一波上面的代码吧"><a href="#先来分析一波上面的代码吧" class="headerlink" title="先来分析一波上面的代码吧"></a>先来分析一波上面的代码吧</h3><ol>
+<li>首先令reslut = {R}</li>
+<li>接着计算一下F的函数闭包F<sup>+</sup>（计算函数闭包还是挺麻烦的，所以在下面判断的时候挑一个函数依赖，判断一下是否被F逻辑蕴含即可）</li>
+<li>然后判断结果集result中是否还存在哪个模式不满足BCNF范式，如果都满足，则直接跳到步骤5，如果存在某个模式 R<sub>i</sub> ∈ result，不满足BCNF范式，则执行步骤4</li>
+<li>选择一个在R<sub>i</sub>上成立的非平凡函数依赖 α→β，并且 α→β 属于 F<sup>+</sup>，并且α∩β=∅。然后将模式R<sub>i</sub>分解成两个模式，分别为 (R<sub>i</sub> - β) 和 (α, β)。并且将R<sub>i</sub>从result中移除，江新得到的两个模式添加到result中。接着回到步骤3继续判断</li>
+<li>分解完成，输出结果</li>
+</ol>
+</li>
+<li><h3 id="纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"><a href="#纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～" class="headerlink" title="纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"></a>纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～</h3><ul>
+<li>有模式class<u, f="">, 通过上述算法，对其进行满足BCNF范式的分解<ul>
+<li>U = {course_id, title, dept_name, credits. sec_id, semester, year, building, room_number, capticy, time_slot_id}</li>
+<li>F = {<br>course_id → (title, dept_name, credits),<br>(building, room_number)→capaticy,<br>(course_id, sec_id, semester, year)→(building, room_number, time_slot_id)<br>}</li>
+</ul>
+</u,></li>
+<li>首先还是看一下上面模式的候选码是什么吧（书上的栗子是直接给出来了，但是有些题可能不给，需要自己算）<ul>
+<li>通过上一篇博客讲的<a href="http://www.jianshu.com/p/e3eb1dcac59d" target="_blank" rel="noopener">候选码求解算法</a>，容易求得模式class的候选码为{course_id, sec_id, semester, year}</li>
+</ul>
+</li>
+<li>接着判断模式class是否满足BCNF范式<ul>
+<li>模式R中存在依赖 course_id → (title, dept_name, credits), 但course_id并不是R的一个超码，故R不满足BCNF范式</li>
+<li>对R做如下分解<ul>
+<li>course(course_id, title, dept_name, credits)</li>
+<li>class_1(course_id, credits. sec_id, semester, year, building, room_number, capticy, time_slot_id)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>继续判断，易知course是满足BCNF范式的，而course_1同理不满足BCNF范式， 继续分解<ul>
+<li>找到非平凡依赖(building, room_number)→capaticy， 且其属于F</li>
+<li>对class_1分解如下<ul>
+<li>classroom(building, room_number, capacity)</li>
+<li>section(course_id, credits. sec_id, semester, year, building, room_number,  time_slot_id)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>检测一下发现现在模式classroom和section也满足BCNF范式了</li>
+<li>OK，原来的模式class现在分解为如下三个模式<ul>
+<li>course(course_id, title, dept_name, credits)</li>
+<li>classroom(building, room_number, capacity)</li>
+<li>section(course_id, credits. sec_id, semester, year, building, room_number,  time_slot_id)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="3NF分解算法"><a href="#3NF分解算法" class="headerlink" title="3NF分解算法"></a>3NF分解算法</h2><p>以下分解算法中用到了正则覆盖的概念，这个笔者在之前的博客中也提到过，<a href="http://www.jianshu.com/p/78d16f97ef0c" target="_blank" rel="noopener">点我传送</a></p>
+<ul>
+<li>该分解算法可以保持依赖，并且是无损分解</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="伪代码实现-1"><a href="#伪代码实现-1" class="headerlink" title="伪代码实现"></a>伪代码实现</h3> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">令Fc为F的正则覆盖;</span><br><span class="line">i:= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> each Fc 中的函数依赖 α→β</span><br><span class="line">        i := i + <span class="number">1</span></span><br><span class="line">        Ri := αβ;</span><br><span class="line"><span class="keyword">if</span> 模式 Rj, j = <span class="number">1</span>, <span class="number">2</span>, ..., i 都不包含R的候选码</span><br><span class="line">then</span><br><span class="line">        i := i + <span class="number">1</span></span><br><span class="line">        Ri := R的任意候选码</span><br><span class="line"><span class="comment">/*(以下代码可选)用来移除冗余关系，如果没有冗余关系则可以不care*/</span></span><br><span class="line">repeat</span><br><span class="line">        <span class="keyword">if</span> 模式 Rj包含于另一个模式Rk中</span><br><span class="line">        then</span><br><span class="line">               <span class="comment">/*删除Rj*/</span></span><br><span class="line">               Rj := Ri</span><br><span class="line">                i := i - <span class="number">1</span></span><br><span class="line">until 不再有可以删除的Rj</span><br><span class="line"><span class="keyword">return</span> (R1, R2, ..., Ri)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="老规矩，还是先分析一下上面的伪代码"><a href="#老规矩，还是先分析一下上面的伪代码" class="headerlink" title="老规矩，还是先分析一下上面的伪代码"></a>老规矩，还是先分析一下上面的伪代码</h3><ol>
+<li>首先求出F的正则覆盖F<sub>c</sub>（实际上就是利用Amstrong公式化简原来的函数依赖集的过程）</li>
+<li>接着将F<sub>c</sub>中的每一个函数依赖单独分解成一个模式，得到一个模式列表S = {R<sub>1</sub>, R<sub>2</sub>, …, R<sub>i</sub>}</li>
+<li>如果上述模式列表S中的任意一个模式包含模式R的候选码，则跳到步骤5，否则执行步骤4</li>
+<li>选取R的任意一个候选码，组成一个新的模式R’, 将R’添加到模式列表S中</li>
+<li>（可选）如果模式列表中存在冗余（即某个模式被其他模式包含），则可以删除这个模式</li>
+<li>输出S</li>
+</ol>
+</li>
+<li><h3 id="讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"><a href="#讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提" class="headerlink" title="讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"></a>讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提</h3><ul>
+<li>比如上面分析BCNF分解算法时用到的模式class， 利用上述算法分解之后可以得到和 利用BCNF算法分解一样的结果</li>
+<li>所以，神奇的事情发生了，<strong>利用3NF分解算法得到的结果可能还会满足BCNF范式</strong></li>
+<li><strong>实践中BCNF分解的另一种途径</strong>： 先用3NF算法分解，然后对结果中不满足BCNF范式的模式用BCNF分解算法分解，如果结果不保持依赖，则回退回3NF</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" rel="next" title="数据库笔记（补充）——候选码的确定方法">
+                <i class="fa fa-chevron-left"></i> 数据库笔记（补充）——候选码的确定方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/2017-12-22-软件工程复习（a）/" rel="prev" title="软件工程复习（一）">
+                软件工程复习（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BCNF-分解算法"><span class="nav-number">1.</span> <span class="nav-text">BCNF 分解算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码实现"><span class="nav-number">1.1.</span> <span class="nav-text">伪代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先来分析一波上面的代码吧"><span class="nav-number">1.2.</span> <span class="nav-text">先来分析一波上面的代码吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"><span class="nav-number">1.3.</span> <span class="nav-text">纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3NF分解算法"><span class="nav-number">2.</span> <span class="nav-text">3NF分解算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码实现-1"><span class="nav-number">2.1.</span> <span class="nav-text">伪代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老规矩，还是先分析一下上面的伪代码"><span class="nav-number">2.2.</span> <span class="nav-text">老规矩，还是先分析一下上面的伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"><span class="nav-number">2.3.</span> <span class="nav-text">讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

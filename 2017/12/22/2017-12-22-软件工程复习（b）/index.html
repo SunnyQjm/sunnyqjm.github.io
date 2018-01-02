@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="可行性研究的任务不是解决问题，而是确定问题是否值得去解决。  分析可能的解法 判定系统规模和目标是否能够实现 效益是否可观   较高层次的系统分析和设计过程   技术可行性：开发此系统是可行的，是有好处的 经济可行性：根据系统目标衡量所需技术是否具备 操作可行性：系统是否易于使用并能够创造价值 法律可行性：是否存在侵犯、妨碍和责任等问题   可行性研究过程（understanding）了解就好">
+<meta name="keywords" content="学习,笔记,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程复习（二）">
+<meta property="og:url" content="http://yoursite.com/2017/12/22/2017-12-22-软件工程复习（b）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="可行性研究的任务不是解决问题，而是确定问题是否值得去解决。  分析可能的解法 判定系统规模和目标是否能够实现 效益是否可观   较高层次的系统分析和设计过程   技术可行性：开发此系统是可行的，是有好处的 经济可行性：根据系统目标衡量所需技术是否具备 操作可行性：系统是否易于使用并能够创造价值 法律可行性：是否存在侵犯、妨碍和责任等问题   可行性研究过程（understanding）了解就好">
+<meta property="og:locale" content="en-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_09.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_10.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_11.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_12.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_13.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_14.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_15.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_16.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_17.jpg">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程复习（二）">
+<meta name="twitter:description" content="可行性研究的任务不是解决问题，而是确定问题是否值得去解决。  分析可能的解法 判定系统规模和目标是否能够实现 效益是否可观   较高层次的系统分析和设计过程   技术可行性：开发此系统是可行的，是有好处的 经济可行性：根据系统目标衡量所需技术是否具备 操作可行性：系统是否易于使用并能够创造价值 法律可行性：是否存在侵犯、妨碍和责任等问题   可行性研究过程（understanding）了解就好">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_09.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/22/2017-12-22-软件工程复习（b）/"/>
+
+
+
+
+
+  <title>软件工程复习（二） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/2017-12-22-软件工程复习（b）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程复习（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-22T00:00:00+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="可行性研究的任务"><a href="#可行性研究的任务" class="headerlink" title="可行性研究的任务"></a>可行性研究的任务</h2><p>不是解决问题，而是确定问题是否值得去解决。</p>
+<ul>
+<li>分析可能的解法</li>
+<li>判定系统规模和目标是否能够实现</li>
+<li>效益是否可观 <br></li>
+</ul>
+<p>较高层次的系统分析和设计过程</p>
+</blockquote>
+<ul>
+<li>技术可行性：开发此系统是可行的，是有好处的</li>
+<li>经济可行性：根据系统目标衡量所需技术是否具备</li>
+<li>操作可行性：系统是否易于使用并能够创造价值</li>
+<li>法律可行性：是否存在侵犯、妨碍和责任等问题</li>
+</ul>
+<blockquote>
+<h2 id="可行性研究过程（understanding）"><a href="#可行性研究过程（understanding）" class="headerlink" title="可行性研究过程（understanding）"></a>可行性研究过程（understanding）</h2><p>了解就好</p>
+</blockquote>
+<ul>
+<li><h3 id="复查系统规模和目标"><a href="#复查系统规模和目标" class="headerlink" title="复查系统规模和目标"></a>复查系统规模和目标</h3><ul>
+<li>改正含糊或不确切的叙述</li>
+<li>清晰地描述限制和约束</li>
+<li>确保分析员解决正确的问题</li>
+</ul>
+</li>
+<li><h3 id="研究目前正在使用的系统"><a href="#研究目前正在使用的系统" class="headerlink" title="研究目前正在使用的系统"></a>研究目前正在使用的系统</h3><ul>
+<li>完成现有系统的基本功能分析</li>
+<li>解决现有系统的问题</li>
+<li>绘制高层系统数据流图</li>
+<li>掌握与其他系统的接口</li>
+</ul>
+</li>
+<li><h3 id="导出新系统的高层逻辑模型"><a href="#导出新系统的高层逻辑模型" class="headerlink" title="导出新系统的高层逻辑模型"></a>导出新系统的高层逻辑模型</h3><ul>
+<li>现有物理系统 → 现有系统的逻辑模型 → 目标系统逻辑模型 → 新的目标系统</li>
+<li>高层数据流图</li>
+<li>初步的数据字典</li>
+</ul>
+</li>
+<li><h3 id="进一步定义问题"><a href="#进一步定义问题" class="headerlink" title="进一步定义问题"></a>进一步定义问题</h3><ul>
+<li>以数据流图和数据字典为基础</li>
+<li>复查问题定义、工程规模和目标</li>
+<li>分析员和用户</li>
+<li>重复1~4步，直至提出的逻辑模型完全符合系统目标</li>
+</ul>
+</li>
+<li><h3 id="导出和评价供选择的解法"><a href="#导出和评价供选择的解法" class="headerlink" title="导出和评价供选择的解法"></a>导出和评价供选择的解法</h3><ul>
+<li>从技术角度出发，考虑解决问题的不同方案</li>
+<li>技术可行性，排除不现实的系统</li>
+<li>操作可行性，排除用户不能接受的方案</li>
+<li>经济可行性，排除利润低的方案</li>
+<li>制定进度表 (估算生命周期每个阶段的工作量)</li>
+</ul>
+</li>
+<li><h3 id="推荐行动方针（是否做？）"><a href="#推荐行动方针（是否做？）" class="headerlink" title="推荐行动方针（是否做？）"></a>推荐行动方针（是否做？）</h3><ul>
+<li>分析员：如果值得开发，则选择最好的解法</li>
+<li>用户：成本/效益分析</li>
+</ul>
+</li>
+<li><h3 id="草拟开发计划"><a href="#草拟开发计划" class="headerlink" title="草拟开发计划"></a>草拟开发计划</h3><ul>
+<li>工程进度表</li>
+<li>各类开发人员、各种资源需求情况</li>
+<li>生命周期每个阶段的成本</li>
+<li>下一个阶段详细进度表和成本估计</li>
+</ul>
+</li>
+<li><h3 id="书写文档提交审查"><a href="#书写文档提交审查" class="headerlink" title="书写文档提交审查"></a>书写文档提交审查</h3><ul>
+<li>用户、客户组织负责人、评审组审查</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="系统流程图-（understanding）"><a href="#系统流程图-（understanding）" class="headerlink" title="系统流程图 （understanding）"></a>系统流程图 （understanding）</h2><p>系统流程图概括描绘物理系统的传统工具用图形符号，以黑盒子形式描述组成系统的每个部件程序、文档、数据库、人工过程</p>
+</blockquote>
+<ul>
+<li>符号：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_09.jpg" alt=""></li>
+<li>栗子：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_10.jpg" alt=""></li>
+</ul>
+<blockquote>
+<h2 id="数据流图-master"><a href="#数据流图-master" class="headerlink" title="数据流图 (master)"></a>数据流图 (master)</h2><p>数据流图(DFD) 描绘信息流和数据从输入移动到输出的过程中所经受的变换。</p>
+</blockquote>
+<ul>
+<li>数据流图的四种基本符号：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_11.jpg" alt=""></li>
+<li>加工中常见关系的符号表示：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_12.jpg" alt=""></li>
+<li>注意：<ul>
+<li>信息的流动</li>
+<li>信息流不能为动词</li>
+<li>实体到实体的信息流动</li>
+<li>处理要有输入输出</li>
+<li>处理名不能为名词</li>
+<li>确保层间的一致性（确保输入输出流的量是一致的）</li>
+</ul>
+</li>
+<li><p>命名:</p>
+<ul>
+<li>数据流的名字应代表整个数据流(数据存储、处理)的内容，而不是仅仅某些成分。</li>
+<li>不要使用空洞的、缺乏具体含义的名字(如“数据”、“信息”、“输入”之类)。</li>
+<li>处理名字最好是一个具体的及物动词。</li>
+</ul>
+</li>
+<li><p>示例：出入库管理系统</p>
+<ul>
+<li>0级数据流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_13.jpg" alt=""></li>
+<li>1级数据流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_14.jpg" alt=""></li>
+<li>2级数据流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_15.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="数据字典-master"><a href="#数据字典-master" class="headerlink" title="数据字典 (master)"></a>数据字典 (master)</h2><ul>
+<li>数据字典是关于数据的信息的集合，即对设计图中包含的元素的定义。</li>
+<li>数据字典的用途是供人查阅不了解的条目的解释，提供分析设计过程中关于数据的描述。</li>
+<li>只有设计图和对应的元素的精确定义放在一起，才能构成系统完整的规格说明。</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="定义数据的方法"><a href="#定义数据的方法" class="headerlink" title="定义数据的方法"></a>定义数据的方法</h3><ul>
+<li>= : 意思是等价于(或定义为);</li>
+<li>+ : 意思是和(即，连接两个分量);</li>
+<li>[] : 意思是或(即，从方括弧内列出的若干个分量中选择一个)，用“｜”号分开供选择的分量;</li>
+<li>{} : 意思是重复(即，重复花括弧内的分量);</li>
+<li>() : 意思是可选(即，圆括弧里的分量可有可无);</li>
+<li>使用上限和下限进一步注释表示重复的花括弧。<ul>
+<li>左边用上角标和下角标分别表明重复的上限和下限</li>
+<li>左侧标明重复的下限，在闭括弧的右侧标明上限</li>
+<li>例如：<img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_16.jpg" alt=""></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="举个栗子："><a href="#举个栗子：" class="headerlink" title="举个栗子："></a>举个栗子：</h4><ul>
+<li>北京某高校可用的电话号码有以下几类:校内电话号码由4 位数字组成，第1位<br>数字不是0;校外电话又分为本市电话和外地电话两类,拨校外电话需先拨0,若是本市电<br>话则再接着拨8位数字(第1位不是0),若是外地电话则拨3位区码再拨8<br>位电话号码<br>(第1位不是0)。请用上述提到的定义数据的方法，定义上述的电话号码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电话号码 = [ 校内电话号码 | 校外电话号码 ]</span><br><span class="line">校内电话号码 = 非零数字 + 3位数字</span><br><span class="line">校外电话号码 = [ 本市电话号码 | 外地电话号码]</span><br><span class="line">本市电话号码 = 数字零 + 8位数字</span><br><span class="line">外地电话号码 = 数字零 + 3位数字 + 8位数字</span><br><span class="line">非零数字 = [1|2|3|4|5|6|7|8|9]</span><br><span class="line">3位数字 = 3&#123;数字&#125;3</span><br><span class="line">数字零 = 0</span><br><span class="line">8位数字 = 非零数字 + 7位数字</span><br><span class="line">7位数字 = 7&#123;数字&#125;7</span><br><span class="line">数字 = [0|1|2|3|4|5|6|7|8|9]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="数字字典的实现"><a href="#数字字典的实现" class="headerlink" title="数字字典的实现"></a>数字字典的实现</h4><ul>
+<li>CASE工具</li>
+<li>人工卡片</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_17.jpg" alt=""></p>
+</li>
+</ul>
+<blockquote>
+<h2 id="成本效益分析（了解）"><a href="#成本效益分析（了解）" class="headerlink" title="成本效益分析（了解）"></a>成本效益分析（了解）</h2><p>成本/效益分析是客户从经济角度判断是否继续投资项目的主要依据。</p>
+</blockquote>
+<ul>
+<li><h3 id="成本估计"><a href="#成本估计" class="headerlink" title="成本估计"></a>成本估计</h3><ul>
+<li>代码行技术</li>
+<li>任务分解技术</li>
+</ul>
+</li>
+<li><h3 id="效益分析"><a href="#效益分析" class="headerlink" title="效益分析"></a>效益分析</h3><ul>
+<li>货币的时间价值</li>
+<li>投资回报期</li>
+<li>纯收入</li>
+<li>投资回报率（最重要的参考数据）</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/22/2017-12-22-软件工程复习（a）/" rel="next" title="软件工程复习（一）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/22/2017-12-22-软件工程复习（c）/" rel="prev" title="软件工程复习（三）">
+                软件工程复习（三） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#可行性研究的任务"><span class="nav-number">1.</span> <span class="nav-text">可行性研究的任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可行性研究过程（understanding）"><span class="nav-number">2.</span> <span class="nav-text">可行性研究过程（understanding）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复查系统规模和目标"><span class="nav-number">2.1.</span> <span class="nav-text">复查系统规模和目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#研究目前正在使用的系统"><span class="nav-number">2.2.</span> <span class="nav-text">研究目前正在使用的系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出新系统的高层逻辑模型"><span class="nav-number">2.3.</span> <span class="nav-text">导出新系统的高层逻辑模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步定义问题"><span class="nav-number">2.4.</span> <span class="nav-text">进一步定义问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出和评价供选择的解法"><span class="nav-number">2.5.</span> <span class="nav-text">导出和评价供选择的解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐行动方针（是否做？）"><span class="nav-number">2.6.</span> <span class="nav-text">推荐行动方针（是否做？）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#草拟开发计划"><span class="nav-number">2.7.</span> <span class="nav-text">草拟开发计划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书写文档提交审查"><span class="nav-number">2.8.</span> <span class="nav-text">书写文档提交审查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统流程图-（understanding）"><span class="nav-number">3.</span> <span class="nav-text">系统流程图 （understanding）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流图-master"><span class="nav-number">4.</span> <span class="nav-text">数据流图 (master)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据字典-master"><span class="nav-number">5.</span> <span class="nav-text">数据字典 (master)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义数据的方法"><span class="nav-number">5.1.</span> <span class="nav-text">定义数据的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子："><span class="nav-number">5.1.1.</span> <span class="nav-text">举个栗子：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字字典的实现"><span class="nav-number">5.1.2.</span> <span class="nav-text">数字字典的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成本效益分析（了解）"><span class="nav-number">6.</span> <span class="nav-text">成本效益分析（了解）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#成本估计"><span class="nav-number">6.1.</span> <span class="nav-text">成本估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效益分析"><span class="nav-number">6.2.</span> <span class="nav-text">效益分析</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

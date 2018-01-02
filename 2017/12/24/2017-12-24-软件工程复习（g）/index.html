@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="面向对象方法学概述  概念 认为客观世界是由各种对象组成的，任何事物都是对象个，复杂的对象可以由比较简单的对象以某种方式组合而成。 把所有对象都划分成各种对象类（简称为类，class），每个独享都定义了一组数据和一组方法 按照子类（或称为派生类）与父类（或称为基类）的关系，把若刚个对象类组成功一个层次结构的系统（也称为类等级） 对象彼此之间仅能通过传递消息互相联系 OO = objets + c">
+<meta name="keywords" content="学习,笔记,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程复习（七）">
+<meta property="og:url" content="http://yoursite.com/2017/12/24/2017-12-24-软件工程复习（g）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="面向对象方法学概述  概念 认为客观世界是由各种对象组成的，任何事物都是对象个，复杂的对象可以由比较简单的对象以某种方式组合而成。 把所有对象都划分成各种对象类（简称为类，class），每个独享都定义了一组数据和一组方法 按照子类（或称为派生类）与父类（或称为基类）的关系，把若刚个对象类组成功一个层次结构的系统（也称为类等级） 对象彼此之间仅能通过传递消息互相联系 OO = objets + c">
+<meta property="og:locale" content="en-Hans">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程复习（七）">
+<meta name="twitter:description" content="面向对象方法学概述  概念 认为客观世界是由各种对象组成的，任何事物都是对象个，复杂的对象可以由比较简单的对象以某种方式组合而成。 把所有对象都划分成各种对象类（简称为类，class），每个独享都定义了一组数据和一组方法 按照子类（或称为派生类）与父类（或称为基类）的关系，把若刚个对象类组成功一个层次结构的系统（也称为类等级） 对象彼此之间仅能通过传递消息互相联系 OO = objets + c">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/24/2017-12-24-软件工程复习（g）/"/>
+
+
+
+
+
+  <title>软件工程复习（七） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/24/2017-12-24-软件工程复习（g）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程复习（七）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-24T00:00:00+08:00">
+                2017-12-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="面向对象方法学概述"><a href="#面向对象方法学概述" class="headerlink" title="面向对象方法学概述"></a>面向对象方法学概述</h2></blockquote>
+<ul>
+<li><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
+<li>认为客观世界是由各种对象组成的，任何事物都是对象个，复杂的对象可以由比较简单的对象以某种方式组合而成。</li>
+<li>把所有对象都划分成各种对象类（简称为类，class），每个独享都定义了一组数据和一组方法</li>
+<li>按照子类（或称为派生类）与父类（或称为基类）的关系，把若刚个对象类组成功一个层次结构的系统（也称为类等级）</li>
+<li>对象彼此之间仅能通过传递消息互相联系</li>
+<li><strong>OO = objets + classes + inheritance + communication with messages</strong></li>
+</ul>
+</li>
+<li><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>与人类习惯的思维方式一致</li>
+<li>稳定性好</li>
+<li>可重用性好</li>
+<li>较易开发大型软件产品</li>
+<li>可维护性好</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="面向对象建模"><a href="#面向对象建模" class="headerlink" title="面向对象建模"></a>面向对象建模</h2><p>用面向对象方法开发软件，通常需要建立三种模式的模，分别是描述系统数据结构的<strong>对象模型</strong>，<br>描述系统控制结构的<strong>动态模型</strong>和描述系统功能的<strong>功能模型</strong></p>
+</blockquote>
+<ul>
+<li><h3 id="对象模型（在UML部分详细介绍）"><a href="#对象模型（在UML部分详细介绍）" class="headerlink" title="对象模型（在UML部分详细介绍）"></a>对象模型（在UML部分详细介绍）</h3></li>
+<li><h3 id="动态模型"><a href="#动态模型" class="headerlink" title="动态模型"></a>动态模型</h3></li>
+<li><h3 id="功能模型"><a href="#功能模型" class="headerlink" title="功能模型"></a>功能模型</h3></li>
+</ul>
+<blockquote>
+<h3 id="三种模型之间的关系"><a href="#三种模型之间的关系" class="headerlink" title="三种模型之间的关系"></a>三种模型之间的关系</h3><p>在面向对象方法学中，对象模型是最基本最重要的，为其它两种模型奠定基础，依靠对象模型完成三种模型的集成</p>
+</blockquote>
+<ul>
+<li>针对每个类建立的动态模型，描述了类实例的生命周期或运行周期</li>
+<li>状态转换驱使行为发生，行为在数据流图中被映射成处理，与对象模型中的服务相对应</li>
+<li>功能模型中的处理对应对象模型中类提供的服务</li>
+<li>顶层数据流图中的处理对应复杂对象提供的服务；低层数据流图中的处理对应更基本的对象(基本对象是复杂对象的组成部分)的服务</li>
+<li>有时一个处理对应多个服务，也有一个服务对应多个处理的时候</li>
+<li>功能模型中的数据存储，以及数据的源点/终点(在功能模型中称为动作对象)，通常是对象模型中的对象。<strong><em>DataStore-ER entity-Object</em></strong></li>
+<li>功能模型中的数据流，往往是对象模型中的属性值，也可能是整个对象</li>
+<li>功能模型中的处理可能产生动态模型中的事件</li>
+<li>对象模型描述了功能模型中的动作对象、数据存储以及数据流的结构</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/24/2017-12-24-软件工程复习（f）/" rel="next" title="软件工程复习（六）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（六）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（i）/" rel="prev" title="软件工程复习（九）">
+                软件工程复习（九） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象方法学概述"><span class="nav-number">1.</span> <span class="nav-text">面向对象方法学概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">1.2.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象建模"><span class="nav-number">2.</span> <span class="nav-text">面向对象建模</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对象模型（在UML部分详细介绍）"><span class="nav-number">2.1.</span> <span class="nav-text">对象模型（在UML部分详细介绍）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动态模型"><span class="nav-number">2.2.</span> <span class="nav-text">动态模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能模型"><span class="nav-number">2.3.</span> <span class="nav-text">功能模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种模型之间的关系"><span class="nav-number">2.4.</span> <span class="nav-text">三种模型之间的关系</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

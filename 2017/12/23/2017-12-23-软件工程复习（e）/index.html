@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。 结构程序设计 (master)如果一个程序的代码块仅仅通过顺序、选择和循环这三种控制结构进行连接，并且每个代码块只有一个入口和一个出口，则称这个程序是结构化的。   三种基本控制结构 关于GOTO语句 上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的">
+<meta name="keywords" content="学习,笔记,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程复习（五）">
+<meta property="og:url" content="http://yoursite.com/2017/12/23/2017-12-23-软件工程复习（e）/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。 结构程序设计 (master)如果一个程序的代码块仅仅通过顺序、选择和循环这三种控制结构进行连接，并且每个代码块只有一个入口和一个出口，则称这个程序是结构化的。   三种基本控制结构 关于GOTO语句 上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的">
+<meta property="og:locale" content="en-Hans">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_46.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_47.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_48.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_49.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_50.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_51.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_52.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_53.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_54.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_55.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_57.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_58.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_55.jpg">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程复习（五）">
+<meta name="twitter:description" content="详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。 结构程序设计 (master)如果一个程序的代码块仅仅通过顺序、选择和循环这三种控制结构进行连接，并且每个代码块只有一个入口和一个出口，则称这个程序是结构化的。   三种基本控制结构 关于GOTO语句 上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_46.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/23/2017-12-23-软件工程复习（e）/"/>
+
+
+
+
+
+  <title>软件工程复习（五） | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Startseite
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archiv
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/23/2017-12-23-软件工程复习（e）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程复习（五）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Veröffentlicht am</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
+                2017-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。</p>
+<h2 id="结构程序设计-master"><a href="#结构程序设计-master" class="headerlink" title="结构程序设计 (master)"></a>结构程序设计 (master)</h2><p>如果一个程序的代码块仅仅通过<strong>顺序、选择和循环</strong>这三种控制结构进行<strong>连接</strong>，并且每个代码块只有<strong>一个入口和一个出口</strong>，则称<strong>这个程序是结构化</strong>的。</p>
+</blockquote>
+<ul>
+<li><h3 id="三种基本控制结构"><a href="#三种基本控制结构" class="headerlink" title="三种基本控制结构"></a>三种基本控制结构</h3><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_46.jpg" alt="三种基本的控制结构(a) 顺序结构，先执行A再执行B；(b) IF-THEN-ELSE型选择(分支)结构；(c) DO-WHILE型循环结构"></li>
+<li><h3 id="关于GOTO语句"><a href="#关于GOTO语句" class="headerlink" title="关于GOTO语句"></a>关于GOTO语句</h3><ul>
+<li>上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的编程方法，而是一种使程序代码容易阅读、容易理解的编程方法</li>
+<li>大多数情况下，无GO TO的代码确实是容易阅读、容易理解，但在某些情况下，为达到容易阅读和容易理解的目的，需要使用GO TO语句</li>
+<li>结构程序设计是尽可能少用GO TO语句的程序设计方法。最好仅在检测出错误时才使用GO TO语句，而且应该总是使用前向GO TO语句</li>
+<li><strong>但是一般题目中问一段代码为什么不是结构化程序，很大可能是使用了GOTO语句</strong></li>
+</ul>
+</li>
+<li><h3 id="经典的结构程序设计"><a href="#经典的结构程序设计" class="headerlink" title="经典的结构程序设计"></a>经典的结构程序设计</h3><ul>
+<li>如果<strong>只允许使用顺序、IF-THEN-ELSE型分支和DO-WHILE型循环</strong>这三种基本控制结构，则称为经典的结构程序设计</li>
+</ul>
+</li>
+<li><h3 id="扩展的结构程序设计"><a href="#扩展的结构程序设计" class="headerlink" title="扩展的结构程序设计"></a>扩展的结构程序设计</h3><ul>
+<li>如果除了上述三种基本控制结构之外，还允许使用<strong>DO-CASE型多分支结构</strong>和<strong>DO-UNTIL型循环结构</strong>，则称为扩展的结构程序设计<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_47.jpg" alt="其他常用的控制结构(a) DO-UNTIL型循环结构；(b)多分支结构"></li>
+</ul>
+</li>
+<li><h3 id="修正的结构程序设计"><a href="#修正的结构程序设计" class="headerlink" title="修正的结构程序设计"></a>修正的结构程序设计</h3><ul>
+<li>如果再加上允许使用<strong>LEAVE(或BREAK)结构</strong>，则称为修正的结构程序设计。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="人机界面设计-cut"><a href="#人机界面设计-cut" class="headerlink" title="人机界面设计 (cut)"></a>人机界面设计 (cut)</h2><p><strong>人机界面</strong>设计是<strong>接口设计</strong>的一个组成部分</p>
+</blockquote>
+<ul>
+<li><h3 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h3><ul>
+<li>系统响应时间</li>
+<li>用户帮助设施</li>
+<li>出错信息处理</li>
+<li>命令交互</li>
+</ul>
+</li>
+<li><h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ul>
+<li>用户界面设计是一个迭代的过程，也就是说，通常先创建设计模型，再用原型实现这个设计模型，并由用户试用和评估，然后根据用户的意见进行修改</li>
+</ul>
+</li>
+<li><h3 id="界面设计指南"><a href="#界面设计指南" class="headerlink" title="界面设计指南"></a>界面设计指南</h3><ul>
+<li><h4 id="一般交互指南"><a href="#一般交互指南" class="headerlink" title="一般交互指南"></a>一般交互指南</h4><ul>
+<li>保持一致性</li>
+<li>提供有意义的反馈</li>
+<li>在执行有较大破坏性动作之前要求用户确认</li>
+<li>允许取消大多数操作</li>
+<li>减少在两次操作之间必须记忆的信息量</li>
+<li>提高对话、移动和思考的效率</li>
+<li>允许犯错误</li>
+<li>按功能对动作分类，并据此设计屏幕布局</li>
+<li>提供对用户工作内容敏感的帮助设施</li>
+<li>用简单动词或名词短语作为命令名</li>
+</ul>
+</li>
+<li><h4 id="信息显示指南"><a href="#信息显示指南" class="headerlink" title="信息显示指南"></a>信息显示指南</h4><ul>
+<li>只显示与当前<strong>工作内容有关的信息</strong>。</li>
+<li>用户在获得有关系统的特定功能的信息时，<strong>不必看到与之无关的数据、菜单和图形</strong>。</li>
+<li>不要用数据淹没用户</li>
+<li>使用一致的标记、标准的缩写和可预知的颜色</li>
+<li>允许用户保持可视化的语境</li>
+<li>产生有意义的出错信息</li>
+<li>使用大小写、缩进和文本分组以帮助理解</li>
+<li>使用窗口分隔不同类型的信息</li>
+<li>使用“模拟”显示方式表示信息</li>
+<li>高效率地使用显示屏</li>
+</ul>
+</li>
+<li><h4 id="数据输入指南"><a href="#数据输入指南" class="headerlink" title="数据输入指南"></a>数据输入指南</h4><ul>
+<li>尽量减少用户的输入动作</li>
+<li>保持信息显示和数据输入之间的一致性</li>
+<li>允许用户自定义输入</li>
+<li>交互应该是灵活的</li>
+<li>使在当前动作语境中不适用的命令不起作用</li>
+<li>让用户控制交互流</li>
+<li>对所有输入动作都提供帮助</li>
+<li>消除冗余的输入</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="过程设计的工具-master"><a href="#过程设计的工具-master" class="headerlink" title="过程设计的工具  (master)"></a>过程设计的工具  (master)</h2><p>图形、表格、语言</p>
+</blockquote>
+<ul>
+<li><h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><ul>
+<li>程序流程图又称为程序框图，是历史最悠久使用最广泛的描述过程设计的方法，然而也是用得最混乱的一种方法</li>
+<li>缺点：<ul>
+<li>绘制随意，容易只考虑流程控制而不考虑全局结构，而破坏结构化程序设计</li>
+<li>不容易表示数据结构</li>
+</ul>
+</li>
+<li>程序流程图中使用的符号<br><img src="" alt="(a) 选择(分支)；(b) 注释；(c) 预先定义的处理；(d) 多分支；(e) 开始或停止；(f) 准备； (g)循环上界限；(h) 循环下界限；(i) 虚线；(j) 省略符；(k) 并行方式；(l) 处理； (m) 输入/输出；(n) 连接；(o) 换页连接；(p) 控制流"></li>
+</ul>
+</li>
+<li><h3 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h3><ul>
+<li><p>盒图没有箭头，因此不允许随意转移控制。坚持使用盒图作为详细设计的工具，可使程序员逐步养成用结构化的方式思考问题和解决问题的习惯</p>
+</li>
+<li><p><strong>能保证设计出的程序一定是结构化的</strong></p>
+</li>
+<li><p>但是绘制的时候受空间限制，难以扩充</p>
+</li>
+<li>盒图的基本符号<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_48.jpg" alt="(a) 顺序；(b) IF-THEN-ELSE型分支；(c) CASE型多分支；(d) 循环；(e) 调用子程序A"></li>
+</ul>
+</li>
+<li><h3 id="PAD图（Problem-Analysis-Diagram）"><a href="#PAD图（Problem-Analysis-Diagram）" class="headerlink" title="PAD图（Problem Analysis Diagram）"></a>PAD图（Problem Analysis Diagram）</h3><ul>
+<li><p>它用二维树形结构的图来表示程序的控制流，将这种图翻译成程序代码比较容易</p>
+</li>
+<li><p>与盒图相比，<strong>不受空间限制，易于扩充</strong></p>
+</li>
+<li><p><strong>可保证设计出来的程序一定是结构化的</strong></p>
+</li>
+<li><p>PAD图的基本符号</p>
+<ul>
+<li>(a) 顺序(先执行P1后执行P2)；</li>
+<li>(b) 选择(IF C THEN P1 ELSE P2)；</li>
+<li>(c) CASE型多分支；(d) WHILE型循环(WHILE C DO P)；</li>
+<li>(e) UNTIL型循环(REPEAT P UNTIL C)；</li>
+<li>(f) 语句标号；</li>
+<li>(g) 定义<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_49.jpg" alt=""></li>
+</ul>
+</li>
+<li><p>可使用PAD提供的定义功能来逐步求精<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_50.jpg" alt=""></p>
+</li>
+</ul>
+</li>
+<li><h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><ul>
+<li>当算法中包含多重嵌套的条件选择时，<strong>判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</strong><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_51.jpg" alt=""></li>
+</ul>
+</li>
+<li><h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><ul>
+<li>比判定表<strong>直观</strong>，包含<strong>判定的先后顺序</strong></li>
+<li>父节点：判定条件</li>
+<li>叶子节点：一个动作<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_52.jpg" alt=""></li>
+</ul>
+</li>
+<li><h3 id="过程设计语言（PDL-Process-Design-Language）"><a href="#过程设计语言（PDL-Process-Design-Language）" class="headerlink" title="过程设计语言（PDL: Process Design Language）"></a>过程设计语言（PDL: Process Design Language）</h3><ul>
+<li>伪代码</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="程序复杂度的定量度量-master"><a href="#程序复杂度的定量度量-master" class="headerlink" title="程序复杂度的定量度量 (master)"></a>程序复杂度的定量度量 (master)</h2><p>常用的方法有McCabe方法（采用流图）、Halstead方法，下面仅介绍第一种</p>
+</blockquote>
+<ul>
+<li><h3 id="McCabe-方法"><a href="#McCabe-方法" class="headerlink" title="McCabe 方法"></a>McCabe 方法</h3><ul>
+<li><h4 id="流图"><a href="#流图" class="headerlink" title="流图"></a>流图</h4><ul>
+<li><p>为了<strong>突出表示程序的控制流</strong>，可以使用流图(也称为程序图)</p>
+</li>
+<li><p>流图<strong>仅描绘程序的控制流程</strong>，完全不表现对数据的具体操作以及分支或循环的具体条件。</p>
+</li>
+<li><p>流图用<strong>圆</strong>表示<strong>节点</strong>，一个圆代表<strong>一条或多条语句</strong>（如果多条语句在一个顺序结构上，可以省略中间，只画两边的节点）</p>
+</li>
+<li><p>流图中的<strong>箭头线</strong>称为<strong>边</strong>，和程序流程图中的箭头线类似，代表<strong>控制流</strong></p>
+</li>
+<li><p>由边和节点围成的面积称为<strong>区域</strong>，<strong>区域数</strong>应该<strong>包括</strong>图<strong>外部</strong>未被围起来的<strong>区域</strong>。</p>
+</li>
+<li><p>基本结构：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_53.jpg" alt=""></p>
+</li>
+<li>把程序流程图映射成流图(a)程序流程图；(b)流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_54.jpg" alt=""> <img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_55.jpg" alt=""></li>
+<li><p>PDL翻译成流图</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">procedure: sort</span><br><span class="line">  <span class="keyword">do</span> <span class="keyword">while</span> records remain</span><br><span class="line">    read record;</span><br><span class="line">    <span class="keyword">if</span> record field1 = <span class="number">0</span></span><br><span class="line">      then process record;</span><br><span class="line">        store in buffer;</span><br><span class="line">        incremert counter;</span><br><span class="line">    elseif record filed2 = <span class="number">0</span></span><br><span class="line">      then reset counter;</span><br><span class="line">      <span class="keyword">else</span> process record;</span><br><span class="line">        store in file;</span><br><span class="line">      endif</span><br><span class="line">    endif</span><br><span class="line">  enddo</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_57.jpg" alt=""></p>
+</li>
+<li>由包含复合条件的PDL映射成的流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_58.jpg" alt=""></li>
+</ul>
+</li>
+<li><h4 id="流图环形复杂度的计算"><a href="#流图环形复杂度的计算" class="headerlink" title="流图环形复杂度的计算"></a>流图<strong>环形复杂度</strong>的计算</h4><ul>
+<li>流图中的区域数等于环形复杂度</li>
+<li>流图G的环形复杂度V(G)＝E-N+2，其中E是流图中边的条数，N是流图中节点数</li>
+<li>流图G的环形复杂度V(G)＝P+1，其中P是流图中判定节点的数目</li>
+</ul>
+</li>
+<li>举个栗子：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_55.jpg" alt=""><ul>
+<li>上图中共有四个区域，故环形复杂度为4</li>
+<li>上图中共有11条边，9个点，所以环形复杂度位：11 - 9 + 2 = 4</li>
+<li>上图中共有三个判定节点，分别为”1”, “2,3”, “6”，所以环形复杂度为：3 + 1 = 4<blockquote>
+<p>PS:</p>
+<ul>
+<li>在计算<strong>区域数</strong>的时候别忘了包括<strong>最外围的区域</strong></li>
+<li>在计算<strong>判定节点</strong>的时候，不仅<strong>包括</strong>条件<strong>分支的判断</strong>，<strong>循环判定</strong>的节点也算</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/23/2017-12-23-软件工程复习（d）/" rel="next" title="软件工程复习（四）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（四）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/24/2017-12-24-软件工程复习（f）/" rel="prev" title="软件工程复习（六）">
+                软件工程复习（六） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Inhaltsverzeichnis
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Übersicht
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-name">Artikel</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">Tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构程序设计-master"><span class="nav-number">1.</span> <span class="nav-text">结构程序设计 (master)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#三种基本控制结构"><span class="nav-number">1.1.</span> <span class="nav-text">三种基本控制结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于GOTO语句"><span class="nav-number">1.2.</span> <span class="nav-text">关于GOTO语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#经典的结构程序设计"><span class="nav-number">1.3.</span> <span class="nav-text">经典的结构程序设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展的结构程序设计"><span class="nav-number">1.4.</span> <span class="nav-text">扩展的结构程序设计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修正的结构程序设计"><span class="nav-number">1.5.</span> <span class="nav-text">修正的结构程序设计</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#人机界面设计-cut"><span class="nav-number">2.</span> <span class="nav-text">人机界面设计 (cut)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计问题"><span class="nav-number">2.1.</span> <span class="nav-text">设计问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计过程"><span class="nav-number">2.2.</span> <span class="nav-text">设计过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#界面设计指南"><span class="nav-number">2.3.</span> <span class="nav-text">界面设计指南</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一般交互指南"><span class="nav-number">2.3.1.</span> <span class="nav-text">一般交互指南</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信息显示指南"><span class="nav-number">2.3.2.</span> <span class="nav-text">信息显示指南</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数据输入指南"><span class="nav-number">2.3.3.</span> <span class="nav-text">数据输入指南</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过程设计的工具-master"><span class="nav-number">3.</span> <span class="nav-text">过程设计的工具  (master)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#程序流程图"><span class="nav-number">3.1.</span> <span class="nav-text">程序流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#盒图（N-S图）"><span class="nav-number">3.2.</span> <span class="nav-text">盒图（N-S图）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PAD图（Problem-Analysis-Diagram）"><span class="nav-number">3.3.</span> <span class="nav-text">PAD图（Problem Analysis Diagram）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判定表"><span class="nav-number">3.4.</span> <span class="nav-text">判定表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判定树"><span class="nav-number">3.5.</span> <span class="nav-text">判定树</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过程设计语言（PDL-Process-Design-Language）"><span class="nav-number">3.6.</span> <span class="nav-text">过程设计语言（PDL: Process Design Language）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#程序复杂度的定量度量-master"><span class="nav-number">4.</span> <span class="nav-text">程序复杂度的定量度量 (master)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#McCabe-方法"><span class="nav-number">4.1.</span> <span class="nav-text">McCabe 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流图"><span class="nav-number">4.1.1.</span> <span class="nav-text">流图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流图环形复杂度的计算"><span class="nav-number">4.1.2.</span> <span class="nav-text">流图环形复杂度的计算</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Erstellt mit  <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
