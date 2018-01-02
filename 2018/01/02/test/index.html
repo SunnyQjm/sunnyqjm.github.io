@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>test | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
+<meta property="og:type" content="article">
+<meta property="og:title" content="test">
+<meta property="og:url" content="http://yoursite.com/2018/01/02/test/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
+<meta property="og:updated_time" content="2018-01-02T19:30:18.160Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="test">
+<meta name="twitter:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/02/test/" class="article-date">
+  <time datetime="2018-01-02T19:27:36.000Z" itemprop="datePublished">2018-01-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      test
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>A Simple Daytime Client</li>
+<li>A Simple Daytime Server</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="A-Simple-Daytime-Client"><a href="#A-Simple-Daytime-Client" class="headerlink" title="A Simple Daytime Client"></a>A Simple Daytime Client</h3><blockquote>
+<ul>
+<li><p><a href="https://github.com/SunnyQjm/unpv13e/blob/master/unpv13e/intro/daytimetcpcli.c" target="_blank" rel="noopener">Steven源码地址</a></p>
+</li>
+<li><p><a href="https://github.com/SunnyQjm/unpv13e/blob/master/job/chapter1/daytimecli.c" target="_blank" rel="noopener">笔者加注释源码地址</a></p>
+</li>
+<li><h4 id="功能："><a href="#功能：" class="headerlink" title="功能："></a>功能：</h4><ul>
+<li>实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*sockfd 套接字描述符，客户端通过该描述符与服务器进行通信（它指示一个与服务器的连接）*/</span></span><br><span class="line">    <span class="keyword">int</span> sockfd, n;</span><br><span class="line">    <span class="keyword">char</span> recvline[MAXLINE + <span class="number">1</span>];         <span class="comment">/*接收缓存*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*服务器地址，用来保存服务器的地址信息（该结构体专门保存IPV4地址），包括ip和端口*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*如果输入参数不够，则报错并退出*/</span></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: daytimecli &lt;IPAddress&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*通过socket函数创建一个套接字，创建失败则退出*/</span></span><br><span class="line">    <span class="keyword">if</span>( (sockfd == socket(AF_INET, SOCK_STREAM, <span class="number">0</span>) ) &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"socket error"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*清0*/</span></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;      <span class="comment">/*指定协议族为网际协议族*/</span></span><br><span class="line">    servaddr.sin_port = htons(<span class="number">13</span>);      <span class="comment">/*指定端口为13*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*将用户从命令行输入的IP存到servaddr中，如果用户输入的格式不正确*/</span></span><br><span class="line">    <span class="comment">/*则该函数会返回小于0的错误信息，此时退出应用程序*/</span></span><br><span class="line">    <span class="keyword">if</span>(inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr) &lt;= <span class="number">0</span>)</span><br><span class="line">        err_quit(<span class="string">"inet_pton error for %s"</span>, argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*连接到servaddr指向的服务器，连接失败则退出*/</span></span><br><span class="line">    <span class="keyword">if</span>(connect(sockfd, (SA *)&amp;servaddr, <span class="keyword">sizeof</span>(servaddr)) &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"connect error"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*读取服务器发回的信息*/</span></span><br><span class="line">    <span class="keyword">while</span>( (n = read(sockfd, recvline, MAXLINE)) &gt; <span class="number">0</span> )&#123;</span><br><span class="line">        recvline[n] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*输出到控制台*/</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">fputs</span>(recvline, <span class="built_in">stdout</span>) == EOF)</span><br><span class="line">            err_sys(<span class="string">"fputs error"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"read error"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="struct-sockaddr-in"><a href="#struct-sockaddr-in" class="headerlink" title="struct sockaddr_in"></a>struct sockaddr_in</h4><ul>
+<li><p>组成</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 下面是三个struct sockaddr_in的主要成员，数据的具体类型不同的系统不同，</span></span><br><span class="line"><span class="comment">* 可以大概理解成下面这样，具体的定义可以查看源码</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> sin_family;    <span class="comment">/*源码中并不是直接表示成这样，用了几层宏定义，不过在*/</span></span><br><span class="line">                              <span class="comment">/*笔者的电脑上，其最原始的定义为 unsigned short*/</span></span><br><span class="line"></span><br><span class="line">u_16 sin_port;                <span class="comment">/*u_16表示无符号16位的数，范围为0~65535*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span> <span class="title">sin_addr</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* struct in_addr 的结构如下</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span>&#123;</span></span><br><span class="line">  __be32 s_addr;      <span class="comment">/*__be32 通常为 unsigned int(32位)*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用于存储IPV4的地址信息，包括ip，端口，协议族（IPV4属于 AF_INET）</p>
+</li>
+</ul>
+</li>
+<li><h4 id="bzero"><a href="#bzero" class="headerlink" title="bzero"></a>bzero</h4><ul>
+<li><p>原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* bzero为一个宏函数，实际上调用的是memset</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> bzero(ptr, n)   memset(ptr, 0, n)</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="https://baike.baidu.com/item/memset/4747579?fr=aladdin" target="_blank" rel="noopener">void <em>memset(void </em>s, int ch, size_t n);</a> ==&gt; 以s所指为起始，<strong>将紧接着的n位置成ch(0/1)</strong></p>
+</li>
+<li><p><strong>bzero(ptr, n)</strong>  ==&gt;  以ptr所指为起始，<strong>将紧接着的n位置成 0</strong> (可以达到清0的效果)</p>
+</li>
+</ul>
+</li>
+<li><h4 id="socket"><a href="#socket" class="headerlink" title="socket"></a><a href="https://baike.baidu.com/item/socket/281150?fr=aladdin#3" target="_blank" rel="noopener">socket</a></h4><ul>
+<li><p>原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/01/02/test/" data-id="cjby10f670001gxmhh9npqsan" class="article-share-link">Teilen</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/02/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archiv</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">letzter Beitrag</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/01/02/test/">test</a>
+          </li>
+        
+          <li>
+            <a href="/2018/01/02/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
