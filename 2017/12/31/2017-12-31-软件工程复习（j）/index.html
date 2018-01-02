@@ -87,19 +87,19 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="要求OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式 面向对象的设计准则  模块化 抽象 信息隐藏 弱耦合 强内聚 可重用   启发规则  设计结果应该清晰易懂 提高软件可维护性和可重用性重要措施 用词一致 使用已有的协议（重载） 减少消息模式的数目 避免模糊的定义   一般—特殊结构的深度应适当 应该使类等级中包含的层次数适当   设计简单的类 尽量设计小而简单的类，便于开发管理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_91.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_92.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_93.jpg">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_01.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_02.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_04.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_03.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_05.png">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.424Z">
+<meta property="og:image" content="http://yoursite.com/img/se_91.jpg">
+<meta property="og:image" content="http://yoursite.com/img/se_92.jpg">
+<meta property="og:image" content="http://yoursite.com/img/se_93.jpg">
+<meta property="og:image" content="http://yoursite.com/img/se_01.png">
+<meta property="og:image" content="http://yoursite.com/img/se_02.png">
+<meta property="og:image" content="http://yoursite.com/img/se_04.png">
+<meta property="og:image" content="http://yoursite.com/img/se_03.png">
+<meta property="og:image" content="http://yoursite.com/img/se_05.png">
+<meta property="og:updated_time" content="2018-01-02T13:41:43.960Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="软件工程复习（十）">
 <meta name="twitter:description" content="要求OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式 面向对象的设计准则  模块化 抽象 信息隐藏 弱耦合 强内聚 可重用   启发规则  设计结果应该清晰易懂 提高软件可维护性和可重用性重要措施 用词一致 使用已有的协议（重载） 减少消息模式的数目 避免模糊的定义   一般—特殊结构的深度应适当 应该使类等级中包含的层次数适当   设计简单的类 尽量设计小而简单的类，便于开发管理">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_91.jpg">
+<meta name="twitter:image" content="http://yoursite.com/img/se_91.jpg">
 
 
 
@@ -414,7 +414,7 @@
 </blockquote>
 <ul>
 <li><h3 id="层次架构"><a href="#层次架构" class="headerlink" title="层次架构"></a>层次架构</h3><ul>
-<li>eg: 网络协议（OSI/ISO 七层模型）<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_91.jpg" alt=""></li>
+<li>eg: 网络协议（OSI/ISO 七层模型）<img src="/img/se_91.jpg"></li>
 <li>每层向上层提供服务</li>
 <li>越低层越稳定</li>
 <li>职责分离，每层可独立开发</li>
@@ -426,8 +426,9 @@
 <li>model: 核心功能和数据（是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据）</li>
 <li>view： 向用户展示信息（是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的）</li>
 <li>controller： 处理用户的输入（是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据）</li>
-<li><strong>用于交互式系统</strong><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_92.jpg" alt=""></li>
-<li>控制流程<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_93.jpg" alt=""></li>
+<li><strong>用于交互式系统</strong><img src="/img/se_92.jpg"></li>
+<li>控制流程<img src="/img/se_93.jpg">
+</li>
 </ul>
 </li>
 <li><h3 id="CS架构"><a href="#CS架构" class="headerlink" title="CS架构"></a>CS架构</h3><ul>
@@ -462,7 +463,7 @@
 </li>
 <li><h3 id="Master-slave（主从模式）"><a href="#Master-slave（主从模式）" class="headerlink" title="Master-slave（主从模式）"></a>Master-slave（主从模式）</h3><ul>
 <li>主从模式支持<strong>容错</strong>和<strong>并行计算</strong></li>
-<li><strong>主组件</strong>将工作<strong>分配</strong>给若干个从组件，<strong>从组件</strong>各自<strong>计算</strong>，最后主组件从这些从组件返回的结果中计算最终的结果<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_01.png" alt=""></li>
+<li><strong>主组件</strong>将工作<strong>分配</strong>给若干个从组件，<strong>从组件</strong>各自<strong>计算</strong>，最后主组件从这些从组件返回的结果中计算最终的结果<img src="/img/se_01.png"></li>
 <li><strong>Examples</strong>:<ul>
 <li>Process control(进程控制)</li>
 <li>Embedded systems(嵌入式系统)</li>
@@ -470,7 +471,7 @@
 <li>Fault tolerant systems(容错系统) ==&gt; 比如磁盘阵列（可以用其中一块或多块硬盘做奇偶校验，可以达到容错的效果）</li>
 </ul>
 </li>
-<li>执行流程：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_02.png" alt=""></li>
+<li>执行流程：<img src="/img/se_02.png"></li>
 <li>分析：<ul>
 <li>一旦Master挂掉，整个系统也就挂了</li>
 <li>从组件之间是独立的，不共享状态</li>
@@ -495,8 +496,8 @@
 </ul>
 </li>
 <li><strong>Examples</strong>：<ul>
-<li>Compilers（编译器）<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_04.png" alt=""></li>
-<li>Unix shell commands<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_03.png" alt=""></li>
+<li>Compilers（编译器）<img src="/img/se_04.png"></li>
+<li>Unix shell commands<img src="/img/se_03.png"></li>
 </ul>
 </li>
 <li>分析：<ul>
@@ -513,7 +514,7 @@
 </ul>
 </li>
 <li>Java中的管道<ul>
-<li>InputStream in = new BufferedInputStream(new DataInputStream(System.in))<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_05.png" alt=""></li>
+<li>InputStream in = new BufferedInputStream(new DataInputStream(System.in))<img src="/img/se_05.png"></li>
 </ul>
 </li>
 </ul>
@@ -567,8 +568,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/12/31/2017-12-31-软件工程复习（k）/" rel="prev" title="软件工程复习（十一）">
-                软件工程复习（十一） <i class="fa fa-chevron-right"></i>
+              <a href="/2018/01/02/2018-1-2-高级C与网络编程复习(a)/" rel="prev" title="高级C与网络编程复习（一）">
+                高级C与网络编程复习（一） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -650,7 +651,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

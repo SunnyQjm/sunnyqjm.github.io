@@ -289,281 +289,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/2017-12-22-软件工程复习（c）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/22/2017-12-22-软件工程复习（c）/" itemprop="url">软件工程复习（三）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T00:00:00+08:00">
-                2017-12-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>需求分析是发现、求精、建模、规格说明和复审的过程。</p>
-</blockquote>
-<ul>
-<li><h3 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h3><ul>
-<li>必须理解和表示问题的信息域，根据这条准则应该建立<strong>数据模型</strong>。</li>
-<li>必须定义软件应完成的功能，这条准则要求建立<strong>功能模型</strong>。</li>
-<li>必须表示作为外部事件结果的软件行为，这条准则要求建立<strong>行为模型</strong>。</li>
-<li>必须对描述信息、功能和行为的模型进行分解，用<strong>层次</strong>的方式展示细节。</li>
-<li>分析过程应该从<strong>要素信息移向实现细节</strong><ul>
-<li>业务 → 技术</li>
-<li>逻辑 → 物理</li>
-<li>要素 → 细节</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="需求分析的任务"><a href="#需求分析的任务" class="headerlink" title="需求分析的任务"></a>需求分析的任务</h2></blockquote>
-<ul>
-<li><h3 id="确定对系统的综合要求"><a href="#确定对系统的综合要求" class="headerlink" title="确定对系统的综合要求"></a>确定对系统的综合要求</h3><ul>
-<li><strong>数据要求</strong></li>
-<li><strong>功能需求</strong></li>
-<li><strong>性能需求</strong></li>
-<li>可靠性和可用性需求</li>
-<li>出错处理需求</li>
-<li>接口需求</li>
-<li>约束</li>
-<li>逆向需求（不应该做的）</li>
-<li>将来可能提出的要求</li>
-</ul>
-</li>
-<li><h3 id="分析系统的数据要求"><a href="#分析系统的数据要求" class="headerlink" title="分析系统的数据要求"></a>分析系统的数据要求</h3><ul>
-<li>任何软件系统本质上都是信息处理系统</li>
-<li>建立数据模型（E-R图）</li>
-<li>数据字典</li>
-<li>层次方框图</li>
-<li>Warnier图</li>
-</ul>
-</li>
-<li><h3 id="导出系统给的逻辑模型"><a href="#导出系统给的逻辑模型" class="headerlink" title="导出系统给的逻辑模型"></a>导出系统给的逻辑模型</h3><ul>
-<li>数据流图、E-R图、状态转换图、数据字典、算法描述</li>
-</ul>
-</li>
-<li><h3 id="修正系统的开发计划"><a href="#修正系统的开发计划" class="headerlink" title="修正系统的开发计划"></a>修正系统的开发计划</h3></li>
-</ul>
-<blockquote>
-<h2 id="与用户沟通获取需求的方法"><a href="#与用户沟通获取需求的方法" class="headerlink" title="与用户沟通获取需求的方法"></a>与用户沟通获取需求的方法</h2></blockquote>
-<ul>
-<li><h3 id="访谈"><a href="#访谈" class="headerlink" title="访谈"></a>访谈</h3></li>
-<li><h3 id="面向数据流自顶向下求精"><a href="#面向数据流自顶向下求精" class="headerlink" title="面向数据流自顶向下求精"></a>面向数据流自顶向下求精</h3><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_19.jpg" alt=""></li>
-<li><h3 id="简易的应用规格说明技术"><a href="#简易的应用规格说明技术" class="headerlink" title="简易的应用规格说明技术"></a>简易的应用规格说明技术</h3></li>
-<li><h3 id="快速建立软件模型"><a href="#快速建立软件模型" class="headerlink" title="快速建立软件模型"></a>快速建立软件模型</h3><ul>
-<li>快速原型应该具备的第一个特性是“快速”。</li>
-<li>快速原型应该具备的第二个特性是“容易修改”。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="分析建模与规格说明"><a href="#分析建模与规格说明" class="headerlink" title="分析建模与规格说明"></a>分析建模与规格说明</h2><h2 id="实体——联系图（E-R图）-master"><a href="#实体——联系图（E-R图）-master" class="headerlink" title="实体——联系图（E-R图）  (master)"></a>实体——联系图（E-R图）  (master)</h2><p>数据模型包含三种相互关联的信息：<strong>数据对象</strong>、描述数据对象<strong>属性</strong>及数据对象彼此间相互连接的<strong>关系</strong></p>
-</blockquote>
-<ul>
-<li>ER图中包含实体(即数据对象)、关系和属性三种基本成分。<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_20.jpg" alt=""></li>
-</ul>
-<blockquote>
-<h2 id="数据规范化"><a href="#数据规范化" class="headerlink" title="数据规范化"></a>数据规范化</h2><p>一、二、三范式</p>
-<h2 id="状态转换图-master"><a href="#状态转换图-master" class="headerlink" title="状态转换图              (master)"></a>状态转换图              (master)</h2><p>状态转换图(<strong>状态图</strong>)通过描绘系统的状态及引起系统状态转换的事件，来<strong>表示</strong>系统的<strong>行为</strong><br><br>一个状态图<strong>只能</strong>描述<strong>一个对象</strong>的行为变化，包括一系列状态、事件以及状态之间的转移</p>
-</blockquote>
-<ul>
-<li><h3 id="状态和事件"><a href="#状态和事件" class="headerlink" title="状态和事件"></a>状态和事件</h3><ul>
-<li>状态：状态是任何可以被观察到的系统行为模式（<strong>当前对象属性值的集合</strong>）</li>
-<li>事件：<strong>事件</strong>在某个特定个时刻发生的事情，<strong>引起</strong>系统从一个<strong>状态转换</strong>到另一个状态</li>
-</ul>
-</li>
-<li><h3 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h3><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_21.jpg" alt=""><ul>
-<li><strong>初态</strong>：实心圆</li>
-<li><strong>终态</strong>：一对同心圆</li>
-<li><strong>中间状态</strong>：用圆角矩形表示，可分为三部分：<strong>状态名、状态变量、活动表</strong>（其中状态名是必选的，其余两个是可选的）</li>
-<li><strong>活动表的语法格式</strong>：事件名（参数表）/ 动作表达式<ul>
-<li><strong>entry</strong>  (在进入该状态时执行)</li>
-<li><strong>exit</strong> （退出该状态时执行）</li>
-<li><strong>do</strong> （在该状态下一直执行）</li>
-</ul>
-</li>
-<li><strong>状态转换</strong>：两个状态之间带箭头的连线，箭头指明了转换方向<ul>
-<li><strong>连线上</strong>通常<strong>标出</strong>导致状态转化的<strong>触发事件</strong></li>
-<li>触发事件表达式的语法：事件说明[守卫条件]/动作表达式<ul>
-<li>事件说明：事件名（参数表）</li>
-<li>守卫条件：一个布尔表达式</li>
-<li>动作表达式：是一个过程表达式，当状态转换开始后时执行该表达式</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>栗子：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_22.jpg" alt=""></li>
-</ul>
-</li>
-<li><h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><ul>
-<li>简单转移</li>
-<li>自转移    （自己转移到自己，需要事件触发）</li>
-<li>自动转移  （通常是本状态需要做的一个活动完成时转换到下一个状态）</li>
-<li>复合转移</li>
-</ul>
-</li>
-<li><h3 id="组合状态————子状态"><a href="#组合状态————子状态" class="headerlink" title="组合状态————子状态"></a>组合状态————子状态</h3><blockquote>
-<p>一个状态下可以嵌套许多子状态</p>
-<ul>
-<li>顺序子状态 =&gt; 子状态是串行连续变化的</li>
-<li>并发子状态 =&gt; 存在并发存在互不影响的子状态</li>
-</ul>
-</blockquote>
-</li>
-<li><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
-<li><h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><ul>
-<li>分劈（Fork）</li>
-<li>接合（Join）</li>
-</ul>
-</li>
-<li><h4 id="伪状态"><a href="#伪状态" class="headerlink" title="伪状态"></a>伪状态</h4><ul>
-<li>符号用圈里面一个*表示</li>
-<li>用来表示并发状态的同步</li>
-<li>在子状态图之间使用（放在分隔子状态的虚线上）</li>
-</ul>
-</li>
-<li><h4 id="历史状态"><a href="#历史状态" class="headerlink" title="历史状态"></a>历史状态</h4><ul>
-<li>符号用圈里面一个H表示</li>
-<li>记录在离开某个状态时，其处于哪个子状态中</li>
-</ul>
-</li>
-<li>对于<strong>同一层级</strong>的状态来说，<strong>初态只有一个，终态可以有多个</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="其它图形工具"><a href="#其它图形工具" class="headerlink" title="其它图形工具"></a>其它图形工具</h2></blockquote>
-<ul>
-<li><h3 id="层次方框图"><a href="#层次方框图" class="headerlink" title="层次方框图"></a>层次方框图</h3><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_23.jpg" alt=""><ul>
-<li>层次方框图用树形结构的一些列多层次的矩形框描绘数据的层次结构</li>
-</ul>
-</li>
-<li><h3 id="Warnier图"><a href="#Warnier图" class="headerlink" title="Warnier图"></a>Warnier图</h3><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_24.jpg" alt=""></li>
-<li><h3 id="IPO图"><a href="#IPO图" class="headerlink" title="IPO图"></a>IPO图</h3><ul>
-<li>IPO图是输入、处理、输出图的简称</li>
-<li>左边框中列出有关的输入</li>
-<li>中间框中列出主要的处理</li>
-<li>右边框中列出产生的输出</li>
-<li>处理的顺序暗示了执行的顺序</li>
-<li>箭头指出数据通信的情况</li>
-</ul>
-<p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_25.png" alt=""><br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_26.png" alt=""></p>
-</li>
-</ul>
-<blockquote>
-<h2 id="验证软件的需求（了解）"><a href="#验证软件的需求（了解）" class="headerlink" title="验证软件的需求（了解）"></a>验证软件的需求（了解）</h2><p>验证软件的一致性、完整性、现实性和有效性</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/22/2017-12-22-软件工程复习（b）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -709,15 +434,16 @@
 <h2 id="系统流程图-（understanding）"><a href="#系统流程图-（understanding）" class="headerlink" title="系统流程图 （understanding）"></a>系统流程图 （understanding）</h2><p>系统流程图概括描绘物理系统的传统工具用图形符号，以黑盒子形式描述组成系统的每个部件程序、文档、数据库、人工过程</p>
 </blockquote>
 <ul>
-<li>符号：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_09.jpg" alt=""></li>
-<li>栗子：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_10.jpg" alt=""></li>
+<li>符号：<img src="/img/se_09.jpg"></li>
+<li>栗子：<img src="/img/se_10.jpg">
+</li>
 </ul>
 <blockquote>
 <h2 id="数据流图-master"><a href="#数据流图-master" class="headerlink" title="数据流图 (master)"></a>数据流图 (master)</h2><p>数据流图(DFD) 描绘信息流和数据从输入移动到输出的过程中所经受的变换。</p>
 </blockquote>
 <ul>
-<li>数据流图的四种基本符号：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_11.jpg" alt=""></li>
-<li>加工中常见关系的符号表示：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_12.jpg" alt=""></li>
+<li>数据流图的四种基本符号：<img src="/img/se_11.jpg"></li>
+<li>加工中常见关系的符号表示：<img src="/img/se_12.jpg"></li>
 <li>注意：<ul>
 <li>信息的流动</li>
 <li>信息流不能为动词</li>
@@ -736,9 +462,10 @@
 </li>
 <li><p>示例：出入库管理系统</p>
 <ul>
-<li>0级数据流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_13.jpg" alt=""></li>
-<li>1级数据流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_14.jpg" alt=""></li>
-<li>2级数据流图<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_15.jpg" alt=""></li>
+<li>0级数据流图<img src="/img/se_13.jpg"></li>
+<li>1级数据流图<img src="/img/se_14.jpg"></li>
+<li>2级数据流图<img src="/img/se_15.jpg">
+</li>
 </ul>
 </li>
 </ul>
@@ -759,7 +486,7 @@
 <li>使用上限和下限进一步注释表示重复的花括弧。<ul>
 <li>左边用上角标和下角标分别表明重复的上限和下限</li>
 <li>左侧标明重复的下限，在闭括弧的右侧标明上限</li>
-<li>例如：<img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_16.jpg" alt=""></li>
+<li>例如：<img src="/img/se_16.jpg"></li>
 </ul>
 </li>
 </ul>
@@ -773,7 +500,7 @@
 <li>CASE工具</li>
 <li>人工卡片</li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_17.jpg" alt=""></p>
+<img src="/img/se_17.jpg">
 </li>
 </ul>
 <blockquote>
@@ -937,7 +664,7 @@
 <li>对用户需求没有完整准确的认识，就匆忙着手编写程序</li>
 </ul>
 </li>
-<li><h4 id="引入统一变动付出代价随时间变化的趋势"><a href="#引入统一变动付出代价随时间变化的趋势" class="headerlink" title="引入统一变动付出代价随时间变化的趋势"></a>引入统一变动付出代价随时间变化的趋势</h4><p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_01.jpg" alt=""></p>
+<li><h4 id="引入统一变动付出代价随时间变化的趋势"><a href="#引入统一变动付出代价随时间变化的趋势" class="headerlink" title="引入统一变动付出代价随时间变化的趋势"></a>引入统一变动付出代价随时间变化的趋势</h4><img src="/img/se_01.jpg">
 <ul>
 <li>上图展示的就是软件开发过程中，需求变化出现在开发过程的后期将会带来巨大的修改代价</li>
 <li>所以应该在软件开发的早期，甚至是定义的时候就尽量的接近用户的真是需求</li>
@@ -1012,7 +739,7 @@
 <li>生命周期模型</li>
 <li>软件过程划分为若干个阶段</li>
 <li>每个阶段有各自的任务</li>
-<li>阶段之间有某种顺序性<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_02.jpg" alt=""></li>
+<li>阶段之间有某种顺序性<img src="/img/se_02.jpg"></li>
 </ul>
 </li>
 <li>局限：<ul>
@@ -1102,7 +829,7 @@
 </ul>
 </li>
 </ul>
-<p><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_02.jpg" alt=""></p>
+<img src="/img/se_02.jpg">
 <ul>
 <li><strong>优点</strong>：<br>可强迫开发人员采用规范的方法（例如，结构化技术）； 严格地规定了每个阶段必须提交的文档；要求每个阶段交出的所有产品都必须经过质量保证小组的仔细验证</li>
 <li><strong>缺点</strong>：<br>瀑布模型是由文档驱动的。由于瀑布模型几乎完全依赖于书面的规格说明，很可能导致最终开发出的软件产品不能真正满足用户的需要。</li>
@@ -1115,7 +842,7 @@
 <li>快速建立起可以运行的程序，其功能往往是最终产品功能的<strong>子集</strong></li>
 <li>通过将简单的模型给用户试用，<strong>以获取到用户更多更详细的需求</strong>（努力挤牙膏）</li>
 <li>快速原型的本质是“<strong>快速</strong>”</li>
-<li>原型的用途是获取用户的真正需求，一旦<strong>需求确定</strong>了，<strong>原型将被抛弃</strong>（原型通常没有严格的规范化，缺少文档，难以维护）。<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_03.jpg" alt=""></li>
+<li>原型的用途是获取用户的真正需求，一旦<strong>需求确定</strong>了，<strong>原型将被抛弃</strong>（原型通常没有严格的规范化，缺少文档，难以维护）。<img src="/img/se_03.jpg"></li>
 <li>优点：软件产品的开发基本上是线性顺序进行的<ul>
 <li>原型系统已经通过与用户交互而得到验证，据此产生的规格说明文档正确地描述了用户需求，，不会因为规格说明文档的错误而进行较大的返工。</li>
 <li>开发人员通过建立原型系统已经学到了许多东西，在设计编码阶段发生错误的可能性比较小，自然减少了反馈。</li>
@@ -1143,8 +870,9 @@
 <li>增量模型：逐步增加系统功能。</li>
 </ul>
 </li>
-<li>增量模型：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_04.jpg" alt=""></li>
-<li><p>一种风险更大的增量模型<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_05.jpg" alt=""></p>
+<li>增量模型：<img src="/img/se_04.jpg"></li>
+<li><p>一种风险更大的增量模型</p>
+<img src="/img/se_05.jpg">
 </li>
 <li><p>优点：</p>
 <ul>
@@ -1162,8 +890,8 @@
 <li>螺旋模型的基本思想是使用原型及其他方法尽量<strong>降低风险</strong>。</li>
 <li>简化的螺旋模型</li>
 <li>可以在一定程度上降低风险，但对有些风险也是无能为力的</li>
-<li>需要专业的风险评估人员<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_06.jpg" alt=""></li>
-<li>完整的螺旋模型<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_07.jpg" alt=""></li>
+<li>需要专业的风险评估人员<img src="/img/se_06.jpg"></li>
+<li>完整的螺旋模型<img src="/img/se_07.jpg"></li>
 <li>优点：<ul>
 <li>对可选方案和约束条件的强调有利于已有软件的重用，也有助于把软件质量作为软件开发的一个重要目标</li>
 <li>减少了过多测试（浪费资金）或测试不足（产品故障多）所带来的风险</li>
@@ -1183,7 +911,7 @@
 <li>为避免喷泉模型的过分无序，把一个线性过程作为总目标。</li>
 <li>迭代：逐步求精</li>
 <li>阶段间没有明显的界限－面向对象的思想保证了各个阶段开发的一致性。</li>
-<li>喷泉模型：<br><img src="https://raw.githubusercontent.com/SunnyQjm/sunnyqjm.github.io/master/img/se_08.jpg" alt=""></li>
+<li>喷泉模型：<img src="/img/se_08.jpg"></li>
 </ul>
 </li>
 <li><h3 id="Rational统一过程"><a href="#Rational统一过程" class="headerlink" title="Rational统一过程"></a>Rational统一过程</h3></li>
@@ -1979,6 +1707,241 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" itemprop="url">数据库笔记（十二）——函数依赖理论和分解算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="函数依赖理论"><a href="#函数依赖理论" class="headerlink" title="函数依赖理论"></a>函数依赖理论</h2></blockquote>
+<ul>
+<li><h3 id="逻辑蕴涵"><a href="#逻辑蕴涵" class="headerlink" title="逻辑蕴涵"></a>逻辑蕴涵</h3><ul>
+<li><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
+<li>存在如下条件<ul>
+<li>关系模式：r(R)</li>
+<li>依赖集：F （由一个或多个依赖组成）</li>
+<li>依赖：f</li>
+</ul>
+</li>
+<li><strong>若r(R)满足F</strong> ==&gt; <strong>r(R)满足f</strong></li>
+<li>我们称 <strong>F 逻辑蕴涵 f</strong><blockquote>
+<p>ps: 其中f可由F通过Armstrong公理推得</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>给定关系模式 r(A, B, C, G, H, I)</p>
+</li>
+<li><p>F包含如下依赖</p>
+<ul>
+<li>A &rarr; B</li>
+<li>A &rarr; C</li>
+<li>CG &rarr; H</li>
+<li>CG &rarr; I</li>
+<li>B &rarr; H</li>
+</ul>
+</li>
+<li>函数依赖f : A &rarr; H</li>
+<li>其中 f 被 F 逻辑蕴涵<ul>
+<li>由Amstrong传递公理可知：A &rarr; B, B &rarr; H ==&gt; A &rarr; H</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="函数依赖集的闭包"><a href="#函数依赖集的闭包" class="headerlink" title="函数依赖集的闭包"></a>函数依赖集的闭包</h3><ul>
+<li>令 F 为一个函数依赖集。则 <strong>F的闭包</strong> 是 <strong>被 F 逻辑蕴涵的所有函数依赖的集合</strong></li>
+<li>记作：F<sup>+</sup></li>
+</ul>
+</li>
+<li><h3 id="Armstrong公理（Armstrong’s-axiom）"><a href="#Armstrong公理（Armstrong’s-axiom）" class="headerlink" title="Armstrong公理（Armstrong’s axiom）"></a>Armstrong公理（Armstrong’s axiom）</h3><blockquote>
+<p>公理是科学的客观规律，不需要自己证明，直接用就行</p>
+</blockquote>
+<ul>
+<li><h4 id="Armstrong-公理"><a href="#Armstrong-公理" class="headerlink" title="Armstrong 公理"></a>Armstrong 公理</h4><ul>
+<li>自反律（reflexivity rule）。若α为一个属性集，且β⊆α， 则α&rarr;β<ul>
+<li>举个栗子：(A, B)&rarr;A</li>
+</ul>
+</li>
+<li>增补律（augmentation rule）。若α&rarr;β成立且γ为一属性集，则γα&rarr;γβ<ul>
+<li>举个栗子：(A, B)&rarr;C ==&gt; (A, B, D, E)&rarr;(C, D, E)</li>
+</ul>
+</li>
+<li>传递律（transitivity rule）。若α&rarr;β和β&rarr;γ成立，则 α&rarr;γ 成立<ul>
+<li>举个栗子：A&rarr;B, B&rarr;C ==&gt; A&rarr;C</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F"><a href="#Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F" class="headerlink" title="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F+"></a>Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F<sup>+</sup></h4></li>
+<li><h4 id="Armstrong公理的一些推论"><a href="#Armstrong公理的一些推论" class="headerlink" title="Armstrong公理的一些推论"></a>Armstrong公理的一些推论</h4><blockquote>
+<p>可由Armstrong公理直接推得，也可以当做公理使用</p>
+</blockquote>
+<ul>
+<li>合并律（union rule）。若α&rarr;β和α&rarr;γ成立，则α&rarr;βγ<ul>
+<li>举个栗子：A&rarr;B, A&rarr;C ==&gt; A&rarr;(B, C)</li>
+</ul>
+</li>
+<li>分解律（decomposition rule）。若α&rarr;βγ成立，则α&rarr;β和α&rarr;γ成立<ul>
+<li>举个栗子：A&rarr;(B, C) ==&gt; A&rarr;B, A&rarr;C</li>
+</ul>
+</li>
+<li>伪传递律（pseudotransitivity rule）。若α&rarr;β和γβ&rarr;δ成立，则αγ&rarr;δ成立<ul>
+<li>举个栗子：A&rarr;B, (B, C)&rarr;D ==&gt; (A, C)&rarr;D</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="属性集的闭包"><a href="#属性集的闭包" class="headerlink" title="属性集的闭包"></a>属性集的闭包</h3><ul>
+<li>令α为一个属性集，我们将函数依赖集 F 下被α 函数确定的所有属性的额集合为称为F下α的闭包</li>
+<li>记作：α<sup>+</sup></li>
+<li>伪代码如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">result := α</span><br><span class="line">  repeat</span><br><span class="line">    <span class="keyword">for</span> each 函数依赖 β→γ in F <span class="keyword">do</span></span><br><span class="line">      begin</span><br><span class="line">        <span class="keyword">if</span> β ⊆ result then result := result ∪ γ</span><br><span class="line">      end</span><br><span class="line">  until(result 不变)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="正则覆盖（极小函数依赖集）"><a href="#正则覆盖（极小函数依赖集）" class="headerlink" title="正则覆盖（极小函数依赖集）"></a>正则覆盖（极小函数依赖集）</h3><ul>
+<li>如果<strong>去除函数依赖中的一个属性不改变函数依赖集的闭包</strong>，则称<strong>该属性是无关的</strong></li>
+<li>F的<strong>正则覆盖</strong> F<sub>c</sub> 是一个依赖集，使得F逻辑蕴涵F<sub>c</sub> 中的所有依赖，并且F<sub>c</sub> 逻辑蕴涵F中的所有依赖。此外，F<sub>c</sub> 必须具有如下性质 ：<ul>
+<li>F<sub>c</sub> 中任何函数依赖都不含无关属性</li>
+<li>F<sub>c</sub> 中函数依赖的左半部都是唯一的。即F<sub>c</sub> 中不存在两个依赖α<sub>1</sub>&rarr;β<sub>1</sub>和α<sub>2</sub>&rarr;β<sub>2</sub>， 满足α<sub>1</sub>=α<sub>2</sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="无损分解"><a href="#无损分解" class="headerlink" title="无损分解"></a>无损分解</h3><ul>
+<li>如果用两个关系模式r<sub>1</sub>(R)和r<sub>2</sub>(R)替代r(R)时没有信息损失，则我们称该分解时无损分解（lossless decomposition）</li>
+<li><p>SQL 表示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面查询的结果与r具有相同结果的元组集</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> r1 <span class="keyword">natural</span> <span class="keyword">join</span> r2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关系代数表示：</p>
+<ul>
+<li>∏<sub>R<sub>1</sub></sub>(r) ⋈ ∏<sub>R<sub>2</sub></sub>(r) = r</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="分解算法（下回分解）"><a href="#分解算法（下回分解）" class="headerlink" title="分解算法（下回分解）"></a>分解算法（下回分解）</h2></blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2280,241 +2243,6 @@
 <blockquote>
 <p>更高的范式还有第四范式和第五范式，但是应用较少，且考纲不要求，这里就不再赘述了</p>
 </blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" itemprop="url">数据库笔记（十二）——函数依赖理论和分解算法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
-                2017-11-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="函数依赖理论"><a href="#函数依赖理论" class="headerlink" title="函数依赖理论"></a>函数依赖理论</h2></blockquote>
-<ul>
-<li><h3 id="逻辑蕴涵"><a href="#逻辑蕴涵" class="headerlink" title="逻辑蕴涵"></a>逻辑蕴涵</h3><ul>
-<li><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
-<li>存在如下条件<ul>
-<li>关系模式：r(R)</li>
-<li>依赖集：F （由一个或多个依赖组成）</li>
-<li>依赖：f</li>
-</ul>
-</li>
-<li><strong>若r(R)满足F</strong> ==&gt; <strong>r(R)满足f</strong></li>
-<li>我们称 <strong>F 逻辑蕴涵 f</strong><blockquote>
-<p>ps: 其中f可由F通过Armstrong公理推得</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>给定关系模式 r(A, B, C, G, H, I)</p>
-</li>
-<li><p>F包含如下依赖</p>
-<ul>
-<li>A &rarr; B</li>
-<li>A &rarr; C</li>
-<li>CG &rarr; H</li>
-<li>CG &rarr; I</li>
-<li>B &rarr; H</li>
-</ul>
-</li>
-<li>函数依赖f : A &rarr; H</li>
-<li>其中 f 被 F 逻辑蕴涵<ul>
-<li>由Amstrong传递公理可知：A &rarr; B, B &rarr; H ==&gt; A &rarr; H</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="函数依赖集的闭包"><a href="#函数依赖集的闭包" class="headerlink" title="函数依赖集的闭包"></a>函数依赖集的闭包</h3><ul>
-<li>令 F 为一个函数依赖集。则 <strong>F的闭包</strong> 是 <strong>被 F 逻辑蕴涵的所有函数依赖的集合</strong></li>
-<li>记作：F<sup>+</sup></li>
-</ul>
-</li>
-<li><h3 id="Armstrong公理（Armstrong’s-axiom）"><a href="#Armstrong公理（Armstrong’s-axiom）" class="headerlink" title="Armstrong公理（Armstrong’s axiom）"></a>Armstrong公理（Armstrong’s axiom）</h3><blockquote>
-<p>公理是科学的客观规律，不需要自己证明，直接用就行</p>
-</blockquote>
-<ul>
-<li><h4 id="Armstrong-公理"><a href="#Armstrong-公理" class="headerlink" title="Armstrong 公理"></a>Armstrong 公理</h4><ul>
-<li>自反律（reflexivity rule）。若α为一个属性集，且β⊆α， 则α&rarr;β<ul>
-<li>举个栗子：(A, B)&rarr;A</li>
-</ul>
-</li>
-<li>增补律（augmentation rule）。若α&rarr;β成立且γ为一属性集，则γα&rarr;γβ<ul>
-<li>举个栗子：(A, B)&rarr;C ==&gt; (A, B, D, E)&rarr;(C, D, E)</li>
-</ul>
-</li>
-<li>传递律（transitivity rule）。若α&rarr;β和β&rarr;γ成立，则 α&rarr;γ 成立<ul>
-<li>举个栗子：A&rarr;B, B&rarr;C ==&gt; A&rarr;C</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F"><a href="#Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F" class="headerlink" title="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F+"></a>Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F<sup>+</sup></h4></li>
-<li><h4 id="Armstrong公理的一些推论"><a href="#Armstrong公理的一些推论" class="headerlink" title="Armstrong公理的一些推论"></a>Armstrong公理的一些推论</h4><blockquote>
-<p>可由Armstrong公理直接推得，也可以当做公理使用</p>
-</blockquote>
-<ul>
-<li>合并律（union rule）。若α&rarr;β和α&rarr;γ成立，则α&rarr;βγ<ul>
-<li>举个栗子：A&rarr;B, A&rarr;C ==&gt; A&rarr;(B, C)</li>
-</ul>
-</li>
-<li>分解律（decomposition rule）。若α&rarr;βγ成立，则α&rarr;β和α&rarr;γ成立<ul>
-<li>举个栗子：A&rarr;(B, C) ==&gt; A&rarr;B, A&rarr;C</li>
-</ul>
-</li>
-<li>伪传递律（pseudotransitivity rule）。若α&rarr;β和γβ&rarr;δ成立，则αγ&rarr;δ成立<ul>
-<li>举个栗子：A&rarr;B, (B, C)&rarr;D ==&gt; (A, C)&rarr;D</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="属性集的闭包"><a href="#属性集的闭包" class="headerlink" title="属性集的闭包"></a>属性集的闭包</h3><ul>
-<li>令α为一个属性集，我们将函数依赖集 F 下被α 函数确定的所有属性的额集合为称为F下α的闭包</li>
-<li>记作：α<sup>+</sup></li>
-<li>伪代码如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">result := α</span><br><span class="line">  repeat</span><br><span class="line">    <span class="keyword">for</span> each 函数依赖 β→γ in F <span class="keyword">do</span></span><br><span class="line">      begin</span><br><span class="line">        <span class="keyword">if</span> β ⊆ result then result := result ∪ γ</span><br><span class="line">      end</span><br><span class="line">  until(result 不变)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h3 id="正则覆盖（极小函数依赖集）"><a href="#正则覆盖（极小函数依赖集）" class="headerlink" title="正则覆盖（极小函数依赖集）"></a>正则覆盖（极小函数依赖集）</h3><ul>
-<li>如果<strong>去除函数依赖中的一个属性不改变函数依赖集的闭包</strong>，则称<strong>该属性是无关的</strong></li>
-<li>F的<strong>正则覆盖</strong> F<sub>c</sub> 是一个依赖集，使得F逻辑蕴涵F<sub>c</sub> 中的所有依赖，并且F<sub>c</sub> 逻辑蕴涵F中的所有依赖。此外，F<sub>c</sub> 必须具有如下性质 ：<ul>
-<li>F<sub>c</sub> 中任何函数依赖都不含无关属性</li>
-<li>F<sub>c</sub> 中函数依赖的左半部都是唯一的。即F<sub>c</sub> 中不存在两个依赖α<sub>1</sub>&rarr;β<sub>1</sub>和α<sub>2</sub>&rarr;β<sub>2</sub>， 满足α<sub>1</sub>=α<sub>2</sub></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="无损分解"><a href="#无损分解" class="headerlink" title="无损分解"></a>无损分解</h3><ul>
-<li>如果用两个关系模式r<sub>1</sub>(R)和r<sub>2</sub>(R)替代r(R)时没有信息损失，则我们称该分解时无损分解（lossless decomposition）</li>
-<li><p>SQL 表示</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面查询的结果与r具有相同结果的元组集</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> r1 <span class="keyword">natural</span> <span class="keyword">join</span> r2</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关系代数表示：</p>
-<ul>
-<li>∏<sub>R<sub>1</sub></sub>(r) ⋈ ∏<sub>R<sub>2</sub></sub>(r) = r</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="分解算法（下回分解）"><a href="#分解算法（下回分解）" class="headerlink" title="分解算法（下回分解）"></a>分解算法（下回分解）</h2></blockquote>
 
           
         
@@ -3243,6 +2971,220 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" itemprop="url">数据库笔记（九）——对违反约束的处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T00:00:00+08:00">
+                2017-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章的一些尾巴，然后开始讲第六章的关系代数<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们构造一些简单表</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的语句构造表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h2><p>在指定外键以后，由于存在完整性约束，所以在执行删除或更新的时候由于语句可能会破坏完整性约束而执行失败。因此可以在定义外键的时候声明为级联删除和级联更新(<strong>是一种对违反参照完整性约束时的处理方式</strong>)</p>
+</blockquote>
+<ul>
+<li><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">table</span> 表名(</span><br><span class="line">  ...</span><br><span class="line">  FOREGIN <span class="keyword">KEY</span> (字段序列) <span class="keyword">REFERENCES</span> 表名(字段序列)</span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span>,</span><br><span class="line">  ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="级联删除（ON-DELETE-CASCADE）"><a href="#级联删除（ON-DELETE-CASCADE）" class="headerlink" title="级联删除（ON DELETE CASCADE）"></a>级联删除（ON DELETE CASCADE）</h3><ul>
+<li>级联删除是在定义外键时指定的，但是却会在执行删除语句时产生影响</li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>我们先不指定级联</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后执行下面的删除操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面我们试图删除中国的信息，但是在person表里有一条数据引用了中国，所以因为参照完整性约束的存在，所以这条语句会执行失败</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来我们重新构造一遍（当然直接用DDL语句更新也是可以的）–并在构造person表时指定了级联删除</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后再次执行下面的删除操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 此时执行会发现语句成功执行了，不但删除了中国的信息，连带person表中引用了中国信息的所有数据都被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>上面的例子便很好的说明了级联删除的作用。如果我们视图删除外键参照键所在表（此处为country表）的某条数据A（此处是中国的信息），而这条数据又被外键所在表的一条或多条数据B所关联（此处person表中Sunny的country_id关联了country表中中国的id）。在指定了级联删除的情况下，删除A会连带着删除所有满足条件的B</p>
+</li>
+<li>当然在实际使用的时候用的还是比较少的，因为参照完整性约束在一定程度上可以防止数据的误删除，对数据库的完整性起了一定的保护作用，如果指定了级联删除，这层保护就失效了。所以还是视情况而用</li>
+</ul>
+</li>
+<li><h3 id="级联更新（ON-UPDATE-CASCADE）"><a href="#级联更新（ON-UPDATE-CASCADE）" class="headerlink" title="级联更新（ON UPDATE CASCADE）"></a>级联更新（ON UPDATE CASCADE）</h3><ul>
+<li>类似的，级联更新和级联删除一样，如果我们更新时违反了完整性约束，同样更新操作不被拒绝，而是级联更新</li>
+<li><p>举个栗子（我们在上面操作的基础上执行，上面构造时指定了级联删除，但是没指定级联更新）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们试图执行下面的更新操作，我们把修改English的country_id， 但是由于person表中还有数据的country_id=2,如果下面的更新成功执行，则会导致person表中存在country_id=2的数据，而country中却没有对应数了，违反参照完整性约束，故下面的语句执行失败</span></span><br><span class="line"><span class="keyword">UPDATE</span> country</span><br><span class="line"><span class="keyword">SET</span> country_id = <span class="number">4</span></span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同样的，我们重新构造一下，此时指定级联更新</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>此时再执行一下上面的更新语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于指定了级联更新，所以会发现下面的语句执行成功了，不但更改了country表中的数据，连带着person表中的数据也一并更新了</span></span><br><span class="line"><span class="keyword">UPDATE</span> country</span><br><span class="line"><span class="keyword">SET</span> country_id = <span class="number">4</span></span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面就是级联更新的效果</p>
+</li>
+</ul>
+</li>
+<li><h3 id="另一类对违反完整性约束的处理"><a href="#另一类对违反完整性约束的处理" class="headerlink" title="另一类对违反完整性约束的处理"></a>另一类对违反完整性约束的处理</h3><ul>
+<li>SET DEFAULT<ul>
+<li>一旦违反完整性约束，就将参照域（此处为country_id）设置为默认值</li>
+</ul>
+</li>
+<li>SET NULL<ul>
+<li>一旦违反完整性约束，就将参照域（此处为country_id）设置为NULL</li>
+</ul>
+</li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>执行下面的构造</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">SET</span> <span class="literal">NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后执行下面的删除操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的删除操作成功执行，但不是级联删除，而是把person表中原来country_id=1的数据的country_id都设成了NULL</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="延迟检查"><a href="#延迟检查" class="headerlink" title="延迟检查"></a>延迟检查</h2><p>这是由于数据库默认是在执行每一条SQL语句的时候都进行完整性约束的检查，导致有些操作无法进行。延迟操作就将完整性约束的检查延迟到了事务结束的时候检查（大多数数据库不支持，比如SQL Server， 但Oracle数据支持）</p>
+</blockquote>
+<ul>
+<li><p>由于不常用，SQL Server也不支持，这里就讲一下概念，不举实际的栗子了。</p>
+</li>
+<li><p>假设上面的例子表中没有指定延迟检查</p>
+<ul>
+<li>执行下面的语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面两条语句是会出错的，因为插入第一条数据的时候，由于完整性约束的存在，要求country表中要有country_id=4的数据，但是这个数据目前还不存在（所以只要先执行第二条语句，这两个语句才能成功执行）</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'Jerry'</span>, <span class="number">4</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'France'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>而如果指定了延迟检查呢</p>
+<ul>
+<li>执行下面语句（下面两个语句处于同一个事务中）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于是延迟检查，所以两条数据都插入完，执行commit，事务结束时才进行完整性约束的检查，此时就不会出错，可以正常插入</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'Jerry'</span>, <span class="number">4</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'France'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>虽然SQL标准中有这个概念，但是大多数数据库没有提供支持，并且不常用</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -3297,7 +3239,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
