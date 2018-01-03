@@ -121,7 +121,7 @@
 
 
 
-  <title>建明 | Ming.J</title>
+  <title>建明 | Ming.J - 至清  至静</title>
   
 
 
@@ -289,6 +289,308 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（c）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/22/2017-12-22-软件工程复习（c）/" itemprop="url">软件工程复习（三）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T00:00:00+08:00">
+                2017-12-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/22/2017-12-22-软件工程复习（c）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/22/2017-12-22-软件工程复习（c）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/12/22/2017-12-22-软件工程复习（c）/" class="leancloud_visitors" data-flag-title="软件工程复习（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>需求分析是发现、求精、建模、规格说明和复审的过程。</p>
+</blockquote>
+<ul>
+<li><h3 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h3><ul>
+<li>必须理解和表示问题的信息域，根据这条准则应该建立<strong>数据模型</strong>。</li>
+<li>必须定义软件应完成的功能，这条准则要求建立<strong>功能模型</strong>。</li>
+<li>必须表示作为外部事件结果的软件行为，这条准则要求建立<strong>行为模型</strong>。</li>
+<li>必须对描述信息、功能和行为的模型进行分解，用<strong>层次</strong>的方式展示细节。</li>
+<li>分析过程应该从<strong>要素信息移向实现细节</strong><ul>
+<li>业务 → 技术</li>
+<li>逻辑 → 物理</li>
+<li>要素 → 细节</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="需求分析的任务"><a href="#需求分析的任务" class="headerlink" title="需求分析的任务"></a>需求分析的任务</h2></blockquote>
+<ul>
+<li><h3 id="确定对系统的综合要求"><a href="#确定对系统的综合要求" class="headerlink" title="确定对系统的综合要求"></a>确定对系统的综合要求</h3><ul>
+<li><strong>数据要求</strong></li>
+<li><strong>功能需求</strong></li>
+<li><strong>性能需求</strong></li>
+<li>可靠性和可用性需求</li>
+<li>出错处理需求</li>
+<li>接口需求</li>
+<li>约束</li>
+<li>逆向需求（不应该做的）</li>
+<li>将来可能提出的要求</li>
+</ul>
+</li>
+<li><h3 id="分析系统的数据要求"><a href="#分析系统的数据要求" class="headerlink" title="分析系统的数据要求"></a>分析系统的数据要求</h3><ul>
+<li>任何软件系统本质上都是信息处理系统</li>
+<li>建立数据模型（E-R图）</li>
+<li>数据字典</li>
+<li>层次方框图</li>
+<li>Warnier图</li>
+</ul>
+</li>
+<li><h3 id="导出系统给的逻辑模型"><a href="#导出系统给的逻辑模型" class="headerlink" title="导出系统给的逻辑模型"></a>导出系统给的逻辑模型</h3><ul>
+<li>数据流图、E-R图、状态转换图、数据字典、算法描述</li>
+</ul>
+</li>
+<li><h3 id="修正系统的开发计划"><a href="#修正系统的开发计划" class="headerlink" title="修正系统的开发计划"></a>修正系统的开发计划</h3></li>
+</ul>
+<blockquote>
+<h2 id="与用户沟通获取需求的方法"><a href="#与用户沟通获取需求的方法" class="headerlink" title="与用户沟通获取需求的方法"></a>与用户沟通获取需求的方法</h2></blockquote>
+<ul>
+<li><h3 id="访谈"><a href="#访谈" class="headerlink" title="访谈"></a>访谈</h3></li>
+<li><h3 id="面向数据流自顶向下求精"><a href="#面向数据流自顶向下求精" class="headerlink" title="面向数据流自顶向下求精"></a>面向数据流自顶向下求精</h3><img src="/img/se_19.jpg"></li>
+<li><h3 id="简易的应用规格说明技术"><a href="#简易的应用规格说明技术" class="headerlink" title="简易的应用规格说明技术"></a>简易的应用规格说明技术</h3></li>
+<li><h3 id="快速建立软件模型"><a href="#快速建立软件模型" class="headerlink" title="快速建立软件模型"></a>快速建立软件模型</h3><ul>
+<li>快速原型应该具备的第一个特性是“快速”。</li>
+<li>快速原型应该具备的第二个特性是“容易修改”。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="分析建模与规格说明"><a href="#分析建模与规格说明" class="headerlink" title="分析建模与规格说明"></a>分析建模与规格说明</h2><h2 id="实体——联系图（E-R图）-master"><a href="#实体——联系图（E-R图）-master" class="headerlink" title="实体——联系图（E-R图）  (master)"></a>实体——联系图（E-R图）  (master)</h2><p>数据模型包含三种相互关联的信息：<strong>数据对象</strong>、描述数据对象<strong>属性</strong>及数据对象彼此间相互连接的<strong>关系</strong></p>
+</blockquote>
+<ul>
+<li>ER图中包含实体(即数据对象)、关系和属性三种基本成分。<img src="/img/se_20.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="数据规范化"><a href="#数据规范化" class="headerlink" title="数据规范化"></a>数据规范化</h2><p>一、二、三范式</p>
+<h2 id="状态转换图-master"><a href="#状态转换图-master" class="headerlink" title="状态转换图              (master)"></a>状态转换图              (master)</h2><p>状态转换图(<strong>状态图</strong>)通过描绘系统的状态及引起系统状态转换的事件，来<strong>表示</strong>系统的<strong>行为</strong><br><br>一个状态图<strong>只能</strong>描述<strong>一个对象</strong>的行为变化，包括一系列状态、事件以及状态之间的转移</p>
+</blockquote>
+<ul>
+<li><h3 id="状态和事件"><a href="#状态和事件" class="headerlink" title="状态和事件"></a>状态和事件</h3><ul>
+<li>状态：状态是任何可以被观察到的系统行为模式（<strong>当前对象属性值的集合</strong>）</li>
+<li>事件：<strong>事件</strong>在某个特定个时刻发生的事情，<strong>引起</strong>系统从一个<strong>状态转换</strong>到另一个状态</li>
+</ul>
+</li>
+<li><h3 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h3><img src="/img/se_21.jpg">
+<ul>
+<li><strong>初态</strong>：实心圆</li>
+<li><strong>终态</strong>：一对同心圆</li>
+<li><strong>中间状态</strong>：用圆角矩形表示，可分为三部分：<strong>状态名、状态变量、活动表</strong>（其中状态名是必选的，其余两个是可选的）</li>
+<li><strong>活动表的语法格式</strong>：事件名（参数表）/ 动作表达式<ul>
+<li><strong>entry</strong>  (在进入该状态时执行)</li>
+<li><strong>exit</strong> （退出该状态时执行）</li>
+<li><strong>do</strong> （在该状态下一直执行）</li>
+</ul>
+</li>
+<li><strong>状态转换</strong>：两个状态之间带箭头的连线，箭头指明了转换方向<ul>
+<li><strong>连线上</strong>通常<strong>标出</strong>导致状态转化的<strong>触发事件</strong></li>
+<li>触发事件表达式的语法：事件说明[守卫条件]/动作表达式<ul>
+<li>事件说明：事件名（参数表）</li>
+<li>守卫条件：一个布尔表达式</li>
+<li>动作表达式：是一个过程表达式，当状态转换开始后时执行该表达式</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>栗子：<img src="/img/se_22.jpg"></li>
+</ul>
+</li>
+<li><h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><ul>
+<li>简单转移</li>
+<li>自转移    （自己转移到自己，需要事件触发）</li>
+<li>自动转移  （通常是本状态需要做的一个活动完成时转换到下一个状态）</li>
+<li>复合转移</li>
+</ul>
+</li>
+<li><h3 id="组合状态————子状态"><a href="#组合状态————子状态" class="headerlink" title="组合状态————子状态"></a>组合状态————子状态</h3><blockquote>
+<p>一个状态下可以嵌套许多子状态</p>
+<ul>
+<li>顺序子状态 =&gt; 子状态是串行连续变化的</li>
+<li>并发子状态 =&gt; 存在并发存在互不影响的子状态</li>
+</ul>
+</blockquote>
+</li>
+<li><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
+<li><h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><ul>
+<li>分劈（Fork）</li>
+<li>接合（Join）</li>
+</ul>
+</li>
+<li><h4 id="伪状态"><a href="#伪状态" class="headerlink" title="伪状态"></a>伪状态</h4><ul>
+<li>符号用圈里面一个*表示</li>
+<li>用来表示并发状态的同步</li>
+<li>在子状态图之间使用（放在分隔子状态的虚线上）</li>
+</ul>
+</li>
+<li><h4 id="历史状态"><a href="#历史状态" class="headerlink" title="历史状态"></a>历史状态</h4><ul>
+<li>符号用圈里面一个H表示</li>
+<li>记录在离开某个状态时，其处于哪个子状态中</li>
+</ul>
+</li>
+<li>对于<strong>同一层级</strong>的状态来说，<strong>初态只有一个，终态可以有多个</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="其它图形工具"><a href="#其它图形工具" class="headerlink" title="其它图形工具"></a>其它图形工具</h2></blockquote>
+<ul>
+<li><h3 id="层次方框图"><a href="#层次方框图" class="headerlink" title="层次方框图"></a>层次方框图</h3><img src="/img/se_23.jpg">
+<ul>
+<li>层次方框图用树形结构的一些列多层次的矩形框描绘数据的层次结构</li>
+</ul>
+</li>
+<li><h3 id="Warnier图"><a href="#Warnier图" class="headerlink" title="Warnier图"></a>Warnier图</h3><img src="/img/se_24.jpg"></li>
+<li><h3 id="IPO图"><a href="#IPO图" class="headerlink" title="IPO图"></a>IPO图</h3><ul>
+<li>IPO图是输入、处理、输出图的简称</li>
+<li>左边框中列出有关的输入</li>
+<li>中间框中列出主要的处理</li>
+<li>右边框中列出产生的输出</li>
+<li>处理的顺序暗示了执行的顺序</li>
+<li>箭头指出数据通信的情况</li>
+</ul>
+<img src="/img/se_25.png">
+<img src="/img/se_26.png">
+</li>
+</ul>
+<blockquote>
+<h2 id="验证软件的需求（了解）"><a href="#验证软件的需求（了解）" class="headerlink" title="验证软件的需求（了解）"></a>验证软件的需求（了解）</h2><p>验证软件的一致性、完整性、现实性和有效性</p>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1495,334 +1797,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" itemprop="url">数据库笔记（补充）——数据库设计和E——R模型</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
-                2017-11-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" class="leancloud_visitors" data-flag-title="数据库笔记（补充）——数据库设计和E——R模型">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="实体—联系模型"><a href="#实体—联系模型" class="headerlink" title="实体—联系模型"></a>实体—联系模型</h2></blockquote>
-<ul>
-<li><h3 id="实体集"><a href="#实体集" class="headerlink" title="实体集"></a>实体集</h3><ul>
-<li>实体（entity）：现实世界中一个可以区别于其他对象的一个“事物”或对象</li>
-<li>实体集（entity set）：相同类型（<strong><em>即具有相同性质/属性</em></strong>）的实体的集合</li>
-<li>外延（extension）：属于实体集的实体的实际集合<blockquote>
-<p>ps: 实体集和外延的关系类似于之前讲的<a href="http://www.jianshu.com/p/c7f7d50edfa3" target="_blank" rel="noopener">模式和实例的关系</a></p>
-</blockquote>
-</li>
-<li>属性（attribute）：实体集中每个成员所具有的描述性性质</li>
-<li>值（value）：每个实体的每个属性都有一个<strong>值</strong></li>
-</ul>
-</li>
-<li><h3 id="联系集"><a href="#联系集" class="headerlink" title="联系集"></a>联系集</h3><ul>
-<li><p>联系（relationship）：多个实体间的相互关联</p>
-</li>
-<li><p>联系集（relationship set）： 相同类型联系的集合</p>
-</li>
-<li>实体集之间的关联称之为参与：实体集E<sub>1</sub>, E<sub>2</sub>, E<sub>3</sub> <strong>参与</strong> 联系集R</li>
-<li>联系也可以具有 <strong>描述性属性</strong></li>
-<li>实体在联系中扮演的功能称为<strong>角色</strong></li>
-<li>参与联系集的实体集的数目称为<strong>联系集的度</strong>， 二元联系集的度为2</li>
-</ul>
-</li>
-<li><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
-<li><p>域（domain）/ 值集：每个 <strong>属性</strong> 都有一个 <strong>可取值的集合</strong> ，称为该属性的 <strong>域</strong> 或 <strong>值集</strong></p>
-</li>
-<li><p>简单（simple） 和复合（composite）属性</p>
-<ul>
-<li>简单属性不可以再分成更小的部分，而复合属性可以(例如下面的name即为复合属性)<br><img src="http://upload-images.jianshu.io/upload_images/7222676-401cb7a8533ae4c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></li>
-</ul>
-</li>
-<li>单值（single-value）和多值（multivalued）属性<ul>
-<li>单值：一个实体在的单值属性只对应一个值</li>
-<li>多值：一个实体的多值属性可以对应多个值（如，phone_number）</li>
-</ul>
-</li>
-<li><h4 id="派生（derived）属性"><a href="#派生（derived）属性" class="headerlink" title="派生（derived）属性"></a>派生（derived）属性</h4><ul>
-<li><p>派生属性的值可以从别的相关属性或实体派生出来</p>
-<ul>
-<li>eg.:银行账户的余额可以从账户的存取款明细中计算出来</li>
-</ul>
-</li>
-<li><p>派生属性在原则上是不用保存的，但是有时候保存派生属性可以节约计算时间（空间换时间）</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><ul>
-<li><h4 id="映射基数约束"><a href="#映射基数约束" class="headerlink" title="映射基数约束"></a>映射基数约束</h4><ul>
-<li>一对一（one-to-one）</li>
-<li>一对多（one-to-many）</li>
-<li>多对一（many-to-one）</li>
-<li>多对多（many-to-many）</li>
-</ul>
-</li>
-<li><h4 id="参与约束"><a href="#参与约束" class="headerlink" title="参与约束"></a>参与约束</h4><ul>
-<li><p>全部参与：实体集E的每一个实体都参与到联系集R的至少一个联系中</p>
-</li>
-<li><p>部分参与：实体集E中只有部分实体参与到联系集R的联系中</p>
-</li>
-</ul>
-</li>
-<li><h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><ul>
-<li>超码</li>
-<li>候选码</li>
-<li>主码</li>
-</ul>
-</li>
-<li><p>####　从实体集中删除冗余属性</p>
-<ul>
-<li>要点： <strong>删除其他实体的主键</strong></li>
-<li>其他实体的主键相当于外建的存在，一般属于联系集的属性</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>instructor(ID, name, dept_name, salary)，其中ID为主键</p>
-</li>
-<li><p>department(dept_name, building, budget)，其中dept_name为主键</p>
-</li>
-<li>属性dept_name在两个表中都出现了，所以它属于冗余属性，他又是department的主键，故应该将其从instructor表中移除（实际数据库实现的时候instructor表中是有一个dept_name属性的，他作为一个外建存在，实际上是两者的联系集是简单的1对多的关系，便没有单独成表，而是采用外键相联系）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="实体——联系图"><a href="#实体——联系图" class="headerlink" title="实体——联系图"></a>实体——联系图</h2></blockquote>
-<ul>
-<li><h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><ul>
-<li><h4 id="分成两部分的矩形-代表-实体集"><a href="#分成两部分的矩形-代表-实体集" class="headerlink" title="分成两部分的矩形 代表 实体集"></a><strong>分成两部分的矩形</strong> 代表 <strong>实体集</strong></h4><p><img src="http://upload-images.jianshu.io/upload_images/7222676-3efdb480d2cbdab7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-</li>
-<li><p><strong>菱形</strong> 代表 <strong>联系集</strong></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-8326ccc00ed7b43e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-</li>
-<li><p><strong>未分割的矩形</strong> 代表 <strong>联系集的属性</strong></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-46db5dae213b6bc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
-</li>
-<li><p><strong>线段</strong> 将实体集连接到联系集</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1c38fc5cfb403d5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
-</li>
-<li><p><strong>虚线</strong> 将联系集属性连接到联系集</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-2cd9d60543960ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
-</li>
-<li><strong>双线</strong> 显示实体在联系集中的参与度(用双线与联系集相连表示全部参与)</li>
-<li><strong>双菱形</strong> 代表连接到弱实体集的 <strong>标志性实体集</strong></li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-783c1d6c2b081798.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
-</li>
-<li><h3 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h3><ul>
-<li>一对一</li>
-<li>一对多</li>
-<li>多对一</li>
-<li>多对多</li>
-</ul>
-</li>
-<li><h3 id="balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"><a href="#balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集" class="headerlink" title="balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"></a>balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集</h3></li>
-<li><h3 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h3><ul>
-<li><p>定义：没有足够的属性以形成主码的实体集称之为 <strong>弱实体集（weak entity set）</strong></p>
-</li>
-<li><p>先举个栗子：(由于简书不支持下划线的写法，所以下面表中所有的主码都用斜体表示)</p>
-<ul>
-<li><strong>course</strong> (<strong><em>course_id</em></strong>, titles, credits)</li>
-<li><strong>section</strong> (<strong><em>sec_id</em></strong>, <strong><em>semester</em></strong>, <strong><em>year</em></strong>)</li>
-<li><p>对于上面的两个实体集，参与如下联系集</p>
-<ul>
-<li>sec_course(course_id, sec_id, semester, year)</li>
-</ul>
-</li>
-<li><p>上面的section实体集实际上就是一个弱联系集</p>
-<ul>
-<li>一个section实体如果不与一个course对相关联是毫无意义的，并且只有sec_id, semester, year三个属性也是决定不了一个section的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>弱实体集必须于另一个称作标识（identifying）或属主和实体集（owner entity set）的实体集相关联才有意义</li>
-<li>虽然弱实体集没有主码，但是本身仍要有在依赖于强实体集的基础上的进一步区分的方法，<strong>弱实体集的分辨符/部分码</strong>（discriminator）便可以用来做进一步的区分<ul>
-<li>上述例子中的sec_id, semester, year便组成了section的分辨符</li>
-<li>在画ER图的时候，组成分辨符的属性底下画虚线（可参见教材 图7-5）</li>
-</ul>
-</li>
-<li>弱实体集的主码由 <strong>标识实体集的主码</strong> 加上 <strong>该弱实体集的分辨符</strong> 构成</li>
-<li><h4 id="ER图中的表示"><a href="#ER图中的表示" class="headerlink" title="ER图中的表示"></a>ER图中的表示</h4><ul>
-<li>组成分辨符的属性底下画虚线，而不是实线</li>
-<li>关联弱实体集和标识性强实体集的联系集以双菱形表示</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"><a href="#接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了" class="headerlink" title="接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"></a>接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了</h3></li>
-</ul>
-<blockquote>
-<h2 id="ER图转换为关系模式"><a href="#ER图转换为关系模式" class="headerlink" title="ER图转换为关系模式"></a>ER图转换为关系模式</h2><p>这个不难下面简单列几点注意事项</p>
-</blockquote>
-<ul>
-<li><strong>复合属性</strong><ul>
-<li>将每个子属性单独作为一个属性来处理</li>
-</ul>
-</li>
-<li><strong>派生属性</strong><ul>
-<li>不显示表示出来</li>
-</ul>
-</li>
-<li><strong>多值属性</strong><ul>
-<li>单独成表</li>
-</ul>
-</li>
-<li><strong>弱实体集转换</strong><ul>
-<li>对于从弱实体集转换而来的模式，该模式的主码由其所依赖的强实体集的主码与弱实体集的分辨符组成</li>
-</ul>
-</li>
-<li><strong>联系集</strong><ul>
-<li>多对多的情况一定单独成表</li>
-<li>联系集拥有描述性属性的情况单独成表</li>
-<li>其它情况下均可不单独成表<ul>
-<li>一对一情况下讲任意实体集的主键作为另一个实体集的外建均可</li>
-<li>一对多和多对一的情况下，将“一”端的主键作为”多”端的外建</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1877,7 +1851,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">30</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
