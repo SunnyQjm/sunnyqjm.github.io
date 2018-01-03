@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,软件工程," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概述要求： 掌握OO分析的方法和步骤，业务，能够使用UML图进行分析建模（类图、用例图、状态图、顺序图等）   面向对象分析是是辈出问题域内的对象，并分析它们相互间的关系，最终建立起问题域的简洁、精确、可理解的正确模型 在用面向对象观点建立起的三种模型中，对象模型（类图）是 最基本、最重要、最核心的   面向对象分析的过程面向该对象分析，就是抽取和整理用户或需求并建立问题域精确模型的过程  用用">
+<meta name="keywords" content="学习,笔记,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程复习（九）">
+<meta property="og:url" content="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（i）/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="概述要求： 掌握OO分析的方法和步骤，业务，能够使用UML图进行分析建模（类图、用例图、状态图、顺序图等）   面向对象分析是是辈出问题域内的对象，并分析它们相互间的关系，最终建立起问题域的简洁、精确、可理解的正确模型 在用面向对象观点建立起的三种模型中，对象模型（类图）是 最基本、最重要、最核心的   面向对象分析的过程面向该对象分析，就是抽取和整理用户或需求并建立问题域精确模型的过程  用用">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/se_79.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_80.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_81.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_82.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_83.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_89.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_90.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_84.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_85.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_86.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_87.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_88.jpg">
+<meta property="og:updated_time" content="2018-01-02T13:41:45.712Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程复习（九）">
+<meta name="twitter:description" content="概述要求： 掌握OO分析的方法和步骤，业务，能够使用UML图进行分析建模（类图、用例图、状态图、顺序图等）   面向对象分析是是辈出问题域内的对象，并分析它们相互间的关系，最终建立起问题域的简洁、精确、可理解的正确模型 在用面向对象观点建立起的三种模型中，对象模型（类图）是 最基本、最重要、最核心的   面向对象分析的过程面向该对象分析，就是抽取和整理用户或需求并建立问题域精确模型的过程  用用">
+<meta name="twitter:image" content="http://qjm253.cn/img/se_79.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（i）/"/>
+
+
+
+
+
+  <title>软件工程复习（九） | 建明 | Ming.J</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a9fa95ff997969441c084d8d73eacfb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（i）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程复习（九）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
+                2017-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（i）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（i）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/12/31/2017-12-31-软件工程复习（i）/" class="leancloud_visitors" data-flag-title="软件工程复习（九）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>要求： <strong>掌握OO分析的方法和步骤，业务，能够使用UML图进行分析建模（类图、用例图、状态图、顺序图等）</strong></p>
+</blockquote>
+<ul>
+<li>面向对象分析是<strong>是辈出问题域内的对象</strong>，并<strong>分析</strong>它们相互间的<strong>关系</strong>，最终<strong>建立</strong>起问题域的简洁、精确、可理解的正确<strong>模型</strong></li>
+<li>在用面向对象观点建立起的三种模型中，<strong>对象模型（类图）是</strong> <strong>最基本、最重要、最核心</strong>的</li>
+</ul>
+<blockquote>
+<h2 id="面向对象分析的过程"><a href="#面向对象分析的过程" class="headerlink" title="面向对象分析的过程"></a>面向对象分析的过程</h2><p>面向该对象分析，就是<strong>抽取和整理用户或需求</strong>并<strong>建立</strong>问题域精确<strong>模型</strong>的过程</p>
+<ul>
+<li>用用例图捕获需求</li>
+<li>基于用例图构件类图</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="3个子模型5个层次"><a href="#3个子模型5个层次" class="headerlink" title="3个子模型5个层次"></a>3个子模型5个层次</h3><ul>
+<li>3个子模型：对象模型，动态模型，功能模型</li>
+<li>5个层次<ul>
+<li>主题层（通常对应包的划分）</li>
+<li>类与对象层</li>
+<li>结构层</li>
+<li>属性层</li>
+<li>服务层</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="大体流程"><a href="#大体流程" class="headerlink" title="大体流程"></a>大体流程</h3><ul>
+<li>寻找类与对象</li>
+<li>识别结构</li>
+<li>识别主题</li>
+<li>定义属性</li>
+<li>建立动态模型</li>
+<li>建立功能模型</li>
+<li>定义服务</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="需求陈述"><a href="#需求陈述" class="headerlink" title="需求陈述"></a>需求陈述</h2></blockquote>
+<ul>
+<li>通常，需求陈述的内容包括：问题范围，功能需求，性能需求，应用环境及假设条件等。总之，<strong>需求陈述应该阐明“做什么”而不是“怎样做”</strong></li>
+<li>描述用户的需求而<strong>不是提出解决问题的方法</strong></li>
+<li>应该避免对设计策略施加过多的约束，也不要描述系统的内部结构，这样做将限制实现的灵活性</li>
+<li>对<strong>系统性能及系统与外界环境交互协议的描述</strong>，是合适的需求</li>
+<li>此外，对采用的<strong>软件工程标准、模块构造准则、将来可能做的扩充以及可维护性要求等方面的描述</strong>，也都是适当的需求。</li>
+</ul>
+<blockquote>
+<h2 id="建立对象模型"><a href="#建立对象模型" class="headerlink" title="建立对象模型"></a>建立对象模型</h2></blockquote>
+<ul>
+<li><h3 id="确定类与对象"><a href="#确定类与对象" class="headerlink" title="确定类与对象"></a>确定类与对象</h3><ul>
+<li><h4 id="找出和候选的类与对象"><a href="#找出和候选的类与对象" class="headerlink" title="找出和候选的类与对象"></a>找出和候选的类与对象</h4><ul>
+<li>用自然语言书写的需求陈述为依据，把陈述中的名词作为类与对象的候选者</li>
+<li>用形容词作为确定属性的线索</li>
+<li>把动词作为服务(操作)的候选者</li>
+</ul>
+</li>
+<li><h4 id="筛选出正确的类与对象"><a href="#筛选出正确的类与对象" class="headerlink" title="筛选出正确的类与对象"></a>筛选出正确的类与对象</h4><ul>
+<li>冗余、无关、笼统、属性、操作、实现..</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="确定关联"><a href="#确定关联" class="headerlink" title="确定关联"></a>确定关联</h3><ul>
+<li><h4 id="初步确定关联"><a href="#初步确定关联" class="headerlink" title="初步确定关联"></a>初步确定关联</h4><ul>
+<li>大多数关联可以通过直接提取需求陈述中的<strong>动词词组</strong>而得出</li>
+<li>通过分析需求陈述，还能发现一些在陈述中<strong>隐含</strong>的关联</li>
+</ul>
+</li>
+<li><h4 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h4><ul>
+<li>已删去的类之间的关联</li>
+<li>与问题无关或应在实现阶段考虑的关联</li>
+<li>瞬时关联</li>
+<li>三元关联</li>
+<li>派生关联</li>
+</ul>
+</li>
+<li><h4 id="完善"><a href="#完善" class="headerlink" title="完善"></a>完善</h4><ul>
+<li>正名</li>
+<li>分解</li>
+<li>补充</li>
+<li>标明重数<img src="/img/se_79.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="划分主题"><a href="#划分主题" class="headerlink" title="划分主题"></a>划分主题</h3><ul>
+<li>在开发大型、复杂系统的过程中，为了<strong>降低复杂程度</strong>，习惯于把系统再进一步划分成几个不同的主题，也就是在概念上把系统包含的内容分解成若干个范畴<img src="/img/se_80.jpg"></li>
+</ul>
+</li>
+<li><h3 id="确定属性"><a href="#确定属性" class="headerlink" title="确定属性"></a>确定属性</h3><ul>
+<li><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ul>
+<li>属性的确定既与问题域有关，也和目标系统的任务有关</li>
+<li>应该仅考虑与具体应用直接相关的属性，不要考虑那些超出所要解决的问题范围的属性</li>
+<li>在分析过程中应该首先找出最重要的属性，以后再逐渐把其余属性增添进去</li>
+<li>在分析阶段不要考虑那些纯粹用于实现的属性</li>
+</ul>
+</li>
+<li><h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><ul>
+<li>认真考察经初步分析而确定下来的那些属性，从中删掉不正确的或不必要的属性<ul>
+<li>误把对象当作属性</li>
+<li>把链属性误作为属性</li>
+<li>把限定误当成属性</li>
+<li>误把内部状态当成了属性</li>
+<li>过于细化</li>
+<li>存在不一致的属性</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/img/se_81.jpg"></li>
+<li><h3 id="识别继承关系"><a href="#识别继承关系" class="headerlink" title="识别继承关系"></a>识别继承关系</h3><img src="/img/se_82.jpg"></li>
+<li><h3 id="反复修改"><a href="#反复修改" class="headerlink" title="反复修改"></a>反复修改</h3><img src="/img/se_83.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="建立动态模型"><a href="#建立动态模型" class="headerlink" title="建立动态模型"></a>建立动态模型</h2><ul>
+<li>第一步，是编写典型交互行为的脚本</li>
+<li>第二步，从脚本中提取出事件，确定除服每个事件的动作对象以及接受事件的目标对象（画出事件跟踪图）</li>
+<li>第三步，排雷事件发生的次序，确定每个对象可能有的状态及状态之间的转换关系，并用状态图描绘它们</li>
+</ul>
+<h2 id="建立功能模型"><a href="#建立功能模型" class="headerlink" title="建立功能模型"></a>建立功能模型</h2></blockquote>
+<ul>
+<li>画出基本的系统模型图<img src="/img/se_89.jpg"></li>
+<li>画出功能级数据流图<img src="/img/se_90.jpg">
+</li>
+</ul>
+<p>EG: <img src="/img/se_84.jpg"></p>
+<ul>
+<li>对象模型参考：<img src="/img/se_85.jpg"></li>
+<li>动态模型参考<ul>
+<li>脚本<img src="/img/se_86.jpg"></li>
+<li>事件跟踪图<img src="/img/se_87.jpg"></li>
+</ul>
+</li>
+<li>功能模型参考<img src="/img/se_88.jpg">
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（h）/" rel="next" title="软件工程复习（八）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（八）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（j）/" rel="prev" title="软件工程复习（十）">
+                软件工程复习（十） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar-r.jpg"
+                alt="建明 | Ming.J" />
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象分析的过程"><span class="nav-number">2.</span> <span class="nav-text">面向对象分析的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3个子模型5个层次"><span class="nav-number">2.1.</span> <span class="nav-text">3个子模型5个层次</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#大体流程"><span class="nav-number">2.2.</span> <span class="nav-text">大体流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#需求陈述"><span class="nav-number">3.</span> <span class="nav-text">需求陈述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立对象模型"><span class="nav-number">4.</span> <span class="nav-text">建立对象模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#确定类与对象"><span class="nav-number">4.1.</span> <span class="nav-text">确定类与对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#找出和候选的类与对象"><span class="nav-number">4.1.1.</span> <span class="nav-text">找出和候选的类与对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#筛选出正确的类与对象"><span class="nav-number">4.1.2.</span> <span class="nav-text">筛选出正确的类与对象</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定关联"><span class="nav-number">4.2.</span> <span class="nav-text">确定关联</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#初步确定关联"><span class="nav-number">4.2.1.</span> <span class="nav-text">初步确定关联</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#筛选"><span class="nav-number">4.2.2.</span> <span class="nav-text">筛选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完善"><span class="nav-number">4.2.3.</span> <span class="nav-text">完善</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#划分主题"><span class="nav-number">4.3.</span> <span class="nav-text">划分主题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#确定属性"><span class="nav-number">4.4.</span> <span class="nav-text">确定属性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#分析"><span class="nav-number">4.4.1.</span> <span class="nav-text">分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择"><span class="nav-number">4.4.2.</span> <span class="nav-text">选择</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#识别继承关系"><span class="nav-number">4.5.</span> <span class="nav-text">识别继承关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反复修改"><span class="nav-number">4.6.</span> <span class="nav-text">反复修改</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立动态模型"><span class="nav-number">5.</span> <span class="nav-text">建立动态模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#建立功能模型"><span class="nav-number">6.</span> <span class="nav-text">建立功能模型</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/12/31/2017-12-31-软件工程复习（i）/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/99614/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("eyIFq6kYslRSDIa8lqlCIThp-gzGzoHsz", "iUAeNEuxcBmYdpgAATCh4AlH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

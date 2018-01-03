@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据库,学习,笔记," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)    在开始今天的摸鱼大业之前，让我们继续延用之前用的表       外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的">
+<meta name="keywords" content="数据库,学习,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库笔记（七）">
+<meta property="og:url" content="http://qjm253.cn/2017/09/29/2017-09-29-数据库学习笔记（七）/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)    在开始今天的摸鱼大业之前，让我们继续延用之前用的表       外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-6b77b742a7e84c86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-c9b92501a39f2897.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-c65af46549b6e705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-24eeb8dd9e7220e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-22a77fd9ef19119d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-7ba5a1d249d51f88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库笔记（七）">
+<meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)    在开始今天的摸鱼大业之前，让我们继续延用之前用的表       外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qjm253.cn/2017/09/29/2017-09-29-数据库学习笔记（七）/"/>
+
+
+
+
+
+  <title>数据库笔记（七） | 建明 | Ming.J</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a9fa95ff997969441c084d8d73eacfb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/29/2017-09-29-数据库学习笔记（七）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库笔记（七）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T00:00:00+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/29/2017-09-29-数据库学习笔记（七）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/29/2017-09-29-数据库学习笔记（七）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/09/29/2017-09-29-数据库学习笔记（七）/" class="leancloud_visitors" data-flag-title="数据库笔记（七）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
+<blockquote>
+<p>外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的限制，如果某个操作执行后会破坏这个完整性，就将被拒绝执行。这个在之前的博客中有介绍==&gt;<a href="http://www.jianshu.com/p/6f5032194eab" target="_blank" rel="noopener"> 传送门</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><p>一个表与自身相连接的操作，其实与多表连接是一样的，只是连接的两张表用的是同一张表而已</p>
+</blockquote>
+<ul>
+<li><h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询了所有员工的名字以及其经理的名字</span></span><br><span class="line"><span class="keyword">SELECT</span> w.ENAME <span class="keyword">as</span> worker_name, m.ENAME <span class="keyword">as</span> manager_name</span><br><span class="line"><span class="keyword">FROM</span> EMP w</span><br><span class="line">  <span class="keyword">JOIN</span> EMP m <span class="keyword">ON</span> w.MGR = m.EMPNO;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-6b77b742a7e84c86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+</li>
+<li>上面得到的结果是采用内连接得到的结果，所以对于那些MGR为null（没有经理）的员工，其信息就得不到显示，可以采用左外连接（LEFT OUTER JOIN）</li>
+<li><p>员工表中MGR 和 EMPNO 字段应该有一层限制，MGR的取值应该是某一个EMPNO的取值（话句话说，一个员工的经理号应该也是同一张表中这个经理的职工号）。在定义这张表的时候可以给这两个字段加上一个外键约束。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句模拟了这一操作</span></span><br><span class="line"><span class="comment">--只关注了EMPNO和MGR这两个字段，其他字段的描述省略了</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> EMP(</span><br><span class="line">  EMPNO <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  MGR <span class="built_in">INTEGER</span>,</span><br><span class="line">  ....</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span>(MGR) <span class="keyword">REFERENCES</span> EMP(EMPNO)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还是那句话：<strong>绝大多数连接条件是建立在外键与外键的参照键之间的</strong>(自连接也不例外)</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="自然连接（NATURAL-JOIN）"><a href="#自然连接（NATURAL-JOIN）" class="headerlink" title="自然连接（NATURAL JOIN）"></a>自然连接（NATURAL JOIN）</h2><p>其实自然连接就是写法更简单的多表连接，无需书写连接条件，让数据库自己判断应该采用什么连接条件（自然连接的语法是SQL的标准语法，但是并不是所有的数据库都支持，SQL Server就不支持自然连接的语法，但是Oracle和MySQL数据库都是支持的。。<strong>所以下面的测试就在MySQL里面测试啦，上次用IDEA连的那个数据库里面我已经建好了和在上面测试用例一样的表和数据，可以直接用</strong>）</p>
+</blockquote>
+<ul>
+<li><h3 id="可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"><a href="#可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致" class="headerlink" title="可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"></a>可采用自然连接的前提条件：<strong><em>两个表中要有同名字段，并且同名字段的数据类型要一致</em></strong></h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就实现了查询所有的员工名字及其所在部门名</span></span><br><span class="line"><span class="comment">-- 相当于内连接</span></span><br><span class="line"><span class="comment">-- 因为两个表中有同名字段DEPTNO，并且数据类型相同，数据库就用这个作为连接条件</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 上面的语句等价于下面的内连接语句</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-c9b92501a39f2897.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+</li>
+<li>如果两个表中有同名字段，但是数据类型不一致，执行自然连接是会失败的，因为此时数据库不知道应该怎么连接两张表</li>
+</ul>
+</li>
+<li><h3 id="当然如果想要执行外连接（左外，右外，全外）也是一样的"><a href="#当然如果想要执行外连接（左外，右外，全外）也是一样的" class="headerlink" title="当然如果想要执行外连接（左外，右外，全外）也是一样的"></a>当然如果想要执行外连接（左外，右外，全外）也是一样的</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面几个语句是等价的，会得到相同的结果，都采用了左外连接</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-c65af46549b6e705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+</li>
+</ul>
+</li>
+<li><h3 id="在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"><a href="#在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）" class="headerlink" title="在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"></a>在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们在上面例子的基础上，多显示一个部门号，下面的两条语句如果能执行，执行完的结果都是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句在Oracle数据库执行会报错</span></span><br><span class="line"><span class="comment">-- 但是在MySQL中执行是能过的</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面这种写法在Oracle和MySQL中都是能过的</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让我们先分析一下，为什么在使用自然连接的时候同名字段可以不写限定名</p>
+<ul>
+<li><p>先看看执行下面的语句有什么结果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br></pre></td></tr></table></figure>
+<p>得到下面结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-24eeb8dd9e7220e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+</li>
+<li>可以看出来，采用自然连接以后，原本的同名字段DEPTNO只出现了一次,可以理解为采用自然连接以后FROM子句的结果就是上面那张表，同时原来的同名字段合成了一个。所以在SELECT子句中书写的时候可以不加表限定名（在Oracle数据库中不能加表限定名）</li>
+</ul>
+</li>
+<li>让我们对上面的结果小结一下<ul>
+<li>在采用自然连接的时候，对于同名字段，可以不写表限定名</li>
+<li>至于能不能写，得看具体是什么数据库，Oracle此种情况下就不允许在同名字段前写表限定名，而MySQL中则可以</li>
+<li>所以推荐是在<strong>采用自然连接的时候</strong>，<strong>非同名字段都加上限定名，同名字段都不加</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="下面是在多表操作中的一点建议"><a href="#下面是在多表操作中的一点建议" class="headerlink" title="下面是在多表操作中的一点建议"></a>下面是在多表操作中的一点建议</h3><ul>
+<li>在多表连接中，所有的字段前面都建议加上限定名</li>
+<li>特殊的是，在使用自然连接的时候，同名字段不要写限定名</li>
+</ul>
+</li>
+<li><h3 id="有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"><a href="#有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。" class="headerlink" title="有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"></a>有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面这个栗子没有实际执行，想象一下就好</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 假设我们给部门表的部门名字段更名：DNAME--&gt;ENAME</span></span><br><span class="line"><span class="comment">-- 然后我们仍然执行上面的例子</span></span><br><span class="line"><span class="comment">-- 结果应该是没有数据，除非有一个员工，他的名字和他所在部门的名字是一样的。</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.ENMAE</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导致上面结果的原因是采用了自然连接以后，数据库会把所有同名并且类型相同的字段作为连接条件</p>
+</li>
+<li>有时候我们并不希望所有的同名字段都作为条件，这个时候我们就不能用上面的自然连接操作，就应该使用介绍的有关JOIN … USING的用法</li>
+</ul>
+</li>
+<li><h3 id="利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件"><a href="#利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件" class="headerlink" title="利用JOIN … USING 可以灵活的指定用什么字段做连接条件"></a>利用JOIN … USING 可以灵活的指定用什么字段做连接条件</h3><ul>
+<li>JOIN…USING 同样是一种自然连接，且是一种特殊的自然连接，不需要显示写明连接条件，只需要指定用什么字段连接即可</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 用下面的语句同样可以实现查询所有员工名字以及其所在部门名字的需求</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">USING</span> (DEPTNO);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 同样的，如果我们给部门表的部门名字段更名：DNAME--&gt;ENAME</span></span><br><span class="line"><span class="comment">-- 为了避免上面提到的问题，我们可以只指定DEPTNO作为连接条件，就轻松解决上面的问题</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.ENAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">USING</span> (DEPTNO);</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-22a77fd9ef19119d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+</li>
+<li>其中<strong>JOIN 表名 USING (字段序列)</strong>，字段序列可以是一个或多个字段</li>
+</ul>
+</li>
+<li><h3 id="如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"><a href="#如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的" class="headerlink" title="如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"></a>如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的</h3></li>
+<li><h3 id="连接类型和连接条件-就是老师上课提到的课本上那个图"><a href="#连接类型和连接条件-就是老师上课提到的课本上那个图" class="headerlink" title="连接类型和连接条件(就是老师上课提到的课本上那个图)"></a>连接类型和连接条件(就是老师上课提到的课本上那个图)</h3><ul>
+<li><h4 id="连接类型"><a href="#连接类型" class="headerlink" title="连接类型"></a>连接类型</h4><ul>
+<li>INNER JOIN</li>
+<li>LEFT OUTER JOIN</li>
+<li>RIGHT OUTER JOIN</li>
+<li>FULL OUTER JOIN</li>
+</ul>
+</li>
+<li><h4 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h4><ul>
+<li>NATURAL</li>
+<li>ON&lt; predicate></li>
+<li>USING(A1, A2, …, An)</li>
+</ul>
+</li>
+<li>其中上面的连接类型和连接条件可以任意组合使用</li>
+<li>但不是所有数据库都支持NATURAL 和 USING的用法，SQL Server不支持，Oracle和MySQL支持，即便支持，有一些细节还是不一样的（比如上面同名字段前面能不能加限定词的问题）</li>
+<li>ON的话是都支持的，建议用ON，有更好的可读性和灵活性</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="FROM子句中的子查询"><a href="#FROM子句中的子查询" class="headerlink" title="FROM子句中的子查询"></a>FROM子句中的子查询</h2></blockquote>
+<ul>
+<li><h3 id="如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"><a href="#如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表" class="headerlink" title="如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"></a>如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的例子求出了工资比本部门平均工资高的员工的名字和其工资，以及其所在部门的平均工资</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-7ba5a1d249d51f88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+</li>
+<li>分析上面的执行过程的时候，可以先分析一下子查询执行的结果是什么，然后再把它当做一张表放在上面，继续分析整个语句</li>
+</ul>
+</li>
+<li><h3 id="可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"><a href="#可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字" class="headerlink" title="可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"></a>可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字</h3><ul>
+<li><p>最常见的是下面这种命名方法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E(DEPTNO, avg_sal)</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>直接在子查询后面用as关系指定表名以及子查询结果中每个字段的别名</li>
+</ul>
+</li>
+<li><p>但是也不是所有数据库都支持上面那种用法，Oracle数据库中就不支持用as关键字指定子查询的表名，也不支持在表名后面加上每个字段的名字，那这个时候怎么办呢？（<strong>可以在子查询里面给每个字段取别名，最后再给子查询得到的虚表用空格分隔取个表名就好了</strong>）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) E</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>下面提几点注意（对于FROM子句中的子查询）</strong>：</p>
+<ul>
+<li>如果子查询中含有聚集函数（组函数）,一定要给它起个别名</li>
+<li>对每个子查询得到的虚表都务必取个表名（虽然有些数据库可以不起表名，但是有些数据库不起表名是会出错的，所以建议还是都起一个表名）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="With-子句"><a href="#With-子句" class="headerlink" title="With 子句"></a>With 子句</h2><p>其实with子句的作用和在FROM子句中使用子查询时一样的，同样是得到了一张虚表，只是把FROM中冗长的子查询移到外面，可读性 更好一点</p>
+</blockquote>
+<ul>
+<li><h3 id="with子句的作用是定义一张临时表"><a href="#with子句的作用是定义一张临时表" class="headerlink" title="with子句的作用是定义一张临时表"></a>with子句的作用是定义一张临时表</h3></li>
+<li><h3 id="WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"><a href="#WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多" class="headerlink" title="WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"></a>WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多</h3></li>
+<li><h3 id="WITH-的基本使用方法"><a href="#WITH-的基本使用方法" class="headerlink" title="WITH 的基本使用方法"></a>WITH 的基本使用方法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WITH &lt; 临时表名 &gt; （字段别名序列）AS (子查询)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的例子和上面找大于本部门平均工资的例子是等效的</span></span><br><span class="line"><span class="comment">-- 执行的结果也是相同的</span></span><br><span class="line">WITH avg_tab(DEPTNO, avg_sal)</span><br><span class="line">AS (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">    <span class="keyword">FROM</span> EMP</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO)</span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, avg_tab.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, avg_tab</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = avg_tab.DEPTNO <span class="keyword">AND</span> e.SAL &gt; avg_tab.avg_sal;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句和上面的等效</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E(DEPTNO, avg_sal)</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="标量子查询"><a href="#标量子查询" class="headerlink" title="标量子查询"></a>标量子查询</h2></blockquote>
+<ul>
+<li><h3 id="把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING"><a href="#把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING" class="headerlink" title="把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING"></a>把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING</h3></li>
+<li><h3 id="子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"><a href="#子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）" class="headerlink" title="子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"></a>子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）</h3><blockquote>
+<h2 id="带子查询的DELETE语句"><a href="#带子查询的DELETE语句" class="headerlink" title="带子查询的DELETE语句"></a>带子查询的DELETE语句</h2></blockquote>
+</li>
+<li><p>举个栗子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句可以用来删除所有销售部的员工的信息</span></span><br><span class="line"><span class="keyword">DELETE</span></span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> DEPTNO = (</span><br><span class="line">  <span class="keyword">SELECT</span> DEPT.DEPTNO</span><br><span class="line">  <span class="keyword">FROM</span> DEPT</span><br><span class="line">  <span class="keyword">WHERE</span> DNAME = <span class="string">'SALES'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="带子查询的INSERT语句"><a href="#带子查询的INSERT语句" class="headerlink" title="带子查询的INSERT语句"></a>带子查询的INSERT语句</h2></blockquote>
+<ul>
+<li><p>基本格式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> &lt; 表名 &gt;（字段序列）</span><br><span class="line">子查询</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于SQL Server中是没有dual这张系统表的，而Oracle和MySQL数据库中是有的，所以下面的测试是在MySQL中测试的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句很巧妙的实现了：</span></span><br><span class="line"><span class="comment">--如果部门表中没有部门号为666的部门的话，就将摸鱼部门的信息插入到部门表中</span></span><br><span class="line"><span class="comment">--如果部门表中有部门号为666的部门，则不执行插入操作</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT (DEPTNO, DNAME, LOC)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'666'</span>, <span class="string">'MOYU'</span>, <span class="string">'DUT'</span></span><br><span class="line"><span class="keyword">FROM</span> dual</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> *</span><br><span class="line">              <span class="keyword">FROM</span> EMP</span><br><span class="line">              <span class="keyword">WHERE</span> DEPTNO = <span class="string">'666'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="UPDATE语句的扩展"><a href="#UPDATE语句的扩展" class="headerlink" title="UPDATE语句的扩展"></a>UPDATE语句的扩展</h2></blockquote>
+<ul>
+<li><h3 id="有下面几个扩展"><a href="#有下面几个扩展" class="headerlink" title="有下面几个扩展"></a>有下面几个扩展</h3><ul>
+<li>可以嵌入子查询（这个不在举例，和上面的用法类似）</li>
+<li>case分支结构</li>
+</ul>
+</li>
+<li><h3 id="case分支结构-可以有效的避免更新次序引发的问题"><a href="#case分支结构-可以有效的避免更新次序引发的问题" class="headerlink" title="case分支结构(可以有效的避免更新次序引发的问题)"></a>case分支结构(可以有效的避免更新次序引发的问题)</h3><ul>
+<li><p>第一种用法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CASE WHEN &lt;条件&gt;</span><br><span class="line">        THEN ...</span><br><span class="line">     WHEN &lt;条件&gt;</span><br><span class="line">        THEN ...</span><br><span class="line">        ...</span><br><span class="line">    ELSE ...</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二种用法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CASE &lt;条件&gt;</span><br><span class="line">WHEN &lt;值&gt; THEN ...</span><br><span class="line">WHEN &lt;值&gt; THEN ...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对比两种方法，可以将第一种方法类比成其他编程语言的if-else分支语句，而将第二种用法类比成switch语句</p>
+</li>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们的需求是给员工涨工资，工资大于等于3000的涨2%</span></span><br><span class="line"><span class="comment">-- 工资大于等于两千的涨3%</span></span><br><span class="line"><span class="comment">-- 工资小于2000的涨5%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--第一种尝试</span></span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.02</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt;= <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.03</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt;= <span class="number">2000</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.05</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &lt; <span class="number">2000</span>;</span><br><span class="line"><span class="comment">--会发现上面执行的次序不一样会导致结果不一样，如果把第三个更新语句先执行，那么可能某个工资低于2000的员工涨了一次工资后工资大于两千了，于是执行第二个更新语句的时候又给他涨了一遍工资</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 第二种尝试</span></span><br><span class="line"><span class="comment">--下面就完美的实现了上面的需求，而且没有执行次序导致的问题</span></span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="keyword">CASE</span></span><br><span class="line">    <span class="keyword">WHEN</span> SAL &gt;= <span class="number">3000</span> <span class="keyword">THEN</span> SAL * <span class="number">1.02</span></span><br><span class="line">    <span class="keyword">WHEN</span> SAL &gt;= <span class="number">2000</span> <span class="keyword">THEN</span> SAL * <span class="number">1.03</span></span><br><span class="line">    <span class="keyword">ELSE</span> SAL * <span class="number">1.05</span></span><br><span class="line">    <span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="case分支结构不止可以用在update子句中，在select子句中也是有的"><a href="#case分支结构不止可以用在update子句中，在select子句中也是有的" class="headerlink" title="case分支结构不止可以用在update子句中，在select子句中也是有的"></a>case分支结构不止可以用在update子句中，在select子句中也是有的</h4><blockquote>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>啊啊啊啊啊，这个内容还不是三言两语讲的玩的，下次吧下次吧。&gt;.&lt;</p>
+</blockquote>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/26/2017-09-26-数据库学习笔记（六）/" rel="next" title="数据库笔记（六）">
+                <i class="fa fa-chevron-left"></i> 数据库笔记（六）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /" rel="prev" title="数据库笔记（八）——视图 、事务">
+                数据库笔记（八）——视图 、事务 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar-r.jpg"
+                alt="建明 | Ming.J" />
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#自连接"><span class="nav-number">1.</span> <span class="nav-text">自连接</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#举个栗子"><span class="nav-number">1.1.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自然连接（NATURAL-JOIN）"><span class="nav-number">2.</span> <span class="nav-text">自然连接（NATURAL JOIN）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"><span class="nav-number">2.1.</span> <span class="nav-text">可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#当然如果想要执行外连接（左外，右外，全外）也是一样的"><span class="nav-number">2.2.</span> <span class="nav-text">当然如果想要执行外连接（左外，右外，全外）也是一样的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"><span class="nav-number">2.3.</span> <span class="nav-text">在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下面是在多表操作中的一点建议"><span class="nav-number">2.4.</span> <span class="nav-text">下面是在多表操作中的一点建议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"><span class="nav-number">2.5.</span> <span class="nav-text">有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件"><span class="nav-number">2.6.</span> <span class="nav-text">利用JOIN … USING 可以灵活的指定用什么字段做连接条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"><span class="nav-number">2.7.</span> <span class="nav-text">如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接类型和连接条件-就是老师上课提到的课本上那个图"><span class="nav-number">2.8.</span> <span class="nav-text">连接类型和连接条件(就是老师上课提到的课本上那个图)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#连接类型"><span class="nav-number">2.8.1.</span> <span class="nav-text">连接类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#连接条件"><span class="nav-number">2.8.2.</span> <span class="nav-text">连接条件</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#FROM子句中的子查询"><span class="nav-number">3.</span> <span class="nav-text">FROM子句中的子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"><span class="nav-number">3.1.</span> <span class="nav-text">如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"><span class="nav-number">3.2.</span> <span class="nav-text">可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#With-子句"><span class="nav-number">4.</span> <span class="nav-text">With 子句</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#with子句的作用是定义一张临时表"><span class="nav-number">4.1.</span> <span class="nav-text">with子句的作用是定义一张临时表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"><span class="nav-number">4.2.</span> <span class="nav-text">WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#WITH-的基本使用方法"><span class="nav-number">4.3.</span> <span class="nav-text">WITH 的基本使用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举个栗子-1"><span class="nav-number">4.4.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标量子查询"><span class="nav-number">5.</span> <span class="nav-text">标量子查询</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING"><span class="nav-number">5.1.</span> <span class="nav-text">把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"><span class="nav-number">5.2.</span> <span class="nav-text">子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带子查询的DELETE语句"><span class="nav-number">6.</span> <span class="nav-text">带子查询的DELETE语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带子查询的INSERT语句"><span class="nav-number">7.</span> <span class="nav-text">带子查询的INSERT语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UPDATE语句的扩展"><span class="nav-number">8.</span> <span class="nav-text">UPDATE语句的扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#有下面几个扩展"><span class="nav-number">8.1.</span> <span class="nav-text">有下面几个扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case分支结构-可以有效的避免更新次序引发的问题"><span class="nav-number">8.2.</span> <span class="nav-text">case分支结构(可以有效的避免更新次序引发的问题)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#case分支结构不止可以用在update子句中，在select子句中也是有的"><span class="nav-number">8.2.1.</span> <span class="nav-text">case分支结构不止可以用在update子句中，在select子句中也是有的</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图"><span class="nav-number">9.</span> <span class="nav-text">视图</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/09/29/2017-09-29-数据库学习笔记（七）/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/99614/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("eyIFq6kYslRSDIa8lqlCIThp-gzGzoHsz", "iUAeNEuxcBmYdpgAATCh4AlH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
