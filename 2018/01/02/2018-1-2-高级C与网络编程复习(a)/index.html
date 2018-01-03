@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-03T09:09:36.316Z">
+<meta property="og:updated_time" content="2018-01-03T11:21:25.875Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（一）">
 <meta name="twitter:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
@@ -483,6 +483,10 @@
 <li>还有就是收到EOF（文件结束指针）。如果是tcp socket，<strong>则当对方关闭了写一端的时候，会向本机发送一个FIN，标识对方已经发完数据了。此时read的阻塞状态便会解除</strong>。同样的，如果对方给调用close函数关闭了socket，read函数也会解除阻塞（关闭socket相当于写端和读端都关闭了）</li>
 </ul>
 </li>
+<li><ul>
+<li>对比<a href="./#read">write</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><h4 id="fputs"><a href="#fputs" class="headerlink" title="fputs()"></a><a href="https://baike.baidu.com/item/fputs/10942345" target="_blank" rel="noopener">fputs()</a></h4><ul>
@@ -523,8 +527,77 @@
 </li>
 </ul>
 </li>
-<li><h3 id="A-Simple-Daytime-Server"><a href="#A-Simple-Daytime-Server" class="headerlink" title="A Simple Daytime Server"></a>A Simple Daytime Server</h3><ul>
-<li></li>
+<li><h3 id="A-Simple-Daytime-Server"><a href="#A-Simple-Daytime-Server" class="headerlink" title="A Simple Daytime Server"></a>A Simple Daytime Server</h3><blockquote>
+<ul>
+<li><p><a href="https://github.com/SunnyQjm/unpv13e/blob/master/unpv13e/intro/daytimetcpsrv.c" target="_blank" rel="noopener">Steven源码地址</a></p>
+</li>
+<li><p><a href="https://github.com/SunnyQjm/unpv13e/blob/master/job/chapter1/daytimeserv.c" target="_blank" rel="noopener">笔者加注释源码地址</a></p>
+</li>
+<li><h4 id="功能：-1"><a href="#功能：-1" class="headerlink" title="功能："></a>功能：</h4><ul>
+<li>实现在13号端口上监听来自任意IP的请求，并向客户端输出时间信息</li>
+<li>没做并发处理，一次只能向一个客户端提供服务</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">int</span> argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> listenfd, connfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> buff[MAXLINE];</span><br><span class="line">    <span class="keyword">time_t</span> ticks;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用包裹函数，创建一个socket</span></span><br><span class="line">    listenfd = Socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">13</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//指定socket的地址为INADDR_ANY，标识监听来自所有地址的请求</span></span><br><span class="line">    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将socket绑定到指定的端口，只在指定的端口监听来自客户端的请求</span></span><br><span class="line">    Bind(listenfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用Lisen可将socket转换成一个监听套接字，监听套接字可用于监听其他客户端的请求</span></span><br><span class="line">    Listen(listenfd, LISTENQ);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        <span class="comment">//accpet函数是一个阻塞函数，死等一个连接请求。</span></span><br><span class="line">        <span class="comment">//当监听到一个请求，就返回一个已连接描述符（该描述符用于与新连接的那个客户端通信）</span></span><br><span class="line">        connfd = Accept(listenfd, (SA *) <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取当前系统的时间</span></span><br><span class="line">        ticks = time(<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将当前时间输出到buff数组中</span></span><br><span class="line">        <span class="built_in">snprintf</span>(buff, <span class="keyword">sizeof</span>(buff), <span class="string">"%.24s\r\n"</span>, ctime(&amp;ticks));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将buff中的数据发给客户端</span></span><br><span class="line">        Write(connfd, buff, <span class="built_in">strlen</span>(buff));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//关闭socket连接</span></span><br><span class="line">        Close(connfd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a><a href="https://baike.baidu.com/item/bind%28%29?fromtitle=bind&amp;fromid=17200415" target="_blank" rel="noopener">bind()</a></h4><ul>
+<li><p>原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****</span></span><br><span class="line"><span class="comment">*  sockfd：   标识一未捆绑套接口的描述字。</span></span><br><span class="line"><span class="comment">*  my_addr：  赋予套接口的地址。sockaddr结构定义如下：</span></span><br><span class="line"><span class="comment">*             struct sockaddr&#123;</span></span><br><span class="line"><span class="comment">*               u_short sa_family;</span></span><br><span class="line"><span class="comment">*               char sa_data[14];</span></span><br><span class="line"><span class="comment">*             &#125;;</span></span><br><span class="line"><span class="comment">*  addrlen：  name名字的长度。</span></span><br><span class="line"><span class="comment">*  返回值：    成功返回0，失败返回-1.</span></span><br><span class="line"><span class="comment">****/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">( <span class="keyword">int</span> sockfd , <span class="keyword">const</span> struct sockaddr * my_addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将一个本地地址与一个套接字捆绑，通常在connect或listen函数调用前使用</p>
+</li>
+</ul>
+</li>
+<li><h4 id="listen"><a href="#listen" class="headerlink" title="listen()"></a><a href="">listen()</a></h4><ul>
+<li><p>原型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数</p>
+<ul>
+<li><strong>不是允许的最大并发数</strong></li>
+<li><strong>在监听描述符上排队的客户</strong> ==&gt; 客户的请求被listen到了，但是还没有被accept处理，那么这个客户的请求便在该监听描述符上排队，等待被accpet</li>
+<li>通常情况下，accpet以后就调用新线程或新进程处理了，所以很快就可以再accept，所以一般在监听描述符上排队的客户数不会很多</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="accept"><a href="#accept" class="headerlink" title="accept()"></a><a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">accept()</a></h4><ul>
+<li><p>原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong></p>
+<ul>
+<li>即在函数调用的时候，可以通过这两个参数向函数内部传递内容</li>
+<li>同时在函数调用结束的时候，可以通过这两个参数获取到返回信息</li>
+<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）</li>
+</ul>
+</li>
+<li><strong>accpet为每个连接到本服务器的客户返回一个全新的描述符（唯一标识一个客户）</strong></li>
+</ul>
+</li>
+<li><h4 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf()"></a><a href="https://baike.baidu.com/item/snprintf%28%29?fromtitle=snprintf&amp;fromid=7320492" target="_blank" rel="noopener">snprintf()</a></h4><ul>
+<li><p>原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 向str指向的区域格式化输出size个字节的数据</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">snprintf</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">size_t</span> size, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>用法和printf基本相同</p>
+</li>
+<li>不同的是，<strong>printf是向控制台打印，而snprintf是通过地址指针，向目标区域输出</strong></li>
+</ul>
+</li>
+<li><h4 id="write"><a href="#write" class="headerlink" title="write()"></a><a href="https://baike.baidu.com/item/write/6391023" target="_blank" rel="noopener">write()</a></h4><ul>
+<li><p>原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将buf中count个字节的数据输出到fd标识的文件中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> write (<span class="keyword">int</span> fd,<span class="keyword">const</span> <span class="keyword">void</span> * buf,<span class="keyword">size_t</span> count);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对比<a href="./#read">read()</a></p>
+</li>
+</ul>
+</li>
+<li><h4 id="close"><a href="#close" class="headerlink" title="close()"></a>close()</h4><ul>
+<li>关闭与客户端的连接。该调用引发正常的TCP连接终止序列：<strong>每个方向上（读方向，写方向）发送一个FIN，每个FIN又各自的对端确认</strong></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -730,7 +803,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Client"><span class="nav-number">1.1.</span> <span class="nav-text">A Simple Daytime Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能："><span class="nav-number">1.1.1.</span> <span class="nav-text">功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-sockaddr-in"><span class="nav-number">1.1.2.</span> <span class="nav-text">struct sockaddr_in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket"><span class="nav-number">1.1.3.</span> <span class="nav-text">socket()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bzero"><span class="nav-number">1.1.4.</span> <span class="nav-text">bzero</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#htons"><span class="nav-number">1.1.5.</span> <span class="nav-text">htons()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inet-pton"><span class="nav-number">1.1.6.</span> <span class="nav-text">inet_pton()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect"><span class="nav-number">1.1.7.</span> <span class="nav-text">connect()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#read"><span class="nav-number">1.1.8.</span> <span class="nav-text">read()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fputs"><span class="nav-number">1.1.9.</span> <span class="nav-text">fputs()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV6版本"><span class="nav-number">1.1.10.</span> <span class="nav-text">IPV6版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些关于教材的扩展介绍"><span class="nav-number">1.2.</span> <span class="nav-text">一些关于教材的扩展介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#包裹函数（wrapper-function）"><span class="nav-number">1.2.1.</span> <span class="nav-text">包裹函数（wrapper function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unix-errno-值"><span class="nav-number">1.2.2.</span> <span class="nav-text">Unix errno 值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Server"><span class="nav-number">1.3.</span> <span class="nav-text">A Simple Daytime Server</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Client"><span class="nav-number">1.1.</span> <span class="nav-text">A Simple Daytime Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能："><span class="nav-number">1.1.1.</span> <span class="nav-text">功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-sockaddr-in"><span class="nav-number">1.1.2.</span> <span class="nav-text">struct sockaddr_in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket"><span class="nav-number">1.1.3.</span> <span class="nav-text">socket()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bzero"><span class="nav-number">1.1.4.</span> <span class="nav-text">bzero</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#htons"><span class="nav-number">1.1.5.</span> <span class="nav-text">htons()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inet-pton"><span class="nav-number">1.1.6.</span> <span class="nav-text">inet_pton()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect"><span class="nav-number">1.1.7.</span> <span class="nav-text">connect()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#read"><span class="nav-number">1.1.8.</span> <span class="nav-text">read()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fputs"><span class="nav-number">1.1.9.</span> <span class="nav-text">fputs()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV6版本"><span class="nav-number">1.1.10.</span> <span class="nav-text">IPV6版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些关于教材的扩展介绍"><span class="nav-number">1.2.</span> <span class="nav-text">一些关于教材的扩展介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#包裹函数（wrapper-function）"><span class="nav-number">1.2.1.</span> <span class="nav-text">包裹函数（wrapper function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unix-errno-值"><span class="nav-number">1.2.2.</span> <span class="nav-text">Unix errno 值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Server"><span class="nav-number">1.3.</span> <span class="nav-text">A Simple Daytime Server</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能：-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind"><span class="nav-number">1.3.2.</span> <span class="nav-text">bind()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#listen"><span class="nav-number">1.3.3.</span> <span class="nav-text">listen()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#accept"><span class="nav-number">1.3.4.</span> <span class="nav-text">accept()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#snprintf"><span class="nav-number">1.3.5.</span> <span class="nav-text">snprintf()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#write"><span class="nav-number">1.3.6.</span> <span class="nav-text">write()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#close"><span class="nav-number">1.3.7.</span> <span class="nav-text">close()</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
