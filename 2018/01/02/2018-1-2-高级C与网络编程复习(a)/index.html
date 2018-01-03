@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上">
+<meta name="description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
 <meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高级C与网络编程复习（一）">
 <meta property="og:url" content="http://qjm253.cn/2018/01/02/2018-1-2-高级C与网络编程复习(a)/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上">
+<meta property="og:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-03T07:57:08.144Z">
+<meta property="og:updated_time" content="2018-01-03T09:09:36.316Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（一）">
-<meta name="twitter:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上">
+<meta name="twitter:description" content="Introduction A Simple Daytime Client A Simple Daytime Server    A Simple Daytime Client  Steven源码地址  笔者加注释源码地址  功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上     1234567891011121314151617181920212223242">
 
 
 
@@ -416,7 +416,7 @@
 </li>
 </ul>
 </blockquote>
-<!-- <figure class="highlight c"><figcaption><span>daytimecli.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">--&gt;</span><br><span class="line"> &lt;!--￼<span class="number">0</span>--&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- </span><br></pre></td></tr></table></figure> –&gt;
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</span><br><span class="line">    <span class="comment">/*sockfd 套接字描述符，客户端通过该描述符与服务器进行通信（它指示一个与服务器的连接）*/</span></span><br><span class="line">    <span class="keyword">int</span> sockfd, n;</span><br><span class="line">    <span class="keyword">char</span> recvline[MAXLINE + <span class="number">1</span>];         <span class="comment">/*接收缓存*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*服务器地址，用来保存服务器的地址信息（该结构体专门保存IPV4地址），包括ip和端口*/</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*如果输入参数不够，则报错并退出*/</span></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: daytimecli &lt;IPAddress&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*通过socket函数创建一个套接字，创建失败则退出*/</span></span><br><span class="line">    <span class="keyword">if</span>( (sockfd == socket(AF_INET, SOCK_STREAM, <span class="number">0</span>) ) &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"socket error"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*清0*/</span></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;      <span class="comment">/*指定协议族为网际协议族*/</span></span><br><span class="line">    servaddr.sin_port = htons(<span class="number">13</span>);      <span class="comment">/*指定端口为13*/</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/*将用户从命令行输入的IP存到servaddr中，如果用户输入的格式不正确*/</span></span><br><span class="line">    <span class="comment">/*则该函数会返回小于0的错误信息，此时退出应用程序*/</span></span><br><span class="line">    <span class="keyword">if</span>(inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr) &lt;= <span class="number">0</span>)</span><br><span class="line">        err_quit(<span class="string">"inet_pton error for %s"</span>, argv[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*连接到servaddr指向的服务器，连接失败则退出*/</span></span><br><span class="line">    <span class="keyword">if</span>(connect(sockfd, (SA *)&amp;servaddr, <span class="keyword">sizeof</span>(servaddr)) &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"connect error"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*读取服务器发回的信息*/</span></span><br><span class="line">    <span class="keyword">while</span>( (n = read(sockfd, recvline, MAXLINE)) &gt; <span class="number">0</span> )&#123;</span><br><span class="line">        recvline[n] = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*输出到控制台*/</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="built_in">fputs</span>(recvline, <span class="built_in">stdout</span>) == EOF)</span><br><span class="line">            err_sys(<span class="string">"fputs error"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"read error"</span>);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><h4 id="struct-sockaddr-in"><a href="#struct-sockaddr-in" class="headerlink" title="struct sockaddr_in"></a>struct sockaddr_in</h4><ul>
 <li><p>组成</p>
@@ -426,7 +426,7 @@
 </li>
 </ul>
 </li>
-<li><h4 id="socket"><a href="#socket" class="headerlink" title="socket"></a><a href="https://baike.baidu.com/item/Socket/281150#4">socket</a></h4><ul>
+<li><h4 id="socket"><a href="#socket" class="headerlink" title="socket()"></a><a href="https://baike.baidu.com/item/Socket/281150#4" target="_blank" rel="noopener">socket()</a></h4><ul>
 <li><p>原型</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 该函数用于创建一个socket套接字</span></span><br><span class="line"><span class="comment">* @param domin    协议族/地址族</span></span><br><span class="line"><span class="comment">* @param type     套接字的类型</span></span><br><span class="line"><span class="comment">*                 SOCK_STREAM ==&gt; TCP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_DGRAM  ==&gt; UDP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_RAW    ==&gt; RAW套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_PACKET ==&gt; 可用于创建路由套接字等</span></span><br><span class="line"><span class="comment">* @param protocol 指定协议</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         返回一个socket描述符 sockfd</span></span><br><span class="line"><span class="comment">*                 sockfd &lt; 0  ==&gt; 创建失败</span></span><br><span class="line"><span class="comment">*                 sockfd &gt;= 0 ==&gt; 创建成功，之后可用该sockfd进行IO操作</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
@@ -438,13 +438,13 @@
 <li><p>原型</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* bzero为一个宏函数，实际上调用的是memset</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> bzero(ptr, n)   memset(ptr, 0, n)</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p><a href="https://baike.baidu.com/item/memset/4747579?fr=aladdin">void <em>memset(void </em>s, int ch, size_t n);</a> ==&gt; 以s所指为起始，<strong>将紧接着的n位置成ch(0/1)</strong></p>
+<li><p><a href="https://baike.baidu.com/item/memset/4747579?fr=aladdin" target="_blank" rel="noopener">void <em>memset(void </em>s, int ch, size_t n);</a> ==&gt; 以s所指为起始，<strong>将紧接着的n位置成ch(0/1)</strong></p>
 </li>
 <li><p><strong>bzero(ptr, n)</strong>  ==&gt;  以ptr所指为起始，<strong>将紧接着的n位置成 0</strong> (可以达到清0的效果)</p>
 </li>
 </ul>
 </li>
-<li><h4 id="htons"><a href="#htons" class="headerlink" title="htons"></a><a href="https://baike.baidu.com/item/htons">htons</a></h4><ul>
+<li><h4 id="htons"><a href="#htons" class="headerlink" title="htons()"></a><a href="https://baike.baidu.com/item/htons" target="_blank" rel="noopener">htons()</a></h4><ul>
 <li><p>原型</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个无符号短整型从主机字节序转网络字节序</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">u_short <span class="title">htons</span><span class="params">(u_short hostshort)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
@@ -452,7 +452,7 @@
 </li>
 </ul>
 </li>
-<li><h4 id="inet-pton"><a href="#inet-pton" class="headerlink" title="inet_pton"></a><a href="https://baike.baidu.com/item/inet_pton">inet_pton</a></h4><ul>
+<li><h4 id="inet-pton"><a href="#inet-pton" class="headerlink" title="inet_pton()"></a><a href="https://baike.baidu.com/item/inet_pton" target="_blank" rel="noopener">inet_pton()</a></h4><ul>
 <li><p>原型：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将“点分十进制” --&gt; “二进制整数”</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param af   address family(地址族)</span></span><br><span class="line"><span class="comment">* @param src  指向一个字符串，这个字符串为一个点分十进制的串，例如："192.168.1.1"</span></span><br><span class="line"><span class="comment">* @param dst  指向一个数据结构，用来存储转换后的结果</span></span><br><span class="line"><span class="comment">*             如果af = AF_INET, 即为ipv4地址转换，则函数会将结果放在一个in_addr结构体中</span></span><br><span class="line"><span class="comment">*             如果af = AF_INET6, 即为ipv6地址转换，则函数会将结果放在一个in_addr6结构体中</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return   如果函数出错则返回一个负值，并将errno置为EAFNOSUPPORT。</span></span><br><span class="line"><span class="comment">*           如果参数af指定的地址族和src格式不对，则返回0</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_pton</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">char</span> *src, <span class="keyword">void</span> *dst)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
@@ -460,17 +460,75 @@
 </li>
 </ul>
 </li>
-<li><h4 id="connect"><a href="#connect" class="headerlink" title="connect"></a><a href="https://baike.baidu.com/item/connect%28%29">connect</a></h4><ul>
+<li><h4 id="connect"><a href="#connect" class="headerlink" title="connect()"></a><a href="https://baike.baidu.com/item/connect%28%29" target="_blank" rel="noopener">connect()</a></h4><ul>
 <li><p>原型：</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 该函数用于建立与指定socket的连接</span></span><br><span class="line"><span class="comment">* @param s        一个未连接的socket的描述符</span></span><br><span class="line"><span class="comment">* @param name     指向要连接的套接字的sockaddr结构体的指针</span></span><br><span class="line"><span class="comment">* @param namelen  上述sockaddr结构体的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         成功则返回0, 失败返回-1, 错误原因存于errno 中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">const</span> struct sockaddr * name, <span class="keyword">int</span> namelen)</span></span>;</span><br></pre></td></tr></table></figure>
 </li>
+<li><p>为了书写简便，原书作者对上述函数的第二个参数做了一层宏定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SA struct sockaddr</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>所以在上面的daytimecli.c 中调用connect的时候，用SA简化了书写，实际上 SA = struct sockaddr</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect(sockfd, (SA *)&amp;servaddr, <span class="keyword">sizeof</span>(servaddr)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="read"><a href="#read" class="headerlink" title="read()"></a><a href="https://baike.baidu.com/item/read%28%29" target="_blank" rel="noopener">read()</a></h4><ul>
+<li><p>原型：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 从fd所指向的文件中传送count个字节到buf中</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param fd      指向一个文件的指针（可以是socket fd）</span></span><br><span class="line"><span class="comment">* @param buf     指向一个数组的指针，用做缓存，存取从fd中读出的数据</span></span><br><span class="line"><span class="comment">* @param count   读取的大小</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return        返回值为实际读取到的字节数</span></span><br><span class="line"><span class="comment">*                如果返回0，表示已到达文件尾或无可读取的数据。</span></span><br><span class="line"><span class="comment">*                错误返回-1,并将根据不同的错误原因适当的设置错误码</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> read(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果read函数中传入的文件描述符为sockfd，则表示从网络中读取count字节的数据并存到buf中。</p>
+</li>
+<li>read函数是一个<strong>阻塞函数</strong>，如果没有读够count个字节，会一直在那边死等，下面两种情况下read函数和的阻塞状态会解除<ul>
+<li>如果一个信号的到来，会导致主线程因为去执行信号的回调函数，而解除阻塞函数的阻塞状态。并将errno置成<a href="https://baike.baidu.com/item/EINTR" target="_blank" rel="noopener">EINTR</a>。表示因为信号中断而退出。（<strong><em>不过现在的系统好像做了优化处理，即便定义了某些信号的处理函数，当该信号到来时，该回调会执行，但同时却不会引发中断错误</em></strong>）</li>
+<li>还有就是收到EOF（文件结束指针）。如果是tcp socket，<strong>则当对方关闭了写一端的时候，会向本机发送一个FIN，标识对方已经发完数据了。此时read的阻塞状态便会解除</strong>。同样的，如果对方给调用close函数关闭了socket，read函数也会解除阻塞（关闭socket相当于写端和读端都关闭了）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="fputs"><a href="#fputs" class="headerlink" title="fputs()"></a><a href="https://baike.baidu.com/item/fputs/10942345" target="_blank" rel="noopener">fputs()</a></h4><ul>
+<li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 向指定的文件中写入一个字符串</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param ptr     指向待写入的字符串</span></span><br><span class="line"><span class="comment">* @param stream  指向目标文件的一个文件指针（文件指针由fopen获得）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return        函数返回值为一般非负整数，如果返回EOF(常值，为-1)，则标识读到文件尾</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* ptr, FILE* stream)</span></span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="IPV6版本"><a href="#IPV6版本" class="headerlink" title="IPV6版本"></a>IPV6版本</h4><ul>
+<li>上面的程序是支持IPV，<a href="https://github.com/SunnyQjm/unpv13e/blob/master/unpv13e/intro/daytimetcpcliv6.c" target="_blank" rel="noopener">点击此处有IPV6版本的代码</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="一些关于教材的扩展介绍"><a href="#一些关于教材的扩展介绍" class="headerlink" title="一些关于教材的扩展介绍"></a>一些关于教材的扩展介绍</h3><ul>
+<li><h4 id="包裹函数（wrapper-function）"><a href="#包裹函数（wrapper-function）" class="headerlink" title="包裹函数（wrapper function）"></a>包裹函数（wrapper function）</h4><ul>
+<li>linux系统内核的c语言函数名都是小写的，如果之后的代码中出现了<strong>大写开头的函数</strong>，则表示是原书作者<strong>对内核函数做了一层包装</strong>，加了一些错误判断等，使用起来更加方便，这些即作者所说的<strong>包裹函数（wrapper function）</strong></li>
+<li><p>举个栗子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Socket</span><span class="params">(<span class="keyword">int</span> family, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> n;</span><br><span class="line">  <span class="keyword">if</span>( (n = socket(family, type, protocol)) &lt; <span class="number">0</span> )</span><br><span class="line">    err_sys(<span class="string">"socket error"</span>);</span><br><span class="line">  <span class="keyword">return</span>(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面这个函数便是作者对内核的socket函数做了一层封装，功能和socket函数时候一样的，只不过在出错的时候，这个函数已经帮你将错误打印出来了，如果不需要什么其它特殊处理的话。在使用Socket函数的时候变可以不需要错误处理了</li>
+<li>下面展示会了没有使用包裹函数和使用了包裹函数的区别<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不使用包裹函数</span></span><br><span class="line"><span class="keyword">if</span>( (sockfd == socket(AF_INET, SOCK_STREAM, <span class="number">0</span>) ) &lt; <span class="number">0</span>)</span><br><span class="line">  err_sys(<span class="string">"socket error"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//使用包裹函数</span></span><br><span class="line">Socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>原书作者定义的包裹函数大致符合下列规则</p>
+<ul>
+<li><strong>名字和被包裹的函数一致，只是首字母大写</strong></li>
+<li><strong>函数的参数数量和意义和被包裹的函数一致</strong></li>
+<li><strong>函数的行为与被包裹的函数保持一致</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="Unix-errno-值"><a href="#Unix-errno-值" class="headerlink" title="Unix errno 值"></a>Unix errno 值</h4><ul>
+<li><a href="https://baike.baidu.com/item/errno" target="_blank" rel="noopener">error</a> 为一个<strong>全局变量</strong></li>
+<li>当<strong>Unix中的函数</strong>执行过程中<strong>有错误发生</strong>，则<strong>errno</strong>就被<strong>置为一个指明该错误类型的正值</strong>，而函数本身通常返回-1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="A-Simple-Daytime-Server"><a href="#A-Simple-Daytime-Server" class="headerlink" title="A Simple Daytime Server"></a>A Simple Daytime Server</h3><ul>
 <li></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
---></li></ul>
+
       
     </div>
     
@@ -506,8 +564,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/31/2017-12-31-软件工程复习（k）/" rel="next" title="软件工程复习（十一）">
-                <i class="fa fa-chevron-left"></i> 软件工程复习（十一）
+              <a href="/2017/12/31/2017-12-31-软件工程复习（j）/" rel="next" title="软件工程复习（十）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（十）
               </a>
             
           </div>
@@ -672,7 +730,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Client"><span class="nav-number">1.1.</span> <span class="nav-text">A Simple Daytime Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能："><span class="nav-number">1.1.1.</span> <span class="nav-text">功能：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Client"><span class="nav-number">1.1.</span> <span class="nav-text">A Simple Daytime Client</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#功能："><span class="nav-number">1.1.1.</span> <span class="nav-text">功能：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#struct-sockaddr-in"><span class="nav-number">1.1.2.</span> <span class="nav-text">struct sockaddr_in</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#socket"><span class="nav-number">1.1.3.</span> <span class="nav-text">socket()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bzero"><span class="nav-number">1.1.4.</span> <span class="nav-text">bzero</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#htons"><span class="nav-number">1.1.5.</span> <span class="nav-text">htons()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#inet-pton"><span class="nav-number">1.1.6.</span> <span class="nav-text">inet_pton()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#connect"><span class="nav-number">1.1.7.</span> <span class="nav-text">connect()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#read"><span class="nav-number">1.1.8.</span> <span class="nav-text">read()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fputs"><span class="nav-number">1.1.9.</span> <span class="nav-text">fputs()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPV6版本"><span class="nav-number">1.1.10.</span> <span class="nav-text">IPV6版本</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一些关于教材的扩展介绍"><span class="nav-number">1.2.</span> <span class="nav-text">一些关于教材的扩展介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#包裹函数（wrapper-function）"><span class="nav-number">1.2.1.</span> <span class="nav-text">包裹函数（wrapper function）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unix-errno-值"><span class="nav-number">1.2.2.</span> <span class="nav-text">Unix errno 值</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Simple-Daytime-Server"><span class="nav-number">1.3.</span> <span class="nav-text">A Simple Daytime Server</span></a></li></ol></li></ol></div>
             
 
           </div>
