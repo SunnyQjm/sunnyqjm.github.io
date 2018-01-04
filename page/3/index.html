@@ -303,6 +303,393 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（d）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（d）/" itemprop="url">软件工程复习（四）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
+                2017-12-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/23/2017-12-23-软件工程复习（d）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（d）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/12/23/2017-12-23-软件工程复习（d）/" class="leancloud_visitors" data-flag-title="软件工程复习（四）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="结构化设计（Structured-Design-SD）-整体understanding"><a href="#结构化设计（Structured-Design-SD）-整体understanding" class="headerlink" title="结构化设计（Structured Design, SD）     (整体understanding)"></a>结构化设计（Structured Design, SD）     (整体understanding)</h2><p>结构化设计工作通常划分为<strong><em>概要设计和详细设计</em></strong>两个阶段</p>
+<ul>
+<li><strong>概要设计</strong>又称<strong>总体设计</strong>或<strong>初步设计</strong></li>
+<li>概要设计的主要任务：分析软件规格说明（来自需求分析的输出）,对软件进行功能分解，<strong>划分为模块</strong>，设计出<strong>模块结构</strong></li>
+<li>详细设计阶段：详细设计<strong>每个模块</strong>，确定每个模块功能的<strong>算法</strong>和<strong>数据结构</strong></li>
+</ul>
+<h2 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h2><p>总体设计过程通常由两个主要阶段组成：<strong>系统设计阶段</strong>，确定系统的具体实现方案;<strong>结构设计阶段</strong>，确定软件结构。</p>
+</blockquote>
+<ul>
+<li>设想供选择的方案</li>
+<li>选择合理的方案</li>
+<li>推荐最佳方案</li>
+<li>功能分解</li>
+<li>设计软件结构</li>
+<li>设计数据库</li>
+<li>制定测试计划</li>
+<li>书写文档</li>
+<li>复查和复审</li>
+</ul>
+<blockquote>
+<h2 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h2></blockquote>
+<ul>
+<li><h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><ul>
+<li><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul>
+<li>模块是由边界元素限定的相邻的程序元素的序列，而且有一个总体标识符来代表。</li>
+<li>面向对象范型中的对象是模块，对象内的方法也是模块。<strong>模块是构成程序的基本构件</strong>。</li>
+<li>每个<strong>模块</strong>完成一个<strong>子功能</strong>，把这些模块集成起来<strong>构成</strong>一个<strong>整体</strong>，可以完成指定的功能<strong>满足</strong>用户的<strong>需求</strong></li>
+</ul>
+</li>
+<li><h4 id="模块化和软件成本"><a href="#模块化和软件成本" class="headerlink" title="模块化和软件成本"></a>模块化和软件成本</h4><img src="/img/se_27.jpg" title="模块化和软件成本">
+<ul>
+<li>每一个程序都相应地有一个最适当的模块书目M，使系统的开发成本最小</li>
+</ul>
+</li>
+<li><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
+<li><strong>结构清晰</strong></li>
+<li><strong>容易阅读和理解</strong></li>
+<li><strong>容易测试和调试</strong></li>
+<li>有助于提高软件的<strong>可靠性</strong></li>
+<li><strong>可修改性</strong></li>
+<li><strong>便于组织和管理</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><ul>
+<li>把事物、状态或过程之间存在的<strong>共性集中概括</strong>起来，暂时忽略他们之间的差异，这就是抽象</li>
+</ul>
+</li>
+<li><h3 id="逐步求精"><a href="#逐步求精" class="headerlink" title="逐步求精"></a>逐步求精</h3><ul>
+<li>为了能<strong>集中</strong>精力<strong>解决主要问题</strong>而尽量<strong>推迟</strong>对问题<strong>细节的考虑</strong></li>
+<li>求精实际上就是细化的过程<blockquote>
+<p>抽象与求精是一对互补的概念</p>
+<ul>
+<li>抽象使得设计者能够说明过程和数据，同时却忽略低层细节。</li>
+<li>抽象是一种通过忽略多余的细节同时强调有关的细节，而实现逐步求精的方法。</li>
+<li>求精则帮助设计者在设计过程中揭示出低层细节。</li>
+<li>这两个概念都有助于设计者在设计演化过程中创造出完整的设计模型。</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h3 id="信息隐藏和局部化"><a href="#信息隐藏和局部化" class="headerlink" title="信息隐藏和局部化"></a>信息隐藏和局部化</h3><ul>
+<li>一个模块内包含的信息(过程和数据)对于不需要这些信息的模块来说，是不能访问的</li>
+</ul>
+</li>
+<li><h3 id="模块独立-（master）"><a href="#模块独立-（master）" class="headerlink" title="模块独立 （master）"></a>模块独立 （master）</h3><blockquote>
+<p>“模块独立”概念是模块化、抽象、逐步求精和信息隐藏等概念的直接结果，也是完成有效的模块设计的基本标准。可以由两个定性标准来度量，这两个标准分别称为<strong>内聚</strong>和<strong>耦合</strong>。</p>
+<ul>
+<li>耦合：耦合衡量<strong>不同模块</strong>彼此<strong>间</strong>互相<strong>依赖</strong>(连接)紧密<strong>程度</strong></li>
+<li>内聚：内聚衡量<strong>一个模块内部</strong>各个元素彼此<strong>结合</strong>的紧密<strong>程度</strong></li>
+</ul>
+<p><br>对于模块设计，我们一般追求：<strong>模块内部高内聚，模块之间低耦合</strong></p>
+</blockquote>
+<ul>
+<li><h4 id="耦合"><a href="#耦合" class="headerlink" title="耦合"></a>耦合</h4><ul>
+<li><p>非直接耦合：两个模块之间没有直接关系，它们之间的联系完全是通过主模块的控制和调用来实现的，非直接耦合的模块独立性最强，模块间的<strong>耦合程度最低</strong></p>
+</li>
+<li><p>数据耦合：通过<strong>简单的数据参数传递</strong>产生的耦合，是一种<strong>低耦合</strong></p>
+</li>
+<li><p>标记（特征）耦合：</p>
+<ul>
+<li>传递参数表记录信息，如文件、数组、指针等。</li>
+<li>当把<strong>整个数据结构</strong>当做参数<strong>传入模块</strong>，但是模块实际上<strong>只需要</strong>其中的<strong>一部分元素</strong></li>
+</ul>
+</li>
+<li><p>控制耦合：</p>
+<ul>
+<li>传递的信息中有<strong>控制信息</strong>，有可能是一个简单变量，但<strong>可能改变程序流程</strong>。</li>
+<li>它是中等程度的耦合，增加了系统的复杂程度，适当分解可以用数据耦合替代它。</li>
+</ul>
+</li>
+<li><p>外部耦合：一组模块都访问同一全局简单变量</p>
+</li>
+<li><p>公共环境耦合：一组模块访问同一个公共数据环境</p>
+</li>
+<li><p>内容耦合：</p>
+<ul>
+<li>一组<strong>模块使用另一模块内部数据</strong>；模块通过非正常渠道进入另一模块执行</li>
+<li>这是最高程度的耦合</li>
+</ul>
+</li>
+<li><p>使用原则：<strong>尽量使用数据耦合，少用控制耦合，限制公共环境耦合的范围，完全不用内容耦合。</strong></p>
+</li>
+</ul>
+</li>
+<li><h4 id="内聚"><a href="#内聚" class="headerlink" title="内聚"></a>内聚</h4><blockquote>
+<p><strong>理想内聚的模块只做一件事情</strong>，设计模块时，通常追求<strong>模块内部是高内聚</strong>的<br><br>内聚和耦合是密切相关的，模块内的高内聚往往意味着模块间的松耦合</p>
+</blockquote>
+<ul>
+<li>低内聚：<ul>
+<li>偶然内聚</li>
+<li>逻辑内聚</li>
+<li>时间内聚</li>
+</ul>
+</li>
+<li>中内聚<ul>
+<li>过程内聚</li>
+<li>通信内聚</li>
+</ul>
+</li>
+<li>高内聚<ul>
+<li>顺序内聚（信息内聚）</li>
+<li>功能内聚</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="启发规则"><a href="#启发规则" class="headerlink" title="启发规则"></a>启发规则</h2><p>长期实践经验所得，<strong>有助于实现有效的模块化</strong></p>
+</blockquote>
+<ul>
+<li><p>改进<strong>软件结构</strong>提高模块独立性</p>
+</li>
+<li><p>模块<strong>规模</strong>应该<strong>适中</strong></p>
+</li>
+<li><p><strong>深度、宽度、扇出和扇入</strong>都应适当</p>
+<ul>
+<li>深度：树高</li>
+<li>宽度：某层最大模块数</li>
+<li>扇出：直接控制的模块数</li>
+<li>扇入：有多少个上机的模块直接指向它</li>
+</ul>
+</li>
+<li><p>模块的<strong>作用域</strong>应该在<strong>控制域</strong>之内</p>
+<img src="/img/se_28.jpg" title="模块的作用域和控制域">
+<ul>
+<li>如图所示，A的控制域就包括BCDEF</li>
+<li>如果G也在A的作用域之内，则就不是一个合理的设计</li>
+<li>应该把G下放一层，放在A的控制域之内</li>
+</ul>
+</li>
+<li><p>力争降低<strong>模块接口</strong>的复杂程度</p>
+</li>
+<li><p>设计<strong>单入口单出口</strong>的模块</p>
+</li>
+<li><p><strong>模块功能</strong>应该可以预测</p>
+<ul>
+<li>相同输入，得到可预测的想通过输出</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="描绘软件结构的图形工具-（master）"><a href="#描绘软件结构的图形工具-（master）" class="headerlink" title="描绘软件结构的图形工具 （master）"></a>描绘软件结构的图形工具 （master）</h2><p><strong>层次图</strong>、<strong>HIPO图</strong>和<strong>结构图</strong></p>
+</blockquote>
+<ul>
+<li><h3 id="层次图"><a href="#层次图" class="headerlink" title="层次图"></a>层次图</h3><ul>
+<li><strong>层次图</strong>也称<strong>H图</strong></li>
+<li>在层次图中一个矩形框代表一个模块，框间的连线表示调用关系(位于上方的矩形框所代表的模块调用位于下方的矩形框所代表的模块)。<img src="/img/se_29.jpg" title="正文加工系统的层次图">
+</li>
+</ul>
+</li>
+<li><h3 id="HIPO图"><a href="#HIPO图" class="headerlink" title="HIPO图"></a>HIPO图</h3><ul>
+<li><strong>HIPO图</strong>是美国IBM公司发明的“层次图加输入/处理/输出图”的英文缩写。</li>
+<li>为了使HIPO图具有可追踪性，在<strong>H图</strong>(即层次图)里<strong>除了顶层的方框之外</strong>，<strong>每个方框都加了编号</strong>。</li>
+<li>然后每个方框对应用一张IPO图来描述，IPO图中应该明显的标出其在上述改进的H图中的编号<img src="/img/se_30.jpg" title="带编号的层次图（H图）">
+</li>
+</ul>
+</li>
+<li><h3 id="结构图（了解）"><a href="#结构图（了解）" class="headerlink" title="结构图（了解）"></a>结构图（了解）</h3><ul>
+<li>结构图和层次图类似，也是描绘软件结构的图形工具</li>
+<li>结构图中带注释的箭头表示模块调用过程中来回传递的信息</li>
+<li>尾部是<strong>空心圆</strong>表示传递的是<strong>数据</strong>，<strong>实心圆</strong>表示传递的是<strong>控制信息</strong><img src="/img/se_31.jpg" title="结构图的例子—产生最佳解的一般结构"></li>
+<li>其它符号<ul>
+<li>判定为真时调用A，为假时调用B<img src="/img/se_32.jpg" title="判定为真时调用A，为假时调用B"></li>
+<li>模块M循环调用模块A，B，C<img src="/img/se_33.jpg" title="模块M循环调用模块A，B，C">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="面向数据流的设计方法-（understanding）"><a href="#面向数据流的设计方法-（understanding）" class="headerlink" title="面向数据流的设计方法 （understanding）"></a>面向数据流的设计方法 （understanding）</h2><p><strong>面向数据流的设计方法</strong>的目标是给出设计软件结构的一个系统化的途径。它定义了一些不同的“映射”，利用这些映射可以<strong>把数据流图变换成软件结构</strong></p>
+</blockquote>
+<ul>
+<li><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><ul>
+<li><h4 id="变换流"><a href="#变换流" class="headerlink" title="变换流"></a>变换流</h4><ul>
+<li>信息通常以“外部世界”的形式进入软件系统，经过处理以后再以“外部世界”的形式离开系统</li>
+</ul>
+</li>
+<li><h4 id="事物流"><a href="#事物流" class="headerlink" title="事物流"></a>事物流</h4><ul>
+<li>接收输入数据（<strong>输入数据</strong>又称为<strong>事物</strong>）</li>
+<li>分析每个事物，以<strong>确定</strong>它的<strong>类型</strong></li>
+<li>根据事务类型<strong>选取一条活动的通路</strong><img src="/img/se_34.jpg" title="变换流和事务流"></li>
+</ul>
+</li>
+<li><h4 id="设计过程-1"><a href="#设计过程-1" class="headerlink" title="设计过程"></a>设计过程</h4><img src="/img/se_35.jpg" title="面向数据流方法的设计过程"></li>
+</ul>
+</li>
+<li><h3 id="变换分析"><a href="#变换分析" class="headerlink" title="变换分析"></a>变换分析</h3><ul>
+<li>复查基本系统模型</li>
+<li>复查并精化数据流图</li>
+<li>确定数据流图具有变换特性还是事务特性<img src="/img/se_37.jpg" title="数字仪表板系统的数据流图"></li>
+<li>确定输入流和输出流的边界，从而孤立出变换中心<img src="/img/se_36.jpg" title="具有边界的数据流图"></li>
+<li>完成“第一级分解”<img src="/img/se_38.jpg" title="完成“第一级分解”">
+…<img src="/img/se_39.jpg" title="完成“第一级分解”"></li>
+<li>完成“第二级分解”<img src="/img/se_40.jpg" title="完成“第二级分解”">
+<ul>
+<li>未精化的输入结构<img src="/img/se_41.jpg" title="未精化的输入结构"></li>
+<li>未精化的变换结构<img src="/img/se_42.jpg" title="未精化的变换结构"></li>
+<li>未精化的输出结构<img src="/img/se_43.jpg" title="未精化的输出结构"></li>
+</ul>
+</li>
+<li>使用设计度量和启发规则对第一次分割得到的软件结构进一步精化<img src="/img/se_44.jpg" title="精化后的数字仪表板系统的软件结构"></li>
+</ul>
+</li>
+<li><h3 id="事务分析"><a href="#事务分析" class="headerlink" title="事务分析"></a>事务分析</h3><ul>
+<li>虽然在任何情况下都可以使用变换分析方法设计软件结构，但是在数据流具有明显的事务特点时，也就是有一个明显的“<strong>发射中心</strong>”(事务中心)时，还是以采用事务分析方法为宜。</li>
+<li>事务分析的设计步骤和变换分析的设计步骤大部分相同或类似，主要差别仅在于由数据流图到软件结构的映射方法不同。</li>
+<li>对于一个大系统，常常把变换分析和事务分析应用到同一个数据流图的不同部分，由此得到的子结构形成“<strong>构件</strong>”，可以利用它们构造完整的软件结构</li>
+<li>事务分析的映射方法：<img src="/img/se_45.jpg" title="事务分析的映射方法">
+</li>
+</ul>
+</li>
+<li><h3 id="设计优化（refactoring）"><a href="#设计优化（refactoring）" class="headerlink" title="设计优化（refactoring）"></a>设计优化（refactoring）</h3><ul>
+<li>P112</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（c）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1575,233 +1962,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" itemprop="url">数据库笔记（补充）——候选码的确定方法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T00:00:00+08:00">
-                2017-11-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" class="leancloud_visitors" data-flag-title="数据库笔记（补充）——候选码的确定方法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（<strong><em>要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的</em></strong>）</p>
-<p> <strong>候选码</strong>定义:  设K为关系模式R<u, f="">的属性(组)，若K→<sup>F</sup>U，则称K为R的 <strong>候选码</strong>。</u,></p>
-<ul>
-<li>主码：若R<u ,="" f="">有多个候选码，则可以从中选定一个作为R的主码。</u></li>
-<li>主属性：包含在任一个候选码中的属性，称作主属性。</li>
-<li>非主属性：不包含在任一个候选码中的属性，称作非主属性(或非码属性)。</li>
-<li>全码：关系模式的码由全部属性构成。</li>
-</ul>
-</blockquote>
-<p>注: <strong>码或者是某一函数依赖的左部, 或是一个属性组</strong>。</p>
-<blockquote>
-<p>引例：求出关系模式R<u, f="">的所有候选码：<br>U={ A , B , C , D , E }<br>F={AB→C, B→D, C→E, EC→B, AC→B }</u,></p>
-</blockquote>
-<p>解： 验证AB是否码, 须证明  AB→<sup>F</sup>ABCDE是否成立?<br>∵AB→C(已知), 而AB→AB(自反), ∴AB → ABC(合并)<br>∵B→D(已知), ∴AB→AD(增广), ∴AB → ABCD(合并)<br>∵C→E(已知),  AB→C(已知),  ∴AB → E(传递)<br>   于是 AB → ABCDE(合并)</p>
-<p>同理可证：AC也是一个候选码</p>
-<h3 id="上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"><a href="#上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）" class="headerlink" title="上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"></a>上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）</h3><blockquote>
-<p>练习： 根据码的定义，求关系模式R<u, f="">的所有候选码。<br>U={ A , B , C , D }， F={A→ B, C→B }</u,></p>
-</blockquote>
-<p>答：ACD</p>
-<blockquote>
-<p>关于2NF的结论</p>
-<ol>
-<li>不存在非主属性的关系模式属于2NF。 （没有非主属性）</li>
-<li>全码关系模式属于2NF。 （没有非主属性）</li>
-<li>码只由一个属性组成的关系模式属于2NF。（不会有部分依赖）</li>
-<li>二目关系模式属于2NF。 （码或是一个属性，或是全码）</li>
-<li>若R属于1NF，但R不一定属于2NF。<br>例如,  关系模式 S(S#, SN, SD, DEAN, C#, G)</li>
-</ol>
-<p>关于3NF的结论</p>
-<ol>
-<li>不存在非主属性的关系模式属于3NF。 （没有非主属性）</li>
-<li>全码关系模式属于3NF。 （没有非主属性）</li>
-<li>二目关系模式属于3NF。 （不会存在传递依赖）</li>
-<li>若R属于3NF，那么R也属于2NF。<br>（可证明，反证）</li>
-<li>若R属于2NF，但R不一定属于3NF。<br>例如，关系模式 S_SD(S#, SN, SD, DEAN)</li>
-</ol>
-<p><strong>BCNF</strong>定义：关系模式R<u, f=""> ∈1NF，对于属性组X和Y，若X→Y且Y ∉ X时X必含有码，则R<u, f=""> ∈BCNF</u,></u,></p>
-<ul>
-<li>由BCNF的定义，对于非平凡的函数依赖:  X  →  Y<ul>
-<li>X包含码，或者X本身就是码（换句话说，X是一个超码）</li>
-</ul>
-</li>
-<li>所有非主属性对每一个码都是完全函数依赖，<br> 即, 若R∈BCNF, 则R∈2NF。</li>
-<li>所有的主属性对每一个不包含它的码也是完全函数依赖。</li>
-<li>没有任何属性完全函数依赖于非码的任何一组属性。</li>
-<li>若R∈BCNF, 则必有R∈3NF; 反之不一定成立</li>
-</ul>
-<h3 id="铛铛铛！！！敲黑板，候选码的求解算法"><a href="#铛铛铛！！！敲黑板，候选码的求解算法" class="headerlink" title="铛铛铛！！！敲黑板，候选码的求解算法"></a>铛铛铛！！！敲黑板，候选码的求解算法</h3><p>以下算法会涉及到求属性集的闭包，<a href="http://www.jianshu.com/p/78d16f97ef0c" target="_blank" rel="noopener">函数依赖集和属性集闭包传送阵</a></p>
-</blockquote>
-<h4 id="设关系模式R"><a href="#设关系模式R" class="headerlink" title="设关系模式R"></a>设关系模式R<u, f=""></u,></h4><ol>
-<li>将R的所有属性<strong>分为 L、 R、N和 LR四类</strong>，并令<strong>X代表L、N两类</strong>，<strong>Y代表LR类</strong>。<ul>
-<li>L类: <strong>仅</strong>出现在F的函数依赖<strong>左</strong>部的属性；</li>
-<li>R类: <strong>仅</strong>出现在F的函数依赖<strong>右</strong>部的属性；</li>
-<li>N类: 在F的函数依赖<strong>左右</strong>两边<strong>都不出现</strong>的属性；</li>
-<li>LR类:在F的函数依赖<strong>左右</strong>两边<strong>都出现</strong>的属性 。</li>
-</ul>
-</li>
-<li><strong>求属性集闭包</strong>X<sup>+</sup>，若 X<sup>+</sup>包含了R的全部属性则X即为R的唯一候选码, <strong>转5</strong>;</li>
-<li>否则, <strong>在Y中取一属性A</strong>，求属性集闭包(XA)+，若(XA)+包含了R的全部属性，则<strong>转4</strong>；否则，调换一属性反复进行这一过程，直到试完所有Y中的属性。</li>
-<li>如果已找出了所有的候选码，则转(5)；否则在Y中依次取2个、3个、…属性，求X与它们的属性集闭包，直到其闭包包含R的全部属性。</li>
-<li>停止，输出结果。</li>
-</ol>
-<ul>
-<li>例1： 设关系模式R(A, B, C, D), 其函数依赖集：<pre><code>F={D→B, B→D, AD→B, AC→D}，求R的所有候选码。
-</code></pre>解: L类: A, C<br>   R类:<br>   N类:<br>   LR类: B, D<br>因为(AC)<sub>F</sub><sup>+</sup>=ACDB，所以AC是R的唯一候选码</li>
-</ul>
-<ul>
-<li>例2：设关系模式R(A, B, C, D, E, P), 其函数依赖集：<pre><code>F={A→D, E→D, D→B, BC→D, DC→A}，求R的所有候选码。
-</code></pre>解:  L类: C, E<br>R类:<br>N类: P<br>LR类: A, B, D<br>因为(CEP)F+=CEPDBA，所以CEP是R的唯一候选码。</li>
-</ul>
-<ul>
-<li>例3： 设关系模式R(S, D, I, B, O, Q), 其函数依赖集:<pre><code>F = { S→D, I→B, B→O, O→Q, Q→I }，求R的所有候选码。
-</code></pre>解: L类(S);  R类(D)  ; N类(无) ;  LR类(I, B, O, Q)<pre><code>因为S+=SD, 所以S不是R的候选码；
-因为(SI)+=SIDBOQ，所以SI是一个候选码；
-因为(SB)+=SBDOQI，所以SB也是一个候选码；
-因为(SO)+=SODQIB，所以SO也是一个候选码；
-因为(SQ)+=SQDIBO，所以SQ也是一个候选码。
-</code></pre></li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1851,7 +2016,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

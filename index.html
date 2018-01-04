@@ -303,6 +303,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/04/2018-01-04-高级C与网络编程复习(c)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/2018-01-04-高级C与网络编程复习(c)/" itemprop="url">高级C与网络编程复习（三）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T00:00:00+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/04/2018-01-04-高级C与网络编程复习(c)/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/04/2018-01-04-高级C与网络编程复习(c)/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/04/2018-01-04-高级C与网络编程复习(c)/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（三）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="套接字编程简介（Sockets-Introducrion）"><a href="#套接字编程简介（Sockets-Introducrion）" class="headerlink" title="套接字编程简介（Sockets Introducrion）"></a>套接字编程简介（Sockets Introducrion）</h2></blockquote>
+<ul>
+<li><h3 id="套接字地址结构（Socket-Address-Structures）"><a href="#套接字地址结构（Socket-Address-Structures）" class="headerlink" title="套接字地址结构（Socket Address Structures）"></a>套接字地址结构（Socket Address Structures）</h3><blockquote>
+<ul>
+<li>大多数套接字函数（socket function）都 需要一个指向套接字地址结构（socket address structure）的指针作为参数</li>
+<li>每个协议族（protocol suite）都定义它自己的套接字地址结构</li>
+<li>这些结构的名字均以<strong>sockaddr_开头</strong>，并以对应每个协议族的唯一后缀结尾</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="IPV4套接字地址结构"><a href="#IPV4套接字地址结构" class="headerlink" title="IPV4套接字地址结构"></a>IPV4套接字地址结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span>&#123;</span></span><br><span class="line">  <span class="keyword">in_addr_t</span>     s_addr;             <span class="comment">//32-bit ipv4 Address, network byyte ordered</span></span><br><span class="line">                                    <span class="comment">//32为的ipv地址，采用网络字节序</span></span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>         sin_len;            <span class="comment">//length of structure (16)</span></span><br><span class="line">  <span class="keyword">sa_family_t</span>     sin_family;         <span class="comment">//AF_INET ==&gt;本地址结构是IPV4的地址结构，他属于网际协议族</span></span><br><span class="line">  <span class="keyword">in_port_t</span>       sin_port;           <span class="comment">//16-bit TCP or UDP port, 网络字节序</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span>  <span class="title">sin_addr</span>;</span>           <span class="comment">//32-bit ipv4 address, 网络字节序</span></span><br><span class="line">  <span class="keyword">char</span>            sin_zero[<span class="number">8</span>];        <span class="comment">//unused ==&gt; 保留位，未使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>POSIX规范要求的数据类型<img src="/img/unp_10.png" title="POSIX规范要求的数据类型"></li>
+<li>IPV4地址和TCP或UDP端口号都采用网络字节序（大端序）存储</li>
+<li>IPV4地址存在两种访问方法（因为历史原因）<ul>
+<li>serv.sin_addr            (结构体)</li>
+<li>serv.sin_addr.in_addr_t （通常是一个无符号的32为整数）</li>
+</ul>
+</li>
+<li>sin_zero字段未被使用，不过在填写这种结构的时候sin_zero通常被置为0。（<strong>通常的做法是，在填写之前，用bzero将整个结构体清0，再填写，可以保证未填写的部分都是0</strong>）</li>
+<li>套接字地址结构仅在主机上使用，虽然结构体中的某些字段（例如IP地址和端口号）用在不同主机之间的通信，但是<strong>结构体本身并不在主机之间传递</strong></li>
+</ul>
+</li>
+<li><h4 id="通用套接字地址结构"><a href="#通用套接字地址结构" class="headerlink" title="通用套接字地址结构"></a>通用套接字地址结构</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sa_len;</span><br><span class="line">  <span class="keyword">sa_family_t</span>   sa_family;      <span class="comment">//Address family: AF_XXX value</span></span><br><span class="line">  <span class="keyword">char</span>          sa_data[<span class="number">14</span>];    <span class="comment">//protocol-specific address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>前面提到过，大多数套接字函数（socket function）都需要一个指向套接字地址结构的指针<blockquote>
+<ul>
+<li>Value-Result Arguments</li>
+<li>Byte Ordering</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/03/2018-01-03-高级C与网络编程复习(b)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -399,7 +579,7 @@
           
             <blockquote>
 <h2 id="总图（Big-Picture）"><a href="#总图（Big-Picture）" class="headerlink" title="总图（Big Picture）"></a>总图（Big Picture）</h2></blockquote>
-<p><img src="../img/unp_1.png" alt=""></p>
+<img src="/img/unp_1.png" title="TCP/IP协议概况">
 <blockquote>
 <h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2></blockquote>
 <ul>
@@ -420,8 +600,72 @@
 <blockquote>
 <h2 id="TCP连接的建立和终止"><a href="#TCP连接的建立和终止" class="headerlink" title="TCP连接的建立和终止"></a>TCP连接的建立和终止</h2></blockquote>
 <ul>
-<li><h3 id="三路握手-——-Three-Way-Handshake-SYN-ACK"><a href="#三路握手-——-Three-Way-Handshake-SYN-ACK" class="headerlink" title="三路握手 —— Three-Way Handshake (SYN, ACK)"></a>三路握手 —— Three-Way Handshake (SYN, ACK)</h3><img src="../img/unp_2.png" alt=""></li>
+<li><h3 id="三路握手-————-Three-Way-Handshake-SYN-ACK"><a href="#三路握手-————-Three-Way-Handshake-SYN-ACK" class="headerlink" title="三路握手 ———— Three-Way Handshake (SYN, ACK)"></a>三路握手 ———— Three-Way Handshake (SYN, ACK)</h3><img src="/img/unp_2.png" title="TCP三路握手">
+<ol>
+<li><p>服务器通过socket，bind，listen创建一个<strong>监听socket</strong>，并调用accpet准备接受外来的连接（这些工作要在客户端请求来临之前做好）。</p>
+</li>
+<li><p>客户端通过socket函数创建一个<strong>未连接的socket</strong>，再调用connect尝试连接到服务器（此时客户端阻塞，等待服务器响应）。此时会向服务器<strong>发送一个SYN包</strong>（<strong>表明客户端欲向服务器申请服务</strong>），等待服务器的确认。</p>
+</li>
+<li><p>服务器<strong>收到SYN包</strong>，则<strong>向客户端发送一个ACK</strong>（告诉客户端，请求我已经收到）。<strong>同时发送一个SYN</strong>（通知客户端服务器需要知道客户端是否收到回复，收到则请回一个ACK）</p>
+</li>
+<li><p>客户端收到服务器发回的ACK和SYN之后，<strong>connect函数返回</strong>（表示连接服务器成功），<strong>并向服务器回一个ACK</strong>（告知服务器我已经收到你的回复）</p>
+</li>
+<li><p>服务器收到客户端的ACK以后<strong>accept函数返回</strong>（此时连接正式建立，可以开始后通信）</p>
+<blockquote>
+<ul>
+<li>ACK如果不捎带数据的话，是不占序列号的</li>
+<li>SYN占一个序列号</li>
 </ul>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h3 id="四路终止-————-Four-Way-Termination-FIN-ACK"><a href="#四路终止-————-Four-Way-Termination-FIN-ACK" class="headerlink" title="四路终止 ———— Four-Way Termination (FIN, ACK)"></a>四路终止 ———— Four-Way Termination (FIN, ACK)</h3><img src="/img/unp_3.png" title="TCP连接关闭时的分组交换(客户端主动关闭连接)">
+<ol>
+<li><p>客户端调用close（任意一端都可以发起终止，此处以客户端发起为例，<strong>发起终止的一端称为执行主动关闭</strong>）。接着<strong>向服务器发送一个FIN</strong>，表示数据发送完毕</p>
+</li>
+<li><p><strong>服务器接收到FIN后回复一个ACK</strong>（此时服务器称为执行被动关闭的一端），同时服务器的read函数会读到一个EOF，导致read函数退出</p>
+</li>
+<li><p>一段时间后，<strong>服务器</strong>也调用close，<strong>向客户端发送一个FIN</strong></p>
+</li>
+<li><p>客户端收到FIN以后回复一个ACK</p>
+<blockquote>
+<ul>
+<li>FIN占一个序列号</li>
+<li>在被动关闭一端收到FIN到其调用close函数之间的间隙，称为<strong>半关闭状态</strong>（half-close），在这段时间内仍然可以冲被动关闭一端向主动关闭一端发送数据</li>
+<li>当一个Unix进程无论自愿（调用exit或main函数返回）还是非自愿（收到一个终止本进程的信号）的终止时，所有打开的描述符都将被关闭，这也导致主机向仍然打开的任何TCP连接上发出一个FIN（对于那些描述符只被这个终止的进程持有的连接而言）</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP状态转换图"><a href="#TCP状态转换图" class="headerlink" title="TCP状态转换图"></a>TCP状态转换图</h2></blockquote>
+  <img src="/img/unp_4.png" title="TCP状态转换图">
+<blockquote>
+<h2 id="TCP的限制"><a href="#TCP的限制" class="headerlink" title="TCP的限制"></a>TCP的限制</h2></blockquote>
+<ul>
+<li>TCP同时提供<strong>可靠数据传输</strong>和<strong>严格的有序数据分发</strong>。然而有一些应用程序需要可靠数据传输，但是不需要顺序维护，而另一些应用过程序只需要部分有序即可。</li>
+<li>TCP这种面向数据流的传输方式有时候是不方便的。应用程序必须添加自己的记录标记。</li>
+<li>TCP套接字的范围有限，使得为多宿主主机提供高可用数据传输能力的任务变得复杂</li>
+<li>容易受到拒绝服务攻击，例如SYN攻击</li>
+<li>这些限制影响公共交换电话网的IP性能</li>
+</ul>
+<blockquote>
+<h2 id="端口号（Port-Numbers）"><a href="#端口号（Port-Numbers）" class="headerlink" title="端口号（Port Numbers）"></a>端口号（Port Numbers）</h2></blockquote>
+<ul>
+<li>众所周知（well-know）的端口：0 ~ 1023</li>
+<li>已注册端口：1024 ～ 49151</li>
+<li>动态或私有端口：49152 ～ 65535<img src="/img/unp_5.png" title="端口号的分配">
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP端口号与并发服务器"><a href="#TCP端口号与并发服务器" class="headerlink" title="TCP端口号与并发服务器"></a>TCP端口号与并发服务器</h2></blockquote>
+<img src="/img/unp_6.png" title="TCP服务器在端口21上执行被动打开">
+<img src="/img/unp_7.png" title="客户对服务器的连接请求">
+<img src="/img/unp_8.png" title="并发服务器让子进程处理客户">
+<img src="/img/unp_9.png" title="第二个客户与同一个服务器的连接">
 
           
         
@@ -593,7 +837,8 @@
 </li>
 </ul>
 </li>
-<li><h4 id=""><a href="#" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/Socket/281150#4" target="_blank" rel="noopener">socket()</a></h4><ul>
+<li><h4 id="socket"><a href="#socket" class="headerlink" title="socket()"></a>socket()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/Socket/281150#4" target="_blank" rel="noopener">click_me</a></li>
 <li>原型<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 该函数用于创建一个socket套接字</span></span><br><span class="line"><span class="comment">* @param domin    协议族/地址族</span></span><br><span class="line"><span class="comment">* @param type     套接字的类型</span></span><br><span class="line"><span class="comment">*                 SOCK_STREAM ==&gt; TCP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_DGRAM  ==&gt; UDP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_RAW    ==&gt; RAW套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_PACKET ==&gt; 可用于创建路由套接字等</span></span><br><span class="line"><span class="comment">* @param protocol 指定协议</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         返回一个socket描述符 sockfd</span></span><br><span class="line"><span class="comment">*                 sockfd &lt; 0  ==&gt; 创建失败</span></span><br><span class="line"><span class="comment">*                 sockfd &gt;= 0 ==&gt; 创建成功，之后可用该sockfd进行IO操作</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> domain, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure></li>
 <li>需注意的是，socket函数的后两个参数不能随意组合。比如在type = SOCK_STRAM 的时候 protocol ≠ IPPROTO_UDP。（<strong><em>当第三个参数为0的时候，会自动选择第二个参数类型对应的默认协议</em></strong>）</li>
 </ul>
@@ -608,23 +853,27 @@
 </li>
 </ul>
 </li>
-<li><h4 id="-1"><a href="#-1" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/htons" target="_blank" rel="noopener">htons()</a></h4><ul>
+<li><h4 id="htons"><a href="#htons" class="headerlink" title="htons()"></a>htons()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/htons" target="_blank" rel="noopener">click_me</a></li>
 <li>原型<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个无符号短整型从主机字节序转网络字节序</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">u_short <span class="title">htons</span><span class="params">(u_short hostshort)</span></span>;</span><br></pre></td></tr></table></figure></li>
 <li><strong>网络字节序统一为 大端（big-endian）序</strong>，而现在大部分主机采用的是小端系统，也有机器采用大端系统。为了统一，<strong>调用这个函数之后均采用大端序</strong>（协议统一）</li>
 </ul>
 </li>
-<li><h4 id="-2"><a href="#-2" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/inet_pton" target="_blank" rel="noopener">inet_pton()</a></h4><ul>
+<li><h4 id="inet-pton"><a href="#inet-pton" class="headerlink" title="inet_pton()"></a>inet_pton()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/inet_pton" target="_blank" rel="noopener">click_me</a></li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将“点分十进制” --&gt; “二进制整数”</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param af   address family(地址族)</span></span><br><span class="line"><span class="comment">* @param src  指向一个字符串，这个字符串为一个点分十进制的串，例如："192.168.1.1"</span></span><br><span class="line"><span class="comment">* @param dst  指向一个数据结构，用来存储转换后的结果</span></span><br><span class="line"><span class="comment">*             如果af = AF_INET, 即为ipv4地址转换，则函数会将结果放在一个in_addr结构体中</span></span><br><span class="line"><span class="comment">*             如果af = AF_INET6, 即为ipv6地址转换，则函数会将结果放在一个in_addr6结构体中</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return   如果函数出错则返回一个负值，并将errno置为EAFNOSUPPORT。</span></span><br><span class="line"><span class="comment">*           如果参数af指定的地址族和src格式不对，则返回0</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_pton</span><span class="params">(<span class="keyword">int</span> af, <span class="keyword">const</span> <span class="keyword">char</span> *src, <span class="keyword">void</span> *dst)</span></span>;</span><br></pre></td></tr></table></figure></li>
 <li>inet_pton同时支持和IPV4和IPV6</li>
 </ul>
 </li>
-<li><h4 id="-3"><a href="#-3" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/connect%28%29" target="_blank" rel="noopener">connect()</a></h4><ul>
+<li><h4 id="connect"><a href="#connect" class="headerlink" title="connect()"></a>connect()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/connect%28%29" target="_blank" rel="noopener">click_me</a></li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 该函数用于建立与指定socket的连接</span></span><br><span class="line"><span class="comment">* @param s        一个未连接的socket的描述符</span></span><br><span class="line"><span class="comment">* @param name     指向要连接的套接字的sockaddr结构体的指针</span></span><br><span class="line"><span class="comment">* @param namelen  上述sockaddr结构体的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         成功则返回0, 失败返回-1, 错误原因存于errno 中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">const</span> struct sockaddr * name, <span class="keyword">int</span> namelen)</span></span>;</span><br></pre></td></tr></table></figure></li>
 <li>为了书写简便，原书作者对上述函数的第二个参数做了一层宏定义：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SA struct sockaddr</span></span><br></pre></td></tr></table></figure></li>
 <li>所以在上面的daytimecli.c 中调用connect的时候，用SA简化了书写，实际上 SA = struct sockaddr<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">connect(sockfd, (SA *)&amp;servaddr, <span class="keyword">sizeof</span>(servaddr)</span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
-<li><h4 id="-4"><a href="#-4" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/read%28%29" target="_blank" rel="noopener">read()</a></h4><ul>
+<li><h4 id="read"><a href="#read" class="headerlink" title="read()"></a>read()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/read%28%29" target="_blank" rel="noopener">click_me</a></li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 从fd所指向的文件中传送count个字节到buf中</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param fd      指向一个文件的指针（可以是socket fd）</span></span><br><span class="line"><span class="comment">* @param buf     指向一个数组的指针，用做缓存，存取从fd中读出的数据</span></span><br><span class="line"><span class="comment">* @param count   读取的大小</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return        返回值为实际读取到的字节数</span></span><br><span class="line"><span class="comment">*                如果返回0，表示已到达文件尾或无可读取的数据。</span></span><br><span class="line"><span class="comment">*                错误返回-1,并将根据不同的错误原因适当的设置错误码</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> read(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count);</span><br></pre></td></tr></table></figure></li>
 <li>如果read函数中传入的文件描述符为sockfd，则表示从网络中读取count字节的数据并存到buf中。</li>
 <li>read函数是一个<strong>阻塞函数</strong>，如果没有读够count个字节，会一直在那边死等，下面两种情况下read函数和的阻塞状态会解除<ul>
@@ -633,12 +882,13 @@
 </ul>
 </li>
 <li><ul>
-<li>对比<a>write ./#read</a></li>
+<li>对比 <a href="./#write">write</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><h4 id="-5"><a href="#-5" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/fputs/10942345" target="_blank" rel="noopener">fputs()</a></h4><ul>
+<li><h4 id="fputs"><a href="#fputs" class="headerlink" title="fputs()"></a>fputs()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/fputs/10942345" target="_blank" rel="noopener">click_me</a></li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 向指定的文件中写入一个字符串</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param ptr     指向待写入的字符串</span></span><br><span class="line"><span class="comment">* @param stream  指向目标文件的一个文件指针（文件指针由fopen获得）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return        函数返回值为一般非负整数，如果返回EOF(常值，为-1)，则标识读到文件尾</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">fputs</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* ptr, FILE* stream)</span></span></span><br></pre></td></tr></table></figure></li>
 </ul>
 </li>
@@ -686,41 +936,54 @@
 </blockquote>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">int</span> argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> listenfd, connfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> buff[MAXLINE];</span><br><span class="line">    <span class="keyword">time_t</span> ticks;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用包裹函数，创建一个socket</span></span><br><span class="line">    listenfd = Socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">13</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//指定socket的地址为INADDR_ANY，标识监听来自所有地址的请求</span></span><br><span class="line">    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//将socket绑定到指定的端口，只在指定的端口监听来自客户端的请求</span></span><br><span class="line">    Bind(listenfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用Lisen可将socket转换成一个监听套接字，监听套接字可用于监听其他客户端的请求</span></span><br><span class="line">    Listen(listenfd, LISTENQ);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        <span class="comment">//accpet函数是一个阻塞函数，死等一个连接请求。</span></span><br><span class="line">        <span class="comment">//当监听到一个请求，就返回一个已连接描述符（该描述符用于与新连接的那个客户端通信）</span></span><br><span class="line">        connfd = Accept(listenfd, (SA *) <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//获取当前系统的时间</span></span><br><span class="line">        ticks = time(<span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将当前时间输出到buff数组中</span></span><br><span class="line">        <span class="built_in">snprintf</span>(buff, <span class="keyword">sizeof</span>(buff), <span class="string">"%.24s\r\n"</span>, ctime(&amp;ticks));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//将buff中的数据发给客户端</span></span><br><span class="line">        Write(connfd, buff, <span class="built_in">strlen</span>(buff));</span><br><span class="line"></span><br><span class="line">        <span class="comment">//关闭socket连接</span></span><br><span class="line">        Close(connfd);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><h4 id="-6"><a href="#-6" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/bind%28%29?fromtitle=bind&fromid=17200415" target="_blank" rel="noopener">bind()</a></h4><ul>
+<li><h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/bind%28%29?fromtitle=bind&fromid=17200415" target="_blank" rel="noopener">click_me</a><ul>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****</span></span><br><span class="line"><span class="comment">*  sockfd：   标识一未捆绑套接口的描述字。</span></span><br><span class="line"><span class="comment">*  my_addr：  赋予套接口的地址。sockaddr结构定义如下：</span></span><br><span class="line"><span class="comment">*             struct sockaddr&#123;</span></span><br><span class="line"><span class="comment">*               u_short sa_family;</span></span><br><span class="line"><span class="comment">*               char sa_data[14];</span></span><br><span class="line"><span class="comment">*             &#125;;</span></span><br><span class="line"><span class="comment">*  addrlen：  name名字的长度。</span></span><br><span class="line"><span class="comment">*  返回值：    成功返回0，失败返回-1.</span></span><br><span class="line"><span class="comment">****/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">( <span class="keyword">int</span> sockfd , <span class="keyword">const</span> struct sockaddr * my_addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure></li>
 <li>将一个本地地址与一个套接字捆绑，通常在connect或listen函数调用前使用</li>
 </ul>
 </li>
-<li><h4 id="-7"><a href="#-7" class="headerlink" title=""></a><a>listen()</a></h4><ul>
+</ul>
+</li>
+<li><h4 id="listen"><a href="#listen" class="headerlink" title="listen()"></a>listen()</h4><ul>
+<li>百度百科–&gt; <a>click_me</a><ul>
 <li>原型<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数<ul>
+<li>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数</li>
+</ul>
+</li>
 <li><strong>不是允许的最大并发数</strong></li>
 <li><strong>在监听描述符上排队的客户</strong> ==&gt; 客户的请求被listen到了，但是还没有被accept处理，那么这个客户的请求便在该监听描述符上排队，等待被accpet</li>
 <li>通常情况下，accpet以后就调用新线程或新进程处理了，所以很快就可以再accept，所以一般在监听描述符上排队的客户数不会很多</li>
 </ul>
 </li>
+<li><h4 id="accept"><a href="#accept" class="headerlink" title="accept()"></a>accept()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">click_me</a><ul>
+<li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong></li>
 </ul>
 </li>
-<li><h4 id="-8"><a href="#-8" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">accept()</a></h4><ul>
-<li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong><ul>
 <li>即在函数调用的时候，可以通过这两个参数向函数内部传递内容</li>
 <li>同时在函数调用结束的时候，可以通过这两个参数获取到返回信息</li>
-<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）</li>
-</ul>
-</li>
+<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）<ul>
 <li><strong>accpet为每个连接到本服务器的客户返回一个全新的描述符（唯一标识一个客户）</strong></li>
 </ul>
 </li>
-<li><h4 id="-9"><a href="#-9" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/snprintf%28%29?fromtitle=snprintf&fromid=7320492" target="_blank" rel="noopener">snprintf()</a></h4><ul>
+</ul>
+</li>
+<li><h4 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf()"></a>snprintf()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/snprintf%28%29?fromtitle=snprintf&fromid=7320492" target="_blank" rel="noopener">click_me</a><ul>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 向str指向的区域格式化输出size个字节的数据</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">snprintf</span><span class="params">(<span class="keyword">char</span> *str, <span class="keyword">size_t</span> size, <span class="keyword">const</span> <span class="keyword">char</span> *format, ...)</span></span></span><br></pre></td></tr></table></figure></li>
 <li>用法和printf基本相同</li>
 <li>不同的是，<strong>printf是向控制台打印，而snprintf是通过地址指针，向目标区域输出</strong></li>
 </ul>
 </li>
-<li><h4 id="-10"><a href="#-10" class="headerlink" title=""></a><a href="https://baike.baidu.com/item/write/6391023" target="_blank" rel="noopener">write()</a></h4><ul>
+</ul>
+</li>
+<li><h4 id="write"><a href="#write" class="headerlink" title="write()"></a>write()</h4><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/write/6391023" target="_blank" rel="noopener">click_me</a><ul>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将buf中count个字节的数据输出到fd标识的文件中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> write (<span class="keyword">int</span> fd,<span class="keyword">const</span> <span class="keyword">void</span> * buf,<span class="keyword">size_t</span> count);</span><br></pre></td></tr></table></figure></li>
-<li>对比<a>read() ./#read</a></li>
+<li>对比<a href="./#read">read</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><h4 id="close"><a href="#close" class="headerlink" title="close()"></a>close()</h4><ul>
@@ -1355,292 +1618,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（i）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（i）/" itemprop="url">软件工程复习（九）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
-                2017-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（i）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（i）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/12/31/2017-12-31-软件工程复习（i）/" class="leancloud_visitors" data-flag-title="软件工程复习（九）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>要求： <strong>掌握OO分析的方法和步骤，业务，能够使用UML图进行分析建模（类图、用例图、状态图、顺序图等）</strong></p>
-</blockquote>
-<ul>
-<li>面向对象分析是<strong>是辈出问题域内的对象</strong>，并<strong>分析</strong>它们相互间的<strong>关系</strong>，最终<strong>建立</strong>起问题域的简洁、精确、可理解的正确<strong>模型</strong></li>
-<li>在用面向对象观点建立起的三种模型中，<strong>对象模型（类图）是</strong> <strong>最基本、最重要、最核心</strong>的</li>
-</ul>
-<blockquote>
-<h2 id="面向对象分析的过程"><a href="#面向对象分析的过程" class="headerlink" title="面向对象分析的过程"></a>面向对象分析的过程</h2><p>面向该对象分析，就是<strong>抽取和整理用户或需求</strong>并<strong>建立</strong>问题域精确<strong>模型</strong>的过程</p>
-<ul>
-<li>用用例图捕获需求</li>
-<li>基于用例图构件类图</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="3个子模型5个层次"><a href="#3个子模型5个层次" class="headerlink" title="3个子模型5个层次"></a>3个子模型5个层次</h3><ul>
-<li>3个子模型：对象模型，动态模型，功能模型</li>
-<li>5个层次<ul>
-<li>主题层（通常对应包的划分）</li>
-<li>类与对象层</li>
-<li>结构层</li>
-<li>属性层</li>
-<li>服务层</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="大体流程"><a href="#大体流程" class="headerlink" title="大体流程"></a>大体流程</h3><ul>
-<li>寻找类与对象</li>
-<li>识别结构</li>
-<li>识别主题</li>
-<li>定义属性</li>
-<li>建立动态模型</li>
-<li>建立功能模型</li>
-<li>定义服务</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="需求陈述"><a href="#需求陈述" class="headerlink" title="需求陈述"></a>需求陈述</h2></blockquote>
-<ul>
-<li>通常，需求陈述的内容包括：问题范围，功能需求，性能需求，应用环境及假设条件等。总之，<strong>需求陈述应该阐明“做什么”而不是“怎样做”</strong></li>
-<li>描述用户的需求而<strong>不是提出解决问题的方法</strong></li>
-<li>应该避免对设计策略施加过多的约束，也不要描述系统的内部结构，这样做将限制实现的灵活性</li>
-<li>对<strong>系统性能及系统与外界环境交互协议的描述</strong>，是合适的需求</li>
-<li>此外，对采用的<strong>软件工程标准、模块构造准则、将来可能做的扩充以及可维护性要求等方面的描述</strong>，也都是适当的需求。</li>
-</ul>
-<blockquote>
-<h2 id="建立对象模型"><a href="#建立对象模型" class="headerlink" title="建立对象模型"></a>建立对象模型</h2></blockquote>
-<ul>
-<li><h3 id="确定类与对象"><a href="#确定类与对象" class="headerlink" title="确定类与对象"></a>确定类与对象</h3><ul>
-<li><h4 id="找出和候选的类与对象"><a href="#找出和候选的类与对象" class="headerlink" title="找出和候选的类与对象"></a>找出和候选的类与对象</h4><ul>
-<li>用自然语言书写的需求陈述为依据，把陈述中的名词作为类与对象的候选者</li>
-<li>用形容词作为确定属性的线索</li>
-<li>把动词作为服务(操作)的候选者</li>
-</ul>
-</li>
-<li><h4 id="筛选出正确的类与对象"><a href="#筛选出正确的类与对象" class="headerlink" title="筛选出正确的类与对象"></a>筛选出正确的类与对象</h4><ul>
-<li>冗余、无关、笼统、属性、操作、实现..</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="确定关联"><a href="#确定关联" class="headerlink" title="确定关联"></a>确定关联</h3><ul>
-<li><h4 id="初步确定关联"><a href="#初步确定关联" class="headerlink" title="初步确定关联"></a>初步确定关联</h4><ul>
-<li>大多数关联可以通过直接提取需求陈述中的<strong>动词词组</strong>而得出</li>
-<li>通过分析需求陈述，还能发现一些在陈述中<strong>隐含</strong>的关联</li>
-</ul>
-</li>
-<li><h4 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h4><ul>
-<li>已删去的类之间的关联</li>
-<li>与问题无关或应在实现阶段考虑的关联</li>
-<li>瞬时关联</li>
-<li>三元关联</li>
-<li>派生关联</li>
-</ul>
-</li>
-<li><h4 id="完善"><a href="#完善" class="headerlink" title="完善"></a>完善</h4><ul>
-<li>正名</li>
-<li>分解</li>
-<li>补充</li>
-<li>标明重数<img src="/img/se_79.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="划分主题"><a href="#划分主题" class="headerlink" title="划分主题"></a>划分主题</h3><ul>
-<li>在开发大型、复杂系统的过程中，为了<strong>降低复杂程度</strong>，习惯于把系统再进一步划分成几个不同的主题，也就是在概念上把系统包含的内容分解成若干个范畴<img src="/img/se_80.jpg"></li>
-</ul>
-</li>
-<li><h3 id="确定属性"><a href="#确定属性" class="headerlink" title="确定属性"></a>确定属性</h3><ul>
-<li><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ul>
-<li>属性的确定既与问题域有关，也和目标系统的任务有关</li>
-<li>应该仅考虑与具体应用直接相关的属性，不要考虑那些超出所要解决的问题范围的属性</li>
-<li>在分析过程中应该首先找出最重要的属性，以后再逐渐把其余属性增添进去</li>
-<li>在分析阶段不要考虑那些纯粹用于实现的属性</li>
-</ul>
-</li>
-<li><h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><ul>
-<li>认真考察经初步分析而确定下来的那些属性，从中删掉不正确的或不必要的属性<ul>
-<li>误把对象当作属性</li>
-<li>把链属性误作为属性</li>
-<li>把限定误当成属性</li>
-<li>误把内部状态当成了属性</li>
-<li>过于细化</li>
-<li>存在不一致的属性</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="/img/se_81.jpg"></li>
-<li><h3 id="识别继承关系"><a href="#识别继承关系" class="headerlink" title="识别继承关系"></a>识别继承关系</h3><img src="/img/se_82.jpg"></li>
-<li><h3 id="反复修改"><a href="#反复修改" class="headerlink" title="反复修改"></a>反复修改</h3><img src="/img/se_83.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="建立动态模型"><a href="#建立动态模型" class="headerlink" title="建立动态模型"></a>建立动态模型</h2><ul>
-<li>第一步，是编写典型交互行为的脚本</li>
-<li>第二步，从脚本中提取出事件，确定除服每个事件的动作对象以及接受事件的目标对象（画出事件跟踪图）</li>
-<li>第三步，排雷事件发生的次序，确定每个对象可能有的状态及状态之间的转换关系，并用状态图描绘它们</li>
-</ul>
-<h2 id="建立功能模型"><a href="#建立功能模型" class="headerlink" title="建立功能模型"></a>建立功能模型</h2></blockquote>
-<ul>
-<li>画出基本的系统模型图<img src="/img/se_89.jpg"></li>
-<li>画出功能级数据流图<img src="/img/se_90.jpg">
-</li>
-</ul>
-<p>EG: <img src="/img/se_84.jpg"></p>
-<ul>
-<li>对象模型参考：<img src="/img/se_85.jpg"></li>
-<li>动态模型参考<ul>
-<li>脚本<img src="/img/se_86.jpg"></li>
-<li>事件跟踪图<img src="/img/se_87.jpg"></li>
-</ul>
-</li>
-<li>功能模型参考<img src="/img/se_88.jpg">
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1690,7 +1672,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">30</span>
+                  <span class="site-state-item-count">31</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
