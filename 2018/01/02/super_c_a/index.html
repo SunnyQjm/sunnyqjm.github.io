@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="Introduction  A Simple Daytime Client A Simple Daytime Server     A Simple Daytime Client Steven源码地址  笔者加注释源码地址 功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上       12345678910111213141516171819202122232">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-04T10:54:39.819Z">
+<meta property="og:updated_time" content="2018-01-04T11:28:56.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（一）—— Introduction">
 <meta name="twitter:description" content="Introduction  A Simple Daytime Client A Simple Daytime Server     A Simple Daytime Client Steven源码地址  笔者加注释源码地址 功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上       12345678910111213141516171819202122232">
@@ -529,23 +529,21 @@
 <ul>
 <li><h4 id="bind"><a href="#bind" class="headerlink" title="bind()"></a>bind()</h4><ul>
 <li>百度百科–&gt; <a href="https://baike.baidu.com/item/bind%28%29?fromtitle=bind&fromid=17200415" target="_blank" rel="noopener">click_me</a></li>
-<li><ul>
 <li><a href="../../04/super_c_d#bind函数">click me for detail</a></li>
-</ul>
-</li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****</span></span><br><span class="line"><span class="comment">*  sockfd：   标识一未捆绑套接口的描述字。</span></span><br><span class="line"><span class="comment">*  my_addr：  赋予套接口的地址。sockaddr结构定义如下：</span></span><br><span class="line"><span class="comment">*             struct sockaddr&#123;</span></span><br><span class="line"><span class="comment">*               u_short sa_family;</span></span><br><span class="line"><span class="comment">*               char sa_data[14];</span></span><br><span class="line"><span class="comment">*             &#125;;</span></span><br><span class="line"><span class="comment">*  addrlen：  name名字的长度。</span></span><br><span class="line"><span class="comment">*  返回值：    成功返回0，失败返回-1.</span></span><br><span class="line"><span class="comment">****/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">( <span class="keyword">int</span> sockfd , <span class="keyword">const</span> struct sockaddr * my_addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>将一个本地地址与一个套接字捆绑，通常在connect或listen函数调用前使用</li>
+<li>bind函数把一个本地协议地址赋予一个套接字，通常在connect或listen函数调用前使用</li>
 </ul>
 </li>
 <li><h4 id="listen"><a href="#listen" class="headerlink" title="listen()"></a>listen()</h4><ul>
-<li>百度百科–&gt; <a>click_me</a><ul>
+<li>百度百科–&gt; <a>click_me</a></li>
+<li><a href="../../04/super_c_d#listen函数">click me for detail</a></li>
 <li>原型<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数</li>
-</ul>
-</li>
+<li>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数<ul>
 <li><strong>不是允许的最大并发数</strong></li>
 <li><strong>在监听描述符上排队的客户</strong> ==&gt; 客户的请求被listen到了，但是还没有被accept处理，那么这个客户的请求便在该监听描述符上排队，等待被accpet</li>
 <li>通常情况下，accpet以后就调用新线程或新进程处理了，所以很快就可以再accept，所以一般在监听描述符上排队的客户数不会很多</li>
+</ul>
+</li>
 </ul>
 </li>
 <li><h4 id="accept"><a href="#accept" class="headerlink" title="accept()"></a>accept()</h4><ul>
@@ -620,8 +618,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/31/2017-12-31-软件工程复习（j）/" rel="next" title="软件工程复习（十）">
-                <i class="fa fa-chevron-left"></i> 软件工程复习（十）
+              <a href="/2017/12/31/2017-12-31-软件工程复习（h）/" rel="next" title="软件工程复习（八）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（八）
               </a>
             
           </div>

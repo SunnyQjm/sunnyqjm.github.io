@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://qjm253.cn/img/unp_18.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_4.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_19.png">
-<meta property="og:updated_time" content="2018-01-04T11:24:46.487Z">
+<meta property="og:updated_time" content="2018-01-04T11:36:08.771Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（四）—— 基本套接字函数（Elementary Sockets Functions）">
 <meta name="twitter:description" content="socket函数   1234567891011121314151617#include &amp;lt;sys/socket.h&amp;gt;/*** 该函数用于创建一个socket套接字* @param domin    协议族/地址族* @param type     套接字的类型*                 SOCK_STREAM ==&amp;gt; TCP套接字*">
@@ -485,7 +485,19 @@
 </li>
 </ul>
 </li>
+<li><h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><ul>
+<li>EADDRINUSE(“Address already in use”, 地址已使用)</li>
 </ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="listen函数"><a href="#listen函数" class="headerlink" title="listen函数"></a>listen函数</h2><p><strong>仅由TCP服务器调用</strong>，它做两件事情</p>
+<ul>
+<li>当<strong>socket函数创建</strong>一个套接字时，它被假设为<strong>一个主动套接字</strong>(active socket)，也就是说，它是一个将调用connect发起连接的客户套接字。<strong>listen函数把</strong>一个<strong>未连接的套接字转换成一个被动套接字</strong>，之后是内核应接收指向该套接字的连接请求。</li>
+<li>本函数的第二个参数规定了内核应该为相应套接字排队的最大连接个数</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -522,8 +534,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/03/super_c_b/" rel="next" title="高级C与网络编程复习（二）—— 传输层：TCP、UDP、SCTP">
-                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（二）—— 传输层：TCP、UDP、SCTP
+              <a href="/2018/01/04/super_c_c/" rel="next" title="高级C与网络编程复习（三）—— 套接字编程简介（Sockets Introducrion）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（三）—— 套接字编程简介（Sockets Introducrion）
               </a>
             
           </div>
@@ -531,10 +543,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/01/04/super_c_c/" rel="prev" title="高级C与网络编程复习（三）—— 套接字编程简介（Sockets Introducrion）">
-                高级C与网络编程复习（三）—— 套接字编程简介（Sockets Introducrion） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -692,7 +700,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket函数"><span class="nav-number">1.</span> <span class="nav-text">socket函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AF-XXX-和-PF-XXX"><span class="nav-number">2.</span> <span class="nav-text">AF_XXX 和 PF_XXX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">3.</span> <span class="nav-text">connect函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#connect错误："><span class="nav-number">3.1.</span> <span class="nav-text">connect错误：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态转换"><span class="nav-number">3.2.</span> <span class="nav-text">状态转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind函数"><span class="nav-number">4.</span> <span class="nav-text">bind函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口的绑定"><span class="nav-number">4.1.</span> <span class="nav-text">端口的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址的绑定"><span class="nav-number">4.2.</span> <span class="nav-text">地址的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给bind函数指定要捆绑的IP地址和端口号产生的结果"><span class="nav-number">4.3.</span> <span class="nav-text">给bind函数指定要捆绑的IP地址和端口号产生的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配地址-wildcard-address"><span class="nav-number">4.4.</span> <span class="nav-text">通配地址(wildcard address)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket函数"><span class="nav-number">1.</span> <span class="nav-text">socket函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AF-XXX-和-PF-XXX"><span class="nav-number">2.</span> <span class="nav-text">AF_XXX 和 PF_XXX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">3.</span> <span class="nav-text">connect函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#connect错误："><span class="nav-number">3.1.</span> <span class="nav-text">connect错误：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态转换"><span class="nav-number">3.2.</span> <span class="nav-text">状态转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind函数"><span class="nav-number">4.</span> <span class="nav-text">bind函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口的绑定"><span class="nav-number">4.1.</span> <span class="nav-text">端口的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址的绑定"><span class="nav-number">4.2.</span> <span class="nav-text">地址的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给bind函数指定要捆绑的IP地址和端口号产生的结果"><span class="nav-number">4.3.</span> <span class="nav-text">给bind函数指定要捆绑的IP地址和端口号产生的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配地址-wildcard-address"><span class="nav-number">4.4.</span> <span class="nav-text">通配地址(wildcard address)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">4.5.</span> <span class="nav-text">错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#listen函数"><span class="nav-number">5.</span> <span class="nav-text">listen函数</span></a></li></ol></div>
             
 
           </div>
