@@ -303,6 +303,237 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/03/super_c_b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/03/super_c_b/" itemprop="url">高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T00:00:00+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/03/super_c_b/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/03/super_c_b/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/03/super_c_b/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="总图（Big-Picture）"><a href="#总图（Big-Picture）" class="headerlink" title="总图（Big Picture）"></a>总图（Big Picture）</h2></blockquote>
+<img src="/img/unp_1.png" title="TCP/IP协议概况">
+<blockquote>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2></blockquote>
+<ul>
+<li>UDP应用程序将数据封装到UDP数据报，，并将其写到UDP socket。进而封装成IPV4或IPV6数据报（datagram），然后发送到目的地</li>
+<li>UDP提供的是<strong>无连接的服务</strong>（connectionless service）</li>
+<li><strong>每个UDP数据报都有一个长度</strong>，如果一个数据报正确地到达目的地，那么数据报的长度将随数据一道传递给接收端应用程序</li>
+<li>RFC 768 [Postel 1980]</li>
+</ul>
+<blockquote>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2></blockquote>
+<ul>
+<li>面向连接（Connection-oriented）</li>
+<li>提供可靠传输（Reliable）</li>
+<li>TCP通过给每个字节关联一个序列号（sequence）对所发送的数据进行排序（sequencing）</li>
+<li>TCP提供流量控制（flow control）==&gt; 控制接收端收包的速率</li>
+<li>全双工（full-duplex）</li>
+</ul>
+<blockquote>
+<h2 id="TCP连接的建立和终止"><a href="#TCP连接的建立和终止" class="headerlink" title="TCP连接的建立和终止"></a>TCP连接的建立和终止</h2></blockquote>
+<ul>
+<li><h3 id="三路握手-————-Three-Way-Handshake-SYN-ACK"><a href="#三路握手-————-Three-Way-Handshake-SYN-ACK" class="headerlink" title="三路握手 ———— Three-Way Handshake (SYN, ACK)"></a>三路握手 ———— Three-Way Handshake (SYN, ACK)</h3><img src="/img/unp_2.png" title="TCP三路握手">
+<ol>
+<li><p>服务器通过socket，bind，listen创建一个<strong>监听socket</strong>，并调用accpet准备接受外来的连接（这些工作要在客户端请求来临之前做好）。</p>
+</li>
+<li><p>客户端通过socket函数创建一个<strong>未连接的socket</strong>，再调用connect尝试连接到服务器（此时客户端阻塞，等待服务器响应）。此时会向服务器<strong>发送一个SYN包</strong>（<strong>表明客户端欲向服务器申请服务</strong>），等待服务器的确认。</p>
+</li>
+<li><p>服务器<strong>收到SYN包</strong>，则<strong>向客户端发送一个ACK</strong>（告诉客户端，请求我已经收到）。<strong>同时发送一个SYN</strong>（通知客户端服务器需要知道客户端是否收到回复，收到则请回一个ACK）</p>
+</li>
+<li><p>客户端收到服务器发回的ACK和SYN之后，<strong>connect函数返回</strong>（表示连接服务器成功），<strong>并向服务器回一个ACK</strong>（告知服务器我已经收到你的回复）</p>
+</li>
+<li><p>服务器收到客户端的ACK以后<strong>accept函数返回</strong>（此时连接正式建立，可以开始后通信）</p>
+<blockquote>
+<ul>
+<li>ACK如果不捎带数据的话，是不占序列号的</li>
+<li>SYN占一个序列号</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h3 id="四路终止-————-Four-Way-Termination-FIN-ACK"><a href="#四路终止-————-Four-Way-Termination-FIN-ACK" class="headerlink" title="四路终止 ———— Four-Way Termination (FIN, ACK)"></a>四路终止 ———— Four-Way Termination (FIN, ACK)</h3><img src="/img/unp_3.png" title="TCP连接关闭时的分组交换(客户端主动关闭连接)">
+<ol>
+<li><p>客户端调用close（任意一端都可以发起终止，此处以客户端发起为例，<strong>发起终止的一端称为执行主动关闭</strong>）。接着<strong>向服务器发送一个FIN</strong>，表示数据发送完毕</p>
+</li>
+<li><p><strong>服务器接收到FIN后回复一个ACK</strong>（此时服务器称为执行被动关闭的一端），同时服务器的read函数会读到一个EOF，导致read函数退出</p>
+</li>
+<li><p>一段时间后，<strong>服务器</strong>也调用close，<strong>向客户端发送一个FIN</strong></p>
+</li>
+<li><p>客户端收到FIN以后回复一个ACK</p>
+<blockquote>
+<ul>
+<li>FIN占一个序列号</li>
+<li>在被动关闭一端收到FIN到其调用close函数之间的间隙，称为<strong>半关闭状态</strong>（half-close），在这段时间内仍然可以冲被动关闭一端向主动关闭一端发送数据</li>
+<li>当一个Unix进程无论自愿（调用exit或main函数返回）还是非自愿（收到一个终止本进程的信号）的终止时，所有打开的描述符都将被关闭，这也导致主机向仍然打开的任何TCP连接上发出一个FIN（对于那些描述符只被这个终止的进程持有的连接而言）</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP状态转换图"><a href="#TCP状态转换图" class="headerlink" title="TCP状态转换图"></a>TCP状态转换图</h2></blockquote>
+  <img src="/img/unp_4.png" title="TCP状态转换图">
+<blockquote>
+<h2 id="TCP的限制"><a href="#TCP的限制" class="headerlink" title="TCP的限制"></a>TCP的限制</h2></blockquote>
+<ul>
+<li>TCP同时提供<strong>可靠数据传输</strong>和<strong>严格的有序数据分发</strong>。然而有一些应用程序需要可靠数据传输，但是不需要顺序维护，而另一些应用过程序只需要部分有序即可。</li>
+<li>TCP这种面向数据流的传输方式有时候是不方便的。应用程序必须添加自己的记录标记。</li>
+<li>TCP套接字的范围有限，使得为多宿主主机提供高可用数据传输能力的任务变得复杂</li>
+<li>容易受到拒绝服务攻击，例如SYN攻击</li>
+<li>这些限制影响公共交换电话网的IP性能</li>
+</ul>
+<blockquote>
+<h2 id="端口号（Port-Numbers）"><a href="#端口号（Port-Numbers）" class="headerlink" title="端口号（Port Numbers）"></a>端口号（Port Numbers）</h2></blockquote>
+<ul>
+<li>众所周知（well-know）的端口：0 ~ 1023</li>
+<li>已注册端口：1024 ～ 49151</li>
+<li>动态或私有端口：49152 ～ 65535<img src="/img/unp_5.png" title="端口号的分配">
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP端口号与并发服务器"><a href="#TCP端口号与并发服务器" class="headerlink" title="TCP端口号与并发服务器"></a>TCP端口号与并发服务器</h2></blockquote>
+<img src="/img/unp_6.png" title="TCP服务器在端口21上执行被动打开">
+<img src="/img/unp_7.png" title="客户对服务器的连接请求">
+<img src="/img/unp_8.png" title="并发服务器让子进程处理客户">
+<img src="/img/unp_9.png" title="第二个客户与同一个服务器的连接">
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/02/super_c_a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -630,527 +861,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（k）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="url">软件工程复习（十一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
-                2017-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（k）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/12/31/2017-12-31-软件工程复习（k）/" class="leancloud_visitors" data-flag-title="软件工程复习（十一）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="设计原则-（understanding）"><a href="#设计原则-（understanding）" class="headerlink" title="设计原则 （understanding）"></a>设计原则 （understanding）</h2></blockquote>
-<ul>
-<li>面向接口编程</li>
-<li>依赖倒置</li>
-<li>组合优于继承</li>
-<li>单一职责</li>
-<li>开放——封闭</li>
-<li>Liskov替换</li>
-</ul>
-<blockquote>
-<h2 id="面向接口编程-Program-to-An-interface-Not-An-Implementation"><a href="#面向接口编程-Program-to-An-interface-Not-An-Implementation" class="headerlink" title="面向接口编程(Program to An interface, Not An Implementation)"></a>面向接口编程(Program to An interface, Not An Implementation)</h2><ul>
-<li>使用“接口继承”，而非“实现继承”</li>
-<li><strong>接口</strong>关注对象的概貌，将对象中<strong>“不变”的信息抽象</strong>出来，不涉及细节，因此<strong>是“稳定”的</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><p>Example:</p>
- <img src="/img/se_94.jpg"></li>
-<li><h3 id="面向接口的好处："><a href="#面向接口的好处：" class="headerlink" title="面向接口的好处："></a>面向接口的好处：</h3><ul>
-<li><strong>Client只需关注如何进行业务活动</strong>（如：驾驶），而不必关心其使用对象的具体实现</li>
-<li>一个对象可以很<strong>容易</strong>地被（实现了相同接口的）另一个对象所<strong>替换</strong></li>
-<li>对象间的连接不必硬绑定（hard wire）到一个具体类的对象上，因此<strong>增加了灵活性</strong></li>
-<li>松散耦合，<strong>增加了重用的可能性</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="依赖倒置（Dependency-Inversion-Principle）"><a href="#依赖倒置（Dependency-Inversion-Principle）" class="headerlink" title="依赖倒置（Dependency Inversion Principle）"></a>依赖倒置（Dependency Inversion Principle）</h2></blockquote>
-<ul>
-<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象</li>
-<li>依赖倒置原则使细节和具体实现都依赖于抽象，抽象的稳定性决定了系统的稳定性</li>
-<li>Example：<img src="/img/se_95.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="组合优于继承-（Favor-Composition-Over-Inheritance-）"><a href="#组合优于继承-（Favor-Composition-Over-Inheritance-）" class="headerlink" title="组合优于继承 （Favor Composition Over Inheritance ）"></a>组合优于继承 （Favor Composition Over Inheritance ）</h2><ul>
-<li>继承：OO特点之一</li>
-<li>组合：任务委托</li>
-<li>二者：都是面向对象设计中用于重用的方法</li>
-<li>开发早期，继承经常被过度使用</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="使用继承的问题："><a href="#使用继承的问题：" class="headerlink" title="使用继承的问题："></a>使用继承的问题：</h3><img src="/img/se_96.jpg"></li>
-<li><h3 id="组合优于继承－设计改进"><a href="#组合优于继承－设计改进" class="headerlink" title="组合优于继承－设计改进"></a>组合优于继承－设计改进</h3><ul>
-<li>优先使用组合可获得重用性与简单性更佳的设计</li>
-<li>配合使用继承，扩充可用的组合类集，加大重用的范围<br>&lt;% img /img/se_97.jpg %&gt;</li>
-</ul>
-</li>
-<li><h3 id="何时使用继承？"><a href="#何时使用继承？" class="headerlink" title="何时使用继承？"></a>何时使用继承？</h3><ul>
-<li>子类表达了“是一个父类的特殊类型”，而非“是一个由父类所扮演的角色”</li>
-<li>子类的一个实例永远不需要转化为其它类的一个对象</li>
-<li>子类是对其父类的职责进行扩展，而非重写或废除（LSP）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="单一职责——Single-responsibility-Principle"><a href="#单一职责——Single-responsibility-Principle" class="headerlink" title="单一职责——Single responsibility Principle"></a>单一职责——Single responsibility Principle</h2><ul>
-<li>所谓职责，可理解为功能，就是设计的类功能应该只有一个，而不是两个或更多</li>
-<li>职责也可以理解为引起变化的原因：<strong>当一个类中有两个以上的变化方向，会产生过多的变化点</strong><img src="/img/se_98.jpg">
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>Example:<img src="/img/se_99.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP"><a href="#开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP" class="headerlink" title="开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)"></a>开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)</h2><ul>
-<li>OCP认为应该<strong>试图设计出永远也不需要改变的模块</strong></li>
-<li><strong>可以</strong>添加新代码来<strong>扩展</strong>系统的行为；<strong>不能</strong>对已有的代码进行<strong>修改</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="OCP模块标准"><a href="#OCP模块标准" class="headerlink" title="OCP模块标准"></a>OCP模块标准</h3><ul>
-<li>模块的行为可以被扩展，以需要满足新的需求</li>
-<li>模块的源代码是不允许进行改动的</li>
-</ul>
-</li>
-<li>一个软件系统的所有模块<strong>不可能都满足</strong>OCP，但是应该努力<strong>最小化</strong>这些<strong>不满足OCP的模块数量</strong></li>
-<li><strong>OCP法则是OO设计的真正核心</strong></li>
-<li>符合该法则便意味着最高等级的复用性和可维护性</li>
-<li>一个OCP栗子：<img src="/img/se_100.jpg"></li>
-<li>改进<img src="/img/se_101.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="Liskov替换原则"><a href="#Liskov替换原则" class="headerlink" title="Liskov替换原则"></a>Liskov替换原则</h2><ul>
-<li>使用指向基类（超类）的引用的函数，必须能够在不知道具体派生类（子类）对象类型的情况下使用它们 ==&gt; <strong>在任何父类出现的地方，都可以用子类替换（包括逻辑上和语义上）</strong></li>
-<li>LSP是根据对象的“多态”而得出的</li>
-<li>但在实现子类时必须要谨慎对待，以确保不会无意中违背了LSP</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="一个违背Liskov原则的栗子"><a href="#一个违背Liskov原则的栗子" class="headerlink" title="一个违背Liskov原则的栗子"></a>一个违背Liskov原则的栗子</h3><img src="/img/se_102.jpg">
-<ul>
-<li>对于下面的代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Rectangle类声明如下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> width;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> height;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">double</span> w)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.width = w;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">double</span> h)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = h;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> width * height</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接用Rectangle类, 输出200</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br><span class="line"></span><br><span class="line"><span class="comment">//将Rectangle换成其子类Square，输出为400</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Square(<span class="number">0</span>);</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h3 id="LSP的保证"><a href="#LSP的保证" class="headerlink" title="LSP的保证"></a>LSP的保证</h3><ul>
-<li>LSP表明了ISA关系是与对象行为有关的</li>
-<li>一个子类型不得具有比基更多的限制，这是因为可能对于基类型的某些使用是合法的，但是会因为违背子类型的其中一个额外限制，从而违背了LSP</li>
-<li>一个简单的做法是不要将基类中子类不需要的函数暴露给子类</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="设计模式（understanding）"><a href="#设计模式（understanding）" class="headerlink" title="设计模式（understanding）"></a>设计模式（understanding）</h2></blockquote>
-<ul>
-<li>Abstract Factory（抽象工厂）</li>
-<li>PROTOTYPE（原型模式）</li>
-<li>Singleton（单例模式）</li>
-<li>Adapter（适配器模式）</li>
-</ul>
-<blockquote>
-<h2 id="抽象工厂（Abstract-Factory）"><a href="#抽象工厂（Abstract-Factory）" class="headerlink" title="抽象工厂（Abstract Factory）"></a>抽象工厂（Abstract Factory）</h2></blockquote>
-<ul>
-<li>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类<img src="/img/se_103.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="原型模式（Prototype）"><a href="#原型模式（Prototype）" class="headerlink" title="原型模式（Prototype）"></a>原型模式（Prototype）</h2></blockquote>
-<ul>
-<li>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象</li>
-<li>缺点是每一个类都必须配备一个克隆方法</li>
-<li>其实是将product和factory功能合二为一了<img src="/img/se_104.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="单例模式（Singleton）"><a href="#单例模式（Singleton）" class="headerlink" title="单例模式（Singleton）"></a>单例模式（Singleton）</h2></blockquote>
-<ul>
-<li>保证一个类仅有一个实例，并提供一个访问它的全局访问点</li>
-<li>解决的主要是性能问题，而非耦合（变化）的问题<img src="/img/se_105.jpg">
-<img src="/img/se_106.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="适配器模式（Adapter）"><a href="#适配器模式（Adapter）" class="headerlink" title="适配器模式（Adapter）"></a>适配器模式（Adapter）</h2></blockquote>
-<ul>
-<li>把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作</li>
-<li>适配类可以根据参数返还一个合适的实例给客户端<img src="/img/se_107.jpg">
-<img src="/img/se_108.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="桥梁模式（Bridge）"><a href="#桥梁模式（Bridge）" class="headerlink" title="桥梁模式（Bridge）"></a>桥梁模式（Bridge）</h2></blockquote>
-<ul>
-<li>将抽象部分与它的实现部分（行为）分离，使它们都可以独立地变化</li>
-<li>解决2个方面的变化问题：抽象与实现（行为）。即一个类中多个方向的变化问题<img src="/img/se_109.jpg">
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（h）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="url">软件工程复习（八）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
-                2017-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（h）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/12/31/2017-12-31-软件工程复习（h）/" class="leancloud_visitors" data-flag-title="软件工程复习（八）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
-</blockquote>
-<ul>
-<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
-<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
-</ul>
-</li>
-<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
-<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
-</ul>
-</li>
-<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
-<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
-</ul>
-<blockquote>
-<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
-<ul>
-<li>视图（view）<ul>
-<li>通常包括多个图</li>
-</ul>
-</li>
-<li>图（diagram）</li>
-<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
-<li>通用机制（general mechanism）<ul>
-<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
-<li>比如：构造型，标签值，笔记（写注释）等</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
-<ul>
-<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
-<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
-<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
-<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
-<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
-<li>静态图描述系统的静态结构，包括：<ul>
-<li><strong>类图</strong>（class diagram）</li>
-<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
-</ul>
-</li>
-<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
-</ul>
-</li>
-<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
-<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
-<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
-<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
-<li>这类图描述对象间的交互关系，包括<ul>
-<li><strong>顺序图</strong>（sequence diagram）</li>
-<li><strong>协作图</strong>（collaboration diagram）</li>
-</ul>
-</li>
-<li>描述一个场景中若干个类的交互（动态协作）</li>
-</ul>
-</li>
-<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
-<li>这类图提供关于系统实现方面的信息，包括：<ul>
-<li>构件图（component diagram）</li>
-<li>配置图（deployment diagram）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="/img/se_72.jpg">
-<img src="/img/se_73.jpg">
-<img src="/img/se_74.jpg">
-<img src="/img/se_75.jpg">
-<img src="/img/se_76.jpg">
-<img src="/img/se_77.jpg">
-<img src="/img/se_78.jpg">
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1399,6 +1109,301 @@
 <li><h3 id="Peer-to-peer（P2P模式和）"><a href="#Peer-to-peer（P2P模式和）" class="headerlink" title="Peer-to-peer（P2P模式和）"></a>Peer-to-peer（P2P模式和）</h3></li>
 <li><h3 id="Event-bus"><a href="#Event-bus" class="headerlink" title="Event-bus"></a>Event-bus</h3></li>
 <li><h3 id="Blackboard"><a href="#Blackboard" class="headerlink" title="Blackboard"></a>Blackboard</h3></li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（k）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="url">软件工程复习（十一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
+                2017-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（k）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/12/31/2017-12-31-软件工程复习（k）/" class="leancloud_visitors" data-flag-title="软件工程复习（十一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="设计原则-（understanding）"><a href="#设计原则-（understanding）" class="headerlink" title="设计原则 （understanding）"></a>设计原则 （understanding）</h2></blockquote>
+<ul>
+<li>面向接口编程</li>
+<li>依赖倒置</li>
+<li>组合优于继承</li>
+<li>单一职责</li>
+<li>开放——封闭</li>
+<li>Liskov替换</li>
+</ul>
+<blockquote>
+<h2 id="面向接口编程-Program-to-An-interface-Not-An-Implementation"><a href="#面向接口编程-Program-to-An-interface-Not-An-Implementation" class="headerlink" title="面向接口编程(Program to An interface, Not An Implementation)"></a>面向接口编程(Program to An interface, Not An Implementation)</h2><ul>
+<li>使用“接口继承”，而非“实现继承”</li>
+<li><strong>接口</strong>关注对象的概貌，将对象中<strong>“不变”的信息抽象</strong>出来，不涉及细节，因此<strong>是“稳定”的</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><p>Example:</p>
+ <img src="/img/se_94.jpg"></li>
+<li><h3 id="面向接口的好处："><a href="#面向接口的好处：" class="headerlink" title="面向接口的好处："></a>面向接口的好处：</h3><ul>
+<li><strong>Client只需关注如何进行业务活动</strong>（如：驾驶），而不必关心其使用对象的具体实现</li>
+<li>一个对象可以很<strong>容易</strong>地被（实现了相同接口的）另一个对象所<strong>替换</strong></li>
+<li>对象间的连接不必硬绑定（hard wire）到一个具体类的对象上，因此<strong>增加了灵活性</strong></li>
+<li>松散耦合，<strong>增加了重用的可能性</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="依赖倒置（Dependency-Inversion-Principle）"><a href="#依赖倒置（Dependency-Inversion-Principle）" class="headerlink" title="依赖倒置（Dependency Inversion Principle）"></a>依赖倒置（Dependency Inversion Principle）</h2></blockquote>
+<ul>
+<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象</li>
+<li>依赖倒置原则使细节和具体实现都依赖于抽象，抽象的稳定性决定了系统的稳定性</li>
+<li>Example：<img src="/img/se_95.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="组合优于继承-（Favor-Composition-Over-Inheritance-）"><a href="#组合优于继承-（Favor-Composition-Over-Inheritance-）" class="headerlink" title="组合优于继承 （Favor Composition Over Inheritance ）"></a>组合优于继承 （Favor Composition Over Inheritance ）</h2><ul>
+<li>继承：OO特点之一</li>
+<li>组合：任务委托</li>
+<li>二者：都是面向对象设计中用于重用的方法</li>
+<li>开发早期，继承经常被过度使用</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="使用继承的问题："><a href="#使用继承的问题：" class="headerlink" title="使用继承的问题："></a>使用继承的问题：</h3><img src="/img/se_96.jpg"></li>
+<li><h3 id="组合优于继承－设计改进"><a href="#组合优于继承－设计改进" class="headerlink" title="组合优于继承－设计改进"></a>组合优于继承－设计改进</h3><ul>
+<li>优先使用组合可获得重用性与简单性更佳的设计</li>
+<li>配合使用继承，扩充可用的组合类集，加大重用的范围<br>&lt;% img /img/se_97.jpg %&gt;</li>
+</ul>
+</li>
+<li><h3 id="何时使用继承？"><a href="#何时使用继承？" class="headerlink" title="何时使用继承？"></a>何时使用继承？</h3><ul>
+<li>子类表达了“是一个父类的特殊类型”，而非“是一个由父类所扮演的角色”</li>
+<li>子类的一个实例永远不需要转化为其它类的一个对象</li>
+<li>子类是对其父类的职责进行扩展，而非重写或废除（LSP）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="单一职责——Single-responsibility-Principle"><a href="#单一职责——Single-responsibility-Principle" class="headerlink" title="单一职责——Single responsibility Principle"></a>单一职责——Single responsibility Principle</h2><ul>
+<li>所谓职责，可理解为功能，就是设计的类功能应该只有一个，而不是两个或更多</li>
+<li>职责也可以理解为引起变化的原因：<strong>当一个类中有两个以上的变化方向，会产生过多的变化点</strong><img src="/img/se_98.jpg">
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>Example:<img src="/img/se_99.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP"><a href="#开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP" class="headerlink" title="开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)"></a>开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)</h2><ul>
+<li>OCP认为应该<strong>试图设计出永远也不需要改变的模块</strong></li>
+<li><strong>可以</strong>添加新代码来<strong>扩展</strong>系统的行为；<strong>不能</strong>对已有的代码进行<strong>修改</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="OCP模块标准"><a href="#OCP模块标准" class="headerlink" title="OCP模块标准"></a>OCP模块标准</h3><ul>
+<li>模块的行为可以被扩展，以需要满足新的需求</li>
+<li>模块的源代码是不允许进行改动的</li>
+</ul>
+</li>
+<li>一个软件系统的所有模块<strong>不可能都满足</strong>OCP，但是应该努力<strong>最小化</strong>这些<strong>不满足OCP的模块数量</strong></li>
+<li><strong>OCP法则是OO设计的真正核心</strong></li>
+<li>符合该法则便意味着最高等级的复用性和可维护性</li>
+<li>一个OCP栗子：<img src="/img/se_100.jpg"></li>
+<li>改进<img src="/img/se_101.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="Liskov替换原则"><a href="#Liskov替换原则" class="headerlink" title="Liskov替换原则"></a>Liskov替换原则</h2><ul>
+<li>使用指向基类（超类）的引用的函数，必须能够在不知道具体派生类（子类）对象类型的情况下使用它们 ==&gt; <strong>在任何父类出现的地方，都可以用子类替换（包括逻辑上和语义上）</strong></li>
+<li>LSP是根据对象的“多态”而得出的</li>
+<li>但在实现子类时必须要谨慎对待，以确保不会无意中违背了LSP</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="一个违背Liskov原则的栗子"><a href="#一个违背Liskov原则的栗子" class="headerlink" title="一个违背Liskov原则的栗子"></a>一个违背Liskov原则的栗子</h3><img src="/img/se_102.jpg">
+<ul>
+<li>对于下面的代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Rectangle类声明如下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> width;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> height;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">double</span> w)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.width = w;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">double</span> h)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = h;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> width * height</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接用Rectangle类, 输出200</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br><span class="line"></span><br><span class="line"><span class="comment">//将Rectangle换成其子类Square，输出为400</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Square(<span class="number">0</span>);</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="LSP的保证"><a href="#LSP的保证" class="headerlink" title="LSP的保证"></a>LSP的保证</h3><ul>
+<li>LSP表明了ISA关系是与对象行为有关的</li>
+<li>一个子类型不得具有比基更多的限制，这是因为可能对于基类型的某些使用是合法的，但是会因为违背子类型的其中一个额外限制，从而违背了LSP</li>
+<li>一个简单的做法是不要将基类中子类不需要的函数暴露给子类</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="设计模式（understanding）"><a href="#设计模式（understanding）" class="headerlink" title="设计模式（understanding）"></a>设计模式（understanding）</h2></blockquote>
+<ul>
+<li>Abstract Factory（抽象工厂）</li>
+<li>PROTOTYPE（原型模式）</li>
+<li>Singleton（单例模式）</li>
+<li>Adapter（适配器模式）</li>
+</ul>
+<blockquote>
+<h2 id="抽象工厂（Abstract-Factory）"><a href="#抽象工厂（Abstract-Factory）" class="headerlink" title="抽象工厂（Abstract Factory）"></a>抽象工厂（Abstract Factory）</h2></blockquote>
+<ul>
+<li>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类<img src="/img/se_103.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="原型模式（Prototype）"><a href="#原型模式（Prototype）" class="headerlink" title="原型模式（Prototype）"></a>原型模式（Prototype）</h2></blockquote>
+<ul>
+<li>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象</li>
+<li>缺点是每一个类都必须配备一个克隆方法</li>
+<li>其实是将product和factory功能合二为一了<img src="/img/se_104.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="单例模式（Singleton）"><a href="#单例模式（Singleton）" class="headerlink" title="单例模式（Singleton）"></a>单例模式（Singleton）</h2></blockquote>
+<ul>
+<li>保证一个类仅有一个实例，并提供一个访问它的全局访问点</li>
+<li>解决的主要是性能问题，而非耦合（变化）的问题<img src="/img/se_105.jpg">
+<img src="/img/se_106.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="适配器模式（Adapter）"><a href="#适配器模式（Adapter）" class="headerlink" title="适配器模式（Adapter）"></a>适配器模式（Adapter）</h2></blockquote>
+<ul>
+<li>把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作</li>
+<li>适配类可以根据参数返还一个合适的实例给客户端<img src="/img/se_107.jpg">
+<img src="/img/se_108.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="桥梁模式（Bridge）"><a href="#桥梁模式（Bridge）" class="headerlink" title="桥梁模式（Bridge）"></a>桥梁模式（Bridge）</h2></blockquote>
+<ul>
+<li>将抽象部分与它的实现部分（行为）分离，使它们都可以独立地变化</li>
+<li>解决2个方面的变化问题：抽象与实现（行为）。即一个类中多个方向的变化问题<img src="/img/se_109.jpg">
+</li>
 </ul>
 
           
@@ -1770,7 +1775,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">34</span>
+                  <span class="site-state-item-count">35</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
