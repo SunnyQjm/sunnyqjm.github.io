@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="学习,笔记,C语言,网络编程," />
 
 
 
@@ -79,53 +79,29 @@
 
 
 
-<meta name="description" content="JDK配置  首先到官网下载最新版JDK：Oracle官网下载   Accept License Agreement–&amp;gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）   开始安装JDK   选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131） 安装过程">
-<meta name="keywords" content="Java">
+<meta name="description" content="I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用   应用场合 当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用 When a client is handling multiple descriptors (normally">
+<meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java环境简单配置+IDEA（小白版）">
-<meta property="og:url" content="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/index.html">
+<meta property="og:title" content="高级C与网络编程复习（6）—— I&#x2F;O复用（I&#x2F;O Multiplexing）">
+<meta property="og:url" content="http://qjm253.cn/2018/01/05/super_c_f/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="JDK配置  首先到官网下载最新版JDK：Oracle官网下载   Accept License Agreement–&amp;gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）   开始安装JDK   选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131） 安装过程">
+<meta property="og:description" content="I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用   应用场合 当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用 When a client is handling multiple descriptors (normally">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:image" content="http://qjm253.cn/img/unp_24.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_25.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_26.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_27.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_28.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_29.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_30.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_31.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_32.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_33.png">
+<meta property="og:updated_time" content="2018-01-05T12:33:05.513Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java环境简单配置+IDEA（小白版）">
-<meta name="twitter:description" content="JDK配置  首先到官网下载最新版JDK：Oracle官网下载   Accept License Agreement–&amp;gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）   开始安装JDK   选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131） 安装过程">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="高级C与网络编程复习（6）—— I&#x2F;O复用（I&#x2F;O Multiplexing）">
+<meta name="twitter:description" content="I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用   应用场合 当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用 When a client is handling multiple descriptors (normally">
+<meta name="twitter:image" content="http://qjm253.cn/img/unp_24.png">
 
 
 
@@ -155,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/"/>
+  <link rel="canonical" href="http://qjm253.cn/2018/01/05/super_c_f/"/>
 
 
 
 
 
-  <title>Java环境简单配置+IDEA（小白版） | 建明 | Ming.J</title>
+  <title>高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing） | 建明 | Ming.J</title>
   
 
 
@@ -342,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -359,7 +335,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java环境简单配置+IDEA（小白版）</h1>
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）</h1>
         
 
         <div class="post-meta">
@@ -371,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T00:00:00+08:00">
-                2017-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
+                2018-01-05
               </time>
             
 
@@ -391,8 +367,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentsCount"></span>
+                <a href="/2018/01/05/super_c_f/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/05/super_c_f/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -401,7 +377,7 @@
 
           
           
-             <span id="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="leancloud_visitors" data-flag-title="Java环境简单配置+IDEA（小白版）">
+             <span id="/2018/01/05/super_c_f/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -433,85 +409,127 @@
 
       
         <blockquote>
-<h3 id="JDK配置"><a href="#JDK配置" class="headerlink" title="JDK配置"></a>JDK配置</h3></blockquote>
-<ol>
-<li>首先到官网下载最新版JDK：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle官网下载</a></li>
-</ol>
-<ul>
-<li>Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>开始安装JDK</li>
-</ol>
-<ul>
-<li>选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>安装过程中会跳出Jre的安装界面，你可以放到和之前JDK在同一个文件夹下，也可默认。然后直接下一步开始安装<br><img src="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>环境变量配置</li>
-</ol>
-<ul>
-<li>右击我的电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>新建环境变量，变量名为：JAVA_HOME，变量值为之前JDK的安装路径，此处安装在：C:\Program Files\Java\jdk1.8.0_131<br>（可以在系统变量下新建，这样可以为每个登录该pc的用户都配置，如果在用户变量中新建，则只为当前用户配置，此处以在系统变量下新建为例）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>找到Path变量–&gt;编辑<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win10系统，则进入后界面如下，选择新建两个环境变量，<br>一个值为：%JAVA_HOME%\bin<br>另一个为：%JAVA_HOME%\jre\bin<br>（此处笔者已经配置好）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>配置好就如下图<br><img src="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win7及之前的系统则进入后界面如下:<br>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;<br>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>验证一下^-^</li>
-</ol>
-<ul>
-<li>win + R–&gt;输入cmd，进入cmd命令行<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入：java -version    就可以查看版本信息，如果显示如下信息，则表示环境配置成功<br><img src="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>到这里我们就可以骚操作一波，用记事本写简单Java程序（纯属骚操作，如果用IDE开发（比如我们接下来的部分要介绍的重头戏，用IDEA实现真正的骚操作）可不看这个hhhhhh，如果不想使用IDE开发的话，建议可以使用NotePad++、sublimeText或Atom进行代码编辑，不过真想用记事本敲也无可厚非）</li>
-</ol>
-<ul>
-<li>新建一个文本文档，并修改后缀为.java<br><img src="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>修改以后如下：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>如果没有显示后缀名，则可通过如下方式修改：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>用记事本打开，输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-<ul>
-<li>直接在创建文件的文件夹下按住Shift + 右键，选择在此处打开命令窗口（环境变量的配置使得用户可以在任意目录下调用javac 和java 命令）<br>输入：<br>javac Hello.java    （用于编译java源程序）<br>java Hello（运行java程序）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<p><strong>自此JDK的配置就OK了，可以开始Java从入门到放弃的修炼了~~</strong></p>
-<blockquote>
-<h3 id="极其好用的IDE–-gt-IDEA"><a href="#极其好用的IDE–-gt-IDEA" class="headerlink" title="极其好用的IDE–&gt;IDEA"></a><strong>极其好用的IDE–&gt;IDEA</strong></h3><p>ps:如果在打开IDEA之前没有下载好JDK的道友，请先往上看详细步骤</p>
+<h2 id="I-O复用概述"><a href="#I-O复用概述" class="headerlink" title="I/O复用概述"></a>I/O复用概述</h2><p>进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为<strong>I/O复用</strong></p>
 </blockquote>
-<ol>
-<li>先来一波官网的下载链接：<a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">IDEA官网下载地址</a><br>我们下载社区版（别问为啥，社区版免费，如果下载左边的旗舰版也行，但是需要注册码，之前有个网上长期流传的获取注册码的路子，现在貌似不好用了，如果道友是学生就可以用学校给的邮箱百度“IDEA学生”去注册一个IDEA的学生账号（学生账号有自己的注册码，有效期为1年），如果不是就买或者用社区版吧）：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二步我们来开始安装：</li>
-</ol>
 <ul>
-<li>选择安装路径：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>上面的是创建桌面图标，选择自己电脑对应的版本就行了；下面的可以全选，表示什么格式的文件可直接关联到IDEA，用IDEA来打开<br><img src="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>下一步直接install<br><img src="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li><h3 id="应用场合"><a href="#应用场合" class="headerlink" title="应用场合"></a>应用场合</h3><ul>
+<li>当<strong>客户处理多个描述符</strong>（通常是交互式输入和网络套接字）时，必须使用I/O复用<ul>
+<li>When a client is handling multiple descriptors (normally interactive input and a network socket)</li>
 </ul>
-<ol>
-<li>启动刚安装好的IDEA</li>
-</ol>
-<ul>
-<li>如果第一次安装，就直接不导入设置，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>选个喜欢的主题（此处笔者选这骚气黑），然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接start</li>
+</li>
+<li>一个<strong>客户同时处理多个socket套接字</strong>是可能的，不过比较罕见<ul>
+<li>It is possible, but rare, for a client to handle multiple sockets at the same time</li>
 </ul>
-<ol>
-<li>接下来新建一个项目练练手</li>
-</ol>
-<ul>
-<li>create a project<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果显示NO SDK， 找到之前安装的JDK所在路径，然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二行选择项目的存放路径，第一行给项目取个名字，然后Finish<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>右击src文件夹–&gt;new–&gt;java class<br><img src="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>给类取个名字，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>如果一个<strong>TCP服务器既要处理监听套接字，又要处理已连接套接字</strong><ul>
+<li>If a TCP server handles both a listening socket and its connected sockets</li>
+</ul>
+</li>
+<li>如果一个<strong>服务器既要处理TCP，又要处理UDP</strong><ul>
+<li>If a server handles both TCP and UDP</li>
+</ul>
+</li>
+<li>如果一个<strong>服务器要处理多个服务或者多个协议</strong><ul>
+<li>If a server handles multiple services and perhaps multiple protocols (e.g., the inetd daemon)</li>
+</ul>
 </li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行程序：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行成功，开始你的表演：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
+</li>
+<li>I/O复用的引用场景不仅仅局限于网络编程</li>
+</ul>
+<blockquote>
+<h2 id="I-O模型"><a href="#I-O模型" class="headerlink" title="I/O模型"></a>I/O模型</h2><ul>
+<li>blocking I/O                                 ==&gt; 阻塞式I/O</li>
+<li>nonblocking I/O                              ==&gt; 非阻塞式I/O</li>
+<li>I/O multiplexing(select and poll)            ==&gt; I/O复用</li>
+<li>signal driven I/O (SIGIO)                    ==&gt; 信号驱动式I/O</li>
+<li>asynchronous I/O (the POSIX aio_functions)   ==&gt; 异步I/O</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="阻塞式I-O模型"><a href="#阻塞式I-O模型" class="headerlink" title="阻塞式I/O模型"></a>阻塞式I/O模型</h3><img src="/img/unp_24.png" title="阻塞式I/O模型"></li>
+<li><h3 id="非阻塞式I-O模型-gt-轮询（polling）"><a href="#非阻塞式I-O模型-gt-轮询（polling）" class="headerlink" title="非阻塞式I/O模型 ==&gt; 轮询（polling）"></a>非阻塞式I/O模型 ==&gt; 轮询（polling）</h3><img src="/img/unp_25.png" title="非阻塞式I/O模型"></li>
+<li><h3 id="I-O复用模型"><a href="#I-O复用模型" class="headerlink" title="I/O复用模型"></a>I/O复用模型</h3><img src="/img/unp_26.png" title="I/O复用模型"></li>
+<li><h3 id="信号驱动式I-O模型"><a href="#信号驱动式I-O模型" class="headerlink" title="信号驱动式I/O模型"></a>信号驱动式I/O模型</h3><img src="/img/unp_27.png" title="信号驱动式I/O模型"></li>
+<li><h3 id="异步I-O模型"><a href="#异步I-O模型" class="headerlink" title="异步I/O模型"></a>异步I/O模型</h3><img src="/img/unp_28.png" title="异步I/O模型"></li>
+<li><h3 id="各种I-O模型的比较"><a href="#各种I-O模型的比较" class="headerlink" title="各种I/O模型的比较"></a>各种I/O模型的比较</h3><img src="/img/unp_29.png" title="5种I/O模型的比较">
+<ul>
+<li>同步I/O操作（synchronous I/O operation）：导致请求进程阻塞，知道I/O操作完成</li>
+<li>异步I/O操作（asynchronous I/O operation）：不导致请求进程阻塞</li>
+<li>上述5种模型中，前4种是同步的，最后一种是异步的</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="select函数"><a href="#select函数" class="headerlink" title="select函数"></a>select函数</h2><p>select函数允许进程<strong>指示内核等待多个事件中的任何一个发生</strong>，并只在有<strong>一个或多个事件发生或经历一段指定的事件后才唤醒它</strong></p>
+<ul>
+<li>Allows the process to instruct the kernel to wait for any one of multiple events to occur and to wake up the process only when one or more of these events occurs or when a specified amount of time has passed.</li>
+<li>(readable, writable, expired time)</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用select函数可告知内核对哪些描述符（就读、写或异常条件）感兴趣以及等待多长时间</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param maxfdl      最大文件描述符</span></span><br><span class="line"><span class="comment">* @param readset     读监听集（当监听集内任意描述符可读，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param writeset    写监听集（当监听集内任意描述符可写，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param exceptset   异常监听集（当监听集内任意描述符出现异常，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param timout      最长等待时长（如果该时间过去了，select会跳出）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return     正常返回就绪描述符的总数</span></span><br><span class="line"><span class="comment">*             0 ==&gt; 超时返回</span></span><br><span class="line"><span class="comment">*            -1 ==&gt; 出错</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> maxfd1, fd_set *readset, fd_set *writeset, fd_set *exceptset,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">const</span> struct timeval *timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> &#123;</span></span><br><span class="line">  <span class="keyword">long</span> tv_sec;        <span class="comment">//秒</span></span><br><span class="line">  <span class="keyword">long</span> tv_usec;       <span class="comment">//微秒</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的数据结构，实际上是一long类型的数组，每一个bit都能与一打开的文件句柄</span></span><br><span class="line"><span class="comment">//（不管是socket句柄，还是其他文件或命名管道或设备句柄）建立联系</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line"><span class="comment">/*XPG4.2requiresthismembername.Otherwiseavoidthename</span></span><br><span class="line"><span class="comment">fromtheglobalnamespace.*/</span></span><br><span class="line">#ifdef__USE_XOPEN</span><br><span class="line">__fd_maskfds_bits[__FD_SETSIZE/__NFDBITS];</span><br><span class="line">#define__FDS_BITS(<span class="built_in">set</span>)((<span class="built_in">set</span>)-&gt;fds_bits)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">__fd_mask__fds_bits[__FD_SETSIZE/__NFDBITS];</span><br><span class="line">#define__FDS_BITS(<span class="built_in">set</span>)((<span class="built_in">set</span>)-&gt;__fds_bits)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;fd_set;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h4><ul>
+<li>NULL: 忙等</li>
+<li>值为0：立即返回</li>
+<li>不为0：至多等待一段时间后返回</li>
+</ul>
+</li>
+<li><h4 id="fd-set"><a href="#fd-set" class="headerlink" title="fd_set"></a>fd_set</h4><ul>
+<li>fd_set通常是一个整数数组，其中每个元素中的每一bit对应一个文件描述符</li>
+<li><p>四个操作宏</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将监听集清0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个描述符对应的bit置1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个描述符对应的bit置0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断一个描述符对应的bit位是否被置1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举个栗子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">假设fd_set 只有<span class="number">8</span>位 ==&gt; fd_set fs</span><br><span class="line"></span><br><span class="line">执行: FD_ZERO(&amp;fs)</span><br><span class="line">结果: <span class="number">00000000</span></span><br><span class="line"></span><br><span class="line">执行: FD_SET(<span class="number">1</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">01000000</span></span><br><span class="line"></span><br><span class="line">执行：FD_SET(<span class="number">3</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">01010000</span></span><br><span class="line"></span><br><span class="line">执行: FD_CLR(<span class="number">1</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">00010000</span></span><br><span class="line"></span><br><span class="line">执行: FD_ISSET(<span class="number">3</span>)</span><br><span class="line">返回: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">执行: FD_ISSET(<span class="number">1</span>)</span><br><span class="line">返回: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select函数中的三个监听集，如果对哪个不感兴趣，直接设置为NULL就行了</p>
+</li>
+<li>select函数中的三个监听集参数均为<a href="../../04/super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a></li>
+</ul>
+</li>
+<li><h4 id="maxfdp1"><a href="#maxfdp1" class="headerlink" title="maxfdp1"></a>maxfdp1</h4><ul>
+<li><strong>maxfd1</strong>指定待测试后描述符的个数，它的<strong>值是待测试的最大描述符加1</strong>（因为数组的下标是从0开始的）</li>
+<li>FD_SETSIZE 常值是fd_set中描述符的总数，通常是1024，不过一般用不到那么大。指定maxfdp1可以提高select的效率</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="描述符就绪条件"><a href="#描述符就绪条件" class="headerlink" title="描述符就绪条件"></a>描述符就绪条件</h3><img src="/img/unp_30.png" title="select返回某个套接字就绪的条件小节">
+</li>
+</ul>
+<blockquote>
+<h2 id="str-cli函数修订版"><a href="#str-cli函数修订版" class="headerlink" title="str_cli函数修订版"></a>str_cli函数修订版</h2></blockquote>
+<ul>
+<li><h3 id="各种条件下的处理"><a href="#各种条件下的处理" class="headerlink" title="各种条件下的处理"></a>各种条件下的处理</h3><img src="/img/unp_31.png" title="str_cli函数中由select处理的各种条件">
+<ul>
+<li>如果对端TCP发送数据，那么该套接字可读，并且read返回一个大于0的值</li>
+<li>如果对端TCP发送一个FIN，那么该套接字可读，并且read返回0（EOF）</li>
+<li>如果对端TCP发送一个RST，那么该套接字可读，并且read返回-1，而errno中含有确切的错误码</li>
+</ul>
+</li>
+<li><h3 id="修订版的str-cli函数"><a href="#修订版的str-cli函数" class="headerlink" title="修订版的str_cli函数"></a>修订版的str_cli函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 改进后的str_cli函数，可以在服务器停止后马上返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_cli</span><span class="params">(FILE* fp, <span class="keyword">int</span> sockfd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>     maxfdpl;</span><br><span class="line">    fd_set  rset;</span><br><span class="line">    <span class="keyword">char</span>    sendline[MAXLINE], recvline[MAXLINE];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//首先清0</span></span><br><span class="line">    FD_ZERO(&amp;rset);</span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        <span class="comment">//在调用select之前，设置监听集，告知select感兴趣的描述符</span></span><br><span class="line">        FD_SET(fileno(fp), &amp;rset);</span><br><span class="line">        FD_SET(sockfd, &amp;rset);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//待测试的描述符数应该比我们要监听的最大描述符要大1（因为c语言数组是从0开始计的）</span></span><br><span class="line">        maxfdpl = max(fileno(fp), sockfd) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//一直阻塞，直至上述两个描述符至少其中一个可读（没有指定超时时间，所以会一直等待）</span></span><br><span class="line">        Select(maxfdpl, &amp;rset, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(sockfd, &amp;rset))&#123;        <span class="comment">//socket 可读</span></span><br><span class="line">            <span class="keyword">if</span>(Readline(sockfd, recvline, MAXLINE) == <span class="number">0</span>)</span><br><span class="line">                err_quit(<span class="string">"str_cli: server terminated prematurely"</span>);</span><br><span class="line">            Fputs(recvline, <span class="built_in">stdout</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fileno(fp), &amp;rset))&#123;    <span class="comment">//用户从控制台输入了数据</span></span><br><span class="line">            <span class="keyword">if</span>(Fgets(sendline, MAXLINE, fp) == <span class="literal">NULL</span>)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            Writen(sockfd, sendline, <span class="built_in">strlen</span>(sendline));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter6" target="_blank" rel="noopener">点我查看示例源码地址</a></li>
+<li>rset作为一个<a href="../../04/super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a>使用<ul>
+<li>在<strong>select调用之前</strong>，将感兴趣的描述符对应的bit<strong>置位</strong>。这样在调用select的时候，<strong>告知Unix内核当哪些描述符准备好时应该通知用户</strong></li>
+<li>在<strong>select调用之后</strong>，Unix内核将哪些描述符准备好了记录<strong>在rset当中</strong>。故在select解除阻塞之后，可以用FD_ISSET<strong>判断是哪些描述符准备好了</strong>。(这样处理即便是多个描述符同时准备好了，也可以处理)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="批量输入和缓存（Batch-Input-and-Buffering）"><a href="#批量输入和缓存（Batch-Input-and-Buffering）" class="headerlink" title="批量输入和缓存（Batch Input and Buffering）"></a>批量输入和缓存（Batch Input and Buffering）</h2></blockquote>
+<ul>
+<li><h3 id="交互式输入："><a href="#交互式输入：" class="headerlink" title="交互式输入："></a>交互式输入：</h3><img src="/img/unp_32.png" title="停等方式的时间线：交互式输入"></li>
+<li><h3 id="批量输入："><a href="#批量输入：" class="headerlink" title="批量输入："></a>批量输入：</h3><img src="/img/unp_33.png" title="田聪客户与服务器之间的管道：批量方式">
+<ul>
+<li>我们假设客户以网络能接受的</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -529,7 +547,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
           
         </div>
       
@@ -542,8 +566,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" rel="next" title="数据库笔记（三）">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（三）
+              <a href="/2018/01/05/super_c_e/" rel="next" title="高级C与网络编程复习（5）—— TCP C/S程序示例（TCP Client/Server Example）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（5）—— TCP C/S程序示例（TCP Client/Server Example）
               </a>
             
           </div>
@@ -551,10 +575,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" rel="prev" title="数据库笔记（四）">
-                数据库笔记（四） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -712,7 +732,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK配置"><span class="nav-number">1.</span> <span class="nav-text">JDK配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#极其好用的IDE–-gt-IDEA"><span class="nav-number">2.</span> <span class="nav-text">极其好用的IDE–&gt;IDEA</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O复用概述"><span class="nav-number">1.</span> <span class="nav-text">I/O复用概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场合"><span class="nav-number">1.1.</span> <span class="nav-text">应用场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O模型"><span class="nav-number">2.</span> <span class="nav-text">I/O模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞式I-O模型"><span class="nav-number">2.1.</span> <span class="nav-text">阻塞式I/O模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非阻塞式I-O模型-gt-轮询（polling）"><span class="nav-number">2.2.</span> <span class="nav-text">非阻塞式I/O模型 ==&gt; 轮询（polling）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O复用模型"><span class="nav-number">2.3.</span> <span class="nav-text">I/O复用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号驱动式I-O模型"><span class="nav-number">2.4.</span> <span class="nav-text">信号驱动式I/O模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步I-O模型"><span class="nav-number">2.5.</span> <span class="nav-text">异步I/O模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种I-O模型的比较"><span class="nav-number">2.6.</span> <span class="nav-text">各种I/O模型的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select函数"><span class="nav-number">3.</span> <span class="nav-text">select函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">3.1.</span> <span class="nav-text">原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#timeout"><span class="nav-number">3.1.1.</span> <span class="nav-text">timeout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fd-set"><span class="nav-number">3.1.2.</span> <span class="nav-text">fd_set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#maxfdp1"><span class="nav-number">3.1.3.</span> <span class="nav-text">maxfdp1</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符就绪条件"><span class="nav-number">3.2.</span> <span class="nav-text">描述符就绪条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#str-cli函数修订版"><span class="nav-number">4.</span> <span class="nav-text">str_cli函数修订版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#各种条件下的处理"><span class="nav-number">4.1.</span> <span class="nav-text">各种条件下的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修订版的str-cli函数"><span class="nav-number">4.2.</span> <span class="nav-text">修订版的str_cli函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量输入和缓存（Batch-Input-and-Buffering）"><span class="nav-number">5.</span> <span class="nav-text">批量输入和缓存（Batch Input and Buffering）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式输入："><span class="nav-number">5.1.</span> <span class="nav-text">交互式输入：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量输入："><span class="nav-number">5.2.</span> <span class="nav-text">批量输入：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -879,7 +899,7 @@ var jiathis_config={
 		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/"});
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2018/01/05/super_c_f/"});
 		
 
 		(function() {

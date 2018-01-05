@@ -487,7 +487,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（e）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/24/2017-12-24-软件工程复习（f）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -506,7 +506,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="url">软件工程复习（五）</a></h1>
+                <a class="post-title-link" href="/2017/12/24/2017-12-24-软件工程复习（f）/" itemprop="url">软件工程复习（六）</a></h1>
         
 
         <div class="post-meta">
@@ -518,8 +518,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
-                2017-12-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-24T00:00:00+08:00">
+                2017-12-24
               </time>
             
 
@@ -538,8 +538,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/23/2017-12-23-软件工程复习（e）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/24/2017-12-24-软件工程复习（f）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/24/2017-12-24-软件工程复习（f）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -548,7 +548,7 @@
 
           
           
-             <span id="/2017/12/23/2017-12-23-软件工程复习（e）/" class="leancloud_visitors" data-flag-title="软件工程复习（五）">
+             <span id="/2017/12/24/2017-12-24-软件工程复习（f）/" class="leancloud_visitors" data-flag-title="软件工程复习（六）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -582,192 +582,369 @@
         
           
             <blockquote>
-<p>详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。</p>
-<h2 id="结构程序设计-master"><a href="#结构程序设计-master" class="headerlink" title="结构程序设计 (master)"></a>结构程序设计 (master)</h2><p>如果一个程序的代码块仅仅通过<strong>顺序、选择和循环</strong>这三种控制结构进行<strong>连接</strong>，并且每个代码块只有<strong>一个入口和一个出口</strong>，则称<strong>这个程序是结构化</strong>的。</p>
+<ul>
+<li>通常把<strong>编码和测试</strong>统称为实现</li>
+<li>所谓编码就是把软件设计翻译成计算机可以理解的形式——用某种程序设计语言书写的程序</li>
+<li>编码是设计的自然结果，<strong>程序的质量主要取决于软件设计的质量</strong></li>
+<li>但所选用的程序设计语言的特点和编码风格也会对程序的可靠性、可读性、可测试性和可维护性产生深远的影响。</li>
+<li>软件测试对软件可靠性的影响是重要的（软件生命周期中，<strong>差错不可避免</strong>）</li>
+<li><strong>尽可能早</strong>地发现并<strong>纠正差错</strong></li>
+<li><strong>测试的目的</strong>就是在软件<strong>投入生产性运行之前</strong>，<strong>尽可能多地发现软件中的错误</strong></li>
+<li><strong>软件测试</strong>在软件生命周期中<strong>横跨两个阶段</strong><ul>
+<li>单元测试（一般模块的编写者和测试者是同一个人）</li>
+<li>综合测试（通常由专门的测试人员承担这项工作）</li>
+</ul>
+</li>
+<li>统计资料表明，软件测试的工作量往往占软件开发总工作量的40%以上，对于关键应用系统的测试，可能相当于软件工程其他步骤总成本的3～5倍</li>
+<li>测试目标是<strong>发现软件中的错误</strong>，但<strong>不是最终目的</strong>。调试是<strong>诊断并改正错误</strong>，这<strong>是最终目的</strong>。<strong>调试</strong>是<strong>测试阶段最困难的工作</strong></li>
+<li>对测试结果进行收集和评价，确定系统的<strong>可靠性</strong></li>
+</ul>
+<h2 id="编码-understanding"><a href="#编码-understanding" class="headerlink" title="编码 (understanding)"></a>编码 (understanding)</h2></blockquote>
+<ul>
+<li><h3 id="选择程序设计语言"><a href="#选择程序设计语言" class="headerlink" title="选择程序设计语言"></a>选择程序设计语言</h3><ul>
+<li>总的来说，<strong>高级语言明显优于汇编语言</strong>。<strong>除了</strong>对程度执行时间和使用的空间都有很严格限制的情况；需要产生任意的甚至非法的指令序列；体系结构特殊的微处理机，以致在这类机器上通常不能实现高级语言编译程序；或者大型系统中执行时间非常关键的(或直接依赖于硬件的)一小部分代码；<strong>其他</strong>程序应该<strong>一律用高级语言书写</strong></li>
+</ul>
+</li>
+<li><h3 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h3><blockquote>
+<p>源程序代码的<strong>逻辑简明清晰、易读易懂</strong>是好程序的一个重要标准，应该遵循下述规则</p>
+<ul>
+<li>程序内部的文档（注释）</li>
+<li>数据说明</li>
+<li>语句构造</li>
+<li>输入输出</li>
+<li>效率</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<h2 id="软件测试基础-master"><a href="#软件测试基础-master" class="headerlink" title="软件测试基础 (master)"></a>软件测试基础 (master)</h2><p>软件工程其他阶段都是“建设性的”，而测试阶段的目的却是为了“破坏”已经建造好的软件系统————竭力证明程序中有错误，不能按照预定要求正确工作。</p>
 </blockquote>
 <ul>
-<li><h3 id="三种基本控制结构"><a href="#三种基本控制结构" class="headerlink" title="三种基本控制结构"></a>三种基本控制结构</h3><img src="/img/se_46.jpg" title="三种基本的控制结构(a) 顺序结构，先执行A再执行B；(b) IF-THEN-ELSE型选择(分支)结构；(c) DO-WHILE型循环结构"></li>
-<li><h3 id="关于GOTO语句"><a href="#关于GOTO语句" class="headerlink" title="关于GOTO语句"></a>关于GOTO语句</h3><ul>
-<li>上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的编程方法，而是一种使程序代码容易阅读、容易理解的编程方法</li>
-<li>大多数情况下，无GO TO的代码确实是容易阅读、容易理解，但在某些情况下，为达到容易阅读和容易理解的目的，需要使用GO TO语句</li>
-<li>结构程序设计是尽可能少用GO TO语句的程序设计方法。最好仅在检测出错误时才使用GO TO语句，而且应该总是使用前向GO TO语句</li>
-<li><strong>但是一般题目中问一段代码为什么不是结构化程序，很大可能是使用了GOTO语句</strong></li>
+<li><h3 id="测试目标"><a href="#测试目标" class="headerlink" title="测试目标"></a>测试目标</h3><ul>
+<li><strong>测试</strong>是<strong>为发现</strong>程序中的<strong>错误</strong>而<strong>执行程序的过程</strong></li>
+<li><strong>好的测试方案</strong>是极可能发现迄今为止尚未发现的错误的测试方案</li>
+<li><strong>成功的测试</strong>是发现了至今为止尚未发现的错误的测试</li>
 </ul>
 </li>
-<li><h3 id="经典的结构程序设计"><a href="#经典的结构程序设计" class="headerlink" title="经典的结构程序设计"></a>经典的结构程序设计</h3><ul>
-<li>如果<strong>只允许使用顺序、IF-THEN-ELSE型分支和DO-WHILE型循环</strong>这三种基本控制结构，则称为经典的结构程序设计</li>
+<li><h3 id="测试准则"><a href="#测试准则" class="headerlink" title="测试准则"></a>测试准则</h3><ul>
+<li>所有的测试都应该能追溯到用户需求（<strong>因需制宜</strong>）</li>
+<li>应该在测试开始之前的相当长时间，就制定出测试计划</li>
+<li>把Pareto原理应用于软件测试：测试发现的错误中的80%很可能是由程序中20%的模块造成的（<strong>2-8定理</strong>）</li>
+<li>测试应该从“小规模”开始，并逐步进行“大规模”测试（<strong>由小到大</strong>）</li>
+<li>穷举测试是不可能的</li>
+<li>为了达到最佳的测试效果，应该由独立的第三方来从事测试工作（<strong>心理学角度上来讲，让编码人员找自己的错误是不现实的</strong>）</li>
 </ul>
 </li>
-<li><h3 id="扩展的结构程序设计"><a href="#扩展的结构程序设计" class="headerlink" title="扩展的结构程序设计"></a>扩展的结构程序设计</h3><ul>
-<li>如果除了上述三种基本控制结构之外，还允许使用<strong>DO-CASE型多分支结构</strong>和<strong>DO-UNTIL型循环结构</strong>，则称为扩展的结构程序设计<img src="/img/se_47.jpg" title="其他常用的控制结构(a) DO-UNTIL型循环结构；(b)多分支结构"></li>
+<li><h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><ul>
+<li><h4 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h4><ul>
+<li><strong>黑盒测试</strong>又称为<strong>功能测试</strong></li>
+<li>是在<strong>接口层面</strong>的测试，把程序看成一个黑盒子，不考虑内部结构和处理过程</li>
+<li>适合于程序后期测试接口</li>
 </ul>
 </li>
-<li><h3 id="修正的结构程序设计"><a href="#修正的结构程序设计" class="headerlink" title="修正的结构程序设计"></a>修正的结构程序设计</h3><ul>
-<li>如果再加上允许使用<strong>LEAVE(或BREAK)结构</strong>，则称为修正的结构程序设计。</li>
+<li><h4 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h4><ul>
+<li><strong>白盒测试</strong>又称为<strong>结构测试</strong></li>
+<li>把程序看成装在一个透明的白盒子里，也就是完全了解程序的结构和处理过程</li>
+<li>按照<strong>程序内部的逻辑测试</strong>程序，检验程序中的每条通路是否都能按预定要求正确工作。</li>
+<li>适合于早期测试模块内部逻辑</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h3><ul>
+<li><strong>单元测试</strong>，也称模块测试</li>
+<li>集成测试</li>
+<li>确认测试</li>
+<li>系统测试<img src="/img/se_59.jpg">
+<blockquote>
+<p>ps:</p>
+<ul>
+<li>α测试：在受控环境下测试（实验室环境）</li>
+<li>β测试：在非受控环境下测试（实际工作环境）</li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="人机界面设计-cut"><a href="#人机界面设计-cut" class="headerlink" title="人机界面设计 (cut)"></a>人机界面设计 (cut)</h2><p><strong>人机界面</strong>设计是<strong>接口设计</strong>的一个组成部分</p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
+<li><strong>单元测试和编码属于</strong>软件工程过程<strong>同一阶段</strong>（同属于编码和单元测试，因为单元测试通常是在编码的过程中进行的）</li>
+<li>在编写出源程序代码并通过了编译程序的语法检查之后，应用<strong>人工测试</strong>和<strong>计算机测</strong>试这样两种类型的测试，完成单元测试工作</li>
+<li>这两种类型的测试各有所长，互相补充</li>
+<li>单元测试<strong>主要采用白盒测试技术</strong>，而且对<strong>多个模块的测试可以并行地进行</strong></li>
+</ul>
 </blockquote>
 <ul>
-<li><h3 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h3><ul>
-<li>系统响应时间</li>
-<li>用户帮助设施</li>
-<li>出错信息处理</li>
-<li>命令交互</li>
+<li><h3 id="测试重点"><a href="#测试重点" class="headerlink" title="测试重点"></a>测试重点</h3><ul>
+<li>模块接口</li>
+<li>局部数据结构</li>
+<li>重要的执行通路</li>
+<li>出错处理通路</li>
+<li>边界条件</li>
 </ul>
 </li>
-<li><h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ul>
-<li>用户界面设计是一个迭代的过程，也就是说，通常先创建设计模型，再用原型实现这个设计模型，并由用户试用和评估，然后根据用户的意见进行修改</li>
+<li><h3 id="代码审查"><a href="#代码审查" class="headerlink" title="代码审查"></a>代码审查</h3><blockquote>
+<p><strong>人工测试</strong>源程序可以由<strong>编写者本人非正式地进行</strong>，也可以由<strong>审查小组正式进行</strong>，<strong>后者称为代码审查</strong>，是一种非常有效的程序验证技术，对于典型的程序来说，可以查出30%～70%的逻辑设计错误和编码错误</p>
+</blockquote>
+<ul>
+<li>审查小组组成：<ul>
+<li>组长，应该是一个很有能力的程序员，而且没有直接参与这项工程</li>
+<li>程序的设计者</li>
+<li>程序的编写者</li>
+<li>程序的测试者</li>
 </ul>
 </li>
-<li><h3 id="界面设计指南"><a href="#界面设计指南" class="headerlink" title="界面设计指南"></a>界面设计指南</h3><ul>
-<li><h4 id="一般交互指南"><a href="#一般交互指南" class="headerlink" title="一般交互指南"></a>一般交互指南</h4><ul>
-<li>保持一致性</li>
-<li>提供有意义的反馈</li>
-<li>在执行有较大破坏性动作之前要求用户确认</li>
-<li>允许取消大多数操作</li>
-<li>减少在两次操作之间必须记忆的信息量</li>
-<li>提高对话、移动和思考的效率</li>
-<li>允许犯错误</li>
-<li>按功能对动作分类，并据此设计屏幕布局</li>
-<li>提供对用户工作内容敏感的帮助设施</li>
-<li>用简单动词或名词短语作为命令名</li>
 </ul>
 </li>
-<li><h4 id="信息显示指南"><a href="#信息显示指南" class="headerlink" title="信息显示指南"></a>信息显示指南</h4><ul>
-<li>只显示与当前<strong>工作内容有关的信息</strong>。</li>
-<li>用户在获得有关系统的特定功能的信息时，<strong>不必看到与之无关的数据、菜单和图形</strong>。</li>
-<li>不要用数据淹没用户</li>
-<li>使用一致的标记、标准的缩写和可预知的颜色</li>
-<li>允许用户保持可视化的语境</li>
-<li>产生有意义的出错信息</li>
-<li>使用大小写、缩进和文本分组以帮助理解</li>
-<li>使用窗口分隔不同类型的信息</li>
-<li>使用“模拟”显示方式表示信息</li>
-<li>高效率地使用显示屏</li>
-</ul>
-</li>
-<li><h4 id="数据输入指南"><a href="#数据输入指南" class="headerlink" title="数据输入指南"></a>数据输入指南</h4><ul>
-<li>尽量减少用户的输入动作</li>
-<li>保持信息显示和数据输入之间的一致性</li>
-<li>允许用户自定义输入</li>
-<li>交互应该是灵活的</li>
-<li>使在当前动作语境中不适用的命令不起作用</li>
-<li>让用户控制交互流</li>
-<li>对所有输入动作都提供帮助</li>
-<li>消除冗余的输入</li>
-</ul>
+<li><h3 id="计算机测试"><a href="#计算机测试" class="headerlink" title="计算机测试"></a>计算机测试</h3><ul>
+<li>模块并不是一个独立的程序，必须为每个单元测试开发<strong>驱动软件</strong>（负责调用本模块）和(或)<strong>存根软件</strong>（负责模拟被本模块调用的子模块，比如对于一个用于数据处理的子模块，本模块需要的是其输出一个数据结构，那么就可以直接用一个构造的数据实例来替代这个子模块）</li>
+<li>驱动程序就是一个“<strong>主程序</strong>”，接收测试数据，把这些数据传送给被测试的模块，并且输出有关结果</li>
+<li>存根程序代替被测试的模块所调用的模块，也可以称为“<strong>虚拟子程序</strong>”。（<strong>桩模块</strong>）</li>
+<li>使用被它代替的模块的接口，做最少量的数据操作，输出对入口的检验或操作结果，并且把控制归还给调用它的模块<img src="/img/se_60.jpg">
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="过程设计的工具-master"><a href="#过程设计的工具-master" class="headerlink" title="过程设计的工具  (master)"></a>过程设计的工具  (master)</h2><p>图形、表格、语言</p>
+<h2 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h2><p>集成测试是测试和组装软件的系统化技术，在把模块按照设计要求组装起来的同时进行测试，主要目标是<strong>发现与接口有关的问题</strong></p>
+<ul>
+<li><h3 id="非渐增式测试方法"><a href="#非渐增式测试方法" class="headerlink" title="非渐增式测试方法"></a>非渐增式测试方法</h3><ul>
+<li><strong>先分别测试每个模块</strong>，再把所有模块按设计要求放在一起结合成所要的程序</li>
+<li>一次性集成测试</li>
+</ul>
+</li>
+<li><h3 id="渐增式测试"><a href="#渐增式测试" class="headerlink" title="渐增式测试"></a>渐增式测试</h3>把下一个要测试的模块同已经测试好的那些模块结合起来进行测试，测试完以后再把下一个应该测试的模块结合进来测试。这种<strong>每次增加一个模块</strong>的方法称为<strong>渐增式测试</strong></li>
+</ul>
 </blockquote>
 <ul>
-<li><h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><ul>
-<li>程序流程图又称为程序框图，是历史最悠久使用最广泛的描述过程设计的方法，然而也是用得最混乱的一种方法</li>
+<li><h4 id="自顶向下集成"><a href="#自顶向下集成" class="headerlink" title="自顶向下集成"></a>自顶向下集成</h4><img src="/img/se_61.jpg">
+<ul>
+<li>首先测试M1（需要写M2、M3、S4对应的桩模块），然后将M1作为M2、M3、S4的驱动程序，集成并测试。以此类推</li>
+<li><strong>不用写驱动模块，但是需要写大量桩模块</strong></li>
+<li>优点：<ul>
+<li>不需要测试驱动程序</li>
+<li>能够在测试阶段的早期实现并验证系统的主要功能</li>
+<li>能在早期发现上层模块的接口错误</li>
+</ul>
+</li>
 <li>缺点：<ul>
-<li>绘制随意，容易只考虑流程控制而不考虑全局结构，而破坏结构化程序设计</li>
-<li>不容易表示数据结构</li>
+<li>需要存根程序</li>
+<li>低层关键模块中的错误发现较晚</li>
+<li>早期不能充分展开人力（不利于团队分工测试）</li>
 </ul>
-</li>
-<li>程序流程图中使用的符号<img src="/" title="(a) 选择(分支)；(b) 注释；(c) 预先定义的处理；(d) 多分支；(e) 开始或停止；(f) 准备； (g)循环上界限；(h) 循环下界限；(i) 虚线；(j) 省略符；(k) 并行方式；(l) 处理； (m) 输入/输出；(n) 连接；(o) 换页连接；(p) 控制流"></li>
-</ul>
-</li>
-<li><h3 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h3><ul>
-<li><p>盒图没有箭头，因此不允许随意转移控制。坚持使用盒图作为详细设计的工具，可使程序员逐步养成用结构化的方式思考问题和解决问题的习惯</p>
-</li>
-<li><p><strong>能保证设计出的程序一定是结构化的</strong></p>
-</li>
-<li><p>但是绘制的时候受空间限制，难以扩充</p>
-</li>
-<li>盒图的基本符号<img src="/img/se_48.jpg" title="(a) 顺序；(b) IF-THEN-ELSE型分支；(c) CASE型多分支；(d) 循环；(e) 调用子程序A">
 </li>
 </ul>
 </li>
-<li><h3 id="PAD图（Problem-Analysis-Diagram）"><a href="#PAD图（Problem-Analysis-Diagram）" class="headerlink" title="PAD图（Problem Analysis Diagram）"></a>PAD图（Problem Analysis Diagram）</h3><ul>
-<li><p>它用二维树形结构的图来表示程序的控制流，将这种图翻译成程序代码比较容易</p>
-</li>
-<li><p>与盒图相比，<strong>不受空间限制，易于扩充</strong></p>
-</li>
-<li><p><strong>可保证设计出来的程序一定是结构化的</strong></p>
-</li>
-<li><p>PAD图的基本符号</p>
+<li><h4 id="自底向上集成"><a href="#自底向上集成" class="headerlink" title="自底向上集成"></a>自底向上集成</h4><img src="/img/se_62.jpg">
 <ul>
-<li>(a) 顺序(先执行P1后执行P2)；</li>
-<li>(b) 选择(IF C THEN P1 ELSE P2)；</li>
-<li>(c) CASE型多分支；(d) WHILE型循环(WHILE C DO P)；</li>
-<li>(e) UNTIL型循环(REPEAT P UNTIL C)；</li>
-<li>(f) 语句标号；</li>
-<li>(g) 定义<img src="/img/se_49.jpg">
+<li>步骤：<ol>
+<li>把低层模块组合成实现某特定软件子功能的簇</li>
+<li>写一个驱动程序(用于测试的控制程序)，协调测试数据的输入和输出</li>
+<li>对由模块组成的子功能簇进行测试</li>
+<li>去掉驱动程序，沿软件结构自下向上移动，把子功能簇组合起来形成更大的子功能簇，重复2~4</li>
+</ol>
 </li>
+<li>优缺点与自顶向下集成相反</li>
+<li><h3 id="回归测试"><a href="#回归测试" class="headerlink" title="回归测试"></a>回归测试</h3></li>
 </ul>
 </li>
-<li><p>可使用PAD提供的定义功能来逐步求精</p>
-<img src="/img/se_50.jpg">
-</li>
-</ul>
-</li>
-<li><h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><ul>
-<li>当算法中包含多重嵌套的条件选择时，<strong>判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</strong><img src="/img/se_51.jpg"></li>
-</ul>
-</li>
-<li><h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><ul>
-<li>比判定表<strong>直观</strong>，包含<strong>判定的先后顺序</strong></li>
-<li>父节点：判定条件</li>
-<li>叶子节点：一个动作<img src="/img/se_52.jpg"></li>
-</ul>
-</li>
-<li><h3 id="过程设计语言（PDL-Process-Design-Language）"><a href="#过程设计语言（PDL-Process-Design-Language）" class="headerlink" title="过程设计语言（PDL: Process Design Language）"></a>过程设计语言（PDL: Process Design Language）</h3><ul>
-<li>伪代码</li>
+<li>不是一种测试方法，也不是一个测试阶段。重新执行已经做过的测试的某个子集，以保证上述这些改变没有带来非预期的副作用</li>
+<li>回归测试（regression）与累进测试(progression)<ul>
+<li>回归测试：用之前版本的测试方案，测试好现在的程序</li>
+<li>累进测试：用新的测试方案，测试同一版本的程序</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="程序复杂度的定量度量-master"><a href="#程序复杂度的定量度量-master" class="headerlink" title="程序复杂度的定量度量 (master)"></a>程序复杂度的定量度量 (master)</h2><p>常用的方法有McCabe方法（采用流图）、Halstead方法，下面仅介绍第一种</p>
-</blockquote>
-<ul>
-<li><h3 id="McCabe-方法"><a href="#McCabe-方法" class="headerlink" title="McCabe 方法"></a>McCabe 方法</h3><ul>
-<li><h4 id="流图"><a href="#流图" class="headerlink" title="流图"></a>流图</h4><ul>
-<li><p>为了<strong>突出表示程序的控制流</strong>，可以使用流图(也称为程序图)</p>
-</li>
-<li><p>流图<strong>仅描绘程序的控制流程</strong>，完全不表现对数据的具体操作以及分支或循环的具体条件。</p>
-</li>
-<li><p>流图用<strong>圆</strong>表示<strong>节点</strong>，一个圆代表<strong>一条或多条语句</strong>（如果多条语句在一个顺序结构上，可以省略中间，只画两边的节点）</p>
-</li>
-<li><p>流图中的<strong>箭头线</strong>称为<strong>边</strong>，和程序流程图中的箭头线类似，代表<strong>控制流</strong></p>
-</li>
-<li><p>由边和节点围成的面积称为<strong>区域</strong>，<strong>区域数</strong>应该<strong>包括</strong>图<strong>外部</strong>未被围起来的<strong>区域</strong>。</p>
-</li>
-<li><p>基本结构：</p>
-<img src="/img/se_53.jpg"></li>
-<li>把程序流程图映射成流图(a)程序流程图；(b)流图<img src="/img/se_54.jpg)" title="![](img/se_55.jpg"></li>
-<li><p>PDL翻译成流图</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">procedure: sort</span><br><span class="line">  <span class="keyword">do</span> <span class="keyword">while</span> records remain</span><br><span class="line">    read record;</span><br><span class="line">    <span class="keyword">if</span> record field1 = <span class="number">0</span></span><br><span class="line">      then process record;</span><br><span class="line">        store in buffer;</span><br><span class="line">        incremert counter;</span><br><span class="line">    elseif record filed2 = <span class="number">0</span></span><br><span class="line">      then reset counter;</span><br><span class="line">      <span class="keyword">else</span> process record;</span><br><span class="line">        store in file;</span><br><span class="line">      endif</span><br><span class="line">    endif</span><br><span class="line">  enddo</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
-<img src="/img/se_57.jpg"></li>
-<li>由包含复合条件的PDL映射成的流图<img src="/img/se_58.jpg"></li>
+<h2 id="确认测试"><a href="#确认测试" class="headerlink" title="确认测试"></a>确认测试</h2><ul>
+<li><strong>确认测试</strong>也称为<strong>验收测试</strong>，目标是验证软件的有效性</li>
+<li>使用了<strong>确认</strong>(Validation)和<strong>验证</strong>(Verification)这样两个不同的术语<ul>
+<li>验证 就是要用数据证明我们是不是在正确的制造产品。注意这里强调的是过程的正确性</li>
+<li>确认 就是要用数据证明我们是不是制造了正确的产品。注意这里强调的是结果的正确性</li>
 </ul>
 </li>
-<li><h4 id="流图环形复杂度的计算"><a href="#流图环形复杂度的计算" class="headerlink" title="流图环形复杂度的计算"></a>流图<strong>环形复杂度</strong>的计算</h4><ul>
-<li>流图中的区域数等于环形复杂度</li>
-<li>流图G的环形复杂度V(G)＝E-N+2，其中E是流图中边的条数，N是流图中节点数</li>
-<li>流图G的环形复杂度V(G)＝P+1，其中P是流图中判定节点的数目</li>
-</ul>
-</li>
-<li>举个栗子：<img src="/img/se_55.jpg">
-<ul>
-<li>上图中共有四个区域，故环形复杂度为4</li>
-<li>上图中共有11条边，9个点，所以环形复杂度位：11 - 9 + 2 = 4</li>
-<li>上图中共有三个判定节点，分别为”1”, “2,3”, “6”，所以环形复杂度为：3 + 1 = 4<blockquote>
-<p>PS:</p>
-<ul>
-<li>在计算<strong>区域数</strong>的时候别忘了包括<strong>最外围的区域</strong></li>
-<li>在计算<strong>判定节点</strong>的时候，不仅<strong>包括</strong>条件<strong>分支的判断</strong>，<strong>循环判定</strong>的节点也算</li>
 </ul>
 </blockquote>
+<ul>
+<li>确认测试的范围</li>
+<li>软件配置复查</li>
+<li>Alpha和Beta测试<ul>
+<li>α测试：在受控环境下测试（实验室环境）</li>
+<li>β测试：在非受控环境下测试（实际工作环境）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="白盒测试技术-master"><a href="#白盒测试技术-master" class="headerlink" title="白盒测试技术   (master)"></a>白盒测试技术   (master)</h2><ul>
+<li><strong>逻辑覆盖</strong>是设计白盒测试方案的技术。设计测试方案是测试阶段的关键技术问题</li>
+<li><strong>测试方案</strong>包括具体的<strong>测试目的</strong>(例如，要测试的具体功能)，应该<strong>输入的测试数据</strong>和<strong>预期的输出结果</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="逻辑覆盖"><a href="#逻辑覆盖" class="headerlink" title="逻辑覆盖"></a>逻辑覆盖</h3><ul>
+<li><h4 id="语句覆盖"><a href="#语句覆盖" class="headerlink" title="语句覆盖"></a>语句覆盖</h4><ul>
+<li>选择足够多的测试数据，使被测程序中<strong>每个语句至少执行一次</strong></li>
+<li>是<strong>很弱的逻辑覆盖标准</strong></li>
+<li><strong>只关心判定表达式的值，不关心表达式内部具体每个条件取哪些值</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<ul>
+<li>只需选取一组测试数据，覆盖路径ace即可</li>
+<li>比如可以取<ul>
+<li>测试用例的格式：【输入的(A, B, X)，输出的(A, B, X)】</li>
+<li>满足语句覆盖的测试用例：【(2, 0, 4), (2, 0, 3)】</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="判定覆盖"><a href="#判定覆盖" class="headerlink" title="判定覆盖"></a>判定覆盖</h4><ul>
+<li>不仅每个语句必须至少执行一次</li>
+<li>而且每个判定的每种可能的结果都应该至少执行一次，也就是<strong>每个判定的每个分支都至少执行一次</strong></li>
+<li>同样<strong>只关心判定表达式的值，不关心表达式内部具体每个条件取哪些值</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<ul>
+<li>测试用例的格式：【输入的(A, B, X)，输出的(A, B, X)】</li>
+<li>满足判定覆盖的测试用例：<ul>
+<li>【(2, 0, 4), (2, 0, 3)】覆盖ace</li>
+<li>【(1, 1, 1), (1, 1, 1)】覆盖abd</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="条件覆盖"><a href="#条件覆盖" class="headerlink" title="条件覆盖"></a>条件覆盖</h4><ul>
+<li><strong>不仅每个语句至少执行一次</strong>，而且<strong>判定表达式中每个条件都取到各种可能的结果</strong></li>
+<li>条件覆盖不一定比判定覆盖强，甚至可能连语句覆盖都达不到</li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<img src="/img/se_64.jpg">
+<ul>
+<li>本例中b处没有逻辑代码，如果有，则上面的第二种方案就达不到语句覆盖，但是能达到条件覆盖</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="判定-条件覆盖"><a href="#判定-条件覆盖" class="headerlink" title="判定/条件覆盖"></a>判定/条件覆盖</h4><ul>
+<li>判定覆盖不一定包含条件覆盖，条件覆盖也不一定包含判定覆盖，<strong>判定/条件覆盖能同时满足这两种覆盖标准</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<img src="/img/se_65.jpg"></li>
+</ul>
+</li>
+<li><h4 id="条件组合覆盖"><a href="#条件组合覆盖" class="headerlink" title="条件组合覆盖"></a>条件组合覆盖</h4><ul>
+<li>条件组合覆盖就是设计足够的测试用例，运行被测程序，<strong>使得每个判断的所有可能的条件取值组合至少执行一次</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<ul>
+<li>所有可能的条件组合：<img src="/img/se_66.jpg">
+<img src="/img/se_67.jpg"></li>
+<li>一个满足条件组合覆盖的测试方案<img src="/img/se_68.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="点覆盖"><a href="#点覆盖" class="headerlink" title="点覆盖"></a>点覆盖</h4></li>
+<li><h4 id="边覆盖"><a href="#边覆盖" class="headerlink" title="边覆盖"></a>边覆盖</h4></li>
+<li><h4 id="路径覆盖"><a href="#路径覆盖" class="headerlink" title="路径覆盖"></a>路径覆盖</h4></li>
+</ul>
+</li>
+<li><h3 id="控制结构测试"><a href="#控制结构测试" class="headerlink" title="控制结构测试"></a>控制结构测试</h3><ul>
+<li><h4 id="基本路径测试-master"><a href="#基本路径测试-master" class="headerlink" title="基本路径测试  (master)"></a>基本路径测试  (master)</h4><ol>
+<li>根据过程设计结果<strong>画出</strong>相应的<strong>流图</strong></li>
+<li>计算流图的<strong>环形复杂度n</strong></li>
+<li>确定线性独立路径的基本集合（<strong>找到n条能覆盖整个流图的独立路径</strong>）<ul>
+<li>独立路径指至少引入程序一个新处理语句集合或一个新条件的路径，用流图术语描述，<strong>独立路径至少包含一条在定义该路径之前不曾用过的边</strong></li>
+<li><strong>程序的环形复杂度决定了程序中独立路径的数量</strong></li>
+<li>在<strong>不考虑业务逻辑的情况下找到的路径有可能是无效的</strong>（多个判定条件之间可能有一定联系，导致某个独立路径上的判定条件无法同时满足）</li>
+</ul>
+</li>
+<li>设计可强制执行基本集合中每条路径测试用例</li>
+</ol>
+<ul>
+<li>举个栗子：<br><img src="/img/se_69.jpg">
+<ul>
+<li>环形复杂度：6</li>
+<li>路径：<ul>
+<li>路径1：1-2-10-11-13</li>
+<li>路径2：1-2-10-12-13</li>
+<li>路径3：1-2-3-10-11-13</li>
+<li>路径4：1-2-3-4-5-8-9-2···</li>
+<li>路径5：1-2-3-4-5-6-8-9-2···</li>
+<li>路径6：1-2-3-4-5-6-7-8-9-2···</li>
+</ul>
+</li>
+<li>路径4、5、6后面的省略号(…)表示，可以后接通过控制结构其余部分的任意路径(例如，10-11-13)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="条件测试-pass"><a href="#条件测试-pass" class="headerlink" title="条件测试  (pass)"></a>条件测试  (pass)</h4></li>
+<li><h4 id="循环测试-pass"><a href="#循环测试-pass" class="headerlink" title="循环测试  (pass)"></a>循环测试  (pass)</h4><ul>
+<li>简单循环</li>
+<li>串接循环</li>
+<li>嵌套循环</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="黑盒测试技术-master"><a href="#黑盒测试技术-master" class="headerlink" title="黑盒测试技术   (master)"></a>黑盒测试技术   (master)</h2><ul>
+<li>黑盒测试<strong>着重测试软件的功能需求</strong>，让软件工程师设计出能充分检查程序所有功能需求的输入条件集</li>
+<li><strong>黑盒测试和白盒测试两者互补</strong>(A代表需求，B代表实现)<img src="/img/se_70.jpg">
+<ul>
+<li>白盒测试至多能覆盖实现</li>
+<li>黑盒测试至多能覆盖需求</li>
+<li>只有两者结合使用才能做到全方位的测试</li>
+</ul>
+</li>
+<li>白盒测试在测试过程的早期阶段进行，而黑盒测试主要用于测试过程的后期</li>
+<li>黑盒测试力图发现下述类型的错误：① 功能不正确或遗漏了功能；② 界面错误；③ 数据结构错误或外部数据库访问错误；④ 性能错误；⑤ 初始化和终止错误</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="等价划分"><a href="#等价划分" class="headerlink" title="等价划分"></a>等价划分</h3><ul>
+<li><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><ul>
+<li>需要研究程序的功能说明，<strong>确定输入数据的有效等价类和无效等价类</strong></li>
+</ul>
+</li>
+<li><h4 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h4><ul>
+<li>如果规定了输入值的范围，则可划分出一个有效的等价类(输入值在此范围内)，两个无效的等价类(输入值小于最小值或大于最大值)</li>
+<li>如果规定了输入数据的个数，则类似地也可以划分出一个有效的等价类和两个无效的等价类</li>
+<li>如果规定了输入数据的一组值，而且程序对不同输入值做不同处理，则每个允许的输入值是一个有效的等价类，此外还有一个无效的等价类(任一个不允许的输入值)</li>
+<li>如果规定了输入数据必须遵循的规则，则可以划分出一个有效的等价类(符合规则)和若干个无效的等价类(从各种不同角度违反规则)</li>
+<li>如果规定了输入数据为整型，则可以划分出正整数、零和负整数等三个有效类</li>
+<li>如果程序的处理对象是表格，则应该使用空表，以及含一项或多项的表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="边界值分析"><a href="#边界值分析" class="headerlink" title="边界值分析"></a>边界值分析</h3><ul>
+<li><strong>处理边界情况时程序最容易发生错误</strong></li>
+<li>边界值处测试数据的选取<ul>
+<li>刚好等于</li>
+<li>刚刚小于</li>
+<li>刚刚大于</li>
+</ul>
+</li>
+<li>栗子：<img src="/img/se_71.jpg">
+</li>
+</ul>
+</li>
+<li><h3 id="错误推测"><a href="#错误推测" class="headerlink" title="错误推测"></a>错误推测</h3><ul>
+<li>错误推测法在很大程度上靠直觉和经验进行</li>
+<li>基本想法是列举出程序中可能有的错误和容易发生错误的特殊情况，并且根据它们选择测试方案</li>
+</ul>
+</li>
+<li><h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><ul>
+<li>调试(也称为纠错)作为成功的测试的后果而出现，即<strong>调试是在测试发现错误之后排除错误的过程</strong></li>
+<li><strong>调试不是测试</strong>，但是它总是发生在测试之后</li>
+<li>途径：<ul>
+<li>蛮干法：打印内存数据、关键输出、断点</li>
+<li>回溯法：由症状回推可能的原因</li>
+<li>原因排除法：对分查找、归纳、演绎等方法<blockquote>
+<h2 id="软件可靠性"><a href="#软件可靠性" class="headerlink" title="软件可靠性"></a>软件可靠性</h2></blockquote>
 </li>
 </ul>
 </li>
@@ -1209,7 +1386,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（c）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（e）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1228,7 +1405,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/22/2017-12-22-软件工程复习（c）/" itemprop="url">软件工程复习（三）</a></h1>
+                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="url">软件工程复习（五）</a></h1>
         
 
         <div class="post-meta">
@@ -1240,8 +1417,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T00:00:00+08:00">
-                2017-12-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
+                2017-12-23
               </time>
             
 
@@ -1260,8 +1437,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/22/2017-12-22-软件工程复习（c）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/22/2017-12-22-软件工程复习（c）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/23/2017-12-23-软件工程复习（e）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1270,7 +1447,7 @@
 
           
           
-             <span id="/2017/12/22/2017-12-22-软件工程复习（c）/" class="leancloud_visitors" data-flag-title="软件工程复习（三）">
+             <span id="/2017/12/23/2017-12-23-软件工程复习（e）/" class="leancloud_visitors" data-flag-title="软件工程复习（五）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1304,165 +1481,198 @@
         
           
             <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>需求分析是发现、求精、建模、规格说明和复审的过程。</p>
+<p>详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。</p>
+<h2 id="结构程序设计-master"><a href="#结构程序设计-master" class="headerlink" title="结构程序设计 (master)"></a>结构程序设计 (master)</h2><p>如果一个程序的代码块仅仅通过<strong>顺序、选择和循环</strong>这三种控制结构进行<strong>连接</strong>，并且每个代码块只有<strong>一个入口和一个出口</strong>，则称<strong>这个程序是结构化</strong>的。</p>
 </blockquote>
 <ul>
-<li><h3 id="准则"><a href="#准则" class="headerlink" title="准则"></a>准则</h3><ul>
-<li>必须理解和表示问题的信息域，根据这条准则应该建立<strong>数据模型</strong>。</li>
-<li>必须定义软件应完成的功能，这条准则要求建立<strong>功能模型</strong>。</li>
-<li>必须表示作为外部事件结果的软件行为，这条准则要求建立<strong>行为模型</strong>。</li>
-<li>必须对描述信息、功能和行为的模型进行分解，用<strong>层次</strong>的方式展示细节。</li>
-<li>分析过程应该从<strong>要素信息移向实现细节</strong><ul>
-<li>业务 → 技术</li>
-<li>逻辑 → 物理</li>
-<li>要素 → 细节</li>
+<li><h3 id="三种基本控制结构"><a href="#三种基本控制结构" class="headerlink" title="三种基本控制结构"></a>三种基本控制结构</h3><img src="/img/se_46.jpg" title="三种基本的控制结构(a) 顺序结构，先执行A再执行B；(b) IF-THEN-ELSE型选择(分支)结构；(c) DO-WHILE型循环结构"></li>
+<li><h3 id="关于GOTO语句"><a href="#关于GOTO语句" class="headerlink" title="关于GOTO语句"></a>关于GOTO语句</h3><ul>
+<li>上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的编程方法，而是一种使程序代码容易阅读、容易理解的编程方法</li>
+<li>大多数情况下，无GO TO的代码确实是容易阅读、容易理解，但在某些情况下，为达到容易阅读和容易理解的目的，需要使用GO TO语句</li>
+<li>结构程序设计是尽可能少用GO TO语句的程序设计方法。最好仅在检测出错误时才使用GO TO语句，而且应该总是使用前向GO TO语句</li>
+<li><strong>但是一般题目中问一段代码为什么不是结构化程序，很大可能是使用了GOTO语句</strong></li>
 </ul>
 </li>
+<li><h3 id="经典的结构程序设计"><a href="#经典的结构程序设计" class="headerlink" title="经典的结构程序设计"></a>经典的结构程序设计</h3><ul>
+<li>如果<strong>只允许使用顺序、IF-THEN-ELSE型分支和DO-WHILE型循环</strong>这三种基本控制结构，则称为经典的结构程序设计</li>
 </ul>
 </li>
-</ul>
-<blockquote>
-<h2 id="需求分析的任务"><a href="#需求分析的任务" class="headerlink" title="需求分析的任务"></a>需求分析的任务</h2></blockquote>
-<ul>
-<li><h3 id="确定对系统的综合要求"><a href="#确定对系统的综合要求" class="headerlink" title="确定对系统的综合要求"></a>确定对系统的综合要求</h3><ul>
-<li><strong>数据要求</strong></li>
-<li><strong>功能需求</strong></li>
-<li><strong>性能需求</strong></li>
-<li>可靠性和可用性需求</li>
-<li>出错处理需求</li>
-<li>接口需求</li>
-<li>约束</li>
-<li>逆向需求（不应该做的）</li>
-<li>将来可能提出的要求</li>
+<li><h3 id="扩展的结构程序设计"><a href="#扩展的结构程序设计" class="headerlink" title="扩展的结构程序设计"></a>扩展的结构程序设计</h3><ul>
+<li>如果除了上述三种基本控制结构之外，还允许使用<strong>DO-CASE型多分支结构</strong>和<strong>DO-UNTIL型循环结构</strong>，则称为扩展的结构程序设计<img src="/img/se_47.jpg" title="其他常用的控制结构(a) DO-UNTIL型循环结构；(b)多分支结构"></li>
 </ul>
 </li>
-<li><h3 id="分析系统的数据要求"><a href="#分析系统的数据要求" class="headerlink" title="分析系统的数据要求"></a>分析系统的数据要求</h3><ul>
-<li>任何软件系统本质上都是信息处理系统</li>
-<li>建立数据模型（E-R图）</li>
-<li>数据字典</li>
-<li>层次方框图</li>
-<li>Warnier图</li>
-</ul>
-</li>
-<li><h3 id="导出系统给的逻辑模型"><a href="#导出系统给的逻辑模型" class="headerlink" title="导出系统给的逻辑模型"></a>导出系统给的逻辑模型</h3><ul>
-<li>数据流图、E-R图、状态转换图、数据字典、算法描述</li>
-</ul>
-</li>
-<li><h3 id="修正系统的开发计划"><a href="#修正系统的开发计划" class="headerlink" title="修正系统的开发计划"></a>修正系统的开发计划</h3></li>
-</ul>
-<blockquote>
-<h2 id="与用户沟通获取需求的方法"><a href="#与用户沟通获取需求的方法" class="headerlink" title="与用户沟通获取需求的方法"></a>与用户沟通获取需求的方法</h2></blockquote>
-<ul>
-<li><h3 id="访谈"><a href="#访谈" class="headerlink" title="访谈"></a>访谈</h3></li>
-<li><h3 id="面向数据流自顶向下求精"><a href="#面向数据流自顶向下求精" class="headerlink" title="面向数据流自顶向下求精"></a>面向数据流自顶向下求精</h3><img src="/img/se_19.jpg"></li>
-<li><h3 id="简易的应用规格说明技术"><a href="#简易的应用规格说明技术" class="headerlink" title="简易的应用规格说明技术"></a>简易的应用规格说明技术</h3></li>
-<li><h3 id="快速建立软件模型"><a href="#快速建立软件模型" class="headerlink" title="快速建立软件模型"></a>快速建立软件模型</h3><ul>
-<li>快速原型应该具备的第一个特性是“快速”。</li>
-<li>快速原型应该具备的第二个特性是“容易修改”。</li>
+<li><h3 id="修正的结构程序设计"><a href="#修正的结构程序设计" class="headerlink" title="修正的结构程序设计"></a>修正的结构程序设计</h3><ul>
+<li>如果再加上允许使用<strong>LEAVE(或BREAK)结构</strong>，则称为修正的结构程序设计。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="分析建模与规格说明"><a href="#分析建模与规格说明" class="headerlink" title="分析建模与规格说明"></a>分析建模与规格说明</h2><h2 id="实体——联系图（E-R图）-master"><a href="#实体——联系图（E-R图）-master" class="headerlink" title="实体——联系图（E-R图）  (master)"></a>实体——联系图（E-R图）  (master)</h2><p>数据模型包含三种相互关联的信息：<strong>数据对象</strong>、描述数据对象<strong>属性</strong>及数据对象彼此间相互连接的<strong>关系</strong></p>
+<h2 id="人机界面设计-cut"><a href="#人机界面设计-cut" class="headerlink" title="人机界面设计 (cut)"></a>人机界面设计 (cut)</h2><p><strong>人机界面</strong>设计是<strong>接口设计</strong>的一个组成部分</p>
 </blockquote>
 <ul>
-<li>ER图中包含实体(即数据对象)、关系和属性三种基本成分。<img src="/img/se_20.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="数据规范化"><a href="#数据规范化" class="headerlink" title="数据规范化"></a>数据规范化</h2><p>一、二、三范式</p>
-<h2 id="状态转换图-master"><a href="#状态转换图-master" class="headerlink" title="状态转换图              (master)"></a>状态转换图              (master)</h2><p>状态转换图(<strong>状态图</strong>)通过描绘系统的状态及引起系统状态转换的事件，来<strong>表示</strong>系统的<strong>行为</strong><br><br>一个状态图<strong>只能</strong>描述<strong>一个对象</strong>的行为变化，包括一系列状态、事件以及状态之间的转移</p>
-</blockquote>
-<ul>
-<li><h3 id="状态和事件"><a href="#状态和事件" class="headerlink" title="状态和事件"></a>状态和事件</h3><ul>
-<li>状态：状态是任何可以被观察到的系统行为模式（<strong>当前对象属性值的集合</strong>）</li>
-<li>事件：<strong>事件</strong>在某个特定个时刻发生的事情，<strong>引起</strong>系统从一个<strong>状态转换</strong>到另一个状态</li>
+<li><h3 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h3><ul>
+<li>系统响应时间</li>
+<li>用户帮助设施</li>
+<li>出错信息处理</li>
+<li>命令交互</li>
 </ul>
 </li>
-<li><h3 id="符号"><a href="#符号" class="headerlink" title="符号"></a>符号</h3><img src="/img/se_21.jpg">
-<ul>
-<li><strong>初态</strong>：实心圆</li>
-<li><strong>终态</strong>：一对同心圆</li>
-<li><strong>中间状态</strong>：用圆角矩形表示，可分为三部分：<strong>状态名、状态变量、活动表</strong>（其中状态名是必选的，其余两个是可选的）</li>
-<li><strong>活动表的语法格式</strong>：事件名（参数表）/ 动作表达式<ul>
-<li><strong>entry</strong>  (在进入该状态时执行)</li>
-<li><strong>exit</strong> （退出该状态时执行）</li>
-<li><strong>do</strong> （在该状态下一直执行）</li>
+<li><h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ul>
+<li>用户界面设计是一个迭代的过程，也就是说，通常先创建设计模型，再用原型实现这个设计模型，并由用户试用和评估，然后根据用户的意见进行修改</li>
 </ul>
 </li>
-<li><strong>状态转换</strong>：两个状态之间带箭头的连线，箭头指明了转换方向<ul>
-<li><strong>连线上</strong>通常<strong>标出</strong>导致状态转化的<strong>触发事件</strong></li>
-<li>触发事件表达式的语法：事件说明[守卫条件]/动作表达式<ul>
-<li>事件说明：事件名（参数表）</li>
-<li>守卫条件：一个布尔表达式</li>
-<li>动作表达式：是一个过程表达式，当状态转换开始后时执行该表达式</li>
+<li><h3 id="界面设计指南"><a href="#界面设计指南" class="headerlink" title="界面设计指南"></a>界面设计指南</h3><ul>
+<li><h4 id="一般交互指南"><a href="#一般交互指南" class="headerlink" title="一般交互指南"></a>一般交互指南</h4><ul>
+<li>保持一致性</li>
+<li>提供有意义的反馈</li>
+<li>在执行有较大破坏性动作之前要求用户确认</li>
+<li>允许取消大多数操作</li>
+<li>减少在两次操作之间必须记忆的信息量</li>
+<li>提高对话、移动和思考的效率</li>
+<li>允许犯错误</li>
+<li>按功能对动作分类，并据此设计屏幕布局</li>
+<li>提供对用户工作内容敏感的帮助设施</li>
+<li>用简单动词或名词短语作为命令名</li>
 </ul>
 </li>
+<li><h4 id="信息显示指南"><a href="#信息显示指南" class="headerlink" title="信息显示指南"></a>信息显示指南</h4><ul>
+<li>只显示与当前<strong>工作内容有关的信息</strong>。</li>
+<li>用户在获得有关系统的特定功能的信息时，<strong>不必看到与之无关的数据、菜单和图形</strong>。</li>
+<li>不要用数据淹没用户</li>
+<li>使用一致的标记、标准的缩写和可预知的颜色</li>
+<li>允许用户保持可视化的语境</li>
+<li>产生有意义的出错信息</li>
+<li>使用大小写、缩进和文本分组以帮助理解</li>
+<li>使用窗口分隔不同类型的信息</li>
+<li>使用“模拟”显示方式表示信息</li>
+<li>高效率地使用显示屏</li>
 </ul>
 </li>
-<li>栗子：<img src="/img/se_22.jpg"></li>
+<li><h4 id="数据输入指南"><a href="#数据输入指南" class="headerlink" title="数据输入指南"></a>数据输入指南</h4><ul>
+<li>尽量减少用户的输入动作</li>
+<li>保持信息显示和数据输入之间的一致性</li>
+<li>允许用户自定义输入</li>
+<li>交互应该是灵活的</li>
+<li>使在当前动作语境中不适用的命令不起作用</li>
+<li>让用户控制交互流</li>
+<li>对所有输入动作都提供帮助</li>
+<li>消除冗余的输入</li>
 </ul>
 </li>
-<li><h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><ul>
-<li>简单转移</li>
-<li>自转移    （自己转移到自己，需要事件触发）</li>
-<li>自动转移  （通常是本状态需要做的一个活动完成时转换到下一个状态）</li>
-<li>复合转移</li>
-</ul>
-</li>
-<li><h3 id="组合状态————子状态"><a href="#组合状态————子状态" class="headerlink" title="组合状态————子状态"></a>组合状态————子状态</h3><blockquote>
-<p>一个状态下可以嵌套许多子状态</p>
-<ul>
-<li>顺序子状态 =&gt; 子状态是串行连续变化的</li>
-<li>并发子状态 =&gt; 存在并发存在互不影响的子状态</li>
-</ul>
-</blockquote>
-</li>
-<li><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
-<li><h4 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h4><ul>
-<li>分劈（Fork）</li>
-<li>接合（Join）</li>
-</ul>
-</li>
-<li><h4 id="伪状态"><a href="#伪状态" class="headerlink" title="伪状态"></a>伪状态</h4><ul>
-<li>符号用圈里面一个*表示</li>
-<li>用来表示并发状态的同步</li>
-<li>在子状态图之间使用（放在分隔子状态的虚线上）</li>
-</ul>
-</li>
-<li><h4 id="历史状态"><a href="#历史状态" class="headerlink" title="历史状态"></a>历史状态</h4><ul>
-<li>符号用圈里面一个H表示</li>
-<li>记录在离开某个状态时，其处于哪个子状态中</li>
-</ul>
-</li>
-<li>对于<strong>同一层级</strong>的状态来说，<strong>初态只有一个，终态可以有多个</strong></li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="其它图形工具"><a href="#其它图形工具" class="headerlink" title="其它图形工具"></a>其它图形工具</h2></blockquote>
+<h2 id="过程设计的工具-master"><a href="#过程设计的工具-master" class="headerlink" title="过程设计的工具  (master)"></a>过程设计的工具  (master)</h2><p>图形、表格、语言</p>
+</blockquote>
 <ul>
-<li><h3 id="层次方框图"><a href="#层次方框图" class="headerlink" title="层次方框图"></a>层次方框图</h3><img src="/img/se_23.jpg">
-<ul>
-<li>层次方框图用树形结构的一些列多层次的矩形框描绘数据的层次结构</li>
+<li><h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><ul>
+<li>程序流程图又称为程序框图，是历史最悠久使用最广泛的描述过程设计的方法，然而也是用得最混乱的一种方法</li>
+<li>缺点：<ul>
+<li>绘制随意，容易只考虑流程控制而不考虑全局结构，而破坏结构化程序设计</li>
+<li>不容易表示数据结构</li>
 </ul>
 </li>
-<li><h3 id="Warnier图"><a href="#Warnier图" class="headerlink" title="Warnier图"></a>Warnier图</h3><img src="/img/se_24.jpg"></li>
-<li><h3 id="IPO图"><a href="#IPO图" class="headerlink" title="IPO图"></a>IPO图</h3><ul>
-<li>IPO图是输入、处理、输出图的简称</li>
-<li>左边框中列出有关的输入</li>
-<li>中间框中列出主要的处理</li>
-<li>右边框中列出产生的输出</li>
-<li>处理的顺序暗示了执行的顺序</li>
-<li>箭头指出数据通信的情况</li>
+<li>程序流程图中使用的符号<img src="/" title="(a) 选择(分支)；(b) 注释；(c) 预先定义的处理；(d) 多分支；(e) 开始或停止；(f) 准备； (g)循环上界限；(h) 循环下界限；(i) 虚线；(j) 省略符；(k) 并行方式；(l) 处理； (m) 输入/输出；(n) 连接；(o) 换页连接；(p) 控制流"></li>
 </ul>
-<img src="/img/se_25.png">
-<img src="/img/se_26.png">
+</li>
+<li><h3 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h3><ul>
+<li><p>盒图没有箭头，因此不允许随意转移控制。坚持使用盒图作为详细设计的工具，可使程序员逐步养成用结构化的方式思考问题和解决问题的习惯</p>
+</li>
+<li><p><strong>能保证设计出的程序一定是结构化的</strong></p>
+</li>
+<li><p>但是绘制的时候受空间限制，难以扩充</p>
+</li>
+<li>盒图的基本符号<img src="/img/se_48.jpg" title="(a) 顺序；(b) IF-THEN-ELSE型分支；(c) CASE型多分支；(d) 循环；(e) 调用子程序A">
+</li>
+</ul>
+</li>
+<li><h3 id="PAD图（Problem-Analysis-Diagram）"><a href="#PAD图（Problem-Analysis-Diagram）" class="headerlink" title="PAD图（Problem Analysis Diagram）"></a>PAD图（Problem Analysis Diagram）</h3><ul>
+<li><p>它用二维树形结构的图来表示程序的控制流，将这种图翻译成程序代码比较容易</p>
+</li>
+<li><p>与盒图相比，<strong>不受空间限制，易于扩充</strong></p>
+</li>
+<li><p><strong>可保证设计出来的程序一定是结构化的</strong></p>
+</li>
+<li><p>PAD图的基本符号</p>
+<ul>
+<li>(a) 顺序(先执行P1后执行P2)；</li>
+<li>(b) 选择(IF C THEN P1 ELSE P2)；</li>
+<li>(c) CASE型多分支；(d) WHILE型循环(WHILE C DO P)；</li>
+<li>(e) UNTIL型循环(REPEAT P UNTIL C)；</li>
+<li>(f) 语句标号；</li>
+<li>(g) 定义<img src="/img/se_49.jpg">
+</li>
+</ul>
+</li>
+<li><p>可使用PAD提供的定义功能来逐步求精</p>
+<img src="/img/se_50.jpg">
+</li>
+</ul>
+</li>
+<li><h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><ul>
+<li>当算法中包含多重嵌套的条件选择时，<strong>判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</strong><img src="/img/se_51.jpg"></li>
+</ul>
+</li>
+<li><h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><ul>
+<li>比判定表<strong>直观</strong>，包含<strong>判定的先后顺序</strong></li>
+<li>父节点：判定条件</li>
+<li>叶子节点：一个动作<img src="/img/se_52.jpg"></li>
+</ul>
+</li>
+<li><h3 id="过程设计语言（PDL-Process-Design-Language）"><a href="#过程设计语言（PDL-Process-Design-Language）" class="headerlink" title="过程设计语言（PDL: Process Design Language）"></a>过程设计语言（PDL: Process Design Language）</h3><ul>
+<li>伪代码</li>
+</ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="验证软件的需求（了解）"><a href="#验证软件的需求（了解）" class="headerlink" title="验证软件的需求（了解）"></a>验证软件的需求（了解）</h2><p>验证软件的一致性、完整性、现实性和有效性</p>
+<h2 id="程序复杂度的定量度量-master"><a href="#程序复杂度的定量度量-master" class="headerlink" title="程序复杂度的定量度量 (master)"></a>程序复杂度的定量度量 (master)</h2><p>常用的方法有McCabe方法（采用流图）、Halstead方法，下面仅介绍第一种</p>
 </blockquote>
+<ul>
+<li><h3 id="McCabe-方法"><a href="#McCabe-方法" class="headerlink" title="McCabe 方法"></a>McCabe 方法</h3><ul>
+<li><h4 id="流图"><a href="#流图" class="headerlink" title="流图"></a>流图</h4><ul>
+<li><p>为了<strong>突出表示程序的控制流</strong>，可以使用流图(也称为程序图)</p>
+</li>
+<li><p>流图<strong>仅描绘程序的控制流程</strong>，完全不表现对数据的具体操作以及分支或循环的具体条件。</p>
+</li>
+<li><p>流图用<strong>圆</strong>表示<strong>节点</strong>，一个圆代表<strong>一条或多条语句</strong>（如果多条语句在一个顺序结构上，可以省略中间，只画两边的节点）</p>
+</li>
+<li><p>流图中的<strong>箭头线</strong>称为<strong>边</strong>，和程序流程图中的箭头线类似，代表<strong>控制流</strong></p>
+</li>
+<li><p>由边和节点围成的面积称为<strong>区域</strong>，<strong>区域数</strong>应该<strong>包括</strong>图<strong>外部</strong>未被围起来的<strong>区域</strong>。</p>
+</li>
+<li><p>基本结构：</p>
+<img src="/img/se_53.jpg"></li>
+<li>把程序流程图映射成流图(a)程序流程图；(b)流图<img src="/img/se_54.jpg)" title="![](img/se_55.jpg"></li>
+<li><p>PDL翻译成流图</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">procedure: sort</span><br><span class="line">  <span class="keyword">do</span> <span class="keyword">while</span> records remain</span><br><span class="line">    read record;</span><br><span class="line">    <span class="keyword">if</span> record field1 = <span class="number">0</span></span><br><span class="line">      then process record;</span><br><span class="line">        store in buffer;</span><br><span class="line">        incremert counter;</span><br><span class="line">    elseif record filed2 = <span class="number">0</span></span><br><span class="line">      then reset counter;</span><br><span class="line">      <span class="keyword">else</span> process record;</span><br><span class="line">        store in file;</span><br><span class="line">      endif</span><br><span class="line">    endif</span><br><span class="line">  enddo</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+<img src="/img/se_57.jpg"></li>
+<li>由包含复合条件的PDL映射成的流图<img src="/img/se_58.jpg"></li>
+</ul>
+</li>
+<li><h4 id="流图环形复杂度的计算"><a href="#流图环形复杂度的计算" class="headerlink" title="流图环形复杂度的计算"></a>流图<strong>环形复杂度</strong>的计算</h4><ul>
+<li>流图中的区域数等于环形复杂度</li>
+<li>流图G的环形复杂度V(G)＝E-N+2，其中E是流图中边的条数，N是流图中节点数</li>
+<li>流图G的环形复杂度V(G)＝P+1，其中P是流图中判定节点的数目</li>
+</ul>
+</li>
+<li>举个栗子：<img src="/img/se_55.jpg">
+<ul>
+<li>上图中共有四个区域，故环形复杂度为4</li>
+<li>上图中共有11条边，9个点，所以环形复杂度位：11 - 9 + 2 = 4</li>
+<li>上图中共有三个判定节点，分别为”1”, “2,3”, “6”，所以环形复杂度为：3 + 1 = 4<blockquote>
+<p>PS:</p>
+<ul>
+<li>在计算<strong>区域数</strong>的时候别忘了包括<strong>最外围的区域</strong></li>
+<li>在计算<strong>判定节点</strong>的时候，不仅<strong>包括</strong>条件<strong>分支的判断</strong>，<strong>循环判定</strong>的节点也算</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -1511,7 +1721,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（a）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（b）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1530,7 +1740,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/22/2017-12-22-软件工程复习（a）/" itemprop="url">软件工程复习（一）</a></h1>
+                <a class="post-title-link" href="/2017/12/22/2017-12-22-软件工程复习（b）/" itemprop="url">软件工程复习（二）</a></h1>
         
 
         <div class="post-meta">
@@ -1562,8 +1772,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/22/2017-12-22-软件工程复习（a）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/22/2017-12-22-软件工程复习（a）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/22/2017-12-22-软件工程复习（b）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/22/2017-12-22-软件工程复习（b）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1572,7 +1782,7 @@
 
           
           
-             <span id="/2017/12/22/2017-12-22-软件工程复习（a）/" class="leancloud_visitors" data-flag-title="软件工程复习（一）">
+             <span id="/2017/12/22/2017-12-22-软件工程复习（b）/" class="leancloud_visitors" data-flag-title="软件工程复习（二）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1606,317 +1816,162 @@
         
           
             <blockquote>
-<h2 id="软件危机（understanding）"><a href="#软件危机（understanding）" class="headerlink" title="软件危机（understanding）"></a>软件危机（understanding）</h2><p>软件危机是指在计算机软件的开发和维护过程中所遇到的一系列严重的问题</p>
+<h2 id="可行性研究的任务"><a href="#可行性研究的任务" class="headerlink" title="可行性研究的任务"></a>可行性研究的任务</h2><p>不是解决问题，而是确定问题是否值得去解决。</p>
+<ul>
+<li>分析可能的解法</li>
+<li>判定系统规模和目标是否能够实现</li>
+<li>效益是否可观 <br></li>
+</ul>
+<p>较高层次的系统分析和设计过程</p>
 </blockquote>
 <ul>
-<li><h3 id="软件危机的表现"><a href="#软件危机的表现" class="headerlink" title="软件危机的表现"></a>软件危机的表现</h3><ul>
-<li>对开发成本和进度的估计往往很不准确</li>
-<li>用户对“已完成的”软件系统不满意的现象时常发生</li>
-<li>软件质量差</li>
-<li>软件通常难以维护</li>
-<li>软件没有适当的文档资料</li>
-<li>软件成本在计算机系统的总成本中所占的比例逐年上升（软件成本日益增长）</li>
-<li>软件开发速度跟不上计算机发展速度</li>
-</ul>
-</li>
-<li><h3 id="产生软件危机的原因"><a href="#产生软件危机的原因" class="headerlink" title="产生软件危机的原因"></a>产生软件危机的原因</h3><ul>
-<li><h4 id="技术原因"><a href="#技术原因" class="headerlink" title="技术原因"></a>技术原因</h4><ul>
-<li>软件规模越来越大</li>
-<li>软件复杂度越来越高</li>
-</ul>
-</li>
-<li><h4 id="管理原因"><a href="#管理原因" class="headerlink" title="管理原因"></a>管理原因</h4><ul>
-<li>软件开发缺乏正确的理论指导，过分依赖个人技巧和创造性</li>
-<li>对用户需求没有完整准确的认识，就匆忙着手编写程序</li>
-</ul>
-</li>
-<li><h4 id="引入统一变动付出代价随时间变化的趋势"><a href="#引入统一变动付出代价随时间变化的趋势" class="headerlink" title="引入统一变动付出代价随时间变化的趋势"></a>引入统一变动付出代价随时间变化的趋势</h4><img src="/img/se_01.jpg">
-<ul>
-<li>上图展示的就是软件开发过程中，需求变化出现在开发过程的后期将会带来巨大的修改代价</li>
-<li>所以应该在软件开发的早期，甚至是定义的时候就尽量的接近用户的真是需求</li>
-<li>但通常，用户的牙膏不会一下子挤完（甚至一开始，大多数用户对自己的需求都不是很明确）<blockquote>
-<p>如何克服软件危机？ ==&gt; <strong>软件工程</strong></p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="消除软件危机的途径"><a href="#消除软件危机的途径" class="headerlink" title="消除软件危机的途径"></a>消除软件危机的途径</h3><ul>
-<li><h4 id="对计算机软件的正确认识"><a href="#对计算机软件的正确认识" class="headerlink" title="对计算机软件的正确认识"></a>对计算机软件的正确认识</h4><ul>
-<li>1983年IEEE对软件的定义：计算机<strong>程序</strong>、<strong>方法</strong>、<strong>规则</strong>、相关的<strong>文档</strong>资料以及在计算机上运行程序时所必须的<strong>数据</strong></li>
-<li>软件 ≠ 程序</li>
-</ul>
-</li>
-<li><h4 id="软件工程三要素"><a href="#软件工程三要素" class="headerlink" title="软件工程三要素"></a>软件工程三要素</h4><ul>
-<li>推广使用开发软件成功的技术和<strong>方法</strong>，并且研究探索更好有效的技术和方法</li>
-<li>开发和使用更好的软件<strong>工具</strong></li>
-<li>需要组织管理措施（<strong>过程</strong>）</li>
-</ul>
-</li>
-<li><p>总之，为了解决软件危机，既要有<strong>技术措施</strong>（方法和工具），有要有必要的<strong>组织管理措施</strong>。</p>
-<blockquote>
-<p>无章法（个人英雄主义）=&gt; 工程项目管理模式（团队合作开发）</p>
-</blockquote>
-</li>
-</ul>
-</li>
+<li>技术可行性：开发此系统是可行的，是有好处的</li>
+<li>经济可行性：根据系统目标衡量所需技术是否具备</li>
+<li>操作可行性：系统是否易于使用并能够创造价值</li>
+<li>法律可行性：是否存在侵犯、妨碍和责任等问题</li>
 </ul>
 <blockquote>
-<h2 id="软件工程-understanding"><a href="#软件工程-understanding" class="headerlink" title="软件工程(understanding)"></a>软件工程(understanding)</h2><p>1968第一届NATO会议：<br>软件工程称就是为了经济的获得可靠的且在实际机器上有效运行的软件，而建立和使用的完善的工程原理<br><br><br>1993年IEEE：</p>
-<ol>
-<li>把系统的、规范的、可度量的途径应用于软件开发、运行和维护的过程，也就是把工程应用于软件</li>
-<li>研究1中提到的途径</li>
-</ol>
+<h2 id="可行性研究过程（understanding）"><a href="#可行性研究过程（understanding）" class="headerlink" title="可行性研究过程（understanding）"></a>可行性研究过程（understanding）</h2><p>了解就好</p>
 </blockquote>
 <ul>
-<li><h3 id="主要目标：高效开发高质量软件"><a href="#主要目标：高效开发高质量软件" class="headerlink" title="主要目标：高效开发高质量软件"></a>主要目标：高效开发高质量软件</h3></li>
-<li><h3 id="软件工程的基本原理"><a href="#软件工程的基本原理" class="headerlink" title="软件工程的基本原理"></a>软件工程的基本原理</h3><ol>
-<li>用分阶段的生命周期计划严格管理</li>
-<li>坚持进行阶段评审<ul>
-<li>错误发现的越晚，所需付出的代价也越大</li>
-<li>对每个已完成的阶段进行评审，以便尽早发现错误</li>
+<li><h3 id="复查系统规模和目标"><a href="#复查系统规模和目标" class="headerlink" title="复查系统规模和目标"></a>复查系统规模和目标</h3><ul>
+<li>改正含糊或不确切的叙述</li>
+<li>清晰地描述限制和约束</li>
+<li>确保分析员解决正确的问题</li>
 </ul>
 </li>
-<li>实行严格的产品控制<ul>
-<li>软件开发过程中不应该随意改动需求，对修改意见需要经过严格的评审后才能实施</li>
+<li><h3 id="研究目前正在使用的系统"><a href="#研究目前正在使用的系统" class="headerlink" title="研究目前正在使用的系统"></a>研究目前正在使用的系统</h3><ul>
+<li>完成现有系统的基本功能分析</li>
+<li>解决现有系统的问题</li>
+<li>绘制高层系统数据流图</li>
+<li>掌握与其他系统的接口</li>
 </ul>
 </li>
-<li>采用现代化程序设计技术</li>
-<li>结果应该能清楚的审查</li>
-<li>开发小组的成员应该少而精</li>
-<li>承认不断改进软件工程实践的必要性</li>
-</ol>
+<li><h3 id="导出新系统的高层逻辑模型"><a href="#导出新系统的高层逻辑模型" class="headerlink" title="导出新系统的高层逻辑模型"></a>导出新系统的高层逻辑模型</h3><ul>
+<li>现有物理系统 → 现有系统的逻辑模型 → 目标系统逻辑模型 → 新的目标系统</li>
+<li>高层数据流图</li>
+<li>初步的数据字典</li>
+</ul>
 </li>
-<li><h3 id="软件工程方法学"><a href="#软件工程方法学" class="headerlink" title="软件工程方法学"></a>软件工程方法学</h3><blockquote>
-<p>通常把在软件生命周期全部过程各种使用的一整套技术方法的集合称为<strong>方法学</strong>（methodology）<br>,也称为<strong>泛型</strong>（paradigm）</p>
+<li><h3 id="进一步定义问题"><a href="#进一步定义问题" class="headerlink" title="进一步定义问题"></a>进一步定义问题</h3><ul>
+<li>以数据流图和数据字典为基础</li>
+<li>复查问题定义、工程规模和目标</li>
+<li>分析员和用户</li>
+<li>重复1~4步，直至提出的逻辑模型完全符合系统目标</li>
+</ul>
+</li>
+<li><h3 id="导出和评价供选择的解法"><a href="#导出和评价供选择的解法" class="headerlink" title="导出和评价供选择的解法"></a>导出和评价供选择的解法</h3><ul>
+<li>从技术角度出发，考虑解决问题的不同方案</li>
+<li>技术可行性，排除不现实的系统</li>
+<li>操作可行性，排除用户不能接受的方案</li>
+<li>经济可行性，排除利润低的方案</li>
+<li>制定进度表 (估算生命周期每个阶段的工作量)</li>
+</ul>
+</li>
+<li><h3 id="推荐行动方针（是否做？）"><a href="#推荐行动方针（是否做？）" class="headerlink" title="推荐行动方针（是否做？）"></a>推荐行动方针（是否做？）</h3><ul>
+<li>分析员：如果值得开发，则选择最好的解法</li>
+<li>用户：成本/效益分析</li>
+</ul>
+</li>
+<li><h3 id="草拟开发计划"><a href="#草拟开发计划" class="headerlink" title="草拟开发计划"></a>草拟开发计划</h3><ul>
+<li>工程进度表</li>
+<li>各类开发人员、各种资源需求情况</li>
+<li>生命周期每个阶段的成本</li>
+<li>下一个阶段详细进度表和成本估计</li>
+</ul>
+</li>
+<li><h3 id="书写文档提交审查"><a href="#书写文档提交审查" class="headerlink" title="书写文档提交审查"></a>书写文档提交审查</h3><ul>
+<li>用户、客户组织负责人、评审组审查</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="系统流程图-（understanding）"><a href="#系统流程图-（understanding）" class="headerlink" title="系统流程图 （understanding）"></a>系统流程图 （understanding）</h2><p>系统流程图概括描绘物理系统的传统工具用图形符号，以黑盒子形式描述组成系统的每个部件程序、文档、数据库、人工过程</p>
 </blockquote>
 <ul>
-<li><h4 id="软件工程方法学3要素"><a href="#软件工程方法学3要素" class="headerlink" title="软件工程方法学3要素"></a>软件工程方法学3要素</h4><ul>
-<li>方法：“如何做？”</li>
-<li>工具：“用什么做？”</li>
-<li>过程：“如何控制、协调、保证质量？”</li>
-</ul>
-</li>
-<li><h4 id="传统方法学（静态分析）"><a href="#传统方法学（静态分析）" class="headerlink" title="传统方法学（静态分析）"></a>传统方法学（静态分析）</h4><ul>
-<li>传统方法学也称为<strong>生命周期方法学</strong>或<strong>结构化泛型</strong>，它采用<strong>结构化技术</strong></li>
-<li>这种方法学把软件生命周期的全过程依次划分为若干阶段，然后顺序的完成每个阶段的任务</li>
-<li>特点：<ul>
-<li>生命周期模型</li>
-<li>软件过程划分为若干个阶段</li>
-<li>每个阶段有各自的任务</li>
-<li>阶段之间有某种顺序性<img src="/img/se_02.jpg"></li>
-</ul>
-</li>
-<li>局限：<ul>
-<li>当软件规模较大，或对软件的需求是<strong>模糊</strong>的或随时间<strong>变化</strong>的时候，使用结构化泛型开发软件往往不成功</li>
-<li>此外，使用传统方法学开发出的软件通常维护起来都很困难</li>
-</ul>
+<li>符号：<img src="/img/se_09.jpg"></li>
+<li>栗子：<img src="/img/se_10.jpg">
 </li>
 </ul>
-</li>
-<li><h4 id="面向对象方法学（动态分析）"><a href="#面向对象方法学（动态分析）" class="headerlink" title="面向对象方法学（动态分析）"></a>面向对象方法学（动态分析）</h4><ul>
-<li>特点：<ul>
-<li>面向对象方法学的出发点和基本原则，是<strong>尽可能模拟人类的思维方式</strong></li>
-<li>用面向对象方法学开发软件的过程，是一个<strong>主动</strong>多次<strong>反复迭代</strong>演化的过程</li>
-<li>概念和表示方法上的<strong>一致性，阶段间平滑（无缝）过度</strong></li>
-<li>特殊到一般的<strong>归纳</strong>思维过程；一般到特殊的<strong>演绎</strong>思维过程（继承的思想）</li>
+<blockquote>
+<h2 id="数据流图-master"><a href="#数据流图-master" class="headerlink" title="数据流图 (master)"></a>数据流图 (master)</h2><p>数据流图(DFD) 描绘信息流和数据从输入移动到输出的过程中所经受的变换。</p>
+</blockquote>
+<ul>
+<li>数据流图的四种基本符号：<img src="/img/se_11.jpg"></li>
+<li>加工中常见关系的符号表示：<img src="/img/se_12.jpg"></li>
+<li>注意：<ul>
+<li>信息的流动</li>
+<li>信息流不能为动词</li>
+<li>实体到实体的信息流动</li>
+<li>处理要有输入输出</li>
+<li>处理名不能为名词</li>
+<li>确保层间的一致性（确保输入输出流的量是一致的）</li>
 </ul>
 </li>
+<li><p>命名:</p>
+<ul>
+<li>数据流的名字应代表整个数据流(数据存储、处理)的内容，而不是仅仅某些成分。</li>
+<li>不要使用空洞的、缺乏具体含义的名字(如“数据”、“信息”、“输入”之类)。</li>
+<li>处理名字最好是一个具体的及物动词。</li>
 </ul>
+</li>
+<li><p>示例：出入库管理系统</p>
+<ul>
+<li>0级数据流图<img src="/img/se_13.jpg"></li>
+<li>1级数据流图<img src="/img/se_14.jpg"></li>
+<li>2级数据流图<img src="/img/se_15.jpg">
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="软件生命周期-重点"><a href="#软件生命周期-重点" class="headerlink" title="软件生命周期 (重点)"></a>软件生命周期 (重点)</h2><p>概括的说，软件生命周期由<strong>软件定义</strong>、<strong>软件开发</strong>和<strong>运行维护</strong>（也称为软件维护）3个过程</p>
+<h2 id="数据字典-master"><a href="#数据字典-master" class="headerlink" title="数据字典 (master)"></a>数据字典 (master)</h2><ul>
+<li>数据字典是关于数据的信息的集合，即对设计图中包含的元素的定义。</li>
+<li>数据字典的用途是供人查阅不了解的条目的解释，提供分析设计过程中关于数据的描述。</li>
+<li>只有设计图和对应的元素的精确定义放在一起，才能构成系统完整的规格说明。</li>
+</ul>
 </blockquote>
 <ul>
-<li><h3 id="问题定义"><a href="#问题定义" class="headerlink" title="问题定义"></a>问题定义</h3><blockquote>
-<p>要解决什么问题？</p>
-</blockquote>
-</li>
-<li><h3 id="可行性研究"><a href="#可行性研究" class="headerlink" title="可行性研究"></a>可行性研究</h3><blockquote>
-<p>对上一阶段确定的问题是否有行之有效的解决方案？</p>
-</blockquote>
-</li>
-<li><h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><blockquote>
-<p>目标系统必须做什么？<br><br>用正式的文档记录对目标系统的需求（<strong>规格说明</strong>）</p>
-</blockquote>
-</li>
-<li><h3 id="总体设计（概要设计）"><a href="#总体设计（概要设计）" class="headerlink" title="总体设计（概要设计）"></a>总体设计（概要设计）</h3><blockquote>
-<p>概括的说，应该怎样实现目标系统？（从此阶段开始设计实现和技术的细节）<br><br>又称为<strong>初步设计、逻辑设或、概要设计或高层设计</strong></p>
-</blockquote>
-</li>
-<li><h3 id="详细设计"><a href="#详细设计" class="headerlink" title="详细设计"></a>详细设计</h3><blockquote>
-<p>把上阶段提出的解决方案具体化，回答“应该如何具体的实现这个系统？”<br><br>又称为<strong>模块设计、物理设计或低层设计</strong></p>
-</blockquote>
-</li>
-<li><h3 id="编码和单元测试"><a href="#编码和单元测试" class="headerlink" title="编码和单元测试"></a>编码和单元测试</h3><blockquote>
-<p>具体coding。写出正确的容易理解、容易维护的程序模块，并测试</p>
-</blockquote>
-</li>
-<li><h3 id="综合测试"><a href="#综合测试" class="headerlink" title="综合测试"></a>综合测试</h3><blockquote>
-<p>集成测试、验收测试、系统测试</p>
-</blockquote>
-</li>
-<li><h3 id="软件维护"><a href="#软件维护" class="headerlink" title="软件维护"></a>软件维护</h3><blockquote>
-<p>通过各种必要的维护活动使系统<strong>持久</strong>地满足用户的需要</p>
-</blockquote>
-<ul>
-<li><h4 id="四类维护活动"><a href="#四类维护活动" class="headerlink" title="四类维护活动"></a>四类维护活动</h4><ul>
-<li><strong>改正性维护</strong>：诊断和改正真在使用过程中发现的软件错误</li>
-<li><strong>适应性维护</strong>：即修改软件以适应环境的变化</li>
-<li><strong>完善性维护</strong>：即根据用户的要求改进或扩充软件使它更完善</li>
-<li><strong>预防性维护</strong>：即修改软件为将过来的维护活动预先做准备</li>
+<li><h3 id="定义数据的方法"><a href="#定义数据的方法" class="headerlink" title="定义数据的方法"></a>定义数据的方法</h3><ul>
+<li>= : 意思是等价于(或定义为);</li>
+<li>+ : 意思是和(即，连接两个分量);</li>
+<li>[] : 意思是或(即，从方括弧内列出的若干个分量中选择一个)，用“｜”号分开供选择的分量;</li>
+<li>{} : 意思是重复(即，重复花括弧内的分量);</li>
+<li>() : 意思是可选(即，圆括弧里的分量可有可无);</li>
+<li>使用上限和下限进一步注释表示重复的花括弧。<ul>
+<li>左边用上角标和下角标分别表明重复的上限和下限</li>
+<li>左侧标明重复的下限，在闭括弧的右侧标明上限</li>
+<li>例如：<img src="/img/se_16.jpg"></li>
 </ul>
 </li>
 </ul>
+</li>
+<li><h4 id="举个栗子："><a href="#举个栗子：" class="headerlink" title="举个栗子："></a>举个栗子：</h4><ul>
+<li>北京某高校可用的电话号码有以下几类:校内电话号码由4 位数字组成，第1位<br>数字不是0;校外电话又分为本市电话和外地电话两类,拨校外电话需先拨0,若是本市电<br>话则再接着拨8位数字(第1位不是0),若是外地电话则拨3位区码再拨8<br>位电话号码<br>(第1位不是0)。请用上述提到的定义数据的方法，定义上述的电话号码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电话号码 = [ 校内电话号码 | 校外电话号码 ]</span><br><span class="line">校内电话号码 = 非零数字 + 3位数字</span><br><span class="line">校外电话号码 = [ 本市电话号码 | 外地电话号码]</span><br><span class="line">本市电话号码 = 数字零 + 8位数字</span><br><span class="line">外地电话号码 = 数字零 + 3位数字 + 8位数字</span><br><span class="line">非零数字 = [1|2|3|4|5|6|7|8|9]</span><br><span class="line">3位数字 = 3&#123;数字&#125;3</span><br><span class="line">数字零 = 0</span><br><span class="line">8位数字 = 非零数字 + 7位数字</span><br><span class="line">7位数字 = 7&#123;数字&#125;7</span><br><span class="line">数字 = [0|1|2|3|4|5|6|7|8|9]</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="数字字典的实现"><a href="#数字字典的实现" class="headerlink" title="数字字典的实现"></a>数字字典的实现</h4><ul>
+<li>CASE工具</li>
+<li>人工卡片</li>
+</ul>
+<img src="/img/se_17.jpg">
 </li>
 </ul>
 <blockquote>
-<h2 id="软件过程-（重点）"><a href="#软件过程-（重点）" class="headerlink" title="软件过程 （重点）"></a>软件过程 （重点）</h2><p>软件过程是为了获得赶工质量软件所需要完成的一些列的任务的框架，它规定了完成各项任务的<strong>工作步骤</strong></p>
+<h2 id="成本效益分析（了解）"><a href="#成本效益分析（了解）" class="headerlink" title="成本效益分析（了解）"></a>成本效益分析（了解）</h2><p>成本/效益分析是客户从经济角度判断是否继续投资项目的主要依据。</p>
 </blockquote>
 <ul>
-<li><h3 id="瀑布模型"><a href="#瀑布模型" class="headerlink" title="瀑布模型"></a>瀑布模型</h3><ul>
-<li>阶段间具有顺序性和依赖性</li>
-<li><p>推迟实现的观点</p>
-<blockquote>
-<p>清楚的区分逻辑设计与物理设计，尽可能推迟程序的物理实现</p>
-</blockquote>
-</li>
-<li><p>质量保证的观点</p>
-<ul>
-<li>每个阶段都必须完成规定的文档，没有交出合格的文档就是没有完成该阶段的任务</li>
-<li>每个阶段结束前都要对所完成的文档进行评审，以便尽早发现问题，改正错误<blockquote>
-<p>瀑布模型的成功过在很大程度上由于它基本上是一种<strong>文档驱动的模型</strong></p>
-</blockquote>
-</li>
+<li><h3 id="成本估计"><a href="#成本估计" class="headerlink" title="成本估计"></a>成本估计</h3><ul>
+<li>代码行技术</li>
+<li>任务分解技术</li>
 </ul>
 </li>
-</ul>
-<img src="/img/se_02.jpg">
-<ul>
-<li><strong>优点</strong>：<br>可强迫开发人员采用规范的方法（例如，结构化技术）； 严格地规定了每个阶段必须提交的文档；要求每个阶段交出的所有产品都必须经过质量保证小组的仔细验证</li>
-<li><strong>缺点</strong>：<br>瀑布模型是由文档驱动的。由于瀑布模型几乎完全依赖于书面的规格说明，很可能导致最终开发出的软件产品不能真正满足用户的需要。</li>
-<li><strong>适用范围</strong>：<br>应用需求明确的项目</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h3 id="快速原型模型"><a href="#快速原型模型" class="headerlink" title="快速原型模型"></a>快速原型模型</h3><ul>
-<li>快速建立起可以运行的程序，其功能往往是最终产品功能的<strong>子集</strong></li>
-<li>通过将简单的模型给用户试用，<strong>以获取到用户更多更详细的需求</strong>（努力挤牙膏）</li>
-<li>快速原型的本质是“<strong>快速</strong>”</li>
-<li>原型的用途是获取用户的真正需求，一旦<strong>需求确定</strong>了，<strong>原型将被抛弃</strong>（原型通常没有严格的规范化，缺少文档，难以维护）。<img src="/img/se_03.jpg"></li>
-<li>优点：软件产品的开发基本上是线性顺序进行的<ul>
-<li>原型系统已经通过与用户交互而得到验证，据此产生的规格说明文档正确地描述了用户需求，，不会因为规格说明文档的错误而进行较大的返工。</li>
-<li>开发人员通过建立原型系统已经学到了许多东西，在设计编码阶段发生错误的可能性比较小，自然减少了反馈。</li>
-</ul>
-</li>
-<li>缺点：<ul>
-<li>缺乏丰富而强有力的软件工具和开发环境。</li>
-<li>缺乏有效的管理机制，还未建立起自己的开发标准。</li>
-<li>对设计开发环境要求较高。</li>
-<li>在多次重复改变原型的过程中，程序员会感到厌倦。</li>
-<li>系统的易变性对测试有一定影响，难于做到彻底测试，更新文档较为困难。</li>
-</ul>
-</li>
-<li>适用范围：有结构的系统或者需求不明确的系统</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h3 id="增量模型"><a href="#增量模型" class="headerlink" title="增量模型"></a>增量模型</h3><ul>
-<li>增量模型也称为渐增模型。把软件产品作为<strong>一系列增量构件</strong>来设计、编码、集成和测试</li>
-<li>每个构件由多个相互作用的模块构成，并且能够完成特定的功能。</li>
-<li>使用增量模型时，第一个增量构件往往实现软件的基本需求，提供最核心的功能。(滚雪球方式)</li>
-<li>与瀑布模型相比：<ul>
-<li>瀑布模型：力求一次性给用户完整的系统。</li>
-<li>增量模型：逐步增加系统功能。</li>
-</ul>
-</li>
-<li>增量模型：<img src="/img/se_04.jpg"></li>
-<li><p>一种风险更大的增量模型</p>
-<img src="/img/se_05.jpg">
-</li>
-<li><p>优点：</p>
-<ul>
-<li>能在较短时间内向用户提交可完成部分工作的产品</li>
-<li>逐步增加产品功能可以使用户有较充裕的时间学习和适应新产品，从而减少一个全新的软件可能给客户组织带来的冲击。</li>
-</ul>
-</li>
-<li>缺点：待解决的问题必须允许有一个可递增的软件解决方案。如果需要的软件必须将所有的功能表现出来，那么递增的模型是不合适的。还有就是为了递增模型成功，必须找出整个系统的体系结构。</li>
-<li><p>适用范围：不能在设定的期限内完成产品时，先推出核心产品</p>
-</li>
-<li><h4 id="使用这种方法将冒构件无法集成到一起的风险，除非密切地监控整个开过程"><a href="#使用这种方法将冒构件无法集成到一起的风险，除非密切地监控整个开过程" class="headerlink" title="使用这种方法将冒构件无法集成到一起的风险，除非密切地监控整个开过程"></a>使用这种方法将冒构件无法集成到一起的风险，除非密切地监控整个开过程</h4></li>
-</ul>
-</li>
-<li><h3 id="螺旋模型"><a href="#螺旋模型" class="headerlink" title="螺旋模型"></a>螺旋模型</h3><ul>
-<li>螺旋模型的基本思想是使用原型及其他方法尽量<strong>降低风险</strong>。</li>
-<li>简化的螺旋模型</li>
-<li>可以在一定程度上降低风险，但对有些风险也是无能为力的</li>
-<li>需要专业的风险评估人员<img src="/img/se_06.jpg"></li>
-<li>完整的螺旋模型<img src="/img/se_07.jpg"></li>
-<li>优点：<ul>
-<li>对可选方案和约束条件的强调有利于已有软件的重用，也有助于把软件质量作为软件开发的一个重要目标</li>
-<li>减少了过多测试（浪费资金）或测试不足（产品故障多）所带来的风险</li>
-<li>在螺旋模型中维护只是模型的另一个周期，在维护和开发之间并没有本质区别</li>
-</ul>
-</li>
-<li>缺点：仅适用于内部项目，大型项目受限，需要风险分析专家。</li>
-<li>适用范围：主要适用于内部开发的大规模软件项目。</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h3 id="喷泉模型"><a href="#喷泉模型" class="headerlink" title="喷泉模型"></a>喷泉模型</h3><ul>
-<li><strong>迭代</strong>是OO开发过程的主要特性。</li>
-<li>喷泉模型是典型的面向对象生命周期模型。</li>
-<li>“喷泉” 体现了面向对象软件开发过程<strong>迭代</strong>和<strong>无缝</strong>的特性。</li>
-<li>为避免喷泉模型的过分无序，把一个线性过程作为总目标。</li>
-<li>迭代：逐步求精</li>
-<li>阶段间没有明显的界限－面向对象的思想保证了各个阶段开发的一致性。</li>
-<li>喷泉模型：<img src="/img/se_08.jpg"></li>
-</ul>
-</li>
-<li><h3 id="Rational统一过程"><a href="#Rational统一过程" class="headerlink" title="Rational统一过程"></a>Rational统一过程</h3></li>
-<li><h3 id="敏捷过程与极限编程"><a href="#敏捷过程与极限编程" class="headerlink" title="敏捷过程与极限编程"></a>敏捷过程与极限编程</h3><ul>
-<li>敏捷软件开发宣言<ul>
-<li><strong>个体和交互胜过过程和工具</strong>（Individuals and interactions over processs and tools）</li>
-<li><strong>可以工作的软件胜过面面俱到的文档</strong>（Working software over comprehensive socumentation）</li>
-<li><strong>客户合作胜过合同谈判</strong>（Customer collaboration over  contract negotiation）</li>
-<li><strong>响应变化胜过遵循计划</strong>（Responding to change over following a plan）</li>
-</ul>
-</li>
-<li>敏捷软件开发的原理（The principles of agile methods）<ul>
-<li>客户参与（Customer involvement）</li>
-<li>增量交付（Incremental delivery）</li>
-<li>People not process</li>
-<li>拥抱变化（Embrace change）</li>
-<li>保持简单（Maintain simplicity）</li>
-</ul>
-</li>
-<li>极限编程有效实践（极限编程是敏捷过程中最富盛名的一个）<ul>
-<li>Incremental planning</li>
-<li>Small releases</li>
-<li>Simple design</li>
-<li>Test-first development</li>
-<li>Refactoring</li>
-<li>Pair programming</li>
-<li>Collective ownership</li>
-<li>Continuous integration</li>
-<li>Sustainable pace</li>
-<li>On-site customer</li>
-</ul>
-</li>
-<li>适用范围：<ol>
-<li>项目团队的人数不能太多</li>
-<li>项目经常发生变更</li>
-<li>高风险的项目实施</li>
-<li>开发人员可以参与决策</li>
-</ol>
-</li>
+<li><h3 id="效益分析"><a href="#效益分析" class="headerlink" title="效益分析"></a>效益分析</h3><ul>
+<li>货币的时间价值</li>
+<li>投资回报期</li>
+<li>纯收入</li>
+<li>投资回报率（最重要的参考数据）</li>
 </ul>
 </li>
 </ul>
@@ -2009,7 +2064,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">34</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
