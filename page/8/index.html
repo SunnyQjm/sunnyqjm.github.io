@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据库,学习,笔记," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,13 @@
 
 
 
-<meta name="description" content="写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF BCNF 分解算法 教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版） 该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）    伪代码实现">
-<meta name="keywords" content="数据库,学习,笔记">
-<meta property="og:type" content="article">
-<meta property="og:title" content="数据库笔记（补充）——分解算法浅析">
-<meta property="og:url" content="http://qjm253.cn/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="建明 | Ming.J">
+<meta property="og:url" content="http://qjm253.cn/page/8/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF BCNF 分解算法 教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版） 该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）    伪代码实现">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库笔记（补充）——分解算法浅析">
-<meta name="twitter:description" content="写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF BCNF 分解算法 教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版） 该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）    伪代码实现">
+<meta name="twitter:title" content="建明 | Ming.J">
 
 
 
@@ -120,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://qjm253.cn/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/"/>
+  <link rel="canonical" href="http://qjm253.cn/page/8/"/>
 
 
 
 
 
-  <title>数据库笔记（补充）——分解算法浅析 | 建明 | Ming.J</title>
+  <title>建明 | Ming.J - 至清  至静</title>
   
 
 
@@ -155,7 +150,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -292,9 +288,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -307,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -324,7 +320,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据库笔记（补充）——分解算法浅析</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="url">数据库笔记（二）</a></h1>
         
 
         <div class="post-meta">
@@ -336,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-11T00:00:00+08:00">
-                2017-11-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">
+                2017-09-12
               </time>
             
 
@@ -356,8 +354,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/" itemprop="commentsCount"></span>
+                <a href="/2017/09/12/2017-09-12-数据库学习笔记（二）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -366,7 +364,7 @@
 
           
           
-             <span id="/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/" class="leancloud_visitors" data-flag-title="数据库笔记（补充）——分解算法浅析">
+             <span id="/2017/09/12/2017-09-12-数据库学习笔记（二）/" class="leancloud_visitors" data-flag-title="数据库笔记（二）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,89 +395,218 @@
       
 
       
-        <blockquote>
-<p>写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF</p>
-<h2 id="BCNF-分解算法"><a href="#BCNF-分解算法" class="headerlink" title="BCNF 分解算法"></a>BCNF 分解算法</h2><ul>
-<li>教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版）</li>
-<li>该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）</li>
-</ul>
+        
+          
+            <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章</p>
+<h1 id="SQL的组成"><a href="#SQL的组成" class="headerlink" title="SQL的组成"></a>SQL的组成</h1><p>PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧</p>
 </blockquote>
 <ul>
-<li><h3 id="伪代码实现"><a href="#伪代码实现" class="headerlink" title="伪代码实现"></a>伪代码实现</h3><p>对满足1NF的模式R<u, f="">作如下处理可分解成满足BCNF范式的模式R<sub>1</sub>, R<sub>2</sub>, …, R<sub>n</sub></u,></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">result := &#123;R&#125;;</span><br><span class="line">        done := <span class="keyword">false</span>;</span><br><span class="line">        计算F+;</span><br><span class="line">        <span class="keyword">while</span>(not done) <span class="keyword">do</span></span><br><span class="line">              <span class="keyword">if</span>(result中存在模式Ri不属于BCNF)</span><br><span class="line">              then begin</span><br><span class="line">                      令 α→β 为一个在Ri上成立的非平凡函数依赖，满足 α→β ∈ F+， 并且 α∩β  = ∅;</span><br><span class="line">                      result := (result - Ri) ∪ (Ri - β) ∪ (α, β)</span><br><span class="line">              end</span><br><span class="line">              <span class="keyword">else</span> done := <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="先来分析一波上面的代码吧"><a href="#先来分析一波上面的代码吧" class="headerlink" title="先来分析一波上面的代码吧"></a>先来分析一波上面的代码吧</h3><ol>
-<li>首先令reslut = {R}</li>
-<li>接着计算一下F的函数闭包F<sup>+</sup>（计算函数闭包还是挺麻烦的，所以在下面判断的时候挑一个函数依赖，判断一下是否被F逻辑蕴含即可）</li>
-<li>然后判断结果集result中是否还存在哪个模式不满足BCNF范式，如果都满足，则直接跳到步骤5，如果存在某个模式 R<sub>i</sub> ∈ result，不满足BCNF范式，则执行步骤4</li>
-<li>选择一个在R<sub>i</sub>上成立的非平凡函数依赖 α→β，并且 α→β 属于 F<sup>+</sup>，并且α∩β=∅。然后将模式R<sub>i</sub>分解成两个模式，分别为 (R<sub>i</sub> - β) 和 (α, β)。并且将R<sub>i</sub>从result中移除，江新得到的两个模式添加到result中。接着回到步骤3继续判断</li>
-<li>分解完成，输出结果</li>
-</ol>
-</li>
-<li><h3 id="纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"><a href="#纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～" class="headerlink" title="纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"></a>纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～</h3><ul>
-<li>有模式class<u, f="">, 通过上述算法，对其进行满足BCNF范式的分解<ul>
-<li>U = {course_id, title, dept_name, credits. sec_id, semester, year, building, room_number, capticy, time_slot_id}</li>
-<li>F = {<br>course_id → (title, dept_name, credits),<br>(building, room_number)→capaticy,<br>(course_id, sec_id, semester, year)→(building, room_number, time_slot_id)<br>}</li>
-</ul>
-</u,></li>
-<li>首先还是看一下上面模式的候选码是什么吧（书上的栗子是直接给出来了，但是有些题可能不给，需要自己算）<ul>
-<li>通过上一篇博客讲的<a href="http://www.jianshu.com/p/e3eb1dcac59d" target="_blank" rel="noopener">候选码求解算法</a>，容易求得模式class的候选码为{course_id, sec_id, semester, year}</li>
+<li><h3 id="数据定义语言（Data-Definition-Language，-DDL）"><a href="#数据定义语言（Data-Definition-Language，-DDL）" class="headerlink" title="数据定义语言（Data-Definition Language， DDL）"></a>数据定义语言（Data-Definition Language， DDL）</h3><ul>
+<li>提供定义关系模式，删除关系以及修改关系模式的命令</li>
+<li>如create、drop、alter等执行以后会产生、销毁表（定义、删除关系模式）或改变表的结构（修改关系模式）</li>
 </ul>
 </li>
-<li>接着判断模式class是否满足BCNF范式<ul>
-<li>模式R中存在依赖 course_id → (title, dept_name, credits), 但course_id并不是R的一个超码，故R不满足BCNF范式</li>
-<li>对R做如下分解<ul>
-<li>course(course_id, title, dept_name, credits)</li>
-<li>class_1(course_id, credits. sec_id, semester, year, building, room_number, capticy, time_slot_id)</li>
+<li><h3 id="数据操纵语言（Data-Manipulation-Language，DML）"><a href="#数据操纵语言（Data-Manipulation-Language，DML）" class="headerlink" title="数据操纵语言（Data-Manipulation Language，DML）"></a>数据操纵语言（Data-Manipulation Language，DML）</h3><ul>
+<li>SQL DML提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
+<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系并没有改变，只是该表关系的实例）</li>
 </ul>
 </li>
+<li><h3 id="完整性约束（integrity）"><a href="#完整性约束（integrity）" class="headerlink" title="完整性约束（integrity）"></a>完整性约束（integrity）</h3><ul>
+<li>SQL DDL 会给每一个关系（每一张表）在定义或者修改的时候定义一定的完整性约束。之后所有的操作都应该满足这些约束，不满足的操作将不被允许执行<blockquote>
+<p>复习注释: 不过如果对违反约束的行为做了处理，有些违反约束的语句也是可以成功执行的。比如在定义外键的时候指定了级联删除，那么一旦删除语句违反了外键约束，数据库不是拒绝执行，而是级联删除相关数据</p>
+</blockquote>
+</li>
+<li>比如<strong>主键约束</strong>表示一个或多个字段唯一标识了一行数据，如果试图插入主键值相同的数据，就不会被允许</li>
+<li>具体的下面会单独说明并举例</li>
 </ul>
 </li>
-<li>继续判断，易知course是满足BCNF范式的，而course_1同理不满足BCNF范式， 继续分解<ul>
-<li>找到非平凡依赖(building, room_number)→capaticy， 且其属于F</li>
-<li>对class_1分解如下<ul>
-<li>classroom(building, room_number, capacity)</li>
-<li>section(course_id, credits. sec_id, semester, year, building, room_number,  time_slot_id)</li>
+<li><h3 id="视图定义（view-definition）"><a href="#视图定义（view-definition）" class="headerlink" title="视图定义（view definition）"></a>视图定义（view definition）</h3><ul>
+<li>SQL DDL 包括定义视图的命令</li>
 </ul>
 </li>
+<li><h3 id="事务控制（transaction-control）"><a href="#事务控制（transaction-control）" class="headerlink" title="事务控制（transaction control）"></a>事务控制（transaction control）</h3><ul>
+<li>SQL包括定义事务的开始和结束的命令</li>
 </ul>
 </li>
-<li>检测一下发现现在模式classroom和section也满足BCNF范式了</li>
-<li>OK，原来的模式class现在分解为如下三个模式<ul>
-<li>course(course_id, title, dept_name, credits)</li>
-<li>classroom(building, room_number, capacity)</li>
-<li>section(course_id, credits. sec_id, semester, year, building, room_number,  time_slot_id)</li>
+<li><h3 id="嵌入式SQL和动态SQL（embedded-SQL）"><a href="#嵌入式SQL和动态SQL（embedded-SQL）" class="headerlink" title="嵌入式SQL和动态SQL（embedded SQL）"></a>嵌入式SQL和动态SQL（embedded SQL）</h3><ul>
+<li>嵌入式和动态SQL定义SQL语句如何嵌入到通用编程语言，如C、C++、Java</li>
 </ul>
 </li>
+<li><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><ul>
+<li>SQL DDL包括定义对关系和视图的访问权限的命令</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="3NF分解算法"><a href="#3NF分解算法" class="headerlink" title="3NF分解算法"></a>3NF分解算法</h2><p>以下分解算法中用到了正则覆盖的概念，这个笔者在之前的博客中也提到过，<a href="http://www.jianshu.com/p/78d16f97ef0c" target="_blank" rel="noopener">点我传送</a></p>
-<ul>
-<li>该分解算法可以保持依赖，并且是无损分解</li>
-</ul>
+<h1 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h1><p>这些基本数据类型不依赖于某一个具体的数据库，是SQL数据库通用的类型</p>
 </blockquote>
 <ul>
-<li><h3 id="伪代码实现-1"><a href="#伪代码实现-1" class="headerlink" title="伪代码实现"></a>伪代码实现</h3> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">令Fc为F的正则覆盖;</span><br><span class="line">i:= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> each Fc 中的函数依赖 α→β</span><br><span class="line">        i := i + <span class="number">1</span></span><br><span class="line">        Ri := αβ;</span><br><span class="line"><span class="keyword">if</span> 模式 Rj, j = <span class="number">1</span>, <span class="number">2</span>, ..., i 都不包含R的候选码</span><br><span class="line">then</span><br><span class="line">        i := i + <span class="number">1</span></span><br><span class="line">        Ri := R的任意候选码</span><br><span class="line"><span class="comment">/*(以下代码可选)用来移除冗余关系，如果没有冗余关系则可以不care*/</span></span><br><span class="line">repeat</span><br><span class="line">        <span class="keyword">if</span> 模式 Rj包含于另一个模式Rk中</span><br><span class="line">        then</span><br><span class="line">               <span class="comment">/*删除Rj*/</span></span><br><span class="line">               Rj := Ri</span><br><span class="line">                i := i - <span class="number">1</span></span><br><span class="line">until 不再有可以删除的Rj</span><br><span class="line"><span class="keyword">return</span> (R1, R2, ..., Ri)</span><br></pre></td></tr></table></figure>
+<li><h3 id="char-n-——全称character"><a href="#char-n-——全称character" class="headerlink" title="char(n)——全称character"></a>char(n)——全称character</h3><ul>
+<li>用户指定长度的字符串，所有取值的长度都固定位n长的char</li>
+<li>比如身份证或者电话号码等长度固定的数据可以使用这个</li>
+<li>一般实际用的较少</li>
+</ul>
 </li>
-<li><h3 id="老规矩，还是先分析一下上面的伪代码"><a href="#老规矩，还是先分析一下上面的伪代码" class="headerlink" title="老规矩，还是先分析一下上面的伪代码"></a>老规矩，还是先分析一下上面的伪代码</h3><ol>
-<li>首先求出F的正则覆盖F<sub>c</sub>（实际上就是利用Amstrong公式化简原来的函数依赖集的过程）</li>
-<li>接着将F<sub>c</sub>中的每一个函数依赖单独分解成一个模式，得到一个模式列表S = {R<sub>1</sub>, R<sub>2</sub>, …, R<sub>i</sub>}</li>
-<li>如果上述模式列表S中的任意一个模式包含模式R的候选码，则跳到步骤5，否则执行步骤4</li>
-<li>选取R的任意一个候选码，组成一个新的模式R’, 将R’添加到模式列表S中</li>
-<li>（可选）如果模式列表中存在冗余（即某个模式被其他模式包含），则可以删除这个模式</li>
-<li>输出S</li>
-</ol>
+<li><h3 id="varchar-n-——全称character-varying"><a href="#varchar-n-——全称character-varying" class="headerlink" title="varchar(n)——全称character varying"></a>varchar(n)——全称character varying</h3><ul>
+<li>可变长的字符串，n为串的最大允许长度</li>
+<li>实际存的时候数据多长，就存多长，较省空间</li>
+<li>实际应用中大多用varchar，而不是char</li>
+</ul>
 </li>
-<li><h3 id="讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"><a href="#讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提" class="headerlink" title="讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"></a>讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提</h3><ul>
-<li>比如上面分析BCNF分解算法时用到的模式class， 利用上述算法分解之后可以得到和 利用BCNF算法分解一样的结果</li>
-<li>所以，神奇的事情发生了，<strong>利用3NF分解算法得到的结果可能还会满足BCNF范式</strong></li>
-<li><strong>实践中BCNF分解的另一种途径</strong>： 先用3NF算法分解，然后对结果中不满足BCNF范式的模式用BCNF分解算法分解，如果结果不保持依赖，则回退回3NF</li>
+<li><h3 id="int——integer"><a href="#int——integer" class="headerlink" title="int——integer"></a>int——integer</h3><ul>
+<li>整数类型，没啥好讲的，Oj8k</li>
+</ul>
+</li>
+<li><h3 id="smallint"><a href="#smallint" class="headerlink" title="smallint"></a>smallint</h3><ul>
+<li>小整数类型</li>
+</ul>
+</li>
+<li><h3 id="number-p-d"><a href="#number-p-d" class="headerlink" title="number(p, d)"></a>number(p, d)</h3><ul>
+<li>定点数，这个数有p位数字，其中小数点右边有d位</li>
+<li>例如，numberic(3, 1)可表示-99.9 ~ 99.9</li>
+<li><p>下面在MySQL数据库上面的测试，举个栗子：(<strong><em>测试结果表明，如果定义numberic(3, 1), 则小数点前面有三位数时是无法插入的，如果小数点后面有多位小数，则通过四舍五入的方法只保留一位小数</em></strong>)</p>
+<ul>
+<li><p>先简单定义一张Student表（没有定义主键，允许插入相同的数据）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面定义了一张学生表，其中grade的取值范围为-99.9 ~ 99.9（不合理的取值，只是为了测试）</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  study_id <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  age <span class="built_in">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  grade <span class="built_in">NUMERIC</span>(<span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行正常的插入操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 下面两条插入语句都能正常执行，并且结果正确</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590001'</span>, <span class="number">18</span>, <span class="number">92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590002'</span>, <span class="number">18</span>, <span class="number">-92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.6，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590003'</span>, <span class="number">18</span>, <span class="number">-92.56</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.5，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590004'</span>, <span class="number">18</span>, <span class="number">-92.54</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的这条插入操作将会报错</span></span><br><span class="line"><span class="comment">--  [22001][1264] Data truncation: Out of range value for column 'grade' at row 1</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590005'</span>, <span class="number">18</span>, <span class="number">192.5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行上面操作后的结果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">study_id</th>
+<th style="text-align:center">age</th>
+<th style="text-align:center">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">201590001</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">92.5</td>
+</tr>
+<tr>
+<td style="text-align:center">201590002</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">-92.5</td>
+</tr>
+<tr>
+<td style="text-align:center">201590003</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">-92.6</td>
+</tr>
+<tr>
+<td style="text-align:center">201590004</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">-92.5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h3 id="real-double-precision"><a href="#real-double-precision" class="headerlink" title="real,double,precision"></a>real,double,precision</h3><ul>
+<li>浮点数与双精度浮点数</li>
+</ul>
+</li>
+<li><h3 id="float-n"><a href="#float-n" class="headerlink" title="float(n)"></a>float(n)</h3><ul>
+<li>精度至少为n位的浮点数</li>
+</ul>
+</li>
+<li><h3 id="Date-time-timestamp-interval"><a href="#Date-time-timestamp-interval" class="headerlink" title="Date, time, timestamp, interval"></a>Date, time, timestamp, interval</h3><ul>
+<li>日期类型</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h1 id="SQL中的完整性约束"><a href="#SQL中的完整性约束" class="headerlink" title="SQL中的完整性约束"></a>SQL中的完整性约束</h1><p>下文中列举的只是部分简单约束，具体的会在后面的内容中讨论</p>
+</blockquote>
+<pre><code>       先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束
+  （这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的
+约束，（***如果没有对违反约束行为做特殊的处理***）这个操作就不会成功
+</code></pre><ul>
+<li><h3 id="primary-key（A1-A2-…-An）——主键约束"><a href="#primary-key（A1-A2-…-An）——主键约束" class="headerlink" title="primary key（A1, A2, …, An）——主键约束"></a>primary key（A1, A2, …, An）——主键约束</h3><ul>
+<li>该约束主要指定了以属性A1~An构成关系的主键，该主键值必须非空且唯一</li>
+<li>即只要一个表的主键确定，那这个表中就不允许存在一行数据其主键的值为null， 也不允许存在两行数据其主键的值一样。一旦后续操作违反了这个原则（约束），则该操作就不会被执行</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>新定义一张department表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作创建了一张department表，并指定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面顺序执行一系列插入操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作将成功插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面再执行一次与上面一模一样的操作，会发现报错，因为之前已经有一条</span></span><br><span class="line"><span class="comment">-- 记录的主键值为'Software'，顾无法再插入主键值相同的数据</span></span><br><span class="line"><span class="comment">-- [23000][1062] Duplicate entry 'Software' for key 'PRIMARY'</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句试图插入一条dept_name为空的数据，显然也是报错的</span></span><br><span class="line"><span class="comment">-- 因为作为主键的字段是不允许为空的</span></span><br><span class="line"><span class="comment">-- [23000][1048] Column 'dept_name' cannot be null</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="literal">NULL</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行上面操作后的结果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">dept_name</th>
+<th style="text-align:center">building</th>
+<th style="text-align:center">budget</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Software</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">100000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h3 id="foregin-key-A1-A2-…-An-references-——-外键约束"><a href="#foregin-key-A1-A2-…-An-references-——-外键约束" class="headerlink" title="foregin key(A1, A2, …, An) references —— 外键约束"></a>foregin key(A1, A2, …, An) references —— 外键约束</h3><ul>
+<li>简单来讲如果<strong><em>一个关系（表）A</em></strong>中包含<strong><em>一个外键C</em></strong>，则作为外键的一个或多个字段必然是<strong><em>另一张表B</em></strong>的主键。则由于外键约束这一层关系，对A表和B表都会收一定程度的限制（现在解释的还是比较抽象，看下面的例子会比较直观一点）<ul>
+<li>如果想向A表中插入一条数据，且数据中C的值在B表中找不到对应表项，则这个操作不会成功（就像你如果向运动员表中插入一条数据，国家属性对应的标识在国家表中不存在，则这次插入操作就会失败）</li>
+<li>如果试图删除一个表B的记录，而这条记录的主键只正好是A表中某条数据的外键，则这次删除操作不会成功</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>先创建两张表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一张表department，并制定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再创建一张couese表，并指定dept_name为本表关于department表的外键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> course (</span><br><span class="line">  course_id <span class="built_in">VARCHAR</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  title     <span class="built_in">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  credits   <span class="built_in">NUMERIC</span>(<span class="number">2</span>, <span class="number">0</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (course_id),</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span> (dept_name) <span class="keyword">REFERENCES</span> department (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们先试图插入一条course记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面试图往course表中插入一条记录，但是department表中并没有</span></span><br><span class="line"><span class="comment">-- dept_name = 'DUT'的记录，故该操作会失败</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们先往department表中插入记录，再往course表中插入记录，下面的操作就能成功插入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="string">'DUT'</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行上面操作后的结果</li>
+</ul>
+<p>|dept_name |building  | budget  |<br>|:——-:|:—:| :—–:|<br>|DUT|A|100000|</p>
+<p>|course_id |title  | dept_name  |credits|<br>|:——-:|:—:| :—–:| :—-:|<br>|08|Endlish|DUT|3</p>
+</li>
+<li><p>此时我们如果试图删除department表中dept_name = DUT的那条数据</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="not-null——非空约束"><a href="#not-null——非空约束" class="headerlink" title="not null——非空约束"></a>not null——非空约束</h3><ul>
+<li>理解上面两个约束以后这个就很好理解了，这个约束就是指定某个字段不能为空，试图传入null值的操作都不会成功</li>
+<li>作为主键的字段隐式拥有非空约束</li>
 </ul>
 </li>
 </ul>
 
+          
+        
       
     </div>
     
@@ -494,44 +621,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/数据库/" rel="tag"># 数据库</a>
-          
-            <a href="/tags/学习/" rel="tag"># 学习</a>
-          
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" rel="next" title="数据库笔记（补充）——候选码的确定方法">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（补充）——候选码的确定方法
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/22/2017-12-22-软件工程复习（b）/" rel="prev" title="软件工程复习（二）">
-                软件工程复习（二） <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -541,37 +638,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-        <!-- JiaThis Button BEGIN -->
-<div class="jiathis_style">
-<span class="jiathis_txt">分享到：</span>
-<a class="jiathis_button_fav">收藏夹</a>
-<a class="jiathis_button_copy">复制网址</a>
-<a class="jiathis_button_email">邮件</a>
-<a class="jiathis_button_weixin">微信</a>
-<a class="jiathis_button_qzone">QQ空间</a>
-<a class="jiathis_button_tqq">腾讯微博</a>
-<a class="jiathis_button_douban">豆瓣</a>
-<a class="jiathis_button_share">一键分享</a>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/7/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span>
+  </nav>
 
-<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
-<a class="jiathis_counter_style"></a>
-</div>
-<script type="text/javascript" >
-var jiathis_config={
-  data_track_clickback:true,
-  summary:"",
-  shortUrl:false,
-  hideMore:false
-}
-</script>
-<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
-<!-- JiaThis Button END -->
-      
-    </div>
-  </div>
 
 
           </div>
@@ -579,15 +653,6 @@ var jiathis_config={
 
 
           
-
-  
-    <div class="comments" id="comments">
-      <div id="hypercomments_widget"></div>
-    </div>
-
-  
-
-
 
         </div>
         
@@ -608,17 +673,8 @@ var jiathis_config={
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -673,22 +729,6 @@ var jiathis_config={
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#BCNF-分解算法"><span class="nav-number">1.</span> <span class="nav-text">BCNF 分解算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码实现"><span class="nav-number">1.1.</span> <span class="nav-text">伪代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#先来分析一波上面的代码吧"><span class="nav-number">1.2.</span> <span class="nav-text">先来分析一波上面的代码吧</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"><span class="nav-number">1.3.</span> <span class="nav-text">纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3NF分解算法"><span class="nav-number">2.</span> <span class="nav-text">3NF分解算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#伪代码实现-1"><span class="nav-number">2.1.</span> <span class="nav-text">伪代码实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#老规矩，还是先分析一下上面的伪代码"><span class="nav-number">2.2.</span> <span class="nav-text">老规矩，还是先分析一下上面的伪代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"><span class="nav-number">2.3.</span> <span class="nav-text">讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -822,10 +862,6 @@ var jiathis_config={
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
@@ -849,8 +885,6 @@ var jiathis_config={
 
 		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
-		
-		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/"});
 		
 
 		(function() {

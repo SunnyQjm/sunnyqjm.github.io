@@ -303,6 +303,437 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/17/2017-10-17-数据库笔记（十）——关系代数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/17/2017-10-17-数据库笔记（十）——关系代数/" itemprop="url">数据库笔记（十）——关系代数</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T00:00:00+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/17/2017-10-17-数据库笔记（十）——关系代数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/10/17/2017-10-17-数据库笔记（十）——关系代数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/10/17/2017-10-17-数据库笔记（十）——关系代数/" class="leancloud_visitors" data-flag-title="数据库笔记（十）——关系代数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="基本运算"><a href="#基本运算" class="headerlink" title="基本运算"></a>基本运算</h2><p>每一种基本运算的结果都是一个新的关系，可以用这个关系继续参与运算，借此便可进行复杂的运算</p>
+</blockquote>
+<ul>
+<li><h3 id="选择运算（select）-gt-相当于SQL语句中的WHERE子句的职能"><a href="#选择运算（select）-gt-相当于SQL语句中的WHERE子句的职能" class="headerlink" title="选择运算（select）==&gt;相当于SQL语句中的WHERE子句的职能"></a>选择运算（select）==&gt;相当于SQL语句中的WHERE子句的职能</h3><ul>
+<li><h4 id="格式：σ选择谓词-关系"><a href="#格式：σ选择谓词-关系" class="headerlink" title="格式：σ选择谓词(关系)"></a>格式：σ<sub>选择谓词</sub>(关系)</h4></li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>σ<sub>SAL&gt;1000</sub>(EMP)</p>
+</li>
+<li><p>上式表示取出查询工资大于1000的所有员工的信息</p>
+</li>
+<li>等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>选择谓词的分类</p>
+<ul>
+<li>比较：=、≠、&lt;、≤、&gt;和≥</li>
+<li>连词：and(∧)、or(∨)和not(¬)==&gt;可以将多个谓词合并成一个大的谓词</li>
+<li>可以包括两个属性（字段的比较）：σ<sub>COMM&gt;SAL</sub>(EMP)表示抽成大于工资的人</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="投影运算（project）-gt-相当于SQL语句中的SELECT子句的职能"><a href="#投影运算（project）-gt-相当于SQL语句中的SELECT子句的职能" class="headerlink" title="投影运算（project）==&gt;相当于SQL语句中的SELECT子句的职能"></a>投影运算（project）==&gt;相当于SQL语句中的SELECT子句的职能</h3><ul>
+<li><h4 id="格式：∏字段序列-关系"><a href="#格式：∏字段序列-关系" class="headerlink" title="格式：∏字段序列(关系)"></a>格式：∏<sub>字段序列</sub>(关系)</h4></li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>∏<sub>ENAME,SAL</sub>(EMP)</p>
+</li>
+<li><p>上式表示查看所有员工的姓名和工资</p>
+</li>
+<li>等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="关系的组合运算-gt-就像SQL中select、where子句那样的组合效果"><a href="#关系的组合运算-gt-就像SQL中select、where子句那样的组合效果" class="headerlink" title="关系的组合运算==&gt;就像SQL中select、where子句那样的组合效果"></a>关系的组合运算==&gt;就像SQL中select、where子句那样的组合效果</h3><ul>
+<li><p>举个栗子</p>
+<ul>
+<li><p>∏<sub>ENAME,SAL</sub>(σ<sub>SAL&gt;1000</sub>(EMP))</p>
+</li>
+<li><p>上面的式子求出了所有工资大于1000的员工的名字和工资(实际上就是将<strong>σ<sub>SAL&gt;1000</sub>(EMP)</strong>执行的结果当做一个临时的关系，参与了投影运算得到的)</p>
+</li>
+<li>等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>事实关系的组合运算就是那么简单，分析的时候把每个简单运算的结果当做一个新的关系参与后面的运算，这样一层层剥开来，再复杂的语句也变得容易分析</p>
+</li>
+</ul>
+</li>
+<li><h3 id="并运算（union）-gt-相当于SQL中UNION关键字的职能"><a href="#并运算（union）-gt-相当于SQL中UNION关键字的职能" class="headerlink" title="并运算（union）==&gt;相当于SQL中UNION关键字的职能"></a>并运算（union）==&gt;相当于SQL中UNION关键字的职能</h3><ul>
+<li><h4 id="格式：（关系r）∪（关系s）"><a href="#格式：（关系r）∪（关系s）" class="headerlink" title="格式：（关系r）∪（关系s）"></a>格式：（关系r）∪（关系s）</h4></li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>∏<sub>ENAME,SAL</sub>(σ<sub>SAL&gt;1000</sub>(EMP)) ∪ ∏<sub>ENAME,SAL</sub>(σ<sub>COMM&gt;300</sub>(EMP))</p>
+</li>
+<li><p>上面的式子求出了所有工资大于1000或抽成大于300的员工的姓名和工资，等价于下面的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">1000</span></span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> COMM &gt; <span class="number">300</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>几点需要额外注意的</strong>：</p>
+<ul>
+<li><p>此处的并运算是集合运算，所以结果是去重的，结果集中不存在重复的元组（<strong><em>而在SQL语句中，指定UNION ALL是可以保留重复的</em></strong>）</p>
+</li>
+<li><p>关系r与关系s必须是同元的，即它们的属性的数目要求必须相同（这就和SQL语句中UNION使用的时候要求上下两个语句的字段数相同是一样的意思）</p>
+</li>
+<li>关系r和关系s对应位置的属性域应该是类型兼容的（同样和SQL中UNION使用时，每个对应位置字段类型兼容是一样的意思）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="集合的差运算（set-defference）-gt-相当于SQL语句中的EXCEPT"><a href="#集合的差运算（set-defference）-gt-相当于SQL语句中的EXCEPT" class="headerlink" title="集合的差运算（set-defference）==&gt;相当于SQL语句中的EXCEPT"></a>集合的差运算（set-defference）==&gt;相当于SQL语句中的EXCEPT</h3><ul>
+<li><h4 id="格式：-关系r-关系s"><a href="#格式：-关系r-关系s" class="headerlink" title="格式：(关系r)-(关系s)"></a>格式：(关系r)-(关系s)</h4></li>
+<li><p>举个栗子</p>
+<ul>
+<li>∏<sub>ENAME,SAL</sub>(σ<sub>SAL&gt;1000</sub>(EMP)) - ∏<sub>ENAME,SAL</sub>(σ<sub>COMM&gt;300</sub>(EMP))</li>
+<li>上面的式子表示工资大于1000但抽成不大于300的员工的姓名和工资，等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">1000</span></span><br><span class="line"><span class="keyword">EXCEPT</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> COMM &gt; <span class="number">300</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>几点需要额外注意的</strong>：</p>
+<ul>
+<li>此处的注意同上面的并运算的注意事项</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="笛卡尔积运算（Cartesian-product）-gt-等价于SQL语句中两个表进行笛卡尔积（全匹配）得到的结果，即SQL中进行多表连接时不指定连接条件的情况"><a href="#笛卡尔积运算（Cartesian-product）-gt-等价于SQL语句中两个表进行笛卡尔积（全匹配）得到的结果，即SQL中进行多表连接时不指定连接条件的情况" class="headerlink" title="笛卡尔积运算（Cartesian-product）==&gt;等价于SQL语句中两个表进行笛卡尔积（全匹配）得到的结果，即SQL中进行多表连接时不指定连接条件的情况"></a>笛卡尔积运算（Cartesian-product）==&gt;等价于SQL语句中两个表进行笛卡尔积（全匹配）得到的结果，即SQL中进行多表连接时不指定连接条件的情况</h3><ul>
+<li><h4 id="格式：-关系r-×-关系"><a href="#格式：-关系r-×-关系" class="headerlink" title="格式：(关系r)×(关系)"></a>格式：(关系r)×(关系)</h4></li>
+<li><p>举个栗子：</p>
+<ul>
+<li>EMP × DEPT</li>
+<li>上面的式子表示两个表进行全匹配，等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>下面两个式子是等价的</p>
+<ul>
+<li><strong>∏<sub>ENAME,DNAME</sub>(σ<sub>EMP.DEPTNO=DEPT.DEPTNO</sub>(σ<sub>JOB=”MANAGER”</sub>(EMP×DEPT)))</strong></li>
+<li><strong>∏<sub>ENAME,DNAME</sub>(σ<sub>EMP.DEPTNO=DEPT.DEPTNO</sub>((σ<sub>JOB=”MANAGER”</sub>(EMP))×DEPT)</strong></li>
+<li>下面是对这两个式子的SQL转化，转化之后就一目了然了<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 对应第一个式子</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">JOIN</span> DEPT <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO</span><br><span class="line"><span class="keyword">WHERE</span> JOB = <span class="string">'MANAGER'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 对应第二个式子</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> DEPT <span class="keyword">JOIN</span> (<span class="keyword">SELECT</span> *</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> JOB = <span class="string">'MANAGER'</span>)</span><br><span class="line">          <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="更名运算（rename）-gt-等价于SQL语句中as的职能"><a href="#更名运算（rename）-gt-等价于SQL语句中as的职能" class="headerlink" title="更名运算（rename）==&gt;等价于SQL语句中as的职能"></a>更名运算（rename）==&gt;等价于SQL语句中as的职能</h3><ul>
+<li><h4 id="格式：ρX-A1-A2-…-An-E-gt-表示的是将关系E更名为X，Ai表示的是给E的第i个字段指定别名"><a href="#格式：ρX-A1-A2-…-An-E-gt-表示的是将关系E更名为X，Ai表示的是给E的第i个字段指定别名" class="headerlink" title="格式：ρX(A1,A2,…,An)(E)==&gt;表示的是将关系E更名为X，Ai表示的是给E的第i个字段指定别名"></a>格式：ρ<sub>X(A<sub>1</sub>,A<sub>2</sub>,…,A<sub>n</sub>)</sub>(E)==&gt;表示的是将关系E更名为X，A<sub>i</sub>表示的是给E的第i个字段指定别名</h4></li>
+<li>举个栗子<ul>
+<li>∏<sub>ENAME,DNAME</sub>(σ<sub>e.DEPTNO=d.DEPTNO</sub>(σ<sub>JOB=”MANAGER”</sub>(ρ<sub>e</sub>(EMP)×ρ<sub>d</sub>(DEPT))))</li>
+<li>上面式子含义就不解释了，是上面举的栗子，只是引入了更名运算符，它等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO</span><br><span class="line"><span class="keyword">WHERE</span> JOB = <span class="string">'MANAGER'</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="来，学习完上面的基本运算，来做个实际的栗子，要求找到员工表中的最高工资（因为目前还没有介绍类似SQL中组函数的操作，后面会介绍。所以通过以下方式来实现）"><a href="#来，学习完上面的基本运算，来做个实际的栗子，要求找到员工表中的最高工资（因为目前还没有介绍类似SQL中组函数的操作，后面会介绍。所以通过以下方式来实现）" class="headerlink" title="来，学习完上面的基本运算，来做个实际的栗子，要求找到员工表中的最高工资（因为目前还没有介绍类似SQL中组函数的操作，后面会介绍。所以通过以下方式来实现）"></a>来，学习完上面的基本运算，来做个实际的栗子，要求找到员工表中的最高工资（因为目前还没有介绍类似SQL中组函数的操作，后面会介绍。所以通过以下方式来实现）</h3><ul>
+<li>step1: 找到所有不是最高工资的人<ul>
+<li><strong>∏<sub>e1.SAL</sub>(σ<sub>e<sub>1</sub>.sal &lt; e<sub>2</sub>.sal</sub>(ρ<sub>e<sub>1</sub></sub>(EMP)×ρ<sub>e<sub>2</sub></sub>(EMP)))</strong></li>
+</ul>
+</li>
+<li>step2: 用所有的员工减去上面的员工，即得到最高工资<ul>
+<li><strong>∏<sub>SAL</sub>(EMP) - ∏<sub>e1.SAL</sub>(σ<sub>e<sub>1</sub>.sal &lt; e<sub>2</sub>.sal</sub>(ρ<sub>e<sub>1</sub></sub>(EMP)×ρ<sub>e<sub>2</sub></sub>(EMP)))</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="在书写关系运算表达式的时候可以用序列号代替字段名（但是不直观，不常用，一般不用）"><a href="#在书写关系运算表达式的时候可以用序列号代替字段名（但是不直观，不常用，一般不用）" class="headerlink" title="在书写关系运算表达式的时候可以用序列号代替字段名（但是不直观，不常用，一般不用）"></a>在书写关系运算表达式的时候可以用序列号代替字段名（但是不直观，不常用，一般不用）</h3><ul>
+<li>举个栗子<ul>
+<li>∏<sub>$6</sub>(σ<sub>$6 &lt; $14</sub>(EMP×EMP))</li>
+<li>等价于下面的运算</li>
+<li>∏<sub>e1.SAL</sub>(σ<sub>e<sub>1</sub>.sal &lt; e<sub>2</sub>.sal</sub>(ρ<sub>e<sub>1</sub></sub>(EMP)×ρ<sub>e<sub>2</sub></sub>(EMP)))</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="附加运算"><a href="#附加运算" class="headerlink" title="附加运算"></a>附加运算</h2><p>附加运算是由基本运算组成的，不能增强基本运算的运算能力，但是能简化运算</p>
+</blockquote>
+<ul>
+<li><h3 id="集合交运算（intersection）-gt-相当于SQL语句中INTERSECT关键字的职能"><a href="#集合交运算（intersection）-gt-相当于SQL语句中INTERSECT关键字的职能" class="headerlink" title="集合交运算（intersection）==&gt;相当于SQL语句中INTERSECT关键字的职能"></a>集合交运算（intersection）==&gt;相当于SQL语句中INTERSECT关键字的职能</h3><ul>
+<li><h4 id="格式：-关系r-∩-关系s"><a href="#格式：-关系r-∩-关系s" class="headerlink" title="格式：(关系r)∩(关系s)"></a>格式：(关系r)∩(关系s)</h4></li>
+<li>因为集合交运算是可以由前面的基本运算组合产生的，所以把它归到附加运算<ul>
+<li>A ∩ B &lt;=&gt; A - (A - B)</li>
+</ul>
+</li>
+<li>举个栗子<ul>
+<li>∏<sub>ENAME,SAL</sub>(σ<sub>SAL&gt;1000</sub>(EMP)) ∩ ∏<sub>ENAME,SAL</sub>(σ<sub>COMM&gt;300</sub>(EMP))</li>
+<li>上面的式子表示工资大于1000并且抽成大于300的员工的姓名和工资，等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">1000</span></span><br><span class="line"><span class="keyword">INTERSECT</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> COMM &gt; <span class="number">300</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="自然连接（natural-join）-gt-相当于SQL语句中的NATURAL-JOIN"><a href="#自然连接（natural-join）-gt-相当于SQL语句中的NATURAL-JOIN" class="headerlink" title="自然连接（natural join）==&gt; 相当于SQL语句中的NATURAL JOIN"></a>自然连接（natural join）==&gt; 相当于SQL语句中的NATURAL JOIN</h3><ul>
+<li><h4 id="格式：-关系-⋈-关系"><a href="#格式：-关系-⋈-关系" class="headerlink" title="格式：(关系)⋈(关系)"></a>格式：(关系)⋈(关系)</h4></li>
+<li><h4 id="自然连接的形式化定义"><a href="#自然连接的形式化定义" class="headerlink" title="自然连接的形式化定义"></a>自然连接的形式化定义</h4><ul>
+<li>r,s是两个关系</li>
+<li>R，S是上面两个关系对应的关系模式（其实就是上述两个关系各自的属性列表）</li>
+<li>R ∩ S 表示r和s的同名属性列表</li>
+<li>R ∪ S 表示出现在r或s上的属性名列表(是一个集合，不包同名属性，存在同名属性会去重)</li>
+<li>R - S 表示出现在R上，但不出现在S上的属性名列表</li>
+<li>则可做如下定义</li>
+<li>r⋈s = ∏<sub>R∪S</sub>(σ<sub>r.A<sub>1</sub>=s.A<sub>1</sub> ∧ r.A<sub>2</sub>=s.A<sub>2</sub> ∧ … ∧ r.A<sub>n</sub>=s.A<sub>n</sub></sub>(r×s)) ，其中 R∩S={A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub>}</li>
+</ul>
+</li>
+<li>举个栗子<ul>
+<li>∏<sub>name, course_id</sub>(instructor ⋈ teaches)</li>
+<li>上面的式子列出了所有老师的名字以及其所授课程的id，等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, course_id</span><br><span class="line"><span class="keyword">FROM</span> intructor <span class="keyword">natural</span> <span class="keyword">join</span> teaches</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>ps: 两个关系模式执行自然连接以后属性的排布顺序：</p>
+<ul>
+<li>排在最前面的是两个关系模式相同的属性</li>
+<li>其次是只属于第一个关系模式的属性</li>
+<li>最后是只属于第二个关系模式的属性<h4 id="！！！所以所两个关系模式进行自然连接以后，总的属性的个数是减少了，具体减少的个数等于同名属性的个数"><a href="#！！！所以所两个关系模式进行自然连接以后，总的属性的个数是减少了，具体减少的个数等于同名属性的个数" class="headerlink" title="！！！所以所两个关系模式进行自然连接以后，总的属性的个数是减少了，具体减少的个数等于同名属性的个数"></a>！！！所以所两个关系模式进行自然连接以后，总的属性的个数是减少了，具体减少的个数等于同名属性的个数</h4></li>
+</ul>
+</blockquote>
+</li>
+<li><h3 id="theta连接-gt-是自然连接的扩展，相当于SQL中的join-on"><a href="#theta连接-gt-是自然连接的扩展，相当于SQL中的join-on" class="headerlink" title="theta连接==&gt;是自然连接的扩展，相当于SQL中的join on"></a>theta连接==&gt;是自然连接的扩展，相当于SQL中的join on</h3><ul>
+<li><h4 id="格式：-关系-⋈Θ-关系"><a href="#格式：-关系-⋈Θ-关系" class="headerlink" title="格式：(关系)⋈Θ(关系)"></a>格式：(关系)⋈<sub>Θ</sub>(关系)</h4></li>
+<li>形式化定义：<ul>
+<li>r ⋈<sub>Θ</sub> s = σ<sub>Θ</sub>(r × s)</li>
+</ul>
+</li>
+<li>举个栗子<ul>
+<li>∏<sub>name, course_id</sub>(instructor ⋈<sub>intructor.SAL &gt; 5000 </sub> teaches)</li>
+<li>上面的式子表示列出所有工资高于5000的老师的名字以及其所授课程的id， 等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, course_id</span><br><span class="line"><span class="keyword">FROM</span> instructor <span class="keyword">join</span> teaches <span class="keyword">on</span> instructor.ID = teaches.ID</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="除运算（division）"><a href="#除运算（division）" class="headerlink" title="除运算（division）"></a>除运算（division）</h3><blockquote>
+<p>这个在书上没讲，是老师上课的时候补充的</p>
+</blockquote>
+<ul>
+<li><h4 id="格式：-关系-÷-关系"><a href="#格式：-关系-÷-关系" class="headerlink" title="格式：(关系)÷(关系)"></a>格式：(关系)÷(关系)</h4></li>
+<li>形式化定义：<br>R÷S = ∏<sub>R∪S</sub>( ( ∏<sub>R-S</sub>(r) × S ) - ∏<sub>R-S, S</sub>(r) )</li>
+<li>解释起来挺麻烦的，这边给出一个博客链接：<a href="http://blog.csdn.net/qq_22627687/article/details/53789362" target="_blank" rel="noopener">点我</a></li>
+</ul>
+</li>
+<li><h3 id="赋值运算"><a href="#赋值运算" class="headerlink" title="赋值运算"></a>赋值运算</h3><blockquote>
+<p>就是将一个关系表达式的结果赋值取一个临时的名字，就相当于定义了一个临时关系。这个操作就相当于SQL中with语句的职能</p>
+</blockquote>
+<ul>
+<li><h4 id="格式：-temp-name-←-关系表达式"><a href="#格式：-temp-name-←-关系表达式" class="headerlink" title="格式： temp_name ← 关系表达式"></a>格式： temp_name ← 关系表达式</h4></li>
+<li>举个栗子：<br>temp1 ← R × S<br>temp2 ← σ<sub>r.A<sub>1</sub>=s.A<sub>1</sub> ∧ r.A<sub>2</sub>=s.A<sub>2</sub> ∧ … ∧ r.A<sub>n</sub>=s.A<sub>n</sub></sub>(temp1)<br>result = ∏<sub>R∪S</sub>(temp2)</li>
+<li>上面的式子等价于： result = r⋈s</li>
+</ul>
+</li>
+<li><h3 id="外连接运算"><a href="#外连接运算" class="headerlink" title="外连接运算"></a>外连接运算</h3><ul>
+<li>左外连：⟕</li>
+<li>右外连：⟖</li>
+<li>全外连：⟗</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="扩展运算"><a href="#扩展运算" class="headerlink" title="扩展运算"></a>扩展运算</h2><p>扩展运算是不能用基本的关系代数运算来实现的一类查询，可以满足复杂的查询需求</p>
+</blockquote>
+<ul>
+<li><h3 id="广义投影（Generalized-projection）"><a href="#广义投影（Generalized-projection）" class="headerlink" title="广义投影（Generalized-projection）"></a>广义投影（Generalized-projection）</h3><blockquote>
+<p>与基本运算中的投影运算相比，就是多了允许在选择列表中出现表达式（在基本运算中的投影的选择列表中只能出现字段）</p>
+</blockquote>
+<ul>
+<li><h4 id="格式：∏F1-F2-…-Fn-E"><a href="#格式：∏F1-F2-…-Fn-E" class="headerlink" title="格式：∏F1, F2, … , Fn(E)"></a>格式：∏<sub>F<sub>1</sub>, F<sub>2</sub>, … , F<sub>n</sub></sub>(E)</h4><ul>
+<li>其中F<sub>1</sub>, F<sub>2</sub>, … , F<sub>n</sub>可以是字段或者是表达式</li>
+<li>E代表一个关系</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>∏<sub>name, sal * 1.2</sub>(instructor)</p>
+</li>
+<li><p>上面的式子表示查出所有老师的名字，以及涨了20%以后的工资，等价于下面的SQL语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, sal * <span class="number">1.2</span></span><br><span class="line"><span class="keyword">FROM</span> instructor</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="聚集函数（Aggregation-function）"><a href="#聚集函数（Aggregation-function）" class="headerlink" title="聚集函数（Aggregation function）"></a>聚集函数（Aggregation function）</h3><blockquote>
+<p>聚集函数的符号表示是用书写体G，这边就直接用G指代了</p>
+<p><strong>聚集函数是输入值的一个汇聚，以多个值作为输入，将一个单一的值作为返回结果</strong></p>
+<p>多重集：使用聚集函数对其进行操作的汇集中，一个值可以出现多次，值出现的顺序是无关紧要的。这样的汇集称为<strong>多重集</strong>（就比方说统计一个员工表中员工的数量，然后我们通过统计员工的名字来统计，即便是同名的员工我们也是计算的）</p>
+</blockquote>
+<ul>
+<li><h4 id="格式：-G1-G2-…-GnGF1-A1-F2-A2-…-Fn-An-E"><a href="#格式：-G1-G2-…-GnGF1-A1-F2-A2-…-Fn-An-E" class="headerlink" title="格式： G1, G2, … , GnGF1(A1), F2(A2), …, Fn(An)(E)"></a>格式： <sub>G<sub>1</sub>, G<sub>2</sub>, … , G<sub>n</sub></sub>G<sub>F<sub>1</sub>(A<sub>1</sub>), F<sub>2</sub>(A<sub>2</sub>), …, F<sub>n</sub>(A<sub>n</sub>)</sub>(E)</h4><ul>
+<li>其中前面的G<sub>1</sub>, G<sub>2</sub>, … , G<sub>n</sub>表示的是分组条件</li>
+<li>后面的F<sub>1</sub>(A<sub>1</sub>), F<sub>2</sub>(A<sub>2</sub>), …, F<sub>n</sub>(A<sub>n</sub>)是聚集函数表达式列表</li>
+<li>F<sub>i</sub>(i = 1, 2, …, n)表示聚集函数：sum、count、average、max、min</li>
+<li>A<sub>1</sub>, A<sub>2</sub>, … , A<sub>n</sub>代表字段</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><sub>A<sub>1</sub>, A<sub>2</sub></sub>G<sub>sum(A<sub>3</sub>)</sub>(∏<sub>A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub></sub>(σ<sub>P</sub>(r<sub>1</sub>×r<sub>2</sub>×…×r<sub>m</sub>)) )</li>
+<li>等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A1, A2, <span class="keyword">sum</span>(A3)</span><br><span class="line"><span class="keyword">FROM</span> r1, r2, ..., rm</span><br><span class="line"><span class="keyword">WHERE</span> P</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> A1, A2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>上面的聚集函数在进行计算的时候采用的都是多重集，也就是相同的值可以多次重复计算（也就是在执行聚集函数的时候是不去重计算），如果要去重计算的话就要采用下面的几个函数写法</p>
+<ul>
+<li>sum_distinct</li>
+<li>count_distinct</li>
+<li>averag_distinct</li>
+<li>max_distinct</li>
+<li>min_distinct</li>
+</ul>
+</li>
+<li>举个栗子：<ul>
+<li><sub>A<sub>1</sub>, A<sub>2</sub></sub>G<sub>sum_distinct(A<sub>3</sub>)</sub>(∏<sub>A<sub>1</sub>, A<sub>2</sub>, …, A<sub>n</sub></sub>(σ<sub>P</sub>(r<sub>1</sub>×r<sub>2</sub>×…×r<sub>m</sub>)) )</li>
+<li>上面的式子等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> A1, A2, <span class="keyword">sum</span>(<span class="keyword">distinct</span> A3)</span><br><span class="line"><span class="keyword">FROM</span> r1, r2, ..., rm</span><br><span class="line"><span class="keyword">WHERE</span> P</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> A1, A2</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1428,326 +1859,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/22/2017-09-22-数据库学习笔记（五）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/22/2017-09-22-数据库学习笔记（五）/" itemprop="url">数据库笔记（五）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T00:00:00+08:00">
-                2017-09-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/22/2017-09-22-数据库学习笔记（五）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/22/2017-09-22-数据库学习笔记（五）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/22/2017-09-22-数据库学习笔记（五）/" class="leancloud_visitors" data-flag-title="数据库笔记（五）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在开始今天的摸鱼大业之前，让我们先构造一组表，用于演示下面的例子(´`)</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-bf98c8284e4844ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
-<blockquote>
-<h2 id="Having-子句"><a href="#Having-子句" class="headerlink" title="Having 子句"></a>Having 子句</h2><p>由于where子句中不能用聚合函数（组函数）做条件，故引入having子句</p>
-</blockquote>
-<ul>
-<li>让我们先看一下各个子句的书写顺序（下面的只是我们一般在写SQL语句时候的书写顺序）<ul>
-<li>SELECT</li>
-<li>FROM</li>
-<li>WHERE</li>
-<li>GROUP BY</li>
-<li>HAVING</li>
-<li>ORDER BY</li>
-<li>上面各子句的执行顺序：FROM–&gt;WHERE– &gt; GROUP BY–&gt; HAVING–&gt;SELECT–&gt;ORDER BY<blockquote>
-<p>其中上面除了GROUP BY和HAVING可以互换位置外，其他位置均固定，但最好采用上面的顺序</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>从上面的讨论中可以看出<ul>
-<li>HAVING一般紧随GROUP BY之后，置于ORDER BY之前</li>
-<li>而且当聚集函数（组函数）做条件时，只用用HAVING来处理</li>
-</ul>
-</li>
-<li><p>举个栗子：<strong>求所有平均工资大于2000的部门的部门号以及该部门的平均工资</strong></p>
-<ul>
-<li><p>先来看看每个部门的平均工资</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEPTNO, <span class="keyword">avg</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO</span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-550eb3f89b741be7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></li>
-<li><p>接下来开始求题设的问题</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEPTNO, <span class="keyword">avg</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">avg</span>(SAL) &gt; <span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-ae9918c4513b34be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="聚合函数的嵌套"><a href="#聚合函数的嵌套" class="headerlink" title="聚合函数的嵌套"></a>聚合函数的嵌套</h2></blockquote>
-<ul>
-<li>不同数据库对聚集函数嵌套的规定不同<ul>
-<li>Oracle数据库规定最多只能有两层嵌套</li>
-<li>SQL Server不允许聚集函数嵌套</li>
-</ul>
-</li>
-<li><p>举个栗子：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句在Oracle数据库中执行是可以的</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">avg</span>(sal))</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno</span><br><span class="line"></span><br><span class="line"><span class="comment">--上面的语句在SQL Server中执行会报下面的错</span></span><br><span class="line">[S0001][<span class="number">130</span>] 不能对包含聚合或子查询的表达式执行聚合函数。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>┐(´•_•`)┌ 实际上二层以上的嵌套也是毫无意义的（只是瞎哔哔，不是什么重点，有助于理解为什么聚集函数多层嵌套是没有意义的）</p>
-<ul>
-<li>首先回忆一下，聚集函数的操作是多行输入，得到一行输出</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">max</span>(<span class="keyword">avg</span>(sal)))</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>现在来分析上面语句执行的过程</p>
-<ul>
-<li>（avg）首先根据部门号deptno分成若干组，并计算每组的平均工资（返回若干条记录）</li>
-<li>（max）然后取各部门最高的平均工资（返回一条记录）</li>
-<li>（max）这个时候只有一条记录，取最大值也还是那一条记录</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>这部分是重点也是难点呀٩(๑`^´๑)۶，不用担心，让笔者带你细细解剖(≖_≖ )<br>这部分参考了两份笔记和课本</p>
-</blockquote>
-<ul>
-<li><h3 id="嵌套子查询"><a href="#嵌套子查询" class="headerlink" title="嵌套子查询"></a>嵌套子查询</h3><strong><em>即SQL标准提供嵌套子查询机制，允许将一个完整的select-from-where查询表达式嵌入到另一个查询语句中</em></strong></li>
-<li><h3 id="子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）"><a href="#子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）" class="headerlink" title="子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）"></a>子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）</h3><ul>
-<li><p>单行子查询</p>
-<ul>
-<li>在单行子查询中，子查询语句只能返回一行数据</li>
-<li>当where子句中用下列逻辑符号连接子查询时，便只能连接单行子查询<ul>
-<li>=</li>
-<li>&lt;</li>
-<li>></li>
-<li>&lt;=</li>
-<li>>=</li>
-<li>&lt;&gt;</li>
-</ul>
-</li>
-<li><p>举个栗子(≖_≖ )</p>
-<ul>
-<li>我们现在要找<strong>所有员工中，拿到最高工资的人的名字以及工资</strong><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL = (<span class="keyword">SELECT</span> <span class="keyword">max</span>(SAL)</span><br><span class="line">             <span class="keyword">FROM</span> EMP);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-d396978f87dd2246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></li>
-</ul>
-</li>
-<li><p>多行子查询</p>
-<ul>
-<li>多行子查询中，子查询语句可以返回多行数据</li>
-<li>当where子句中用下列关键字连接子查询时，便是多行子查询($代表上面提到的=, &gt;等符号)<ul>
-<li>$ any/some</li>
-<li>$ all</li>
-</ul>
-</li>
-<li>举几个简单的栗子<ul>
-<li>&lt; any(…)  表示小于子查询结果集中的最大值</li>
-<li>> any(…) 表示大于子查询结果集中的最小值</li>
-<li>= any(…)  等价于in</li>
-<li>= all(…)  没有语法错误，但是只要子查询结果集的个数大于1，则整体的结果必然为空</li>
-<li>&lt; all(…)  表示小于子查询结果集中的最小值</li>
-<li>> all(…) 表示大于子查询结果集中的最大值</li>
-</ul>
-</li>
-<li><p>来举个正经的栗子</p>
-<ul>
-<li>求<strong>比部门号为20的部门的所有员工的工资都要高的员工的名字和工资</strong><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-0ff8c440bec838bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></li>
-<li><p>还有一个要注意的问题(ㅍ_ㅍ)，就是子查询中SELECT后面的字段要根据主查询语句中的字段来确定（简单的说就是子查询语句前面，where后面，出现了什么字段，子查询语句的SELECT列表中理论上就应该出现这些字段）</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面这个语句是匹配的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br><span class="line"><span class="comment">--下面这个语句就不匹配的</span></span><br><span class="line"><span class="comment">--因为ENAM并没有出现在主查询语句中</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其实换个角度想想，具体执行的时候是将where后面的字段与子查询语句的结果集进行比较，如果字段都不一样，就没有可比性了</p>
-</li>
-</ul>
-</li>
-<li>对了，还有一个补充，<strong>not in + 子查询，如果子查询的结果集中包含NULL值，那整体的结果必为空</strong>。因为NULL值是不确定的值，谁也不能保证某个具体的值是否等于NULL。。。</li>
-</ul>
-</li>
-<li><p>子查询中存在性的判别可以用exists关键字</p>
-<ul>
-<li>举个栗子就好<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句就查出了所有手底下管了人的经理的信息</span></span><br><span class="line"><span class="comment">--其实这里已经用到了相关子查询，具体的下面将会讲到</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">exists</span>(<span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> EMP.MGR = e.EMPNO);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>试思考下面两个问题，根据提示理解一下，也可以实际操作验证一下</p>
-<ul>
-<li>=some 等价于 in， 然而 &lt;&gt;some不等价于not in（<strong><em>&lt;&gt;some表示的是只要不等于结果集中的任意元素即可，可想而知，只要结果集中有大于一个元素，这个条件是恒成立的</em></strong>）</li>
-<li>&lt;&gt;all 等价于 not in，然而=all不等价于in</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="相关子查询"><a href="#相关子查询" class="headerlink" title="相关子查询"></a>相关子查询</h3><ul>
-<li>慎用，因为一旦使用相关子查询，子查询语句可能会被执行很多次，很影响效率</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句找出了所有比自己部门平均工资高的员工的信息</span></span><br><span class="line"><span class="comment">--检索时，每检索一行数据，子查询语句就要被执行一次</span></span><br><span class="line"><span class="comment">--（因为该子查询语句只有在某个具体的部门号下才会有结果</span></span><br><span class="line"><span class="comment">--而，要获取部门号，就必须依赖于主查询语句中的某行具体数据）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL, DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; (<span class="keyword">SELECT</span> <span class="keyword">avg</span>(EMP.SAL)</span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> e.DEPTNO = EMP.DEPTNO);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>举个上面举过的栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句就查出了所有手底下管了人的经理的信息</span></span><br><span class="line"><span class="comment">--用exists时，只要找到数据即会返回，不会继续向下检索</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">exists</span>(<span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> EMP.MGR = e.EMPNO);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>由于exists会在找到数据后立即返回，而不是继续向下检索，所以用exists的相关子查询效率会稍微高一丢丢</p>
-<ul>
-<li>可以自己验证一下下面结论<ul>
-<li>not exists 不受空值的影响</li>
-<li>not in 受空值的影响</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1797,7 +1913,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

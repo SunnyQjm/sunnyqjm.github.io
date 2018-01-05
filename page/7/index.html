@@ -303,6 +303,321 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/22/2017-09-22-数据库学习笔记（五）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/22/2017-09-22-数据库学习笔记（五）/" itemprop="url">数据库笔记（五）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-22T00:00:00+08:00">
+                2017-09-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/22/2017-09-22-数据库学习笔记（五）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/22/2017-09-22-数据库学习笔记（五）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/09/22/2017-09-22-数据库学习笔记（五）/" class="leancloud_visitors" data-flag-title="数据库笔记（五）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们先构造一组表，用于演示下面的例子(´`)</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-bf98c8284e4844ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
+<blockquote>
+<h2 id="Having-子句"><a href="#Having-子句" class="headerlink" title="Having 子句"></a>Having 子句</h2><p>由于where子句中不能用聚合函数（组函数）做条件，故引入having子句</p>
+</blockquote>
+<ul>
+<li>让我们先看一下各个子句的书写顺序（下面的只是我们一般在写SQL语句时候的书写顺序）<ul>
+<li>SELECT</li>
+<li>FROM</li>
+<li>WHERE</li>
+<li>GROUP BY</li>
+<li>HAVING</li>
+<li>ORDER BY</li>
+<li>上面各子句的执行顺序：FROM–&gt;WHERE– &gt; GROUP BY–&gt; HAVING–&gt;SELECT–&gt;ORDER BY<blockquote>
+<p>其中上面除了GROUP BY和HAVING可以互换位置外，其他位置均固定，但最好采用上面的顺序</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>从上面的讨论中可以看出<ul>
+<li>HAVING一般紧随GROUP BY之后，置于ORDER BY之前</li>
+<li>而且当聚集函数（组函数）做条件时，只用用HAVING来处理</li>
+</ul>
+</li>
+<li><p>举个栗子：<strong>求所有平均工资大于2000的部门的部门号以及该部门的平均工资</strong></p>
+<ul>
+<li><p>先来看看每个部门的平均工资</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEPTNO, <span class="keyword">avg</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO</span><br></pre></td></tr></table></figure>
+<p>得到如下结果</p>
+</li>
+<li><img src="http://upload-images.jianshu.io/upload_images/7222676-550eb3f89b741be7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></li>
+<li><p>接下来开始求题设的问题</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEPTNO, <span class="keyword">avg</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">avg</span>(SAL) &gt; <span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果</p>
+</li>
+<li><img src="http://upload-images.jianshu.io/upload_images/7222676-ae9918c4513b34be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="聚合函数的嵌套"><a href="#聚合函数的嵌套" class="headerlink" title="聚合函数的嵌套"></a>聚合函数的嵌套</h2></blockquote>
+<ul>
+<li>不同数据库对聚集函数嵌套的规定不同<ul>
+<li>Oracle数据库规定最多只能有两层嵌套</li>
+<li>SQL Server不允许聚集函数嵌套</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句在Oracle数据库中执行是可以的</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">avg</span>(sal))</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno</span><br><span class="line"></span><br><span class="line"><span class="comment">--上面的语句在SQL Server中执行会报下面的错</span></span><br><span class="line">[S0001][<span class="number">130</span>] 不能对包含聚合或子查询的表达式执行聚合函数。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>┐(´•_•`)┌ 实际上二层以上的嵌套也是毫无意义的（只是瞎哔哔，不是什么重点，有助于理解为什么聚集函数多层嵌套是没有意义的）</p>
+<ul>
+<li>首先回忆一下，聚集函数的操作是多行输入，得到一行输出</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">max</span>(<span class="keyword">avg</span>(sal)))</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在来分析上面语句执行的过程</p>
+<ul>
+<li>（avg）首先根据部门号deptno分成若干组，并计算每组的平均工资（返回若干条记录）</li>
+<li>（max）然后取各部门最高的平均工资（返回一条记录）</li>
+<li>（max）这个时候只有一条记录，取最大值也还是那一条记录</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>这部分是重点也是难点呀٩(๑`^´๑)۶，不用担心，让笔者带你细细解剖(≖_≖ )<br>这部分参考了两份笔记和课本</p>
+</blockquote>
+<ul>
+<li><h3 id="嵌套子查询"><a href="#嵌套子查询" class="headerlink" title="嵌套子查询"></a>嵌套子查询</h3><strong><em>即SQL标准提供嵌套子查询机制，允许将一个完整的select-from-where查询表达式嵌入到另一个查询语句中</em></strong></li>
+<li><h3 id="子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）"><a href="#子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）" class="headerlink" title="子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）"></a>子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）</h3><ul>
+<li><p>单行子查询</p>
+<ul>
+<li>在单行子查询中，子查询语句只能返回一行数据</li>
+<li>当where子句中用下列逻辑符号连接子查询时，便只能连接单行子查询<ul>
+<li>=</li>
+<li>&lt;</li>
+<li>></li>
+<li>&lt;=</li>
+<li>>=</li>
+<li>&lt;&gt;</li>
+</ul>
+</li>
+<li><p>举个栗子(≖_≖ )</p>
+<ul>
+<li>我们现在要找<strong>所有员工中，拿到最高工资的人的名字以及工资</strong><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL = (<span class="keyword">SELECT</span> <span class="keyword">max</span>(SAL)</span><br><span class="line">             <span class="keyword">FROM</span> EMP);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果</p>
+</li>
+<li><img src="http://upload-images.jianshu.io/upload_images/7222676-d396978f87dd2246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></li>
+</ul>
+</li>
+<li><p>多行子查询</p>
+<ul>
+<li>多行子查询中，子查询语句可以返回多行数据</li>
+<li>当where子句中用下列关键字连接子查询时，便是多行子查询($代表上面提到的=, &gt;等符号)<ul>
+<li>$ any/some</li>
+<li>$ all</li>
+</ul>
+</li>
+<li>举几个简单的栗子<ul>
+<li>&lt; any(…)  表示小于子查询结果集中的最大值</li>
+<li>> any(…) 表示大于子查询结果集中的最小值</li>
+<li>= any(…)  等价于in</li>
+<li>= all(…)  没有语法错误，但是只要子查询结果集的个数大于1，则整体的结果必然为空</li>
+<li>&lt; all(…)  表示小于子查询结果集中的最小值</li>
+<li>> all(…) 表示大于子查询结果集中的最大值</li>
+</ul>
+</li>
+<li><p>来举个正经的栗子</p>
+<ul>
+<li>求<strong>比部门号为20的部门的所有员工的工资都要高的员工的名字和工资</strong><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果</p>
+</li>
+<li><img src="http://upload-images.jianshu.io/upload_images/7222676-0ff8c440bec838bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></li>
+<li><p>还有一个要注意的问题(ㅍ_ㅍ)，就是子查询中SELECT后面的字段要根据主查询语句中的字段来确定（简单的说就是子查询语句前面，where后面，出现了什么字段，子查询语句的SELECT列表中理论上就应该出现这些字段）</p>
+<ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面这个语句是匹配的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br><span class="line"><span class="comment">--下面这个语句就不匹配的</span></span><br><span class="line"><span class="comment">--因为ENAM并没有出现在主查询语句中</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其实换个角度想想，具体执行的时候是将where后面的字段与子查询语句的结果集进行比较，如果字段都不一样，就没有可比性了</p>
+</li>
+</ul>
+</li>
+<li>对了，还有一个补充，<strong>not in + 子查询，如果子查询的结果集中包含NULL值，那整体的结果必为空</strong>。因为NULL值是不确定的值，谁也不能保证某个具体的值是否等于NULL。。。</li>
+</ul>
+</li>
+<li><p>子查询中存在性的判别可以用exists关键字</p>
+<ul>
+<li>举个栗子就好<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句就查出了所有手底下管了人的经理的信息</span></span><br><span class="line"><span class="comment">--其实这里已经用到了相关子查询，具体的下面将会讲到</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">exists</span>(<span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> EMP.MGR = e.EMPNO);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>试思考下面两个问题，根据提示理解一下，也可以实际操作验证一下</p>
+<ul>
+<li>=some 等价于 in， 然而 &lt;&gt;some不等价于not in（<strong><em>&lt;&gt;some表示的是只要不等于结果集中的任意元素即可，可想而知，只要结果集中有大于一个元素，这个条件是恒成立的</em></strong>）</li>
+<li>&lt;&gt;all 等价于 not in，然而=all不等价于in</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="相关子查询"><a href="#相关子查询" class="headerlink" title="相关子查询"></a>相关子查询</h3><ul>
+<li>慎用，因为一旦使用相关子查询，子查询语句可能会被执行很多次，很影响效率</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句找出了所有比自己部门平均工资高的员工的信息</span></span><br><span class="line"><span class="comment">--检索时，每检索一行数据，子查询语句就要被执行一次</span></span><br><span class="line"><span class="comment">--（因为该子查询语句只有在某个具体的部门号下才会有结果</span></span><br><span class="line"><span class="comment">--而，要获取部门号，就必须依赖于主查询语句中的某行具体数据）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL, DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; (<span class="keyword">SELECT</span> <span class="keyword">avg</span>(EMP.SAL)</span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> e.DEPTNO = EMP.DEPTNO);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举个上面举过的栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句就查出了所有手底下管了人的经理的信息</span></span><br><span class="line"><span class="comment">--用exists时，只要找到数据即会返回，不会继续向下检索</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">exists</span>(<span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> EMP.MGR = e.EMPNO);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>由于exists会在找到数据后立即返回，而不是继续向下检索，所以用exists的相关子查询效率会稍微高一丢丢</p>
+<ul>
+<li>可以自己验证一下下面结论<ul>
+<li>not exists 不受空值的影响</li>
+<li>not in 受空值的影响</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/19/2017-09-19-数据库学习笔记（四）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1504,360 +1819,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="url">数据库笔记（二）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">
-                2017-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/12/2017-09-12-数据库学习笔记（二）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/12/2017-09-12-数据库学习笔记（二）/" class="leancloud_visitors" data-flag-title="数据库笔记（二）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章</p>
-<h1 id="SQL的组成"><a href="#SQL的组成" class="headerlink" title="SQL的组成"></a>SQL的组成</h1><p>PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧</p>
-</blockquote>
-<ul>
-<li><h3 id="数据定义语言（Data-Definition-Language，-DDL）"><a href="#数据定义语言（Data-Definition-Language，-DDL）" class="headerlink" title="数据定义语言（Data-Definition Language， DDL）"></a>数据定义语言（Data-Definition Language， DDL）</h3><ul>
-<li>提供定义关系模式，删除关系以及修改关系模式的命令</li>
-<li>如create、drop、alter等执行以后会产生、销毁表（定义、删除关系模式）或改变表的结构（修改关系模式）</li>
-</ul>
-</li>
-<li><h3 id="数据操纵语言（Data-Manipulation-Language，DML）"><a href="#数据操纵语言（Data-Manipulation-Language，DML）" class="headerlink" title="数据操纵语言（Data-Manipulation Language，DML）"></a>数据操纵语言（Data-Manipulation Language，DML）</h3><ul>
-<li>SQL DML提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
-<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系并没有改变，只是该表关系的实例）</li>
-</ul>
-</li>
-<li><h3 id="完整性约束（integrity）"><a href="#完整性约束（integrity）" class="headerlink" title="完整性约束（integrity）"></a>完整性约束（integrity）</h3><ul>
-<li>SQL DDL 会给每一个关系（每一张表）在定义或者修改的时候定义一定的完整性约束。之后所有的操作都应该满足这些约束，不满足的操作将不被允许执行<blockquote>
-<p>复习注释: 不过如果对违反约束的行为做了处理，有些违反约束的语句也是可以成功执行的。比如在定义外键的时候指定了级联删除，那么一旦删除语句违反了外键约束，数据库不是拒绝执行，而是级联删除相关数据</p>
-</blockquote>
-</li>
-<li>比如<strong>主键约束</strong>表示一个或多个字段唯一标识了一行数据，如果试图插入主键值相同的数据，就不会被允许</li>
-<li>具体的下面会单独说明并举例</li>
-</ul>
-</li>
-<li><h3 id="视图定义（view-definition）"><a href="#视图定义（view-definition）" class="headerlink" title="视图定义（view definition）"></a>视图定义（view definition）</h3><ul>
-<li>SQL DDL 包括定义视图的命令</li>
-</ul>
-</li>
-<li><h3 id="事务控制（transaction-control）"><a href="#事务控制（transaction-control）" class="headerlink" title="事务控制（transaction control）"></a>事务控制（transaction control）</h3><ul>
-<li>SQL包括定义事务的开始和结束的命令</li>
-</ul>
-</li>
-<li><h3 id="嵌入式SQL和动态SQL（embedded-SQL）"><a href="#嵌入式SQL和动态SQL（embedded-SQL）" class="headerlink" title="嵌入式SQL和动态SQL（embedded SQL）"></a>嵌入式SQL和动态SQL（embedded SQL）</h3><ul>
-<li>嵌入式和动态SQL定义SQL语句如何嵌入到通用编程语言，如C、C++、Java</li>
-</ul>
-</li>
-<li><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><ul>
-<li>SQL DDL包括定义对关系和视图的访问权限的命令</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h1><p>这些基本数据类型不依赖于某一个具体的数据库，是SQL数据库通用的类型</p>
-</blockquote>
-<ul>
-<li><h3 id="char-n-——全称character"><a href="#char-n-——全称character" class="headerlink" title="char(n)——全称character"></a>char(n)——全称character</h3><ul>
-<li>用户指定长度的字符串，所有取值的长度都固定位n长的char</li>
-<li>比如身份证或者电话号码等长度固定的数据可以使用这个</li>
-<li>一般实际用的较少</li>
-</ul>
-</li>
-<li><h3 id="varchar-n-——全称character-varying"><a href="#varchar-n-——全称character-varying" class="headerlink" title="varchar(n)——全称character varying"></a>varchar(n)——全称character varying</h3><ul>
-<li>可变长的字符串，n为串的最大允许长度</li>
-<li>实际存的时候数据多长，就存多长，较省空间</li>
-<li>实际应用中大多用varchar，而不是char</li>
-</ul>
-</li>
-<li><h3 id="int——integer"><a href="#int——integer" class="headerlink" title="int——integer"></a>int——integer</h3><ul>
-<li>整数类型，没啥好讲的，Oj8k</li>
-</ul>
-</li>
-<li><h3 id="smallint"><a href="#smallint" class="headerlink" title="smallint"></a>smallint</h3><ul>
-<li>小整数类型</li>
-</ul>
-</li>
-<li><h3 id="number-p-d"><a href="#number-p-d" class="headerlink" title="number(p, d)"></a>number(p, d)</h3><ul>
-<li>定点数，这个数有p位数字，其中小数点右边有d位</li>
-<li>例如，numberic(3, 1)可表示-99.9 ~ 99.9</li>
-<li><p>下面在MySQL数据库上面的测试，举个栗子：(<strong><em>测试结果表明，如果定义numberic(3, 1), 则小数点前面有三位数时是无法插入的，如果小数点后面有多位小数，则通过四舍五入的方法只保留一位小数</em></strong>)</p>
-<ul>
-<li><p>先简单定义一张Student表（没有定义主键，允许插入相同的数据）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面定义了一张学生表，其中grade的取值范围为-99.9 ~ 99.9（不合理的取值，只是为了测试）</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  study_id <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  age <span class="built_in">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  grade <span class="built_in">NUMERIC</span>(<span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行正常的插入操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 下面两条插入语句都能正常执行，并且结果正确</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590001'</span>, <span class="number">18</span>, <span class="number">92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590002'</span>, <span class="number">18</span>, <span class="number">-92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.6，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590003'</span>, <span class="number">18</span>, <span class="number">-92.56</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.5，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590004'</span>, <span class="number">18</span>, <span class="number">-92.54</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的这条插入操作将会报错</span></span><br><span class="line"><span class="comment">--  [22001][1264] Data truncation: Out of range value for column 'grade' at row 1</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590005'</span>, <span class="number">18</span>, <span class="number">192.5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行上面操作后的结果</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">study_id</th>
-<th style="text-align:center">age</th>
-<th style="text-align:center">grade</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">201590001</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">92.5</td>
-</tr>
-<tr>
-<td style="text-align:center">201590002</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.5</td>
-</tr>
-<tr>
-<td style="text-align:center">201590003</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.6</td>
-</tr>
-<tr>
-<td style="text-align:center">201590004</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.5</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="real-double-precision"><a href="#real-double-precision" class="headerlink" title="real,double,precision"></a>real,double,precision</h3><ul>
-<li>浮点数与双精度浮点数</li>
-</ul>
-</li>
-<li><h3 id="float-n"><a href="#float-n" class="headerlink" title="float(n)"></a>float(n)</h3><ul>
-<li>精度至少为n位的浮点数</li>
-</ul>
-</li>
-<li><h3 id="Date-time-timestamp-interval"><a href="#Date-time-timestamp-interval" class="headerlink" title="Date, time, timestamp, interval"></a>Date, time, timestamp, interval</h3><ul>
-<li>日期类型</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="SQL中的完整性约束"><a href="#SQL中的完整性约束" class="headerlink" title="SQL中的完整性约束"></a>SQL中的完整性约束</h1><p>下文中列举的只是部分简单约束，具体的会在后面的内容中讨论</p>
-</blockquote>
-<pre><code>       先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束
-  （这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的
-约束，（***如果没有对违反约束行为做特殊的处理***）这个操作就不会成功
-</code></pre><ul>
-<li><h3 id="primary-key（A1-A2-…-An）——主键约束"><a href="#primary-key（A1-A2-…-An）——主键约束" class="headerlink" title="primary key（A1, A2, …, An）——主键约束"></a>primary key（A1, A2, …, An）——主键约束</h3><ul>
-<li>该约束主要指定了以属性A1~An构成关系的主键，该主键值必须非空且唯一</li>
-<li>即只要一个表的主键确定，那这个表中就不允许存在一行数据其主键的值为null， 也不允许存在两行数据其主键的值一样。一旦后续操作违反了这个原则（约束），则该操作就不会被执行</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>新定义一张department表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作创建了一张department表，并指定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面顺序执行一系列插入操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作将成功插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面再执行一次与上面一模一样的操作，会发现报错，因为之前已经有一条</span></span><br><span class="line"><span class="comment">-- 记录的主键值为'Software'，顾无法再插入主键值相同的数据</span></span><br><span class="line"><span class="comment">-- [23000][1062] Duplicate entry 'Software' for key 'PRIMARY'</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句试图插入一条dept_name为空的数据，显然也是报错的</span></span><br><span class="line"><span class="comment">-- 因为作为主键的字段是不允许为空的</span></span><br><span class="line"><span class="comment">-- [23000][1048] Column 'dept_name' cannot be null</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="literal">NULL</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行上面操作后的结果</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">dept_name</th>
-<th style="text-align:center">building</th>
-<th style="text-align:center">budget</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Software</td>
-<td style="text-align:center">A</td>
-<td style="text-align:center">100000</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="foregin-key-A1-A2-…-An-references-——-外键约束"><a href="#foregin-key-A1-A2-…-An-references-——-外键约束" class="headerlink" title="foregin key(A1, A2, …, An) references —— 外键约束"></a>foregin key(A1, A2, …, An) references —— 外键约束</h3><ul>
-<li>简单来讲如果<strong><em>一个关系（表）A</em></strong>中包含<strong><em>一个外键C</em></strong>，则作为外键的一个或多个字段必然是<strong><em>另一张表B</em></strong>的主键。则由于外键约束这一层关系，对A表和B表都会收一定程度的限制（现在解释的还是比较抽象，看下面的例子会比较直观一点）<ul>
-<li>如果想向A表中插入一条数据，且数据中C的值在B表中找不到对应表项，则这个操作不会成功（就像你如果向运动员表中插入一条数据，国家属性对应的标识在国家表中不存在，则这次插入操作就会失败）</li>
-<li>如果试图删除一个表B的记录，而这条记录的主键只正好是A表中某条数据的外键，则这次删除操作不会成功</li>
-</ul>
-</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>先创建两张表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一张表department，并制定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再创建一张couese表，并指定dept_name为本表关于department表的外键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> course (</span><br><span class="line">  course_id <span class="built_in">VARCHAR</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  title     <span class="built_in">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  credits   <span class="built_in">NUMERIC</span>(<span class="number">2</span>, <span class="number">0</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (course_id),</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span> (dept_name) <span class="keyword">REFERENCES</span> department (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们先试图插入一条course记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面试图往course表中插入一条记录，但是department表中并没有</span></span><br><span class="line"><span class="comment">-- dept_name = 'DUT'的记录，故该操作会失败</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们先往department表中插入记录，再往course表中插入记录，下面的操作就能成功插入</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="string">'DUT'</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>执行上面操作后的结果</li>
-</ul>
-<p>|dept_name |building  | budget  |<br>|:——-:|:—:| :—–:|<br>|DUT|A|100000|</p>
-<p>|course_id |title  | dept_name  |credits|<br>|:——-:|:—:| :—–:| :—-:|<br>|08|Endlish|DUT|3</p>
-</li>
-<li><p>此时我们如果试图删除department表中dept_name = DUT的那条数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="not-null——非空约束"><a href="#not-null——非空约束" class="headerlink" title="not null——非空约束"></a>not null——非空约束</h3><ul>
-<li>理解上面两个约束以后这个就很好理解了，这个约束就是指定某个字段不能为空，试图传入null值的操作都不会成功</li>
-<li>作为主键的字段隐式拥有非空约束</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span>
+    <a class="extend prev" rel="prev" href="/page/6/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/8/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1907,7 +1873,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
