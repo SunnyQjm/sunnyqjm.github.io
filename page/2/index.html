@@ -1402,7 +1402,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/24/2017-12-24-软件工程复习（g）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/24/2017-12-24-软件工程复习（f）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1421,7 +1421,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/24/2017-12-24-软件工程复习（g）/" itemprop="url">软件工程复习（七）</a></h1>
+                <a class="post-title-link" href="/2017/12/24/2017-12-24-软件工程复习（f）/" itemprop="url">软件工程复习（六）</a></h1>
         
 
         <div class="post-meta">
@@ -1453,8 +1453,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/24/2017-12-24-软件工程复习（g）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/24/2017-12-24-软件工程复习（g）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/24/2017-12-24-软件工程复习（f）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/24/2017-12-24-软件工程复习（f）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1463,7 +1463,7 @@
 
           
           
-             <span id="/2017/12/24/2017-12-24-软件工程复习（g）/" class="leancloud_visitors" data-flag-title="软件工程复习（七）">
+             <span id="/2017/12/24/2017-12-24-软件工程复习（f）/" class="leancloud_visitors" data-flag-title="软件工程复习（六）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1497,46 +1497,374 @@
         
           
             <blockquote>
-<h2 id="面向对象方法学概述"><a href="#面向对象方法学概述" class="headerlink" title="面向对象方法学概述"></a>面向对象方法学概述</h2></blockquote>
 <ul>
-<li><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><ul>
-<li>认为客观世界是由各种对象组成的，任何事物都是对象个，复杂的对象可以由比较简单的对象以某种方式组合而成。</li>
-<li>把所有对象都划分成各种对象类（简称为类，class），每个独享都定义了一组数据和一组方法</li>
-<li>按照子类（或称为派生类）与父类（或称为基类）的关系，把若刚个对象类组成功一个层次结构的系统（也称为类等级）</li>
-<li>对象彼此之间仅能通过传递消息互相联系</li>
-<li><strong>OO = objets + classes + inheritance + communication with messages</strong></li>
+<li>通常把<strong>编码和测试</strong>统称为实现</li>
+<li>所谓编码就是把软件设计翻译成计算机可以理解的形式——用某种程序设计语言书写的程序</li>
+<li>编码是设计的自然结果，<strong>程序的质量主要取决于软件设计的质量</strong></li>
+<li>但所选用的程序设计语言的特点和编码风格也会对程序的可靠性、可读性、可测试性和可维护性产生深远的影响。</li>
+<li>软件测试对软件可靠性的影响是重要的（软件生命周期中，<strong>差错不可避免</strong>）</li>
+<li><strong>尽可能早</strong>地发现并<strong>纠正差错</strong></li>
+<li><strong>测试的目的</strong>就是在软件<strong>投入生产性运行之前</strong>，<strong>尽可能多地发现软件中的错误</strong></li>
+<li><strong>软件测试</strong>在软件生命周期中<strong>横跨两个阶段</strong><ul>
+<li>单元测试（一般模块的编写者和测试者是同一个人）</li>
+<li>综合测试（通常由专门的测试人员承担这项工作）</li>
 </ul>
 </li>
-<li><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
-<li>与人类习惯的思维方式一致</li>
-<li>稳定性好</li>
-<li>可重用性好</li>
-<li>较易开发大型软件产品</li>
-<li>可维护性好</li>
+<li>统计资料表明，软件测试的工作量往往占软件开发总工作量的40%以上，对于关键应用系统的测试，可能相当于软件工程其他步骤总成本的3～5倍</li>
+<li>测试目标是<strong>发现软件中的错误</strong>，但<strong>不是最终目的</strong>。调试是<strong>诊断并改正错误</strong>，这<strong>是最终目的</strong>。<strong>调试</strong>是<strong>测试阶段最困难的工作</strong></li>
+<li>对测试结果进行收集和评价，确定系统的<strong>可靠性</strong></li>
+</ul>
+<h2 id="编码-understanding"><a href="#编码-understanding" class="headerlink" title="编码 (understanding)"></a>编码 (understanding)</h2></blockquote>
+<ul>
+<li><h3 id="选择程序设计语言"><a href="#选择程序设计语言" class="headerlink" title="选择程序设计语言"></a>选择程序设计语言</h3><ul>
+<li>总的来说，<strong>高级语言明显优于汇编语言</strong>。<strong>除了</strong>对程度执行时间和使用的空间都有很严格限制的情况；需要产生任意的甚至非法的指令序列；体系结构特殊的微处理机，以致在这类机器上通常不能实现高级语言编译程序；或者大型系统中执行时间非常关键的(或直接依赖于硬件的)一小部分代码；<strong>其他</strong>程序应该<strong>一律用高级语言书写</strong></li>
+</ul>
+</li>
+<li><h3 id="编码风格"><a href="#编码风格" class="headerlink" title="编码风格"></a>编码风格</h3><blockquote>
+<p>源程序代码的<strong>逻辑简明清晰、易读易懂</strong>是好程序的一个重要标准，应该遵循下述规则</p>
+<ul>
+<li>程序内部的文档（注释）</li>
+<li>数据说明</li>
+<li>语句构造</li>
+<li>输入输出</li>
+<li>效率</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<h2 id="软件测试基础-master"><a href="#软件测试基础-master" class="headerlink" title="软件测试基础 (master)"></a>软件测试基础 (master)</h2><p>软件工程其他阶段都是“建设性的”，而测试阶段的目的却是为了“破坏”已经建造好的软件系统————竭力证明程序中有错误，不能按照预定要求正确工作。</p>
+</blockquote>
+<ul>
+<li><h3 id="测试目标"><a href="#测试目标" class="headerlink" title="测试目标"></a>测试目标</h3><ul>
+<li><strong>测试</strong>是<strong>为发现</strong>程序中的<strong>错误</strong>而<strong>执行程序的过程</strong></li>
+<li><strong>好的测试方案</strong>是极可能发现迄今为止尚未发现的错误的测试方案</li>
+<li><strong>成功的测试</strong>是发现了至今为止尚未发现的错误的测试</li>
+</ul>
+</li>
+<li><h3 id="测试准则"><a href="#测试准则" class="headerlink" title="测试准则"></a>测试准则</h3><ul>
+<li>所有的测试都应该能追溯到用户需求（<strong>因需制宜</strong>）</li>
+<li>应该在测试开始之前的相当长时间，就制定出测试计划</li>
+<li>把Pareto原理应用于软件测试：测试发现的错误中的80%很可能是由程序中20%的模块造成的（<strong>2-8定理</strong>）</li>
+<li>测试应该从“小规模”开始，并逐步进行“大规模”测试（<strong>由小到大</strong>）</li>
+<li>穷举测试是不可能的</li>
+<li>为了达到最佳的测试效果，应该由独立的第三方来从事测试工作（<strong>心理学角度上来讲，让编码人员找自己的错误是不现实的</strong>）</li>
+</ul>
+</li>
+<li><h3 id="测试方法"><a href="#测试方法" class="headerlink" title="测试方法"></a>测试方法</h3><ul>
+<li><h4 id="黑盒测试"><a href="#黑盒测试" class="headerlink" title="黑盒测试"></a>黑盒测试</h4><ul>
+<li><strong>黑盒测试</strong>又称为<strong>功能测试</strong></li>
+<li>是在<strong>接口层面</strong>的测试，把程序看成一个黑盒子，不考虑内部结构和处理过程</li>
+<li>适合于程序后期测试接口</li>
+</ul>
+</li>
+<li><h4 id="白盒测试"><a href="#白盒测试" class="headerlink" title="白盒测试"></a>白盒测试</h4><ul>
+<li><strong>白盒测试</strong>又称为<strong>结构测试</strong></li>
+<li>把程序看成装在一个透明的白盒子里，也就是完全了解程序的结构和处理过程</li>
+<li>按照<strong>程序内部的逻辑测试</strong>程序，检验程序中的每条通路是否都能按预定要求正确工作。</li>
+<li>适合于早期测试模块内部逻辑</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="测试步骤"><a href="#测试步骤" class="headerlink" title="测试步骤"></a>测试步骤</h3><ul>
+<li><strong>单元测试</strong>，也称模块测试</li>
+<li>集成测试</li>
+<li>确认测试</li>
+<li>系统测试<img src="/img/se_59.jpg">
+<blockquote>
+<p>ps:</p>
+<ul>
+<li>α测试：在受控环境下测试（实验室环境）</li>
+<li>β测试：在非受控环境下测试（实际工作环境）</li>
+</ul>
+</blockquote>
+</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="面向对象建模"><a href="#面向对象建模" class="headerlink" title="面向对象建模"></a>面向对象建模</h2><p>用面向对象方法开发软件，通常需要建立三种模式的模，分别是描述系统数据结构的<strong>对象模型</strong>，<br>描述系统控制结构的<strong>动态模型</strong>和描述系统功能的<strong>功能模型</strong></p>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><ul>
+<li><strong>单元测试和编码属于</strong>软件工程过程<strong>同一阶段</strong>（同属于编码和单元测试，因为单元测试通常是在编码的过程中进行的）</li>
+<li>在编写出源程序代码并通过了编译程序的语法检查之后，应用<strong>人工测试</strong>和<strong>计算机测</strong>试这样两种类型的测试，完成单元测试工作</li>
+<li>这两种类型的测试各有所长，互相补充</li>
+<li>单元测试<strong>主要采用白盒测试技术</strong>，而且对<strong>多个模块的测试可以并行地进行</strong></li>
+</ul>
 </blockquote>
 <ul>
-<li><h3 id="对象模型（在UML部分详细介绍）"><a href="#对象模型（在UML部分详细介绍）" class="headerlink" title="对象模型（在UML部分详细介绍）"></a>对象模型（在UML部分详细介绍）</h3></li>
-<li><h3 id="动态模型"><a href="#动态模型" class="headerlink" title="动态模型"></a>动态模型</h3></li>
-<li><h3 id="功能模型"><a href="#功能模型" class="headerlink" title="功能模型"></a>功能模型</h3></li>
+<li><h3 id="测试重点"><a href="#测试重点" class="headerlink" title="测试重点"></a>测试重点</h3><ul>
+<li>模块接口</li>
+<li>局部数据结构</li>
+<li>重要的执行通路</li>
+<li>出错处理通路</li>
+<li>边界条件</li>
+</ul>
+</li>
+<li><h3 id="代码审查"><a href="#代码审查" class="headerlink" title="代码审查"></a>代码审查</h3><blockquote>
+<p><strong>人工测试</strong>源程序可以由<strong>编写者本人非正式地进行</strong>，也可以由<strong>审查小组正式进行</strong>，<strong>后者称为代码审查</strong>，是一种非常有效的程序验证技术，对于典型的程序来说，可以查出30%～70%的逻辑设计错误和编码错误</p>
+</blockquote>
+<ul>
+<li>审查小组组成：<ul>
+<li>组长，应该是一个很有能力的程序员，而且没有直接参与这项工程</li>
+<li>程序的设计者</li>
+<li>程序的编写者</li>
+<li>程序的测试者</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="计算机测试"><a href="#计算机测试" class="headerlink" title="计算机测试"></a>计算机测试</h3><ul>
+<li>模块并不是一个独立的程序，必须为每个单元测试开发<strong>驱动软件</strong>（负责调用本模块）和(或)<strong>存根软件</strong>（负责模拟被本模块调用的子模块，比如对于一个用于数据处理的子模块，本模块需要的是其输出一个数据结构，那么就可以直接用一个构造的数据实例来替代这个子模块）</li>
+<li>驱动程序就是一个“<strong>主程序</strong>”，接收测试数据，把这些数据传送给被测试的模块，并且输出有关结果</li>
+<li>存根程序代替被测试的模块所调用的模块，也可以称为“<strong>虚拟子程序</strong>”。（<strong>桩模块</strong>）</li>
+<li>使用被它代替的模块的接口，做最少量的数据操作，输出对入口的检验或操作结果，并且把控制归还给调用它的模块<img src="/img/se_60.jpg">
+</li>
+</ul>
+</li>
 </ul>
 <blockquote>
-<h3 id="三种模型之间的关系"><a href="#三种模型之间的关系" class="headerlink" title="三种模型之间的关系"></a>三种模型之间的关系</h3><p>在面向对象方法学中，对象模型是最基本最重要的，为其它两种模型奠定基础，依靠对象模型完成三种模型的集成</p>
+<h2 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h2><p>集成测试是测试和组装软件的系统化技术，在把模块按照设计要求组装起来的同时进行测试，主要目标是<strong>发现与接口有关的问题</strong></p>
+<ul>
+<li><h3 id="非渐增式测试方法"><a href="#非渐增式测试方法" class="headerlink" title="非渐增式测试方法"></a>非渐增式测试方法</h3><ul>
+<li><strong>先分别测试每个模块</strong>，再把所有模块按设计要求放在一起结合成所要的程序</li>
+<li>一次性集成测试</li>
+</ul>
+</li>
+<li><h3 id="渐增式测试"><a href="#渐增式测试" class="headerlink" title="渐增式测试"></a>渐增式测试</h3>把下一个要测试的模块同已经测试好的那些模块结合起来进行测试，测试完以后再把下一个应该测试的模块结合进来测试。这种<strong>每次增加一个模块</strong>的方法称为<strong>渐增式测试</strong></li>
+</ul>
 </blockquote>
 <ul>
-<li>针对每个类建立的动态模型，描述了类实例的生命周期或运行周期</li>
-<li>状态转换驱使行为发生，行为在数据流图中被映射成处理，与对象模型中的服务相对应</li>
-<li>功能模型中的处理对应对象模型中类提供的服务</li>
-<li>顶层数据流图中的处理对应复杂对象提供的服务；低层数据流图中的处理对应更基本的对象(基本对象是复杂对象的组成部分)的服务</li>
-<li>有时一个处理对应多个服务，也有一个服务对应多个处理的时候</li>
-<li>功能模型中的数据存储，以及数据的源点/终点(在功能模型中称为动作对象)，通常是对象模型中的对象。<strong><em>DataStore-ER entity-Object</em></strong></li>
-<li>功能模型中的数据流，往往是对象模型中的属性值，也可能是整个对象</li>
-<li>功能模型中的处理可能产生动态模型中的事件</li>
-<li>对象模型描述了功能模型中的动作对象、数据存储以及数据流的结构</li>
+<li><h4 id="自顶向下集成"><a href="#自顶向下集成" class="headerlink" title="自顶向下集成"></a>自顶向下集成</h4><img src="/img/se_61.jpg">
+<ul>
+<li>首先测试M1（需要写M2、M3、S4对应的桩模块），然后将M1作为M2、M3、S4的驱动程序，集成并测试。以此类推</li>
+<li><strong>不用写驱动模块，但是需要写大量桩模块</strong></li>
+<li>优点：<ul>
+<li>不需要测试驱动程序</li>
+<li>能够在测试阶段的早期实现并验证系统的主要功能</li>
+<li>能在早期发现上层模块的接口错误</li>
+</ul>
+</li>
+<li>缺点：<ul>
+<li>需要存根程序</li>
+<li>低层关键模块中的错误发现较晚</li>
+<li>早期不能充分展开人力（不利于团队分工测试）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="自底向上集成"><a href="#自底向上集成" class="headerlink" title="自底向上集成"></a>自底向上集成</h4><img src="/img/se_62.jpg">
+<ul>
+<li>步骤：<ol>
+<li>把低层模块组合成实现某特定软件子功能的簇</li>
+<li>写一个驱动程序(用于测试的控制程序)，协调测试数据的输入和输出</li>
+<li>对由模块组成的子功能簇进行测试</li>
+<li>去掉驱动程序，沿软件结构自下向上移动，把子功能簇组合起来形成更大的子功能簇，重复2~4</li>
+</ol>
+</li>
+<li>优缺点与自顶向下集成相反</li>
+<li><h3 id="回归测试"><a href="#回归测试" class="headerlink" title="回归测试"></a>回归测试</h3></li>
+</ul>
+</li>
+<li>不是一种测试方法，也不是一个测试阶段。重新执行已经做过的测试的某个子集，以保证上述这些改变没有带来非预期的副作用</li>
+<li>回归测试（regression）与累进测试(progression)<ul>
+<li>回归测试：用之前版本的测试方案，测试好现在的程序</li>
+<li>累进测试：用新的测试方案，测试同一版本的程序</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="确认测试"><a href="#确认测试" class="headerlink" title="确认测试"></a>确认测试</h2><ul>
+<li><strong>确认测试</strong>也称为<strong>验收测试</strong>，目标是验证软件的有效性</li>
+<li>使用了<strong>确认</strong>(Validation)和<strong>验证</strong>(Verification)这样两个不同的术语<ul>
+<li>验证 就是要用数据证明我们是不是在正确的制造产品。注意这里强调的是过程的正确性</li>
+<li>确认 就是要用数据证明我们是不是制造了正确的产品。注意这里强调的是结果的正确性</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li>确认测试的范围</li>
+<li>软件配置复查</li>
+<li>Alpha和Beta测试<ul>
+<li>α测试：在受控环境下测试（实验室环境）</li>
+<li>β测试：在非受控环境下测试（实际工作环境）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="白盒测试技术-master"><a href="#白盒测试技术-master" class="headerlink" title="白盒测试技术   (master)"></a>白盒测试技术   (master)</h2><ul>
+<li><strong>逻辑覆盖</strong>是设计白盒测试方案的技术。设计测试方案是测试阶段的关键技术问题</li>
+<li><strong>测试方案</strong>包括具体的<strong>测试目的</strong>(例如，要测试的具体功能)，应该<strong>输入的测试数据</strong>和<strong>预期的输出结果</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="逻辑覆盖"><a href="#逻辑覆盖" class="headerlink" title="逻辑覆盖"></a>逻辑覆盖</h3><ul>
+<li><h4 id="语句覆盖"><a href="#语句覆盖" class="headerlink" title="语句覆盖"></a>语句覆盖</h4><ul>
+<li>选择足够多的测试数据，使被测程序中<strong>每个语句至少执行一次</strong></li>
+<li>是<strong>很弱的逻辑覆盖标准</strong></li>
+<li><strong>只关心判定表达式的值，不关心表达式内部具体每个条件取哪些值</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<ul>
+<li>只需选取一组测试数据，覆盖路径ace即可</li>
+<li>比如可以取<ul>
+<li>测试用例的格式：【输入的(A, B, X)，输出的(A, B, X)】</li>
+<li>满足语句覆盖的测试用例：【(2, 0, 4), (2, 0, 3)】</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="判定覆盖"><a href="#判定覆盖" class="headerlink" title="判定覆盖"></a>判定覆盖</h4><ul>
+<li>不仅每个语句必须至少执行一次</li>
+<li>而且每个判定的每种可能的结果都应该至少执行一次，也就是<strong>每个判定的每个分支都至少执行一次</strong></li>
+<li>同样<strong>只关心判定表达式的值，不关心表达式内部具体每个条件取哪些值</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<ul>
+<li>测试用例的格式：【输入的(A, B, X)，输出的(A, B, X)】</li>
+<li>满足判定覆盖的测试用例：<ul>
+<li>【(2, 0, 4), (2, 0, 3)】覆盖ace</li>
+<li>【(1, 1, 1), (1, 1, 1)】覆盖abd</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="条件覆盖"><a href="#条件覆盖" class="headerlink" title="条件覆盖"></a>条件覆盖</h4><ul>
+<li><strong>不仅每个语句至少执行一次</strong>，而且<strong>判定表达式中每个条件都取到各种可能的结果</strong></li>
+<li>条件覆盖不一定比判定覆盖强，甚至可能连语句覆盖都达不到</li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<img src="/img/se_64.jpg">
+<ul>
+<li>本例中b处没有逻辑代码，如果有，则上面的第二种方案就达不到语句覆盖，但是能达到条件覆盖</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="判定-条件覆盖"><a href="#判定-条件覆盖" class="headerlink" title="判定/条件覆盖"></a>判定/条件覆盖</h4><ul>
+<li>判定覆盖不一定包含条件覆盖，条件覆盖也不一定包含判定覆盖，<strong>判定/条件覆盖能同时满足这两种覆盖标准</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<img src="/img/se_65.jpg"></li>
+</ul>
+</li>
+<li><h4 id="条件组合覆盖"><a href="#条件组合覆盖" class="headerlink" title="条件组合覆盖"></a>条件组合覆盖</h4><ul>
+<li>条件组合覆盖就是设计足够的测试用例，运行被测程序，<strong>使得每个判断的所有可能的条件取值组合至少执行一次</strong></li>
+<li>举个栗子：<img src="/img/se_63.jpg">
+<ul>
+<li>所有可能的条件组合：<img src="/img/se_66.jpg">
+<img src="/img/se_67.jpg"></li>
+<li>一个满足条件组合覆盖的测试方案<img src="/img/se_68.jpg"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="点覆盖"><a href="#点覆盖" class="headerlink" title="点覆盖"></a>点覆盖</h4></li>
+<li><h4 id="边覆盖"><a href="#边覆盖" class="headerlink" title="边覆盖"></a>边覆盖</h4></li>
+<li><h4 id="路径覆盖"><a href="#路径覆盖" class="headerlink" title="路径覆盖"></a>路径覆盖</h4></li>
+</ul>
+</li>
+<li><h3 id="控制结构测试"><a href="#控制结构测试" class="headerlink" title="控制结构测试"></a>控制结构测试</h3><ul>
+<li><h4 id="基本路径测试-master"><a href="#基本路径测试-master" class="headerlink" title="基本路径测试  (master)"></a>基本路径测试  (master)</h4><ol>
+<li>根据过程设计结果<strong>画出</strong>相应的<strong>流图</strong></li>
+<li>计算流图的<strong>环形复杂度n</strong></li>
+<li>确定线性独立路径的基本集合（<strong>找到n条能覆盖整个流图的独立路径</strong>）<ul>
+<li>独立路径指至少引入程序一个新处理语句集合或一个新条件的路径，用流图术语描述，<strong>独立路径至少包含一条在定义该路径之前不曾用过的边</strong></li>
+<li><strong>程序的环形复杂度决定了程序中独立路径的数量</strong></li>
+<li>在<strong>不考虑业务逻辑的情况下找到的路径有可能是无效的</strong>（多个判定条件之间可能有一定联系，导致某个独立路径上的判定条件无法同时满足）</li>
+</ul>
+</li>
+<li>设计可强制执行基本集合中每条路径测试用例</li>
+</ol>
+<ul>
+<li>举个栗子：<br><img src="/img/se_69.jpg">
+<ul>
+<li>环形复杂度：6</li>
+<li>路径：<ul>
+<li>路径1：1-2-10-11-13</li>
+<li>路径2：1-2-10-12-13</li>
+<li>路径3：1-2-3-10-11-13</li>
+<li>路径4：1-2-3-4-5-8-9-2···</li>
+<li>路径5：1-2-3-4-5-6-8-9-2···</li>
+<li>路径6：1-2-3-4-5-6-7-8-9-2···</li>
+</ul>
+</li>
+<li>路径4、5、6后面的省略号(…)表示，可以后接通过控制结构其余部分的任意路径(例如，10-11-13)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="条件测试-pass"><a href="#条件测试-pass" class="headerlink" title="条件测试  (pass)"></a>条件测试  (pass)</h4></li>
+<li><h4 id="循环测试-pass"><a href="#循环测试-pass" class="headerlink" title="循环测试  (pass)"></a>循环测试  (pass)</h4><ul>
+<li>简单循环</li>
+<li>串接循环</li>
+<li>嵌套循环</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="黑盒测试技术-master"><a href="#黑盒测试技术-master" class="headerlink" title="黑盒测试技术   (master)"></a>黑盒测试技术   (master)</h2><ul>
+<li>黑盒测试<strong>着重测试软件的功能需求</strong>，让软件工程师设计出能充分检查程序所有功能需求的输入条件集</li>
+<li><strong>黑盒测试和白盒测试两者互补</strong>(A代表需求，B代表实现)<img src="/img/se_70.jpg">
+<ul>
+<li>白盒测试至多能覆盖实现</li>
+<li>黑盒测试至多能覆盖需求</li>
+<li>只有两者结合使用才能做到全方位的测试</li>
+</ul>
+</li>
+<li>白盒测试在测试过程的早期阶段进行，而黑盒测试主要用于测试过程的后期</li>
+<li>黑盒测试力图发现下述类型的错误：① 功能不正确或遗漏了功能；② 界面错误；③ 数据结构错误或外部数据库访问错误；④ 性能错误；⑤ 初始化和终止错误</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="等价划分"><a href="#等价划分" class="headerlink" title="等价划分"></a>等价划分</h3><ul>
+<li><h4 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h4><ul>
+<li>需要研究程序的功能说明，<strong>确定输入数据的有效等价类和无效等价类</strong></li>
+</ul>
+</li>
+<li><h4 id="经验"><a href="#经验" class="headerlink" title="经验"></a>经验</h4><ul>
+<li>如果规定了输入值的范围，则可划分出一个有效的等价类(输入值在此范围内)，两个无效的等价类(输入值小于最小值或大于最大值)</li>
+<li>如果规定了输入数据的个数，则类似地也可以划分出一个有效的等价类和两个无效的等价类</li>
+<li>如果规定了输入数据的一组值，而且程序对不同输入值做不同处理，则每个允许的输入值是一个有效的等价类，此外还有一个无效的等价类(任一个不允许的输入值)</li>
+<li>如果规定了输入数据必须遵循的规则，则可以划分出一个有效的等价类(符合规则)和若干个无效的等价类(从各种不同角度违反规则)</li>
+<li>如果规定了输入数据为整型，则可以划分出正整数、零和负整数等三个有效类</li>
+<li>如果程序的处理对象是表格，则应该使用空表，以及含一项或多项的表</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="边界值分析"><a href="#边界值分析" class="headerlink" title="边界值分析"></a>边界值分析</h3><ul>
+<li><strong>处理边界情况时程序最容易发生错误</strong></li>
+<li>边界值处测试数据的选取<ul>
+<li>刚好等于</li>
+<li>刚刚小于</li>
+<li>刚刚大于</li>
+</ul>
+</li>
+<li>栗子：<img src="/img/se_71.jpg">
+</li>
+</ul>
+</li>
+<li><h3 id="错误推测"><a href="#错误推测" class="headerlink" title="错误推测"></a>错误推测</h3><ul>
+<li>错误推测法在很大程度上靠直觉和经验进行</li>
+<li>基本想法是列举出程序中可能有的错误和容易发生错误的特殊情况，并且根据它们选择测试方案</li>
+</ul>
+</li>
+<li><h3 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h3><ul>
+<li>调试(也称为纠错)作为成功的测试的后果而出现，即<strong>调试是在测试发现错误之后排除错误的过程</strong></li>
+<li><strong>调试不是测试</strong>，但是它总是发生在测试之后</li>
+<li>途径：<ul>
+<li>蛮干法：打印内存数据、关键输出、断点</li>
+<li>回溯法：由症状回推可能的原因</li>
+<li>原因排除法：对分查找、归纳、演绎等方法<blockquote>
+<h2 id="软件可靠性"><a href="#软件可靠性" class="headerlink" title="软件可靠性"></a>软件可靠性</h2></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
           
