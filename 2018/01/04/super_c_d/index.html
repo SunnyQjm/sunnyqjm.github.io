@@ -94,7 +94,10 @@
 <meta property="og:image" content="http://qjm253.cn/img/unp_18.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_4.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_19.png">
-<meta property="og:updated_time" content="2018-01-04T11:36:08.771Z">
+<meta property="og:image" content="http://qjm253.cn/img/unp_20.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_21.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_22.png">
+<meta property="og:updated_time" content="2018-01-04T12:57:50.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（四）—— 基本套接字函数（Elementary Sockets Functions）">
 <meta name="twitter:description" content="socket函数   1234567891011121314151617#include &amp;lt;sys/socket.h&amp;gt;/*** 该函数用于创建一个socket套接字* @param domin    协议族/地址族* @param type     套接字的类型*                 SOCK_STREAM ==&amp;gt; TCP套接字*">
@@ -498,6 +501,58 @@
 </ul>
 </blockquote>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="调用时机"><a href="#调用时机" class="headerlink" title="调用时机"></a>调用时机</h3><ul>
+<li>本函数通常应该在调用socket和bind这两个函数以后，并在调用accept函数之前调用</li>
+</ul>
+</li>
+<li><h3 id="内核为任何一个给定的监听套接字维护两个队列"><a href="#内核为任何一个给定的监听套接字维护两个队列" class="headerlink" title="内核为任何一个给定的监听套接字维护两个队列"></a>内核为任何一个给定的监听套接字维护两个队列</h3><img src="/img/unp_20.png" title="TCP为监听套接字维护的两个队列">
+<ul>
+<li>为完成连接队列（incomplete connection queue）：服务器收到请求的SYN分节，并且正在等待完成相应的TCP三路握手过程。<strong>这些套接字处于SYN_RCVD状态</strong></li>
+<li>已完成连接队列（completed connection queue）：每个已完成TCP三路握手过程的客户对应其中的一项。<strong>这些套接字处于ESTABLISHED状态</strong></li>
+<li><a href="../../03/super_c_b#TCP状态转换图">点我可查看TCP状态转换图</a></li>
+</ul>
+</li>
+<li><h3 id="两个队列的建立时机"><a href="#两个队列的建立时机" class="headerlink" title="两个队列的建立时机"></a>两个队列的建立时机</h3><img src="/img/unp_21.png" title="TCP三路握手和监听套接字的两个队列">
+</li>
+</ul>
+<blockquote>
+<h2 id="accept函数"><a href="#accept函数" class="headerlink" title="accept函数"></a>accept函数</h2><ul>
+<li><strong>accpet函数</strong>由TCP服务器调用，用于<strong>从已完成连接队列头返回一个已完成连接</strong></li>
+<li>如果已完成连接队列为空，那么进程将被投入睡眠（假定套接字为默认的阻塞方式）</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后两个参数为Value-Result参数 ==&gt; <a href="../super_c_c#值-结果参数（Value-Result-Argument）">点我查看Value-Result参数详情</a></li>
+</ul>
+<blockquote>
+<h2 id="fork和exec函数"><a href="#fork和exec函数" class="headerlink" title="fork和exec函数"></a>fork和exec函数</h2></blockquote>
+<ul>
+<li><h3 id="fork函数"><a href="#fork函数" class="headerlink" title="fork函数"></a>fork函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用fork函数创建一个新进程，与当前进程并行执行</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 在子进程中为0，在父进程中为子进程ID，若出错返回-1</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">pid_t</span> fork(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>fork函数是Unix中派生新进程的唯一方法</strong></li>
+<li><strong>调用一次，返回两次</strong>。返回值告知当前进程是子进程还是父进程</li>
+<li>子进程可通过geippid获取父进程的id</li>
+<li>父进程fork之前打开的<strong>所有文件描述符都会copy一份给子进程</strong>（各个描述符的引用计数加1）</li>
+<li>两个典型用法：<ul>
+<li>创建自身副本，每个副本并行执行各自的操作</li>
+<li>一个进程想要执行另一个程序，则fork一下，在子进程调用exec执行其它程序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="exec函数"><a href="#exec函数" class="headerlink" title="exec函数"></a>exec函数</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ... <span class="comment">/*(char*)*/</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">char</span>* <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>存放在硬盘上的可执行程序文件能够被Unix执行的唯一方法是：由一个现有的进程调用上述6个exec函数中的一个</li>
+<li>exec把当前进程映像替换成新的程序文件，而且该程序通常从main函数开始执行。进程ID不改变</li>
+<li>我们称调用exec的进程为<strong>调用进程</strong>（calling process），称新执行的程序为<strong>新程序</strong>（new program）</li>
+<li>这些函数只在出错时才返回到调用跟着，否则，控制将被传递给新程序的起始点，通常就是main函数</li>
+<li>6个exec函数的关系<img src="/img/unp_22.png" title="6个exec函数的关系">
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -700,7 +755,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket函数"><span class="nav-number">1.</span> <span class="nav-text">socket函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AF-XXX-和-PF-XXX"><span class="nav-number">2.</span> <span class="nav-text">AF_XXX 和 PF_XXX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">3.</span> <span class="nav-text">connect函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#connect错误："><span class="nav-number">3.1.</span> <span class="nav-text">connect错误：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态转换"><span class="nav-number">3.2.</span> <span class="nav-text">状态转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind函数"><span class="nav-number">4.</span> <span class="nav-text">bind函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口的绑定"><span class="nav-number">4.1.</span> <span class="nav-text">端口的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址的绑定"><span class="nav-number">4.2.</span> <span class="nav-text">地址的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给bind函数指定要捆绑的IP地址和端口号产生的结果"><span class="nav-number">4.3.</span> <span class="nav-text">给bind函数指定要捆绑的IP地址和端口号产生的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配地址-wildcard-address"><span class="nav-number">4.4.</span> <span class="nav-text">通配地址(wildcard address)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">4.5.</span> <span class="nav-text">错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#listen函数"><span class="nav-number">5.</span> <span class="nav-text">listen函数</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#socket函数"><span class="nav-number">1.</span> <span class="nav-text">socket函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AF-XXX-和-PF-XXX"><span class="nav-number">2.</span> <span class="nav-text">AF_XXX 和 PF_XXX</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#connect函数"><span class="nav-number">3.</span> <span class="nav-text">connect函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#connect错误："><span class="nav-number">3.1.</span> <span class="nav-text">connect错误：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#状态转换"><span class="nav-number">3.2.</span> <span class="nav-text">状态转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind函数"><span class="nav-number">4.</span> <span class="nav-text">bind函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#端口的绑定"><span class="nav-number">4.1.</span> <span class="nav-text">端口的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#地址的绑定"><span class="nav-number">4.2.</span> <span class="nav-text">地址的绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#给bind函数指定要捆绑的IP地址和端口号产生的结果"><span class="nav-number">4.3.</span> <span class="nav-text">给bind函数指定要捆绑的IP地址和端口号产生的结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通配地址-wildcard-address"><span class="nav-number">4.4.</span> <span class="nav-text">通配地址(wildcard address)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误"><span class="nav-number">4.5.</span> <span class="nav-text">错误</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#listen函数"><span class="nav-number">5.</span> <span class="nav-text">listen函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#调用时机"><span class="nav-number">5.1.</span> <span class="nav-text">调用时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内核为任何一个给定的监听套接字维护两个队列"><span class="nav-number">5.2.</span> <span class="nav-text">内核为任何一个给定的监听套接字维护两个队列</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两个队列的建立时机"><span class="nav-number">5.3.</span> <span class="nav-text">两个队列的建立时机</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#accept函数"><span class="nav-number">6.</span> <span class="nav-text">accept函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fork和exec函数"><span class="nav-number">7.</span> <span class="nav-text">fork和exec函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#fork函数"><span class="nav-number">7.1.</span> <span class="nav-text">fork函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#exec函数"><span class="nav-number">7.2.</span> <span class="nav-text">exec函数</span></a></li></ol></li></ol></div>
             
 
           </div>

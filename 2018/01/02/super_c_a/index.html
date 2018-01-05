@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="Introduction  A Simple Daytime Client A Simple Daytime Server     A Simple Daytime Client Steven源码地址  笔者加注释源码地址 功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上       12345678910111213141516171819202122232">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-04T11:28:56.055Z">
+<meta property="og:updated_time" content="2018-01-04T11:54:09.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（一）—— Introduction">
 <meta name="twitter:description" content="Introduction  A Simple Daytime Client A Simple Daytime Server     A Simple Daytime Client Steven源码地址  笔者加注释源码地址 功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上       12345678910111213141516171819202122232">
@@ -547,17 +547,16 @@
 </ul>
 </li>
 <li><h4 id="accept"><a href="#accept" class="headerlink" title="accept()"></a>accept()</h4><ul>
-<li>百度百科–&gt; <a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">click_me</a><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">click_me</a></li>
+<li><a href="../../04/super_c_d#accept函数">click me for detail</a></li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong></li>
-</ul>
-</li>
+<li>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong><ul>
 <li>即在函数调用的时候，可以通过这两个参数向函数内部传递内容</li>
 <li>同时在函数调用结束的时候，可以通过这两个参数获取到返回信息</li>
-<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）<ul>
-<li><strong>accpet为每个连接到本服务器的客户返回一个全新的描述符（唯一标识一个客户）</strong></li>
+<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）</li>
 </ul>
 </li>
+<li><strong>accpet为每个连接到本服务器的客户返回一个全新的描述符（唯一标识一个客户）</strong></li>
 </ul>
 </li>
 <li><h4 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf()"></a>snprintf()</h4><ul>
@@ -618,8 +617,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/31/2017-12-31-软件工程复习（h）/" rel="next" title="软件工程复习（八）">
-                <i class="fa fa-chevron-left"></i> 软件工程复习（八）
+              <a href="/2017/12/31/2017-12-31-软件工程复习（j）/" rel="next" title="软件工程复习（十）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（十）
               </a>
             
           </div>

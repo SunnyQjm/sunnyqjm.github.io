@@ -490,6 +490,58 @@
 </ul>
 </blockquote>
   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="调用时机"><a href="#调用时机" class="headerlink" title="调用时机"></a>调用时机</h3><ul>
+<li>本函数通常应该在调用socket和bind这两个函数以后，并在调用accept函数之前调用</li>
+</ul>
+</li>
+<li><h3 id="内核为任何一个给定的监听套接字维护两个队列"><a href="#内核为任何一个给定的监听套接字维护两个队列" class="headerlink" title="内核为任何一个给定的监听套接字维护两个队列"></a>内核为任何一个给定的监听套接字维护两个队列</h3><img src="/img/unp_20.png" title="TCP为监听套接字维护的两个队列">
+<ul>
+<li>为完成连接队列（incomplete connection queue）：服务器收到请求的SYN分节，并且正在等待完成相应的TCP三路握手过程。<strong>这些套接字处于SYN_RCVD状态</strong></li>
+<li>已完成连接队列（completed connection queue）：每个已完成TCP三路握手过程的客户对应其中的一项。<strong>这些套接字处于ESTABLISHED状态</strong></li>
+<li><a href="../../03/super_c_b#TCP状态转换图">点我可查看TCP状态转换图</a></li>
+</ul>
+</li>
+<li><h3 id="两个队列的建立时机"><a href="#两个队列的建立时机" class="headerlink" title="两个队列的建立时机"></a>两个队列的建立时机</h3><img src="/img/unp_21.png" title="TCP三路握手和监听套接字的两个队列">
+</li>
+</ul>
+<blockquote>
+<h2 id="accept函数"><a href="#accept函数" class="headerlink" title="accept函数"></a>accept函数</h2><ul>
+<li><strong>accpet函数</strong>由TCP服务器调用，用于<strong>从已完成连接队列头返回一个已完成连接</strong></li>
+<li>如果已完成连接队列为空，那么进程将被投入睡眠（假定套接字为默认的阻塞方式）</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后两个参数为Value-Result参数 ==&gt; <a href="../super_c_c#值-结果参数（Value-Result-Argument）">点我查看Value-Result参数详情</a></li>
+</ul>
+<blockquote>
+<h2 id="fork和exec函数"><a href="#fork和exec函数" class="headerlink" title="fork和exec函数"></a>fork和exec函数</h2></blockquote>
+<ul>
+<li><h3 id="fork函数"><a href="#fork函数" class="headerlink" title="fork函数"></a>fork函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用fork函数创建一个新进程，与当前进程并行执行</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 在子进程中为0，在父进程中为子进程ID，若出错返回-1</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">pid_t</span> fork(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>fork函数是Unix中派生新进程的唯一方法</strong></li>
+<li><strong>调用一次，返回两次</strong>。返回值告知当前进程是子进程还是父进程</li>
+<li>子进程可通过geippid获取父进程的id</li>
+<li>父进程fork之前打开的<strong>所有文件描述符都会copy一份给子进程</strong>（各个描述符的引用计数加1）</li>
+<li>两个典型用法：<ul>
+<li>创建自身副本，每个副本并行执行各自的操作</li>
+<li>一个进程想要执行另一个程序，则fork一下，在子进程调用exec执行其它程序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="exec函数"><a href="#exec函数" class="headerlink" title="exec函数"></a>exec函数</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ... <span class="comment">/*(char*)*/</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">char</span>* <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>存放在硬盘上的可执行程序文件能够被Unix执行的唯一方法是：由一个现有的进程调用上述6个exec函数中的一个</li>
+<li>exec把当前进程映像替换成新的程序文件，而且该程序通常从main函数开始执行。进程ID不改变</li>
+<li>我们称调用exec的进程为<strong>调用进程</strong>（calling process），称新执行的程序为<strong>新程序</strong>（new program）</li>
+<li>这些函数只在出错时才返回到调用跟着，否则，控制将被传递给新程序的起始点，通常就是main函数</li>
+<li>6个exec函数的关系<img src="/img/unp_22.png" title="6个exec函数的关系">
+</li>
+</ul>
+</li>
+</ul>
 
           
         
@@ -1292,17 +1344,16 @@
 </ul>
 </li>
 <li><h4 id="accept"><a href="#accept" class="headerlink" title="accept()"></a>accept()</h4><ul>
-<li>百度百科–&gt; <a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">click_me</a><ul>
+<li>百度百科–&gt; <a href="https://baike.baidu.com/item/accept%28%29" target="_blank" rel="noopener">click_me</a></li>
+<li><a href="../../04/super_c_d#accept函数">click me for detail</a></li>
 <li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong></li>
-</ul>
-</li>
+<li>上述函数的第二、三个参数为<strong>值-结果（value-result）参数</strong><ul>
 <li>即在函数调用的时候，可以通过这两个参数向函数内部传递内容</li>
 <li>同时在函数调用结束的时候，可以通过这两个参数获取到返回信息</li>
-<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）<ul>
-<li><strong>accpet为每个连接到本服务器的客户返回一个全新的描述符（唯一标识一个客户）</strong></li>
+<li>accept函数就将新连接的地址信息保存在了后两个参数中（如果不需要可以直接传NULL）</li>
 </ul>
 </li>
+<li><strong>accpet为每个连接到本服务器的客户返回一个全新的描述符（唯一标识一个客户）</strong></li>
 </ul>
 </li>
 <li><h4 id="snprintf"><a href="#snprintf" class="headerlink" title="snprintf()"></a>snprintf()</h4><ul>
@@ -1375,7 +1426,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（h）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1394,7 +1445,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="url">软件工程复习（八）</a></h1>
+                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（j）/" itemprop="url">软件工程复习（十）</a></h1>
         
 
         <div class="post-meta">
@@ -1426,8 +1477,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（h）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（j）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（j）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1436,7 +1487,7 @@
 
           
           
-             <span id="/2017/12/31/2017-12-31-软件工程复习（h）/" class="leancloud_visitors" data-flag-title="软件工程复习（八）">
+             <span id="/2017/12/31/2017-12-31-软件工程复习（j）/" class="leancloud_visitors" data-flag-title="软件工程复习（十）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1470,89 +1521,160 @@
         
           
             <blockquote>
-<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
-</blockquote>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><p>OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式</p>
+<h2 id="面向对象的设计准则"><a href="#面向对象的设计准则" class="headerlink" title="面向对象的设计准则"></a>面向对象的设计准则</h2></blockquote>
 <ul>
-<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
-<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
-</ul>
-</li>
-<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
-<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
-</ul>
-</li>
-<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
-<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
+<li>模块化</li>
+<li>抽象</li>
+<li>信息隐藏</li>
+<li>弱耦合</li>
+<li>强内聚</li>
+<li>可重用</li>
 </ul>
 <blockquote>
-<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
+<h2 id="启发规则"><a href="#启发规则" class="headerlink" title="启发规则"></a>启发规则</h2></blockquote>
 <ul>
-<li>视图（view）<ul>
-<li>通常包括多个图</li>
+<li><h3 id="设计结果应该清晰易懂"><a href="#设计结果应该清晰易懂" class="headerlink" title="设计结果应该清晰易懂"></a>设计结果应该清晰易懂</h3></li>
+<li><h3 id="提高软件可维护性和可重用性重要措施"><a href="#提高软件可维护性和可重用性重要措施" class="headerlink" title="提高软件可维护性和可重用性重要措施"></a>提高软件可维护性和可重用性重要措施</h3><ul>
+<li>用词一致</li>
+<li>使用已有的协议（重载）</li>
+<li>减少消息模式的数目</li>
+<li>避免模糊的定义</li>
 </ul>
 </li>
-<li>图（diagram）</li>
-<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
-<li>通用机制（general mechanism）<ul>
-<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
-<li>比如：构造型，标签值，笔记（写注释）等</li>
+<li><h3 id="一般—特殊结构的深度应适当"><a href="#一般—特殊结构的深度应适当" class="headerlink" title="一般—特殊结构的深度应适当"></a>一般—特殊结构的深度应适当</h3><ul>
+<li>应该使类等级中包含的层次数适当</li>
 </ul>
 </li>
+<li><h3 id="设计简单的类"><a href="#设计简单的类" class="headerlink" title="设计简单的类"></a>设计简单的类</h3><ul>
+<li>尽量设计小而简单的类，便于开发管理<ul>
+<li>避免包含过多的属性</li>
+<li>有明确的定义</li>
+<li>尽量简化对象之间的合作关系</li>
+<li>不要提供太多服务（保持适当内聚的基础上）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="使用简单的协议"><a href="#使用简单的协议" class="headerlink" title="使用简单的协议"></a>使用简单的协议</h3></li>
+<li><h3 id="使用简单的服务"><a href="#使用简单的服务" class="headerlink" title="使用简单的服务"></a>使用简单的服务</h3></li>
+<li><h3 id="把设计变动减至最小（结构稳定）"><a href="#把设计变动减至最小（结构稳定）" class="headerlink" title="把设计变动减至最小（结构稳定）"></a>把设计变动减至最小（结构稳定）</h3></li>
 </ul>
 <blockquote>
-<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
-<ul>
-<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
-<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
-<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
-<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
-<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
+<h2 id="架构模式（Architecture-Patterns）"><a href="#架构模式（Architecture-Patterns）" class="headerlink" title="架构模式（Architecture Patterns）"></a>架构模式（Architecture Patterns）</h2><p>An architectural pattern is a proven structural organization schema for software systems（架构模式是指用于软件系统中经实践证明的机构化的组织格式化） <br><br>层次、CS、MVC、Pipe-Filter、Master-slave</p>
 </blockquote>
+<ul>
+<li><h3 id="层次架构"><a href="#层次架构" class="headerlink" title="层次架构"></a>层次架构</h3><ul>
+<li>eg: 网络协议（OSI/ISO 七层模型）<img src="/img/se_91.jpg"></li>
+<li>每层向上层提供服务</li>
+<li>越低层越稳定</li>
+<li>职责分离，每层可独立开发</li>
+<li>提供给上层高的抽象接口不容易写</li>
+<li>低层可能做一些高层用不到的功能</li>
+</ul>
+</li>
+<li><h3 id="MVC架构"><a href="#MVC架构" class="headerlink" title="MVC架构"></a>MVC架构</h3><ul>
+<li>model: 核心功能和数据（是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据）</li>
+<li>view： 向用户展示信息（是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的）</li>
+<li>controller： 处理用户的输入（是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据）</li>
+<li><strong>用于交互式系统</strong><img src="/img/se_92.jpg"></li>
+<li>控制流程<img src="/img/se_93.jpg">
 </li>
 </ul>
 </li>
-<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
-<li>静态图描述系统的静态结构，包括：<ul>
-<li><strong>类图</strong>（class diagram）</li>
-<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
+<li><h3 id="CS架构"><a href="#CS架构" class="headerlink" title="CS架构"></a>CS架构</h3><ul>
+<li>Server组件向多个client提供服务</li>
+<li>客户端通过向服务器请求得到服务</li>
+<li>请求是在进程和机器边界上完成的<ul>
+<li>采用进程间通信机制</li>
+<li>而层级架构则是横跨进程和机器边界</li>
 </ul>
 </li>
-<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
+<li>Server通常是长期运行的，拥有监听来自Client的请求</li>
+<li><strong>Examples</strong>：<ul>
+<li>Remote DB access （远程数据库接入）</li>
+<li>Remote file systems（远程文件系统）</li>
+<li>Multi-tier information system（多层信息系统）</li>
+<li>Web applications（网页应用）</li>
 </ul>
 </li>
-<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
-<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
-<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
-<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
+<li>通常在单独的线程中处理请求</li>
+<li>Server和Client的交互通常包含在一个session（会话）中</li>
+<li>Stateless servers（无状态的服务）<ul>
+<li>会话状态由client保存（例如：cookie机制）</li>
+<li>每个请求都带上client保存的会话状态信息</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
-<li>这类图描述对象间的交互关系，包括<ul>
-<li><strong>顺序图</strong>（sequence diagram）</li>
-<li><strong>协作图</strong>（collaboration diagram）</li>
-</ul>
-</li>
-<li>描述一个场景中若干个类的交互（动态协作）</li>
-</ul>
-</li>
-<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
-<li>这类图提供关于系统实现方面的信息，包括：<ul>
-<li>构件图（component diagram）</li>
-<li>配置图（deployment diagram）</li>
+<li>Stateful servers（有状态服务）<ul>
+<li>会话状态由Server端保存</li>
+<li>所有的Client的请求都关联到其对应的client-id</li>
 </ul>
 </li>
 </ul>
 </li>
+<li><h3 id="Master-slave（主从模式）"><a href="#Master-slave（主从模式）" class="headerlink" title="Master-slave（主从模式）"></a>Master-slave（主从模式）</h3><ul>
+<li>主从模式支持<strong>容错</strong>和<strong>并行计算</strong></li>
+<li><strong>主组件</strong>将工作<strong>分配</strong>给若干个从组件，<strong>从组件</strong>各自<strong>计算</strong>，最后主组件从这些从组件返回的结果中计算最终的结果<img src="/img/se_01.png"></li>
+<li><strong>Examples</strong>:<ul>
+<li>Process control(进程控制)</li>
+<li>Embedded systems(嵌入式系统)</li>
+<li>Large-scale parallel computations（大规模并行计算）</li>
+<li>Fault tolerant systems(容错系统) ==&gt; 比如磁盘阵列（可以用其中一块或多块硬盘做奇偶校验，可以达到容错的效果）</li>
 </ul>
-<img src="/img/se_72.jpg">
-<img src="/img/se_73.jpg">
-<img src="/img/se_74.jpg">
-<img src="/img/se_75.jpg">
-<img src="/img/se_76.jpg">
-<img src="/img/se_77.jpg">
-<img src="/img/se_78.jpg">
+</li>
+<li>执行流程：<img src="/img/se_02.png"></li>
+<li>分析：<ul>
+<li>一旦Master挂掉，整个系统也就挂了</li>
+<li>从组件之间是独立的，不共享状态</li>
+<li>从组件之间可以并行运行</li>
+<li>对于硬实时系统（对延迟很敏感），主从组件之间的通信延迟可能是一个问题</li>
+<li>要解决的问题必须是可分解的</li>
+</ul>
+</li>
+<li>应用领域：<ul>
+<li>容错</li>
+<li>并行计算</li>
+<li>精确计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Pipe-Filter-管道过滤器模式"><a href="#Pipe-Filter-管道过滤器模式" class="headerlink" title="Pipe-Filter(管道过滤器模式)"></a>Pipe-Filter(管道过滤器模式)</h3><ul>
+<li>该架构适用于处理数据流的系统</li>
+<li>每<strong>一个处理</strong>都封装在<strong>一个过滤器组件</strong>当中</li>
+<li>数据通过相邻过滤器之间的管道（pipe）进行传输<ul>
+<li>pipe主要负责处理缓存和同步</li>
+</ul>
+</li>
+<li><strong>Examples</strong>：<ul>
+<li>Compilers（编译器）<img src="/img/se_04.png"></li>
+<li>Unix shell commands<img src="/img/se_03.png"></li>
+</ul>
+</li>
+<li>分析：<ul>
+<li>很容易插入新的过滤器</li>
+<li>过滤器可重用<ul>
+<li>过滤器可以被独立开发</li>
+<li>潜在数据转换开销</li>
+</ul>
+</li>
+<li>输入可以来自不同的数据源，输出也可以输出到不同的地方</li>
+<li>天然的并行处理</li>
+<li>过滤器间不共享状态</li>
+<li><strong>不适用于交互式系统，适用于批处理系统</strong></li>
+</ul>
+</li>
+<li>Java中的管道<ul>
+<li>InputStream in = new BufferedInputStream(new DataInputStream(System.in))<img src="/img/se_05.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Broker（代理模式）"><a href="#Broker（代理模式）" class="headerlink" title="Broker（代理模式）"></a>Broker（代理模式）</h3></li>
+<li><h3 id="Peer-to-peer（P2P模式和）"><a href="#Peer-to-peer（P2P模式和）" class="headerlink" title="Peer-to-peer（P2P模式和）"></a>Peer-to-peer（P2P模式和）</h3></li>
+<li><h3 id="Event-bus"><a href="#Event-bus" class="headerlink" title="Event-bus"></a>Event-bus</h3></li>
+<li><h3 id="Blackboard"><a href="#Blackboard" class="headerlink" title="Blackboard"></a>Blackboard</h3></li>
+</ul>
 
           
         
