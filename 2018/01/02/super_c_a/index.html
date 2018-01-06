@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="Introduction  A Simple Daytime Client A Simple Daytime Server     A Simple Daytime Client Steven源码地址  笔者加注释源码地址 功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上       12345678910111213141516171819202122232">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-06T12:26:06.828Z">
+<meta property="og:updated_time" content="2018-01-06T12:58:48.212Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（1）—— Introduction（第一章）">
 <meta name="twitter:description" content="Introduction  A Simple Daytime Client A Simple Daytime Server     A Simple Daytime Client Steven源码地址  笔者加注释源码地址 功能： 实现向服务器发起一个TCP连接，请求时间信息，并将接收到的信息打印在控制台上       12345678910111213141516171819202122232">
@@ -465,17 +465,14 @@
 </li>
 <li><h4 id="read"><a href="#read" class="headerlink" title="read()"></a>read()</h4><ul>
 <li>百度百科–&gt; <a href="https://baike.baidu.com/item/read%28%29" target="_blank" rel="noopener">click_me</a></li>
-<li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 从fd所指向的文件中传送count个字节到buf中</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param fd      指向一个文件的指针（可以是socket fd）</span></span><br><span class="line"><span class="comment">* @param buf     指向一个数组的指针，用做缓存，存取从fd中读出的数据</span></span><br><span class="line"><span class="comment">* @param count   读取的大小</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return        返回值为实际读取到的字节数</span></span><br><span class="line"><span class="comment">*                如果返回0，表示已到达文件尾或无可读取的数据。</span></span><br><span class="line"><span class="comment">*                错误返回-1,并将根据不同的错误原因适当的设置错误码</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> read(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count);</span><br></pre></td></tr></table></figure></li>
+<li>原型：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 从fd所指向的文件中传送count个字节到buf中</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param fd      关联一个文件的描述符（可以是socket fd）</span></span><br><span class="line"><span class="comment">* @param buf     指向一个数组的指针，用做缓存，存取从fd中读出的数据</span></span><br><span class="line"><span class="comment">* @param count   读取的大小</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return        返回值为实际读取到的字节数</span></span><br><span class="line"><span class="comment">*                如果返回0，表示已到达文件尾或无可读取的数据。</span></span><br><span class="line"><span class="comment">*                错误返回-1,并将根据不同的错误原因适当的设置错误码</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> read(<span class="keyword">int</span> fd, <span class="keyword">void</span> *buf, <span class="keyword">size_t</span> count);</span><br></pre></td></tr></table></figure></li>
 <li>如果read函数中传入的文件描述符为sockfd，则表示从网络中读取count字节的数据并存到buf中。</li>
 <li>read函数是一个<strong>阻塞函数</strong>，如果没有读够count个字节，会一直在那边死等，下面两种情况下read函数和的阻塞状态会解除<ul>
 <li>如果一个信号的到来，会导致主线程因为去执行信号的回调函数，而解除阻塞函数的阻塞状态。并将errno置成<a href="https://baike.baidu.com/item/EINTR" target="_blank" rel="noopener">EINTR</a>。表示因为信号中断而退出。（<strong><em>不过现在的系统好像做了优化处理，即便定义了某些信号的处理函数，当该信号到来时，该回调会执行，但同时却不会引发中断错误</em></strong>）</li>
 <li>还有就是收到EOF（文件结束指针）。如果是tcp socket，<strong>则当对方关闭了写一端的时候，会向本机发送一个FIN，标识对方已经发完数据了。此时read的阻塞状态便会解除</strong>。同样的，如果对方给调用close函数关闭了socket，read函数也会解除阻塞（关闭socket相当于写端和读端都关闭了）</li>
 </ul>
 </li>
-<li><ul>
 <li>对比 <a href="./#write">write</a></li>
-</ul>
-</li>
 </ul>
 </li>
 <li><h4 id="fputs"><a href="#fputs" class="headerlink" title="fputs()"></a>fputs()</h4><ul>
@@ -537,8 +534,8 @@
 <li><h4 id="listen"><a href="#listen" class="headerlink" title="listen()"></a>listen()</h4><ul>
 <li>百度百科–&gt; <a>click_me</a></li>
 <li><a href="../../04/super_c_d#listen函数">click me for detail</a></li>
-<li>原型<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure></li>
-<li>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数<ul>
+<li>原型<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字（主动套接字）转换成监听套接字（被动套接字），这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure></li>
+<li>函数的第二个参数指定的是系统内核允许在这个监听描述符上排队的最大客户连接数（内核为listen维护两个队列，第二个参数指定的至一般认为是已连接队列的上限）<ul>
 <li><strong>不是允许的最大并发数</strong></li>
 <li><strong>在监听描述符上排队的客户</strong> ==&gt; 客户的请求被listen到了，但是还没有被accept处理，那么这个客户的请求便在该监听描述符上排队，等待被accpet</li>
 <li>通常情况下，accpet以后就调用新线程或新进程处理了，所以很快就可以再accept，所以一般在监听描述符上排队的客户数不会很多</li>
@@ -618,8 +615,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/31/2017-12-31-软件工程复习（k）/" rel="next" title="软件工程复习（十一）">
-                <i class="fa fa-chevron-left"></i> 软件工程复习（十一）
+              <a href="/2017/12/31/2017-12-31-软件工程复习（j）/" rel="next" title="软件工程复习（十）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（十）
               </a>
             
           </div>

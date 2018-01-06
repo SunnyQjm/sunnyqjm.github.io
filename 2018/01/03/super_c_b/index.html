@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://qjm253.cn/img/unp_7.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_8.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_9.png">
-<meta property="og:updated_time" content="2018-01-06T07:15:45.680Z">
+<meta property="og:updated_time" content="2018-01-06T13:18:21.684Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP（第二章）">
 <meta name="twitter:description" content="总图（Big Picture）   UDP  UDP应用程序将数据封装到UDP数据报，，并将其写到UDP socket。进而封装成IPV4或IPV6数据报（datagram），然后发送到目的地 UDP提供的是无连接的服务（connectionless service） 每个UDP数据报都有一个长度，如果一个数据报正确地到达目的地，那么数据报的长度将随数据一道传递给接收端应用程序 RFC 768">
@@ -462,7 +462,7 @@
 <blockquote>
 <ul>
 <li>FIN占一个序列号</li>
-<li>在被动关闭一端收到FIN到其调用close函数之间的间隙，称为<strong>半关闭状态</strong>（half-close），在这段时间内仍然可以冲被动关闭一端向主动关闭一端发送数据</li>
+<li>在被动关闭一端收到FIN到其调用close函数之间的间隙，称为<strong>半关闭状态</strong>（half-close），在这段时间内理论上仍然有发送数据的可能（但是通过close方式关闭的话，时无法再进行通信的，因为close会同时关闭写一端和读一端，后面接收<a href="../../05/super_c_f#shutdown函数">shutdown</a>就可以只关闭写或读）</li>
 <li>当一个Unix进程无论自愿（调用exit或main函数返回）还是非自愿（收到一个终止本进程的信号）的终止时，所有打开的描述符都将被关闭，这也导致主机向仍然打开的任何TCP连接上发出一个FIN（对于那些描述符只被这个终止的进程持有的连接而言）</li>
 </ul>
 </blockquote>
