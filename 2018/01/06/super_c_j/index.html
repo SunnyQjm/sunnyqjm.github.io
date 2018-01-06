@@ -88,7 +88,7 @@
 <meta property="og:description" content="概述原始套接字提供TCP和UDP所不踢欧冠呢的以下3个能力   有了原始套接字，进程可以读与写ICMPv4、IGMPv4和ICMPv6分组 Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrouted)   有了原始套接字，进程可以读写内核不处理其协议字段的IPv4数据报 With a r">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://qjm253.cn/img/unp_44.png">
-<meta property="og:updated_time" content="2018-01-06T08:27:43.320Z">
+<meta property="og:updated_time" content="2018-01-06T10:14:57.012Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（10）—— 原始套接字（Raw Socket）（第28章）">
 <meta name="twitter:description" content="概述原始套接字提供TCP和UDP所不踢欧冠呢的以下3个能力   有了原始套接字，进程可以读与写ICMPv4、IGMPv4和ICMPv6分组 Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrouted)   有了原始套接字，进程可以读写内核不处理其协议字段的IPv4数据报 With a r">
@@ -429,7 +429,7 @@
 </ul>
 </li>
 <li><p><strong>可</strong>按以下方式<strong>开启IP_HDRINCL选项</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const int on = 1;</span></span><br><span class="line"><span class="comment">// if(setsockopt(sockfd, IPPROTO_IP, IP_HDRINCL, &amp;on, sizeof(on)) &lt; 0)</span></span><br><span class="line"><span class="comment">//   出错处理</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> on = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(setsockopt(sockfd, IPPROTO_IP, IP_HDRINCL, &amp;on, <span class="keyword">sizeof</span>(on)) &lt; <span class="number">0</span>)</span><br><span class="line">  出错处理</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>可在原始套接字上调用bind，但比较少见</p>
 </li>
@@ -676,7 +676,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

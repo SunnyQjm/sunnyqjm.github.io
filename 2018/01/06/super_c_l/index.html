@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)">
+<meta name="description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)   一个路由套接字上支持以下的三种操作 通过往路由套接字写数据来向内核发送消息（例如: 添加或删除路由） 通过从路由套接字读数据来接收内核发送的消息（例如：内核在接收到一个ICMP重定向消息的时候，就通过这种方式通知进程） 进程可以使用sysctl函数倾泻出路由表或列出所有已配置的接口   前两种需要超级">
 <meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）">
 <meta property="og:url" content="http://qjm253.cn/2018/01/06/super_c_l/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)">
+<meta property="og:description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)   一个路由套接字上支持以下的三种操作 通过往路由套接字写数据来向内核发送消息（例如: 添加或删除路由） 通过从路由套接字读数据来接收内核发送的消息（例如：内核在接收到一个ICMP重定向消息的时候，就通过这种方式通知进程） 进程可以使用sysctl函数倾泻出路由表或列出所有已配置的接口   前两种需要超级">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-06T10:03:23.196Z">
+<meta property="og:updated_time" content="2018-01-06T10:39:21.536Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）">
-<meta name="twitter:description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)">
+<meta name="twitter:description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)   一个路由套接字上支持以下的三种操作 通过往路由套接字写数据来向内核发送消息（例如: 添加或删除路由） 通过从路由套接字读数据来接收内核发送的消息（例如：内核在接收到一个ICMP重定向消息的时候，就通过这种方式通知进程） 进程可以使用sysctl函数倾泻出路由表或列出所有已配置的接口   前两种需要超级">
 
 
 
@@ -398,8 +398,26 @@
 
       
         <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>AF_ROUTE domain: <strong>唯一支持的套接字是原始套接字</strong>(raw socket)</p>
 </blockquote>
+<ul>
+<li><h3 id="一个路由套接字上支持以下的三种操作"><a href="#一个路由套接字上支持以下的三种操作" class="headerlink" title="一个路由套接字上支持以下的三种操作"></a>一个路由套接字上支持以下的三种操作</h3><ol>
+<li>通过往路由套接字写数据来<strong>向内核发送消息</strong>（例如: 添加或删除路由）</li>
+<li>通过从路由套接字读数据来<strong>接收内核发送的消息</strong>（例如：内核在接收到一个ICMP重定向消息的时候，就通过这种方式通知进程）</li>
+<li>进程可以使用<strong>sysctl函数倾泻出路由表或列出所有已配置的接口</strong></li>
+</ol>
+</li>
+<li><p>前两种需要超级权限，最后一种操作任何进程都可以执行</p>
+</li>
+<li><p>前两种可以复合起来使用，比如：进程通过写一个路由套接字往内核发送一个消息，请求内核提供关于某个给定路径的所有信息，又通过这个这个路由套接字接收内核的应答</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="数据链路套接字地址结构"><a href="#数据链路套接字地址结构" class="headerlink" title="数据链路套接字地址结构"></a>数据链路套接字地址结构</h2></blockquote>
+<figure class="highlight c"><figcaption><span><br>&ensp; <net if_dl.h=""></net></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_dl</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_len;           <span class="comment">//数据链路层地址是可变长度的，这个成员即为记录地址结构的长度</span></span><br><span class="line">  <span class="keyword">sa_family_t</span>   sdl_family;        <span class="comment">//AF_LINK</span></span><br><span class="line">  <span class="keyword">uint16_t</span>      sdl_index;         <span class="comment">//网络接口的正值索引，if &gt; 0</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_type;          <span class="comment">//IFT_ETHER等</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_nlen;          <span class="comment">//名字的长度</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_alen;          <span class="comment">//链路层地址的长度</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_slen;          <span class="comment">//链路层选择器的长度</span></span><br><span class="line">  <span class="keyword">char</span>          sdl_data[<span class="number">12</span>];      <span class="comment">//数据域:         0 ~ sdl_nlen - 1  ==&gt;  name</span></span><br><span class="line">                                   <span class="comment">//         sdl_len ~ sdl_alen - 1  ==&gt;  link-layer address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="创建一个路由套接字"><a href="#创建一个路由套接字" class="headerlink" title="创建一个路由套接字"></a>创建一个路由套接字</h2></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(AF_ROUTE, SOCK_RAW, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -445,6 +463,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/06/super_c_m/" rel="prev" title="高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章）">
+                高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章） <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -556,7 +578,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">41</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -602,7 +624,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一个路由套接字上支持以下的三种操作"><span class="nav-number">1.1.</span> <span class="nav-text">一个路由套接字上支持以下的三种操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据链路套接字地址结构"><span class="nav-number">2.</span> <span class="nav-text">数据链路套接字地址结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个路由套接字"><span class="nav-number">3.</span> <span class="nav-text">创建一个路由套接字</span></a></li></ol></div>
             
 
           </div>
