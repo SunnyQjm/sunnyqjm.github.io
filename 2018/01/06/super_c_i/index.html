@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Java," />
+  <meta name="keywords" content="学习,笔记,C语言,网络编程," />
 
 
 
@@ -79,53 +79,21 @@
 
 
 
-<meta name="description" content="JDK配置  首先到官网下载最新版JDK：Oracle官网下载   Accept License Agreement–&amp;gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）   开始安装JDK   选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131） 安装过程">
-<meta name="keywords" content="Java">
+<meta name="description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
+<meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java环境简单配置+IDEA（小白版）">
-<meta property="og:url" content="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/index.html">
+<meta property="og:title" content="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
+<meta property="og:url" content="http://qjm253.cn/2018/01/06/super_c_i/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="JDK配置  首先到官网下载最新版JDK：Oracle官网下载   Accept License Agreement–&amp;gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）   开始安装JDK   选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131） 安装过程">
+<meta property="og:description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:image" content="http://qjm253.cn/img/unp_42.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_43.png">
+<meta property="og:updated_time" content="2018-01-06T05:58:37.824Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java环境简单配置+IDEA（小白版）">
-<meta name="twitter:description" content="JDK配置  首先到官网下载最新版JDK：Oracle官网下载   Accept License Agreement–&amp;gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）   开始安装JDK   选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131） 安装过程">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:title" content="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
+<meta name="twitter:description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
+<meta name="twitter:image" content="http://qjm253.cn/img/unp_42.png">
 
 
 
@@ -155,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/"/>
+  <link rel="canonical" href="http://qjm253.cn/2018/01/06/super_c_i/"/>
 
 
 
 
 
-  <title>Java环境简单配置+IDEA（小白版） | 建明 | Ming.J</title>
+  <title>高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions） | 建明 | Ming.J</title>
   
 
 
@@ -342,7 +310,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_i/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -359,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Java环境简单配置+IDEA（小白版）</h1>
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）</h1>
         
 
         <div class="post-meta">
@@ -371,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T00:00:00+08:00">
-                2017-09-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T14:00:00+08:00">
+                2018-01-06
               </time>
             
 
@@ -391,8 +359,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentsCount"></span>
+                <a href="/2018/01/06/super_c_i/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_i/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -401,7 +369,7 @@
 
           
           
-             <span id="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="leancloud_visitors" data-flag-title="Java环境简单配置+IDEA（小白版）">
+             <span id="/2018/01/06/super_c_i/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -433,85 +401,73 @@
 
       
         <blockquote>
-<h3 id="JDK配置"><a href="#JDK配置" class="headerlink" title="JDK配置"></a>JDK配置</h3></blockquote>
-<ol>
-<li>首先到官网下载最新版JDK：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle官网下载</a></li>
-</ol>
-<ul>
-<li>Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>开始安装JDK</li>
-</ol>
-<ul>
-<li>选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>安装过程中会跳出Jre的安装界面，你可以放到和之前JDK在同一个文件夹下，也可默认。然后直接下一步开始安装<br><img src="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>环境变量配置</li>
-</ol>
-<ul>
-<li>右击我的电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>新建环境变量，变量名为：JAVA_HOME，变量值为之前JDK的安装路径，此处安装在：C:\Program Files\Java\jdk1.8.0_131<br>（可以在系统变量下新建，这样可以为每个登录该pc的用户都配置，如果在用户变量中新建，则只为当前用户配置，此处以在系统变量下新建为例）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>找到Path变量–&gt;编辑<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win10系统，则进入后界面如下，选择新建两个环境变量，<br>一个值为：%JAVA_HOME%\bin<br>另一个为：%JAVA_HOME%\jre\bin<br>（此处笔者已经配置好）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>配置好就如下图<br><img src="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win7及之前的系统则进入后界面如下:<br>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;<br>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>验证一下^-^</li>
-</ol>
-<ul>
-<li>win + R–&gt;输入cmd，进入cmd命令行<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入：java -version    就可以查看版本信息，如果显示如下信息，则表示环境配置成功<br><img src="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>到这里我们就可以骚操作一波，用记事本写简单Java程序（纯属骚操作，如果用IDE开发（比如我们接下来的部分要介绍的重头戏，用IDEA实现真正的骚操作）可不看这个hhhhhh，如果不想使用IDE开发的话，建议可以使用NotePad++、sublimeText或Atom进行代码编辑，不过真想用记事本敲也无可厚非）</li>
-</ol>
-<ul>
-<li>新建一个文本文档，并修改后缀为.java<br><img src="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>修改以后如下：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>如果没有显示后缀名，则可通过如下方式修改：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>用记事本打开，输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-<ul>
-<li>直接在创建文件的文件夹下按住Shift + 右键，选择在此处打开命令窗口（环境变量的配置使得用户可以在任意目录下调用javac 和java 命令）<br>输入：<br>javac Hello.java    （用于编译java源程序）<br>java Hello（运行java程序）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<p><strong>自此JDK的配置就OK了，可以开始Java从入门到放弃的修炼了~~</strong></p>
-<blockquote>
-<h3 id="极其好用的IDE–-gt-IDEA"><a href="#极其好用的IDE–-gt-IDEA" class="headerlink" title="极其好用的IDE–&gt;IDEA"></a><strong>极其好用的IDE–&gt;IDEA</strong></h3><p>ps:如果在打开IDEA之前没有下载好JDK的道友，请先往上看详细步骤</p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生<br><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter11" target="_blank" rel="noopener">点我获取本文源码</a></p>
 </blockquote>
-<ol>
-<li>先来一波官网的下载链接：<a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">IDEA官网下载地址</a><br>我们下载社区版（别问为啥，社区版免费，如果下载左边的旗舰版也行，但是需要注册码，之前有个网上长期流传的获取注册码的路子，现在貌似不好用了，如果道友是学生就可以用学校给的邮箱百度“IDEA学生”去注册一个IDEA的学生账号（学生账号有自己的注册码，有效期为1年），如果不是就买或者用社区版吧）：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二步我们来开始安装：</li>
-</ol>
 <ul>
-<li>选择安装路径：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>上面的是创建桌面图标，选择自己电脑对应的版本就行了；下面的可以全选，表示什么格式的文件可直接关联到IDEA，用IDEA来打开<br><img src="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>下一步直接install<br><img src="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr</li>
+<li>服务名字和端口号之间转换：getservbyname、getservbyport</li>
+<li>两个协议无关的转换函数：getaddrinfo、getnameinfo</li>
 </ul>
-<ol>
-<li>启动刚安装好的IDEA</li>
-</ol>
-<ul>
-<li>如果第一次安装，就直接不导入设置，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>选个喜欢的主题（此处笔者选这骚气黑），然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接start</li>
+<blockquote>
+<h2 id="域名系统（Domain-Name-System，-DNS）"><a href="#域名系统（Domain-Name-System，-DNS）" class="headerlink" title="域名系统（Domain Name System， DNS）"></a>域名系统（Domain Name System， DNS）</h2><ul>
+<li>主要用于主机名字和和IP地址之间的映射</li>
+<li><strong>基于UDP</strong></li>
 </ul>
-<ol>
-<li>接下来新建一个项目练练手</li>
-</ol>
+</blockquote>
 <ul>
-<li>create a project<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果显示NO SDK， 找到之前安装的JDK所在路径，然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二行选择项目的存放路径，第一行给项目取个名字，然后Finish<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>右击src文件夹–&gt;new–&gt;java class<br><img src="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>给类取个名字，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><h3 id="简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><a href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）" class="headerlink" title="简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）"></a>简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</h3><ul>
+<li>简单名字：如 solaris或bsdi</li>
+<li>全限定域名：如 qjm253.top<ul>
+<li>严格来说FQDN最后必须以.结尾，但通常用户会省略。例如上面个域名严格来讲为： qjm253.top.</li>
+</ul>
 </li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行程序：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行成功，开始你的表演：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
+</li>
+<li><h3 id="资源记录"><a href="#资源记录" class="headerlink" title="资源记录"></a>资源记录</h3><ul>
+<li><strong>A</strong>：A记录把一个<strong>主机名映射成一个32位的IPv4地址</strong></li>
+<li><strong>AAAA</strong>：AAAA记录把一个<strong>主机名映射成一个128位的IPv6地址</strong></li>
+<li><strong>PTR</strong>：称为指针记录（pointer record）的PTR记录把<strong>IP地址映射成主机名</strong>（IPv4、IPv6）</li>
+<li><strong>MX</strong>：MX记录<strong>把一个主机指定作为个给定主机的“邮件交换器”（mail exchanger）</strong></li>
+<li><strong>CNAME</strong>：CNAME代表“canonical name”（规范名字），<strong>常用作为常用的服务指派CNAME记录</strong></li>
+</ul>
+</li>
+<li><h3 id="解析器和名字服务器（Resolvers-and-Name-Servers）"><a href="#解析器和名字服务器（Resolvers-and-Name-Servers）" class="headerlink" title="解析器和名字服务器（Resolvers and Name Servers）"></a>解析器和名字服务器（Resolvers and Name Servers）</h3><ul>
+<li>名字服务器：存储了域名和IP地址的对应关系</li>
+<li>解析器：客户端通过调用解析器中的函数来实现与DNS名字服务器的交互（实现名字与IP地址的转换）<img src="/img/unp_42.png" title="客户、解析器和名字服务器的典型关系">
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="gethostbyname函数"><a href="#gethostbyname函数" class="headerlink" title="gethostbyname函数"></a>gethostbyname函数</h2></blockquote>
+<ul>
+<li><h3 id="原型："><a href="#原型：" class="headerlink" title="原型："></a>原型：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 根据名字获取IPv4地址信息</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param 待转换的名字，如：qjm253.top</span></span><br><span class="line"><span class="comment">* @return 成功则返回非空指针，出错则返回NULL，并且设置h_errno</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct hostent *<span class="title">gethostbyname</span><span class="params">(<span class="keyword">const</span> chat *hostname)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* host entry 结构体，该结构中包含了所查找主机的所有IPv4地址信息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span>   *h_name;             <span class="comment">//正式主机名</span></span><br><span class="line">  <span class="keyword">char</span>  **h_aliases;          <span class="comment">//主机别名</span></span><br><span class="line">  <span class="keyword">int</span>     h_addrtype;         <span class="comment">//地址类型</span></span><br><span class="line">  <span class="keyword">int</span>     h_length;           <span class="comment">//地址长度，单位：byte</span></span><br><span class="line">  <span class="keyword">char</span>  **h_addr_list;        <span class="comment">//主机包含的IPv4地址列表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>hostent结构和它所包含的信息<img src="/img/unp_43.png" title="hostent结构和它所包含的信息"></li>
+</ul>
+</li>
+<li><h3 id="错误：h-errno"><a href="#错误：h-errno" class="headerlink" title="错误：h_errno"></a>错误：h_errno</h3><ul>
+<li>当调用gethostbyname出错时，便会设置h_errno的值为下列常值之一</li>
+<li><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><ul>
+<li>HOST_NOT_FOUND</li>
+<li>TRY_AGAIN</li>
+<li>NO_RECOVERY</li>
+<li>NO_DATA（等同于HOST_NOT_FOUND）</li>
+</ul>
+</li>
+<li>hstrerrno函数接收一个上述常值之一，返回错误的具体描述</li>
+</ul>
+</li>
+<li><h3 id="栗子："><a href="#栗子：" class="headerlink" title="栗子："></a>栗子：</h3><ul>
+<li><p>本程序与课本略有不同，简单的支持一个地址解析以及默认解析IPv4</p>
+<figure class="highlight c"><figcaption><span><br>&ensp; ghbn.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *ptr, **pptr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">hptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> str[INET_ADDRSTRLEN];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./ghbn &lt;IPAddress&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( (hptr = gethostbyname(argv[<span class="number">1</span>])) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        err_msg(<span class="string">"get hostbyname error for host %s : %s"</span>, argv[<span class="number">1</span>], hstrerror(h_errno));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"official hostname: %s\n"</span>, hptr-&gt;h_name);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_aliases; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\talist: %s\n"</span>, *pptr);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_addr_list; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"address: %s\n"</span>, Inet_ntop(AF_INET, *pptr, str, <span class="keyword">sizeof</span>(str)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们先来测试一下正常的情况</span></span><br><span class="line"><span class="comment">//可以很容易看出本博客是搭建在github上的，并且使用了一个作者自己的域名指向github上的域名</span></span><br><span class="line">输入：  ./ghbn qjm253.top</span><br><span class="line">输出：</span><br><span class="line">      official hostname: sni.github.<span class="built_in">map</span>.fastly.net</span><br><span class="line">      	alist: qjm253.top</span><br><span class="line">      	alist: sunnyqjm.github.io</span><br><span class="line">      address: <span class="number">151.101</span><span class="number">.77</span><span class="number">.147</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//再来测试一下域名不存在的情况</span></span><br><span class="line">输入： ./ghbn qjm253.top.c</span><br><span class="line">输出：</span><br><span class="line">      get hostbyname error <span class="keyword">for</span> host qjm253.top.c : Unknown host</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试一下域名存在，但是没有映射地址的情况</span></span><br><span class="line"><span class="comment">//qjm253.cn是作者的一个保留域名，目前还没有解析到任何地址</span></span><br><span class="line">输入： ./ghbn qjm253.cn</span><br><span class="line">输出：</span><br><span class="line">      get hostbyname error <span class="keyword">for</span> host qjm253.cn : No address associated with name</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -529,7 +485,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag"># Java</a>
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
           
         </div>
       
@@ -542,8 +504,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" rel="next" title="数据库笔记（三）">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（三）
+              <a href="/2018/01/06/super_c_h/" rel="next" title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）
               </a>
             
           </div>
@@ -551,10 +513,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" rel="prev" title="数据库笔记（四）">
-                数据库笔记（四） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -712,7 +670,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#JDK配置"><span class="nav-number">1.</span> <span class="nav-text">JDK配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#极其好用的IDE–-gt-IDEA"><span class="nav-number">2.</span> <span class="nav-text">极其好用的IDE–&gt;IDEA</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名系统（Domain-Name-System，-DNS）"><span class="nav-number">2.</span> <span class="nav-text">域名系统（Domain Name System， DNS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><span class="nav-number">2.1.</span> <span class="nav-text">简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源记录"><span class="nav-number">2.2.</span> <span class="nav-text">资源记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析器和名字服务器（Resolvers-and-Name-Servers）"><span class="nav-number">2.3.</span> <span class="nav-text">解析器和名字服务器（Resolvers and Name Servers）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyname函数"><span class="nav-number">3.</span> <span class="nav-text">gethostbyname函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型："><span class="nav-number">3.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误：h-errno"><span class="nav-number">3.2.</span> <span class="nav-text">错误：h_errno</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子："><span class="nav-number">3.3.</span> <span class="nav-text">栗子：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -879,7 +837,7 @@ var jiathis_config={
 		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/"});
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2018/01/06/super_c_i/"});
 		
 
 		(function() {

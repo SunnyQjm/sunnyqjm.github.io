@@ -303,6 +303,230 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/" itemprop="url">数据库笔记（补充）——分解算法浅析</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-11T00:00:00+08:00">
+                2017-11-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/" class="leancloud_visitors" data-flag-title="数据库笔记（补充）——分解算法浅析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>写在前面：今天笔者将会对BCNF和3NF分解算法做简要的分析，不过实际上大多数的分解用肉眼即可，以下分解算法不依赖于过多的条件可以直接讲一个满足1NF的模式分解为3NF或BCNF</p>
+<h2 id="BCNF-分解算法"><a href="#BCNF-分解算法" class="headerlink" title="BCNF 分解算法"></a>BCNF 分解算法</h2><ul>
+<li>教材上关于BCNF分解算法的伪代码实现有部分印错（本科教学版）</li>
+<li>该算法的结果是一个满足BCNF的无损分解，但可能不是保持依赖的（毕竟3NF是保持依赖并且可以满足无损分解的最高范式）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="伪代码实现"><a href="#伪代码实现" class="headerlink" title="伪代码实现"></a>伪代码实现</h3><p>对满足1NF的模式R<u, f="">作如下处理可分解成满足BCNF范式的模式R<sub>1</sub>, R<sub>2</sub>, …, R<sub>n</sub></u,></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">result := &#123;R&#125;;</span><br><span class="line">        done := <span class="keyword">false</span>;</span><br><span class="line">        计算F+;</span><br><span class="line">        <span class="keyword">while</span>(not done) <span class="keyword">do</span></span><br><span class="line">              <span class="keyword">if</span>(result中存在模式Ri不属于BCNF)</span><br><span class="line">              then begin</span><br><span class="line">                      令 α→β 为一个在Ri上成立的非平凡函数依赖，满足 α→β ∈ F+， 并且 α∩β  = ∅;</span><br><span class="line">                      result := (result - Ri) ∪ (Ri - β) ∪ (α, β)</span><br><span class="line">              end</span><br><span class="line">              <span class="keyword">else</span> done := <span class="keyword">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="先来分析一波上面的代码吧"><a href="#先来分析一波上面的代码吧" class="headerlink" title="先来分析一波上面的代码吧"></a>先来分析一波上面的代码吧</h3><ol>
+<li>首先令reslut = {R}</li>
+<li>接着计算一下F的函数闭包F<sup>+</sup>（计算函数闭包还是挺麻烦的，所以在下面判断的时候挑一个函数依赖，判断一下是否被F逻辑蕴含即可）</li>
+<li>然后判断结果集result中是否还存在哪个模式不满足BCNF范式，如果都满足，则直接跳到步骤5，如果存在某个模式 R<sub>i</sub> ∈ result，不满足BCNF范式，则执行步骤4</li>
+<li>选择一个在R<sub>i</sub>上成立的非平凡函数依赖 α→β，并且 α→β 属于 F<sup>+</sup>，并且α∩β=∅。然后将模式R<sub>i</sub>分解成两个模式，分别为 (R<sub>i</sub> - β) 和 (α, β)。并且将R<sub>i</sub>从result中移除，江新得到的两个模式添加到result中。接着回到步骤3继续判断</li>
+<li>分解完成，输出结果</li>
+</ol>
+</li>
+<li><h3 id="纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"><a href="#纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～" class="headerlink" title="纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～"></a>纸上学来终觉浅，让我们拿教材上的栗子出来刷一刷～～</h3><ul>
+<li>有模式class<u, f="">, 通过上述算法，对其进行满足BCNF范式的分解<ul>
+<li>U = {course_id, title, dept_name, credits. sec_id, semester, year, building, room_number, capticy, time_slot_id}</li>
+<li>F = {<br>course_id → (title, dept_name, credits),<br>(building, room_number)→capaticy,<br>(course_id, sec_id, semester, year)→(building, room_number, time_slot_id)<br>}</li>
+</ul>
+</u,></li>
+<li>首先还是看一下上面模式的候选码是什么吧（书上的栗子是直接给出来了，但是有些题可能不给，需要自己算）<ul>
+<li>通过上一篇博客讲的<a href="http://www.jianshu.com/p/e3eb1dcac59d" target="_blank" rel="noopener">候选码求解算法</a>，容易求得模式class的候选码为{course_id, sec_id, semester, year}</li>
+</ul>
+</li>
+<li>接着判断模式class是否满足BCNF范式<ul>
+<li>模式R中存在依赖 course_id → (title, dept_name, credits), 但course_id并不是R的一个超码，故R不满足BCNF范式</li>
+<li>对R做如下分解<ul>
+<li>course(course_id, title, dept_name, credits)</li>
+<li>class_1(course_id, credits. sec_id, semester, year, building, room_number, capticy, time_slot_id)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>继续判断，易知course是满足BCNF范式的，而course_1同理不满足BCNF范式， 继续分解<ul>
+<li>找到非平凡依赖(building, room_number)→capaticy， 且其属于F</li>
+<li>对class_1分解如下<ul>
+<li>classroom(building, room_number, capacity)</li>
+<li>section(course_id, credits. sec_id, semester, year, building, room_number,  time_slot_id)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>检测一下发现现在模式classroom和section也满足BCNF范式了</li>
+<li>OK，原来的模式class现在分解为如下三个模式<ul>
+<li>course(course_id, title, dept_name, credits)</li>
+<li>classroom(building, room_number, capacity)</li>
+<li>section(course_id, credits. sec_id, semester, year, building, room_number,  time_slot_id)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="3NF分解算法"><a href="#3NF分解算法" class="headerlink" title="3NF分解算法"></a>3NF分解算法</h2><p>以下分解算法中用到了正则覆盖的概念，这个笔者在之前的博客中也提到过，<a href="http://www.jianshu.com/p/78d16f97ef0c" target="_blank" rel="noopener">点我传送</a></p>
+<ul>
+<li>该分解算法可以保持依赖，并且是无损分解</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="伪代码实现-1"><a href="#伪代码实现-1" class="headerlink" title="伪代码实现"></a>伪代码实现</h3> <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">令Fc为F的正则覆盖;</span><br><span class="line">i:= <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> each Fc 中的函数依赖 α→β</span><br><span class="line">        i := i + <span class="number">1</span></span><br><span class="line">        Ri := αβ;</span><br><span class="line"><span class="keyword">if</span> 模式 Rj, j = <span class="number">1</span>, <span class="number">2</span>, ..., i 都不包含R的候选码</span><br><span class="line">then</span><br><span class="line">        i := i + <span class="number">1</span></span><br><span class="line">        Ri := R的任意候选码</span><br><span class="line"><span class="comment">/*(以下代码可选)用来移除冗余关系，如果没有冗余关系则可以不care*/</span></span><br><span class="line">repeat</span><br><span class="line">        <span class="keyword">if</span> 模式 Rj包含于另一个模式Rk中</span><br><span class="line">        then</span><br><span class="line">               <span class="comment">/*删除Rj*/</span></span><br><span class="line">               Rj := Ri</span><br><span class="line">                i := i - <span class="number">1</span></span><br><span class="line">until 不再有可以删除的Rj</span><br><span class="line"><span class="keyword">return</span> (R1, R2, ..., Ri)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="老规矩，还是先分析一下上面的伪代码"><a href="#老规矩，还是先分析一下上面的伪代码" class="headerlink" title="老规矩，还是先分析一下上面的伪代码"></a>老规矩，还是先分析一下上面的伪代码</h3><ol>
+<li>首先求出F的正则覆盖F<sub>c</sub>（实际上就是利用Amstrong公式化简原来的函数依赖集的过程）</li>
+<li>接着将F<sub>c</sub>中的每一个函数依赖单独分解成一个模式，得到一个模式列表S = {R<sub>1</sub>, R<sub>2</sub>, …, R<sub>i</sub>}</li>
+<li>如果上述模式列表S中的任意一个模式包含模式R的候选码，则跳到步骤5，否则执行步骤4</li>
+<li>选取R的任意一个候选码，组成一个新的模式R’, 将R’添加到模式列表S中</li>
+<li>（可选）如果模式列表中存在冗余（即某个模式被其他模式包含），则可以删除这个模式</li>
+<li>输出S</li>
+</ol>
+</li>
+<li><h3 id="讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"><a href="#讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提" class="headerlink" title="讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提"></a>讲真，3NF分解的步骤还是很简单的，主要还是计算一下F的正则覆盖，详细栗子就不举了，下面简单提一提</h3><ul>
+<li>比如上面分析BCNF分解算法时用到的模式class， 利用上述算法分解之后可以得到和 利用BCNF算法分解一样的结果</li>
+<li>所以，神奇的事情发生了，<strong>利用3NF分解算法得到的结果可能还会满足BCNF范式</strong></li>
+<li><strong>实践中BCNF分解的另一种途径</strong>： 先用3NF算法分解，然后对结果中不满足BCNF范式的模式用BCNF分解算法分解，如果结果不保持依赖，则回退回3NF</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1470,314 +1694,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/24/2017-10-24-2017级Android第一次例会/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/24/2017-10-24-2017级Android第一次例会/" itemprop="url">2017级Android第一次例会</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-24T00:00:00+08:00">
-                2017-10-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/24/2017-10-24-2017级Android第一次例会/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/10/24/2017-10-24-2017级Android第一次例会/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/10/24/2017-10-24-2017级Android第一次例会/" class="leancloud_visitors" data-flag-title="2017级Android第一次例会">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="Android-前世今生"><a href="#Android-前世今生" class="headerlink" title="Android 前世今生"></a>Android 前世今生</h2><table>
-<thead>
-<tr>
-<th style="text-align:center">版本名称</th>
-<th style="text-align:center">版本号</th>
-<th style="text-align:center">发布时间</th>
-<th style="text-align:center">API版本</th>
-<th style="text-align:center">官方支持状态</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Android (Alpha)</td>
-<td style="text-align:center">1.0</td>
-<td style="text-align:center">September 23, 2008</td>
-<td style="text-align:center">1</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Beta (Internally known as “Petit Four”)</td>
-<td style="text-align:center">1.1</td>
-<td style="text-align:center">February 9, 2009</td>
-<td style="text-align:center">2</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Cupcake（纸杯蛋糕）</td>
-<td style="text-align:center">1.5</td>
-<td style="text-align:center">April 27, 2009</td>
-<td style="text-align:center">3</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Donut（甜甜圈）</td>
-<td style="text-align:center">1.6</td>
-<td style="text-align:center">September 15, 2009</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Eclair（闪电泡芙）</td>
-<td style="text-align:center">2.0 – 2.1</td>
-<td style="text-align:center">October 26, 2009</td>
-<td style="text-align:center">5 – 7</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Froyo（冻酸奶）</td>
-<td style="text-align:center">2.2 – 2.2.3</td>
-<td style="text-align:center">May 20, 2010</td>
-<td style="text-align:center">8</td>
-<td style="text-align:center">不支持</td>
-<td></td>
-</tr>
-<tr>
-<td style="text-align:center">Gingerbread（姜饼）</td>
-<td style="text-align:center">2.3 – 2.3.7</td>
-<td style="text-align:center">December 6, 2010</td>
-<td style="text-align:center">9 – 10</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Honeycomb（蜂巢）</td>
-<td style="text-align:center">3.0 – 3.2.6</td>
-<td style="text-align:center">February 22, 2011</td>
-<td style="text-align:center">11 – 13</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Ice Cream Sandwich（冰淇淋三明治）</td>
-<td style="text-align:center">4.0 – 4.0.4</td>
-<td style="text-align:center">October 18, 2011</td>
-<td style="text-align:center">14 – 15</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Jelly Bean（果冻豆）</td>
-<td style="text-align:center">4.1 – 4.3.1</td>
-<td style="text-align:center">July 9, 2012</td>
-<td style="text-align:center">16 – 18</td>
-<td style="text-align:center">不支持</td>
-</tr>
-<tr>
-<td style="text-align:center">KitKat（奇巧巧克力棒）</td>
-<td style="text-align:center">4.4 – 4.4.4</td>
-<td style="text-align:center">October 31, 2013</td>
-<td style="text-align:center">19</td>
-<td style="text-align:center">支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Lollipop（棒棒糖）</td>
-<td style="text-align:center">5.0 – 5.1.1</td>
-<td style="text-align:center">November 12, 2014</td>
-<td style="text-align:center">21 – 22</td>
-<td style="text-align:center">支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Marshmallow（棉花糖）</td>
-<td style="text-align:center">6.0 – 6.0.1</td>
-<td style="text-align:center">October 5, 2015</td>
-<td style="text-align:center">23</td>
-<td style="text-align:center">支持</td>
-</tr>
-<tr>
-<td style="text-align:center">Nougat（牛轧糖）</td>
-<td style="text-align:center">7.0 – 7.1.2</td>
-<td style="text-align:center">August 22, 2016</td>
-<td style="text-align:center">24 – 25</td>
-<td style="text-align:center">支持</td>
-</tr>
-<tr>
-<td style="text-align:center">O/Oreo（奥利奥）</td>
-<td style="text-align:center">8.0</td>
-<td style="text-align:center">August 22, 2017</td>
-<td style="text-align:center">26</td>
-<td style="text-align:center">支持</td>
-</tr>
-</tbody>
-</table>
-<h2 id="开发语言"><a href="#开发语言" class="headerlink" title="开发语言"></a>开发语言</h2><p>组里主要以Java语言为主，同时会介绍一些Kotlin开发Android。<br>90% Java + 10% Kotlin</p>
-<ul>
-<li>Java</li>
-<li>Kotlin</li>
-<li>C++</li>
-<li>…<h2 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h2></li>
-<li>Eclipse（拒绝）</li>
-<li>Visual Studio</li>
-<li>Android Studio(推荐)<ul>
-<li>2.3（稳定版）==&gt;不支持Kotlin</li>
-<li>3.0（pre）==&gt;支持Kotlin，对Java8有较好的支持<h2 id="Java-环境配置："><a href="#Java-环境配置：" class="headerlink" title="Java 环境配置："></a>Java 环境配置：</h2>Kotlin 可以基于JVM，不需要额外配置，IDEA中可直接创建Kotlin项目</li>
-</ul>
-</li>
-<li><a href="http://www.jianshu.com/p/21abe20aadf2" target="_blank" rel="noopener">点此传送进行Java环境配置</a>（<a href="http://www.jianshu.com/p/21abe20aadf2）" target="_blank" rel="noopener">http://www.jianshu.com/p/21abe20aadf2）</a><ul>
-<li>最好是下专业版IDEA（专业版需要注册码，可以用学校邮箱注册学生账号，可免费一年，过期需要手动再次激活）</li>
-</ul>
-</li>
-<li>Java书籍推荐<ul>
-<li>入门：《Java核心技术 卷Ⅰ》、《疯狂Java讲义》</li>
-<li>进阶：《Java编程思想》、《Java核心技术 卷Ⅱ》</li>
-<li>强烈安利：《Effective Java》（这本书建议对Java有一定的熟悉程度，并有一定开发经验之后再看，会受益匪浅）</li>
-</ul>
-</li>
-<li>电子书资源：<ul>
-<li><a href="http://pan.baidu.com/s/1boXCxbT" target="_blank" rel="noopener">点我下载</a>（<a href="http://pan.baidu.com/s/1boXCxbT）" target="_blank" rel="noopener">http://pan.baidu.com/s/1boXCxbT）</a><h2 id="Android环境配置"><a href="#Android环境配置" class="headerlink" title="Android环境配置"></a>Android环境配置</h2></li>
-</ul>
-</li>
-<li><a href="https://developers.google.cn/" target="_blank" rel="noopener">Google Developer </a>（<a href="https://developers.google.cn/）" target="_blank" rel="noopener">https://developers.google.cn/）</a><ul>
-<li><a href="https://developer.android.google.cn/index.html" target="_blank" rel="noopener">Google Android Developer</a></li>
-</ul>
-</li>
-<li>IDE 下载：<ul>
-<li>建议下载最新的Android Studio3.0预览版（稳定版和预览版可以共存，所以你也可以2.3和3.0都装）</li>
-<li><a href="https://developer.android.google.cn/studio/archive.html" target="_blank" rel="noopener">官网下载 </a></li>
-<li><a href="http://www.android-studio.org/" target="_blank" rel="noopener">Android中文社区，可下载2.3.3和3.0预览版稳定版AS</a>（<a href="http://www.android-studio.org/）" target="_blank" rel="noopener">http://www.android-studio.org/）</a></li>
-</ul>
-</li>
-<li>环境配置<ul>
-<li><a href="http://blog.csdn.net/siwuxie095/article/details/53431818" target="_blank" rel="noopener">CSDN教程</a></li>
-<li><a href="http://www.jikexueyuan.com/course/636.html" target="_blank" rel="noopener">极客学院视频教程</a></li>
-</ul>
-</li>
-<li><a href="http://ke.jikexueyuan.com/zhiye/android/" target="_blank" rel="noopener">极客学院视频</a></li>
-<li><a href="http://pan.baidu.com/s/1gfozi4z" target="_blank" rel="noopener">极客学院离线视频资源</a></li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1832,7 +1748,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -582,6 +582,328 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/04/super_c_d/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/super_c_d/" itemprop="url">高级C与网络编程复习（4）—— 基本套接字函数（Elementary Sockets Functions）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T00:00:00+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/04/super_c_d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/04/super_c_d/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/04/super_c_d/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（4）—— 基本套接字函数（Elementary Sockets Functions）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <img src="/img/unp_14.png" title="基本TCP客户/服务器程序的套接字函数">
+<blockquote>
+<h2 id="socket函数"><a href="#socket函数" class="headerlink" title="socket函数"></a>socket函数</h2></blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 该函数用于创建一个socket套接字</span></span><br><span class="line"><span class="comment">* @param domin    协议族/地址族</span></span><br><span class="line"><span class="comment">* @param type     套接字的类型</span></span><br><span class="line"><span class="comment">*                 SOCK_STREAM ==&gt; TCP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_DGRAM  ==&gt; UDP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_RAW    ==&gt; RAW套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_PACKET ==&gt; 可用于创建路由套接字等</span></span><br><span class="line"><span class="comment">* @param protocol 指定协议</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         返回一个socket描述符 sockfd</span></span><br><span class="line"><span class="comment">*                 sockfd &lt; 0  ==&gt; 创建失败</span></span><br><span class="line"><span class="comment">*                 sockfd &gt;= 0 ==&gt; 创建成功，之后可用该sockfd进行IO操作</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> family, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>family 常值<img src="/img/unp_15.png" title="socket函数的family常值"></li>
+<li>type 常值<img src="/img/unp_16.png" title="socket函数的type常值"></li>
+<li>protocol 常值<img src="/img/unp_17.png" title="socket函数的AF_INET或AF_INET6的常值"></li>
+<li>socket函数中的family不是任意组合都是有效的，下面是组合效果：<img src="/img/unp_18.png" title="socket函数中family和type参数的组合">
+</li>
+</ul>
+<blockquote>
+<h2 id="AF-XXX-和-PF-XXX"><a href="#AF-XXX-和-PF-XXX" class="headerlink" title="AF_XXX 和 PF_XXX"></a>AF_XXX 和 PF_XXX</h2></blockquote>
+<ul>
+<li><strong>AF_</strong>前缀表示<strong>地址族</strong>，<strong>PF_</strong>前缀表示<strong>协议族</strong></li>
+<li>历史上曾有这样的想法：单个协议族可以支持多个地址族，PF<em>值用来创建套接字，而AF</em>值用于套接字地址结构。</li>
+<li>但实际上，支持多个地址族的协议从未出现过，而且<strong>头文件 &lt;sys/socket.h&gt;中为一给定协议定义的PF<em>值总是与此协议的AF</em>值相等</strong></li>
+</ul>
+<blockquote>
+<h2 id="connect函数"><a href="#connect函数" class="headerlink" title="connect函数"></a>connect函数</h2></blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**T</span></span><br><span class="line"><span class="comment">* 该函数用于建立与指定socket的连接</span></span><br><span class="line"><span class="comment">* @param sockfd       一个未连接的socket的描述符</span></span><br><span class="line"><span class="comment">* @param sockaddr     指向要连接的套接字的sockaddr结构体的指针</span></span><br><span class="line"><span class="comment">* @param addrlen      上述sockaddr结构体的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         成功则返回0, 失败返回-1, 错误原因存于errno 中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr * servaddr, <span class="keyword">int</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果是<strong>TCP套接字</strong>，调用<strong>connect</strong>函数将<strong>激发TCP的三路握手过程</strong>。而且<strong>仅在连接建立成功或出错时才返回</strong></li>
+<li><h3 id="connect错误："><a href="#connect错误：" class="headerlink" title="connect错误："></a>connect错误：</h3><ul>
+<li>ETIMEOUT（超时错误）: TCP客户<strong>没有</strong>收到对发出的SYN分节的<strong>响应</strong></li>
+<li>ECONNREFUSED（连接拒绝错误）：客户在发出SYN分节后收到<strong>RST响应</strong><ul>
+<li>表明服务器主机在我们指定的端口上没有进程在等待与之连接（通常是服务器进程没有在运行，或者是客户端连接的时候指定了错误的端口号）</li>
+<li>或TCP向取消一个已有的连接</li>
+<li>或TCP接收到一个根本不存在的连接上的分节</li>
+<li><strong>硬错误</strong>（hard error）</li>
+</ul>
+</li>
+<li>EHOSTUNREACH或ENETUNREACH（主机不可达或）<ul>
+<li>客户咋中间的某个路由器上引发了一个“destination unreachable”（目的地不可达）ICMP错误</li>
+<li>并且在某个规定时间（4.4BSD规定75s）内仍未收到响应</li>
+<li><strong>软错误</strong>（soft error）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><ul>
+<li>TCP状态转换图<img src="/img/unp_4.png" title="TCP状态转换图"></li>
+<li>connect函数导致当前你套接字从CLOSED状态（该套接字自从由socket函数创建以来，一直处于CLOSED状态）转移到SYN_SENT状态</li>
+<li>如果连接成功则转移到ESTABLISHED状态</li>
+<li><strong>若connect失败，则该套接字不可再用</strong>，必须关闭，我们不能对这样的套接字再次调用connect函数</li>
+<li>当循环调用函数connect为给定主机尝试各个IP地址直到有一个成功时，在<strong>每次connect失败后，都必须close当前的套接字描述符</strong>并重新调用socket</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="bind函数"><a href="#bind函数" class="headerlink" title="bind函数"></a>bind函数</h2><ul>
+<li><strong>bind函数把一个本地协议地址赋予一个套接字</strong></li>
+<li>对于网际协议，协议地址是32位的IPv4地址或128位IDEIPv6地址与16位的TCP或UDP端口号的组合</li>
+<li>调用bind函数可以指定一个端口号，或指定一个IP地址，也可以两者都指定或两者都不指定</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****</span></span><br><span class="line"><span class="comment">*  sockfd：   标识一未捆绑套接口的描述字。</span></span><br><span class="line"><span class="comment">*  my_addr：  赋予套接口的地址。sockaddr结构定义如下：</span></span><br><span class="line"><span class="comment">*             struct sockaddr&#123;</span></span><br><span class="line"><span class="comment">*               u_short sa_family;</span></span><br><span class="line"><span class="comment">*               char sa_data[14];</span></span><br><span class="line"><span class="comment">*             &#125;;</span></span><br><span class="line"><span class="comment">*  addrlen：  my_addr的长度。</span></span><br><span class="line"><span class="comment">*  返回值：    成功返回0，失败返回-1.</span></span><br><span class="line"><span class="comment">****/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">( <span class="keyword">int</span> sockfd , <span class="keyword">const</span> struct sockaddr * my_addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="端口的绑定"><a href="#端口的绑定" class="headerlink" title="端口的绑定"></a>端口的绑定</h3><ul>
+<li>通常用于<strong>服务器在启动的时候捆绑他们众所周知的端口</strong></li>
+<li>对于客户机，不调用bind绑定端口，而是在发送消息的时候由内核临时分配一个端口，这是正常的</li>
+<li>而对于服务器而言，不绑定端口是极为罕见的</li>
+</ul>
+</li>
+<li><h3 id="地址的绑定"><a href="#地址的绑定" class="headerlink" title="地址的绑定"></a>地址的绑定</h3><ul>
+<li><strong>进程</strong>可以<strong>把</strong>一个<strong>特定的IP地址绑定到它的套接字</strong>上，不过这个IP必须属于其所在主机的网络接口之一</li>
+<li>对于<strong>客户端</strong>而言，<strong>绑定IP地址</strong>就相当于<strong>为该套接字上发送IP数据报指定了源IP地址</strong></li>
+<li>对于<strong>服务器</strong>而言，<strong>绑定IP地址</strong>就相当于<strong>限定该套接字只能接收那些目的地为这个IP地址的客户连接</strong></li>
+</ul>
+</li>
+<li><h3 id="给bind函数指定要捆绑的IP地址和端口号产生的结果"><a href="#给bind函数指定要捆绑的IP地址和端口号产生的结果" class="headerlink" title="给bind函数指定要捆绑的IP地址和端口号产生的结果"></a>给bind函数指定要捆绑的IP地址和端口号产生的结果</h3><img src="/img/unp_19.png" title="给bind函数指定要捆绑的IP地址和端口号产生的结果"></li>
+<li><h3 id="通配地址-wildcard-address"><a href="#通配地址-wildcard-address" class="headerlink" title="通配地址(wildcard address)"></a>通配地址(wildcard address)</h3><ul>
+<li><p>IPv4: INADDR_ANY</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IPv4</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);   <span class="comment">//wildcard</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IPv6: in6addr_any</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IPv6</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in6</span> <span class="title">serv</span>;</span></span><br><span class="line">serv.sin6_addr = in6addr_any;               <span class="comment">//wildcard</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><ul>
+<li>EADDRINUSE(“Address already in use”, 地址已使用)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="listen函数"><a href="#listen函数" class="headerlink" title="listen函数"></a>listen函数</h2><p><strong>仅由TCP服务器调用</strong>，它做两件事情</p>
+<ul>
+<li>当<strong>socket函数创建</strong>一个套接字时，它被假设为<strong>一个主动套接字</strong>(active socket)，也就是说，它是一个将调用connect发起连接的客户套接字。<strong>listen函数把</strong>一个<strong>未连接的套接字转换成一个被动套接字</strong>，之后是内核应接收指向该套接字的连接请求。</li>
+<li>本函数的第二个参数规定了内核应该为相应套接字排队的最大连接个数</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="调用时机"><a href="#调用时机" class="headerlink" title="调用时机"></a>调用时机</h3><ul>
+<li>本函数通常应该在调用socket和bind这两个函数以后，并在调用accept函数之前调用</li>
+</ul>
+</li>
+<li><h3 id="内核为任何一个给定的监听套接字维护两个队列"><a href="#内核为任何一个给定的监听套接字维护两个队列" class="headerlink" title="内核为任何一个给定的监听套接字维护两个队列"></a>内核为任何一个给定的监听套接字维护两个队列</h3><img src="/img/unp_20.png" title="TCP为监听套接字维护的两个队列">
+<ul>
+<li>为完成连接队列（incomplete connection queue）：服务器收到请求的SYN分节，并且正在等待完成相应的TCP三路握手过程。<strong>这些套接字处于SYN_RCVD状态</strong></li>
+<li>已完成连接队列（completed connection queue）：每个已完成TCP三路握手过程的客户对应其中的一项。<strong>这些套接字处于ESTABLISHED状态</strong></li>
+<li><a href="../../03/super_c_b#TCP状态转换图">点我可查看TCP状态转换图</a></li>
+</ul>
+</li>
+<li><h3 id="两个队列的建立时机"><a href="#两个队列的建立时机" class="headerlink" title="两个队列的建立时机"></a>两个队列的建立时机</h3><img src="/img/unp_21.png" title="TCP三路握手和监听套接字的两个队列">
+</li>
+</ul>
+<blockquote>
+<h2 id="accept函数"><a href="#accept函数" class="headerlink" title="accept函数"></a>accept函数</h2><ul>
+<li><strong>accpet函数</strong>由TCP服务器调用，用于<strong>从已完成连接队列头返回一个已完成连接</strong></li>
+<li>如果已完成连接队列为空，那么进程将被投入睡眠（假定套接字为默认的阻塞方式）</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后两个参数为Value-Result参数 ==&gt; <a href="../super_c_c#值-结果参数（Value-Result-Argument）">点我查看Value-Result参数详情</a></li>
+</ul>
+<blockquote>
+<h2 id="fork和exec函数"><a href="#fork和exec函数" class="headerlink" title="fork和exec函数"></a>fork和exec函数</h2></blockquote>
+<ul>
+<li><h3 id="fork函数"><a href="#fork函数" class="headerlink" title="fork函数"></a>fork函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用fork函数创建一个新进程，与当前进程并行执行</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 在子进程中为0，在父进程中为子进程ID，若出错返回-1</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">pid_t</span> fork(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>fork函数是Unix中派生新进程的唯一方法</strong></li>
+<li><strong>调用一次，返回两次</strong>。返回值告知当前进程是子进程还是父进程</li>
+<li>子进程可通过geippid获取父进程的id</li>
+<li>父进程fork之前打开的<strong>所有文件描述符都会copy一份给子进程</strong>（各个<a href="./#描述符引用计数">描述符的引用计数</a>加1）</li>
+<li>两个典型用法：<ul>
+<li>创建自身副本，每个副本并行执行各自的操作</li>
+<li>一个进程想要执行另一个程序，则fork一下，在子进程调用exec执行其它程序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="exec函数"><a href="#exec函数" class="headerlink" title="exec函数"></a>exec函数</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ... <span class="comment">/*(char*)*/</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">char</span>* <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>存放在硬盘上的可执行程序文件能够被Unix执行的唯一方法是：由一个现有的进程调用上述6个exec函数中的一个</li>
+<li>exec把当前进程映像替换成新的程序文件，而且该程序通常从main函数开始执行。进程ID不改变</li>
+<li>我们称调用exec的进程为<strong>调用进程</strong>（calling process），称新执行的程序为<strong>新程序</strong>（new program）</li>
+<li>这些函数只在出错时才返回到调用跟着，否则，控制将被传递给新程序的起始点，通常就是main函数</li>
+<li>6个exec函数的关系<img src="/img/unp_22.png" title="6个exec函数的关系">
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="描述符引用计数"><a href="#描述符引用计数" class="headerlink" title="描述符引用计数"></a>描述符引用计数</h2></blockquote>
+<ul>
+<li>Unix系统内核为每个文件描述符（包括socket fd）维护一个<strong>引用计数</strong>,这个引用计数标识当前打开着的引用该文件或套接字的描述符的个数</li>
+<li>当某个<strong>文件描述符或套接字描述符关闭的时候</strong>，不是直接关闭文件或套接字，而是<strong>引用计数减1</strong>，当引用计数减到0的时候执行关闭操作</li>
+<li>需要注意的是：如果多个进程同时拥有指向同一个文件或套接字的描述符。且其中一个没有关闭（并且不再使用了），则就算其他文件描述符都关闭了，这个文件或套接字也不会关闭。就会造成内存泄露</li>
+<li><p>举个栗子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pid_t</span> pid;</span><br><span class="line"><span class="keyword">int</span> listenfd, connfd;</span><br><span class="line">listenfd = Socket(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*fill in sockaddr_in&#123;&#125; with server's well-know port*/</span></span><br><span class="line"></span><br><span class="line">Bind(listenfd, ...)</span><br><span class="line">Listen(listenfd, LISTENQ);</span><br><span class="line"><span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">  connfd = Accept(listenfd, ...);</span><br><span class="line">  <span class="keyword">if</span>( (pid = Fork()) == <span class="number">0</span> )&#123;        <span class="comment">//子进程</span></span><br><span class="line">    Close(listenfd);</span><br><span class="line">    doit(connfd);</span><br><span class="line">    Close(connfd);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  Close(connfd);                    <span class="comment">//父进程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面的代码中，调用了fork之后，connfd和listenfd在父子进程中都有一份</li>
+<li>所以在父进程中，只用处理listenfd，故关掉connfd</li>
+<li>在子进程中，只用处理connfd，故关掉listenfd</li>
+<li><strong>试想</strong>：如果父进程中没有关闭connfd，则就算子进程执行完毕，connfd关联的套接字的引用计数还是不为0，所以一直不会释放。连接多了之后，每个连接的socket都不释放，慢慢的服务器内存就炸了。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="close函数"><a href="#close函数" class="headerlink" title="close函数"></a>close函数</h2></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通常Unix close函数也用来光比套接字，并终止TCP序列</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return    0 ==&gt; 成功</span></span><br><span class="line"><span class="comment">*           -1 ==&gt; 出错</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> sockfd)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通常close函数的默认行为是<strong>把该套接字标记成已关闭</strong>，然后立即返回</li>
+<li>被标记的套接字<strong>不能再被进程使用</strong>，即不能read/write</li>
+<li>然后<strong>尝试将缓存或队列中所有的Message发出</strong></li>
+<li>接着就是<strong>正常的TCP终止序列</strong></li>
+</ul>
+<blockquote>
+<h2 id="gesockname-和-getpeername-函数"><a href="#gesockname-和-getpeername-函数" class="headerlink" title="gesockname 和 getpeername 函数"></a>gesockname 和 getpeername 函数</h2></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 返回与sockfd关联的本地协议地址</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsockname</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *localaddr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 返回与sockfd关联的外地协议地址</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getpeername</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *peeraddr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中，两个函数的后两个参数均为<a href="../super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a></li>
+<li>可以<strong>用getsockname获取内核为我们分配的地址或端口号</strong></li>
+<li><strong>getsockname</strong>还可以用于<strong>获取</strong>某个套接字的<strong>协议族</strong></li>
+<li>上面两个函数中的第一个参数<strong>sockfd必须是已连接的套接字描述符</strong></li>
+<li>当服务器进程通过accept的某个进程通过调用exec执行程序时，getpeername是唯一可以用来获取对端设备地址信息的函数</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/03/super_c_b/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1140,7 +1462,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（k）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1159,7 +1481,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="url">软件工程复习（十一）</a></h1>
+                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（j）/" itemprop="url">软件工程复习（十）</a></h1>
         
 
         <div class="post-meta">
@@ -1191,8 +1513,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（k）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（j）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（j）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1201,7 +1523,7 @@
 
           
           
-             <span id="/2017/12/31/2017-12-31-软件工程复习（k）/" class="leancloud_visitors" data-flag-title="软件工程复习（十一）">
+             <span id="/2017/12/31/2017-12-31-软件工程复习（j）/" class="leancloud_visitors" data-flag-title="软件工程复习（十）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1235,384 +1557,160 @@
         
           
             <blockquote>
-<h2 id="设计原则-（understanding）"><a href="#设计原则-（understanding）" class="headerlink" title="设计原则 （understanding）"></a>设计原则 （understanding）</h2></blockquote>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><p>OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式</p>
+<h2 id="面向对象的设计准则"><a href="#面向对象的设计准则" class="headerlink" title="面向对象的设计准则"></a>面向对象的设计准则</h2></blockquote>
 <ul>
-<li>面向接口编程</li>
-<li>依赖倒置</li>
-<li>组合优于继承</li>
-<li>单一职责</li>
-<li>开放——封闭</li>
-<li>Liskov替换</li>
+<li>模块化</li>
+<li>抽象</li>
+<li>信息隐藏</li>
+<li>弱耦合</li>
+<li>强内聚</li>
+<li>可重用</li>
 </ul>
 <blockquote>
-<h2 id="面向接口编程-Program-to-An-interface-Not-An-Implementation"><a href="#面向接口编程-Program-to-An-interface-Not-An-Implementation" class="headerlink" title="面向接口编程(Program to An interface, Not An Implementation)"></a>面向接口编程(Program to An interface, Not An Implementation)</h2><ul>
-<li>使用“接口继承”，而非“实现继承”</li>
-<li><strong>接口</strong>关注对象的概貌，将对象中<strong>“不变”的信息抽象</strong>出来，不涉及细节，因此<strong>是“稳定”的</strong></li>
+<h2 id="启发规则"><a href="#启发规则" class="headerlink" title="启发规则"></a>启发规则</h2></blockquote>
+<ul>
+<li><h3 id="设计结果应该清晰易懂"><a href="#设计结果应该清晰易懂" class="headerlink" title="设计结果应该清晰易懂"></a>设计结果应该清晰易懂</h3></li>
+<li><h3 id="提高软件可维护性和可重用性重要措施"><a href="#提高软件可维护性和可重用性重要措施" class="headerlink" title="提高软件可维护性和可重用性重要措施"></a>提高软件可维护性和可重用性重要措施</h3><ul>
+<li>用词一致</li>
+<li>使用已有的协议（重载）</li>
+<li>减少消息模式的数目</li>
+<li>避免模糊的定义</li>
 </ul>
+</li>
+<li><h3 id="一般—特殊结构的深度应适当"><a href="#一般—特殊结构的深度应适当" class="headerlink" title="一般—特殊结构的深度应适当"></a>一般—特殊结构的深度应适当</h3><ul>
+<li>应该使类等级中包含的层次数适当</li>
+</ul>
+</li>
+<li><h3 id="设计简单的类"><a href="#设计简单的类" class="headerlink" title="设计简单的类"></a>设计简单的类</h3><ul>
+<li>尽量设计小而简单的类，便于开发管理<ul>
+<li>避免包含过多的属性</li>
+<li>有明确的定义</li>
+<li>尽量简化对象之间的合作关系</li>
+<li>不要提供太多服务（保持适当内聚的基础上）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="使用简单的协议"><a href="#使用简单的协议" class="headerlink" title="使用简单的协议"></a>使用简单的协议</h3></li>
+<li><h3 id="使用简单的服务"><a href="#使用简单的服务" class="headerlink" title="使用简单的服务"></a>使用简单的服务</h3></li>
+<li><h3 id="把设计变动减至最小（结构稳定）"><a href="#把设计变动减至最小（结构稳定）" class="headerlink" title="把设计变动减至最小（结构稳定）"></a>把设计变动减至最小（结构稳定）</h3></li>
+</ul>
+<blockquote>
+<h2 id="架构模式（Architecture-Patterns）"><a href="#架构模式（Architecture-Patterns）" class="headerlink" title="架构模式（Architecture Patterns）"></a>架构模式（Architecture Patterns）</h2><p>An architectural pattern is a proven structural organization schema for software systems（架构模式是指用于软件系统中经实践证明的机构化的组织格式化） <br><br>层次、CS、MVC、Pipe-Filter、Master-slave</p>
 </blockquote>
 <ul>
-<li><p>Example:</p>
- <img src="/img/se_94.jpg"></li>
-<li><h3 id="面向接口的好处："><a href="#面向接口的好处：" class="headerlink" title="面向接口的好处："></a>面向接口的好处：</h3><ul>
-<li><strong>Client只需关注如何进行业务活动</strong>（如：驾驶），而不必关心其使用对象的具体实现</li>
-<li>一个对象可以很<strong>容易</strong>地被（实现了相同接口的）另一个对象所<strong>替换</strong></li>
-<li>对象间的连接不必硬绑定（hard wire）到一个具体类的对象上，因此<strong>增加了灵活性</strong></li>
-<li>松散耦合，<strong>增加了重用的可能性</strong></li>
+<li><h3 id="层次架构"><a href="#层次架构" class="headerlink" title="层次架构"></a>层次架构</h3><ul>
+<li>eg: 网络协议（OSI/ISO 七层模型）<img src="/img/se_91.jpg"></li>
+<li>每层向上层提供服务</li>
+<li>越低层越稳定</li>
+<li>职责分离，每层可独立开发</li>
+<li>提供给上层高的抽象接口不容易写</li>
+<li>低层可能做一些高层用不到的功能</li>
 </ul>
 </li>
-</ul>
-<blockquote>
-<h2 id="依赖倒置（Dependency-Inversion-Principle）"><a href="#依赖倒置（Dependency-Inversion-Principle）" class="headerlink" title="依赖倒置（Dependency Inversion Principle）"></a>依赖倒置（Dependency Inversion Principle）</h2></blockquote>
-<ul>
-<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象</li>
-<li>依赖倒置原则使细节和具体实现都依赖于抽象，抽象的稳定性决定了系统的稳定性</li>
-<li>Example：<img src="/img/se_95.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="组合优于继承-（Favor-Composition-Over-Inheritance-）"><a href="#组合优于继承-（Favor-Composition-Over-Inheritance-）" class="headerlink" title="组合优于继承 （Favor Composition Over Inheritance ）"></a>组合优于继承 （Favor Composition Over Inheritance ）</h2><ul>
-<li>继承：OO特点之一</li>
-<li>组合：任务委托</li>
-<li>二者：都是面向对象设计中用于重用的方法</li>
-<li>开发早期，继承经常被过度使用</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="使用继承的问题："><a href="#使用继承的问题：" class="headerlink" title="使用继承的问题："></a>使用继承的问题：</h3><img src="/img/se_96.jpg"></li>
-<li><h3 id="组合优于继承－设计改进"><a href="#组合优于继承－设计改进" class="headerlink" title="组合优于继承－设计改进"></a>组合优于继承－设计改进</h3><ul>
-<li>优先使用组合可获得重用性与简单性更佳的设计</li>
-<li>配合使用继承，扩充可用的组合类集，加大重用的范围<br>&lt;% img /img/se_97.jpg %&gt;</li>
-</ul>
-</li>
-<li><h3 id="何时使用继承？"><a href="#何时使用继承？" class="headerlink" title="何时使用继承？"></a>何时使用继承？</h3><ul>
-<li>子类表达了“是一个父类的特殊类型”，而非“是一个由父类所扮演的角色”</li>
-<li>子类的一个实例永远不需要转化为其它类的一个对象</li>
-<li>子类是对其父类的职责进行扩展，而非重写或废除（LSP）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="单一职责——Single-responsibility-Principle"><a href="#单一职责——Single-responsibility-Principle" class="headerlink" title="单一职责——Single responsibility Principle"></a>单一职责——Single responsibility Principle</h2><ul>
-<li>所谓职责，可理解为功能，就是设计的类功能应该只有一个，而不是两个或更多</li>
-<li>职责也可以理解为引起变化的原因：<strong>当一个类中有两个以上的变化方向，会产生过多的变化点</strong><img src="/img/se_98.jpg">
-</li>
-</ul>
-</blockquote>
-<ul>
-<li>Example:<img src="/img/se_99.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP"><a href="#开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP" class="headerlink" title="开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)"></a>开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)</h2><ul>
-<li>OCP认为应该<strong>试图设计出永远也不需要改变的模块</strong></li>
-<li><strong>可以</strong>添加新代码来<strong>扩展</strong>系统的行为；<strong>不能</strong>对已有的代码进行<strong>修改</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="OCP模块标准"><a href="#OCP模块标准" class="headerlink" title="OCP模块标准"></a>OCP模块标准</h3><ul>
-<li>模块的行为可以被扩展，以需要满足新的需求</li>
-<li>模块的源代码是不允许进行改动的</li>
-</ul>
-</li>
-<li>一个软件系统的所有模块<strong>不可能都满足</strong>OCP，但是应该努力<strong>最小化</strong>这些<strong>不满足OCP的模块数量</strong></li>
-<li><strong>OCP法则是OO设计的真正核心</strong></li>
-<li>符合该法则便意味着最高等级的复用性和可维护性</li>
-<li>一个OCP栗子：<img src="/img/se_100.jpg"></li>
-<li>改进<img src="/img/se_101.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="Liskov替换原则"><a href="#Liskov替换原则" class="headerlink" title="Liskov替换原则"></a>Liskov替换原则</h2><ul>
-<li>使用指向基类（超类）的引用的函数，必须能够在不知道具体派生类（子类）对象类型的情况下使用它们 ==&gt; <strong>在任何父类出现的地方，都可以用子类替换（包括逻辑上和语义上）</strong></li>
-<li>LSP是根据对象的“多态”而得出的</li>
-<li>但在实现子类时必须要谨慎对待，以确保不会无意中违背了LSP</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="一个违背Liskov原则的栗子"><a href="#一个违背Liskov原则的栗子" class="headerlink" title="一个违背Liskov原则的栗子"></a>一个违背Liskov原则的栗子</h3><img src="/img/se_102.jpg">
-<ul>
-<li>对于下面的代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Rectangle类声明如下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> width;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> height;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">double</span> w)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.width = w;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">double</span> h)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = h;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> width * height</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接用Rectangle类, 输出200</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br><span class="line"></span><br><span class="line"><span class="comment">//将Rectangle换成其子类Square，输出为400</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Square(<span class="number">0</span>);</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br></pre></td></tr></table></figure>
+<li><h3 id="MVC架构"><a href="#MVC架构" class="headerlink" title="MVC架构"></a>MVC架构</h3><ul>
+<li>model: 核心功能和数据（是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据）</li>
+<li>view： 向用户展示信息（是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的）</li>
+<li>controller： 处理用户的输入（是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据）</li>
+<li><strong>用于交互式系统</strong><img src="/img/se_92.jpg"></li>
+<li>控制流程<img src="/img/se_93.jpg">
 </li>
 </ul>
 </li>
-<li><h3 id="LSP的保证"><a href="#LSP的保证" class="headerlink" title="LSP的保证"></a>LSP的保证</h3><ul>
-<li>LSP表明了ISA关系是与对象行为有关的</li>
-<li>一个子类型不得具有比基更多的限制，这是因为可能对于基类型的某些使用是合法的，但是会因为违背子类型的其中一个额外限制，从而违背了LSP</li>
-<li>一个简单的做法是不要将基类中子类不需要的函数暴露给子类</li>
+<li><h3 id="CS架构"><a href="#CS架构" class="headerlink" title="CS架构"></a>CS架构</h3><ul>
+<li>Server组件向多个client提供服务</li>
+<li>客户端通过向服务器请求得到服务</li>
+<li>请求是在进程和机器边界上完成的<ul>
+<li>采用进程间通信机制</li>
+<li>而层级架构则是横跨进程和机器边界</li>
 </ul>
 </li>
-</ul>
-<blockquote>
-<h2 id="设计模式（understanding）"><a href="#设计模式（understanding）" class="headerlink" title="设计模式（understanding）"></a>设计模式（understanding）</h2></blockquote>
-<ul>
-<li>Abstract Factory（抽象工厂）</li>
-<li>PROTOTYPE（原型模式）</li>
-<li>Singleton（单例模式）</li>
-<li>Adapter（适配器模式）</li>
-</ul>
-<blockquote>
-<h2 id="抽象工厂（Abstract-Factory）"><a href="#抽象工厂（Abstract-Factory）" class="headerlink" title="抽象工厂（Abstract Factory）"></a>抽象工厂（Abstract Factory）</h2></blockquote>
-<ul>
-<li>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类<img src="/img/se_103.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="原型模式（Prototype）"><a href="#原型模式（Prototype）" class="headerlink" title="原型模式（Prototype）"></a>原型模式（Prototype）</h2></blockquote>
-<ul>
-<li>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象</li>
-<li>缺点是每一个类都必须配备一个克隆方法</li>
-<li>其实是将product和factory功能合二为一了<img src="/img/se_104.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="单例模式（Singleton）"><a href="#单例模式（Singleton）" class="headerlink" title="单例模式（Singleton）"></a>单例模式（Singleton）</h2></blockquote>
-<ul>
-<li>保证一个类仅有一个实例，并提供一个访问它的全局访问点</li>
-<li>解决的主要是性能问题，而非耦合（变化）的问题<img src="/img/se_105.jpg">
-<img src="/img/se_106.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="适配器模式（Adapter）"><a href="#适配器模式（Adapter）" class="headerlink" title="适配器模式（Adapter）"></a>适配器模式（Adapter）</h2></blockquote>
-<ul>
-<li>把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作</li>
-<li>适配类可以根据参数返还一个合适的实例给客户端<img src="/img/se_107.jpg">
-<img src="/img/se_108.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="桥梁模式（Bridge）"><a href="#桥梁模式（Bridge）" class="headerlink" title="桥梁模式（Bridge）"></a>桥梁模式（Bridge）</h2></blockquote>
-<ul>
-<li>将抽象部分与它的实现部分（行为）分离，使它们都可以独立地变化</li>
-<li>解决2个方面的变化问题：抽象与实现（行为）。即一个类中多个方向的变化问题<img src="/img/se_109.jpg">
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（h）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="url">软件工程复习（八）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
-                2017-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（h）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/12/31/2017-12-31-软件工程复习（h）/" class="leancloud_visitors" data-flag-title="软件工程复习（八）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
-</blockquote>
-<ul>
-<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
-<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
+<li>Server通常是长期运行的，拥有监听来自Client的请求</li>
+<li><strong>Examples</strong>：<ul>
+<li>Remote DB access （远程数据库接入）</li>
+<li>Remote file systems（远程文件系统）</li>
+<li>Multi-tier information system（多层信息系统）</li>
+<li>Web applications（网页应用）</li>
 </ul>
 </li>
-<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
-<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
+<li>通常在单独的线程中处理请求</li>
+<li>Server和Client的交互通常包含在一个session（会话）中</li>
+<li>Stateless servers（无状态的服务）<ul>
+<li>会话状态由client保存（例如：cookie机制）</li>
+<li>每个请求都带上client保存的会话状态信息</li>
 </ul>
 </li>
-<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
-<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
-</ul>
-<blockquote>
-<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
-<ul>
-<li>视图（view）<ul>
-<li>通常包括多个图</li>
-</ul>
-</li>
-<li>图（diagram）</li>
-<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
-<li>通用机制（general mechanism）<ul>
-<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
-<li>比如：构造型，标签值，笔记（写注释）等</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
-<ul>
-<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
-<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
-<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
-<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
-<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
-<li>静态图描述系统的静态结构，包括：<ul>
-<li><strong>类图</strong>（class diagram）</li>
-<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
-</ul>
-</li>
-<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
-</ul>
-</li>
-<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
-<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
-<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
-<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
+<li>Stateful servers（有状态服务）<ul>
+<li>会话状态由Server端保存</li>
+<li>所有的Client的请求都关联到其对应的client-id</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
-<li>这类图描述对象间的交互关系，包括<ul>
-<li><strong>顺序图</strong>（sequence diagram）</li>
-<li><strong>协作图</strong>（collaboration diagram）</li>
+<li><h3 id="Master-slave（主从模式）"><a href="#Master-slave（主从模式）" class="headerlink" title="Master-slave（主从模式）"></a>Master-slave（主从模式）</h3><ul>
+<li>主从模式支持<strong>容错</strong>和<strong>并行计算</strong></li>
+<li><strong>主组件</strong>将工作<strong>分配</strong>给若干个从组件，<strong>从组件</strong>各自<strong>计算</strong>，最后主组件从这些从组件返回的结果中计算最终的结果<img src="/img/se_01.png"></li>
+<li><strong>Examples</strong>:<ul>
+<li>Process control(进程控制)</li>
+<li>Embedded systems(嵌入式系统)</li>
+<li>Large-scale parallel computations（大规模并行计算）</li>
+<li>Fault tolerant systems(容错系统) ==&gt; 比如磁盘阵列（可以用其中一块或多块硬盘做奇偶校验，可以达到容错的效果）</li>
 </ul>
 </li>
-<li>描述一个场景中若干个类的交互（动态协作）</li>
+<li>执行流程：<img src="/img/se_02.png"></li>
+<li>分析：<ul>
+<li>一旦Master挂掉，整个系统也就挂了</li>
+<li>从组件之间是独立的，不共享状态</li>
+<li>从组件之间可以并行运行</li>
+<li>对于硬实时系统（对延迟很敏感），主从组件之间的通信延迟可能是一个问题</li>
+<li>要解决的问题必须是可分解的</li>
 </ul>
 </li>
-<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
-<li>这类图提供关于系统实现方面的信息，包括：<ul>
-<li>构件图（component diagram）</li>
-<li>配置图（deployment diagram）</li>
+<li>应用领域：<ul>
+<li>容错</li>
+<li>并行计算</li>
+<li>精确计算</li>
 </ul>
 </li>
 </ul>
 </li>
+<li><h3 id="Pipe-Filter-管道过滤器模式"><a href="#Pipe-Filter-管道过滤器模式" class="headerlink" title="Pipe-Filter(管道过滤器模式)"></a>Pipe-Filter(管道过滤器模式)</h3><ul>
+<li>该架构适用于处理数据流的系统</li>
+<li>每<strong>一个处理</strong>都封装在<strong>一个过滤器组件</strong>当中</li>
+<li>数据通过相邻过滤器之间的管道（pipe）进行传输<ul>
+<li>pipe主要负责处理缓存和同步</li>
 </ul>
-<img src="/img/se_72.jpg">
-<img src="/img/se_73.jpg">
-<img src="/img/se_74.jpg">
-<img src="/img/se_75.jpg">
-<img src="/img/se_76.jpg">
-<img src="/img/se_77.jpg">
-<img src="/img/se_78.jpg">
+</li>
+<li><strong>Examples</strong>：<ul>
+<li>Compilers（编译器）<img src="/img/se_04.png"></li>
+<li>Unix shell commands<img src="/img/se_03.png"></li>
+</ul>
+</li>
+<li>分析：<ul>
+<li>很容易插入新的过滤器</li>
+<li>过滤器可重用<ul>
+<li>过滤器可以被独立开发</li>
+<li>潜在数据转换开销</li>
+</ul>
+</li>
+<li>输入可以来自不同的数据源，输出也可以输出到不同的地方</li>
+<li>天然的并行处理</li>
+<li>过滤器间不共享状态</li>
+<li><strong>不适用于交互式系统，适用于批处理系统</strong></li>
+</ul>
+</li>
+<li>Java中的管道<ul>
+<li>InputStream in = new BufferedInputStream(new DataInputStream(System.in))<img src="/img/se_05.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Broker（代理模式）"><a href="#Broker（代理模式）" class="headerlink" title="Broker（代理模式）"></a>Broker（代理模式）</h3></li>
+<li><h3 id="Peer-to-peer（P2P模式和）"><a href="#Peer-to-peer（P2P模式和）" class="headerlink" title="Peer-to-peer（P2P模式和）"></a>Peer-to-peer（P2P模式和）</h3></li>
+<li><h3 id="Event-bus"><a href="#Event-bus" class="headerlink" title="Event-bus"></a>Event-bus</h3></li>
+<li><h3 id="Blackboard"><a href="#Blackboard" class="headerlink" title="Blackboard"></a>Blackboard</h3></li>
+</ul>
 
           
         
@@ -1702,7 +1800,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

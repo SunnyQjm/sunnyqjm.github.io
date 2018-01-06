@@ -303,6 +303,284 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/26/2017-09-26-数据库学习笔记（六）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/26/2017-09-26-数据库学习笔记（六）/" itemprop="url">数据库笔记（六）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T00:00:00+08:00">
+                2017-09-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/26/2017-09-26-数据库学习笔记（六）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/26/2017-09-26-数据库学习笔记（六）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/09/26/2017-09-26-数据库学习笔记（六）/" class="leancloud_visitors" data-flag-title="数据库笔记（六）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表(为了演示方便，我们在EMP表中多插入了一条数据，这个数据的部门号是空值)，用于演示下面的例子(´`)</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
+<blockquote>
+<h2 id="FROM-中的子查询"><a href="#FROM-中的子查询" class="headerlink" title="FROM 中的子查询"></a>FROM 中的子查询</h2><p>由于FROM中的子查询涉及到多表的操作，所以准备放在后面讲，先在此处做个小提示，等学完多表操作后，会回来提这个，到时候我会在这边贴一个链接</p>
+</blockquote>
+<p><br></p>
+<blockquote>
+<h2 id="多表查询中的笛卡尔积（全匹配问题）"><a href="#多表查询中的笛卡尔积（全匹配问题）" class="headerlink" title="多表查询中的笛卡尔积（全匹配问题）"></a>多表查询中的笛卡尔积（全匹配问题）</h2></blockquote>
+<ul>
+<li><h3 id="如果在进行多表查询操作时没有连接条件-，则会进行全匹配，结果集相当于两个表进行笛卡尔积"><a href="#如果在进行多表查询操作时没有连接条件-，则会进行全匹配，结果集相当于两个表进行笛卡尔积" class="headerlink" title="如果在进行多表查询操作时没有连接条件 ，则会进行全匹配，结果集相当于两个表进行笛卡尔积"></a>如果在进行多表查询操作时没有<strong><em>连接条件</em></strong> ，则会进行全匹配，结果集相当于两个表进行笛卡尔积</h3><ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作本来是想输出所有的员工的姓名以及其所在的部门名</span></span><br><span class="line"><span class="comment">-- 但是由于没有指定连接条件，所以结果将会是每一个员工与每一个部门组合的结果</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>结果如下(结果太多了，总共有52条，下面的图片中只截取了前面的一部分)：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-30a982c8e1c7b36e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+</li>
+<li><h3 id="在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免-gt-添加连接条件-WHERE-emp-deptno-dept-deptno"><a href="#在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免-gt-添加连接条件-WHERE-emp-deptno-dept-deptno" class="headerlink" title="在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免==&gt;添加连接条件(WHERE emp.deptno = dept.deptno)"></a>在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免==&gt;添加连接条件(WHERE emp.deptno = dept.deptno)</h3><ul>
+<li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 这个栗子就基本完成了上面的需求</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-a655dbcd9ef3c279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+<ul>
+<li>但是仔细观察会发现，上面的数据只有13条，而员工表里面的数据有14条，其中Sunny所在部门号为空值，在部门表中匹配不到结果，故没有出现在结果集当中。（这是因为采用内连接的缘故，下面将会对内外连接分别做分析）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="在WHERE子句中书写连接条件的内连接"><a href="#在WHERE子句中书写连接条件的内连接" class="headerlink" title="在WHERE子句中书写连接条件的内连接"></a>在WHERE子句中书写连接条件的内连接</h2><p>这种在where子句中写连接条件的实现方式，不是SQL标准中的标准用法，但是大多数数据库都支持这种用法，所以这种用法已经成了一种事实标准。在内连接的范畴中，这种用法与SQL标准的内连接用法是等价的</p>
+</blockquote>
+<ul>
+<li><h3 id="等值内连"><a href="#等值内连" class="headerlink" title="等值内连"></a>等值内连</h3><ul>
+<li><p>上述那个例子就是最常见的等值内连</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>等值内连就是在where中书写多表的连接条件的时候比较两个表中某一个或多个字段的值，值相等的则匹配（常见的就是用一个表的外键与另一个表中对应的外键的参照键进行比较）</p>
+</li>
+<li><p>必须是两张表中能够满足连接条件的数据才会出现在结果集当中（不单是等值连接，下面讲的非等值连接也是，所有内连接都应该瞒住这个）</p>
+<ul>
+<li>再来举个上面举过的栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作得到了所有员工的名字以及其所在部门的名字</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-a655dbcd9ef3c279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+<ul>
+<li>我们发现员工名为Sunny的员工数据和部门号为40的部门数据都没有出现在结果集当中。因为Sunny的部门号为空值，不等于部门表中任意一行数据的部门号，故找不到匹配；因为在员工表中没有员工的部门号为40，所以部门号为40的部门也没有出现在结果集当中。（只有满足连接条件，并且成功找到匹配的数据才会出现杂结果集当中）</li>
+</ul>
+</li>
+<li><p>这种用where书写的多表连接语句等价于SQL标准中的内连接（inner join）</p>
+<ul>
+<li>上面的语句也可以写成下面这种形式<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句和上面例子中的语句是等价的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO</span><br><span class="line"></span><br><span class="line"><span class="comment">-- SQL标准中还有下面这种用法（课本上有提到，但是显然SQL Server不支持这种用法）</span></span><br><span class="line"><span class="comment">-- 表示的是利用DEPNOT这个字段来进行两表的连接（前提是这两个表中要有同名字段）</span></span><br><span class="line"><span class="comment">-- 如果支持这种用法的数据库执行下面操作的话得到的结果和上面的是一样的（经验证，MySQL数据库是支持这种用法的）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">USING</span>(DEPNOT)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>对于两表中的同名字段，在使用的时候必须用表名或者表别名加以限定，不然SQL语句会有歧义，导致无法正确被解析</p>
+<ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们想在上面例子的基础上，多显示一个部门号</span></span><br><span class="line"><span class="comment">-- 如果写成下面这样，就会报错，因为SQL解析器不知道DEPTNO指的是EMP表的还是DEPT表的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, DEPNOT</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确的写法应该是这样的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, EMP.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">--当然也可以用DEPT来限定</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, DEPT.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 不过最好用表别名来限定，比较简洁一点</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e, DEPT d</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如果对一个表起了别名之后就不能再使用原表名了，而要换成其别名</p>
+<ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面这个语句执行的话是要报大错滴，因为已经给EMP表起了别名e，就不能再用原表名EMP了</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, EMP.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e, DEPT d</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>如果再考虑效率问题，在进行多表操作时，最好所有字段都用表名或者表别名限定，这样可以免去SQL解析器帮你分析某个字段属于哪个表的开销，可以在一定程度上提高执行效率</p>
+<ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e, DEPT d</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="不等值连接"><a href="#不等值连接" class="headerlink" title="不等值连接"></a>不等值连接</h3><ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就查处了所有员工的姓名、工资、以及其工资等级</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, g.GRADE</span><br><span class="line"><span class="keyword">FROM</span> EMP e, SALGRADE g</span><br><span class="line"><span class="keyword">WHERE</span> e.SAL &gt;= g.LOSAL <span class="keyword">AND</span>  e.SAL &lt;= g.HISAL;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-7ab76bf006d64f46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+<ul>
+<li>不等值连接就是内连接中除了通过比较值相同来进行连接以外的其他内连接操作</li>
+</ul>
+</li>
+<li><h3 id="n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积"><a href="#n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积" class="headerlink" title="n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积"></a>n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积</h3></li>
+<li><h3 id="多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接"><a href="#多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接" class="headerlink" title="多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接"></a>多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接</h3></li>
+</ul>
+<blockquote>
+<h2 id="SQL内连接的标准写法"><a href="#SQL内连接的标准写法" class="headerlink" title="SQL内连接的标准写法"></a>SQL内连接的标准写法</h2></blockquote>
+<ul>
+<li>JOIN … ON …</li>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就是SQL标准中多表内连接的写法</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> TABLE1 t1</span><br><span class="line">  <span class="keyword">JOIN</span> TABLE2 t2 <span class="keyword">ON</span> ...</span><br><span class="line">  <span class="keyword">JOIN</span> TABLE3 t3 <span class="keyword">ON</span> ...</span><br><span class="line">  <span class="keyword">JOIN</span> TABLE4 t4 <span class="keyword">ON</span> ...</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><p>内连接的结果是外连接结果的一个子集，外连接的结果中还可以包括只在一张表中出现，并且在另一张表种找不到匹配的结果</p>
+</blockquote>
+<ul>
+<li><h3 id="左外连接-LEFT-OUTER-JOIN"><a href="#左外连接-LEFT-OUTER-JOIN" class="headerlink" title="左外连接(LEFT OUTER JOIN)"></a>左外连接(LEFT OUTER JOIN)</h3><ul>
+<li>包含JOIN关键字左表中的所有数据（即便某个数据在右表中找不到匹配）</li>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句与上面的例子类似</span></span><br><span class="line"><span class="comment">-- 同样是得到所有员工的名字以及其所在部门名</span></span><br><span class="line"><span class="comment">-- 不同的是采用左外连接以后Suuny的数据会出现在结果集中了</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-bae5c059684bb68f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+</li>
+<li><h3 id="右外连接-RIGHT-OUTER-JOIN"><a href="#右外连接-RIGHT-OUTER-JOIN" class="headerlink" title="右外连接(RIGHT OUTER JOIN)"></a>右外连接(RIGHT OUTER JOIN)</h3><ul>
+<li>包含JOIN关键字右表中的所有数据(即便某个数据在左表中找不到匹配</li>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 还是这个栗子，但不同的是我们把LEFT改成了RIGHT</span></span><br><span class="line"><span class="comment">-- 会发现，部门号为40的部门信息显示出来了</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-ed3df5c56aebbad7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+</li>
+<li><h3 id="对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）"><a href="#对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）" class="headerlink" title="对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）"></a>对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）</h3></li>
+<li><h3 id="全外连接"><a href="#全外连接" class="headerlink" title="全外连接"></a>全外连接</h3><ul>
+<li>JOIN关键字两边的表的所有数据都会出现在结果集当中，得到的结果其实就是左外连接和右外连接结果集的并集</li>
+<li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">FULL</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-5131fe67e4c64673.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+</li>
+<li><h3 id="在进行多表连接的时候采用WHERE和ON的区别"><a href="#在进行多表连接的时候采用WHERE和ON的区别" class="headerlink" title="在进行多表连接的时候采用WHERE和ON的区别"></a>在进行多表连接的时候采用WHERE和ON的区别</h3><ul>
+<li>其一，在进行外连接的时候，必须用ON</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句做了简单的外连接操作</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT  <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句执行是会报错的，因为没有加on</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其二，如果在on子句中指定连接条件，并在where子句中出现其余条件，这样的SQL插叙通常更容易让人读懂</p>
+</li>
+<li>所以在执行内连接的时候，on和where的使用是没有多大区别的，但是在执行外连接的时候就必须用on了。所以建议就是<strong>在on子句中指定连接条件，并在where子句中出现其余条件</strong></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/22/2017-09-22-数据库学习笔记（五）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -943,6 +1221,228 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="url">Java环境简单配置+IDEA（小白版）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T00:00:00+08:00">
+                2017-09-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="leancloud_visitors" data-flag-title="Java环境简单配置+IDEA（小白版）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h3 id="JDK配置"><a href="#JDK配置" class="headerlink" title="JDK配置"></a>JDK配置</h3></blockquote>
+<ol>
+<li>首先到官网下载最新版JDK：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle官网下载</a></li>
+</ol>
+<ul>
+<li>Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+</ul>
+<ol>
+<li>开始安装JDK</li>
+</ol>
+<ul>
+<li>选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>安装过程中会跳出Jre的安装界面，你可以放到和之前JDK在同一个文件夹下，也可默认。然后直接下一步开始安装<br><img src="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+</ul>
+<ol>
+<li>环境变量配置</li>
+</ol>
+<ul>
+<li>右击我的电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>新建环境变量，变量名为：JAVA_HOME，变量值为之前JDK的安装路径，此处安装在：C:\Program Files\Java\jdk1.8.0_131<br>（可以在系统变量下新建，这样可以为每个登录该pc的用户都配置，如果在用户变量中新建，则只为当前用户配置，此处以在系统变量下新建为例）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>找到Path变量–&gt;编辑<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>如果是win10系统，则进入后界面如下，选择新建两个环境变量，<br>一个值为：%JAVA_HOME%\bin<br>另一个为：%JAVA_HOME%\jre\bin<br>（此处笔者已经配置好）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>配置好就如下图<br><img src="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>如果是win7及之前的系统则进入后界面如下:<br>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;<br>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+</ul>
+<ol>
+<li>验证一下^-^</li>
+</ol>
+<ul>
+<li>win + R–&gt;输入cmd，进入cmd命令行<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>输入：java -version    就可以查看版本信息，如果显示如下信息，则表示环境配置成功<br><img src="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+</ul>
+<ol>
+<li>到这里我们就可以骚操作一波，用记事本写简单Java程序（纯属骚操作，如果用IDE开发（比如我们接下来的部分要介绍的重头戏，用IDEA实现真正的骚操作）可不看这个hhhhhh，如果不想使用IDE开发的话，建议可以使用NotePad++、sublimeText或Atom进行代码编辑，不过真想用记事本敲也无可厚非）</li>
+</ol>
+<ul>
+<li>新建一个文本文档，并修改后缀为.java<br><img src="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>修改以后如下：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>如果没有显示后缀名，则可通过如下方式修改：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>用记事本打开，输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
+<ul>
+<li>直接在创建文件的文件夹下按住Shift + 右键，选择在此处打开命令窗口（环境变量的配置使得用户可以在任意目录下调用javac 和java 命令）<br>输入：<br>javac Hello.java    （用于编译java源程序）<br>java Hello（运行java程序）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+</ul>
+<p><strong>自此JDK的配置就OK了，可以开始Java从入门到放弃的修炼了~~</strong></p>
+<blockquote>
+<h3 id="极其好用的IDE–-gt-IDEA"><a href="#极其好用的IDE–-gt-IDEA" class="headerlink" title="极其好用的IDE–&gt;IDEA"></a><strong>极其好用的IDE–&gt;IDEA</strong></h3><p>ps:如果在打开IDEA之前没有下载好JDK的道友，请先往上看详细步骤</p>
+</blockquote>
+<ol>
+<li>先来一波官网的下载链接：<a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">IDEA官网下载地址</a><br>我们下载社区版（别问为啥，社区版免费，如果下载左边的旗舰版也行，但是需要注册码，之前有个网上长期流传的获取注册码的路子，现在貌似不好用了，如果道友是学生就可以用学校给的邮箱百度“IDEA学生”去注册一个IDEA的学生账号（学生账号有自己的注册码，有效期为1年），如果不是就买或者用社区版吧）：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>第二步我们来开始安装：</li>
+</ol>
+<ul>
+<li>选择安装路径：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>上面的是创建桌面图标，选择自己电脑对应的版本就行了；下面的可以全选，表示什么格式的文件可直接关联到IDEA，用IDEA来打开<br><img src="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>下一步直接install<br><img src="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+</ul>
+<ol>
+<li>启动刚安装好的IDEA</li>
+</ol>
+<ul>
+<li>如果第一次安装，就直接不导入设置，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>选个喜欢的主题（此处笔者选这骚气黑），然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>直接next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>直接start</li>
+</ul>
+<ol>
+<li>接下来新建一个项目练练手</li>
+</ol>
+<ul>
+<li>create a project<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>如果显示NO SDK， 找到之前安装的JDK所在路径，然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>第二行选择项目的存放路径，第一行给项目取个名字，然后Finish<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>右击src文件夹–&gt;new–&gt;java class<br><img src="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>给类取个名字，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
+<li>输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行程序：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行成功，开始你的表演：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-数据库学习笔记（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1291,577 +1791,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="url">Java环境简单配置+IDEA（小白版）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T00:00:00+08:00">
-                2017-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="leancloud_visitors" data-flag-title="Java环境简单配置+IDEA（小白版）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h3 id="JDK配置"><a href="#JDK配置" class="headerlink" title="JDK配置"></a>JDK配置</h3></blockquote>
-<ol>
-<li>首先到官网下载最新版JDK：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle官网下载</a></li>
-</ol>
-<ul>
-<li>Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>开始安装JDK</li>
-</ol>
-<ul>
-<li>选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>安装过程中会跳出Jre的安装界面，你可以放到和之前JDK在同一个文件夹下，也可默认。然后直接下一步开始安装<br><img src="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>环境变量配置</li>
-</ol>
-<ul>
-<li>右击我的电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>新建环境变量，变量名为：JAVA_HOME，变量值为之前JDK的安装路径，此处安装在：C:\Program Files\Java\jdk1.8.0_131<br>（可以在系统变量下新建，这样可以为每个登录该pc的用户都配置，如果在用户变量中新建，则只为当前用户配置，此处以在系统变量下新建为例）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>找到Path变量–&gt;编辑<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win10系统，则进入后界面如下，选择新建两个环境变量，<br>一个值为：%JAVA_HOME%\bin<br>另一个为：%JAVA_HOME%\jre\bin<br>（此处笔者已经配置好）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>配置好就如下图<br><img src="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win7及之前的系统则进入后界面如下:<br>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;<br>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>验证一下^-^</li>
-</ol>
-<ul>
-<li>win + R–&gt;输入cmd，进入cmd命令行<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入：java -version    就可以查看版本信息，如果显示如下信息，则表示环境配置成功<br><img src="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>到这里我们就可以骚操作一波，用记事本写简单Java程序（纯属骚操作，如果用IDE开发（比如我们接下来的部分要介绍的重头戏，用IDEA实现真正的骚操作）可不看这个hhhhhh，如果不想使用IDE开发的话，建议可以使用NotePad++、sublimeText或Atom进行代码编辑，不过真想用记事本敲也无可厚非）</li>
-</ol>
-<ul>
-<li>新建一个文本文档，并修改后缀为.java<br><img src="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>修改以后如下：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>如果没有显示后缀名，则可通过如下方式修改：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>用记事本打开，输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-<ul>
-<li>直接在创建文件的文件夹下按住Shift + 右键，选择在此处打开命令窗口（环境变量的配置使得用户可以在任意目录下调用javac 和java 命令）<br>输入：<br>javac Hello.java    （用于编译java源程序）<br>java Hello（运行java程序）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<p><strong>自此JDK的配置就OK了，可以开始Java从入门到放弃的修炼了~~</strong></p>
-<blockquote>
-<h3 id="极其好用的IDE–-gt-IDEA"><a href="#极其好用的IDE–-gt-IDEA" class="headerlink" title="极其好用的IDE–&gt;IDEA"></a><strong>极其好用的IDE–&gt;IDEA</strong></h3><p>ps:如果在打开IDEA之前没有下载好JDK的道友，请先往上看详细步骤</p>
-</blockquote>
-<ol>
-<li>先来一波官网的下载链接：<a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">IDEA官网下载地址</a><br>我们下载社区版（别问为啥，社区版免费，如果下载左边的旗舰版也行，但是需要注册码，之前有个网上长期流传的获取注册码的路子，现在貌似不好用了，如果道友是学生就可以用学校给的邮箱百度“IDEA学生”去注册一个IDEA的学生账号（学生账号有自己的注册码，有效期为1年），如果不是就买或者用社区版吧）：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二步我们来开始安装：</li>
-</ol>
-<ul>
-<li>选择安装路径：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>上面的是创建桌面图标，选择自己电脑对应的版本就行了；下面的可以全选，表示什么格式的文件可直接关联到IDEA，用IDEA来打开<br><img src="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>下一步直接install<br><img src="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>启动刚安装好的IDEA</li>
-</ol>
-<ul>
-<li>如果第一次安装，就直接不导入设置，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>选个喜欢的主题（此处笔者选这骚气黑），然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接start</li>
-</ul>
-<ol>
-<li>接下来新建一个项目练练手</li>
-</ol>
-<ul>
-<li>create a project<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果显示NO SDK， 找到之前安装的JDK所在路径，然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二行选择项目的存放路径，第一行给项目取个名字，然后Finish<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>右击src文件夹–&gt;new–&gt;java class<br><img src="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>给类取个名字，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行程序：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行成功，开始你的表演：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="url">数据库笔记（二）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">
-                2017-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/12/2017-09-12-数据库学习笔记（二）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/12/2017-09-12-数据库学习笔记（二）/" class="leancloud_visitors" data-flag-title="数据库笔记（二）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章</p>
-<h1 id="SQL的组成"><a href="#SQL的组成" class="headerlink" title="SQL的组成"></a>SQL的组成</h1><p>PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧</p>
-</blockquote>
-<ul>
-<li><h3 id="数据定义语言（Data-Definition-Language，-DDL）"><a href="#数据定义语言（Data-Definition-Language，-DDL）" class="headerlink" title="数据定义语言（Data-Definition Language， DDL）"></a>数据定义语言（Data-Definition Language， DDL）</h3><ul>
-<li>提供定义关系模式，删除关系以及修改关系模式的命令</li>
-<li>如create、drop、alter等执行以后会产生、销毁表（定义、删除关系模式）或改变表的结构（修改关系模式）</li>
-</ul>
-</li>
-<li><h3 id="数据操纵语言（Data-Manipulation-Language，DML）"><a href="#数据操纵语言（Data-Manipulation-Language，DML）" class="headerlink" title="数据操纵语言（Data-Manipulation Language，DML）"></a>数据操纵语言（Data-Manipulation Language，DML）</h3><ul>
-<li>SQL DML提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
-<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系并没有改变，只是该表关系的实例）</li>
-</ul>
-</li>
-<li><h3 id="完整性约束（integrity）"><a href="#完整性约束（integrity）" class="headerlink" title="完整性约束（integrity）"></a>完整性约束（integrity）</h3><ul>
-<li>SQL DDL 会给每一个关系（每一张表）在定义或者修改的时候定义一定的完整性约束。之后所有的操作都应该满足这些约束，不满足的操作将不被允许执行<blockquote>
-<p>复习注释: 不过如果对违反约束的行为做了处理，有些违反约束的语句也是可以成功执行的。比如在定义外键的时候指定了级联删除，那么一旦删除语句违反了外键约束，数据库不是拒绝执行，而是级联删除相关数据</p>
-</blockquote>
-</li>
-<li>比如<strong>主键约束</strong>表示一个或多个字段唯一标识了一行数据，如果试图插入主键值相同的数据，就不会被允许</li>
-<li>具体的下面会单独说明并举例</li>
-</ul>
-</li>
-<li><h3 id="视图定义（view-definition）"><a href="#视图定义（view-definition）" class="headerlink" title="视图定义（view definition）"></a>视图定义（view definition）</h3><ul>
-<li>SQL DDL 包括定义视图的命令</li>
-</ul>
-</li>
-<li><h3 id="事务控制（transaction-control）"><a href="#事务控制（transaction-control）" class="headerlink" title="事务控制（transaction control）"></a>事务控制（transaction control）</h3><ul>
-<li>SQL包括定义事务的开始和结束的命令</li>
-</ul>
-</li>
-<li><h3 id="嵌入式SQL和动态SQL（embedded-SQL）"><a href="#嵌入式SQL和动态SQL（embedded-SQL）" class="headerlink" title="嵌入式SQL和动态SQL（embedded SQL）"></a>嵌入式SQL和动态SQL（embedded SQL）</h3><ul>
-<li>嵌入式和动态SQL定义SQL语句如何嵌入到通用编程语言，如C、C++、Java</li>
-</ul>
-</li>
-<li><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><ul>
-<li>SQL DDL包括定义对关系和视图的访问权限的命令</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h1><p>这些基本数据类型不依赖于某一个具体的数据库，是SQL数据库通用的类型</p>
-</blockquote>
-<ul>
-<li><h3 id="char-n-——全称character"><a href="#char-n-——全称character" class="headerlink" title="char(n)——全称character"></a>char(n)——全称character</h3><ul>
-<li>用户指定长度的字符串，所有取值的长度都固定位n长的char</li>
-<li>比如身份证或者电话号码等长度固定的数据可以使用这个</li>
-<li>一般实际用的较少</li>
-</ul>
-</li>
-<li><h3 id="varchar-n-——全称character-varying"><a href="#varchar-n-——全称character-varying" class="headerlink" title="varchar(n)——全称character varying"></a>varchar(n)——全称character varying</h3><ul>
-<li>可变长的字符串，n为串的最大允许长度</li>
-<li>实际存的时候数据多长，就存多长，较省空间</li>
-<li>实际应用中大多用varchar，而不是char</li>
-</ul>
-</li>
-<li><h3 id="int——integer"><a href="#int——integer" class="headerlink" title="int——integer"></a>int——integer</h3><ul>
-<li>整数类型，没啥好讲的，Oj8k</li>
-</ul>
-</li>
-<li><h3 id="smallint"><a href="#smallint" class="headerlink" title="smallint"></a>smallint</h3><ul>
-<li>小整数类型</li>
-</ul>
-</li>
-<li><h3 id="number-p-d"><a href="#number-p-d" class="headerlink" title="number(p, d)"></a>number(p, d)</h3><ul>
-<li>定点数，这个数有p位数字，其中小数点右边有d位</li>
-<li>例如，numberic(3, 1)可表示-99.9 ~ 99.9</li>
-<li><p>下面在MySQL数据库上面的测试，举个栗子：(<strong><em>测试结果表明，如果定义numberic(3, 1), 则小数点前面有三位数时是无法插入的，如果小数点后面有多位小数，则通过四舍五入的方法只保留一位小数</em></strong>)</p>
-<ul>
-<li><p>先简单定义一张Student表（没有定义主键，允许插入相同的数据）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面定义了一张学生表，其中grade的取值范围为-99.9 ~ 99.9（不合理的取值，只是为了测试）</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  study_id <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  age <span class="built_in">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  grade <span class="built_in">NUMERIC</span>(<span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行正常的插入操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 下面两条插入语句都能正常执行，并且结果正确</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590001'</span>, <span class="number">18</span>, <span class="number">92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590002'</span>, <span class="number">18</span>, <span class="number">-92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.6，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590003'</span>, <span class="number">18</span>, <span class="number">-92.56</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.5，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590004'</span>, <span class="number">18</span>, <span class="number">-92.54</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的这条插入操作将会报错</span></span><br><span class="line"><span class="comment">--  [22001][1264] Data truncation: Out of range value for column 'grade' at row 1</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590005'</span>, <span class="number">18</span>, <span class="number">192.5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行上面操作后的结果</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">study_id</th>
-<th style="text-align:center">age</th>
-<th style="text-align:center">grade</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">201590001</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">92.5</td>
-</tr>
-<tr>
-<td style="text-align:center">201590002</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.5</td>
-</tr>
-<tr>
-<td style="text-align:center">201590003</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.6</td>
-</tr>
-<tr>
-<td style="text-align:center">201590004</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.5</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="real-double-precision"><a href="#real-double-precision" class="headerlink" title="real,double,precision"></a>real,double,precision</h3><ul>
-<li>浮点数与双精度浮点数</li>
-</ul>
-</li>
-<li><h3 id="float-n"><a href="#float-n" class="headerlink" title="float(n)"></a>float(n)</h3><ul>
-<li>精度至少为n位的浮点数</li>
-</ul>
-</li>
-<li><h3 id="Date-time-timestamp-interval"><a href="#Date-time-timestamp-interval" class="headerlink" title="Date, time, timestamp, interval"></a>Date, time, timestamp, interval</h3><ul>
-<li>日期类型</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="SQL中的完整性约束"><a href="#SQL中的完整性约束" class="headerlink" title="SQL中的完整性约束"></a>SQL中的完整性约束</h1><p>下文中列举的只是部分简单约束，具体的会在后面的内容中讨论</p>
-</blockquote>
-<pre><code>       先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束
-  （这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的
-约束，（***如果没有对违反约束行为做特殊的处理***）这个操作就不会成功
-</code></pre><ul>
-<li><h3 id="primary-key（A1-A2-…-An）——主键约束"><a href="#primary-key（A1-A2-…-An）——主键约束" class="headerlink" title="primary key（A1, A2, …, An）——主键约束"></a>primary key（A1, A2, …, An）——主键约束</h3><ul>
-<li>该约束主要指定了以属性A1~An构成关系的主键，该主键值必须非空且唯一</li>
-<li>即只要一个表的主键确定，那这个表中就不允许存在一行数据其主键的值为null， 也不允许存在两行数据其主键的值一样。一旦后续操作违反了这个原则（约束），则该操作就不会被执行</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>新定义一张department表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作创建了一张department表，并指定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面顺序执行一系列插入操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作将成功插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面再执行一次与上面一模一样的操作，会发现报错，因为之前已经有一条</span></span><br><span class="line"><span class="comment">-- 记录的主键值为'Software'，顾无法再插入主键值相同的数据</span></span><br><span class="line"><span class="comment">-- [23000][1062] Duplicate entry 'Software' for key 'PRIMARY'</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句试图插入一条dept_name为空的数据，显然也是报错的</span></span><br><span class="line"><span class="comment">-- 因为作为主键的字段是不允许为空的</span></span><br><span class="line"><span class="comment">-- [23000][1048] Column 'dept_name' cannot be null</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="literal">NULL</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行上面操作后的结果</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">dept_name</th>
-<th style="text-align:center">building</th>
-<th style="text-align:center">budget</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Software</td>
-<td style="text-align:center">A</td>
-<td style="text-align:center">100000</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="foregin-key-A1-A2-…-An-references-——-外键约束"><a href="#foregin-key-A1-A2-…-An-references-——-外键约束" class="headerlink" title="foregin key(A1, A2, …, An) references —— 外键约束"></a>foregin key(A1, A2, …, An) references —— 外键约束</h3><ul>
-<li>简单来讲如果<strong><em>一个关系（表）A</em></strong>中包含<strong><em>一个外键C</em></strong>，则作为外键的一个或多个字段必然是<strong><em>另一张表B</em></strong>的主键。则由于外键约束这一层关系，对A表和B表都会收一定程度的限制（现在解释的还是比较抽象，看下面的例子会比较直观一点）<ul>
-<li>如果想向A表中插入一条数据，且数据中C的值在B表中找不到对应表项，则这个操作不会成功（就像你如果向运动员表中插入一条数据，国家属性对应的标识在国家表中不存在，则这次插入操作就会失败）</li>
-<li>如果试图删除一个表B的记录，而这条记录的主键只正好是A表中某条数据的外键，则这次删除操作不会成功</li>
-</ul>
-</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>先创建两张表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一张表department，并制定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再创建一张couese表，并指定dept_name为本表关于department表的外键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> course (</span><br><span class="line">  course_id <span class="built_in">VARCHAR</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  title     <span class="built_in">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  credits   <span class="built_in">NUMERIC</span>(<span class="number">2</span>, <span class="number">0</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (course_id),</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span> (dept_name) <span class="keyword">REFERENCES</span> department (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们先试图插入一条course记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面试图往course表中插入一条记录，但是department表中并没有</span></span><br><span class="line"><span class="comment">-- dept_name = 'DUT'的记录，故该操作会失败</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们先往department表中插入记录，再往course表中插入记录，下面的操作就能成功插入</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="string">'DUT'</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>执行上面操作后的结果</li>
-</ul>
-<p>|dept_name |building  | budget  |<br>|:——-:|:—:| :—–:|<br>|DUT|A|100000|</p>
-<p>|course_id |title  | dept_name  |credits|<br>|:——-:|:—:| :—–:| :—-:|<br>|08|Endlish|DUT|3</p>
-</li>
-<li><p>此时我们如果试图删除department表中dept_name = DUT的那条数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="not-null——非空约束"><a href="#not-null——非空约束" class="headerlink" title="not null——非空约束"></a>not null——非空约束</h3><ul>
-<li>理解上面两个约束以后这个就很好理解了，这个约束就是指定某个字段不能为空，试图传入null值的操作都不会成功</li>
-<li>作为主键的字段隐式拥有非空约束</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1916,7 +1845,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-count">37</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
