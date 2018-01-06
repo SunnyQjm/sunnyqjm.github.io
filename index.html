@@ -303,6 +303,352 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_h/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/06/super_c_h/" itemprop="url">高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T00:00:00+08:00">
+                2018-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/06/super_c_h/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_h/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/06/super_c_h/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>UDP编程和TCP编程有着本质的差异：UDP是无连接不可靠的数据报协议，非常不同于TCP提供的面向连接的可靠字节流</p>
+</blockquote>
+<ul>
+<li><h3 id="UDP的适用场景"><a href="#UDP的适用场景" class="headerlink" title="UDP的适用场景"></a>UDP的适用场景</h3><ul>
+<li>DNS（域名系统）</li>
+<li>NFS（网络文件系统）</li>
+<li>SNMP（简单网络管理协议）</li>
+</ul>
+</li>
+<li><h3 id="典型的UDP-C-S-程序的函数调用"><a href="#典型的UDP-C-S-程序的函数调用" class="headerlink" title="典型的UDP C/S 程序的函数调用"></a>典型的UDP C/S 程序的函数调用</h3><img src="/img/unp_35.png" title="UDPC/S程序所用的套接字函数">
+</li>
+</ul>
+<blockquote>
+<h2 id="recvfrom和sendto函数"><a href="#recvfrom和sendto函数" class="headerlink" title="recvfrom和sendto函数"></a>recvfrom和sendto函数</h2></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> recvfrom(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags,</span><br><span class="line">                 struct sockaddr *from, <span class="keyword">socklen_t</span> *addrlen);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> sendto(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags,</span><br><span class="line">               <span class="keyword">const</span> struct sockaddr *to, <span class="keyword">socklen_t</span> addrlen);</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_g/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/05/super_c_g/" itemprop="url">高级C与网络编程复习（7）—— 套接字选项（Socket Options）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T14:00:00+08:00">
+                2018-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/05/super_c_g/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/05/super_c_g/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/05/super_c_g/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（7）—— 套接字选项（Socket Options）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="获取和设置影响套接字的三种方式"><a href="#获取和设置影响套接字的三种方式" class="headerlink" title="获取和设置影响套接字的三种方式"></a>获取和设置影响套接字的三种方式</h2></blockquote>
+<ul>
+<li>getsockopt和setsockopt函数和</li>
+<li>fcntl函数 (file control)</li>
+<li>ioctl (IO control)</li>
+</ul>
+<blockquote>
+<h2 id="getsockopt-和-setsockopt-函数"><a href="#getsockopt-和-setsockopt-函数" class="headerlink" title="getsockopt 和 setsockopt 函数"></a>getsockopt 和 setsockopt 函数</h2><p>这两个函数仅用于套接字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 获取一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于接收函数的结果，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      这是一个Value-Result参数，传入时限定optval的最大长度，防止缓存溢出</span></span><br><span class="line"><span class="comment">*                    函数执行结束时，可以通过这个参数知道内核究竟往optval写了多少数据</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, itn optname, <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> *optlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 设置一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于向函数传递要设置的值，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      指示了optval的长度</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, <span class="keyword">int</span> optname, <span class="keyword">const</span> <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> optlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="套接字选项汇总-gt-课本图7-1和7-2"><a href="#套接字选项汇总-gt-课本图7-1和7-2" class="headerlink" title="套接字选项汇总 ==&gt; 课本图7-1和7-2"></a>套接字选项汇总 ==&gt; 课本图7-1和7-2</h3><ul>
+<li>标志 ==&gt; 表示这个选项是一个二元选项。0表示关闭，非0表示开启</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="IPv4套接字选项"><a href="#IPv4套接字选项" class="headerlink" title="IPv4套接字选项"></a>IPv4套接字选项</h2><p>下面几个选项的等级（level）均为IPROTO_IP</p>
+</blockquote>
+<ul>
+<li><h3 id="IP-HDRINCL"><a href="#IP-HDRINCL" class="headerlink" title="IP_HDRINCL"></a>IP_HDRINCL</h3><ul>
+<li>可以为一个原始套接字设置该选项，设置以后可以自己构造IP首部（即在往里面写数据的时候是从IP包的首部起始位置开始写）</li>
+</ul>
+</li>
+<li><h3 id="IP-OPTIONS"><a href="#IP-OPTIONS" class="headerlink" title="IP_OPTIONS"></a>IP_OPTIONS</h3><ul>
+<li>该选项允许我们在IPv4中设置IP选项</li>
+</ul>
+</li>
+<li><h3 id="IP-RECVDSTADDR"><a href="#IP-RECVDSTADDR" class="headerlink" title="IP_RECVDSTADDR"></a>IP_RECVDSTADDR</h3><ul>
+<li>该套接字选项导致<strong>所收到的UDP数据报的目的IP地址</strong>由recvmsg函数作为辅助数据返回</li>
+</ul>
+</li>
+<li><h3 id="IPIP-RECVIF"><a href="#IPIP-RECVIF" class="headerlink" title="IPIP_RECVIF"></a>IPIP_RECVIF</h3><ul>
+<li>该套接字选项导致<strong>所收到的UDP数据包的接收接口索引</strong>有recvmsg函数作为辅助数据返回</li>
+</ul>
+</li>
+<li><h3 id="IP-TOS"><a href="#IP-TOS" class="headerlink" title="IP_TOS"></a>IP_TOS</h3><ul>
+<li>该套接字选项允许我们为TCP、UDP或SCTP套接字<strong>设置IP首部中的服务类型字段</strong></li>
+</ul>
+</li>
+<li><h3 id="IP-TTL"><a href="#IP-TTL" class="headerlink" title="IP_TTL"></a>IP_TTL</h3><ul>
+<li>我们可以使用本选项设置或获取系统改用在从某个给定套接字发送的单薄分组上的默认TTL值</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -334,7 +680,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T10:00:00+08:00">
                 2018-01-05
               </time>
             
@@ -598,164 +944,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_h/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/05/super_c_h/" itemprop="url">高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
-                2018-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/05/super_c_h/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/05/super_c_h/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/05/super_c_h/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>UDP编程和TCP编程有着本质的差异：UDP是无连接不可靠的数据报协议，非常不同于TCP提供的面向连接的可靠字节流</p>
-</blockquote>
-<ul>
-<li><h3 id="UDP的适用场景"><a href="#UDP的适用场景" class="headerlink" title="UDP的适用场景"></a>UDP的适用场景</h3><ul>
-<li>DNS（域名系统）</li>
-<li>NFS（网络文件系统）</li>
-<li>SNMP（简单网络管理协议）</li>
-</ul>
-</li>
-<li><h3 id="典型的UDP-C-S-程序的函数调用"><a href="#典型的UDP-C-S-程序的函数调用" class="headerlink" title="典型的UDP C/S 程序的函数调用"></a>典型的UDP C/S 程序的函数调用</h3><img src="/img/unp_35.png" title="UDPC/S程序所用的套接字函数">
-</li>
-</ul>
-<blockquote>
-<h2 id="recvfrom和sendto函数"><a href="#recvfrom和sendto函数" class="headerlink" title="recvfrom和sendto函数"></a>recvfrom和sendto函数</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> recvfrom(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags,</span><br><span class="line">                 struct sockaddr *from, <span class="keyword">socklen_t</span> *addrlen);</span><br><span class="line"></span><br><span class="line"><span class="keyword">ssize_t</span> sendto(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags,</span><br><span class="line">               <span class="keyword">const</span> struct sockaddr *to, <span class="keyword">socklen_t</span> addrlen);</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_e/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -787,7 +975,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T08:00:00+08:00">
                 2018-01-05
               </time>
             
@@ -966,194 +1154,6 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于wait不能实现在没有已终止子进程时不要阻塞，所以在下面的循环中不能调用wait，否则可能会阻塞主线程</span></span><br><span class="line"><span class="comment">//经过下面的修改之后，就可以支持一次调用清理多个进程的要求</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span>&#123;</span><br><span class="line">  <span class="keyword">pid_t</span>   pid;</span><br><span class="line">  <span class="keyword">int</span>     stat;</span><br><span class="line">  <span class="keyword">while</span>( (pid = waitpid(<span class="number">-1</span>, &amp;stat, WNOHANG)) &gt; <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"chihld %d terminated\n"</span>, pid);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>具体可以参考课本5.10介绍的同时开五个连接请求的情况</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_g/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/05/super_c_g/" itemprop="url">高级C与网络编程复习（7）—— 套接字选项（Socket Options）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T00:00:00+08:00">
-                2018-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/05/super_c_g/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/05/super_c_g/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/05/super_c_g/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（7）—— 套接字选项（Socket Options）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="获取和设置影响套接字的三种方式"><a href="#获取和设置影响套接字的三种方式" class="headerlink" title="获取和设置影响套接字的三种方式"></a>获取和设置影响套接字的三种方式</h2></blockquote>
-<ul>
-<li>getsockopt和setsockopt函数和</li>
-<li>fcntl函数 (file control)</li>
-<li>ioctl (IO control)</li>
-</ul>
-<blockquote>
-<h2 id="getsockopt-和-setsockopt-函数"><a href="#getsockopt-和-setsockopt-函数" class="headerlink" title="getsockopt 和 setsockopt 函数"></a>getsockopt 和 setsockopt 函数</h2><p>这两个函数仅用于套接字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 获取一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于接收函数的结果，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      这是一个Value-Result参数，传入时限定optval的最大长度，防止缓存溢出</span></span><br><span class="line"><span class="comment">*                    函数执行结束时，可以通过这个参数知道内核究竟往optval写了多少数据</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, itn optname, <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> *optlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 设置一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于向函数传递要设置的值，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      指示了optval的长度</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, <span class="keyword">int</span> optname, <span class="keyword">const</span> <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> optlen)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="套接字选项汇总-gt-课本图7-1和7-2"><a href="#套接字选项汇总-gt-课本图7-1和7-2" class="headerlink" title="套接字选项汇总 ==&gt; 课本图7-1和7-2"></a>套接字选项汇总 ==&gt; 课本图7-1和7-2</h3><ul>
-<li>标志 ==&gt; 表示这个选项是一个二元选项。0表示关闭，非0表示开启</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="IPv4套接字选项"><a href="#IPv4套接字选项" class="headerlink" title="IPv4套接字选项"></a>IPv4套接字选项</h2><p>下面几个选项的等级（level）均为IPROTO_IP</p>
-</blockquote>
-<ul>
-<li><h3 id="IP-HDRINCL"><a href="#IP-HDRINCL" class="headerlink" title="IP_HDRINCL"></a>IP_HDRINCL</h3><ul>
-<li>可以为一个原始套接字设置该选项，设置以后可以自己构造IP首部（即在往里面写数据的时候是从IP包的首部起始位置开始写）</li>
-</ul>
-</li>
-<li><h3 id="IP-OPTIONS"><a href="#IP-OPTIONS" class="headerlink" title="IP_OPTIONS"></a>IP_OPTIONS</h3><ul>
-<li>该选项允许我们在IPv4中设置IP选项</li>
-</ul>
-</li>
-<li><h3 id="IP-RECVDSTADDR"><a href="#IP-RECVDSTADDR" class="headerlink" title="IP_RECVDSTADDR"></a>IP_RECVDSTADDR</h3><ul>
-<li>该套接字选项导致<strong>所收到的UDP数据报的目的IP地址</strong>由recvmsg函数作为辅助数据返回</li>
-</ul>
-</li>
-<li><h3 id="IPIP-RECVIF"><a href="#IPIP-RECVIF" class="headerlink" title="IPIP_RECVIF"></a>IPIP_RECVIF</h3><ul>
-<li>该套接字选项导致<strong>所收到的UDP数据包的接收接口索引</strong>有recvmsg函数作为辅助数据返回</li>
-</ul>
-</li>
-<li><h3 id="IP-TOS"><a href="#IP-TOS" class="headerlink" title="IP_TOS"></a>IP_TOS</h3><ul>
-<li>该套接字选项允许我们为TCP、UDP或SCTP套接字<strong>设置IP首部中的服务类型字段</strong></li>
-</ul>
-</li>
-<li><h3 id="IP-TTL"><a href="#IP-TTL" class="headerlink" title="IP_TTL"></a>IP_TTL</h3><ul>
-<li>我们可以使用本选项设置或获取系统改用在从某个给定套接字发送的单薄分组上的默认TTL值</li>
-</ul>
 </li>
 </ul>
 
