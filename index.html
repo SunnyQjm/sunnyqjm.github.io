@@ -322,7 +322,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/06/super_c_j/" itemprop="url">未命名</a></h1>
+                <a class="post-title-link" href="/2018/01/06/super_c_j/" itemprop="url">高级C与网络编程复习（10）—— 原始套接字（Raw Socket）（第28章）</a></h1>
         
 
         <div class="post-meta">
@@ -334,7 +334,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T15:14:28+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T16:00:00+08:00">
                 2018-01-06
               </time>
             
@@ -364,7 +364,7 @@
 
           
           
-             <span id="/2018/01/06/super_c_j/" class="leancloud_visitors" data-flag-title="">
+             <span id="/2018/01/06/super_c_j/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（10）—— 原始套接字（Raw Socket）（第28章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -397,7 +397,124 @@
       
         
           
-            
+            <blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>原始套接字提供TCP和UDP所不踢欧冠呢的以下3个能力</p>
+</blockquote>
+<ul>
+<li>有了原始套接字，进程可以<strong>读与写ICMPv4、IGMPv4和ICMPv6分组</strong><ul>
+<li>Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrouted)</li>
+</ul>
+</li>
+<li>有了原始套接字，进程<strong>可以读写内核不处理其协议字段的IPv4数据报</strong><ul>
+<li>With a raw socket, a process can read and write IPv4 datagrams with an IPV4 protocol field that is not processed by the kernel.</li>
+</ul>
+</li>
+<li>有了原始套接字，进程还可以<strong>使用IP_HDRINCL套接字选项</strong>（IP header include），<strong>自行构造IPv4首部</strong><ul>
+<li>With a raw socket, a process can build its own IPv4 header using the IP_HDRINCL socket option</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="原始套接字的创建"><a href="#原始套接字的创建" class="headerlink" title="原始套接字的创建"></a>原始套接字的创建</h2></blockquote>
+<ul>
+<li><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ul>
+<li><p>调用<strong>socket函数创建</strong>，而且函数的<strong>第二个参数必须是SOCK_RAW</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面以创建一个IPv4原始套接字为例</span></span><br><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(AF_INET, SOCK_RAW, protocol);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>protocol参数</strong>通常不为0，是<strong>形如IPPROTO_xxx</strong>的某个常值</p>
+</li>
+<li>只有<strong>超级用户才能创建原始套接字</strong>（防止普通用户自行构造IP数据报）</li>
+</ul>
+</li>
+<li><p><strong>可</strong>按以下方式<strong>开启IP_HDRINCL选项</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// const int on = 1;</span></span><br><span class="line"><span class="comment">// if(setsockopt(sockfd, IPPROTO_IP, IP_HDRINCL, &amp;on, sizeof(on)) &lt; 0)</span></span><br><span class="line"><span class="comment">//   出错处理</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>可在原始套接字上调用bind，但比较少见</p>
+</li>
+<li>可在原始套接字上调用connect，但比较少见</li>
+</ul>
+<blockquote>
+<h2 id="原始套接字输出"><a href="#原始套接字输出" class="headerlink" title="原始套接字输出"></a>原始套接字输出</h2><p>原始套接字的输出遵循以下规则：</p>
+</blockquote>
+<ul>
+<li>普通输出通过<strong>调用sendto或sendmsg并指定IP地址完成</strong>，如果套接字已连接，也可以调用write，writev，send<ul>
+<li>Normal output is performed by calling sendto or sendmsg and specifying the destination IP address</li>
+</ul>
+</li>
+<li>如果<strong>IP_HDRINCL选项未开启</strong>，进程发送数据的<strong>起始地址是IP首部之后的第一个字节</strong>，<strong>IP首部由内核自行构造</strong>，并把<strong>socket中第三个参数</strong>的值<strong>设置进IP首部的协议字段</strong><ul>
+<li>If the IP_HDRINCL option is not set, the starting address of the data for the kernel to send specifies the first byte following the IP header because the kernel will build the IP header and prepend it to the data from the process</li>
+</ul>
+</li>
+<li>如果<strong>IP_HDRINCL选项开启</strong>，进程发送数据的<strong>起始地址是IP首部的第一个字节</strong>，进程调用输出函数输出的数据中必须包括IP首部，<strong>整个IP首部自行构造</strong><ul>
+<li>If the IP_HDRINCL option is set, the starting address of the data for the kernel to send specifies the first byte of the IP header</li>
+<li>IPv4标识字段可置为0，告诉内核设置该值</li>
+<li>IPv4首部校验和字段总是由内核计算并存储</li>
+<li>IPv4选项字段是可选的</li>
+</ul>
+</li>
+<li><strong>内核</strong>会对<strong>超出外出接口MTU的原始分组</strong>进行<strong>分片</strong><ul>
+<li>The kernel fragments raw packets that exceed the outgoing interface MTU</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="原始套接字输入"><a href="#原始套接字输入" class="headerlink" title="原始套接字输入"></a>原始套接字输入</h2><p>内核把哪些接收到的IP数据报传递到原始套接字？遵循一下规则</p>
+</blockquote>
+<ul>
+<li><h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><ul>
+<li>接收到的<strong>`UDP和TCP分组绝不传递到任何原始套接字</strong>(如果一个进程想要读取，必须在数据链路层读取)<ul>
+<li>Received UDP packets and received TCP packets are never passed to a raw socket. (must be read at the datalink layer)</li>
+</ul>
+</li>
+<li><strong>大多数ICMP分组</strong>在<strong>内核处理完</strong>其中的ICMP消息后传递到原始套接字<ul>
+<li>Most ICMP packets are passed to a raw socket after the kernel has finished processing the ICMP message</li>
+</ul>
+</li>
+<li><strong>所有的IGMP分组</strong>在<strong>内核完处理完</strong>其中的IGMP消息后传递到原始套接字<ul>
+<li>All IGMP packets are passed to a raw socket after the kernel has finished processing the IGMP message</li>
+</ul>
+</li>
+<li><strong>内核无法识别其协议字段的所有IP数据报</strong>传递到原始套接字<ul>
+<li>All IP datagrams with a protocol field that the kernel does not understand are passed to a raw socket</li>
+</ul>
+</li>
+<li>如果某个<strong>数据报</strong>是以<strong>片段</strong>的形式到达，那么在它的所有片段均到达且<strong>重组之前</strong>，<strong>不传递任何片段到原始套接字</strong><ul>
+<li>If t`he datagram arrives in fragments, nothing is passed to a raw socket until all fragments have arrived and have been reassembled.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="内核在分配一个IP数据报到raw-socket时的处理"><a href="#内核在分配一个IP数据报到raw-socket时的处理" class="headerlink" title="内核在分配一个IP数据报到raw socket时的处理"></a>内核在分配一个IP数据报到raw socket时的处理</h3><blockquote>
+<ul>
+<li>When the kernel has an IP datagram to pass to the raw sockets, all raw sockets for all processes are examined, looking for all matching sockets. A copy of the IP datagram is delivered to each matching socket. The following tests are performed for each raw socket and only if all three tests are true is the datagram delivered to the socket</li>
+<li>当内核分发IP数据报给原始套接字的时候，所有进程的所有原始套接字都将检查一遍，只要匹配，便获得该IP数据报的一个备份，下面是<strong>三个判断条件</strong>，只有当三个判断条件都为真时，内核才把接收的套接字传递给这个套接字</li>
+</ul>
+</blockquote>
+<ul>
+<li>如果该原始套接字调用socket创建的时候，第三个参数指定了protocol（即不为0），则IP数据报中的协议字段，必须和其匹配   ==&gt; <strong>协议匹配</strong></li>
+<li>如果该原始套接字已经调用了bind绑定到本地的某个IP地址，那么IP数据报中的地址字段，必须和其匹配                    ==&gt; <strong>目的地址匹配</strong></li>
+<li>如果该原始套接字已经调用connec连接了，则IP数据报的源端地址必须是connect所连接的对端设备的地址                  ==&gt; <strong>源端地址匹配</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="ping-Program"><a href="#ping-Program" class="headerlink" title="ping Program"></a>ping Program</h2></blockquote>
+<ul>
+<li><h3 id="一个没有特性蔓延（creeping-featurism）的ping程序"><a href="#一个没有特性蔓延（creeping-featurism）的ping程序" class="headerlink" title="一个没有特性蔓延（creeping featurism）的ping程序"></a>一个没有特性蔓延（creeping featurism）的ping程序</h3><ul>
+<li>自行阅读书上ping程序的源码</li>
+</ul>
+</li>
+<li><h3 id="ping程序的概貌"><a href="#ping程序的概貌" class="headerlink" title="ping程序的概貌"></a>ping程序的概貌</h3><img src="/img/unp_44.png" title="我们的ping程序汇总各个函数的概貌">
+</li>
+</ul>
+<blockquote>
+<h2 id="traceroute-Program"><a href="#traceroute-Program" class="headerlink" title="traceroute Program"></a>traceroute Program</h2><p>traceroute 可以用来测量本机到一个目的主机的路径</p>
+</blockquote>
+<ul>
+<li>实现的原理是利用了IPv4的TTL字段，一开始设置为1，然后中间节点会返回一个ICMP”time exceeded in transmit”（传输中超时）。接着逐渐增大TTL，直至目的节点返回一个ICMP”port unreachable”（端口不可达）错误，则表示到达目的节点</li>
+<li>早期用IP_HDRINCL来达到修改TTL的目的，现在多用IP_TTL套接字选项来修改</li>
+</ul>
+
           
         
       
