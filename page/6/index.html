@@ -303,6 +303,264 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" itemprop="url">数据库笔记（十二）——函数依赖理论和分解算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-01T00:00:00+08:00">
+                2017-11-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" class="leancloud_visitors" data-flag-title="数据库笔记（十二）——函数依赖理论和分解算法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="函数依赖理论"><a href="#函数依赖理论" class="headerlink" title="函数依赖理论"></a>函数依赖理论</h2></blockquote>
+<ul>
+<li><h3 id="逻辑蕴涵"><a href="#逻辑蕴涵" class="headerlink" title="逻辑蕴涵"></a>逻辑蕴涵</h3><ul>
+<li><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
+<li>存在如下条件<ul>
+<li>关系模式：r(R)</li>
+<li>依赖集：F （由一个或多个依赖组成）</li>
+<li>依赖：f</li>
+</ul>
+</li>
+<li><strong>若r(R)满足F</strong> ==&gt; <strong>r(R)满足f</strong></li>
+<li>我们称 <strong>F 逻辑蕴涵 f</strong><blockquote>
+<p>ps: 其中f可由F通过Armstrong公理推得</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>给定关系模式 r(A, B, C, G, H, I)</p>
+</li>
+<li><p>F包含如下依赖</p>
+<ul>
+<li>A &rarr; B</li>
+<li>A &rarr; C</li>
+<li>CG &rarr; H</li>
+<li>CG &rarr; I</li>
+<li>B &rarr; H</li>
+</ul>
+</li>
+<li>函数依赖f : A &rarr; H</li>
+<li>其中 f 被 F 逻辑蕴涵<ul>
+<li>由Amstrong传递公理可知：A &rarr; B, B &rarr; H ==&gt; A &rarr; H</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="函数依赖集的闭包"><a href="#函数依赖集的闭包" class="headerlink" title="函数依赖集的闭包"></a>函数依赖集的闭包</h3><ul>
+<li>令 F 为一个函数依赖集。则 <strong>F的闭包</strong> 是 <strong>被 F 逻辑蕴涵的所有函数依赖的集合</strong></li>
+<li>记作：F<sup>+</sup></li>
+</ul>
+</li>
+<li><h3 id="Armstrong公理（Armstrong’s-axiom）"><a href="#Armstrong公理（Armstrong’s-axiom）" class="headerlink" title="Armstrong公理（Armstrong’s axiom）"></a>Armstrong公理（Armstrong’s axiom）</h3><blockquote>
+<p>公理是科学的客观规律，不需要自己证明，直接用就行</p>
+</blockquote>
+<ul>
+<li><h4 id="Armstrong-公理"><a href="#Armstrong-公理" class="headerlink" title="Armstrong 公理"></a>Armstrong 公理</h4><ul>
+<li>自反律（reflexivity rule）。若α为一个属性集，且β⊆α， 则α&rarr;β<ul>
+<li>举个栗子：(A, B)&rarr;A</li>
+</ul>
+</li>
+<li>增补律（augmentation rule）。若α&rarr;β成立且γ为一属性集，则γα&rarr;γβ<ul>
+<li>举个栗子：(A, B)&rarr;C ==&gt; (A, B, D, E)&rarr;(C, D, E)</li>
+</ul>
+</li>
+<li>传递律（transitivity rule）。若α&rarr;β和β&rarr;γ成立，则 α&rarr;γ 成立<ul>
+<li>举个栗子：A&rarr;B, B&rarr;C ==&gt; A&rarr;C</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F"><a href="#Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F" class="headerlink" title="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F+"></a>Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F<sup>+</sup></h4></li>
+<li><h4 id="Armstrong公理的一些推论"><a href="#Armstrong公理的一些推论" class="headerlink" title="Armstrong公理的一些推论"></a>Armstrong公理的一些推论</h4><blockquote>
+<p>可由Armstrong公理直接推得，也可以当做公理使用</p>
+</blockquote>
+<ul>
+<li>合并律（union rule）。若α&rarr;β和α&rarr;γ成立，则α&rarr;βγ<ul>
+<li>举个栗子：A&rarr;B, A&rarr;C ==&gt; A&rarr;(B, C)</li>
+</ul>
+</li>
+<li>分解律（decomposition rule）。若α&rarr;βγ成立，则α&rarr;β和α&rarr;γ成立<ul>
+<li>举个栗子：A&rarr;(B, C) ==&gt; A&rarr;B, A&rarr;C</li>
+</ul>
+</li>
+<li>伪传递律（pseudotransitivity rule）。若α&rarr;β和γβ&rarr;δ成立，则αγ&rarr;δ成立<ul>
+<li>举个栗子：A&rarr;B, (B, C)&rarr;D ==&gt; (A, C)&rarr;D</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="属性集的闭包"><a href="#属性集的闭包" class="headerlink" title="属性集的闭包"></a>属性集的闭包</h3><ul>
+<li>令α为一个属性集，我们将函数依赖集 F 下被α 函数确定的所有属性的额集合为称为F下α的闭包</li>
+<li>记作：α<sup>+</sup></li>
+<li>伪代码如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">result := α</span><br><span class="line">  repeat</span><br><span class="line">    <span class="keyword">for</span> each 函数依赖 β→γ in F <span class="keyword">do</span></span><br><span class="line">      begin</span><br><span class="line">        <span class="keyword">if</span> β ⊆ result then result := result ∪ γ</span><br><span class="line">      end</span><br><span class="line">  until(result 不变)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="正则覆盖（极小函数依赖集）"><a href="#正则覆盖（极小函数依赖集）" class="headerlink" title="正则覆盖（极小函数依赖集）"></a>正则覆盖（极小函数依赖集）</h3><ul>
+<li>如果<strong>去除函数依赖中的一个属性不改变函数依赖集的闭包</strong>，则称<strong>该属性是无关的</strong></li>
+<li>F的<strong>正则覆盖</strong> F<sub>c</sub> 是一个依赖集，使得F逻辑蕴涵F<sub>c</sub> 中的所有依赖，并且F<sub>c</sub> 逻辑蕴涵F中的所有依赖。此外，F<sub>c</sub> 必须具有如下性质 ：<ul>
+<li>F<sub>c</sub> 中任何函数依赖都不含无关属性</li>
+<li>F<sub>c</sub> 中函数依赖的左半部都是唯一的。即F<sub>c</sub> 中不存在两个依赖α<sub>1</sub>&rarr;β<sub>1</sub>和α<sub>2</sub>&rarr;β<sub>2</sub>， 满足α<sub>1</sub>=α<sub>2</sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="无损分解"><a href="#无损分解" class="headerlink" title="无损分解"></a>无损分解</h3><ul>
+<li>如果用两个关系模式r<sub>1</sub>(R)和r<sub>2</sub>(R)替代r(R)时没有信息损失，则我们称该分解时无损分解（lossless decomposition）</li>
+<li><p>SQL 表示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面查询的结果与r具有相同结果的元组集</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> r1 <span class="keyword">natural</span> <span class="keyword">join</span> r2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关系代数表示：</p>
+<ul>
+<li>∏<sub>R<sub>1</sub></sub>(r) ⋈ ∏<sub>R<sub>2</sub></sub>(r) = r</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="分解算法（下回分解）"><a href="#分解算法（下回分解）" class="headerlink" title="分解算法（下回分解）"></a>分解算法（下回分解）</h2></blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1638,286 +1896,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /" itemprop="url">数据库笔记（八）——视图 、事务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-10T00:00:00+08:00">
-                2017-10-10
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /" class="leancloud_visitors" data-flag-title="数据库笔记（八）——视图 、事务">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表(´`)</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
-<blockquote>
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>首先还是来谈谈笔者对视图概念的理解吧，在笔者看来视图这个数据库对象在不考虑物化的情况下就是一张虚表，本身没有实际的数据，但是可以利用视图在某个视角下观察一张或多张表的数据。所有对视图的操作最后都将转成对表的操作</p>
-</blockquote>
-<ul>
-<li><h3 id="视图定义（创建一个视图）"><a href="#视图定义（创建一个视图）" class="headerlink" title="视图定义（创建一个视图）"></a>视图定义（创建一个视图）</h3><ul>
-<li><p>格式：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> 视图名 <span class="keyword">AS</span> 子查询</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>举个栗子：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句创建了一个简单的视图temp_view，其中包含员工名以及其所在部门名两个字段</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> temp_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接下来我们对上面创建的视图进行查询操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> temp_view;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-38a3660b5d475096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-</li>
-<li><h3 id="数据库只存储视图的定义本身"><a href="#数据库只存储视图的定义本身" class="headerlink" title="数据库只存储视图的定义本身"></a>数据库只存储视图的定义本身</h3><ul>
-<li>视图通常是这样来实现的：当我们定义一个视图的时候，数据库系统就吧<strong><em>这个视图的定义（其实就是一个子查询语句）</em></strong>本身存储下来，一旦我们使用这个视图，数据库系统就会用定义中的查询语句替换视图</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们继续沿用上面定义的视图temp_view，它的定义是这样的</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> temp_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 则对视图的查询操作可以作下面的等价(下面两个查询语句是等价的)</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> temp_view;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO) <span class="keyword">as</span> temp_view;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h3 id="可更新的视图"><a href="#可更新的视图" class="headerlink" title="可更新的视图"></a>可更新的视图</h3><ul>
-<li><h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><ol>
-<li>FROM子句中只有一个数据库关系（<strong><em>即在定义视图的时候，后面的SELECT语句中只能查询一个表</em></strong>）</li>
-</ol>
-<ul>
-<li>SELECT子句中只包含关系的属性名，不包含任何的表达式，集聚函数或distinct声明</li>
-<li>任何没有出现在SELECT子句中的属性可以取空值（<strong><em>即这些属性既没有not null 约束，也不构成主码的一部分</em></strong>）</li>
-<li>查询中不含有group by 或 having 子句</li>
-</ul>
-</li>
-<li><h4 id="满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作"><a href="#满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作" class="headerlink" title="满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作"></a>满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行<strong>update、insert、delete</strong>操作</h4></li>
-<li><h4 id="视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上"><a href="#视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上" class="headerlink" title="视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上"></a>视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上</h4></li>
-</ul>
-</li>
-<li><h3 id="视图的update、insert、delete"><a href="#视图的update、insert、delete" class="headerlink" title="视图的update、insert、delete"></a>视图的update、insert、delete</h3><ul>
-<li><p>先定义一个视图，值包括员工的职工号、名字和工资</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> emp_info <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> EMPNO, ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP;</span><br></pre></td></tr></table></figure>
-<p>视图查询的结果如下：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-3f0d770579621459.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-</li>
-<li><h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句更新SMITH的工资</span></span><br><span class="line"><span class="keyword">UPDATE</span> emp_info</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="number">900</span></span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'SMITH'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--接下来查询表中的数据是否受到影响（查询的结果是900，就不贴图了）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'SMITH'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h4 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h4><ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 往视图中插入一条数据（下面插入是可以执行成功的，可以自己试试，创建一个视图，只包含员工名字和工资，不包含EMPNO，这样就不能执行插入语句，违反了上面四个条件中的第三个条件）</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> emp_info (EMPNO, ENAME, SAL) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">8888</span>, <span class="string">'Robbin'</span>, <span class="string">'1000'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>–查询一下原表中的数据，会发现多了下面这条<br><img src="http://upload-images.jianshu.io/upload_images/7222676-2d5ffd3369ef3630.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-<ul>
-<li>视图的插入操作，最终作用到表上，并且是给视图中有的字段赋值，没有的字段都赋null值（这就解释了上面可更新视图的四个条件中的条件3）</li>
-</ul>
-</li>
-<li><h4 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h4><ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行结构就是原表中的数据也被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> emp_info</span><br><span class="line"><span class="keyword">WHERE</span> emp_info.EMPNO = <span class="number">8888</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="物化视图"><a href="#物化视图" class="headerlink" title="物化视图"></a>物化视图</h3><ul>
-<li>就是保存视图的结构，再使用时直接用保存的结果表，而不用再去将视图替换成定义，再次执行一遍查询视图的操作。这个在对视图的操作很频繁的时候是对效率很有增益的，但是同时带来的是同步的问题。就是原表中的数据更新了，但是视图物化的数据却没有更新，导致数据不一致。</li>
-<li>一般用的很少，常用于数据仓库</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2></blockquote>
-<ul>
-<li>一个事务就是一个原子的，不可分割的任务，里面可能包含多条SQL语句。在事务机制下，一个事务中的多条SQL语句要么都执行，要么都不执行。</li>
-<li><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
-<li>原子性<ul>
-<li>事务是原子的，里面包含的一条或多条SQL语句要么都执行，要么都不执行</li>
-</ul>
-</li>
-<li>一致性<ul>
-<li>在隔离的执行多个事务时，用同步锁保证对数据库数据的一致性访问</li>
-</ul>
-</li>
-<li>隔离性<ul>
-<li>多个事务并行执行，若其中一个事务还没有结束，其他事务内是无法观察到这个事务对数据库的影响的</li>
-</ul>
-</li>
-<li>持久性<ul>
-<li>一旦事务正常完成，并提交，则其对数据库的修改就会持久化到数据库内。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="事务的开始和终止"><a href="#事务的开始和终止" class="headerlink" title="事务的开始和终止"></a>事务的开始和终止</h3><ul>
-<li>虽然各种关系型数据库都支持事务，但是不同的数据库的实现不同。具体的事务的开始和终止有隐式和显示之分</li>
-<li><h4 id="事务的开始"><a href="#事务的开始" class="headerlink" title="事务的开始"></a>事务的开始</h4><ul>
-<li>显示：begin transition （例如SQL Server数据库）</li>
-<li>隐式：第一条DML语句（增删改查语句）开始执行就会开启一个事务 （例如Oracle数据库）</li>
-</ul>
-</li>
-<li><h4 id="事物的终止"><a href="#事物的终止" class="headerlink" title="事物的终止"></a>事物的终止</h4><ul>
-<li>显示： end transition  (例如SQL Server数据库)</li>
-<li>隐式：执行 rollback、commit或者一条DDL语句  （例如Oracle数据库）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="数据库加锁的范围不同"><a href="#数据库加锁的范围不同" class="headerlink" title="数据库加锁的范围不同"></a>数据库加锁的范围不同</h3><ul>
-<li>表级锁</li>
-<li>页级锁</li>
-<li>行级锁</li>
-</ul>
-</li>
-<li><h3 id="举个栗子-由于使用SQL-Server做的测试，所以采用显示的事务开启和关闭"><a href="#举个栗子-由于使用SQL-Server做的测试，所以采用显示的事务开启和关闭" class="headerlink" title="举个栗子(由于使用SQL Server做的测试，所以采用显示的事务开启和关闭)"></a>举个栗子(由于使用SQL Server做的测试，所以采用显示的事务开启和关闭)</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 首先查看博客开头ALLEN的工资是1600</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面开启一个事务，并执行一条涨工资的操作（执行会立即完成）</span></span><br><span class="line"><span class="keyword">BEGIN</span> <span class="keyword">TRANSACTION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> EMP <span class="keyword">SET</span> SAL = SAL * <span class="number">2</span></span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'ALLEN'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 与此同时，开启另一个事务，执行一条涨工资的操作（语句没有执行，一直在等待。这是因为上面那个事务对ALLEN的数据进行操作了，并且事务没有结束，由于同步锁的缘故，所以本事务中的修改语句要等上面那个事务执行完才能继续执行）</span></span><br><span class="line"><span class="keyword">BEGIN</span> <span class="keyword">TRANSACTION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> EMP <span class="keyword">SET</span> SAL = SAL * <span class="number">3</span></span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'ALLEN'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果此时结束第一个事务，那么第二个事务的语句就能继续执行，此时提交第二个事务，最后得到的结果是，ALLEN的工资为9600</span></span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h2></blockquote>
-<ul>
-<li><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3></li>
-<li><h3 id="外键约束（参照完整性约束）"><a href="#外键约束（参照完整性约束）" class="headerlink" title="外键约束（参照完整性约束）"></a>外键约束（参照完整性约束）</h3></li>
-<li><h3 id="单关系上的约束"><a href="#单关系上的约束" class="headerlink" title="单关系上的约束"></a>单关系上的约束</h3><ul>
-<li>not null</li>
-<li>unique</li>
-<li>check(&lt;谓词&gt;)</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1972,7 +1950,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">39</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
