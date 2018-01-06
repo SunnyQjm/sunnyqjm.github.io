@@ -426,6 +426,7 @@
 <ul>
 <li>这段程序和<a href="../../05/super_c_e/#TCP回射服务程序">TCP服务端回射程序</a>的实现逻辑类似，不一样的是收发消息用的是Recvfrom和Sendto</li>
 <li><strong>需要注意的是</strong>：UDP是无连接的，所以如果要给客户回发消息，就必须记录下客户的地址信息，<strong>Recvfrom的后两个参数就是用来记录客户的地址信息的</strong>，回发消息给客户的时候，用这个记录的地址信息即可</li>
+<li>UDP层中隐含排队，所有收到的包都在队列中排队，recvfrom每次从队头取出消息处理，没有消息则阻塞（消息队列长度是有限制的，可通过SO_RCVBUF套接字选项修改）</li>
 </ul>
 </li>
 <li><h3 id="客户端程序"><a href="#客户端程序" class="headerlink" title="客户端程序"></a>客户端程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dg_cli_my</span><span class="params">(FILE *fp, <span class="keyword">int</span> sockfd, SA *servaddr, <span class="keyword">socklen_t</span> len)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./udpcli01 &lt;IPAddress&gt;\n"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个UDP套接字</span></span><br><span class="line">    sockfd = Socket(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line"></span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">9748</span>);</span><br><span class="line"></span><br><span class="line">    Inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr);</span><br><span class="line"></span><br><span class="line">    dg_cli_my(<span class="built_in">stdin</span>, sockfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dg_cli_my</span><span class="params">(FILE* fp, <span class="keyword">int</span> sockfd, SA *servaddr, <span class="keyword">socklen_t</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">char</span> sendline[MAXLINE], recvline[MAXLINE];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//从控制台接收用户输入，并发送给服务器</span></span><br><span class="line">    <span class="comment">//接着接收服务器回射的消息，并输出到控制台</span></span><br><span class="line">    <span class="keyword">while</span>( (Fgets(sendline, MAXLINE, fp)) != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        Sendto(sockfd, sendline, <span class="built_in">strlen</span>(sendline), <span class="number">0</span>, servaddr, len);</span><br><span class="line">        n = Recvfrom(sockfd, recvline, MAXLINE, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">        recvline[n] = <span class="number">0</span>;</span><br><span class="line">        Fputs(recvline, <span class="built_in">stdout</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -434,10 +435,37 @@
 <li><strong>需注意的是</strong>：UDP是无连接的，所以客户端在调用Sendto的时候并不要求一定要有一个服务器在监听。即<strong>客户端只是负责把数据发出去，不管是否有人收到</strong></li>
 </ul>
 </li>
-<li><h3 id="TCP和UDP进行通信时的一大区别"><a href="#TCP和UDP进行通信时的一大区别" class="headerlink" title="TCP和UDP进行通信时的一大区别"></a>TCP和UDP进行通信时的一大区别</h3><ul>
-<li>可以看出，利用<strong>UDP进行通信</strong>的时候，并<strong>不要求服务器在客户端之前启动</strong>（即即便客户端比服务器先启动也是不会报错的，指示发出去的消息没有响应而已），只是服务器在启动之前，客户端无法获取到服务，一旦服务器启动，客户端变可以获取到服务。</li>
-<li>相比之下，TCP进行进行通信的的时候，必须服务端先于客户端启动。因为TCP是有连接的，其通信依赖于一个已经建立好的连接，一旦连接无法建立，变无法进行通信（虽然可以在连接失败时反复尝试，但服务器没启动之前，客户端的connect函数都是返回错误的）</li>
 </ul>
+<blockquote>
+<h2 id="TCP和UDP回射程序对比"><a href="#TCP和UDP回射程序对比" class="headerlink" title="TCP和UDP回射程序对比"></a>TCP和UDP回射程序对比</h2></blockquote>
+<ul>
+<li><h3 id="两个客户的TCP客户-服务器小节"><a href="#两个客户的TCP客户-服务器小节" class="headerlink" title="两个客户的TCP客户/服务器小节"></a>两个客户的TCP客户/服务器小节</h3><img src="/img/unp_37.png" title="两个客户的TCP客户/服务器小节">
+<ul>
+<li>服务器每收到一个客户端的连接，便派生一个子进程，并将连接交付给子进程维护，父进程接着回去监听客户端的请求。在子进程中处理特定客户端的回射服务</li>
+</ul>
+</li>
+<li><h3 id="两个客户的UDP客户-服务器小节"><a href="#两个客户的UDP客户-服务器小节" class="headerlink" title="两个客户的UDP客户/服务器小节"></a>两个客户的UDP客户/服务器小节</h3><img src="/img/unp_38.png" title="两个客户的UDP客户/服务器小节">
+<ul>
+<li>UDP服务器将收到的多个数据报置于套接字接收缓冲区中，再逐个取出，并根据Datagram报文中的发送端地址分别回复</li>
+</ul>
+</li>
+<li><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><ul>
+<li><strong>UDP回射服务程序是永不终止的</strong>，不像TCP中类似EOF的东西。而<strong>TCP回射服务程序</strong>，可以通过客户关闭连接导致服务端子进程中<strong>读到EOF</strong>，进而<strong>子进程退出</strong>。</li>
+<li><strong>大多数TCP服务器是并发</strong>的，而<strong>大多数UDP服务器是迭代的</strong>（TCP需要用连接标识不同的客户，并与之通信，所以一般做成并发。而UDP不需要维持连接，对收到的任何一个包进行处理都可以知道是谁发出的，对应处理即可，所以一个进程里面可以处理所有的请求）</li>
+<li><strong>TCP通信必须要一个长期在线的服务端，并且服务端要先于客户端启动，而UDP通信则不用</strong><ul>
+<li>可以看出，利用<strong>UDP进行通信</strong>的时候，并<strong>不要求服务器在客户端之前启动</strong>（即即便客户端比服务器先启动也是不会报错的，指示发出去的消息没有响应而已），只是服务器在启动之前，客户端无法获取到服务，一旦服务器启动，客户端变可以获取到服务。</li>
+<li>相比之下，<strong>TCP进行进行通信</strong>的的时候，<strong>必须服务端先于客户端启动</strong>。因为TCP是有连接的，其通信依赖于一个已经建立好的连接，一旦连接无法建立，变无法进行通信（虽然可以在连接失败时反复尝试，但服务器没启动之前，客户端的connect函数都是返回错误的）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="UDP程序栗子小节"><a href="#UDP程序栗子小节" class="headerlink" title="UDP程序栗子小节"></a>UDP程序栗子小节</h2></blockquote>
+<ul>
+<li><h3 id="从客户角度总结UDP客户-服务器程序"><a href="#从客户角度总结UDP客户-服务器程序" class="headerlink" title="从客户角度总结UDP客户/服务器程序"></a>从客户角度总结UDP客户/服务器程序</h3><img src="/img/unp_39.png" title="从客户角度总结UDP客户/服务器程序"></li>
+<li><h3 id="从服务器角度总结UDP客户-服务器程序"><a href="#从服务器角度总结UDP客户-服务器程序" class="headerlink" title="从服务器角度总结UDP客户/服务器程序"></a>从服务器角度总结UDP客户/服务器程序</h3><img src="/img/unp_39.png" title="从服务器角度总结UDP客户/服务器程序"></li>
+<li><h3 id="服务器可从到达的IP数据报中获取的信息"><a href="#服务器可从到达的IP数据报中获取的信息" class="headerlink" title="服务器可从到达的IP数据报中获取的信息"></a>服务器可从到达的IP数据报中获取的信息</h3><img src="/img/unp_39.png" title="服务器可从到达的IP数据报中获取的信息">
 </li>
 </ul>
 
