@@ -303,7 +303,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（i）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（k）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -322,7 +322,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（i）/" itemprop="url">软件工程复习（九）</a></h1>
+                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="url">软件工程复习（十一）</a></h1>
         
 
         <div class="post-meta">
@@ -354,8 +354,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（i）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（i）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（k）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（k）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -364,7 +364,7 @@
 
           
           
-             <span id="/2017/12/31/2017-12-31-软件工程复习（i）/" class="leancloud_visitors" data-flag-title="软件工程复习（九）">
+             <span id="/2017/12/31/2017-12-31-软件工程复习（k）/" class="leancloud_visitors" data-flag-title="软件工程复习（十一）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -398,142 +398,156 @@
         
           
             <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>要求： <strong>掌握OO分析的方法和步骤，业务，能够使用UML图进行分析建模（类图、用例图、状态图、顺序图等）</strong></p>
+<h2 id="设计原则-（understanding）"><a href="#设计原则-（understanding）" class="headerlink" title="设计原则 （understanding）"></a>设计原则 （understanding）</h2></blockquote>
+<ul>
+<li>面向接口编程</li>
+<li>依赖倒置</li>
+<li>组合优于继承</li>
+<li>单一职责</li>
+<li>开放——封闭</li>
+<li>Liskov替换</li>
+</ul>
+<blockquote>
+<h2 id="面向接口编程-Program-to-An-interface-Not-An-Implementation"><a href="#面向接口编程-Program-to-An-interface-Not-An-Implementation" class="headerlink" title="面向接口编程(Program to An interface, Not An Implementation)"></a>面向接口编程(Program to An interface, Not An Implementation)</h2><ul>
+<li>使用“接口继承”，而非“实现继承”</li>
+<li><strong>接口</strong>关注对象的概貌，将对象中<strong>“不变”的信息抽象</strong>出来，不涉及细节，因此<strong>是“稳定”的</strong></li>
+</ul>
 </blockquote>
 <ul>
-<li>面向对象分析是<strong>是辈出问题域内的对象</strong>，并<strong>分析</strong>它们相互间的<strong>关系</strong>，最终<strong>建立</strong>起问题域的简洁、精确、可理解的正确<strong>模型</strong></li>
-<li>在用面向对象观点建立起的三种模型中，<strong>对象模型（类图）是</strong> <strong>最基本、最重要、最核心</strong>的</li>
+<li><p>Example:</p>
+ <img src="/img/se_94.jpg"></li>
+<li><h3 id="面向接口的好处："><a href="#面向接口的好处：" class="headerlink" title="面向接口的好处："></a>面向接口的好处：</h3><ul>
+<li><strong>Client只需关注如何进行业务活动</strong>（如：驾驶），而不必关心其使用对象的具体实现</li>
+<li>一个对象可以很<strong>容易</strong>地被（实现了相同接口的）另一个对象所<strong>替换</strong></li>
+<li>对象间的连接不必硬绑定（hard wire）到一个具体类的对象上，因此<strong>增加了灵活性</strong></li>
+<li>松散耦合，<strong>增加了重用的可能性</strong></li>
+</ul>
+</li>
 </ul>
 <blockquote>
-<h2 id="面向对象分析的过程"><a href="#面向对象分析的过程" class="headerlink" title="面向对象分析的过程"></a>面向对象分析的过程</h2><p>面向该对象分析，就是<strong>抽取和整理用户或需求</strong>并<strong>建立</strong>问题域精确<strong>模型</strong>的过程</p>
+<h2 id="依赖倒置（Dependency-Inversion-Principle）"><a href="#依赖倒置（Dependency-Inversion-Principle）" class="headerlink" title="依赖倒置（Dependency Inversion Principle）"></a>依赖倒置（Dependency Inversion Principle）</h2></blockquote>
 <ul>
-<li>用用例图捕获需求</li>
-<li>基于用例图构件类图</li>
+<li>高层模块不应该依赖于低层模块，二者都应该依赖于抽象</li>
+<li>依赖倒置原则使细节和具体实现都依赖于抽象，抽象的稳定性决定了系统的稳定性</li>
+<li>Example：<img src="/img/se_95.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="组合优于继承-（Favor-Composition-Over-Inheritance-）"><a href="#组合优于继承-（Favor-Composition-Over-Inheritance-）" class="headerlink" title="组合优于继承 （Favor Composition Over Inheritance ）"></a>组合优于继承 （Favor Composition Over Inheritance ）</h2><ul>
+<li>继承：OO特点之一</li>
+<li>组合：任务委托</li>
+<li>二者：都是面向对象设计中用于重用的方法</li>
+<li>开发早期，继承经常被过度使用</li>
 </ul>
 </blockquote>
 <ul>
-<li><h3 id="3个子模型5个层次"><a href="#3个子模型5个层次" class="headerlink" title="3个子模型5个层次"></a>3个子模型5个层次</h3><ul>
-<li>3个子模型：对象模型，动态模型，功能模型</li>
-<li>5个层次<ul>
-<li>主题层（通常对应包的划分）</li>
-<li>类与对象层</li>
-<li>结构层</li>
-<li>属性层</li>
-<li>服务层</li>
+<li><h3 id="使用继承的问题："><a href="#使用继承的问题：" class="headerlink" title="使用继承的问题："></a>使用继承的问题：</h3><img src="/img/se_96.jpg"></li>
+<li><h3 id="组合优于继承－设计改进"><a href="#组合优于继承－设计改进" class="headerlink" title="组合优于继承－设计改进"></a>组合优于继承－设计改进</h3><ul>
+<li>优先使用组合可获得重用性与简单性更佳的设计</li>
+<li>配合使用继承，扩充可用的组合类集，加大重用的范围<br>&lt;% img /img/se_97.jpg %&gt;</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><h3 id="大体流程"><a href="#大体流程" class="headerlink" title="大体流程"></a>大体流程</h3><ul>
-<li>寻找类与对象</li>
-<li>识别结构</li>
-<li>识别主题</li>
-<li>定义属性</li>
-<li>建立动态模型</li>
-<li>建立功能模型</li>
-<li>定义服务</li>
+<li><h3 id="何时使用继承？"><a href="#何时使用继承？" class="headerlink" title="何时使用继承？"></a>何时使用继承？</h3><ul>
+<li>子类表达了“是一个父类的特殊类型”，而非“是一个由父类所扮演的角色”</li>
+<li>子类的一个实例永远不需要转化为其它类的一个对象</li>
+<li>子类是对其父类的职责进行扩展，而非重写或废除（LSP）</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="需求陈述"><a href="#需求陈述" class="headerlink" title="需求陈述"></a>需求陈述</h2></blockquote>
+<h2 id="单一职责——Single-responsibility-Principle"><a href="#单一职责——Single-responsibility-Principle" class="headerlink" title="单一职责——Single responsibility Principle"></a>单一职责——Single responsibility Principle</h2><ul>
+<li>所谓职责，可理解为功能，就是设计的类功能应该只有一个，而不是两个或更多</li>
+<li>职责也可以理解为引起变化的原因：<strong>当一个类中有两个以上的变化方向，会产生过多的变化点</strong><img src="/img/se_98.jpg">
+</li>
+</ul>
+</blockquote>
 <ul>
-<li>通常，需求陈述的内容包括：问题范围，功能需求，性能需求，应用环境及假设条件等。总之，<strong>需求陈述应该阐明“做什么”而不是“怎样做”</strong></li>
-<li>描述用户的需求而<strong>不是提出解决问题的方法</strong></li>
-<li>应该避免对设计策略施加过多的约束，也不要描述系统的内部结构，这样做将限制实现的灵活性</li>
-<li>对<strong>系统性能及系统与外界环境交互协议的描述</strong>，是合适的需求</li>
-<li>此外，对采用的<strong>软件工程标准、模块构造准则、将来可能做的扩充以及可维护性要求等方面的描述</strong>，也都是适当的需求。</li>
-</ul>
-<blockquote>
-<h2 id="建立对象模型"><a href="#建立对象模型" class="headerlink" title="建立对象模型"></a>建立对象模型</h2></blockquote>
-<ul>
-<li><h3 id="确定类与对象"><a href="#确定类与对象" class="headerlink" title="确定类与对象"></a>确定类与对象</h3><ul>
-<li><h4 id="找出和候选的类与对象"><a href="#找出和候选的类与对象" class="headerlink" title="找出和候选的类与对象"></a>找出和候选的类与对象</h4><ul>
-<li>用自然语言书写的需求陈述为依据，把陈述中的名词作为类与对象的候选者</li>
-<li>用形容词作为确定属性的线索</li>
-<li>把动词作为服务(操作)的候选者</li>
-</ul>
-</li>
-<li><h4 id="筛选出正确的类与对象"><a href="#筛选出正确的类与对象" class="headerlink" title="筛选出正确的类与对象"></a>筛选出正确的类与对象</h4><ul>
-<li>冗余、无关、笼统、属性、操作、实现..</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="确定关联"><a href="#确定关联" class="headerlink" title="确定关联"></a>确定关联</h3><ul>
-<li><h4 id="初步确定关联"><a href="#初步确定关联" class="headerlink" title="初步确定关联"></a>初步确定关联</h4><ul>
-<li>大多数关联可以通过直接提取需求陈述中的<strong>动词词组</strong>而得出</li>
-<li>通过分析需求陈述，还能发现一些在陈述中<strong>隐含</strong>的关联</li>
-</ul>
-</li>
-<li><h4 id="筛选"><a href="#筛选" class="headerlink" title="筛选"></a>筛选</h4><ul>
-<li>已删去的类之间的关联</li>
-<li>与问题无关或应在实现阶段考虑的关联</li>
-<li>瞬时关联</li>
-<li>三元关联</li>
-<li>派生关联</li>
-</ul>
-</li>
-<li><h4 id="完善"><a href="#完善" class="headerlink" title="完善"></a>完善</h4><ul>
-<li>正名</li>
-<li>分解</li>
-<li>补充</li>
-<li>标明重数<img src="/img/se_79.jpg"></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="划分主题"><a href="#划分主题" class="headerlink" title="划分主题"></a>划分主题</h3><ul>
-<li>在开发大型、复杂系统的过程中，为了<strong>降低复杂程度</strong>，习惯于把系统再进一步划分成几个不同的主题，也就是在概念上把系统包含的内容分解成若干个范畴<img src="/img/se_80.jpg"></li>
-</ul>
-</li>
-<li><h3 id="确定属性"><a href="#确定属性" class="headerlink" title="确定属性"></a>确定属性</h3><ul>
-<li><h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><ul>
-<li>属性的确定既与问题域有关，也和目标系统的任务有关</li>
-<li>应该仅考虑与具体应用直接相关的属性，不要考虑那些超出所要解决的问题范围的属性</li>
-<li>在分析过程中应该首先找出最重要的属性，以后再逐渐把其余属性增添进去</li>
-<li>在分析阶段不要考虑那些纯粹用于实现的属性</li>
-</ul>
-</li>
-<li><h4 id="选择"><a href="#选择" class="headerlink" title="选择"></a>选择</h4><ul>
-<li>认真考察经初步分析而确定下来的那些属性，从中删掉不正确的或不必要的属性<ul>
-<li>误把对象当作属性</li>
-<li>把链属性误作为属性</li>
-<li>把限定误当成属性</li>
-<li>误把内部状态当成了属性</li>
-<li>过于细化</li>
-<li>存在不一致的属性</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="/img/se_81.jpg"></li>
-<li><h3 id="识别继承关系"><a href="#识别继承关系" class="headerlink" title="识别继承关系"></a>识别继承关系</h3><img src="/img/se_82.jpg"></li>
-<li><h3 id="反复修改"><a href="#反复修改" class="headerlink" title="反复修改"></a>反复修改</h3><img src="/img/se_83.jpg">
+<li>Example:<img src="/img/se_99.jpg">
 </li>
 </ul>
 <blockquote>
-<h2 id="建立动态模型"><a href="#建立动态模型" class="headerlink" title="建立动态模型"></a>建立动态模型</h2><ul>
-<li>第一步，是编写典型交互行为的脚本</li>
-<li>第二步，从脚本中提取出事件，确定除服每个事件的动作对象以及接受事件的目标对象（画出事件跟踪图）</li>
-<li>第三步，排雷事件发生的次序，确定每个对象可能有的状态及状态之间的转换关系，并用状态图描绘它们</li>
+<h2 id="开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP"><a href="#开放封闭原则——Open-For-Extension-Yet-Closed-For-Modification-OCP" class="headerlink" title="开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)"></a>开放封闭原则——Open For Extension, Yet Closed For Modification (OCP)</h2><ul>
+<li>OCP认为应该<strong>试图设计出永远也不需要改变的模块</strong></li>
+<li><strong>可以</strong>添加新代码来<strong>扩展</strong>系统的行为；<strong>不能</strong>对已有的代码进行<strong>修改</strong></li>
 </ul>
-<h2 id="建立功能模型"><a href="#建立功能模型" class="headerlink" title="建立功能模型"></a>建立功能模型</h2></blockquote>
+</blockquote>
 <ul>
-<li>画出基本的系统模型图<img src="/img/se_89.jpg"></li>
-<li>画出功能级数据流图<img src="/img/se_90.jpg">
-</li>
-</ul>
-<p>EG: <img src="/img/se_84.jpg"></p>
-<ul>
-<li>对象模型参考：<img src="/img/se_85.jpg"></li>
-<li>动态模型参考<ul>
-<li>脚本<img src="/img/se_86.jpg"></li>
-<li>事件跟踪图<img src="/img/se_87.jpg"></li>
+<li><h3 id="OCP模块标准"><a href="#OCP模块标准" class="headerlink" title="OCP模块标准"></a>OCP模块标准</h3><ul>
+<li>模块的行为可以被扩展，以需要满足新的需求</li>
+<li>模块的源代码是不允许进行改动的</li>
 </ul>
 </li>
-<li>功能模型参考<img src="/img/se_88.jpg">
+<li>一个软件系统的所有模块<strong>不可能都满足</strong>OCP，但是应该努力<strong>最小化</strong>这些<strong>不满足OCP的模块数量</strong></li>
+<li><strong>OCP法则是OO设计的真正核心</strong></li>
+<li>符合该法则便意味着最高等级的复用性和可维护性</li>
+<li>一个OCP栗子：<img src="/img/se_100.jpg"></li>
+<li>改进<img src="/img/se_101.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="Liskov替换原则"><a href="#Liskov替换原则" class="headerlink" title="Liskov替换原则"></a>Liskov替换原则</h2><ul>
+<li>使用指向基类（超类）的引用的函数，必须能够在不知道具体派生类（子类）对象类型的情况下使用它们 ==&gt; <strong>在任何父类出现的地方，都可以用子类替换（包括逻辑上和语义上）</strong></li>
+<li>LSP是根据对象的“多态”而得出的</li>
+<li>但在实现子类时必须要谨慎对待，以确保不会无意中违背了LSP</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="一个违背Liskov原则的栗子"><a href="#一个违背Liskov原则的栗子" class="headerlink" title="一个违背Liskov原则的栗子"></a>一个违背Liskov原则的栗子</h3><img src="/img/se_102.jpg">
+<ul>
+<li>对于下面的代码：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Rectangle类声明如下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Rectangle</span></span>&#123;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> width;</span><br><span class="line">  <span class="keyword">protected</span> <span class="keyword">double</span> height;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="title">Rectangle</span><span class="params">()</span></span>&#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setWidth</span><span class="params">(<span class="keyword">double</span> w)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.width = w;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setHeight</span><span class="params">(<span class="keyword">double</span> h)</span></span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.height = h;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">area</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> width * height</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接用Rectangle类, 输出200</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Rectangle();</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br><span class="line"></span><br><span class="line"><span class="comment">//将Rectangle换成其子类Square，输出为400</span></span><br><span class="line">Rectangle rect = <span class="keyword">new</span> Square(<span class="number">0</span>);</span><br><span class="line">rect.setWidth(<span class="number">10</span>);</span><br><span class="line">rect.setHeight(<span class="number">20</span>);</span><br><span class="line">System.out.println(rect.area());</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="LSP的保证"><a href="#LSP的保证" class="headerlink" title="LSP的保证"></a>LSP的保证</h3><ul>
+<li>LSP表明了ISA关系是与对象行为有关的</li>
+<li>一个子类型不得具有比基更多的限制，这是因为可能对于基类型的某些使用是合法的，但是会因为违背子类型的其中一个额外限制，从而违背了LSP</li>
+<li>一个简单的做法是不要将基类中子类不需要的函数暴露给子类</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="设计模式（understanding）"><a href="#设计模式（understanding）" class="headerlink" title="设计模式（understanding）"></a>设计模式（understanding）</h2></blockquote>
+<ul>
+<li>Abstract Factory（抽象工厂）</li>
+<li>PROTOTYPE（原型模式）</li>
+<li>Singleton（单例模式）</li>
+<li>Adapter（适配器模式）</li>
+</ul>
+<blockquote>
+<h2 id="抽象工厂（Abstract-Factory）"><a href="#抽象工厂（Abstract-Factory）" class="headerlink" title="抽象工厂（Abstract Factory）"></a>抽象工厂（Abstract Factory）</h2></blockquote>
+<ul>
+<li>提供一个创建一系列相关或相互依赖对象的接口，而无需指定它们具体的类<img src="/img/se_103.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="原型模式（Prototype）"><a href="#原型模式（Prototype）" class="headerlink" title="原型模式（Prototype）"></a>原型模式（Prototype）</h2></blockquote>
+<ul>
+<li>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象</li>
+<li>缺点是每一个类都必须配备一个克隆方法</li>
+<li>其实是将product和factory功能合二为一了<img src="/img/se_104.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="单例模式（Singleton）"><a href="#单例模式（Singleton）" class="headerlink" title="单例模式（Singleton）"></a>单例模式（Singleton）</h2></blockquote>
+<ul>
+<li>保证一个类仅有一个实例，并提供一个访问它的全局访问点</li>
+<li>解决的主要是性能问题，而非耦合（变化）的问题<img src="/img/se_105.jpg">
+<img src="/img/se_106.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="适配器模式（Adapter）"><a href="#适配器模式（Adapter）" class="headerlink" title="适配器模式（Adapter）"></a>适配器模式（Adapter）</h2></blockquote>
+<ul>
+<li>把一个类的接口变换成客户端所期待的另一种接口，从而使原本因接口原因不匹配而无法一起工作的两个类能够一起工作</li>
+<li>适配类可以根据参数返还一个合适的实例给客户端<img src="/img/se_107.jpg">
+<img src="/img/se_108.jpg">
+</li>
+</ul>
+<blockquote>
+<h2 id="桥梁模式（Bridge）"><a href="#桥梁模式（Bridge）" class="headerlink" title="桥梁模式（Bridge）"></a>桥梁模式（Bridge）</h2></blockquote>
+<ul>
+<li>将抽象部分与它的实现部分（行为）分离，使它们都可以独立地变化</li>
+<li>解决2个方面的变化问题：抽象与实现（行为）。即一个类中多个方向的变化问题<img src="/img/se_109.jpg">
 </li>
 </ul>
 
@@ -584,7 +598,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（h）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -603,7 +617,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="url">软件工程复习（八）</a></h1>
+                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（j）/" itemprop="url">软件工程复习（十）</a></h1>
         
 
         <div class="post-meta">
@@ -635,8 +649,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（h）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（j）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（j）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -645,7 +659,7 @@
 
           
           
-             <span id="/2017/12/31/2017-12-31-软件工程复习（h）/" class="leancloud_visitors" data-flag-title="软件工程复习（八）">
+             <span id="/2017/12/31/2017-12-31-软件工程复习（j）/" class="leancloud_visitors" data-flag-title="软件工程复习（十）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -679,89 +693,160 @@
         
           
             <blockquote>
-<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
-</blockquote>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><p>OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式</p>
+<h2 id="面向对象的设计准则"><a href="#面向对象的设计准则" class="headerlink" title="面向对象的设计准则"></a>面向对象的设计准则</h2></blockquote>
 <ul>
-<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
-<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
-</ul>
-</li>
-<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
-<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
-</ul>
-</li>
-<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
-<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
+<li>模块化</li>
+<li>抽象</li>
+<li>信息隐藏</li>
+<li>弱耦合</li>
+<li>强内聚</li>
+<li>可重用</li>
 </ul>
 <blockquote>
-<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
+<h2 id="启发规则"><a href="#启发规则" class="headerlink" title="启发规则"></a>启发规则</h2></blockquote>
 <ul>
-<li>视图（view）<ul>
-<li>通常包括多个图</li>
+<li><h3 id="设计结果应该清晰易懂"><a href="#设计结果应该清晰易懂" class="headerlink" title="设计结果应该清晰易懂"></a>设计结果应该清晰易懂</h3></li>
+<li><h3 id="提高软件可维护性和可重用性重要措施"><a href="#提高软件可维护性和可重用性重要措施" class="headerlink" title="提高软件可维护性和可重用性重要措施"></a>提高软件可维护性和可重用性重要措施</h3><ul>
+<li>用词一致</li>
+<li>使用已有的协议（重载）</li>
+<li>减少消息模式的数目</li>
+<li>避免模糊的定义</li>
 </ul>
 </li>
-<li>图（diagram）</li>
-<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
-<li>通用机制（general mechanism）<ul>
-<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
-<li>比如：构造型，标签值，笔记（写注释）等</li>
+<li><h3 id="一般—特殊结构的深度应适当"><a href="#一般—特殊结构的深度应适当" class="headerlink" title="一般—特殊结构的深度应适当"></a>一般—特殊结构的深度应适当</h3><ul>
+<li>应该使类等级中包含的层次数适当</li>
 </ul>
 </li>
+<li><h3 id="设计简单的类"><a href="#设计简单的类" class="headerlink" title="设计简单的类"></a>设计简单的类</h3><ul>
+<li>尽量设计小而简单的类，便于开发管理<ul>
+<li>避免包含过多的属性</li>
+<li>有明确的定义</li>
+<li>尽量简化对象之间的合作关系</li>
+<li>不要提供太多服务（保持适当内聚的基础上）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="使用简单的协议"><a href="#使用简单的协议" class="headerlink" title="使用简单的协议"></a>使用简单的协议</h3></li>
+<li><h3 id="使用简单的服务"><a href="#使用简单的服务" class="headerlink" title="使用简单的服务"></a>使用简单的服务</h3></li>
+<li><h3 id="把设计变动减至最小（结构稳定）"><a href="#把设计变动减至最小（结构稳定）" class="headerlink" title="把设计变动减至最小（结构稳定）"></a>把设计变动减至最小（结构稳定）</h3></li>
 </ul>
 <blockquote>
-<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
-<ul>
-<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
-<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
-<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
-<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
-<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
+<h2 id="架构模式（Architecture-Patterns）"><a href="#架构模式（Architecture-Patterns）" class="headerlink" title="架构模式（Architecture Patterns）"></a>架构模式（Architecture Patterns）</h2><p>An architectural pattern is a proven structural organization schema for software systems（架构模式是指用于软件系统中经实践证明的机构化的组织格式化） <br><br>层次、CS、MVC、Pipe-Filter、Master-slave</p>
 </blockquote>
+<ul>
+<li><h3 id="层次架构"><a href="#层次架构" class="headerlink" title="层次架构"></a>层次架构</h3><ul>
+<li>eg: 网络协议（OSI/ISO 七层模型）<img src="/img/se_91.jpg"></li>
+<li>每层向上层提供服务</li>
+<li>越低层越稳定</li>
+<li>职责分离，每层可独立开发</li>
+<li>提供给上层高的抽象接口不容易写</li>
+<li>低层可能做一些高层用不到的功能</li>
+</ul>
+</li>
+<li><h3 id="MVC架构"><a href="#MVC架构" class="headerlink" title="MVC架构"></a>MVC架构</h3><ul>
+<li>model: 核心功能和数据（是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据）</li>
+<li>view： 向用户展示信息（是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的）</li>
+<li>controller： 处理用户的输入（是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据）</li>
+<li><strong>用于交互式系统</strong><img src="/img/se_92.jpg"></li>
+<li>控制流程<img src="/img/se_93.jpg">
 </li>
 </ul>
 </li>
-<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
-<li>静态图描述系统的静态结构，包括：<ul>
-<li><strong>类图</strong>（class diagram）</li>
-<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
+<li><h3 id="CS架构"><a href="#CS架构" class="headerlink" title="CS架构"></a>CS架构</h3><ul>
+<li>Server组件向多个client提供服务</li>
+<li>客户端通过向服务器请求得到服务</li>
+<li>请求是在进程和机器边界上完成的<ul>
+<li>采用进程间通信机制</li>
+<li>而层级架构则是横跨进程和机器边界</li>
 </ul>
 </li>
-<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
+<li>Server通常是长期运行的，拥有监听来自Client的请求</li>
+<li><strong>Examples</strong>：<ul>
+<li>Remote DB access （远程数据库接入）</li>
+<li>Remote file systems（远程文件系统）</li>
+<li>Multi-tier information system（多层信息系统）</li>
+<li>Web applications（网页应用）</li>
 </ul>
 </li>
-<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
-<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
-<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
-<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
+<li>通常在单独的线程中处理请求</li>
+<li>Server和Client的交互通常包含在一个session（会话）中</li>
+<li>Stateless servers（无状态的服务）<ul>
+<li>会话状态由client保存（例如：cookie机制）</li>
+<li>每个请求都带上client保存的会话状态信息</li>
 </ul>
 </li>
-</ul>
-</li>
-<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
-<li>这类图描述对象间的交互关系，包括<ul>
-<li><strong>顺序图</strong>（sequence diagram）</li>
-<li><strong>协作图</strong>（collaboration diagram）</li>
-</ul>
-</li>
-<li>描述一个场景中若干个类的交互（动态协作）</li>
-</ul>
-</li>
-<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
-<li>这类图提供关于系统实现方面的信息，包括：<ul>
-<li>构件图（component diagram）</li>
-<li>配置图（deployment diagram）</li>
+<li>Stateful servers（有状态服务）<ul>
+<li>会话状态由Server端保存</li>
+<li>所有的Client的请求都关联到其对应的client-id</li>
 </ul>
 </li>
 </ul>
 </li>
+<li><h3 id="Master-slave（主从模式）"><a href="#Master-slave（主从模式）" class="headerlink" title="Master-slave（主从模式）"></a>Master-slave（主从模式）</h3><ul>
+<li>主从模式支持<strong>容错</strong>和<strong>并行计算</strong></li>
+<li><strong>主组件</strong>将工作<strong>分配</strong>给若干个从组件，<strong>从组件</strong>各自<strong>计算</strong>，最后主组件从这些从组件返回的结果中计算最终的结果<img src="/img/se_01.png"></li>
+<li><strong>Examples</strong>:<ul>
+<li>Process control(进程控制)</li>
+<li>Embedded systems(嵌入式系统)</li>
+<li>Large-scale parallel computations（大规模并行计算）</li>
+<li>Fault tolerant systems(容错系统) ==&gt; 比如磁盘阵列（可以用其中一块或多块硬盘做奇偶校验，可以达到容错的效果）</li>
 </ul>
-<img src="/img/se_72.jpg">
-<img src="/img/se_73.jpg">
-<img src="/img/se_74.jpg">
-<img src="/img/se_75.jpg">
-<img src="/img/se_76.jpg">
-<img src="/img/se_77.jpg">
-<img src="/img/se_78.jpg">
+</li>
+<li>执行流程：<img src="/img/se_02.png"></li>
+<li>分析：<ul>
+<li>一旦Master挂掉，整个系统也就挂了</li>
+<li>从组件之间是独立的，不共享状态</li>
+<li>从组件之间可以并行运行</li>
+<li>对于硬实时系统（对延迟很敏感），主从组件之间的通信延迟可能是一个问题</li>
+<li>要解决的问题必须是可分解的</li>
+</ul>
+</li>
+<li>应用领域：<ul>
+<li>容错</li>
+<li>并行计算</li>
+<li>精确计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Pipe-Filter-管道过滤器模式"><a href="#Pipe-Filter-管道过滤器模式" class="headerlink" title="Pipe-Filter(管道过滤器模式)"></a>Pipe-Filter(管道过滤器模式)</h3><ul>
+<li>该架构适用于处理数据流的系统</li>
+<li>每<strong>一个处理</strong>都封装在<strong>一个过滤器组件</strong>当中</li>
+<li>数据通过相邻过滤器之间的管道（pipe）进行传输<ul>
+<li>pipe主要负责处理缓存和同步</li>
+</ul>
+</li>
+<li><strong>Examples</strong>：<ul>
+<li>Compilers（编译器）<img src="/img/se_04.png"></li>
+<li>Unix shell commands<img src="/img/se_03.png"></li>
+</ul>
+</li>
+<li>分析：<ul>
+<li>很容易插入新的过滤器</li>
+<li>过滤器可重用<ul>
+<li>过滤器可以被独立开发</li>
+<li>潜在数据转换开销</li>
+</ul>
+</li>
+<li>输入可以来自不同的数据源，输出也可以输出到不同的地方</li>
+<li>天然的并行处理</li>
+<li>过滤器间不共享状态</li>
+<li><strong>不适用于交互式系统，适用于批处理系统</strong></li>
+</ul>
+</li>
+<li>Java中的管道<ul>
+<li>InputStream in = new BufferedInputStream(new DataInputStream(System.in))<img src="/img/se_05.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Broker（代理模式）"><a href="#Broker（代理模式）" class="headerlink" title="Broker（代理模式）"></a>Broker（代理模式）</h3></li>
+<li><h3 id="Peer-to-peer（P2P模式和）"><a href="#Peer-to-peer（P2P模式和）" class="headerlink" title="Peer-to-peer（P2P模式和）"></a>Peer-to-peer（P2P模式和）</h3></li>
+<li><h3 id="Event-bus"><a href="#Event-bus" class="headerlink" title="Event-bus"></a>Event-bus</h3></li>
+<li><h3 id="Blackboard"><a href="#Blackboard" class="headerlink" title="Blackboard"></a>Blackboard</h3></li>
+</ul>
 
           
         
@@ -1506,7 +1591,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（d）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（e）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1525,7 +1610,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（d）/" itemprop="url">软件工程复习（四）</a></h1>
+                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="url">软件工程复习（五）</a></h1>
         
 
         <div class="post-meta">
@@ -1557,8 +1642,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/23/2017-12-23-软件工程复习（d）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（d）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/23/2017-12-23-软件工程复习（e）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1567,7 +1652,7 @@
 
           
           
-             <span id="/2017/12/23/2017-12-23-软件工程复习（d）/" class="leancloud_visitors" data-flag-title="软件工程复习（四）">
+             <span id="/2017/12/23/2017-12-23-软件工程复习（e）/" class="leancloud_visitors" data-flag-title="软件工程复习（五）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1601,247 +1686,195 @@
         
           
             <blockquote>
-<h2 id="结构化设计（Structured-Design-SD）-整体understanding"><a href="#结构化设计（Structured-Design-SD）-整体understanding" class="headerlink" title="结构化设计（Structured Design, SD）     (整体understanding)"></a>结构化设计（Structured Design, SD）     (整体understanding)</h2><p>结构化设计工作通常划分为<strong><em>概要设计和详细设计</em></strong>两个阶段</p>
-<ul>
-<li><strong>概要设计</strong>又称<strong>总体设计</strong>或<strong>初步设计</strong></li>
-<li>概要设计的主要任务：分析软件规格说明（来自需求分析的输出）,对软件进行功能分解，<strong>划分为模块</strong>，设计出<strong>模块结构</strong></li>
-<li>详细设计阶段：详细设计<strong>每个模块</strong>，确定每个模块功能的<strong>算法</strong>和<strong>数据结构</strong></li>
-</ul>
-<h2 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h2><p>总体设计过程通常由两个主要阶段组成：<strong>系统设计阶段</strong>，确定系统的具体实现方案;<strong>结构设计阶段</strong>，确定软件结构。</p>
+<p>详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。</p>
+<h2 id="结构程序设计-master"><a href="#结构程序设计-master" class="headerlink" title="结构程序设计 (master)"></a>结构程序设计 (master)</h2><p>如果一个程序的代码块仅仅通过<strong>顺序、选择和循环</strong>这三种控制结构进行<strong>连接</strong>，并且每个代码块只有<strong>一个入口和一个出口</strong>，则称<strong>这个程序是结构化</strong>的。</p>
 </blockquote>
 <ul>
-<li>设想供选择的方案</li>
-<li>选择合理的方案</li>
-<li>推荐最佳方案</li>
-<li>功能分解</li>
-<li>设计软件结构</li>
-<li>设计数据库</li>
-<li>制定测试计划</li>
-<li>书写文档</li>
-<li>复查和复审</li>
+<li><h3 id="三种基本控制结构"><a href="#三种基本控制结构" class="headerlink" title="三种基本控制结构"></a>三种基本控制结构</h3><img src="/img/se_46.jpg" title="三种基本的控制结构(a) 顺序结构，先执行A再执行B；(b) IF-THEN-ELSE型选择(分支)结构；(c) DO-WHILE型循环结构"></li>
+<li><h3 id="关于GOTO语句"><a href="#关于GOTO语句" class="headerlink" title="关于GOTO语句"></a>关于GOTO语句</h3><ul>
+<li>上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的编程方法，而是一种使程序代码容易阅读、容易理解的编程方法</li>
+<li>大多数情况下，无GO TO的代码确实是容易阅读、容易理解，但在某些情况下，为达到容易阅读和容易理解的目的，需要使用GO TO语句</li>
+<li>结构程序设计是尽可能少用GO TO语句的程序设计方法。最好仅在检测出错误时才使用GO TO语句，而且应该总是使用前向GO TO语句</li>
+<li><strong>但是一般题目中问一段代码为什么不是结构化程序，很大可能是使用了GOTO语句</strong></li>
+</ul>
+</li>
+<li><h3 id="经典的结构程序设计"><a href="#经典的结构程序设计" class="headerlink" title="经典的结构程序设计"></a>经典的结构程序设计</h3><ul>
+<li>如果<strong>只允许使用顺序、IF-THEN-ELSE型分支和DO-WHILE型循环</strong>这三种基本控制结构，则称为经典的结构程序设计</li>
+</ul>
+</li>
+<li><h3 id="扩展的结构程序设计"><a href="#扩展的结构程序设计" class="headerlink" title="扩展的结构程序设计"></a>扩展的结构程序设计</h3><ul>
+<li>如果除了上述三种基本控制结构之外，还允许使用<strong>DO-CASE型多分支结构</strong>和<strong>DO-UNTIL型循环结构</strong>，则称为扩展的结构程序设计<img src="/img/se_47.jpg" title="其他常用的控制结构(a) DO-UNTIL型循环结构；(b)多分支结构"></li>
+</ul>
+</li>
+<li><h3 id="修正的结构程序设计"><a href="#修正的结构程序设计" class="headerlink" title="修正的结构程序设计"></a>修正的结构程序设计</h3><ul>
+<li>如果再加上允许使用<strong>LEAVE(或BREAK)结构</strong>，则称为修正的结构程序设计。</li>
+</ul>
+</li>
 </ul>
 <blockquote>
-<h2 id="设计原理"><a href="#设计原理" class="headerlink" title="设计原理"></a>设计原理</h2></blockquote>
-<ul>
-<li><h3 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h3><ul>
-<li><h4 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h4><ul>
-<li>模块是由边界元素限定的相邻的程序元素的序列，而且有一个总体标识符来代表。</li>
-<li>面向对象范型中的对象是模块，对象内的方法也是模块。<strong>模块是构成程序的基本构件</strong>。</li>
-<li>每个<strong>模块</strong>完成一个<strong>子功能</strong>，把这些模块集成起来<strong>构成</strong>一个<strong>整体</strong>，可以完成指定的功能<strong>满足</strong>用户的<strong>需求</strong></li>
-</ul>
-</li>
-<li><h4 id="模块化和软件成本"><a href="#模块化和软件成本" class="headerlink" title="模块化和软件成本"></a>模块化和软件成本</h4><img src="/img/se_27.jpg" title="模块化和软件成本">
-<ul>
-<li>每一个程序都相应地有一个最适当的模块书目M，使系统的开发成本最小</li>
-</ul>
-</li>
-<li><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
-<li><strong>结构清晰</strong></li>
-<li><strong>容易阅读和理解</strong></li>
-<li><strong>容易测试和调试</strong></li>
-<li>有助于提高软件的<strong>可靠性</strong></li>
-<li><strong>可修改性</strong></li>
-<li><strong>便于组织和管理</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="抽象"><a href="#抽象" class="headerlink" title="抽象"></a>抽象</h3><ul>
-<li>把事物、状态或过程之间存在的<strong>共性集中概括</strong>起来，暂时忽略他们之间的差异，这就是抽象</li>
-</ul>
-</li>
-<li><h3 id="逐步求精"><a href="#逐步求精" class="headerlink" title="逐步求精"></a>逐步求精</h3><ul>
-<li>为了能<strong>集中</strong>精力<strong>解决主要问题</strong>而尽量<strong>推迟</strong>对问题<strong>细节的考虑</strong></li>
-<li>求精实际上就是细化的过程<blockquote>
-<p>抽象与求精是一对互补的概念</p>
-<ul>
-<li>抽象使得设计者能够说明过程和数据，同时却忽略低层细节。</li>
-<li>抽象是一种通过忽略多余的细节同时强调有关的细节，而实现逐步求精的方法。</li>
-<li>求精则帮助设计者在设计过程中揭示出低层细节。</li>
-<li>这两个概念都有助于设计者在设计演化过程中创造出完整的设计模型。</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h3 id="信息隐藏和局部化"><a href="#信息隐藏和局部化" class="headerlink" title="信息隐藏和局部化"></a>信息隐藏和局部化</h3><ul>
-<li>一个模块内包含的信息(过程和数据)对于不需要这些信息的模块来说，是不能访问的</li>
-</ul>
-</li>
-<li><h3 id="模块独立-（master）"><a href="#模块独立-（master）" class="headerlink" title="模块独立 （master）"></a>模块独立 （master）</h3><blockquote>
-<p>“模块独立”概念是模块化、抽象、逐步求精和信息隐藏等概念的直接结果，也是完成有效的模块设计的基本标准。可以由两个定性标准来度量，这两个标准分别称为<strong>内聚</strong>和<strong>耦合</strong>。</p>
-<ul>
-<li>耦合：耦合衡量<strong>不同模块</strong>彼此<strong>间</strong>互相<strong>依赖</strong>(连接)紧密<strong>程度</strong></li>
-<li>内聚：内聚衡量<strong>一个模块内部</strong>各个元素彼此<strong>结合</strong>的紧密<strong>程度</strong></li>
-</ul>
-<p><br>对于模块设计，我们一般追求：<strong>模块内部高内聚，模块之间低耦合</strong></p>
+<h2 id="人机界面设计-cut"><a href="#人机界面设计-cut" class="headerlink" title="人机界面设计 (cut)"></a>人机界面设计 (cut)</h2><p><strong>人机界面</strong>设计是<strong>接口设计</strong>的一个组成部分</p>
 </blockquote>
 <ul>
-<li><h4 id="耦合"><a href="#耦合" class="headerlink" title="耦合"></a>耦合</h4><ul>
-<li><p>非直接耦合：两个模块之间没有直接关系，它们之间的联系完全是通过主模块的控制和调用来实现的，非直接耦合的模块独立性最强，模块间的<strong>耦合程度最低</strong></p>
-</li>
-<li><p>数据耦合：通过<strong>简单的数据参数传递</strong>产生的耦合，是一种<strong>低耦合</strong></p>
-</li>
-<li><p>标记（特征）耦合：</p>
-<ul>
-<li>传递参数表记录信息，如文件、数组、指针等。</li>
-<li>当把<strong>整个数据结构</strong>当做参数<strong>传入模块</strong>，但是模块实际上<strong>只需要</strong>其中的<strong>一部分元素</strong></li>
+<li><h3 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h3><ul>
+<li>系统响应时间</li>
+<li>用户帮助设施</li>
+<li>出错信息处理</li>
+<li>命令交互</li>
 </ul>
 </li>
-<li><p>控制耦合：</p>
-<ul>
-<li>传递的信息中有<strong>控制信息</strong>，有可能是一个简单变量，但<strong>可能改变程序流程</strong>。</li>
-<li>它是中等程度的耦合，增加了系统的复杂程度，适当分解可以用数据耦合替代它。</li>
+<li><h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ul>
+<li>用户界面设计是一个迭代的过程，也就是说，通常先创建设计模型，再用原型实现这个设计模型，并由用户试用和评估，然后根据用户的意见进行修改</li>
 </ul>
 </li>
-<li><p>外部耦合：一组模块都访问同一全局简单变量</p>
-</li>
-<li><p>公共环境耦合：一组模块访问同一个公共数据环境</p>
-</li>
-<li><p>内容耦合：</p>
-<ul>
-<li>一组<strong>模块使用另一模块内部数据</strong>；模块通过非正常渠道进入另一模块执行</li>
-<li>这是最高程度的耦合</li>
+<li><h3 id="界面设计指南"><a href="#界面设计指南" class="headerlink" title="界面设计指南"></a>界面设计指南</h3><ul>
+<li><h4 id="一般交互指南"><a href="#一般交互指南" class="headerlink" title="一般交互指南"></a>一般交互指南</h4><ul>
+<li>保持一致性</li>
+<li>提供有意义的反馈</li>
+<li>在执行有较大破坏性动作之前要求用户确认</li>
+<li>允许取消大多数操作</li>
+<li>减少在两次操作之间必须记忆的信息量</li>
+<li>提高对话、移动和思考的效率</li>
+<li>允许犯错误</li>
+<li>按功能对动作分类，并据此设计屏幕布局</li>
+<li>提供对用户工作内容敏感的帮助设施</li>
+<li>用简单动词或名词短语作为命令名</li>
 </ul>
 </li>
-<li><p>使用原则：<strong>尽量使用数据耦合，少用控制耦合，限制公共环境耦合的范围，完全不用内容耦合。</strong></p>
-</li>
+<li><h4 id="信息显示指南"><a href="#信息显示指南" class="headerlink" title="信息显示指南"></a>信息显示指南</h4><ul>
+<li>只显示与当前<strong>工作内容有关的信息</strong>。</li>
+<li>用户在获得有关系统的特定功能的信息时，<strong>不必看到与之无关的数据、菜单和图形</strong>。</li>
+<li>不要用数据淹没用户</li>
+<li>使用一致的标记、标准的缩写和可预知的颜色</li>
+<li>允许用户保持可视化的语境</li>
+<li>产生有意义的出错信息</li>
+<li>使用大小写、缩进和文本分组以帮助理解</li>
+<li>使用窗口分隔不同类型的信息</li>
+<li>使用“模拟”显示方式表示信息</li>
+<li>高效率地使用显示屏</li>
 </ul>
 </li>
-<li><h4 id="内聚"><a href="#内聚" class="headerlink" title="内聚"></a>内聚</h4><blockquote>
-<p><strong>理想内聚的模块只做一件事情</strong>，设计模块时，通常追求<strong>模块内部是高内聚</strong>的<br><br>内聚和耦合是密切相关的，模块内的高内聚往往意味着模块间的松耦合</p>
-</blockquote>
-<ul>
-<li>低内聚：<ul>
-<li>偶然内聚</li>
-<li>逻辑内聚</li>
-<li>时间内聚</li>
-</ul>
-</li>
-<li>中内聚<ul>
-<li>过程内聚</li>
-<li>通信内聚</li>
-</ul>
-</li>
-<li>高内聚<ul>
-<li>顺序内聚（信息内聚）</li>
-<li>功能内聚</li>
-</ul>
-</li>
+<li><h4 id="数据输入指南"><a href="#数据输入指南" class="headerlink" title="数据输入指南"></a>数据输入指南</h4><ul>
+<li>尽量减少用户的输入动作</li>
+<li>保持信息显示和数据输入之间的一致性</li>
+<li>允许用户自定义输入</li>
+<li>交互应该是灵活的</li>
+<li>使在当前动作语境中不适用的命令不起作用</li>
+<li>让用户控制交互流</li>
+<li>对所有输入动作都提供帮助</li>
+<li>消除冗余的输入</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="启发规则"><a href="#启发规则" class="headerlink" title="启发规则"></a>启发规则</h2><p>长期实践经验所得，<strong>有助于实现有效的模块化</strong></p>
+<h2 id="过程设计的工具-master"><a href="#过程设计的工具-master" class="headerlink" title="过程设计的工具  (master)"></a>过程设计的工具  (master)</h2><p>图形、表格、语言</p>
 </blockquote>
 <ul>
-<li><p>改进<strong>软件结构</strong>提高模块独立性</p>
-</li>
-<li><p>模块<strong>规模</strong>应该<strong>适中</strong></p>
-</li>
-<li><p><strong>深度、宽度、扇出和扇入</strong>都应适当</p>
-<ul>
-<li>深度：树高</li>
-<li>宽度：某层最大模块数</li>
-<li>扇出：直接控制的模块数</li>
-<li>扇入：有多少个上机的模块直接指向它</li>
+<li><h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><ul>
+<li>程序流程图又称为程序框图，是历史最悠久使用最广泛的描述过程设计的方法，然而也是用得最混乱的一种方法</li>
+<li>缺点：<ul>
+<li>绘制随意，容易只考虑流程控制而不考虑全局结构，而破坏结构化程序设计</li>
+<li>不容易表示数据结构</li>
 </ul>
 </li>
-<li><p>模块的<strong>作用域</strong>应该在<strong>控制域</strong>之内</p>
-<img src="/img/se_28.jpg" title="模块的作用域和控制域">
-<ul>
-<li>如图所示，A的控制域就包括BCDEF</li>
-<li>如果G也在A的作用域之内，则就不是一个合理的设计</li>
-<li>应该把G下放一层，放在A的控制域之内</li>
+<li>程序流程图中使用的符号<img src="/" title="(a) 选择(分支)；(b) 注释；(c) 预先定义的处理；(d) 多分支；(e) 开始或停止；(f) 准备； (g)循环上界限；(h) 循环下界限；(i) 虚线；(j) 省略符；(k) 并行方式；(l) 处理； (m) 输入/输出；(n) 连接；(o) 换页连接；(p) 控制流"></li>
 </ul>
 </li>
-<li><p>力争降低<strong>模块接口</strong>的复杂程度</p>
+<li><h3 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h3><ul>
+<li><p>盒图没有箭头，因此不允许随意转移控制。坚持使用盒图作为详细设计的工具，可使程序员逐步养成用结构化的方式思考问题和解决问题的习惯</p>
 </li>
-<li><p>设计<strong>单入口单出口</strong>的模块</p>
+<li><p><strong>能保证设计出的程序一定是结构化的</strong></p>
 </li>
-<li><p><strong>模块功能</strong>应该可以预测</p>
+<li><p>但是绘制的时候受空间限制，难以扩充</p>
+</li>
+<li>盒图的基本符号<img src="/img/se_48.jpg" title="(a) 顺序；(b) IF-THEN-ELSE型分支；(c) CASE型多分支；(d) 循环；(e) 调用子程序A">
+</li>
+</ul>
+</li>
+<li><h3 id="PAD图（Problem-Analysis-Diagram）"><a href="#PAD图（Problem-Analysis-Diagram）" class="headerlink" title="PAD图（Problem Analysis Diagram）"></a>PAD图（Problem Analysis Diagram）</h3><ul>
+<li><p>它用二维树形结构的图来表示程序的控制流，将这种图翻译成程序代码比较容易</p>
+</li>
+<li><p>与盒图相比，<strong>不受空间限制，易于扩充</strong></p>
+</li>
+<li><p><strong>可保证设计出来的程序一定是结构化的</strong></p>
+</li>
+<li><p>PAD图的基本符号</p>
 <ul>
-<li>相同输入，得到可预测的想通过输出</li>
+<li>(a) 顺序(先执行P1后执行P2)；</li>
+<li>(b) 选择(IF C THEN P1 ELSE P2)；</li>
+<li>(c) CASE型多分支；(d) WHILE型循环(WHILE C DO P)；</li>
+<li>(e) UNTIL型循环(REPEAT P UNTIL C)；</li>
+<li>(f) 语句标号；</li>
+<li>(g) 定义<img src="/img/se_49.jpg">
+</li>
+</ul>
+</li>
+<li><p>可使用PAD提供的定义功能来逐步求精</p>
+<img src="/img/se_50.jpg">
+</li>
+</ul>
+</li>
+<li><h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><ul>
+<li>当算法中包含多重嵌套的条件选择时，<strong>判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</strong><img src="/img/se_51.jpg"></li>
+</ul>
+</li>
+<li><h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><ul>
+<li>比判定表<strong>直观</strong>，包含<strong>判定的先后顺序</strong></li>
+<li>父节点：判定条件</li>
+<li>叶子节点：一个动作<img src="/img/se_52.jpg"></li>
+</ul>
+</li>
+<li><h3 id="过程设计语言（PDL-Process-Design-Language）"><a href="#过程设计语言（PDL-Process-Design-Language）" class="headerlink" title="过程设计语言（PDL: Process Design Language）"></a>过程设计语言（PDL: Process Design Language）</h3><ul>
+<li>伪代码</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="描绘软件结构的图形工具-（master）"><a href="#描绘软件结构的图形工具-（master）" class="headerlink" title="描绘软件结构的图形工具 （master）"></a>描绘软件结构的图形工具 （master）</h2><p><strong>层次图</strong>、<strong>HIPO图</strong>和<strong>结构图</strong></p>
+<h2 id="程序复杂度的定量度量-master"><a href="#程序复杂度的定量度量-master" class="headerlink" title="程序复杂度的定量度量 (master)"></a>程序复杂度的定量度量 (master)</h2><p>常用的方法有McCabe方法（采用流图）、Halstead方法，下面仅介绍第一种</p>
 </blockquote>
 <ul>
-<li><h3 id="层次图"><a href="#层次图" class="headerlink" title="层次图"></a>层次图</h3><ul>
-<li><strong>层次图</strong>也称<strong>H图</strong></li>
-<li>在层次图中一个矩形框代表一个模块，框间的连线表示调用关系(位于上方的矩形框所代表的模块调用位于下方的矩形框所代表的模块)。<img src="/img/se_29.jpg" title="正文加工系统的层次图">
+<li><h3 id="McCabe-方法"><a href="#McCabe-方法" class="headerlink" title="McCabe 方法"></a>McCabe 方法</h3><ul>
+<li><h4 id="流图"><a href="#流图" class="headerlink" title="流图"></a>流图</h4><ul>
+<li><p>为了<strong>突出表示程序的控制流</strong>，可以使用流图(也称为程序图)</p>
 </li>
+<li><p>流图<strong>仅描绘程序的控制流程</strong>，完全不表现对数据的具体操作以及分支或循环的具体条件。</p>
+</li>
+<li><p>流图用<strong>圆</strong>表示<strong>节点</strong>，一个圆代表<strong>一条或多条语句</strong>（如果多条语句在一个顺序结构上，可以省略中间，只画两边的节点）</p>
+</li>
+<li><p>流图中的<strong>箭头线</strong>称为<strong>边</strong>，和程序流程图中的箭头线类似，代表<strong>控制流</strong></p>
+</li>
+<li><p>由边和节点围成的面积称为<strong>区域</strong>，<strong>区域数</strong>应该<strong>包括</strong>图<strong>外部</strong>未被围起来的<strong>区域</strong>。</p>
+</li>
+<li><p>基本结构：</p>
+<img src="/img/se_53.jpg"></li>
+<li>把程序流程图映射成流图(a)程序流程图；(b)流图<img src="/img/se_54.jpg)" title="![](img/se_55.jpg"></li>
+<li><p>PDL翻译成流图</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">procedure: sort</span><br><span class="line">  <span class="keyword">do</span> <span class="keyword">while</span> records remain</span><br><span class="line">    read record;</span><br><span class="line">    <span class="keyword">if</span> record field1 = <span class="number">0</span></span><br><span class="line">      then process record;</span><br><span class="line">        store in buffer;</span><br><span class="line">        incremert counter;</span><br><span class="line">    elseif record filed2 = <span class="number">0</span></span><br><span class="line">      then reset counter;</span><br><span class="line">      <span class="keyword">else</span> process record;</span><br><span class="line">        store in file;</span><br><span class="line">      endif</span><br><span class="line">    endif</span><br><span class="line">  enddo</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+<img src="/img/se_57.jpg"></li>
+<li>由包含复合条件的PDL映射成的流图<img src="/img/se_58.jpg"></li>
 </ul>
 </li>
-<li><h3 id="HIPO图"><a href="#HIPO图" class="headerlink" title="HIPO图"></a>HIPO图</h3><ul>
-<li><strong>HIPO图</strong>是美国IBM公司发明的“层次图加输入/处理/输出图”的英文缩写。</li>
-<li>为了使HIPO图具有可追踪性，在<strong>H图</strong>(即层次图)里<strong>除了顶层的方框之外</strong>，<strong>每个方框都加了编号</strong>。</li>
-<li>然后每个方框对应用一张IPO图来描述，IPO图中应该明显的标出其在上述改进的H图中的编号<img src="/img/se_30.jpg" title="带编号的层次图（H图）">
-</li>
+<li><h4 id="流图环形复杂度的计算"><a href="#流图环形复杂度的计算" class="headerlink" title="流图环形复杂度的计算"></a>流图<strong>环形复杂度</strong>的计算</h4><ul>
+<li>流图中的区域数等于环形复杂度</li>
+<li>流图G的环形复杂度V(G)＝E-N+2，其中E是流图中边的条数，N是流图中节点数</li>
+<li>流图G的环形复杂度V(G)＝P+1，其中P是流图中判定节点的数目</li>
 </ul>
 </li>
-<li><h3 id="结构图（了解）"><a href="#结构图（了解）" class="headerlink" title="结构图（了解）"></a>结构图（了解）</h3><ul>
-<li>结构图和层次图类似，也是描绘软件结构的图形工具</li>
-<li>结构图中带注释的箭头表示模块调用过程中来回传递的信息</li>
-<li>尾部是<strong>空心圆</strong>表示传递的是<strong>数据</strong>，<strong>实心圆</strong>表示传递的是<strong>控制信息</strong><img src="/img/se_31.jpg" title="结构图的例子—产生最佳解的一般结构"></li>
-<li>其它符号<ul>
-<li>判定为真时调用A，为假时调用B<img src="/img/se_32.jpg" title="判定为真时调用A，为假时调用B"></li>
-<li>模块M循环调用模块A，B，C<img src="/img/se_33.jpg" title="模块M循环调用模块A，B，C">
-</li>
+<li>举个栗子：<img src="/img/se_55.jpg">
+<ul>
+<li>上图中共有四个区域，故环形复杂度为4</li>
+<li>上图中共有11条边，9个点，所以环形复杂度位：11 - 9 + 2 = 4</li>
+<li>上图中共有三个判定节点，分别为”1”, “2,3”, “6”，所以环形复杂度为：3 + 1 = 4<blockquote>
+<p>PS:</p>
+<ul>
+<li>在计算<strong>区域数</strong>的时候别忘了包括<strong>最外围的区域</strong></li>
+<li>在计算<strong>判定节点</strong>的时候，不仅<strong>包括</strong>条件<strong>分支的判断</strong>，<strong>循环判定</strong>的节点也算</li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="面向数据流的设计方法-（understanding）"><a href="#面向数据流的设计方法-（understanding）" class="headerlink" title="面向数据流的设计方法 （understanding）"></a>面向数据流的设计方法 （understanding）</h2><p><strong>面向数据流的设计方法</strong>的目标是给出设计软件结构的一个系统化的途径。它定义了一些不同的“映射”，利用这些映射可以<strong>把数据流图变换成软件结构</strong></p>
 </blockquote>
-<ul>
-<li><h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><ul>
-<li><h4 id="变换流"><a href="#变换流" class="headerlink" title="变换流"></a>变换流</h4><ul>
-<li>信息通常以“外部世界”的形式进入软件系统，经过处理以后再以“外部世界”的形式离开系统</li>
-</ul>
-</li>
-<li><h4 id="事物流"><a href="#事物流" class="headerlink" title="事物流"></a>事物流</h4><ul>
-<li>接收输入数据（<strong>输入数据</strong>又称为<strong>事物</strong>）</li>
-<li>分析每个事物，以<strong>确定</strong>它的<strong>类型</strong></li>
-<li>根据事务类型<strong>选取一条活动的通路</strong><img src="/img/se_34.jpg" title="变换流和事务流"></li>
-</ul>
-</li>
-<li><h4 id="设计过程-1"><a href="#设计过程-1" class="headerlink" title="设计过程"></a>设计过程</h4><img src="/img/se_35.jpg" title="面向数据流方法的设计过程"></li>
-</ul>
-</li>
-<li><h3 id="变换分析"><a href="#变换分析" class="headerlink" title="变换分析"></a>变换分析</h3><ul>
-<li>复查基本系统模型</li>
-<li>复查并精化数据流图</li>
-<li>确定数据流图具有变换特性还是事务特性<img src="/img/se_37.jpg" title="数字仪表板系统的数据流图"></li>
-<li>确定输入流和输出流的边界，从而孤立出变换中心<img src="/img/se_36.jpg" title="具有边界的数据流图"></li>
-<li>完成“第一级分解”<img src="/img/se_38.jpg" title="完成“第一级分解”">
-…<img src="/img/se_39.jpg" title="完成“第一级分解”"></li>
-<li>完成“第二级分解”<img src="/img/se_40.jpg" title="完成“第二级分解”">
-<ul>
-<li>未精化的输入结构<img src="/img/se_41.jpg" title="未精化的输入结构"></li>
-<li>未精化的变换结构<img src="/img/se_42.jpg" title="未精化的变换结构"></li>
-<li>未精化的输出结构<img src="/img/se_43.jpg" title="未精化的输出结构"></li>
-</ul>
-</li>
-<li>使用设计度量和启发规则对第一次分割得到的软件结构进一步精化<img src="/img/se_44.jpg" title="精化后的数字仪表板系统的软件结构"></li>
-</ul>
-</li>
-<li><h3 id="事务分析"><a href="#事务分析" class="headerlink" title="事务分析"></a>事务分析</h3><ul>
-<li>虽然在任何情况下都可以使用变换分析方法设计软件结构，但是在数据流具有明显的事务特点时，也就是有一个明显的“<strong>发射中心</strong>”(事务中心)时，还是以采用事务分析方法为宜。</li>
-<li>事务分析的设计步骤和变换分析的设计步骤大部分相同或类似，主要差别仅在于由数据流图到软件结构的映射方法不同。</li>
-<li>对于一个大系统，常常把变换分析和事务分析应用到同一个数据流图的不同部分，由此得到的子结构形成“<strong>构件</strong>”，可以利用它们构造完整的软件结构</li>
-<li>事务分析的映射方法：<img src="/img/se_45.jpg" title="事务分析的映射方法">
 </li>
 </ul>
 </li>
-<li><h3 id="设计优化（refactoring）"><a href="#设计优化（refactoring）" class="headerlink" title="设计优化（refactoring）"></a>设计优化（refactoring）</h3><ul>
-<li>P112</li>
 </ul>
 </li>
 </ul>
