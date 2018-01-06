@@ -79,15 +79,18 @@
 
 
 
+<meta name="description" content="概述  用fork实现并发要求存在的问题 fork的代价是比较昂贵的 fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。   使用线程可以有效的解决上面的问题 线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍 同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synch">
 <meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章）">
+<meta property="og:title" content="高级C与网络编程复习（13）—— 线程（Threads）（第26章）">
 <meta property="og:url" content="http://qjm253.cn/2018/01/06/super_c_m/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="概述  用fork实现并发要求存在的问题 fork的代价是比较昂贵的 fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。   使用线程可以有效的解决上面的问题 线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍 同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synch">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-06T10:41:32.940Z">
+<meta property="og:updated_time" content="2018-01-06T11:28:21.016Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章）">
+<meta name="twitter:title" content="高级C与网络编程复习（13）—— 线程（Threads）（第26章）">
+<meta name="twitter:description" content="概述  用fork实现并发要求存在的问题 fork的代价是比较昂贵的 fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。   使用线程可以有效的解决上面的问题 线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍 同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synch">
 
 
 
@@ -123,7 +126,7 @@
 
 
 
-  <title>高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章） | 建明 | Ming.J</title>
+  <title>高级C与网络编程复习（13）—— 线程（Threads）（第26章） | 建明 | Ming.J</title>
   
 
 
@@ -321,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章）</h1>
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（13）—— 线程（Threads）（第26章）</h1>
         
 
         <div class="post-meta">
@@ -363,7 +366,7 @@
 
           
           
-             <span id="/2018/01/06/super_c_m/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（13）—— 秘钥管理套接字（Key Manager Sockets）（第19章）">
+             <span id="/2018/01/06/super_c_m/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（13）—— 线程（Threads）（第26章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -394,7 +397,40 @@
       
 
       
-        
+        <blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2></blockquote>
+<ul>
+<li><h3 id="用fork实现并发要求存在的问题"><a href="#用fork实现并发要求存在的问题" class="headerlink" title="用fork实现并发要求存在的问题"></a>用fork实现并发要求存在的问题</h3><ul>
+<li>fork的代价是比较昂贵的</li>
+<li>fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。</li>
+</ul>
+</li>
+<li><h3 id="使用线程可以有效的解决上面的问题"><a href="#使用线程可以有效的解决上面的问题" class="headerlink" title="使用线程可以有效的解决上面的问题"></a>使用线程可以有效的解决上面的问题</h3><ul>
+<li>线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍</li>
+<li>同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synchronization)问题</li>
+</ul>
+</li>
+<li><h3 id="同一进程内的线程共享："><a href="#同一进程内的线程共享：" class="headerlink" title="同一进程内的线程共享："></a>同一进程内的线程共享：</h3><ul>
+<li>全局变量</li>
+<li>进程指令（process instruction）</li>
+<li>大多数数据（most data）</li>
+<li>打开的文件（open file）==&gt; 即描述符</li>
+<li>信号处理函数和信号处置（Signal handlers and signal disposition）</li>
+<li>当前工作目录（Current working directory）</li>
+<li>用户ID和组ID（User and group ID）</li>
+</ul>
+</li>
+<li><h3 id="线程独享以下内容："><a href="#线程独享以下内容：" class="headerlink" title="线程独享以下内容："></a>线程独享以下内容：</h3><ul>
+<li>线程ID （thread ID）</li>
+<li>寄存器集合，包括程序计数器和栈指针 （Set of registers， including program counter and stack pointer）</li>
+<li>栈（用于存放局部变量和返回地址）  Stack（for local variables and return address）</li>
+<li>errno ==&gt; 全局动态变量（记录最近的一次错误）</li>
+<li>信号掩码(Signal mask)</li>
+<li>优先级(Priority)</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
@@ -430,8 +466,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/06/super_c_l/" rel="next" title="高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）">
-                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）
+              <a href="/2018/01/06/super_c_l/" rel="next" title="高级C与网络编程复习（12）—— 路由套接字和秘钥管理套接字（Routing Sockets and Key Managment Sockets）（第18章，第19章）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（12）—— 路由套接字和秘钥管理套接字（Routing Sockets and Key Managment Sockets）（第18章，第19章）
               </a>
             
           </div>
@@ -439,6 +475,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/06/super_c_n/" rel="prev" title="高C考试说明">
+                高C考试说明 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -521,8 +561,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -541,7 +590,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -577,6 +626,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用fork实现并发要求存在的问题"><span class="nav-number">1.1.</span> <span class="nav-text">用fork实现并发要求存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用线程可以有效的解决上面的问题"><span class="nav-number">1.2.</span> <span class="nav-text">使用线程可以有效的解决上面的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同一进程内的线程共享："><span class="nav-number">1.3.</span> <span class="nav-text">同一进程内的线程共享：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程独享以下内容："><span class="nav-number">1.4.</span> <span class="nav-text">线程独享以下内容：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
