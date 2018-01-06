@@ -303,6 +303,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_j/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/06/super_c_j/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T15:14:28+08:00">
+                2018-01-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/06/super_c_j/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_j/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/06/super_c_j/" class="leancloud_visitors" data-flag-title="">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_i/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -322,7 +464,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/06/super_c_i/" itemprop="url">高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）</a></h1>
+                <a class="post-title-link" href="/2018/01/06/super_c_i/" itemprop="url">高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）</a></h1>
         
 
         <div class="post-meta">
@@ -364,7 +506,7 @@
 
           
           
-             <span id="/2018/01/06/super_c_i/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
+             <span id="/2018/01/06/super_c_i/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -491,8 +633,19 @@
 </li>
 </ul>
 </li>
-<li><h3 id="getservbyport"><a href="#getservbyport" class="headerlink" title="getservbyport"></a>getservbyport</h3></li>
+<li><h3 id="getservbyport"><a href="#getservbyport" class="headerlink" title="getservbyport"></a>getservbyport</h3><ul>
+<li><h4 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过端口号获取服务的信息</span></span><br><span class="line"><span class="comment">* @param port       端口号</span></span><br><span class="line"><span class="comment">* @param protoname  协议名，如：TCP, UDP</span></span><br><span class="line"><span class="comment">* @return 若成功则返回非空指针，若出错则返回NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct servent *<span class="title">getservbyport</span><span class="params">(<span class="keyword">int</span> port, <span class="keyword">const</span> <span class="keyword">char</span> *protoname)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="栗子-2"><a href="#栗子-2" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight c"><figcaption><span><br>&ensp; gsbp.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">servent</span> *<span class="title">sptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> **sptrs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">3</span>)</span><br><span class="line">        err_quit(<span class="string">"usgae: ./gsbn &lt;port&gt; &lt;protoname&gt;"</span>);</span><br><span class="line">    sptr = getservbyport(atoi(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span>(sptr == <span class="literal">NULL</span>)</span><br><span class="line">        err_quit(<span class="string">"get error"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"official name: %s\n"</span>, sptr-&gt;s_name);</span><br><span class="line">    <span class="keyword">for</span>(sptrs = sptr-&gt;s_aliases; *sptrs != <span class="literal">NULL</span>; sptrs++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"alias: %s\n"</span>, *sptrs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"port: %d\n"</span>, sptr-&gt;s_port);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"protocol: %s\n"</span>, sptr-&gt;s_proto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//shell 通常运行在514端口，并且采用的是tcp协议</span></span><br><span class="line">输入： ./gsbp <span class="number">514</span> tcp</span><br><span class="line">输出：</span><br><span class="line">      official name: shell</span><br><span class="line">      alias: cmd</span><br><span class="line">      port: <span class="number">514</span></span><br><span class="line">      protocol: tcp</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="getaddrinfo函数"><a href="#getaddrinfo函数" class="headerlink" title="getaddrinfo函数"></a>getaddrinfo函数</h2><p>这是一个比以上函数更新的函数，<strong>了解即可</strong></p>
+</blockquote>
 
           
         
@@ -560,7 +713,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/06/super_c_h/" itemprop="url">高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）</a></h1>
+                <a class="post-title-link" href="/2018/01/06/super_c_h/" itemprop="url">高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）（第八章）</a></h1>
         
 
         <div class="post-meta">
@@ -602,7 +755,7 @@
 
           
           
-             <span id="/2018/01/06/super_c_h/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）">
+             <span id="/2018/01/06/super_c_h/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）（第八章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -773,7 +926,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/05/super_c_g/" itemprop="url">高级C与网络编程复习（7）—— 套接字选项（Socket Options）</a></h1>
+                <a class="post-title-link" href="/2018/01/05/super_c_g/" itemprop="url">高级C与网络编程复习（7）—— 套接字选项（Socket Options）（第七章）</a></h1>
         
 
         <div class="post-meta">
@@ -815,7 +968,7 @@
 
           
           
-             <span id="/2018/01/05/super_c_g/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（7）—— 套接字选项（Socket Options）">
+             <span id="/2018/01/05/super_c_g/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（7）—— 套接字选项（Socket Options）（第七章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -961,7 +1114,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/05/super_c_f/" itemprop="url">高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）</a></h1>
+                <a class="post-title-link" href="/2018/01/05/super_c_f/" itemprop="url">高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）（第六章）</a></h1>
         
 
         <div class="post-meta">
@@ -1003,7 +1156,7 @@
 
           
           
-             <span id="/2018/01/05/super_c_f/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）">
+             <span id="/2018/01/05/super_c_f/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）（第六章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1224,266 +1377,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_e/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/05/super_c_e/" itemprop="url">高级C与网络编程复习（5）—— TCP C/S程序示例（TCP Client/Server Example）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T08:00:00+08:00">
-                2018-01-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/05/super_c_e/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/05/super_c_e/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/05/super_c_e/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（5）—— TCP C/S程序示例（TCP Client/Server Example）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="简单回射程序概述"><a href="#简单回射程序概述" class="headerlink" title="简单回射程序概述"></a>简单回射程序概述</h2></blockquote>
-<ul>
-<li>客户从标准输入读入一行文本，并写给服务器</li>
-<li>服务器从网络输入读入这行文本，并回射给客户</li>
-<li>客户熊网络赎回如读入这行回射文本，并显示在标准输出上<img src="/img/unp_23.png" title="简单的回射客户/服务器">
-</li>
-</ul>
-<blockquote>
-<h2 id="TCP回射服务程序"><a href="#TCP回射服务程序" class="headerlink" title="TCP回射服务程序"></a>TCP回射服务程序</h2></blockquote>
-<figure class="highlight c"><figcaption><span><br>&ensp;tcpserv01.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_echo</span><span class="params">(<span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> listenfd, connfd;</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    <span class="keyword">socklen_t</span> clen;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">cliaddr</span>, <span class="title">servaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    listenfd = Socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">9748</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//指定服务端socket的地址为通配地址</span></span><br><span class="line">    <span class="comment">//表示接收来自本机各个网络接口的连接请求</span></span><br><span class="line">    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line"></span><br><span class="line">    Bind(listenfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    Listen(listenfd, LISTENQ);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        clen = <span class="keyword">sizeof</span>(cliaddr);</span><br><span class="line">        connfd = Accept(listenfd, (SA *) &amp;cliaddr, &amp;clen);</span><br><span class="line">        <span class="comment">//接受到来自客户端的请求之后，fork一个进程，在子进程中为客户提供服务</span></span><br><span class="line">        <span class="comment">//父进程则关闭本进程内该已连接描述符（引用计数减1）</span></span><br><span class="line">        <span class="comment">//然后再返回继续accept，可以达到并发的效果</span></span><br><span class="line">        <span class="keyword">if</span>( (pid = Fork()) == <span class="number">0</span> )&#123;      <span class="comment">//子进程执行</span></span><br><span class="line">            Close(listenfd);</span><br><span class="line">            str_echo(connfd);</span><br><span class="line">            Close(connfd);</span><br><span class="line">            <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Close(connfd);                  <span class="comment">//父进程执行</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 为客户端提供服务</span></span><br><span class="line"><span class="comment"> * 从客户端接收一个字符串，并将字符串回射回客户端</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_echo</span><span class="params">(<span class="keyword">int</span> connfd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">ssize_t</span> n;</span><br><span class="line">    <span class="keyword">char</span> buf[MAXLINE];</span><br><span class="line"></span><br><span class="line">again:</span><br><span class="line">    <span class="keyword">while</span>((n = read(connfd, buf, MAXLINE)) &gt; <span class="number">0</span>)</span><br><span class="line">        Writen(connfd, buf, n);</span><br><span class="line">    <span class="keyword">if</span>(n &lt; <span class="number">0</span> &amp;&amp; errno == EINTR)</span><br><span class="line">        <span class="keyword">goto</span> again;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(n &lt; <span class="number">0</span>)</span><br><span class="line">        err_sys(<span class="string">"str_echo: read error"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>50 ～ 55: 这里用到的是系统的read函数，没有对信号中断错误处理，需要自己处理。（收到客户的FIN或EOF将导致read返回）</li>
-</ul>
-<blockquote>
-<h2 id="TCP回射客户端程序"><a href="#TCP回射客户端程序" class="headerlink" title="TCP回射客户端程序"></a>TCP回射客户端程序</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_cli</span><span class="params">(FILE*, <span class="keyword">int</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./tcpserv01 &lt;IPAddress&gt;"</span>);</span><br><span class="line">    sockfd = Socket(AF_INET, SOCK_STREAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">9748</span>);</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//调用inet_pton函数将用户输入的点分十进制串转化成网络字节序的32为IPv4地址</span></span><br><span class="line">    Inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr);</span><br><span class="line"></span><br><span class="line">    Connect(sockfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line"></span><br><span class="line">    str_cli(<span class="built_in">stdin</span>, sockfd);</span><br><span class="line">    Close(sockfd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 用fgets读取用户的一行输入，发送给服务器，再从服务器接收一行回复并打印到控制台</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_cli</span><span class="params">(FILE* fp, <span class="keyword">int</span> sockfd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> sendbuf[MAXLINE], recvline[MAXLINE];</span><br><span class="line">    <span class="keyword">while</span>(Fgets(sendbuf, MAXLINE, fp) != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        Writen(sockfd, sendbuf, <span class="built_in">strlen</span>(sendbuf));</span><br><span class="line">        <span class="keyword">if</span>(Readline(sockfd, recvline, MAXLINE) == <span class="number">0</span>)</span><br><span class="line">            err_quit(<span class="string">"str_cli: server terminated prematurely"</span>);</span><br><span class="line">        Fputs(recvline, <span class="built_in">stdout</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="正常启动"><a href="#正常启动" class="headerlink" title="正常启动"></a>正常启动</h2></blockquote>
-<ul>
-<li><h3 id="先启动服务器"><a href="#先启动服务器" class="headerlink" title="先启动服务器"></a>先启动服务器</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//后台启动服务器</span></span><br><span class="line">./tcpserv01 &amp;</span><br><span class="line">[<span class="number">1</span>] <span class="number">10186</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//我们查看一下端口的状态，用管道过滤，只显示9748端口的信息</span></span><br><span class="line">netstat -a | grep <span class="number">9748</span></span><br><span class="line"></span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">9748</span>            <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:*               LISTEN</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="接着直接在本机连接服务器"><a href="#接着直接在本机连接服务器" class="headerlink" title="接着直接在本机连接服务器"></a>接着直接在本机连接服务器</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//连接到本机的回环地址</span></span><br><span class="line">./tcpcli01 <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//再开一个shell，查看当前的端口状态状态</span></span><br><span class="line">netstat -a | grep <span class="number">9748</span></span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">9748</span>            <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> localhost:<span class="number">9748</span>          localhost:<span class="number">32890</span>         ESTABLISHED</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> localhost:<span class="number">32890</span>         localhost:<span class="number">9748</span>          ESTABLISHED</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>0.0.0.0 ==&gt; 代表通配地址</p>
-</li>
-<li>*  ==&gt; 代表通配端口</li>
-<li><strong>客户端</strong>在<strong>收到</strong>三路握手的<strong>第二个分节</strong>的时候，<strong>connect函数就返回</strong>了。而<strong>服务器</strong>在<strong>收到</strong>三次握手的<strong>第三个分节</strong>的时候<strong>accept才返回</strong></li>
-</ul>
-<blockquote>
-<h2 id="正常终止"><a href="#正常终止" class="headerlink" title="正常终止"></a>正常终止</h2></blockquote>
-<ul>
-<li>状态转换图：<img src="/img/unp_4.png" title="TCP状态转换图"></li>
-<li>进程终止：<ul>
-<li>关闭本进程打开的所有的描述符</li>
-<li>向父进程发送一个SIGCHLD信号</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">./tcpcli01 <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">hello</span><br><span class="line">hello         <span class="comment">//服务器回射回来的</span></span><br><span class="line">good bye</span><br><span class="line">good bye      <span class="comment">//服务器回射回来的</span></span><br><span class="line">^D            <span class="comment">//Ctrl + D 相当于输入EOF</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在客户端程序退出后马上查看端口状态（由于是本机测试，一定要快，要不然抓不到）</span></span><br><span class="line">netstat -a | grep <span class="number">9748</span></span><br><span class="line">Proto Recv-Q Send-Q Local Address           Foreign Address         State</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:<span class="number">9748</span>            <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span>:*               LISTEN</span><br><span class="line">tcp        <span class="number">0</span>      <span class="number">0</span> localhost:<span class="number">33146</span>         localhost:<span class="number">9748</span>          TIME_WAIT</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>键入EOF</strong>后，客户端的<strong>fgets返回NULL</strong>，导致<strong>str_cli结束</strong>，最终导致<strong>main函数执行到exit而终止</strong></li>
-<li><strong>进程终止的部分任务是关闭进程打开的所有的描述符</strong>，因此客户端打开的套接字由内核关闭，这导致<strong>客户TCP向服务器发送一个FIN，服务器回一个ACK</strong>。至此，四路挥手的前两步完成。<strong>服务器处于CLOSE_WAIT状态，而客户端处于FIN_WAIT_2状态</strong></li>
-<li>服务器TCP收到FIN后，readline函数返回0，导致str_echo退出，接着main函数执行到exit，进而导致服务端子进程退出。</li>
-<li>同样的，服务端子进程所打开的所有描述符随之关闭。这导致服务器向客户发送一个FIN，客户回一个ACK，至此，四路挥手结束，连接完全终止。<strong>客户套接字进入TIME_WAIT状态</strong>。</li>
-<li>进程终止的另一部分内容是：在服务器子进程终止时，给父进程发送一个SIGCHLD信号。由于我们在代码中没有捕获该信号，而该信号的默认处理为忽略，所有就导致<strong>子进程进入僵死状态</strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们调用ps命令来验证一下</span></span><br><span class="line"><span class="comment">//因为笔者在测试的时候打开了客户端两次，所以有两个僵死的子进程</span></span><br><span class="line">ps -a</span><br><span class="line">  PID TTY          TIME CMD</span><br><span class="line"> <span class="number">2720</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">21</span> hexo</span><br><span class="line"><span class="number">10186</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01</span><br><span class="line"><span class="number">11146</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01 &lt;defunct&gt;         <span class="comment">//僵死进程</span></span><br><span class="line"><span class="number">13389</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01 &lt;defunct&gt;         <span class="comment">//僵死进程</span></span><br><span class="line"><span class="number">18996</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ps</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="POSIX信号处理"><a href="#POSIX信号处理" class="headerlink" title="POSIX信号处理"></a>POSIX信号处理</h2><p><strong>信号</strong>（signal）就是告知某个进程发生了某个事件的通知，有时也称为<strong>软件中断</strong>（software interrupt）。通常是异步的</p>
-<ul>
-<li>每个信号关联一个处置（deposition），或称行为（action）。在信号发生时执行</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h3><ul>
-<li>一个进程发给另一个进程（可以是自身）</li>
-<li>由内核发给进程</li>
-</ul>
-</li>
-<li><h3 id="三种处置"><a href="#三种处置" class="headerlink" title="三种处置"></a>三种处置</h3><ul>
-<li><p><strong>自定义信号处理函数</strong>，然后用sigaction设置给信号</p>
-<ul>
-<li>SIGKILL和SIGSTOP不能被捕获<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//信号处理函数原型</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">handler</span><span class="params">(<span class="keyword">int</span> signo)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>SIG_IGN ==&gt; 忽略信号</p>
-</li>
-<li>SIG_DEF ==&gt; 默认处理</li>
-</ul>
-</li>
-<li><h3 id="signal函数"><a href="#signal函数" class="headerlink" title="signal函数"></a>signal函数</h3><ul>
-<li><p>原型：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (*signal(<span class="keyword">int</span> signo, <span class="keyword">void</span> (*func)(<span class="keyword">int</span>)))(<span class="keyword">int</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义新类型，来化简上面的原型</span></span><br><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="keyword">void</span> <span class="title">Sigfunc</span><span class="params">(<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="comment">/**</span></span></span><br><span class="line"><span class="function"><span class="comment">* 为一个信号设置处理函数</span></span></span><br><span class="line"><span class="function"><span class="comment">* @param signo      信号</span></span></span><br><span class="line"><span class="function"><span class="comment">* @param func       信号处理函数</span></span></span><br><span class="line"><span class="function"><span class="comment">* @return           指向信号处理函数</span></span></span><br><span class="line"><span class="function"><span class="comment">*/</span></span></span><br><span class="line"><span class="function">Sigfunc *<span class="title">signal</span><span class="params">(<span class="keyword">int</span> signo, Sigfunc *func)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>POSIX规定设置信号的处置必须调用sigaction，上面的signal是对signation的封装，更容易使用</p>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="处理SIGCHLD信号"><a href="#处理SIGCHLD信号" class="headerlink" title="处理SIGCHLD信号"></a>处理SIGCHLD信号</h2></blockquote>
-<ul>
-<li><h3 id="僵死状态"><a href="#僵死状态" class="headerlink" title="僵死状态"></a>僵死状态</h3><ul>
-<li>僵死（zombie）状态的目的是维护子进程的信息，以便父进程在以后某个时候获取。这些信息包括子进程的进程ID、终止状态以及资源利用信息。如果一个进程终止，而该进程有子进程处于僵死状态，那么它的所有僵死子进程的父进程ID将被重置为1（init进程）。集成这些子进程的init进程将清理它们</li>
-</ul>
-</li>
-<li><h3 id="处理僵死进程"><a href="#处理僵死进程" class="headerlink" title="处理僵死进程"></a>处理僵死进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先定义如下信号处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span>&#123;</span><br><span class="line">  <span class="keyword">pid_t</span> pid;</span><br><span class="line">  <span class="keyword">int</span> stat;</span><br><span class="line">  pid = wait(&amp;stat);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"child %d terminated\n"</span>, pid);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在上面的server端程序的Listen之后添加下面这行</span></span><br><span class="line">Signal(SIGCHLD, sig_child);</span><br></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://github.com/SunnyQjm/unpv13e/blob/master/job/chapter5/tcpserv01.c" target="_blank" rel="noopener">点我查看源码</a></li>
-<li>在执行了上面的处理之后，再测试，就观测不到僵死进程了</li>
-</ul>
-</li>
-<li><h3 id="处理被中断的慢系统调用"><a href="#处理被中断的慢系统调用" class="headerlink" title="处理被中断的慢系统调用"></a>处理被中断的慢系统调用</h3><ul>
-<li>适用于适用于慢系统调用的基本规则：当阻塞于某个<strong>慢系统调用</strong>的一个<strong>进程捕获某个信号且相应信号处理函数返回</strong>时，该系统调用<strong>可能返回一个EINTR错误</strong></li>
-<li>有些系统上会发生，有些系统做了处理，不会发生。但是为了便于移植，还是建议用类似于下面的方法处理这种错误<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">  clilen = <span class="keyword">sizeof</span>(cliaddr);</span><br><span class="line">  <span class="keyword">if</span>( (connfd = accept(listenfd, (SA *) &amp;cliaddr, &amp;clilen)) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(errno == EINTR)</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      err_sys(<span class="string">"accept error"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="wait和waitpid函数"><a href="#wait和waitpid函数" class="headerlink" title="wait和waitpid函数"></a>wait和waitpid函数</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 用于在父进程中清理已终止子进程（解除子进程的僵死状态）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param  wait函数通过这个参数返回子进程的终止状态</span></span><br><span class="line"><span class="comment">* @return 成功则返回被清理子进程的ID，错误则返回0或-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">pid_t</span> wait(<span class="keyword">int</span> *statloc);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 用于在父进程中清理已终止子进程（解除子进程的僵死状态）</span></span><br><span class="line"><span class="comment">* @param pid      用于指定清理那个子进程，如果传入-1则表示等待第一个终止的子进程</span></span><br><span class="line"><span class="comment">* @param statloc  函数通过这个参数返回子进程的终止状态</span></span><br><span class="line"><span class="comment">* @param options  可选项</span></span><br><span class="line"><span class="comment">* @return 成功则返回被清理子进程的ID，错误则返回0或-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">pid_t</span> waitpid(<span class="keyword">pid_t</span> pid, <span class="keyword">int</span> *statloc, <span class="keyword">int</span> options);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>调用wait函数的时候如果没有已经终止的子进程，不过仍然有一个或多个子进程在执行，那么wait函数将阻塞到其中任意一个子进程终止为止</li>
-<li>waitpid的options可选项如果制定为WNOHANG，则告知内核在没有已终止子进程时不要阻塞</li>
-<li><h3 id="wait函数和waitpid的区别"><a href="#wait函数和waitpid的区别" class="headerlink" title="wait函数和waitpid的区别"></a>wait函数和waitpid的区别</h3><ul>
-<li>waitpid可以指定终止哪个子进程，而wait不能</li>
-<li>waitpid可以实现在没有已终止子进程时不要阻塞，而wait不能</li>
-</ul>
-</li>
-<li><p>根据上述区别的第二点我们改进之前的信号处理函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//由于wait不能实现在没有已终止子进程时不要阻塞，所以在下面的循环中不能调用wait，否则可能会阻塞主线程</span></span><br><span class="line"><span class="comment">//经过下面的修改之后，就可以支持一次调用清理多个进程的要求</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span>&#123;</span><br><span class="line">  <span class="keyword">pid_t</span>   pid;</span><br><span class="line">  <span class="keyword">int</span>     stat;</span><br><span class="line">  <span class="keyword">while</span>( (pid = waitpid(<span class="number">-1</span>, &amp;stat, WNOHANG)) &gt; <span class="number">0</span>)</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"chihld %d terminated\n"</span>, pid);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>具体可以参考课本5.10介绍的同时开五个连接请求的情况</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1538,7 +1431,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

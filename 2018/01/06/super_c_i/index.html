@@ -82,16 +82,16 @@
 <meta name="description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
 <meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
+<meta property="og:title" content="高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）">
 <meta property="og:url" content="http://qjm253.cn/2018/01/06/super_c_i/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://qjm253.cn/img/unp_42.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_43.png">
-<meta property="og:updated_time" content="2018-01-06T06:59:36.756Z">
+<meta property="og:updated_time" content="2018-01-06T07:16:49.008Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
+<meta name="twitter:title" content="高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）">
 <meta name="twitter:description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
 <meta name="twitter:image" content="http://qjm253.cn/img/unp_42.png">
 
@@ -129,7 +129,7 @@
 
 
 
-  <title>高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions） | 建明 | Ming.J</title>
+  <title>高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章） | 建明 | Ming.J</title>
   
 
 
@@ -327,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）</h1>
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）</h1>
         
 
         <div class="post-meta">
@@ -369,7 +369,7 @@
 
           
           
-             <span id="/2018/01/06/super_c_i/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（11）—— 名字和地址转换（Name and Address Conversions）">
+             <span id="/2018/01/06/super_c_i/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -494,8 +494,19 @@
 </li>
 </ul>
 </li>
-<li><h3 id="getservbyport"><a href="#getservbyport" class="headerlink" title="getservbyport"></a>getservbyport</h3></li>
+<li><h3 id="getservbyport"><a href="#getservbyport" class="headerlink" title="getservbyport"></a>getservbyport</h3><ul>
+<li><h4 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过端口号获取服务的信息</span></span><br><span class="line"><span class="comment">* @param port       端口号</span></span><br><span class="line"><span class="comment">* @param protoname  协议名，如：TCP, UDP</span></span><br><span class="line"><span class="comment">* @return 若成功则返回非空指针，若出错则返回NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct servent *<span class="title">getservbyport</span><span class="params">(<span class="keyword">int</span> port, <span class="keyword">const</span> <span class="keyword">char</span> *protoname)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="栗子-2"><a href="#栗子-2" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight c"><figcaption><span><br>&ensp; gsbp.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">servent</span> *<span class="title">sptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> **sptrs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">3</span>)</span><br><span class="line">        err_quit(<span class="string">"usgae: ./gsbn &lt;port&gt; &lt;protoname&gt;"</span>);</span><br><span class="line">    sptr = getservbyport(atoi(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span>(sptr == <span class="literal">NULL</span>)</span><br><span class="line">        err_quit(<span class="string">"get error"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"official name: %s\n"</span>, sptr-&gt;s_name);</span><br><span class="line">    <span class="keyword">for</span>(sptrs = sptr-&gt;s_aliases; *sptrs != <span class="literal">NULL</span>; sptrs++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"alias: %s\n"</span>, *sptrs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"port: %d\n"</span>, sptr-&gt;s_port);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"protocol: %s\n"</span>, sptr-&gt;s_proto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//shell 通常运行在514端口，并且采用的是tcp协议</span></span><br><span class="line">输入： ./gsbp <span class="number">514</span> tcp</span><br><span class="line">输出：</span><br><span class="line">      official name: shell</span><br><span class="line">      alias: cmd</span><br><span class="line">      port: <span class="number">514</span></span><br><span class="line">      protocol: tcp</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="getaddrinfo函数"><a href="#getaddrinfo函数" class="headerlink" title="getaddrinfo函数"></a>getaddrinfo函数</h2><p>这是一个比以上函数更新的函数，<strong>了解即可</strong></p>
+</blockquote>
 
       
     </div>
@@ -532,8 +543,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/01/06/super_c_h/" rel="next" title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）">
-                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）
+              <a href="/2018/01/06/super_c_h/" rel="next" title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）（第八章）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）（第八章）
               </a>
             
           </div>
@@ -541,6 +552,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/06/super_c_j/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -652,7 +667,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -698,7 +713,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名系统（Domain-Name-System，-DNS）"><span class="nav-number">2.</span> <span class="nav-text">域名系统（Domain Name System， DNS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><span class="nav-number">2.1.</span> <span class="nav-text">简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源记录"><span class="nav-number">2.2.</span> <span class="nav-text">资源记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析器和名字服务器（Resolvers-and-Name-Servers）"><span class="nav-number">2.3.</span> <span class="nav-text">解析器和名字服务器（Resolvers and Name Servers）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyname函数"><span class="nav-number">3.</span> <span class="nav-text">gethostbyname函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型："><span class="nav-number">3.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误：h-errno"><span class="nav-number">3.2.</span> <span class="nav-text">错误：h_errno</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子："><span class="nav-number">3.3.</span> <span class="nav-text">栗子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyaddr函数"><span class="nav-number">4.</span> <span class="nav-text">gethostbyaddr函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型：-1"><span class="nav-number">4.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子"><span class="nav-number">4.2.</span> <span class="nav-text">栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getservbyname和getservbyport"><span class="nav-number">5.</span> <span class="nav-text">getservbyname和getservbyport</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getservbyname"><span class="nav-number">5.1.</span> <span class="nav-text">getservbyname</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型：-2"><span class="nav-number">5.1.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子-1"><span class="nav-number">5.1.2.</span> <span class="nav-text">栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">5.1.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getservbyport"><span class="nav-number">5.2.</span> <span class="nav-text">getservbyport</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名系统（Domain-Name-System，-DNS）"><span class="nav-number">2.</span> <span class="nav-text">域名系统（Domain Name System， DNS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><span class="nav-number">2.1.</span> <span class="nav-text">简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源记录"><span class="nav-number">2.2.</span> <span class="nav-text">资源记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析器和名字服务器（Resolvers-and-Name-Servers）"><span class="nav-number">2.3.</span> <span class="nav-text">解析器和名字服务器（Resolvers and Name Servers）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyname函数"><span class="nav-number">3.</span> <span class="nav-text">gethostbyname函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型："><span class="nav-number">3.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误：h-errno"><span class="nav-number">3.2.</span> <span class="nav-text">错误：h_errno</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子："><span class="nav-number">3.3.</span> <span class="nav-text">栗子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyaddr函数"><span class="nav-number">4.</span> <span class="nav-text">gethostbyaddr函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型：-1"><span class="nav-number">4.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子"><span class="nav-number">4.2.</span> <span class="nav-text">栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getservbyname和getservbyport"><span class="nav-number">5.</span> <span class="nav-text">getservbyname和getservbyport</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getservbyname"><span class="nav-number">5.1.</span> <span class="nav-text">getservbyname</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型：-2"><span class="nav-number">5.1.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子-1"><span class="nav-number">5.1.2.</span> <span class="nav-text">栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">5.1.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getservbyport"><span class="nav-number">5.2.</span> <span class="nav-text">getservbyport</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型"><span class="nav-number">5.2.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子-2"><span class="nav-number">5.2.2.</span> <span class="nav-text">栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试-1"><span class="nav-number">5.2.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getaddrinfo函数"><span class="nav-number">6.</span> <span class="nav-text">getaddrinfo函数</span></a></li></ol></div>
             
 
           </div>
