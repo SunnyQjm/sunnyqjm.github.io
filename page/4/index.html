@@ -303,6 +303,232 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（h）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="url">软件工程复习（八）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T00:00:00+08:00">
+                2017-12-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/31/2017-12-31-软件工程复习（h）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/12/31/2017-12-31-软件工程复习（h）/" class="leancloud_visitors" data-flag-title="软件工程复习（八）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
+</blockquote>
+<ul>
+<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
+<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
+</ul>
+</li>
+<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
+<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
+</ul>
+</li>
+<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
+<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
+</ul>
+<blockquote>
+<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
+<ul>
+<li>视图（view）<ul>
+<li>通常包括多个图</li>
+</ul>
+</li>
+<li>图（diagram）</li>
+<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
+<li>通用机制（general mechanism）<ul>
+<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
+<li>比如：构造型，标签值，笔记（写注释）等</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
+<ul>
+<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
+<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
+<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
+<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
+<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
+<li>静态图描述系统的静态结构，包括：<ul>
+<li><strong>类图</strong>（class diagram）</li>
+<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
+</ul>
+</li>
+<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
+</ul>
+</li>
+<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
+<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
+<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
+<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
+<li>这类图描述对象间的交互关系，包括<ul>
+<li><strong>顺序图</strong>（sequence diagram）</li>
+<li><strong>协作图</strong>（collaboration diagram）</li>
+</ul>
+</li>
+<li>描述一个场景中若干个类的交互（动态协作）</li>
+</ul>
+</li>
+<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
+<li>这类图提供关于系统实现方面的信息，包括：<ul>
+<li>构件图（component diagram）</li>
+<li>配置图（deployment diagram）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<img src="/img/se_72.jpg">
+<img src="/img/se_73.jpg">
+<img src="/img/se_74.jpg">
+<img src="/img/se_75.jpg">
+<img src="/img/se_76.jpg">
+<img src="/img/se_77.jpg">
+<img src="/img/se_78.jpg">
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/24/2017-12-24-软件工程复习（f）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -999,341 +1225,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（e）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="url">软件工程复习（五）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
-                2017-12-23
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/23/2017-12-23-软件工程复习（e）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/12/23/2017-12-23-软件工程复习（e）/" class="leancloud_visitors" data-flag-title="软件工程复习（五）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。</p>
-<h2 id="结构程序设计-master"><a href="#结构程序设计-master" class="headerlink" title="结构程序设计 (master)"></a>结构程序设计 (master)</h2><p>如果一个程序的代码块仅仅通过<strong>顺序、选择和循环</strong>这三种控制结构进行<strong>连接</strong>，并且每个代码块只有<strong>一个入口和一个出口</strong>，则称<strong>这个程序是结构化</strong>的。</p>
-</blockquote>
-<ul>
-<li><h3 id="三种基本控制结构"><a href="#三种基本控制结构" class="headerlink" title="三种基本控制结构"></a>三种基本控制结构</h3><img src="/img/se_46.jpg" title="三种基本的控制结构(a) 顺序结构，先执行A再执行B；(b) IF-THEN-ELSE型选择(分支)结构；(c) DO-WHILE型循环结构"></li>
-<li><h3 id="关于GOTO语句"><a href="#关于GOTO语句" class="headerlink" title="关于GOTO语句"></a>关于GOTO语句</h3><ul>
-<li>上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的编程方法，而是一种使程序代码容易阅读、容易理解的编程方法</li>
-<li>大多数情况下，无GO TO的代码确实是容易阅读、容易理解，但在某些情况下，为达到容易阅读和容易理解的目的，需要使用GO TO语句</li>
-<li>结构程序设计是尽可能少用GO TO语句的程序设计方法。最好仅在检测出错误时才使用GO TO语句，而且应该总是使用前向GO TO语句</li>
-<li><strong>但是一般题目中问一段代码为什么不是结构化程序，很大可能是使用了GOTO语句</strong></li>
-</ul>
-</li>
-<li><h3 id="经典的结构程序设计"><a href="#经典的结构程序设计" class="headerlink" title="经典的结构程序设计"></a>经典的结构程序设计</h3><ul>
-<li>如果<strong>只允许使用顺序、IF-THEN-ELSE型分支和DO-WHILE型循环</strong>这三种基本控制结构，则称为经典的结构程序设计</li>
-</ul>
-</li>
-<li><h3 id="扩展的结构程序设计"><a href="#扩展的结构程序设计" class="headerlink" title="扩展的结构程序设计"></a>扩展的结构程序设计</h3><ul>
-<li>如果除了上述三种基本控制结构之外，还允许使用<strong>DO-CASE型多分支结构</strong>和<strong>DO-UNTIL型循环结构</strong>，则称为扩展的结构程序设计<img src="/img/se_47.jpg" title="其他常用的控制结构(a) DO-UNTIL型循环结构；(b)多分支结构"></li>
-</ul>
-</li>
-<li><h3 id="修正的结构程序设计"><a href="#修正的结构程序设计" class="headerlink" title="修正的结构程序设计"></a>修正的结构程序设计</h3><ul>
-<li>如果再加上允许使用<strong>LEAVE(或BREAK)结构</strong>，则称为修正的结构程序设计。</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="人机界面设计-cut"><a href="#人机界面设计-cut" class="headerlink" title="人机界面设计 (cut)"></a>人机界面设计 (cut)</h2><p><strong>人机界面</strong>设计是<strong>接口设计</strong>的一个组成部分</p>
-</blockquote>
-<ul>
-<li><h3 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h3><ul>
-<li>系统响应时间</li>
-<li>用户帮助设施</li>
-<li>出错信息处理</li>
-<li>命令交互</li>
-</ul>
-</li>
-<li><h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ul>
-<li>用户界面设计是一个迭代的过程，也就是说，通常先创建设计模型，再用原型实现这个设计模型，并由用户试用和评估，然后根据用户的意见进行修改</li>
-</ul>
-</li>
-<li><h3 id="界面设计指南"><a href="#界面设计指南" class="headerlink" title="界面设计指南"></a>界面设计指南</h3><ul>
-<li><h4 id="一般交互指南"><a href="#一般交互指南" class="headerlink" title="一般交互指南"></a>一般交互指南</h4><ul>
-<li>保持一致性</li>
-<li>提供有意义的反馈</li>
-<li>在执行有较大破坏性动作之前要求用户确认</li>
-<li>允许取消大多数操作</li>
-<li>减少在两次操作之间必须记忆的信息量</li>
-<li>提高对话、移动和思考的效率</li>
-<li>允许犯错误</li>
-<li>按功能对动作分类，并据此设计屏幕布局</li>
-<li>提供对用户工作内容敏感的帮助设施</li>
-<li>用简单动词或名词短语作为命令名</li>
-</ul>
-</li>
-<li><h4 id="信息显示指南"><a href="#信息显示指南" class="headerlink" title="信息显示指南"></a>信息显示指南</h4><ul>
-<li>只显示与当前<strong>工作内容有关的信息</strong>。</li>
-<li>用户在获得有关系统的特定功能的信息时，<strong>不必看到与之无关的数据、菜单和图形</strong>。</li>
-<li>不要用数据淹没用户</li>
-<li>使用一致的标记、标准的缩写和可预知的颜色</li>
-<li>允许用户保持可视化的语境</li>
-<li>产生有意义的出错信息</li>
-<li>使用大小写、缩进和文本分组以帮助理解</li>
-<li>使用窗口分隔不同类型的信息</li>
-<li>使用“模拟”显示方式表示信息</li>
-<li>高效率地使用显示屏</li>
-</ul>
-</li>
-<li><h4 id="数据输入指南"><a href="#数据输入指南" class="headerlink" title="数据输入指南"></a>数据输入指南</h4><ul>
-<li>尽量减少用户的输入动作</li>
-<li>保持信息显示和数据输入之间的一致性</li>
-<li>允许用户自定义输入</li>
-<li>交互应该是灵活的</li>
-<li>使在当前动作语境中不适用的命令不起作用</li>
-<li>让用户控制交互流</li>
-<li>对所有输入动作都提供帮助</li>
-<li>消除冗余的输入</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="过程设计的工具-master"><a href="#过程设计的工具-master" class="headerlink" title="过程设计的工具  (master)"></a>过程设计的工具  (master)</h2><p>图形、表格、语言</p>
-</blockquote>
-<ul>
-<li><h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><ul>
-<li>程序流程图又称为程序框图，是历史最悠久使用最广泛的描述过程设计的方法，然而也是用得最混乱的一种方法</li>
-<li>缺点：<ul>
-<li>绘制随意，容易只考虑流程控制而不考虑全局结构，而破坏结构化程序设计</li>
-<li>不容易表示数据结构</li>
-</ul>
-</li>
-<li>程序流程图中使用的符号<img src="/" title="(a) 选择(分支)；(b) 注释；(c) 预先定义的处理；(d) 多分支；(e) 开始或停止；(f) 准备； (g)循环上界限；(h) 循环下界限；(i) 虚线；(j) 省略符；(k) 并行方式；(l) 处理； (m) 输入/输出；(n) 连接；(o) 换页连接；(p) 控制流"></li>
-</ul>
-</li>
-<li><h3 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h3><ul>
-<li><p>盒图没有箭头，因此不允许随意转移控制。坚持使用盒图作为详细设计的工具，可使程序员逐步养成用结构化的方式思考问题和解决问题的习惯</p>
-</li>
-<li><p><strong>能保证设计出的程序一定是结构化的</strong></p>
-</li>
-<li><p>但是绘制的时候受空间限制，难以扩充</p>
-</li>
-<li>盒图的基本符号<img src="/img/se_48.jpg" title="(a) 顺序；(b) IF-THEN-ELSE型分支；(c) CASE型多分支；(d) 循环；(e) 调用子程序A">
-</li>
-</ul>
-</li>
-<li><h3 id="PAD图（Problem-Analysis-Diagram）"><a href="#PAD图（Problem-Analysis-Diagram）" class="headerlink" title="PAD图（Problem Analysis Diagram）"></a>PAD图（Problem Analysis Diagram）</h3><ul>
-<li><p>它用二维树形结构的图来表示程序的控制流，将这种图翻译成程序代码比较容易</p>
-</li>
-<li><p>与盒图相比，<strong>不受空间限制，易于扩充</strong></p>
-</li>
-<li><p><strong>可保证设计出来的程序一定是结构化的</strong></p>
-</li>
-<li><p>PAD图的基本符号</p>
-<ul>
-<li>(a) 顺序(先执行P1后执行P2)；</li>
-<li>(b) 选择(IF C THEN P1 ELSE P2)；</li>
-<li>(c) CASE型多分支；(d) WHILE型循环(WHILE C DO P)；</li>
-<li>(e) UNTIL型循环(REPEAT P UNTIL C)；</li>
-<li>(f) 语句标号；</li>
-<li>(g) 定义<img src="/img/se_49.jpg">
-</li>
-</ul>
-</li>
-<li><p>可使用PAD提供的定义功能来逐步求精</p>
-<img src="/img/se_50.jpg">
-</li>
-</ul>
-</li>
-<li><h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><ul>
-<li>当算法中包含多重嵌套的条件选择时，<strong>判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</strong><img src="/img/se_51.jpg"></li>
-</ul>
-</li>
-<li><h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><ul>
-<li>比判定表<strong>直观</strong>，包含<strong>判定的先后顺序</strong></li>
-<li>父节点：判定条件</li>
-<li>叶子节点：一个动作<img src="/img/se_52.jpg"></li>
-</ul>
-</li>
-<li><h3 id="过程设计语言（PDL-Process-Design-Language）"><a href="#过程设计语言（PDL-Process-Design-Language）" class="headerlink" title="过程设计语言（PDL: Process Design Language）"></a>过程设计语言（PDL: Process Design Language）</h3><ul>
-<li>伪代码</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="程序复杂度的定量度量-master"><a href="#程序复杂度的定量度量-master" class="headerlink" title="程序复杂度的定量度量 (master)"></a>程序复杂度的定量度量 (master)</h2><p>常用的方法有McCabe方法（采用流图）、Halstead方法，下面仅介绍第一种</p>
-</blockquote>
-<ul>
-<li><h3 id="McCabe-方法"><a href="#McCabe-方法" class="headerlink" title="McCabe 方法"></a>McCabe 方法</h3><ul>
-<li><h4 id="流图"><a href="#流图" class="headerlink" title="流图"></a>流图</h4><ul>
-<li><p>为了<strong>突出表示程序的控制流</strong>，可以使用流图(也称为程序图)</p>
-</li>
-<li><p>流图<strong>仅描绘程序的控制流程</strong>，完全不表现对数据的具体操作以及分支或循环的具体条件。</p>
-</li>
-<li><p>流图用<strong>圆</strong>表示<strong>节点</strong>，一个圆代表<strong>一条或多条语句</strong>（如果多条语句在一个顺序结构上，可以省略中间，只画两边的节点）</p>
-</li>
-<li><p>流图中的<strong>箭头线</strong>称为<strong>边</strong>，和程序流程图中的箭头线类似，代表<strong>控制流</strong></p>
-</li>
-<li><p>由边和节点围成的面积称为<strong>区域</strong>，<strong>区域数</strong>应该<strong>包括</strong>图<strong>外部</strong>未被围起来的<strong>区域</strong>。</p>
-</li>
-<li><p>基本结构：</p>
-<img src="/img/se_53.jpg"></li>
-<li>把程序流程图映射成流图(a)程序流程图；(b)流图<img src="/img/se_54.jpg)" title="![](img/se_55.jpg"></li>
-<li><p>PDL翻译成流图</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">procedure: sort</span><br><span class="line">  <span class="keyword">do</span> <span class="keyword">while</span> records remain</span><br><span class="line">    read record;</span><br><span class="line">    <span class="keyword">if</span> record field1 = <span class="number">0</span></span><br><span class="line">      then process record;</span><br><span class="line">        store in buffer;</span><br><span class="line">        incremert counter;</span><br><span class="line">    elseif record filed2 = <span class="number">0</span></span><br><span class="line">      then reset counter;</span><br><span class="line">      <span class="keyword">else</span> process record;</span><br><span class="line">        store in file;</span><br><span class="line">      endif</span><br><span class="line">    endif</span><br><span class="line">  enddo</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
-<img src="/img/se_57.jpg"></li>
-<li>由包含复合条件的PDL映射成的流图<img src="/img/se_58.jpg"></li>
-</ul>
-</li>
-<li><h4 id="流图环形复杂度的计算"><a href="#流图环形复杂度的计算" class="headerlink" title="流图环形复杂度的计算"></a>流图<strong>环形复杂度</strong>的计算</h4><ul>
-<li>流图中的区域数等于环形复杂度</li>
-<li>流图G的环形复杂度V(G)＝E-N+2，其中E是流图中边的条数，N是流图中节点数</li>
-<li>流图G的环形复杂度V(G)＝P+1，其中P是流图中判定节点的数目</li>
-</ul>
-</li>
-<li>举个栗子：<img src="/img/se_55.jpg">
-<ul>
-<li>上图中共有四个区域，故环形复杂度为4</li>
-<li>上图中共有11条边，9个点，所以环形复杂度位：11 - 9 + 2 = 4</li>
-<li>上图中共有三个判定节点，分别为”1”, “2,3”, “6”，所以环形复杂度为：3 + 1 = 4<blockquote>
-<p>PS:</p>
-<ul>
-<li>在计算<strong>区域数</strong>的时候别忘了包括<strong>最外围的区域</strong></li>
-<li>在计算<strong>判定节点</strong>的时候，不仅<strong>包括</strong>条件<strong>分支的判断</strong>，<strong>循环判定</strong>的节点也算</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（d）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1721,7 +1612,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（b）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/23/2017-12-23-软件工程复习（e）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1740,7 +1631,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/12/22/2017-12-22-软件工程复习（b）/" itemprop="url">软件工程复习（二）</a></h1>
+                <a class="post-title-link" href="/2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="url">软件工程复习（五）</a></h1>
         
 
         <div class="post-meta">
@@ -1752,8 +1643,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T00:00:00+08:00">
-                2017-12-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-23T00:00:00+08:00">
+                2017-12-23
               </time>
             
 
@@ -1772,8 +1663,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/22/2017-12-22-软件工程复习（b）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/22/2017-12-22-软件工程复习（b）/" itemprop="commentsCount"></span>
+                <a href="/2017/12/23/2017-12-23-软件工程复习（e）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/23/2017-12-23-软件工程复习（e）/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1782,7 +1673,7 @@
 
           
           
-             <span id="/2017/12/22/2017-12-22-软件工程复习（b）/" class="leancloud_visitors" data-flag-title="软件工程复习（二）">
+             <span id="/2017/12/23/2017-12-23-软件工程复习（e）/" class="leancloud_visitors" data-flag-title="软件工程复习（五）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1816,162 +1707,195 @@
         
           
             <blockquote>
-<h2 id="可行性研究的任务"><a href="#可行性研究的任务" class="headerlink" title="可行性研究的任务"></a>可行性研究的任务</h2><p>不是解决问题，而是确定问题是否值得去解决。</p>
-<ul>
-<li>分析可能的解法</li>
-<li>判定系统规模和目标是否能够实现</li>
-<li>效益是否可观 <br></li>
-</ul>
-<p>较高层次的系统分析和设计过程</p>
+<p>详细设计阶段的任务还不是具体地编写程序，而是要设计出程序的“蓝图”，以后程序员将根据这个“蓝图”写出实际的程序代码。</p>
+<h2 id="结构程序设计-master"><a href="#结构程序设计-master" class="headerlink" title="结构程序设计 (master)"></a>结构程序设计 (master)</h2><p>如果一个程序的代码块仅仅通过<strong>顺序、选择和循环</strong>这三种控制结构进行<strong>连接</strong>，并且每个代码块只有<strong>一个入口和一个出口</strong>，则称<strong>这个程序是结构化</strong>的。</p>
 </blockquote>
 <ul>
-<li>技术可行性：开发此系统是可行的，是有好处的</li>
-<li>经济可行性：根据系统目标衡量所需技术是否具备</li>
-<li>操作可行性：系统是否易于使用并能够创造价值</li>
-<li>法律可行性：是否存在侵犯、妨碍和责任等问题</li>
-</ul>
-<blockquote>
-<h2 id="可行性研究过程（understanding）"><a href="#可行性研究过程（understanding）" class="headerlink" title="可行性研究过程（understanding）"></a>可行性研究过程（understanding）</h2><p>了解就好</p>
-</blockquote>
-<ul>
-<li><h3 id="复查系统规模和目标"><a href="#复查系统规模和目标" class="headerlink" title="复查系统规模和目标"></a>复查系统规模和目标</h3><ul>
-<li>改正含糊或不确切的叙述</li>
-<li>清晰地描述限制和约束</li>
-<li>确保分析员解决正确的问题</li>
+<li><h3 id="三种基本控制结构"><a href="#三种基本控制结构" class="headerlink" title="三种基本控制结构"></a>三种基本控制结构</h3><img src="/img/se_46.jpg" title="三种基本的控制结构(a) 顺序结构，先执行A再执行B；(b) IF-THEN-ELSE型选择(分支)结构；(c) DO-WHILE型循环结构"></li>
+<li><h3 id="关于GOTO语句"><a href="#关于GOTO语句" class="headerlink" title="关于GOTO语句"></a>关于GOTO语句</h3><ul>
+<li>上面关于结构化程序经典定义过于狭隘，结构程序设计本质上并不是无GO TO语句的编程方法，而是一种使程序代码容易阅读、容易理解的编程方法</li>
+<li>大多数情况下，无GO TO的代码确实是容易阅读、容易理解，但在某些情况下，为达到容易阅读和容易理解的目的，需要使用GO TO语句</li>
+<li>结构程序设计是尽可能少用GO TO语句的程序设计方法。最好仅在检测出错误时才使用GO TO语句，而且应该总是使用前向GO TO语句</li>
+<li><strong>但是一般题目中问一段代码为什么不是结构化程序，很大可能是使用了GOTO语句</strong></li>
 </ul>
 </li>
-<li><h3 id="研究目前正在使用的系统"><a href="#研究目前正在使用的系统" class="headerlink" title="研究目前正在使用的系统"></a>研究目前正在使用的系统</h3><ul>
-<li>完成现有系统的基本功能分析</li>
-<li>解决现有系统的问题</li>
-<li>绘制高层系统数据流图</li>
-<li>掌握与其他系统的接口</li>
+<li><h3 id="经典的结构程序设计"><a href="#经典的结构程序设计" class="headerlink" title="经典的结构程序设计"></a>经典的结构程序设计</h3><ul>
+<li>如果<strong>只允许使用顺序、IF-THEN-ELSE型分支和DO-WHILE型循环</strong>这三种基本控制结构，则称为经典的结构程序设计</li>
 </ul>
 </li>
-<li><h3 id="导出新系统的高层逻辑模型"><a href="#导出新系统的高层逻辑模型" class="headerlink" title="导出新系统的高层逻辑模型"></a>导出新系统的高层逻辑模型</h3><ul>
-<li>现有物理系统 → 现有系统的逻辑模型 → 目标系统逻辑模型 → 新的目标系统</li>
-<li>高层数据流图</li>
-<li>初步的数据字典</li>
+<li><h3 id="扩展的结构程序设计"><a href="#扩展的结构程序设计" class="headerlink" title="扩展的结构程序设计"></a>扩展的结构程序设计</h3><ul>
+<li>如果除了上述三种基本控制结构之外，还允许使用<strong>DO-CASE型多分支结构</strong>和<strong>DO-UNTIL型循环结构</strong>，则称为扩展的结构程序设计<img src="/img/se_47.jpg" title="其他常用的控制结构(a) DO-UNTIL型循环结构；(b)多分支结构"></li>
 </ul>
 </li>
-<li><h3 id="进一步定义问题"><a href="#进一步定义问题" class="headerlink" title="进一步定义问题"></a>进一步定义问题</h3><ul>
-<li>以数据流图和数据字典为基础</li>
-<li>复查问题定义、工程规模和目标</li>
-<li>分析员和用户</li>
-<li>重复1~4步，直至提出的逻辑模型完全符合系统目标</li>
-</ul>
-</li>
-<li><h3 id="导出和评价供选择的解法"><a href="#导出和评价供选择的解法" class="headerlink" title="导出和评价供选择的解法"></a>导出和评价供选择的解法</h3><ul>
-<li>从技术角度出发，考虑解决问题的不同方案</li>
-<li>技术可行性，排除不现实的系统</li>
-<li>操作可行性，排除用户不能接受的方案</li>
-<li>经济可行性，排除利润低的方案</li>
-<li>制定进度表 (估算生命周期每个阶段的工作量)</li>
-</ul>
-</li>
-<li><h3 id="推荐行动方针（是否做？）"><a href="#推荐行动方针（是否做？）" class="headerlink" title="推荐行动方针（是否做？）"></a>推荐行动方针（是否做？）</h3><ul>
-<li>分析员：如果值得开发，则选择最好的解法</li>
-<li>用户：成本/效益分析</li>
-</ul>
-</li>
-<li><h3 id="草拟开发计划"><a href="#草拟开发计划" class="headerlink" title="草拟开发计划"></a>草拟开发计划</h3><ul>
-<li>工程进度表</li>
-<li>各类开发人员、各种资源需求情况</li>
-<li>生命周期每个阶段的成本</li>
-<li>下一个阶段详细进度表和成本估计</li>
-</ul>
-</li>
-<li><h3 id="书写文档提交审查"><a href="#书写文档提交审查" class="headerlink" title="书写文档提交审查"></a>书写文档提交审查</h3><ul>
-<li>用户、客户组织负责人、评审组审查</li>
+<li><h3 id="修正的结构程序设计"><a href="#修正的结构程序设计" class="headerlink" title="修正的结构程序设计"></a>修正的结构程序设计</h3><ul>
+<li>如果再加上允许使用<strong>LEAVE(或BREAK)结构</strong>，则称为修正的结构程序设计。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="系统流程图-（understanding）"><a href="#系统流程图-（understanding）" class="headerlink" title="系统流程图 （understanding）"></a>系统流程图 （understanding）</h2><p>系统流程图概括描绘物理系统的传统工具用图形符号，以黑盒子形式描述组成系统的每个部件程序、文档、数据库、人工过程</p>
+<h2 id="人机界面设计-cut"><a href="#人机界面设计-cut" class="headerlink" title="人机界面设计 (cut)"></a>人机界面设计 (cut)</h2><p><strong>人机界面</strong>设计是<strong>接口设计</strong>的一个组成部分</p>
 </blockquote>
 <ul>
-<li>符号：<img src="/img/se_09.jpg"></li>
-<li>栗子：<img src="/img/se_10.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="数据流图-master"><a href="#数据流图-master" class="headerlink" title="数据流图 (master)"></a>数据流图 (master)</h2><p>数据流图(DFD) 描绘信息流和数据从输入移动到输出的过程中所经受的变换。</p>
-</blockquote>
-<ul>
-<li>数据流图的四种基本符号：<img src="/img/se_11.jpg"></li>
-<li>加工中常见关系的符号表示：<img src="/img/se_12.jpg"></li>
-<li>注意：<ul>
-<li>信息的流动</li>
-<li>信息流不能为动词</li>
-<li>实体到实体的信息流动</li>
-<li>处理要有输入输出</li>
-<li>处理名不能为名词</li>
-<li>确保层间的一致性（确保输入输出流的量是一致的）</li>
+<li><h3 id="设计问题"><a href="#设计问题" class="headerlink" title="设计问题"></a>设计问题</h3><ul>
+<li>系统响应时间</li>
+<li>用户帮助设施</li>
+<li>出错信息处理</li>
+<li>命令交互</li>
 </ul>
 </li>
-<li><p>命名:</p>
-<ul>
-<li>数据流的名字应代表整个数据流(数据存储、处理)的内容，而不是仅仅某些成分。</li>
-<li>不要使用空洞的、缺乏具体含义的名字(如“数据”、“信息”、“输入”之类)。</li>
-<li>处理名字最好是一个具体的及物动词。</li>
+<li><h3 id="设计过程"><a href="#设计过程" class="headerlink" title="设计过程"></a>设计过程</h3><ul>
+<li>用户界面设计是一个迭代的过程，也就是说，通常先创建设计模型，再用原型实现这个设计模型，并由用户试用和评估，然后根据用户的意见进行修改</li>
 </ul>
 </li>
-<li><p>示例：出入库管理系统</p>
-<ul>
-<li>0级数据流图<img src="/img/se_13.jpg"></li>
-<li>1级数据流图<img src="/img/se_14.jpg"></li>
-<li>2级数据流图<img src="/img/se_15.jpg">
+<li><h3 id="界面设计指南"><a href="#界面设计指南" class="headerlink" title="界面设计指南"></a>界面设计指南</h3><ul>
+<li><h4 id="一般交互指南"><a href="#一般交互指南" class="headerlink" title="一般交互指南"></a>一般交互指南</h4><ul>
+<li>保持一致性</li>
+<li>提供有意义的反馈</li>
+<li>在执行有较大破坏性动作之前要求用户确认</li>
+<li>允许取消大多数操作</li>
+<li>减少在两次操作之间必须记忆的信息量</li>
+<li>提高对话、移动和思考的效率</li>
+<li>允许犯错误</li>
+<li>按功能对动作分类，并据此设计屏幕布局</li>
+<li>提供对用户工作内容敏感的帮助设施</li>
+<li>用简单动词或名词短语作为命令名</li>
+</ul>
+</li>
+<li><h4 id="信息显示指南"><a href="#信息显示指南" class="headerlink" title="信息显示指南"></a>信息显示指南</h4><ul>
+<li>只显示与当前<strong>工作内容有关的信息</strong>。</li>
+<li>用户在获得有关系统的特定功能的信息时，<strong>不必看到与之无关的数据、菜单和图形</strong>。</li>
+<li>不要用数据淹没用户</li>
+<li>使用一致的标记、标准的缩写和可预知的颜色</li>
+<li>允许用户保持可视化的语境</li>
+<li>产生有意义的出错信息</li>
+<li>使用大小写、缩进和文本分组以帮助理解</li>
+<li>使用窗口分隔不同类型的信息</li>
+<li>使用“模拟”显示方式表示信息</li>
+<li>高效率地使用显示屏</li>
+</ul>
+</li>
+<li><h4 id="数据输入指南"><a href="#数据输入指南" class="headerlink" title="数据输入指南"></a>数据输入指南</h4><ul>
+<li>尽量减少用户的输入动作</li>
+<li>保持信息显示和数据输入之间的一致性</li>
+<li>允许用户自定义输入</li>
+<li>交互应该是灵活的</li>
+<li>使在当前动作语境中不适用的命令不起作用</li>
+<li>让用户控制交互流</li>
+<li>对所有输入动作都提供帮助</li>
+<li>消除冗余的输入</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="数据字典-master"><a href="#数据字典-master" class="headerlink" title="数据字典 (master)"></a>数据字典 (master)</h2><ul>
-<li>数据字典是关于数据的信息的集合，即对设计图中包含的元素的定义。</li>
-<li>数据字典的用途是供人查阅不了解的条目的解释，提供分析设计过程中关于数据的描述。</li>
-<li>只有设计图和对应的元素的精确定义放在一起，才能构成系统完整的规格说明。</li>
-</ul>
+<h2 id="过程设计的工具-master"><a href="#过程设计的工具-master" class="headerlink" title="过程设计的工具  (master)"></a>过程设计的工具  (master)</h2><p>图形、表格、语言</p>
 </blockquote>
 <ul>
-<li><h3 id="定义数据的方法"><a href="#定义数据的方法" class="headerlink" title="定义数据的方法"></a>定义数据的方法</h3><ul>
-<li>= : 意思是等价于(或定义为);</li>
-<li>+ : 意思是和(即，连接两个分量);</li>
-<li>[] : 意思是或(即，从方括弧内列出的若干个分量中选择一个)，用“｜”号分开供选择的分量;</li>
-<li>{} : 意思是重复(即，重复花括弧内的分量);</li>
-<li>() : 意思是可选(即，圆括弧里的分量可有可无);</li>
-<li>使用上限和下限进一步注释表示重复的花括弧。<ul>
-<li>左边用上角标和下角标分别表明重复的上限和下限</li>
-<li>左侧标明重复的下限，在闭括弧的右侧标明上限</li>
-<li>例如：<img src="/img/se_16.jpg"></li>
+<li><h3 id="程序流程图"><a href="#程序流程图" class="headerlink" title="程序流程图"></a>程序流程图</h3><ul>
+<li>程序流程图又称为程序框图，是历史最悠久使用最广泛的描述过程设计的方法，然而也是用得最混乱的一种方法</li>
+<li>缺点：<ul>
+<li>绘制随意，容易只考虑流程控制而不考虑全局结构，而破坏结构化程序设计</li>
+<li>不容易表示数据结构</li>
 </ul>
+</li>
+<li>程序流程图中使用的符号<img src="/" title="(a) 选择(分支)；(b) 注释；(c) 预先定义的处理；(d) 多分支；(e) 开始或停止；(f) 准备； (g)循环上界限；(h) 循环下界限；(i) 虚线；(j) 省略符；(k) 并行方式；(l) 处理； (m) 输入/输出；(n) 连接；(o) 换页连接；(p) 控制流"></li>
+</ul>
+</li>
+<li><h3 id="盒图（N-S图）"><a href="#盒图（N-S图）" class="headerlink" title="盒图（N-S图）"></a>盒图（N-S图）</h3><ul>
+<li><p>盒图没有箭头，因此不允许随意转移控制。坚持使用盒图作为详细设计的工具，可使程序员逐步养成用结构化的方式思考问题和解决问题的习惯</p>
+</li>
+<li><p><strong>能保证设计出的程序一定是结构化的</strong></p>
+</li>
+<li><p>但是绘制的时候受空间限制，难以扩充</p>
+</li>
+<li>盒图的基本符号<img src="/img/se_48.jpg" title="(a) 顺序；(b) IF-THEN-ELSE型分支；(c) CASE型多分支；(d) 循环；(e) 调用子程序A">
 </li>
 </ul>
 </li>
-<li><h4 id="举个栗子："><a href="#举个栗子：" class="headerlink" title="举个栗子："></a>举个栗子：</h4><ul>
-<li>北京某高校可用的电话号码有以下几类:校内电话号码由4 位数字组成，第1位<br>数字不是0;校外电话又分为本市电话和外地电话两类,拨校外电话需先拨0,若是本市电<br>话则再接着拨8位数字(第1位不是0),若是外地电话则拨3位区码再拨8<br>位电话号码<br>(第1位不是0)。请用上述提到的定义数据的方法，定义上述的电话号码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电话号码 = [ 校内电话号码 | 校外电话号码 ]</span><br><span class="line">校内电话号码 = 非零数字 + 3位数字</span><br><span class="line">校外电话号码 = [ 本市电话号码 | 外地电话号码]</span><br><span class="line">本市电话号码 = 数字零 + 8位数字</span><br><span class="line">外地电话号码 = 数字零 + 3位数字 + 8位数字</span><br><span class="line">非零数字 = [1|2|3|4|5|6|7|8|9]</span><br><span class="line">3位数字 = 3&#123;数字&#125;3</span><br><span class="line">数字零 = 0</span><br><span class="line">8位数字 = 非零数字 + 7位数字</span><br><span class="line">7位数字 = 7&#123;数字&#125;7</span><br><span class="line">数字 = [0|1|2|3|4|5|6|7|8|9]</span><br></pre></td></tr></table></figure>
+<li><h3 id="PAD图（Problem-Analysis-Diagram）"><a href="#PAD图（Problem-Analysis-Diagram）" class="headerlink" title="PAD图（Problem Analysis Diagram）"></a>PAD图（Problem Analysis Diagram）</h3><ul>
+<li><p>它用二维树形结构的图来表示程序的控制流，将这种图翻译成程序代码比较容易</p>
+</li>
+<li><p>与盒图相比，<strong>不受空间限制，易于扩充</strong></p>
+</li>
+<li><p><strong>可保证设计出来的程序一定是结构化的</strong></p>
+</li>
+<li><p>PAD图的基本符号</p>
+<ul>
+<li>(a) 顺序(先执行P1后执行P2)；</li>
+<li>(b) 选择(IF C THEN P1 ELSE P2)；</li>
+<li>(c) CASE型多分支；(d) WHILE型循环(WHILE C DO P)；</li>
+<li>(e) UNTIL型循环(REPEAT P UNTIL C)；</li>
+<li>(f) 语句标号；</li>
+<li>(g) 定义<img src="/img/se_49.jpg">
 </li>
 </ul>
 </li>
-<li><h4 id="数字字典的实现"><a href="#数字字典的实现" class="headerlink" title="数字字典的实现"></a>数字字典的实现</h4><ul>
-<li>CASE工具</li>
-<li>人工卡片</li>
+<li><p>可使用PAD提供的定义功能来逐步求精</p>
+<img src="/img/se_50.jpg">
+</li>
 </ul>
-<img src="/img/se_17.jpg">
+</li>
+<li><h3 id="判定表"><a href="#判定表" class="headerlink" title="判定表"></a>判定表</h3><ul>
+<li>当算法中包含多重嵌套的条件选择时，<strong>判定表能够清晰地表示复杂的条件组合与应做的动作之间的对应关系</strong><img src="/img/se_51.jpg"></li>
+</ul>
+</li>
+<li><h3 id="判定树"><a href="#判定树" class="headerlink" title="判定树"></a>判定树</h3><ul>
+<li>比判定表<strong>直观</strong>，包含<strong>判定的先后顺序</strong></li>
+<li>父节点：判定条件</li>
+<li>叶子节点：一个动作<img src="/img/se_52.jpg"></li>
+</ul>
+</li>
+<li><h3 id="过程设计语言（PDL-Process-Design-Language）"><a href="#过程设计语言（PDL-Process-Design-Language）" class="headerlink" title="过程设计语言（PDL: Process Design Language）"></a>过程设计语言（PDL: Process Design Language）</h3><ul>
+<li>伪代码</li>
+</ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="成本效益分析（了解）"><a href="#成本效益分析（了解）" class="headerlink" title="成本效益分析（了解）"></a>成本效益分析（了解）</h2><p>成本/效益分析是客户从经济角度判断是否继续投资项目的主要依据。</p>
+<h2 id="程序复杂度的定量度量-master"><a href="#程序复杂度的定量度量-master" class="headerlink" title="程序复杂度的定量度量 (master)"></a>程序复杂度的定量度量 (master)</h2><p>常用的方法有McCabe方法（采用流图）、Halstead方法，下面仅介绍第一种</p>
 </blockquote>
 <ul>
-<li><h3 id="成本估计"><a href="#成本估计" class="headerlink" title="成本估计"></a>成本估计</h3><ul>
-<li>代码行技术</li>
-<li>任务分解技术</li>
+<li><h3 id="McCabe-方法"><a href="#McCabe-方法" class="headerlink" title="McCabe 方法"></a>McCabe 方法</h3><ul>
+<li><h4 id="流图"><a href="#流图" class="headerlink" title="流图"></a>流图</h4><ul>
+<li><p>为了<strong>突出表示程序的控制流</strong>，可以使用流图(也称为程序图)</p>
+</li>
+<li><p>流图<strong>仅描绘程序的控制流程</strong>，完全不表现对数据的具体操作以及分支或循环的具体条件。</p>
+</li>
+<li><p>流图用<strong>圆</strong>表示<strong>节点</strong>，一个圆代表<strong>一条或多条语句</strong>（如果多条语句在一个顺序结构上，可以省略中间，只画两边的节点）</p>
+</li>
+<li><p>流图中的<strong>箭头线</strong>称为<strong>边</strong>，和程序流程图中的箭头线类似，代表<strong>控制流</strong></p>
+</li>
+<li><p>由边和节点围成的面积称为<strong>区域</strong>，<strong>区域数</strong>应该<strong>包括</strong>图<strong>外部</strong>未被围起来的<strong>区域</strong>。</p>
+</li>
+<li><p>基本结构：</p>
+<img src="/img/se_53.jpg"></li>
+<li>把程序流程图映射成流图(a)程序流程图；(b)流图<img src="/img/se_54.jpg)" title="![](img/se_55.jpg"></li>
+<li><p>PDL翻译成流图</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">procedure: sort</span><br><span class="line">  <span class="keyword">do</span> <span class="keyword">while</span> records remain</span><br><span class="line">    read record;</span><br><span class="line">    <span class="keyword">if</span> record field1 = <span class="number">0</span></span><br><span class="line">      then process record;</span><br><span class="line">        store in buffer;</span><br><span class="line">        incremert counter;</span><br><span class="line">    elseif record filed2 = <span class="number">0</span></span><br><span class="line">      then reset counter;</span><br><span class="line">      <span class="keyword">else</span> process record;</span><br><span class="line">        store in file;</span><br><span class="line">      endif</span><br><span class="line">    endif</span><br><span class="line">  enddo</span><br><span class="line">  end</span><br></pre></td></tr></table></figure>
+<img src="/img/se_57.jpg"></li>
+<li>由包含复合条件的PDL映射成的流图<img src="/img/se_58.jpg"></li>
 </ul>
 </li>
-<li><h3 id="效益分析"><a href="#效益分析" class="headerlink" title="效益分析"></a>效益分析</h3><ul>
-<li>货币的时间价值</li>
-<li>投资回报期</li>
-<li>纯收入</li>
-<li>投资回报率（最重要的参考数据）</li>
+<li><h4 id="流图环形复杂度的计算"><a href="#流图环形复杂度的计算" class="headerlink" title="流图环形复杂度的计算"></a>流图<strong>环形复杂度</strong>的计算</h4><ul>
+<li>流图中的区域数等于环形复杂度</li>
+<li>流图G的环形复杂度V(G)＝E-N+2，其中E是流图中边的条数，N是流图中节点数</li>
+<li>流图G的环形复杂度V(G)＝P+1，其中P是流图中判定节点的数目</li>
+</ul>
+</li>
+<li>举个栗子：<img src="/img/se_55.jpg">
+<ul>
+<li>上图中共有四个区域，故环形复杂度为4</li>
+<li>上图中共有11条边，9个点，所以环形复杂度位：11 - 9 + 2 = 4</li>
+<li>上图中共有三个判定节点，分别为”1”, “2,3”, “6”，所以环形复杂度为：3 + 1 = 4<blockquote>
+<p>PS:</p>
+<ul>
+<li>在计算<strong>区域数</strong>的时候别忘了包括<strong>最外围的区域</strong></li>
+<li>在计算<strong>判定节点</strong>的时候，不仅<strong>包括</strong>条件<strong>分支的判断</strong>，<strong>循环判定</strong>的节点也算</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -2064,7 +1988,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

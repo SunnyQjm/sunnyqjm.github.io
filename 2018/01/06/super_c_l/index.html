@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据库,学习,笔记," />
+  <meta name="keywords" content="学习,笔记,C语言,网络编程," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的）  候选码定义:  设K为关系模式R的属性(组)，若K→FU，则称K为R的 候选码。  主码：若R有多个候选码，则可以从中选定一个作为R的主码。 主属性：包含在任一个候选码中的属性，称作主属性。 非主属性：不包含在任一个候选码中的属性，称作非主属性">
-<meta name="keywords" content="数据库,学习,笔记">
+<meta name="description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)">
+<meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库笔记（补充）——候选码的确定方法">
-<meta property="og:url" content="http://qjm253.cn/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/index.html">
+<meta property="og:title" content="高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）">
+<meta property="og:url" content="http://qjm253.cn/2018/01/06/super_c_l/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的）  候选码定义:  设K为关系模式R的属性(组)，若K→FU，则称K为R的 候选码。  主码：若R有多个候选码，则可以从中选定一个作为R的主码。 主属性：包含在任一个候选码中的属性，称作主属性。 非主属性：不包含在任一个候选码中的属性，称作非主属性">
+<meta property="og:description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:updated_time" content="2018-01-06T10:03:23.196Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库笔记（补充）——候选码的确定方法">
-<meta name="twitter:description" content="写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的）  候选码定义:  设K为关系模式R的属性(组)，若K→FU，则称K为R的 候选码。  主码：若R有多个候选码，则可以从中选定一个作为R的主码。 主属性：包含在任一个候选码中的属性，称作主属性。 非主属性：不包含在任一个候选码中的属性，称作非主属性">
+<meta name="twitter:title" content="高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）">
+<meta name="twitter:description" content="概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://qjm253.cn/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/"/>
+  <link rel="canonical" href="http://qjm253.cn/2018/01/06/super_c_l/"/>
 
 
 
 
 
-  <title>数据库笔记（补充）——候选码的确定方法 | 建明 | Ming.J</title>
+  <title>高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章） | 建明 | Ming.J</title>
   
 
 
@@ -307,7 +307,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_l/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -324,7 +324,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数据库笔记（补充）——候选码的确定方法</h1>
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）</h1>
         
 
         <div class="post-meta">
@@ -336,8 +336,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-10T00:00:00+08:00">
-                2017-11-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T18:00:00+08:00">
+                2018-01-06
               </time>
             
 
@@ -356,8 +356,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" itemprop="commentsCount"></span>
+                <a href="/2018/01/06/super_c_l/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_l/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -366,7 +366,7 @@
 
           
           
-             <span id="/2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/" class="leancloud_visitors" data-flag-title="数据库笔记（补充）——候选码的确定方法">
+             <span id="/2018/01/06/super_c_l/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（12）—— 路由套接字（Routing Sockets）（第18章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -398,85 +398,8 @@
 
       
         <blockquote>
-<p>写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（<strong><em>要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的</em></strong>）</p>
-<p> <strong>候选码</strong>定义:  设K为关系模式R<u, f="">的属性(组)，若K→<sup>F</sup>U，则称K为R的 <strong>候选码</strong>。</u,></p>
-<ul>
-<li>主码：若R<u ,="" f="">有多个候选码，则可以从中选定一个作为R的主码。</u></li>
-<li>主属性：包含在任一个候选码中的属性，称作主属性。</li>
-<li>非主属性：不包含在任一个候选码中的属性，称作非主属性(或非码属性)。</li>
-<li>全码：关系模式的码由全部属性构成。</li>
-</ul>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)</p>
 </blockquote>
-<p>注: <strong>码或者是某一函数依赖的左部, 或是一个属性组</strong>。</p>
-<blockquote>
-<p>引例：求出关系模式R<u, f="">的所有候选码：<br>U={ A , B , C , D , E }<br>F={AB→C, B→D, C→E, EC→B, AC→B }</u,></p>
-</blockquote>
-<p>解： 验证AB是否码, 须证明  AB→<sup>F</sup>ABCDE是否成立?<br>∵AB→C(已知), 而AB→AB(自反), ∴AB → ABC(合并)<br>∵B→D(已知), ∴AB→AD(增广), ∴AB → ABCD(合并)<br>∵C→E(已知),  AB→C(已知),  ∴AB → E(传递)<br>   于是 AB → ABCDE(合并)</p>
-<p>同理可证：AC也是一个候选码</p>
-<h3 id="上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"><a href="#上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）" class="headerlink" title="上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"></a>上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）</h3><blockquote>
-<p>练习： 根据码的定义，求关系模式R<u, f="">的所有候选码。<br>U={ A , B , C , D }， F={A→ B, C→B }</u,></p>
-</blockquote>
-<p>答：ACD</p>
-<blockquote>
-<p>关于2NF的结论</p>
-<ol>
-<li>不存在非主属性的关系模式属于2NF。 （没有非主属性）</li>
-<li>全码关系模式属于2NF。 （没有非主属性）</li>
-<li>码只由一个属性组成的关系模式属于2NF。（不会有部分依赖）</li>
-<li>二目关系模式属于2NF。 （码或是一个属性，或是全码）</li>
-<li>若R属于1NF，但R不一定属于2NF。<br>例如,  关系模式 S(S#, SN, SD, DEAN, C#, G)</li>
-</ol>
-<p>关于3NF的结论</p>
-<ol>
-<li>不存在非主属性的关系模式属于3NF。 （没有非主属性）</li>
-<li>全码关系模式属于3NF。 （没有非主属性）</li>
-<li>二目关系模式属于3NF。 （不会存在传递依赖）</li>
-<li>若R属于3NF，那么R也属于2NF。<br>（可证明，反证）</li>
-<li>若R属于2NF，但R不一定属于3NF。<br>例如，关系模式 S_SD(S#, SN, SD, DEAN)</li>
-</ol>
-<p><strong>BCNF</strong>定义：关系模式R<u, f=""> ∈1NF，对于属性组X和Y，若X→Y且Y ∉ X时X必含有码，则R<u, f=""> ∈BCNF</u,></u,></p>
-<ul>
-<li>由BCNF的定义，对于非平凡的函数依赖:  X  →  Y<ul>
-<li>X包含码，或者X本身就是码（换句话说，X是一个超码）</li>
-</ul>
-</li>
-<li>所有非主属性对每一个码都是完全函数依赖，<br> 即, 若R∈BCNF, 则R∈2NF。</li>
-<li>所有的主属性对每一个不包含它的码也是完全函数依赖。</li>
-<li>没有任何属性完全函数依赖于非码的任何一组属性。</li>
-<li>若R∈BCNF, 则必有R∈3NF; 反之不一定成立</li>
-</ul>
-<h3 id="铛铛铛！！！敲黑板，候选码的求解算法"><a href="#铛铛铛！！！敲黑板，候选码的求解算法" class="headerlink" title="铛铛铛！！！敲黑板，候选码的求解算法"></a>铛铛铛！！！敲黑板，候选码的求解算法</h3><p>以下算法会涉及到求属性集的闭包，<a href="http://www.jianshu.com/p/78d16f97ef0c" target="_blank" rel="noopener">函数依赖集和属性集闭包传送阵</a></p>
-</blockquote>
-<h4 id="设关系模式R"><a href="#设关系模式R" class="headerlink" title="设关系模式R"></a>设关系模式R<u, f=""></u,></h4><ol>
-<li>将R的所有属性<strong>分为 L、 R、N和 LR四类</strong>，并令<strong>X代表L、N两类</strong>，<strong>Y代表LR类</strong>。<ul>
-<li>L类: <strong>仅</strong>出现在F的函数依赖<strong>左</strong>部的属性；</li>
-<li>R类: <strong>仅</strong>出现在F的函数依赖<strong>右</strong>部的属性；</li>
-<li>N类: 在F的函数依赖<strong>左右</strong>两边<strong>都不出现</strong>的属性；</li>
-<li>LR类:在F的函数依赖<strong>左右</strong>两边<strong>都出现</strong>的属性 。</li>
-</ul>
-</li>
-<li><strong>求属性集闭包</strong>X<sup>+</sup>，若 X<sup>+</sup>包含了R的全部属性则X即为R的唯一候选码, <strong>转5</strong>;</li>
-<li>否则, <strong>在Y中取一属性A</strong>，求属性集闭包(XA)+，若(XA)+包含了R的全部属性，则<strong>转4</strong>；否则，调换一属性反复进行这一过程，直到试完所有Y中的属性。</li>
-<li>如果已找出了所有的候选码，则转(5)；否则在Y中依次取2个、3个、…属性，求X与它们的属性集闭包，直到其闭包包含R的全部属性。</li>
-<li>停止，输出结果。</li>
-</ol>
-<ul>
-<li>例1： 设关系模式R(A, B, C, D), 其函数依赖集：<pre><code>F={D→B, B→D, AD→B, AC→D}，求R的所有候选码。
-</code></pre>解: L类: A, C<br>   R类:<br>   N类:<br>   LR类: B, D<br>因为(AC)<sub>F</sub><sup>+</sup>=ACDB，所以AC是R的唯一候选码</li>
-</ul>
-<ul>
-<li>例2：设关系模式R(A, B, C, D, E, P), 其函数依赖集：<pre><code>F={A→D, E→D, D→B, BC→D, DC→A}，求R的所有候选码。
-</code></pre>解:  L类: C, E<br>R类:<br>N类: P<br>LR类: A, B, D<br>因为(CEP)F+=CEPDBA，所以CEP是R的唯一候选码。</li>
-</ul>
-<ul>
-<li>例3： 设关系模式R(S, D, I, B, O, Q), 其函数依赖集:<pre><code>F = { S→D, I→B, B→O, O→Q, Q→I }，求R的所有候选码。
-</code></pre>解: L类(S);  R类(D)  ; N类(无) ;  LR类(I, B, O, Q)<pre><code>因为S+=SD, 所以S不是R的候选码；
-因为(SI)+=SIDBOQ，所以SI是一个候选码；
-因为(SB)+=SBDOQI，所以SB也是一个候选码；
-因为(SO)+=SODQIB，所以SO也是一个候选码；
-因为(SQ)+=SQDIBO，所以SQ也是一个候选码。
-</code></pre></li>
-</ul>
 
       
     </div>
@@ -494,11 +417,13 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据库/" rel="tag"># 数据库</a>
-          
             <a href="/tags/学习/" rel="tag"># 学习</a>
           
             <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
           
         </div>
       
@@ -511,8 +436,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" rel="next" title="数据库笔记（补充）——数据库设计和E——R模型">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（补充）——数据库设计和E——R模型
+              <a href="/2018/01/06/super_c_k/" rel="next" title="高级C与网络编程复习（11）—— 数据链路访问（Datalink Access）（第29章）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（11）—— 数据链路访问（Datalink Access）（第29章）
               </a>
             
           </div>
@@ -520,10 +445,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/11/11/2017-11-11-数据库笔记（补充）——分解算法浅析/" rel="prev" title="数据库笔记（补充）——分解算法浅析">
-                数据库笔记（补充）——分解算法浅析 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -681,7 +602,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"><span class="nav-number">1.</span> <span class="nav-text">上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#铛铛铛！！！敲黑板，候选码的求解算法"><span class="nav-number">2.</span> <span class="nav-text">铛铛铛！！！敲黑板，候选码的求解算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设关系模式R"><span class="nav-number">2.1.</span> <span class="nav-text">设关系模式R</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li></ol></div>
             
 
           </div>
@@ -848,7 +769,7 @@ var jiathis_config={
 		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/11/10/2017-11-10-数据库笔记（补充）——候选码的确定方法/"});
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2018/01/06/super_c_l/"});
 		
 
 		(function() {
