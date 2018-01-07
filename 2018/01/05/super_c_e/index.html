@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="简单回射程序概述  客户从标准输入读入一行文本，并写给服务器 服务器从网络输入读入这行文本，并回射给客户 客户熊网络赎回如读入这行回射文本，并显示在标准输出上    TCP回射服务程序 &amp;ensp;tcpserv01.c12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849">
+<meta name="description" content="简单回射程序概述  客户从标准输入读入一行文本，并写给服务器 服务器从网络输入读入这行文本，并回射给客户 客户从网络输入读入这行回射文本，并显示在标准输出上    TCP回射服务程序 &amp;ensp;tcpserv01.c123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495">
 <meta name="keywords" content="学习,笔记,C语言,网络编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="高级C与网络编程复习（5）—— TCP C&#x2F;S程序示例（TCP Client&#x2F;Server Example）（第五章）">
 <meta property="og:url" content="http://qjm253.cn/2018/01/05/super_c_e/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="简单回射程序概述  客户从标准输入读入一行文本，并写给服务器 服务器从网络输入读入这行文本，并回射给客户 客户熊网络赎回如读入这行回射文本，并显示在标准输出上    TCP回射服务程序 &amp;ensp;tcpserv01.c12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849">
+<meta property="og:description" content="简单回射程序概述  客户从标准输入读入一行文本，并写给服务器 服务器从网络输入读入这行文本，并回射给客户 客户从网络输入读入这行回射文本，并显示在标准输出上    TCP回射服务程序 &amp;ensp;tcpserv01.c123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://qjm253.cn/img/unp_23.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_4.png">
-<meta property="og:updated_time" content="2018-01-06T07:16:11.592Z">
+<meta property="og:updated_time" content="2018-01-07T02:04:23.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（5）—— TCP C&#x2F;S程序示例（TCP Client&#x2F;Server Example）（第五章）">
-<meta name="twitter:description" content="简单回射程序概述  客户从标准输入读入一行文本，并写给服务器 服务器从网络输入读入这行文本，并回射给客户 客户熊网络赎回如读入这行回射文本，并显示在标准输出上    TCP回射服务程序 &amp;ensp;tcpserv01.c12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849">
+<meta name="twitter:description" content="简单回射程序概述  客户从标准输入读入一行文本，并写给服务器 服务器从网络输入读入这行文本，并回射给客户 客户从网络输入读入这行回射文本，并显示在标准输出上    TCP回射服务程序 &amp;ensp;tcpserv01.c123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495">
 <meta name="twitter:image" content="http://qjm253.cn/img/unp_23.png">
 
 
@@ -405,7 +405,7 @@
 <ul>
 <li>客户从标准输入读入一行文本，并写给服务器</li>
 <li>服务器从网络输入读入这行文本，并回射给客户</li>
-<li>客户熊网络赎回如读入这行回射文本，并显示在标准输出上<img src="/img/unp_23.png" title="简单的回射客户/服务器">
+<li>客户从网络输入读入这行回射文本，并显示在标准输出上<img src="/img/unp_23.png" title="简单的回射客户/服务器">
 </li>
 </ul>
 <blockquote>
@@ -427,7 +427,7 @@
 <li><p>0.0.0.0 ==&gt; 代表通配地址</p>
 </li>
 <li>*  ==&gt; 代表通配端口</li>
-<li><strong>客户端</strong>在<strong>收到</strong>三路握手的<strong>第二个分节</strong>的时候，<strong>connect函数就返回</strong>了。而<strong>服务器</strong>在<strong>收到</strong>三次握手的<strong>第三个分节</strong>的时候<strong>accept才返回</strong></li>
+<li><strong>客户端</strong>在<strong>收到</strong>三路握手的<strong>第二个分节</strong>的时候，<strong>connect函数就返回</strong>了。而<strong>服务器</strong>在<strong>收到</strong>三次握手的<strong>第三个分节</strong>的时候<strong>accept才返回</strong>（之前分析过，服务器在收到第二个分节的时候还处于SYN_RECV状态，只有在收到第三个分节的时候才进入ESTABLISHED状态，此时相应的socket才被扔进监听套接字的已完成队列。而accept只在已完成队列中取socket，所以accept必定是在收到第三个分节之后才返回）</li>
 </ul>
 <blockquote>
 <h2 id="正常终止"><a href="#正常终止" class="headerlink" title="正常终止"></a>正常终止</h2></blockquote>
@@ -445,7 +445,7 @@
 <li><strong>进程终止的部分任务是关闭进程打开的所有的描述符</strong>，因此客户端打开的套接字由内核关闭，这导致<strong>客户TCP向服务器发送一个FIN，服务器回一个ACK</strong>。至此，四路挥手的前两步完成。<strong>服务器处于CLOSE_WAIT状态，而客户端处于FIN_WAIT_2状态</strong></li>
 <li>服务器TCP收到FIN后，readline函数返回0，导致str_echo退出，接着main函数执行到exit，进而导致服务端子进程退出。</li>
 <li>同样的，服务端子进程所打开的所有描述符随之关闭。这导致服务器向客户发送一个FIN，客户回一个ACK，至此，四路挥手结束，连接完全终止。<strong>客户套接字进入TIME_WAIT状态</strong>。</li>
-<li>进程终止的另一部分内容是：在服务器子进程终止时，给父进程发送一个SIGCHLD信号。由于我们在代码中没有捕获该信号，而该信号的默认处理为忽略，所有就导致<strong>子进程进入僵死状态</strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们调用ps命令来验证一下</span></span><br><span class="line"><span class="comment">//因为笔者在测试的时候打开了客户端两次，所以有两个僵死的子进程</span></span><br><span class="line">ps -a</span><br><span class="line">  PID TTY          TIME CMD</span><br><span class="line"> <span class="number">2720</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">21</span> hexo</span><br><span class="line"><span class="number">10186</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01</span><br><span class="line"><span class="number">11146</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01 &lt;defunct&gt;         <span class="comment">//僵死进程</span></span><br><span class="line"><span class="number">13389</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01 &lt;defunct&gt;         <span class="comment">//僵死进程</span></span><br><span class="line"><span class="number">18996</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ps</span><br></pre></td></tr></table></figure>
+<li>进程终止的另一部分内容是：在服务器子进程终止时，给父进程发送一个SIGCHLD信号。由于我们在代码中没有捕获该信号，而该信号的默认处理为忽略，所以就导致<strong>子进程进入僵死状态</strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们调用ps命令来验证一下</span></span><br><span class="line"><span class="comment">//因为笔者在测试的时候打开了客户端两次，所以有两个僵死的子进程</span></span><br><span class="line">ps -a</span><br><span class="line">  PID TTY          TIME CMD</span><br><span class="line"> <span class="number">2720</span> pts/<span class="number">0</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">21</span> hexo</span><br><span class="line"><span class="number">10186</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01</span><br><span class="line"><span class="number">11146</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01 &lt;defunct&gt;         <span class="comment">//僵死进程</span></span><br><span class="line"><span class="number">13389</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> tcpserv01 &lt;defunct&gt;         <span class="comment">//僵死进程</span></span><br><span class="line"><span class="number">18996</span> pts/<span class="number">1</span>    <span class="number">00</span>:<span class="number">00</span>:<span class="number">00</span> ps</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <blockquote>
@@ -485,7 +485,7 @@
 <h2 id="处理SIGCHLD信号"><a href="#处理SIGCHLD信号" class="headerlink" title="处理SIGCHLD信号"></a>处理SIGCHLD信号</h2></blockquote>
 <ul>
 <li><h3 id="僵死状态"><a href="#僵死状态" class="headerlink" title="僵死状态"></a>僵死状态</h3><ul>
-<li>僵死（zombie）状态的目的是维护子进程的信息，以便父进程在以后某个时候获取。这些信息包括子进程的进程ID、终止状态以及资源利用信息。如果一个进程终止，而该进程有子进程处于僵死状态，那么它的所有僵死子进程的父进程ID将被重置为1（init进程）。集成这些子进程的init进程将清理它们</li>
+<li>僵死（zombie）状态的目的是维护子进程的信息，以便父进程在以后某个时候获取。这些信息包括子进程的进程ID、终止状态以及资源利用信息。如果一个进程终止，而该进程有子进程处于僵死状态，那么它的所有僵死子进程的父进程ID将被重置为1（init进程）。继承这些子进程的init进程将清理它们</li>
 </ul>
 </li>
 <li><h3 id="处理僵死进程"><a href="#处理僵死进程" class="headerlink" title="处理僵死进程"></a>处理僵死进程</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//首先定义如下信号处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">sig_chld</span><span class="params">(<span class="keyword">int</span> signo)</span></span>&#123;</span><br><span class="line">  <span class="keyword">pid_t</span> pid;</span><br><span class="line">  <span class="keyword">int</span> stat;</span><br><span class="line">  pid = wait(&amp;stat);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"child %d terminated\n"</span>, pid);</span><br><span class="line">  <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在上面的server端程序的Listen之后添加下面这行</span></span><br><span class="line">Signal(SIGCHLD, sig_child);</span><br></pre></td></tr></table></figure>
@@ -495,7 +495,7 @@
 </ul>
 </li>
 <li><h3 id="处理被中断的慢系统调用"><a href="#处理被中断的慢系统调用" class="headerlink" title="处理被中断的慢系统调用"></a>处理被中断的慢系统调用</h3><ul>
-<li>适用于适用于慢系统调用的基本规则：当阻塞于某个<strong>慢系统调用</strong>的一个<strong>进程捕获某个信号且相应信号处理函数返回</strong>时，该系统调用<strong>可能返回一个EINTR错误</strong></li>
+<li>适用于慢系统调用的基本规则：当阻塞于某个<strong>慢系统调用</strong>的一个<strong>进程捕获某个信号且相应信号处理函数返回</strong>时，该系统调用<strong>可能返回一个EINTR错误</strong></li>
 <li>有些系统上会发生，有些系统做了处理，不会发生。但是为了便于移植，还是建议用类似于下面的方法处理这种错误<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">  clilen = <span class="keyword">sizeof</span>(cliaddr);</span><br><span class="line">  <span class="keyword">if</span>( (connfd = accept(listenfd, (SA *) &amp;cliaddr, &amp;clilen)) &lt; <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(errno == EINTR)</span><br><span class="line">      <span class="keyword">continue</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      err_sys(<span class="string">"accept error"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
