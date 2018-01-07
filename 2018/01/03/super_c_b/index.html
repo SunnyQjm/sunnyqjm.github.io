@@ -96,7 +96,7 @@
 <meta property="og:image" content="http://qjm253.cn/img/unp_7.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_8.png">
 <meta property="og:image" content="http://qjm253.cn/img/unp_9.png">
-<meta property="og:updated_time" content="2018-01-07T07:45:09.776Z">
+<meta property="og:updated_time" content="2018-01-07T07:46:27.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP（第二章）">
 <meta name="twitter:description" content="总图（Big Picture）   UDP  UDP应用程序将数据封装到UDP数据报，，并将其写到UDP socket。进而封装成IPV4或IPV6数据报（datagram），然后发送到目的地 UDP提供的是无连接的服务（connectionless service） 每个UDP数据报都有一个长度，如果一个数据报正确地到达目的地，那么数据报的长度将随数据一道传递给接收端应用程序 RFC 768">
@@ -474,17 +474,17 @@
 <h2 id="TCP状态转换图"><a href="#TCP状态转换图" class="headerlink" title="TCP状态转换图"></a>TCP状态转换图</h2></blockquote>
   <img src="/img/unp_4.png" title="TCP状态转换图">
 <ul>
-<li>上述状态转移图中的<strong>细线</strong>表示的是可能执行的路线。粗线和虚线表示的是TCP服务器和客户端正常情况（或说大多数情况）走的状态转移路线。</li>
+<li>上述状态转移图中的<strong>细线</strong>表示的是<strong>可能执行的路线</strong>。粗线和虚线表示的是TCP服务器和客户端正常情况（或说大多数情况）走的状态转移路线。</li>
 <li>当发生错误，或遇到一些比较凑巧的事件，就可能走细线指向的转移路线<ul>
 <li>举例来说：途中有一条细线是SYN_SENT ——&gt; SYN_RCVD的</li>
 <li>这种情况可能是客户端发出了一个SYN到服务器，并希望服务器回一个ACK和一个SYN</li>
 <li>但是由于一些不可预知的错误，服务器返回的SYN和ACK只有SYN回到了客户端，而ACK则延迟了或丢了</li>
-<li>这个时候客户端的状态就转移到了SYN_RCVD。之后一旦收到ACK（可能是服务器发送的消息丢包后重传，也可能是延迟的消息到达了），则客户端的状态可正常转移到ESTABLISHED状态<blockquote>
+<li>这个时候客户端的状态就转移到了SYN_RCVD。之后一旦收到ACK（可能是服务器发送的消息丢包后重传，也可能是延迟的消息到达了），则客户端的状态可正常转移到ESTABLISHED状态</li>
+</ul>
+</li>
+</ul>
+<blockquote>
 <h2 id="TCP的限制"><a href="#TCP的限制" class="headerlink" title="TCP的限制"></a>TCP的限制</h2></blockquote>
-</li>
-</ul>
-</li>
-</ul>
 <ul>
 <li>TCP同时提供<strong>可靠数据传输</strong>和<strong>严格的有序数据分发</strong>。然而有一些应用程序需要可靠数据传输，但是不需要顺序维护，而另一些应用过程序只需要部分有序即可。</li>
 <li>TCP这种面向数据流的传输方式有时候是不方便的。应用程序必须添加自己的记录标记。</li>
