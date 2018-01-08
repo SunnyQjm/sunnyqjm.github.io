@@ -88,7 +88,7 @@
 <meta property="og:description" content="概述原始套接字提供TCP和UDP所不提供的以下3个能力   有了原始套接字，进程可以读与写ICMPv4、IGMPv4和ICMPv6分组 Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrouted)   有了原始套接字，进程可以读写内核不处理其协议字段的IPv4数据报 With a raw">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://qjm253.cn/img/unp_44.png">
-<meta property="og:updated_time" content="2018-01-08T11:53:53.688Z">
+<meta property="og:updated_time" content="2018-01-08T12:02:34.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="高级C与网络编程复习（10）—— 原始套接字（Raw Socket）（第28章）">
 <meta name="twitter:description" content="概述原始套接字提供TCP和UDP所不提供的以下3个能力   有了原始套接字，进程可以读与写ICMPv4、IGMPv4和ICMPv6分组 Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrouted)   有了原始套接字，进程可以读写内核不处理其协议字段的IPv4数据报 With a raw">
@@ -519,7 +519,7 @@
 </ul>
 </blockquote>
 <ul>
-<li>实现的原理是利用了IPv4的TTL字段或IPv6的跳限字段，一开始设置为1，然后中间节点会返回一个ICMP”time exceeded in transmit”（传输中超时）错误，接着逐渐增大TTL，从而逐步确定下一跳路由地址。直至目的节点返回一个ICMP”port unreachable”（端口不可达）错误，则表示到达目的节点（这要求目的节点没有在该端口上开启服务，即发送ICMP包时，目的端口号应该选择一个未被目的主机使用的端口号）。</li>
+<li>实现的原理是利用了IPv4的TTL字段或IPv6的跳限字段，一开始设置为1，然后中间节点会返回一个ICMP”time exceeded in transmit”（传输中超时）错误，接着逐渐增大TTL，从而逐步确定下一跳路由地址。直至目的节点返回一个ICMP”port unreachable”（端口不可达）错误，则表示到达目的节点（这要求目的节点没有在该端口上开启服务，即发送ICMP包时，目的端口号应该选择一个未被目的主机使用的端口号 ==&gt; traceroute选择了一个大于30000值作为目的端口号，因为UDP协议要求端口号必须小于30000，所以目的主机如果接收到必然会会一个ICMP端口不可达错误）。</li>
 <li>早期用IP_HDRINCL来达到修改TTL的目的，现在多用IP_TTL套接字选项来修改</li>
 </ul>
 
