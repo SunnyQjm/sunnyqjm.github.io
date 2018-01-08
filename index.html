@@ -1202,7 +1202,8 @@
 </li>
 </ul>
 <blockquote>
-<h2 id="ping-Program"><a href="#ping-Program" class="headerlink" title="ping Program"></a>ping Program</h2></blockquote>
+<h2 id="ping-Program"><a href="#ping-Program" class="headerlink" title="ping Program"></a>ping Program</h2><p>原理：往目的IP发送一个ICMP回射请求，该节点则以一个ICMP回射应答响应。由于ICMP规则要求回射应答中返回来自回射请求的标识符，序列号，以及可选数据。可以在可选数据中存放时间戳，以便在收到应答的时候就算RTT。（一般系统发送ICMP都有默认的TTL值大小（例如linux/unix 默认是64或255），提取出应答包中的TTL对当前主机和目的主机之间的跳数有一定指导意义）</p>
+</blockquote>
 <ul>
 <li><h3 id="一个没有特性蔓延（creeping-featurism）的ping程序"><a href="#一个没有特性蔓延（creeping-featurism）的ping程序" class="headerlink" title="一个没有特性蔓延（creeping featurism）的ping程序"></a>一个没有特性蔓延（creeping featurism）的ping程序</h3><ul>
 <li>自行阅读书上ping程序的源码</li>
@@ -1212,10 +1213,15 @@
 </li>
 </ul>
 <blockquote>
-<h2 id="traceroute-Program"><a href="#traceroute-Program" class="headerlink" title="traceroute Program"></a>traceroute Program</h2><p>traceroute 可以用来测量本机到一个目的主机的路径</p>
+<h2 id="traceroute-Program"><a href="#traceroute-Program" class="headerlink" title="traceroute Program"></a>traceroute Program</h2><ul>
+<li><p>原理：一开始向目的节点发送一个TTL为1的</p>
+</li>
+<li><p>traceroute 可以用来测量本机到一个目的主机的路径</p>
+</li>
+</ul>
 </blockquote>
 <ul>
-<li>实现的原理是利用了IPv4的TTL字段，一开始设置为1，然后中间节点会返回一个ICMP”time exceeded in transmit”（传输中超时）。接着逐渐增大TTL，直至目的节点返回一个ICMP”port unreachable”（端口不可达）错误，则表示到达目的节点</li>
+<li>实现的原理是利用了IPv4的TTL字段或IPv6的跳限字段，一开始设置为1，然后中间节点会返回一个ICMP”time exceeded in transmit”（传输中超时）错误，接着逐渐增大TTL，从而逐步确定下一跳路由地址。直至目的节点返回一个ICMP”port unreachable”（端口不可达）错误，则表示到达目的节点（这要求目的节点没有在该端口上开启服务，即发送ICMP包时，目的端口号应该选择一个未被目的主机使用的端口号）。</li>
 <li>早期用IP_HDRINCL来达到修改TTL的目的，现在多用IP_TTL套接字选项来修改</li>
 </ul>
 
