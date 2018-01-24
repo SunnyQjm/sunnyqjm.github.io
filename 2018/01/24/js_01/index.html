@@ -88,7 +88,7 @@
 <meta property="og:description" content="Introduction最近刚入坑web前端，学了一点基础，便准备写个简单的2048小游戏试试手。开发过程中发现，PC端可以直接监听键盘输入，但是移动端就不得不监听屏幕上的滑动事件了。   现有的js库中没有可以直接满足上述要求的封装 在JQuery Mobile 中 可以通过 .on 的方式监听左右滑动事件，但是没有上下滑动事件（而且我想写一个PC端和移动端都通用的网页的话，就必须引入Jque">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://qjm253.cn/img/game_01.png">
-<meta property="og:updated_time" content="2018-01-24T14:24:11.225Z">
+<meta property="og:updated_time" content="2018-01-24T14:28:30.591Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript实现监听移动端上下左右滑动事件">
 <meta name="twitter:description" content="Introduction最近刚入坑web前端，学了一点基础，便准备写个简单的2048小游戏试试手。开发过程中发现，PC端可以直接监听键盘输入，但是移动端就不得不监听屏幕上的滑动事件了。   现有的js库中没有可以直接满足上述要求的封装 在JQuery Mobile 中 可以通过 .on 的方式监听左右滑动事件，但是没有上下滑动事件（而且我想写一个PC端和移动端都通用的网页的话，就必须引入Jque">
@@ -418,15 +418,17 @@
 <li>所以为了保持PC端和移动端的一致性，决定直接封装一下js的移动端的触摸事件，实现上述需求</li>
 </ul>
 <blockquote>
-<p>##2048<br>可以在手机上打开，仍然具有不错的交互</p>
+<h2 id="2048"><a href="#2048" class="headerlink" title="2048"></a>2048</h2><p>可以在手机上打开，仍然具有不错的交互</p>
 </blockquote>
 <ul>
-<li><a href="../2048">点我体验</a></li>
+<li><a href="../../../../2048">点我体验</a></li>
 <li><a href="https://github.com/SunnyQjm/2048" target="_blank" rel="noopener">源码地址</a></li>
 <li><img src="/img/game_01.png" width="500" height="500" title="2048">
+</li>
+</ul>
 <blockquote>
 <h2 id="JS-触摸事件（event）"><a href="#JS-触摸事件（event）" class="headerlink" title="JS 触摸事件（event）"></a>JS 触摸事件（event）</h2></blockquote>
-</li>
+<ul>
 <li><h3 id="event的类型"><a href="#event的类型" class="headerlink" title="event的类型"></a>event的类型</h3><ul>
 <li>touchstart: 当<strong>手指触摸屏幕时</strong>触发（相当于Android中的ACTION_DOWN事件）</li>
 <li>touchmove: 当<strong>手指在屏幕上滑动时</strong>连续触发（相当于Android中的ACTION_MOVE事件）— <strong><em>期间调用preventDefault()可以屏蔽事件的默认行为，达到阻止滚动的效果</em></strong></li>
@@ -659,7 +661,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-触摸事件（event）"><span class="nav-number">2.</span> <span class="nav-text">JS 触摸事件（event）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#event的类型"><span class="nav-number">2.1.</span> <span class="nav-text">event的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event用于跟踪触摸的属性"><span class="nav-number">2.2.</span> <span class="nav-text">event用于跟踪触摸的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Touch对象包含的数组"><span class="nav-number">2.3.</span> <span class="nav-text">Touch对象包含的数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装一个操作对象"><span class="nav-number">3.</span> <span class="nav-text">封装一个操作对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">3.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2048"><span class="nav-number">2.</span> <span class="nav-text">2048</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS-触摸事件（event）"><span class="nav-number">3.</span> <span class="nav-text">JS 触摸事件（event）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#event的类型"><span class="nav-number">3.1.</span> <span class="nav-text">event的类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#event用于跟踪触摸的属性"><span class="nav-number">3.2.</span> <span class="nav-text">event用于跟踪触摸的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Touch对象包含的数组"><span class="nav-number">3.3.</span> <span class="nav-text">Touch对象包含的数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装一个操作对象"><span class="nav-number">4.</span> <span class="nav-text">封装一个操作对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">4.1.</span> <span class="nav-text">使用</span></a></li></ol></li></ol></div>
             
 
           </div>
