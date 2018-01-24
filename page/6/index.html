@@ -1544,7 +1544,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1563,7 +1563,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/" itemprop="url">数据库笔记（十一）—— 范式</a></h1>
+                <a class="post-title-link" href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" itemprop="url">数据库笔记（十二）——函数依赖理论和分解算法</a></h1>
         
 
         <div class="post-meta">
@@ -1595,8 +1595,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/" itemprop="commentsCount"></span>
+                <a href="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1605,7 +1605,7 @@
 
           
           
-             <span id="/2017/11/01/2017-11-01-数据库笔记（十一）—— 范式/" class="leancloud_visitors" data-flag-title="数据库笔记（十一）—— 范式">
+             <span id="/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/" class="leancloud_visitors" data-flag-title="数据库笔记（十二）——函数依赖理论和分解算法">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1639,235 +1639,121 @@
         
           
             <blockquote>
-<p>一般而言，关系数据库的设计目标是生成一组关系模式，使我们存储信息时<strong>避免不必要的冗余</strong>，并且让我们可以方便地获取信息。这是通过<strong>设计满足适当范式（normal form）的模式来实现</strong>的。</p>
-<h2 id="引例"><a href="#引例" class="headerlink" title="引例"></a>引例</h2></blockquote>
+<h2 id="函数依赖理论"><a href="#函数依赖理论" class="headerlink" title="函数依赖理论"></a>函数依赖理论</h2></blockquote>
 <ul>
-<li><h3 id="首先有如下两个模式"><a href="#首先有如下两个模式" class="headerlink" title="首先有如下两个模式"></a>首先有如下两个模式</h3><ul>
-<li>instructor( <u>ID</u>, name, dept_name, salary )</li>
-<li>department( <u>dept_name</u>, building, budget )</li>
+<li><h3 id="逻辑蕴涵"><a href="#逻辑蕴涵" class="headerlink" title="逻辑蕴涵"></a>逻辑蕴涵</h3><ul>
+<li><h4 id="定义："><a href="#定义：" class="headerlink" title="定义："></a>定义：</h4><ul>
+<li>存在如下条件<ul>
+<li>关系模式：r(R)</li>
+<li>依赖集：F （由一个或多个依赖组成）</li>
+<li>依赖：f</li>
 </ul>
 </li>
-<li><h3 id="若将上面两个模式合并成一个大的模式"><a href="#若将上面两个模式合并成一个大的模式" class="headerlink" title="若将上面两个模式合并成一个大的模式"></a>若将上面两个模式合并成一个大的模式</h3><ul>
-<li><p>inst_dept(ID, name, salary, dept_name, building, budget)</p>
-</li>
-<li><p>存在数据冗余（building和budget被存储了多份，实际上每个系的楼和预算只要存一次就好了）</p>
-</li>
-<li>存在插入、删除和更新异常</li>
-</ul>
-</li>
-<li><h3 id="需要分解成更小的模式"><a href="#需要分解成更小的模式" class="headerlink" title="需要分解成更小的模式"></a>需要分解成更小的模式</h3></li>
-<li><h3 id="并不是所有模式的分解都是有益的"><a href="#并不是所有模式的分解都是有益的" class="headerlink" title="并不是所有模式的分解都是有益的"></a>并不是所有模式的分解都是有益的</h3><ul>
-<li><p>employee(ID, name, street, city, salary)</p>
-</li>
-<li><p>分解成下面两个模式</p>
-<ul>
-<li>employee1(ID, name)</li>
-<li>employee2(name, street, city, salary)</li>
-</ul>
-</li>
-<li><p>由于可能存在同名的可能，所以分解以后导致了数据的丢失</p>
-<ul>
-<li>比如有两个叫Sunny的人，我们用其中一个Sunny的ID去查询他的地址信息的时候，因为存在两份信息相互混淆，导致得不到正确的结果，但是在分解之前通过ID是可以得到唯一的地址的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="有损分解和无损分解"><a href="#有损分解和无损分解" class="headerlink" title="有损分解和无损分解"></a>有损分解和无损分解</h3><ul>
-<li>像上面的例子中，分解以后导致信息丢失的分解称之为有损分解（在实际进行分解时要避免这种分解）</li>
-<li>反之则称之为无损分解（无损分解在重新合并后可以得到和分解之前一致的状态）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="函数依赖"><a href="#函数依赖" class="headerlink" title="函数依赖"></a>函数依赖</h2></blockquote>
-<ul>
-<li><h3 id="什么是函数依赖？"><a href="#什么是函数依赖？" class="headerlink" title="什么是函数依赖？"></a>什么是函数依赖？</h3><ul>
-<li>有如下模式<ul>
-<li>U = {Sno, Sname, Cno, Sdept, Mname, Grade} (分别代表学号、学生姓名、课程号、系、系主任、分数)</li>
-</ul>
-</li>
-<li>Sname = f(Sno) ==&gt;学生的姓名<strong>函数依赖</strong>于学号<ul>
-<li>记作：Sno→Sname</li>
-<li>读作：Sno推出Sname</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="非平凡函数依赖和平凡函数依赖"><a href="#非平凡函数依赖和平凡函数依赖" class="headerlink" title="非平凡函数依赖和平凡函数依赖"></a>非平凡函数依赖和平凡函数依赖</h3><ul>
-<li>X 和 Y 为模式U中一个或多个属性的集合</li>
-<li>非平凡函数依赖<ul>
-<li>X→Y，但Y∉X</li>
-</ul>
-</li>
-<li>平凡函数依赖（包含冗余）<ul>
-<li>X→Y，且Y∈X</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="完全函数依赖和部分函数依赖"><a href="#完全函数依赖和部分函数依赖" class="headerlink" title="完全函数依赖和部分函数依赖"></a>完全函数依赖和部分函数依赖</h3><blockquote>
-<p>写函数依赖时，完全函数依赖和部分函数依赖的写法中，P和F是写在箭头的正上方的，由于Markdown不能很好的展现，就标在了箭头的右上角<br>所以用下面的表示法：</p>
-<ul>
-<li>&rarr;<sup>F</sup> ：完全依赖</li>
-<li>&rarr;<sup>P</sup> ：部分依赖</li>
-</ul>
-</blockquote>
-<ul>
-<li>完全函数依赖<ul>
-<li>在模式R(U)中X→Y，但是对于任意X的真子集X<sup>’</sup>， 都没有X<sup>‘</sup>→Y, 则称Y完全函数依赖于X，记作<strong>X&rarr;<sup>F</sup>Y</strong></li>
-<li>X实际上就是能推出Y的最小集</li>
-<li>例如：(Sno, Cno)→Grade</li>
-</ul>
-</li>
-<li>部分函数依赖<ul>
-<li>在模式R(U)中X→Y，存在某个X的真子集X<sup>’</sup>， 有X<sup>‘</sup>→Y, 则称Y部分函数依赖于X，记作<strong>X&rarr;<sup>P</sup>Y</strong></li>
-<li>例如：(Sno, Cno)→Sdept</li>
-<li>而实际上：Sno→Sdept 也是可行的，上面的依赖关系中，Cno是冗余的</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="传递函数依赖"><a href="#传递函数依赖" class="headerlink" title="传递函数依赖"></a>传递函数依赖</h3><ul>
-<li>X→Y, Y→Z ==&gt; X→Z</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="码"><a href="#码" class="headerlink" title="码"></a>码</h2></blockquote>
-<ul>
-<li><h3 id="超码、候选码和主码"><a href="#超码、候选码和主码" class="headerlink" title="超码、候选码和主码"></a>超码、候选码和主码</h3><ul>
-<li>可以沿用SQL中码的概念</li>
-<li>超码是可以唯一标识一个元组的属性集（可以有多个）</li>
-<li>候选码是每个超码中去除不必要属性但是仍然能够标识一个元素的最精简属性集（可以有多个）</li>
-<li>主码只有一个，在候选码中选一个当做主码</li>
-</ul>
-</li>
-<li><h3 id="用函数依赖来定义"><a href="#用函数依赖来定义" class="headerlink" title="用函数依赖来定义"></a>用函数依赖来定义</h3><ul>
-<li>K为R&lt; U, F &gt;中的属性或属性组合，若K→U(→上面有一个F)(<strong><em>即U完全依赖于K</em></strong>)，则称K为R的候选码，若候选码多与一个，则选择其中一个作为主码</li>
-</ul>
-</li>
-<li><h3 id="主属性与非主属性"><a href="#主属性与非主属性" class="headerlink" title="主属性与非主属性"></a>主属性与非主属性</h3><ul>
-<li>主属性：包含于某个候选码的属性</li>
-<li>非主属性：不被任何候选码包含的属性</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="范式"><a href="#范式" class="headerlink" title="范式"></a>范式</h2></blockquote>
-<ul>
-<li><h3 id="首先还是构造一个例子"><a href="#首先还是构造一个例子" class="headerlink" title="首先还是构造一个例子"></a>首先还是构造一个例子</h3><ul>
-<li>R&lt; U, F&gt;</li>
-<li>U = {Sno, Sdept, Sloc, Cno, Grade} (分别代表学号、系、系所在楼、课程号、分数)</li>
-<li><p>F = {(Sno, Cno)&rarr;<sup>F</sup> Grade, Sno&rarr;Sdept, (Sno, Cno)&rarr;<sup>P</sup> Sdept, Sno&rarr;Sloc, (Sno, Cno)&rarr;<sup>P</sup>Sloc}</p>
-</li>
-<li><p>主属性：Sno, Cno</p>
-</li>
-<li>非主属性：Sdept, Sloc, Grade</li>
-<li><p>上面的依赖关系可以用下面的图示表示</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-4983fb95c40be836.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-</li>
-</ul>
-</li>
-<li><h3 id="第一范式（1NF）"><a href="#第一范式（1NF）" class="headerlink" title="第一范式（1NF）"></a>第一范式（1NF）</h3><ul>
-<li><p>一个域是<strong>原子的(atomic)</strong>，则该域的元素被认为是不可分的单元</p>
-<ul>
-<li>比如name属性就可以不是原子的，name(first_name, middle_name, last_name)</li>
-</ul>
-</li>
-<li><p>一个关系模式<strong>R属于第一范式（1NF）</strong>==&gt;<strong>R上的所有属性都是原子的</strong></p>
-</li>
-<li><strong>上述例子中的每个属性都是原子的，所以满足第一范式</strong></li>
-</ul>
-</li>
-<li><h3 id="第二范式（2NF）"><a href="#第二范式（2NF）" class="headerlink" title="第二范式（2NF）"></a>第二范式（2NF）</h3><ul>
-<li><h4 id="R-∈-1NF，并且每一个非主属性完全依赖于码（实际上就是在1NF的基础上，去除了非主属性对码的部分函数依赖）"><a href="#R-∈-1NF，并且每一个非主属性完全依赖于码（实际上就是在1NF的基础上，去除了非主属性对码的部分函数依赖）" class="headerlink" title="R ∈ 1NF，并且每一个非主属性完全依赖于码（实际上就是在1NF的基础上，去除了非主属性对码的部分函数依赖）"></a>R ∈ 1NF，并且每一个非主属性完全依赖于码（<strong><em>实际上就是在1NF的基础上，去除了非主属性对码的部分函数依赖</em></strong>）</h4></li>
-<li><p>上述例子中存在非主属性对码的部分函数依赖，故不满足2NF</p>
-</li>
-<li><p>对上述例子作出如下分解</p>
-<ul>
-<li><p>R1&lt; {Sno, Cno, Grade}, {(Sno, Cno)&rarr;<sup>F</sup>Grade} &gt;</p>
-</li>
-<li><p>R2&lt; {Sno, Sdept, Sloc}, {Sno&rarr;Sdept, Sdept&rarr;Sloc}&gt;</p>
-<ul>
-<li>ps:其中R2隐含了Sno&rarr;Sloc (由之后即将学习的AmStrong公理可以推算出来)</li>
-</ul>
-</li>
-<li><p>上面的依赖关系可以用下面的图示表示</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-efda4ba5034ec45d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-</li>
-</ul>
-</li>
-<li>经过上面的分解之后，每一个非主属性都完全依赖于码了，所以<strong>分解之后的模式满足2NF</strong></li>
-</ul>
-</li>
-<li><h3 id="第三范式（3NF）"><a href="#第三范式（3NF）" class="headerlink" title="第三范式（3NF）"></a>第三范式（3NF）</h3><ul>
-<li><h4 id="R∈2NF-并且不存在非主属性对码的传递依赖（实际上就是在2NF的基础上去除了非主属性对码的传递依赖）"><a href="#R∈2NF-并且不存在非主属性对码的传递依赖（实际上就是在2NF的基础上去除了非主属性对码的传递依赖）" class="headerlink" title="R∈2NF, 并且不存在非主属性对码的传递依赖（实际上就是在2NF的基础上去除了非主属性对码的传递依赖）"></a>R∈2NF, 并且不存在非主属性对码的传递依赖（<strong><em>实际上就是在2NF的基础上去除了非主属性对码的传递依赖</em></strong>）</h4></li>
-<li><p>上述经过分解以后的模式中存在非主属性对码的传递依赖，故不满足3NF</p>
-<ul>
-<li>Sno&rarr;Sdept, Sdept&rarr;Sloc ==&gt; Sno&rarr;Sloc</li>
-</ul>
-</li>
-<li><p>对上面的模式进行进一步的分解</p>
-<ul>
-<li><p>R1&lt; {Sno, Cno, Grade}, {(Sno, Cno)&rarr;<sup>F</sup>Grade} &gt;</p>
-</li>
-<li><p>R2&lt; {Sno, Sdept}, {Sno&rarr;Sdept} &gt;</p>
-</li>
-<li>R3&lt; {Sdept, Sloc}, {Sdept&rarr;Sloc} &gt;</li>
-<li><p>上面的依赖关系可以用下面的图示表示</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-e2d5ff6d23d6b5a7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>经过上面的进一步分解之后，就不存在非主属性对码的传递依赖了，故<strong>进一步分解之后的模式满足3NF</strong><blockquote>
-<p>2NF和3NF中的约束都是针对于非主属性的。在日常开发的时候只要ER图设计好，一般都是满足到3NF的，<strong>3NF也是可以保证无损分解的最高范式</strong></p>
+<li><strong>若r(R)满足F</strong> ==&gt; <strong>r(R)满足f</strong></li>
+<li>我们称 <strong>F 逻辑蕴涵 f</strong><blockquote>
+<p>ps: 其中f可由F通过Armstrong公理推得</p>
 </blockquote>
 </li>
 </ul>
 </li>
-<li><h3 id="Boyce-Codd范式（BCNF）"><a href="#Boyce-Codd范式（BCNF）" class="headerlink" title="Boyce-Codd范式（BCNF）"></a>Boyce-Codd范式（BCNF）</h3><ul>
-<li><h4 id="R-∈-3NF，-并且不存在主属性间的部分函数依赖和传递函数依赖-（实际上就是在3NF的基础上，去除了主属性的部分函数依赖和传递函数依赖）"><a href="#R-∈-3NF，-并且不存在主属性间的部分函数依赖和传递函数依赖-（实际上就是在3NF的基础上，去除了主属性的部分函数依赖和传递函数依赖）" class="headerlink" title="R ∈ 3NF， 并且不存在主属性间的部分函数依赖和传递函数依赖 （实际上就是在3NF的基础上，去除了主属性的部分函数依赖和传递函数依赖）"></a>R ∈ 3NF， 并且不存在主属性间的部分函数依赖和传递函数依赖 （<strong><em>实际上就是在3NF的基础上，去除了主属性的部分函数依赖和传递函数依赖</em></strong>）</h4></li>
-<li><p>举个栗子</p>
+<li><p>举个栗子：</p>
 <ul>
-<li>R&lt; U, F &gt;</li>
-<li>U = {S, T, J}</li>
-<li>F = { (S, J)&rarr;T, (S, T)&rarr;J, T&rarr;J }</li>
-<li><p>从上面的函数依赖易判断出：S、T、J都是主属性</p>
-<ul>
-<li><p>因为{S, J}， {S, T} 都是候选码</p>
+<li><p>给定关系模式 r(A, B, C, G, H, I)</p>
 </li>
-<li><p>因为不存在非主属性，所以该模式已经满足到3NF</p>
+<li><p>F包含如下依赖</p>
+<ul>
+<li>A &rarr; B</li>
+<li>A &rarr; C</li>
+<li>CG &rarr; H</li>
+<li>CG &rarr; I</li>
+<li>B &rarr; H</li>
+</ul>
+</li>
+<li>函数依赖f : A &rarr; H</li>
+<li>其中 f 被 F 逻辑蕴涵<ul>
+<li>由Amstrong传递公理可知：A &rarr; B, B &rarr; H ==&gt; A &rarr; H</li>
+</ul>
 </li>
 </ul>
 </li>
-<li><p>上面模式的依赖可以用下面的图示表示</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-abbf68932886ee82.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
-</li>
 </ul>
 </li>
-<li>上面的栗子中的模式主属性中存在部分函数依赖，所以不满足BCNF</li>
-<li><p>作出如下分解</p>
-<ul>
-<li>R1&lt; {S, T, J}, { (S, J)&rarr;T, (S, T)&rarr;J } &gt;</li>
-<li>R2&lt; {T, J}, { T&rarr;J } &gt;</li>
-<li><p>上面的依赖关系可以用下图表示</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-5c5e044e2092782d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
-</li>
+<li><h3 id="函数依赖集的闭包"><a href="#函数依赖集的闭包" class="headerlink" title="函数依赖集的闭包"></a>函数依赖集的闭包</h3><ul>
+<li>令 F 为一个函数依赖集。则 <strong>F的闭包</strong> 是 <strong>被 F 逻辑蕴涵的所有函数依赖的集合</strong></li>
+<li>记作：F<sup>+</sup></li>
 </ul>
 </li>
-<li><p>经过分解之后的模式就不存在主属性间的部分函数依赖和传递函数依赖， 故满足BCNF</p>
-<blockquote>
-<p>当我们分解不属于BCNF的模式的时候，产生的模式中可能有一个或多个不属于BCNF。在这种情况中，需要进一步分解，其最终结果是一个BCNF的模式集合</p>
+<li><h3 id="Armstrong公理（Armstrong’s-axiom）"><a href="#Armstrong公理（Armstrong’s-axiom）" class="headerlink" title="Armstrong公理（Armstrong’s axiom）"></a>Armstrong公理（Armstrong’s axiom）</h3><blockquote>
+<p>公理是科学的客观规律，不需要自己证明，直接用就行</p>
 </blockquote>
+<ul>
+<li><h4 id="Armstrong-公理"><a href="#Armstrong-公理" class="headerlink" title="Armstrong 公理"></a>Armstrong 公理</h4><ul>
+<li>自反律（reflexivity rule）。若α为一个属性集，且β⊆α， 则α&rarr;β<ul>
+<li>举个栗子：(A, B)&rarr;A</li>
+</ul>
+</li>
+<li>增补律（augmentation rule）。若α&rarr;β成立且γ为一属性集，则γα&rarr;γβ<ul>
+<li>举个栗子：(A, B)&rarr;C ==&gt; (A, B, D, E)&rarr;(C, D, E)</li>
+</ul>
+</li>
+<li>传递律（transitivity rule）。若α&rarr;β和β&rarr;γ成立，则 α&rarr;γ 成立<ul>
+<li>举个栗子：A&rarr;B, B&rarr;C ==&gt; A&rarr;C</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F"><a href="#Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F" class="headerlink" title="Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F+"></a>Armstrong公理是完备的，对于一个给定的函数依赖集F，通过Armstrong公理可以产生全部的F<sup>+</sup></h4></li>
+<li><h4 id="Armstrong公理的一些推论"><a href="#Armstrong公理的一些推论" class="headerlink" title="Armstrong公理的一些推论"></a>Armstrong公理的一些推论</h4><blockquote>
+<p>可由Armstrong公理直接推得，也可以当做公理使用</p>
+</blockquote>
+<ul>
+<li>合并律（union rule）。若α&rarr;β和α&rarr;γ成立，则α&rarr;βγ<ul>
+<li>举个栗子：A&rarr;B, A&rarr;C ==&gt; A&rarr;(B, C)</li>
+</ul>
+</li>
+<li>分解律（decomposition rule）。若α&rarr;βγ成立，则α&rarr;β和α&rarr;γ成立<ul>
+<li>举个栗子：A&rarr;(B, C) ==&gt; A&rarr;B, A&rarr;C</li>
+</ul>
+</li>
+<li>伪传递律（pseudotransitivity rule）。若α&rarr;β和γβ&rarr;δ成立，则αγ&rarr;δ成立<ul>
+<li>举个栗子：A&rarr;B, (B, C)&rarr;D ==&gt; (A, C)&rarr;D</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="属性集的闭包"><a href="#属性集的闭包" class="headerlink" title="属性集的闭包"></a>属性集的闭包</h3><ul>
+<li>令α为一个属性集，我们将函数依赖集 F 下被α 函数确定的所有属性的额集合为称为F下α的闭包</li>
+<li>记作：α<sup>+</sup></li>
+<li>伪代码如下：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">result := α</span><br><span class="line">  repeat</span><br><span class="line">    <span class="keyword">for</span> each 函数依赖 β→γ in F <span class="keyword">do</span></span><br><span class="line">      begin</span><br><span class="line">        <span class="keyword">if</span> β ⊆ result then result := result ∪ γ</span><br><span class="line">      end</span><br><span class="line">  until(result 不变)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="正则覆盖（极小函数依赖集）"><a href="#正则覆盖（极小函数依赖集）" class="headerlink" title="正则覆盖（极小函数依赖集）"></a>正则覆盖（极小函数依赖集）</h3><ul>
+<li>如果<strong>去除函数依赖中的一个属性不改变函数依赖集的闭包</strong>，则称<strong>该属性是无关的</strong></li>
+<li>F的<strong>正则覆盖</strong> F<sub>c</sub> 是一个依赖集，使得F逻辑蕴涵F<sub>c</sub> 中的所有依赖，并且F<sub>c</sub> 逻辑蕴涵F中的所有依赖。此外，F<sub>c</sub> 必须具有如下性质 ：<ul>
+<li>F<sub>c</sub> 中任何函数依赖都不含无关属性</li>
+<li>F<sub>c</sub> 中函数依赖的左半部都是唯一的。即F<sub>c</sub> 中不存在两个依赖α<sub>1</sub>&rarr;β<sub>1</sub>和α<sub>2</sub>&rarr;β<sub>2</sub>， 满足α<sub>1</sub>=α<sub>2</sub></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="无损分解"><a href="#无损分解" class="headerlink" title="无损分解"></a>无损分解</h3><ul>
+<li>如果用两个关系模式r<sub>1</sub>(R)和r<sub>2</sub>(R)替代r(R)时没有信息损失，则我们称该分解时无损分解（lossless decomposition）</li>
+<li><p>SQL 表示</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面查询的结果与r具有相同结果的元组集</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> r1 <span class="keyword">natural</span> <span class="keyword">join</span> r2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关系代数表示：</p>
+<ul>
+<li>∏<sub>R<sub>1</sub></sub>(r) ⋈ ∏<sub>R<sub>2</sub></sub>(r) = r</li>
+</ul>
 </li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<p>更高的范式还有第四范式和第五范式，但是应用较少，且考纲不要求，这里就不再赘述了</p>
-</blockquote>
+<h2 id="分解算法（下回分解）"><a href="#分解算法（下回分解）" class="headerlink" title="分解算法（下回分解）"></a>分解算法（下回分解）</h2></blockquote>
 
           
         
