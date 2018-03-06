@@ -79,13 +79,17 @@
 
 
 
+<meta name="description" content="反馈                                  axios.defaults.baseURL = &quot;http://eupan.club:8080&quot;;         $(document).ready(function () {             $(&quot;#btnFeedback&quot;).click(function () {">
 <meta property="og:type" content="website">
 <meta property="og:title" content="建明 | Ming.J">
-<meta property="og:url" content="http://qjm253.cn/archives/2017/09/index.html">
+<meta property="og:url" content="http://qjm253.cn/feedback/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="反馈                                  axios.defaults.baseURL = &quot;http://eupan.club:8080&quot;;         $(document).ready(function () {             $(&quot;#btnFeedback&quot;).click(function () {">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-06T08:55:35.728Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="建明 | Ming.J">
+<meta name="twitter:description" content="反馈                                  axios.defaults.baseURL = &quot;http://eupan.club:8080&quot;;         $(document).ready(function () {             $(&quot;#btnFeedback&quot;).click(function () {">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://qjm253.cn/archives/2017/09/"/>
+  <link rel="canonical" href="http://qjm253.cn/feedback/"/>
 
 
 
 
 
-  <title>归档 | 建明 | Ming.J</title>
+  <title> | 建明 | Ming.J</title>
   
 
 
@@ -150,7 +154,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -298,332 +302,117 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
+    
+    
+    <div class="post-block page">
+      <header class="post-header">
 
-      <span class="archive-page-counter">
-        
-        
-         
-        
-        OK! 目前共计 43 篇日志。 继续努力。
-      </span>
+	<h1 class="post-title" itemprop="name headline"></h1>
+
+
+
+</header>
 
       
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2017">2017</h1>
-          </div>
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/29/2017-09-29-数据库学习笔记（七）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（七）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-29T00:00:00+08:00"
-              content="2017-09-29" >
-          09-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/26/2017-09-26-数据库学习笔记（六）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（六）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-26T00:00:00+08:00"
-              content="2017-09-26" >
-          09-26
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
-
+      <div class="post-body">
         
         
-        
+          <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>反馈</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        axios.defaults.baseURL = "http://eupan.club:8080";
+        $(document).ready(function () {
+            $("#btnFeedback").click(function () {
+                axios({
+                    method: 'post',
+                    url: 'app/feedback',
+                    data: {
+                        content: $("#feedbackContent").text(),
+                        contactInfo: $("#contactInfo").text()
+                    },
+                    headers: {
+                        'Content-Type': "application/json"
+                    }
+                }).then(function (response) {
+                    var res = JSON.parse(response);
+                    if(res.success){
+                        alert("反馈成功")
+                    }
+                }).catch(function (reason) {
+                    console.log(reason)
+                })
+            })
+        })
+    </script>
+</head>
+<style>
+    .divider {
+        height: 200px;
+    }
 
-        
-        
+    .divider-small {
+        height: 50px;
+    }
 
-        
+    .h-span-50 {
+        width: 50px;
+    }
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/22/2017-09-22-数据库学习笔记（五）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（五）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-22T00:00:00+08:00"
-              content="2017-09-22" >
-          09-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（四）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-19T00:00:00+08:00"
-              content="2017-09-19" >
-          09-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="url">
-              
-                <span itemprop="name">Java环境简单配置+IDEA（小白版）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-16T00:00:00+08:00"
-              content="2017-09-16" >
-          09-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（三）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-16T00:00:00+08:00"
-              content="2017-09-16" >
-          09-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库笔记（一）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（一）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-12T00:00:00+08:00"
-              content="2017-09-12" >
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库学习笔记（二）/" itemprop="url">
-              
-                <span itemprop="name">数据库笔记（二）</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2017-09-12T00:00:00+08:00"
-              content="2017-09-12" >
-          09-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
+    .feedback_input {
+        padding: 10px;
+    }
+</style>
+<body style="background-color: #f5f5f5">
+<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+<div class="divider"></div>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col text-center" style="font-size: 2em">
+            在使用过程中遇到任何问题均可以在这里告诉我们哦，我们会努力变得更好～
+        </div>
     </div>
+
+    <div class="row divider"></div>
+
+    <div class="row justify-content-center">
+        <div class="col-10">
+            <textarea id="feedbackContent" type="text" class="form-control feedback_input" rows="5" placeholder="请输入要反馈的内容"></textarea>
+        </div>
+        <div class="w-100 divider-small"></div>
+        <div class="col-10">
+            <div class="input-group">
+                <input id="contactInfo" type="text" class="form-control" placeholder="如果愿意，可以在此留下您的联系方式">
+                <span class="h-span-50"></span>
+                <span class="input-group-btn">
+                    <button id="btnFeedback" class="btn btn-secondary" type="button">反馈</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+        
+      </div>
+      
+      
+      
+    </div>
+    
+    
+    
   </div>
-  
-  
-  
-
-  
-
 
 
           </div>
@@ -631,6 +420,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -840,6 +638,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
@@ -863,6 +665,8 @@
 
 		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
+		
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "feedback/index.html"});
 		
 
 		(function() {
