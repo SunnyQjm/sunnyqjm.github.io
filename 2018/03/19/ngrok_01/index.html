@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="学习,笔记,软件工程," />
+  <meta name="keywords" content="ngrok," />
 
 
 
@@ -79,28 +79,20 @@
 
 
 
-<meta name="description" content="可行性研究的任务不是解决问题，而是确定问题是否值得去解决。  分析可能的解法 判定系统规模和目标是否能够实现 效益是否可观   较高层次的系统分析和设计过程   技术可行性：开发此系统是可行的，是有好处的 经济可行性：根据系统目标衡量所需技术是否具备 操作可行性：系统是否易于使用并能够创造价值 法律可行性：是否存在侵犯、妨碍和责任等问题   可行性研究过程（understanding）了解就好">
-<meta name="keywords" content="学习,笔记,软件工程">
+<meta name="description" content="实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。  准备  一个公网服务器（Linux系统）==&amp;gt; 阿里云，腾讯云之类的都行 这个">
+<meta name="keywords" content="ngrok">
 <meta property="og:type" content="article">
-<meta property="og:title" content="软件工程复习（二）">
-<meta property="og:url" content="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（b）/index.html">
+<meta property="og:title" content="利用ngrok实现内网穿透">
+<meta property="og:url" content="http://qjm253.cn/2018/03/19/ngrok_01/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="可行性研究的任务不是解决问题，而是确定问题是否值得去解决。  分析可能的解法 判定系统规模和目标是否能够实现 效益是否可观   较高层次的系统分析和设计过程   技术可行性：开发此系统是可行的，是有好处的 经济可行性：根据系统目标衡量所需技术是否具备 操作可行性：系统是否易于使用并能够创造价值 法律可行性：是否存在侵犯、妨碍和责任等问题   可行性研究过程（understanding）了解就好">
+<meta property="og:description" content="实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。  准备  一个公网服务器（Linux系统）==&amp;gt; 阿里云，腾讯云之类的都行 这个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://qjm253.cn/img/se_09.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_10.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_11.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_12.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_13.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_14.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_15.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_16.jpg">
-<meta property="og:image" content="http://qjm253.cn/img/se_17.jpg">
-<meta property="og:updated_time" content="2018-01-07T03:17:39.843Z">
+<meta property="og:image" content="http://qjm253.cn/img/game_01.png">
+<meta property="og:updated_time" content="2018-03-19T08:44:14.280Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="软件工程复习（二）">
-<meta name="twitter:description" content="可行性研究的任务不是解决问题，而是确定问题是否值得去解决。  分析可能的解法 判定系统规模和目标是否能够实现 效益是否可观   较高层次的系统分析和设计过程   技术可行性：开发此系统是可行的，是有好处的 经济可行性：根据系统目标衡量所需技术是否具备 操作可行性：系统是否易于使用并能够创造价值 法律可行性：是否存在侵犯、妨碍和责任等问题   可行性研究过程（understanding）了解就好">
-<meta name="twitter:image" content="http://qjm253.cn/img/se_09.jpg">
+<meta name="twitter:title" content="利用ngrok实现内网穿透">
+<meta name="twitter:description" content="实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。  准备  一个公网服务器（Linux系统）==&amp;gt; 阿里云，腾讯云之类的都行 这个">
+<meta name="twitter:image" content="http://qjm253.cn/img/game_01.png">
 
 
 
@@ -130,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（b）/"/>
+  <link rel="canonical" href="http://qjm253.cn/2018/03/19/ngrok_01/"/>
 
 
 
 
 
-  <title>软件工程复习（二） | 建明 | Ming.J</title>
+  <title>利用ngrok实现内网穿透 | 建明 | Ming.J</title>
   
 
 
@@ -327,7 +319,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/22/2017-12-22-软件工程复习（b）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/19/ngrok_01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -344,7 +336,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">软件工程复习（二）</h1>
+          <h1 class="post-title" itemprop="name headline">利用ngrok实现内网穿透</h1>
         
 
         <div class="post-meta">
@@ -356,8 +348,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-22T14:00:00+08:00">
-                2017-12-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-19T00:00:00+08:00">
+                2018-03-19
               </time>
             
 
@@ -376,8 +368,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2017/12/22/2017-12-22-软件工程复习（b）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/22/2017-12-22-软件工程复习（b）/" itemprop="commentsCount"></span>
+                <a href="/2018/03/19/ngrok_01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/19/ngrok_01/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -386,7 +378,7 @@
 
           
           
-             <span id="/2017/12/22/2017-12-22-软件工程复习（b）/" class="leancloud_visitors" data-flag-title="软件工程复习（二）">
+             <span id="/2018/03/19/ngrok_01/" class="leancloud_visitors" data-flag-title="利用ngrok实现内网穿透">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -417,163 +409,74 @@
       
 
       
-        <blockquote>
-<h2 id="可行性研究的任务"><a href="#可行性研究的任务" class="headerlink" title="可行性研究的任务"></a>可行性研究的任务</h2><p>不是解决问题，而是确定问题是否值得去解决。</p>
+        <p>实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。</p>
+<blockquote>
+<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2></blockquote>
 <ul>
-<li>分析可能的解法</li>
-<li>判定系统规模和目标是否能够实现</li>
-<li>效益是否可观 <br></li>
+<li><h4 id="一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行"><a href="#一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行" class="headerlink" title="一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行"></a>一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行</h4><ul>
+<li>这个公网服务器主要用作反向代理，我们在本文中称之为VPS服务器</li>
 </ul>
-<p>较高层次的系统分析和设计过程</p>
-</blockquote>
-<ul>
-<li>技术可行性：开发此系统是可行的，是有好处的</li>
-<li>经济可行性：根据系统目标衡量所需技术是否具备</li>
-<li>操作可行性：系统是否易于使用并能够创造价值</li>
-<li>法律可行性：是否存在侵犯、妨碍和责任等问题</li>
+</li>
+<li><h4 id="一个独立的域名"><a href="#一个独立的域名" class="headerlink" title="一个独立的域名"></a>一个独立的域名</h4></li>
+<li><h4 id="一个用于提供服务的本地PC"><a href="#一个用于提供服务的本地PC" class="headerlink" title="一个用于提供服务的本地PC"></a>一个用于提供服务的本地PC</h4></li>
 </ul>
 <blockquote>
-<h2 id="可行性研究过程（understanding）"><a href="#可行性研究过程（understanding）" class="headerlink" title="可行性研究过程（understanding）"></a>可行性研究过程（understanding）</h2><p>了解就好</p>
-</blockquote>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2></blockquote>
 <ul>
-<li><h3 id="复查系统规模和目标"><a href="#复查系统规模和目标" class="headerlink" title="复查系统规模和目标"></a>复查系统规模和目标</h3><ul>
-<li>改正含糊或不确切的叙述</li>
-<li>清晰地描述限制和约束</li>
-<li>确保分析员解决正确的问题</li>
-</ul>
+<li><h3 id="GO语言环境搭建"><a href="#GO语言环境搭建" class="headerlink" title="GO语言环境搭建"></a>GO语言环境搭建</h3>ngrok项目是用GO语言实现的，需要先安装GOLANG开发环境，系统不限，因为GO语言是跨平台的！安装过程很简单，参考<a href="https://golang.org/dl/" target="_blank" rel="noopener">官网的教程</a>即可！</li>
+<li><h3 id="获取ngrok源码"><a href="#获取ngrok源码" class="headerlink" title="获取ngrok源码"></a>获取ngrok源码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面是直接去ngrok的github地址下载（待会儿make的时候还会需要装几个其它的依赖，可能会出现很多问题）</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/inconshreveable/ngrok.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面是笔者将代码clone下来，并添加了相应依赖之后的地址，如果用上面的方式出现错误，可以clone下面的地址</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/SunnyQjm/ngrok.git</span><br></pre></td></tr></table></figure>
 </li>
-<li><h3 id="研究目前正在使用的系统"><a href="#研究目前正在使用的系统" class="headerlink" title="研究目前正在使用的系统"></a>研究目前正在使用的系统</h3><ul>
-<li>完成现有系统的基本功能分析</li>
-<li>解决现有系统的问题</li>
-<li>绘制高层系统数据流图</li>
-<li>掌握与其他系统的接口</li>
-</ul>
+<li><h3 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h3><p>因为我们自己搭建，需要使用自己的域名（以 test.j.cn ）为例，我们需要做以下解析：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test.j.cn    ------------&gt; A记录到你的VPS服务器的IP</span><br><span class="line"></span><br><span class="line"><span class="comment"># ngrok可以指定子域名，下面的解析方式可以让任意子域名都能得到正确的解析</span></span><br><span class="line">*.test.j.cn  ------------&gt; CNAME记录到 test.j.cn</span><br></pre></td></tr></table></figure>
 </li>
-<li><h3 id="导出新系统的高层逻辑模型"><a href="#导出新系统的高层逻辑模型" class="headerlink" title="导出新系统的高层逻辑模型"></a>导出新系统的高层逻辑模型</h3><ul>
-<li>现有物理系统 → 现有系统的逻辑模型 → 目标系统逻辑模型 → 新的目标系统</li>
-<li>高层数据流图</li>
-<li>初步的数据字典</li>
-</ul>
-</li>
-<li><h3 id="进一步定义问题"><a href="#进一步定义问题" class="headerlink" title="进一步定义问题"></a>进一步定义问题</h3><ul>
-<li>以数据流图和数据字典为基础</li>
-<li>复查问题定义、工程规模和目标</li>
-<li>分析员和用户</li>
-<li>重复1~4步，直至提出的逻辑模型完全符合系统目标</li>
-</ul>
-</li>
-<li><h3 id="导出和评价供选择的解法"><a href="#导出和评价供选择的解法" class="headerlink" title="导出和评价供选择的解法"></a>导出和评价供选择的解法</h3><ul>
-<li>从技术角度出发，考虑解决问题的不同方案</li>
-<li>技术可行性，排除不现实的系统</li>
-<li>操作可行性，排除用户不能接受的方案</li>
-<li>经济可行性，排除利润低的方案</li>
-<li>制定进度表 (估算生命周期每个阶段的工作量)</li>
-</ul>
-</li>
-<li><h3 id="推荐行动方针（是否做？）"><a href="#推荐行动方针（是否做？）" class="headerlink" title="推荐行动方针（是否做？）"></a>推荐行动方针（是否做？）</h3><ul>
-<li>分析员：如果值得开发，则选择最好的解法</li>
-<li>用户：成本/效益分析</li>
-</ul>
-</li>
-<li><h3 id="草拟开发计划"><a href="#草拟开发计划" class="headerlink" title="草拟开发计划"></a>草拟开发计划</h3><ul>
-<li>工程进度表</li>
-<li>各类开发人员、各种资源需求情况</li>
-<li>生命周期每个阶段的成本</li>
-<li>下一个阶段详细进度表和成本估计</li>
-</ul>
-</li>
-<li><h3 id="书写文档提交审查"><a href="#书写文档提交审查" class="headerlink" title="书写文档提交审查"></a>书写文档提交审查</h3><ul>
-<li>用户、客户组织负责人、评审组审查</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="系统流程图-（understanding）"><a href="#系统流程图-（understanding）" class="headerlink" title="系统流程图 （understanding）"></a>系统流程图 （understanding）</h2><p>系统流程图概括描绘物理系统的传统工具用图形符号，以黑盒子形式描述组成系统的每个部件程序、文档、数据库、人工过程</p>
-</blockquote>
+<li><h3 id="生成签名证书"><a href="#生成签名证书" class="headerlink" title="生成签名证书"></a>生成签名证书</h3><blockquote>
 <ul>
-<li>符号：<img src="/img/se_09.jpg"></li>
-<li>栗子：<img src="/img/se_10.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="数据流图-master"><a href="#数据流图-master" class="headerlink" title="数据流图 (master)"></a>数据流图 (master)</h2><p>数据流图(DFD) 描绘信息流和数据从输入移动到输出的过程中所经受的变换。</p>
-</blockquote>
-<ul>
-<li>数据流图的四种基本符号：<img src="/img/se_11.jpg"></li>
-<li>加工中常见关系的符号表示：<img src="/img/se_12.jpg"></li>
-<li>注意：<ul>
-<li>信息的流动</li>
-<li>信息流不能为动词</li>
-<li>实体到实体的信息流动</li>
-<li>处理要有输入输出</li>
-<li>处理名不能为名词</li>
-<li>确保层间的一致性（确保输入输出流的量是一致的）</li>
-</ul>
-</li>
-<li><p>命名:</p>
-<ul>
-<li>数据流的名字应代表整个数据流(数据存储、处理)的内容，而不是仅仅某些成分。</li>
-<li>不要使用空洞的、缺乏具体含义的名字(如“数据”、“信息”、“输入”之类)。</li>
-<li>处理名字最好是一个具体的及物动词。</li>
-</ul>
-</li>
-<li><p>示例：出入库管理系统</p>
-<ul>
-<li>0级数据流图<img src="/img/se_13.jpg"></li>
-<li>1级数据流图<img src="/img/se_14.jpg"></li>
-<li>2级数据流图<img src="/img/se_15.jpg">
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="数据字典-master"><a href="#数据字典-master" class="headerlink" title="数据字典 (master)"></a>数据字典 (master)</h2><ul>
-<li>数据字典是关于数据的信息的集合，即对设计图中包含的元素的定义。</li>
-<li>数据字典的用途是供人查阅不了解的条目的解释，提供分析设计过程中关于数据的描述。</li>
-<li>只有设计图和对应的元素的精确定义放在一起，才能构成系统完整的规格说明。</li>
+<li>因为我们是自己搭建，就不能用ngrok官方的SSL证书，需要自己生成</li>
+<li>下面<strong>生成</strong>的<strong>证书</strong>在编译项目的时候要用到，所以<strong>务必要在编译之前生成</strong></li>
+<li>需要注意的是，<strong>客户端和服务器的证书必须是同一份</strong>，这样在程序在认证的时候才能正确解析</li>
 </ul>
 </blockquote>
-<ul>
-<li><h3 id="定义数据的方法"><a href="#定义数据的方法" class="headerlink" title="定义数据的方法"></a>定义数据的方法</h3><ul>
-<li>= : 意思是等价于(或定义为);</li>
-<li>+ : 意思是和(即，连接两个分量);</li>
-<li>[] : 意思是或(即，从方括弧内列出的若干个分量中选择一个)，用“｜”号分开供选择的分量;</li>
-<li>{} : 意思是重复(即，重复花括弧内的分量);</li>
-<li>() : 意思是可选(即，圆括弧里的分量可有可无);</li>
-<li>使用上限和下限进一步注释表示重复的花括弧。<ul>
-<li>左边用上角标和下角标分别表明重复的上限和下限</li>
-<li>左侧标明重复的下限，在闭括弧的右侧标明上限</li>
-<li>例如：<img src="/img/se_16.jpg"></li>
-</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先导出环境变量，将下面的值替换成你的域名</span></span><br><span class="line"><span class="built_in">export</span> NGROK_DOMAIN=<span class="string">"test.j.cn"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#先进入到ngrok的根目录，生成证书的操作需要在根目录下进行</span></span><br><span class="line"><span class="built_in">cd</span> ngrok</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令用于生成证书</span></span><br><span class="line">openssl genrsa -out rootCA.key 2048</span><br><span class="line">openssl req -x509 -new -nodes -key rootCA.key -subj <span class="string">"/CN=<span class="variable">$NGROK_DOMAIN</span>"</span> -days 5000 -out rootCA.pem</span><br><span class="line">openssl genrsa -out device.key 2048</span><br><span class="line">openssl req -new -key device.key -subj <span class="string">"/CN=<span class="variable">$NGROK_DOMAIN</span>"</span> -out device.csr</span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令用于将我们生成的证书替换ngrok默认的证书</span></span><br><span class="line">cp rootCA.pem assets/client/tls/ngrokroot.crt</span><br><span class="line">cp device.crt assets/server/tls/snakeoil.crt</span><br><span class="line">cp device.key assets/server/tls/snakeoil.key</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h3><ul>
+<li><h4 id="服务端（VPS服务器一端）"><a href="#服务端（VPS服务器一端）" class="headerlink" title="服务端（VPS服务器一端）"></a>服务端（VPS服务器一端）</h4><ul>
+<li><p>首先指定一下环境变量，在不同的操作系统下需要指定不同的环境变量，才能正确编译(默认是Linux 64位的配置，如果你的服务器是64位的Linux系统，也可以不指定，直接用默认的就行)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GOOS=linux GOARCH=amd64</span><br><span class="line"><span class="comment">#如果是32位系统，这里 GOARCH=386</span></span><br><span class="line"><span class="comment">#如果是windows系统，GOOS=windows</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后make出服务端程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make release-server</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果编译成功，你会在bin目录下看到ngrokd程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看使用帮助</span></span><br><span class="line">./ngrokd -h</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看使用帮助</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看使用帮助</span></span><br><span class="line">./ngrokd -h</span><br><span class="line">  -domain string</span><br><span class="line">    	Domain <span class="built_in">where</span> the tunnels are hosted (default <span class="string">"ngrok.com"</span>)</span><br><span class="line">  -httpAddr string</span><br><span class="line">    	Public address <span class="keyword">for</span> HTTP connections, empty string to <span class="built_in">disable</span> (default <span class="string">":80"</span>)</span><br><span class="line">  -httpsAddr string</span><br><span class="line">    	Public address listening <span class="keyword">for</span> HTTPS connections, emptry string to <span class="built_in">disable</span> (default <span class="string">":443"</span>)</span><br><span class="line">  -<span class="built_in">log</span> string</span><br><span class="line">    	Write <span class="built_in">log</span> messages to this file. <span class="string">'stdout'</span> and <span class="string">'none'</span> have special meanings (default <span class="string">"stdout"</span>)</span><br><span class="line">  -<span class="built_in">log</span>-level string</span><br><span class="line">    	The level of messages to <span class="built_in">log</span>. One of: DEBUG, INFO, WARNING, ERROR (default <span class="string">"DEBUG"</span>)</span><br><span class="line">  -tlsCrt string</span><br><span class="line">    	Path to a TLS certificate file</span><br><span class="line">  -tlsKey string</span><br><span class="line">    	Path to a TLS key file</span><br><span class="line">  -tunnelAddr string</span><br><span class="line">    	Public address listening <span class="keyword">for</span> ngrok client (default <span class="string">":4443"</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动服务端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不能执行，你可能需要用 sudo chmod +x ngrokd 给它执行权限</span></span><br><span class="line"><span class="comment"># domain域输入之前生成证书时指定的域名</span></span><br><span class="line"><span class="comment"># httpAddr 指定转发http协议的哪个端口</span></span><br><span class="line"><span class="comment"># httpAddrs 指定转发https协议的哪个端口（如果不需要可以省略）</span></span><br><span class="line">./ngrokd  -domain=<span class="string">"<span class="variable">$NGROK_DOMAIN</span>"</span> -httpAddr=<span class="string">":8000"</span> -httpsAddr=<span class="string">":4433"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果执行成功，你会看到类似以下界面：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/<span class="built_in">log</span>.(*PrefixLogger).Info:83) [registry] [tun] No affinity cache specified</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> public http connections on [::]:9748</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> public https connections on [::]:443</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> control and proxy connections on [::]:4443</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/<span class="built_in">log</span>.(*PrefixLogger).Info:83) [metrics] Reporting every 30 seconds</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自此，服务端算是配置好了</p>
 </li>
 </ul>
 </li>
-<li><h4 id="举个栗子："><a href="#举个栗子：" class="headerlink" title="举个栗子："></a>举个栗子：</h4><ul>
-<li>北京某高校可用的电话号码有以下几类:校内电话号码由4 位数字组成，第1位<br>数字不是0;校外电话又分为本市电话和外地电话两类,拨校外电话需先拨0,若是本市电<br>话则再接着拨8位数字(第1位不是0),若是外地电话则拨3位区码再拨8<br>位电话号码<br>(第1位不是0)。请用上述提到的定义数据的方法，定义上述的电话号码。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">电话号码 = [ 校内电话号码 | 校外电话号码 ]</span><br><span class="line">校内电话号码 = 非零数字 + 3位数字</span><br><span class="line">校外电话号码 = [ 本市电话号码 | 外地电话号码]</span><br><span class="line">本市电话号码 = 数字零 + 8位数字</span><br><span class="line">外地电话号码 = 数字零 + 3位数字 + 8位数字</span><br><span class="line">非零数字 = [1|2|3|4|5|6|7|8|9]</span><br><span class="line">3位数字 = 3&#123;数字&#125;3</span><br><span class="line">数字零 = 0</span><br><span class="line">8位数字 = 非零数字 + 7位数字</span><br><span class="line">7位数字 = 7&#123;数字&#125;7</span><br><span class="line">数字 = [0|1|2|3|4|5|6|7|8|9]</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h4 id="数字字典的实现"><a href="#数字字典的实现" class="headerlink" title="数字字典的实现"></a>数字字典的实现</h4><ul>
-<li>CASE工具</li>
-<li>人工卡片</li>
-</ul>
-<img src="/img/se_17.jpg">
-</li>
-</ul>
-<blockquote>
-<h2 id="成本效益分析（了解）"><a href="#成本效益分析（了解）" class="headerlink" title="成本效益分析（了解）"></a>成本效益分析（了解）</h2><p>成本/效益分析是客户从经济角度判断是否继续投资项目的主要依据。</p>
+<li><h4 id="客户端（部署了服务，需要内网穿透访问的主机）"><a href="#客户端（部署了服务，需要内网穿透访问的主机）" class="headerlink" title="客户端（部署了服务，需要内网穿透访问的主机）"></a>客户端（部署了服务，需要内网穿透访问的主机）</h4><blockquote>
+<p>客户端要做的事情就是指定把本机的那个端口暴露给VPS服务器，客户端要在该端口上部署了服务（web服务或者tomcat服务等），这样VPS就能够将请求转发到该端口对应的服务上了</p>
 </blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为前面说过，服务端和客户端的证书要是同一份，这样认证才能通过，所以好的解决方案是在服务端上把客户端程序也编译出来，然后通过scp命令拷贝到客户端</span></span><br><span class="line"><span class="comment"># 假设我要在mac上运行客户端，需要在编译命令前加上一些参数(如果客户端服务器也是Linux 64位，则不用指定环境变量)</span></span><br><span class="line">GOOS=darwin GOARCH=amd64 make release-client</span><br><span class="line">make release-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译好后scp到本地</span></span><br><span class="line">scp xxx xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面开始本地配置（下面的配置在客户端进行）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一个配置文件（在ngrok/bin目录下）</span></span><br><span class="line">vim ngrok.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一下两行</span></span><br><span class="line"><span class="comment"># 第一行是将要绑定的域名+4443端口（因为ngrok服务端默认有一个服务是坚挺在4443端口的，客户端会通过这个端口与之相连）==&gt; 记得将域名换成自己在生成证书时指定的</span></span><br><span class="line">server_addr: <span class="string">"test.j.cn:4443"</span></span><br><span class="line">trust_host_root_certs: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 帮助信息</span></span><br><span class="line">./ngrok -h</span><br><span class="line">Examples:</span><br><span class="line">    ngrok 80</span><br><span class="line">    ngrok -subdomain=example 8080</span><br><span class="line">    ngrok -proto=tcp 22</span><br><span class="line">    ngrok -hostname=<span class="string">"example.com"</span> -httpauth=<span class="string">"user:password"</span> 10.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 80就是我们要转发的端口了</span></span><br><span class="line">./ngrok -config=./ngrok.cfg 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定协议和端口，不指定默认是 http+https</span></span><br><span class="line">./ngrok -config=./ngrok.cfg -proto=tcp 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定子域名，不指定就会随机生成</span></span><br><span class="line">./ngrok -config=./ngrok.cfg -subdomain=<span class="built_in">test</span> 80</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>连接成功会显示如下状态：</p>
 <ul>
-<li><h3 id="成本估计"><a href="#成本估计" class="headerlink" title="成本估计"></a>成本估计</h3><ul>
-<li>代码行技术</li>
-<li>任务分解技术</li>
+<li><img src="/img/game_01.png" width="500" height="500" title="2048"></li>
+<li>在浏览器中输入<a href="http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！" target="_blank" rel="noopener">http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！</a></li>
 </ul>
 </li>
-<li><h3 id="效益分析"><a href="#效益分析" class="headerlink" title="效益分析"></a>效益分析</h3><ul>
-<li>货币的时间价值</li>
-<li>投资回报期</li>
-<li>纯收入</li>
-<li>投资回报率（最重要的参考数据）</li>
+</ul>
+</li>
+<li><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
+<li>上文中所有出现域名的地方都要统一，客户端和服务端的证书要是同一份，否则在连接的时候会出现bad certification</li>
 </ul>
 </li>
 </ul>
@@ -594,11 +497,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/学习/" rel="tag"># 学习</a>
-          
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
-          
-            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+            <a href="/tags/ngrok/" rel="tag"># ngrok</a>
           
         </div>
       
@@ -611,8 +510,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/12/22/2017-12-22-软件工程复习（a）/" rel="next" title="软件工程复习（一）">
-                <i class="fa fa-chevron-left"></i> 软件工程复习（一）
+              <a href="/2018/01/24/js_01/" rel="next" title="JavaScript实现监听移动端上下左右滑动事件">
+                <i class="fa fa-chevron-left"></i> JavaScript实现监听移动端上下左右滑动事件
               </a>
             
           </div>
@@ -620,10 +519,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/12/22/2017-12-22-软件工程复习（c）/" rel="prev" title="软件工程复习（三）">
-                软件工程复习（三） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -781,7 +676,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#可行性研究的任务"><span class="nav-number">1.</span> <span class="nav-text">可行性研究的任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可行性研究过程（understanding）"><span class="nav-number">2.</span> <span class="nav-text">可行性研究过程（understanding）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#复查系统规模和目标"><span class="nav-number">2.1.</span> <span class="nav-text">复查系统规模和目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#研究目前正在使用的系统"><span class="nav-number">2.2.</span> <span class="nav-text">研究目前正在使用的系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出新系统的高层逻辑模型"><span class="nav-number">2.3.</span> <span class="nav-text">导出新系统的高层逻辑模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进一步定义问题"><span class="nav-number">2.4.</span> <span class="nav-text">进一步定义问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导出和评价供选择的解法"><span class="nav-number">2.5.</span> <span class="nav-text">导出和评价供选择的解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#推荐行动方针（是否做？）"><span class="nav-number">2.6.</span> <span class="nav-text">推荐行动方针（是否做？）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#草拟开发计划"><span class="nav-number">2.7.</span> <span class="nav-text">草拟开发计划</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#书写文档提交审查"><span class="nav-number">2.8.</span> <span class="nav-text">书写文档提交审查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统流程图-（understanding）"><span class="nav-number">3.</span> <span class="nav-text">系统流程图 （understanding）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据流图-master"><span class="nav-number">4.</span> <span class="nav-text">数据流图 (master)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据字典-master"><span class="nav-number">5.</span> <span class="nav-text">数据字典 (master)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义数据的方法"><span class="nav-number">5.1.</span> <span class="nav-text">定义数据的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子："><span class="nav-number">5.1.1.</span> <span class="nav-text">举个栗子：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#数字字典的实现"><span class="nav-number">5.1.2.</span> <span class="nav-text">数字字典的实现</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成本效益分析（了解）"><span class="nav-number">6.</span> <span class="nav-text">成本效益分析（了解）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#成本估计"><span class="nav-number">6.1.</span> <span class="nav-text">成本估计</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#效益分析"><span class="nav-number">6.2.</span> <span class="nav-text">效益分析</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行"><span class="nav-number">1.0.1.</span> <span class="nav-text">一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个独立的域名"><span class="nav-number">1.0.2.</span> <span class="nav-text">一个独立的域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个用于提供服务的本地PC"><span class="nav-number">1.0.3.</span> <span class="nav-text">一个用于提供服务的本地PC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GO语言环境搭建"><span class="nav-number">2.1.</span> <span class="nav-text">GO语言环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ngrok源码"><span class="nav-number">2.2.</span> <span class="nav-text">获取ngrok源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析域名"><span class="nav-number">2.3.</span> <span class="nav-text">解析域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成签名证书"><span class="nav-number">2.4.</span> <span class="nav-text">生成签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译运行"><span class="nav-number">2.5.</span> <span class="nav-text">编译运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端（VPS服务器一端）"><span class="nav-number">2.5.1.</span> <span class="nav-text">服务端（VPS服务器一端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端（部署了服务，需要内网穿透访问的主机）"><span class="nav-number">2.5.2.</span> <span class="nav-text">客户端（部署了服务，需要内网穿透访问的主机）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意："><span class="nav-number">2.6.</span> <span class="nav-text">注意：</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -948,7 +843,7 @@ var jiathis_config={
 		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
 
 		
-		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/12/22/2017-12-22-软件工程复习（b）/"});
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2018/03/19/ngrok_01/"});
 		
 
 		(function() {
