@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。  准备  一个公网服务器（Linux系统）==&amp;gt; 阿里云，腾讯云之类的都行 这个">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://qjm253.cn/img/game_01.png">
-<meta property="og:updated_time" content="2018-03-19T08:44:14.280Z">
+<meta property="og:image" content="http://qjm253.cn/img/ngrok_01_1.png">
+<meta property="og:updated_time" content="2018-03-19T08:48:43.142Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用ngrok实现内网穿透">
 <meta name="twitter:description" content="实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。  准备  一个公网服务器（Linux系统）==&amp;gt; 阿里云，腾讯云之类的都行 这个">
-<meta name="twitter:image" content="http://qjm253.cn/img/game_01.png">
+<meta name="twitter:image" content="http://qjm253.cn/img/ngrok_01_1.png">
 
 
 
@@ -469,7 +469,7 @@
 </li>
 <li><p>连接成功会显示如下状态：</p>
 <ul>
-<li><img src="/img/game_01.png" width="500" height="500" title="2048"></li>
+<li><img src="/img/ngrok_01_1.png" title="连接成功"></li>
 <li>在浏览器中输入<a href="http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！" target="_blank" rel="noopener">http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！</a></li>
 </ul>
 </li>
@@ -477,6 +477,11 @@
 </li>
 <li><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
 <li>上文中所有出现域名的地方都要统一，客户端和服务端的证书要是同一份，否则在连接的时候会出现bad certification</li>
+</ul>
+</li>
+<li><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
+<li><a href="https://blog.phpgao.com/ngrok_how_to.html" target="_blank" rel="noopener">自己建立ngrok服务器进行内网穿透</a></li>
+<li><a href="http://zpblog.cn/linux/run-ngrok-on-your-own-server.html" target="_blank" rel="noopener">CentOS上搭建ngrok服务端（内网穿透）</a></li>
 </ul>
 </li>
 </ul>
@@ -676,7 +681,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行"><span class="nav-number">1.0.1.</span> <span class="nav-text">一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个独立的域名"><span class="nav-number">1.0.2.</span> <span class="nav-text">一个独立的域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个用于提供服务的本地PC"><span class="nav-number">1.0.3.</span> <span class="nav-text">一个用于提供服务的本地PC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GO语言环境搭建"><span class="nav-number">2.1.</span> <span class="nav-text">GO语言环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ngrok源码"><span class="nav-number">2.2.</span> <span class="nav-text">获取ngrok源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析域名"><span class="nav-number">2.3.</span> <span class="nav-text">解析域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成签名证书"><span class="nav-number">2.4.</span> <span class="nav-text">生成签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译运行"><span class="nav-number">2.5.</span> <span class="nav-text">编译运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端（VPS服务器一端）"><span class="nav-number">2.5.1.</span> <span class="nav-text">服务端（VPS服务器一端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端（部署了服务，需要内网穿透访问的主机）"><span class="nav-number">2.5.2.</span> <span class="nav-text">客户端（部署了服务，需要内网穿透访问的主机）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意："><span class="nav-number">2.6.</span> <span class="nav-text">注意：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备"><span class="nav-number">1.</span> <span class="nav-text">准备</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行"><span class="nav-number">1.0.1.</span> <span class="nav-text">一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个独立的域名"><span class="nav-number">1.0.2.</span> <span class="nav-text">一个独立的域名</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个用于提供服务的本地PC"><span class="nav-number">1.0.3.</span> <span class="nav-text">一个用于提供服务的本地PC</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">2.</span> <span class="nav-text">步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GO语言环境搭建"><span class="nav-number">2.1.</span> <span class="nav-text">GO语言环境搭建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取ngrok源码"><span class="nav-number">2.2.</span> <span class="nav-text">获取ngrok源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析域名"><span class="nav-number">2.3.</span> <span class="nav-text">解析域名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成签名证书"><span class="nav-number">2.4.</span> <span class="nav-text">生成签名证书</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译运行"><span class="nav-number">2.5.</span> <span class="nav-text">编译运行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务端（VPS服务器一端）"><span class="nav-number">2.5.1.</span> <span class="nav-text">服务端（VPS服务器一端）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端（部署了服务，需要内网穿透访问的主机）"><span class="nav-number">2.5.2.</span> <span class="nav-text">客户端（部署了服务，需要内网穿透访问的主机）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意："><span class="nav-number">2.6.</span> <span class="nav-text">注意：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考："><span class="nav-number">2.7.</span> <span class="nav-text">参考：</span></a></li></ol></li></ol></div>
             
 
           </div>
