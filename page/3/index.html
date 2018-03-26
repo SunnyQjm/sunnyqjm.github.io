@@ -313,6 +313,194 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_g/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/05/super_c_g/" itemprop="url">高级C与网络编程复习（7）—— 套接字选项（Socket Options）（第七章）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-05T14:00:00+08:00">
+                2018-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/05/super_c_g/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/05/super_c_g/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/05/super_c_g/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（7）—— 套接字选项（Socket Options）（第七章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="获取和设置影响套接字的三种方式"><a href="#获取和设置影响套接字的三种方式" class="headerlink" title="获取和设置影响套接字的三种方式"></a>获取和设置影响套接字的三种方式</h2></blockquote>
+<ul>
+<li>getsockopt和setsockopt函数和</li>
+<li>fcntl函数 (file control)</li>
+<li>ioctl (IO control)</li>
+</ul>
+<blockquote>
+<h2 id="getsockopt-和-setsockopt-函数"><a href="#getsockopt-和-setsockopt-函数" class="headerlink" title="getsockopt 和 setsockopt 函数"></a>getsockopt 和 setsockopt 函数</h2><p>这两个函数仅用于套接字</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 获取一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于接收函数的结果，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      这是一个Value-Result参数，传入时限定optval的最大长度，防止缓存溢出</span></span><br><span class="line"><span class="comment">*                    函数执行结束时，可以通过这个参数知道内核究竟往optval写了多少数据</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, itn optname, <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> *optlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 设置一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于向函数传递要设置的值，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      指示了optval的长度</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, <span class="keyword">int</span> optname, <span class="keyword">const</span> <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> optlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="套接字选项汇总-gt-课本图7-1和7-2"><a href="#套接字选项汇总-gt-课本图7-1和7-2" class="headerlink" title="套接字选项汇总 ==&gt; 课本图7-1和7-2"></a>套接字选项汇总 ==&gt; 课本图7-1和7-2</h3><ul>
+<li>标志 ==&gt; 表示这个选项是一个二元选项。0表示关闭，非0表示开启</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="IPv4套接字选项"><a href="#IPv4套接字选项" class="headerlink" title="IPv4套接字选项"></a>IPv4套接字选项</h2><p>下面几个选项的等级（level）均为IPROTO_IP</p>
+</blockquote>
+<ul>
+<li><h3 id="IP-HDRINCL"><a href="#IP-HDRINCL" class="headerlink" title="IP_HDRINCL"></a>IP_HDRINCL</h3><ul>
+<li>可以为一个原始套接字设置该选项，设置以后可以自己构造IP首部（即在往里面写数据的时候是从IP包的首部起始位置开始写）</li>
+</ul>
+</li>
+<li><h3 id="IP-OPTIONS"><a href="#IP-OPTIONS" class="headerlink" title="IP_OPTIONS"></a>IP_OPTIONS</h3><ul>
+<li>该选项允许我们在IPv4中设置IP选项</li>
+</ul>
+</li>
+<li><h3 id="IP-RECVDSTADDR"><a href="#IP-RECVDSTADDR" class="headerlink" title="IP_RECVDSTADDR"></a>IP_RECVDSTADDR</h3><ul>
+<li>该套接字选项导致<strong>所收到的UDP数据报的目的IP地址</strong>由recvmsg函数作为辅助数据返回</li>
+</ul>
+</li>
+<li><h3 id="IP-RECVIF"><a href="#IP-RECVIF" class="headerlink" title="IP_RECVIF"></a>IP_RECVIF</h3><ul>
+<li>该套接字选项导致<strong>所收到的UDP数据包的接收接口索引</strong>有recvmsg函数作为辅助数据返回</li>
+</ul>
+</li>
+<li><h3 id="IP-TOS"><a href="#IP-TOS" class="headerlink" title="IP_TOS"></a>IP_TOS</h3><ul>
+<li>该套接字选项允许我们为TCP、UDP或SCTP套接字<strong>设置IP首部中的服务类型字段</strong></li>
+</ul>
+</li>
+<li><h3 id="IP-TTL"><a href="#IP-TTL" class="headerlink" title="IP_TTL"></a>IP_TTL</h3><ul>
+<li>我们可以使用本选项设置或获取系统改用在从某个给定套接字发送的单薄分组上的默认TTL值</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_f/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1466,247 +1654,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/03/super_c_b/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/03/super_c_b/" itemprop="url">高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP（第二章）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T00:00:00+08:00">
-                2018-01-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/03/super_c_b/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/03/super_c_b/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/03/super_c_b/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP（第二章）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="总图（Big-Picture）"><a href="#总图（Big-Picture）" class="headerlink" title="总图（Big Picture）"></a>总图（Big Picture）</h2></blockquote>
-<img src="/img/unp_1.png" title="TCP/IP协议概况">
-<blockquote>
-<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2></blockquote>
-<ul>
-<li>UDP应用程序将数据封装到UDP数据报，，并将其写到UDP socket。进而封装成IPV4或IPV6数据报（datagram），然后发送到目的地</li>
-<li>UDP提供的是<strong>无连接的服务</strong>（connectionless service）</li>
-<li><strong>每个UDP数据报都有一个长度</strong>，如果一个数据报正确地到达目的地，那么数据报的长度将随数据一道传递给接收端应用程序</li>
-<li>RFC 768 [Postel 1980]</li>
-</ul>
-<blockquote>
-<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2></blockquote>
-<ul>
-<li>面向连接（Connection-oriented）</li>
-<li>提供可靠传输（Reliable）</li>
-<li>TCP通过给每个字节关联一个序列号（sequence）对所发送的数据进行排序（sequencing）</li>
-<li>TCP提供流量控制（flow control）==&gt; 控制接收端收包的速率</li>
-<li>全双工（full-duplex）</li>
-</ul>
-<blockquote>
-<h2 id="TCP连接的建立和终止"><a href="#TCP连接的建立和终止" class="headerlink" title="TCP连接的建立和终止"></a>TCP连接的建立和终止</h2></blockquote>
-<ul>
-<li><h3 id="三路握手-————-Three-Way-Handshake-SYN-ACK"><a href="#三路握手-————-Three-Way-Handshake-SYN-ACK" class="headerlink" title="三路握手 ———— Three-Way Handshake (SYN, ACK)"></a>三路握手 ———— Three-Way Handshake (SYN, ACK)</h3><img src="/img/unp_2.png" title="TCP三路握手">
-<ol>
-<li><p>服务器通过socket，bind，listen创建一个<strong>监听socket</strong>，并调用accpet准备接受外来的连接（这些工作要在客户端请求来临之前做好）。</p>
-</li>
-<li><p>客户端通过socket函数创建一个<strong>未连接的socket</strong>，再调用connect尝试连接到服务器（此时客户端阻塞，等待服务器响应）。此时会向服务器<strong>发送一个SYN包</strong>（<strong>表明客户端欲向服务器申请服务</strong>），等待服务器的确认。</p>
-</li>
-<li><p>服务器<strong>收到SYN包</strong>，则<strong>向客户端发送一个ACK</strong>（告诉客户端，请求我已经收到）。<strong>同时发送一个SYN</strong>（通知客户端服务器需要知道客户端是否收到回复，收到则请回一个ACK）</p>
-</li>
-<li><p>客户端收到服务器发回的ACK和SYN之后，<strong>connect函数返回</strong>（表示连接服务器成功），<strong>并向服务器回一个ACK</strong>（告知服务器我已经收到你的回复）</p>
-</li>
-<li><p>服务器收到客户端的ACK以后<strong>accept函数返回</strong>（此时连接正式建立，可以开始后通信）</p>
-<blockquote>
-<ul>
-<li>ACK如果不捎带数据的话，是不占序列号的</li>
-<li>SYN占一个序列号</li>
-</ul>
-</blockquote>
-</li>
-</ol>
-</li>
-<li><h3 id="四路终止-————-Four-Way-Termination-FIN-ACK"><a href="#四路终止-————-Four-Way-Termination-FIN-ACK" class="headerlink" title="四路终止 ———— Four-Way Termination (FIN, ACK)"></a>四路终止 ———— Four-Way Termination (FIN, ACK)</h3><img src="/img/unp_3.png" title="TCP连接关闭时的分组交换(客户端主动关闭连接)">
-<ol>
-<li><p>客户端调用close（任意一端都可以发起终止，此处以客户端发起为例，<strong>发起终止的一端称为执行主动关闭</strong>）。接着<strong>向服务器发送一个FIN</strong>，表示数据发送完毕</p>
-</li>
-<li><p><strong>服务器接收到FIN后回复一个ACK</strong>（此时服务器称为执行被动关闭的一端），同时服务器的read函数会读到一个EOF，导致read函数退出</p>
-</li>
-<li><p>一段时间后，<strong>服务器</strong>也调用close，<strong>向客户端发送一个FIN</strong></p>
-</li>
-<li><p>客户端收到FIN以后回复一个ACK</p>
-<blockquote>
-<ul>
-<li>FIN占一个序列号</li>
-<li>在被动关闭一端收到FIN到其调用close函数之间的间隙，称为<strong>半关闭状态</strong>（half-close），在这段时间内理论上仍然有发送数据的可能（但是通过close方式关闭的话，时无法再进行通信的，因为close会同时关闭写一端和读一端，后面接收<a href="../../05/super_c_f#shutdown函数">shutdown</a>就可以只关闭写或读）</li>
-<li>当一个Unix进程无论自愿（调用exit或main函数返回）还是非自愿（收到一个终止本进程的信号）的终止时，所有打开的描述符都将被关闭，这也导致主机向仍然打开的任何TCP连接上发出一个FIN（对于那些描述符只被这个终止的进程持有的连接而言）</li>
-</ul>
-</blockquote>
-</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<h2 id="TCP状态转换图"><a href="#TCP状态转换图" class="headerlink" title="TCP状态转换图"></a>TCP状态转换图</h2></blockquote>
-  <img src="/img/unp_4.png" title="TCP状态转换图">
-<ul>
-<li>上述状态转移图中的<strong>细线</strong>表示的是<strong>可能执行的路线</strong>。粗线和虚线表示的是TCP服务器和客户端正常情况（或说大多数情况）走的状态转移路线。</li>
-<li>当发生错误，或遇到一些比较凑巧的事件，就可能走细线指向的转移路线<ul>
-<li>举例来说：途中有一条细线是SYN_SENT ——&gt; SYN_RCVD的</li>
-<li>这种情况可能是客户端发出了一个SYN到服务器，并希望服务器回一个ACK和一个SYN</li>
-<li>但是由于一些不可预知的错误，服务器返回的SYN和ACK只有SYN回到了客户端，而ACK则延迟了或丢了</li>
-<li>这个时候客户端的状态就转移到了SYN_RCVD。之后一旦收到ACK（可能是服务器发送的消息丢包后重传，也可能是延迟的消息到达了），则客户端的状态可正常转移到ESTABLISHED状态</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="TCP的限制"><a href="#TCP的限制" class="headerlink" title="TCP的限制"></a>TCP的限制</h2></blockquote>
-<ul>
-<li>TCP同时提供<strong>可靠数据传输</strong>和<strong>严格的有序数据分发</strong>。然而有一些应用程序需要可靠数据传输，但是不需要顺序维护，而另一些应用过程序只需要部分有序即可。</li>
-<li>TCP这种面向数据流的传输方式有时候是不方便的。应用程序必须添加自己的记录标记。</li>
-<li>TCP套接字的范围有限，使得为多宿主主机提供高可用数据传输能力的任务变得复杂</li>
-<li>容易受到拒绝服务攻击，例如SYN攻击</li>
-<li>这些限制影响公共交换电话网的IP性能</li>
-</ul>
-<blockquote>
-<h2 id="端口号（Port-Numbers）"><a href="#端口号（Port-Numbers）" class="headerlink" title="端口号（Port Numbers）"></a>端口号（Port Numbers）</h2></blockquote>
-<ul>
-<li>众所周知（well-know）的端口：0 ~ 1023</li>
-<li>已注册端口：1024 ～ 49151</li>
-<li>动态或私有端口：49152 ～ 65535<img src="/img/unp_5.png" title="端口号的分配">
-</li>
-</ul>
-<blockquote>
-<h2 id="TCP端口号与并发服务器"><a href="#TCP端口号与并发服务器" class="headerlink" title="TCP端口号与并发服务器"></a>TCP端口号与并发服务器</h2></blockquote>
-<img src="/img/unp_6.png" title="TCP服务器在端口21上执行被动打开">
-<img src="/img/unp_7.png" title="客户对服务器的连接请求">
-<img src="/img/unp_8.png" title="并发服务器让子进程处理客户">
-<img src="/img/unp_9.png" title="第二个客户与同一个服务器的连接">
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1761,7 +1708,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1774,7 +1721,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -313,6 +313,243 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" itemprop="url">数据库笔记（九）——对违反约束的处理</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T00:00:00+08:00">
+                2017-10-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" class="leancloud_visitors" data-flag-title="数据库笔记（九）——对违反约束的处理">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章的一些尾巴，然后开始讲第六章的关系代数<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们构造一些简单表</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的语句构造表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<h2 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h2><p>在指定外键以后，由于存在完整性约束，所以在执行删除或更新的时候由于语句可能会破坏完整性约束而执行失败。因此可以在定义外键的时候声明为级联删除和级联更新(<strong>是一种对违反参照完整性约束时的处理方式</strong>)</p>
+</blockquote>
+<ul>
+<li><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">table</span> 表名(</span><br><span class="line">  ...</span><br><span class="line">  FOREGIN <span class="keyword">KEY</span> (字段序列) <span class="keyword">REFERENCES</span> 表名(字段序列)</span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span>,</span><br><span class="line">  ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="级联删除（ON-DELETE-CASCADE）"><a href="#级联删除（ON-DELETE-CASCADE）" class="headerlink" title="级联删除（ON DELETE CASCADE）"></a>级联删除（ON DELETE CASCADE）</h3><ul>
+<li>级联删除是在定义外键时指定的，但是却会在执行删除语句时产生影响</li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>我们先不指定级联</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后执行下面的删除操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面我们试图删除中国的信息，但是在person表里有一条数据引用了中国，所以因为参照完整性约束的存在，所以这条语句会执行失败</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来我们重新构造一遍（当然直接用DDL语句更新也是可以的）–并在构造person表时指定了级联删除</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后再次执行下面的删除操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 此时执行会发现语句成功执行了，不但删除了中国的信息，连带person表中引用了中国信息的所有数据都被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>上面的例子便很好的说明了级联删除的作用。如果我们视图删除外键参照键所在表（此处为country表）的某条数据A（此处是中国的信息），而这条数据又被外键所在表的一条或多条数据B所关联（此处person表中Sunny的country_id关联了country表中中国的id）。在指定了级联删除的情况下，删除A会连带着删除所有满足条件的B</p>
+</li>
+<li>当然在实际使用的时候用的还是比较少的，因为参照完整性约束在一定程度上可以防止数据的误删除，对数据库的完整性起了一定的保护作用，如果指定了级联删除，这层保护就失效了。所以还是视情况而用</li>
+</ul>
+</li>
+<li><h3 id="级联更新（ON-UPDATE-CASCADE）"><a href="#级联更新（ON-UPDATE-CASCADE）" class="headerlink" title="级联更新（ON UPDATE CASCADE）"></a>级联更新（ON UPDATE CASCADE）</h3><ul>
+<li>类似的，级联更新和级联删除一样，如果我们更新时违反了完整性约束，同样更新操作不被拒绝，而是级联更新</li>
+<li><p>举个栗子（我们在上面操作的基础上执行，上面构造时指定了级联删除，但是没指定级联更新）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们试图执行下面的更新操作，我们把修改English的country_id， 但是由于person表中还有数据的country_id=2,如果下面的更新成功执行，则会导致person表中存在country_id=2的数据，而country中却没有对应数了，违反参照完整性约束，故下面的语句执行失败</span></span><br><span class="line"><span class="keyword">UPDATE</span> country</span><br><span class="line"><span class="keyword">SET</span> country_id = <span class="number">4</span></span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同样的，我们重新构造一下，此时指定级联更新</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>此时再执行一下上面的更新语句</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于指定了级联更新，所以会发现下面的语句执行成功了，不但更改了country表中的数据，连带着person表中的数据也一并更新了</span></span><br><span class="line"><span class="keyword">UPDATE</span> country</span><br><span class="line"><span class="keyword">SET</span> country_id = <span class="number">4</span></span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面就是级联更新的效果</p>
+</li>
+</ul>
+</li>
+<li><h3 id="另一类对违反完整性约束的处理"><a href="#另一类对违反完整性约束的处理" class="headerlink" title="另一类对违反完整性约束的处理"></a>另一类对违反完整性约束的处理</h3><ul>
+<li>SET DEFAULT<ul>
+<li>一旦违反完整性约束，就将参照域（此处为country_id）设置为默认值</li>
+</ul>
+</li>
+<li>SET NULL<ul>
+<li>一旦违反完整性约束，就将参照域（此处为country_id）设置为NULL</li>
+</ul>
+</li>
+<li><p>举个栗子</p>
+<ul>
+<li><p>执行下面的构造</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">SET</span> <span class="literal">NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后执行下面的删除操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的删除操作成功执行，但不是级联删除，而是把person表中原来country_id=1的数据的country_id都设成了NULL</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="延迟检查"><a href="#延迟检查" class="headerlink" title="延迟检查"></a>延迟检查</h2><p>这是由于数据库默认是在执行每一条SQL语句的时候都进行完整性约束的检查，导致有些操作无法进行。延迟操作就将完整性约束的检查延迟到了事务结束的时候检查（大多数数据库不支持，比如SQL Server， 但Oracle数据支持）</p>
+</blockquote>
+<ul>
+<li><p>由于不常用，SQL Server也不支持，这里就讲一下概念，不举实际的栗子了。</p>
+</li>
+<li><p>假设上面的例子表中没有指定延迟检查</p>
+<ul>
+<li>执行下面的语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面两条语句是会出错的，因为插入第一条数据的时候，由于完整性约束的存在，要求country表中要有country_id=4的数据，但是这个数据目前还不存在（所以只要先执行第二条语句，这两个语句才能成功执行）</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'Jerry'</span>, <span class="number">4</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'France'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>而如果指定了延迟检查呢</p>
+<ul>
+<li>执行下面语句（下面两个语句处于同一个事务中）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于是延迟检查，所以两条数据都插入完，执行commit，事务结束时才进行完整性约束的检查，此时就不会出错，可以正常插入</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'Jerry'</span>, <span class="number">4</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'France'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>虽然SQL标准中有这个概念，但是大多数数据库没有提供支持，并且不常用</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1516,331 +1753,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/19/2017-09-19-数据库学习笔记（四）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" itemprop="url">数据库笔记（四）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-19T00:00:00+08:00">
-                2017-09-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/19/2017-09-19-数据库学习笔记（四）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/19/2017-09-19-数据库学习笔记（四）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/19/2017-09-19-数据库学习笔记（四）/" class="leancloud_visitors" data-flag-title="数据库笔记（四）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)<br>下面的例子中的测试都是在MySQL数据库中测试的</p>
-</blockquote>
-<hr>
-<blockquote>
-<h2 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h2><p>此处集合运算的概念与数学中集合的概念类似，可以借助文氏图加深理解。故此处对并运算进行展开，其他啊两个自己类比，后面还会对集合运算的几个注意点进提醒。</p>
-</blockquote>
-<ul>
-<li><h3 id="union-集合并运算"><a href="#union-集合并运算" class="headerlink" title="union(集合并运算)"></a>union(集合并运算)</h3><ul>
-<li>union 默认去除重复，并升序排序（因为涉及到排序，故而会有效率上的劣势）</li>
-<li>union all 就可保留重复项，并且保留原序（不进行排序）</li>
-<li><p>举个栗子（现有两张表如下）</p>
-<ul>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Sunny|    18|    98|<br>|Robbin|    18    |96|<br>|James|    19|    67|<br>|Jane|    17|    82|<br>Student表信息如上</li>
-<li>|tech_name |age  |<br>|:——-:|:—:|<br>|James    |32|<br>|Marry    |33|<br>|Lory    |33|<br>Teacher表的信息如上</li>
-<li><p>执行以下运算</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果(得到的结果没有重复元素，但是没有排序，说明MySQL数据库在此处没有对其进行排序输出，但是Oracle数据库是会对数据进行升序排序的)</p>
-</li>
-<li>|age |<br>|:——-:|<br>|18|<br>|19|<br>|17|<br>|32|<br>|33|</li>
-<li><p>执行以下运算</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果(可以知道，UNION ALL 保留了重复元素)</p>
-</li>
-<li>|age |<br>|:——-:|<br>|18|<br>|18|<br>|19|<br>|17|<br>|32|<br>|33|<br>|33|</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="intersect-集合交运算"><a href="#intersect-集合交运算" class="headerlink" title="intersect(集合交运算)"></a>intersect(集合交运算)</h3></li>
-<li><h3 id="except-集合差运算"><a href="#except-集合差运算" class="headerlink" title="except(集合差运算)"></a>except(集合差运算)</h3></li>
-<li><h3 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h3><ul>
-<li><p>参与集合运算的两个视图的列数要一致</p>
-<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句执行就会出错</span></span><br><span class="line"><span class="comment">-- 因为第一个视图有两个字段，而第二个视图只有一个字段，无法进行集合运算</span></span><br><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>参与集合运算的两个视图对应位置的字段的数据类型应该是一致的（数据类型兼容即可，字段名无需一致）</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 按上面的说法下面语句执行是非法的</span></span><br><span class="line"><span class="comment">-- 因为第二个字段的数据类型不兼容，一个是浮点型，一个是字符串类型</span></span><br><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age, tech_name</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>上面的书法在Oracle数据库里得到了证实，确实执行是会报错的，<br>那MySQL数据库呢？我们执行以下，得到以下结果</p>
-</li>
-<li>|age |score  |<br>|:——-:|:—:|<br>|18    |98|<br>|18    ||<br>|19    |67|<br>|17    |82|<br>|32    |James|<br>|33    |Marry|<br>|33    |Lory|<br>说明该写法在Mysql里面竟然是合法的（所以所有的特性都要视不同的数据库，视情况而分析）</li>
-</ul>
-</li>
-<li><p>若无字段可加，又需保证列数相同，可控NULL做填充</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age, <span class="literal">NULL</span></span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果哦</p>
-</li>
-<li>|age |score  |<br>|:——-:|:—:|<br>|18    |98|<br>|18    ||<br>|19    |67|<br>|17    |82|<br>|32    ||<br>|33    ||<br>|33    ||</li>
-</ul>
-</li>
-<li><p>集合运算的结果视图的字段名以第一个结果集的字段名为主</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> tech_name</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：</p>
-</li>
-<li>|stu_name |<br>|:——-:|<br>|Sunny|<br>|Robbin|<br>|Marry|<br>|Lory|<br>|Jane|<br>|James|</li>
-</ul>
-</li>
-<li>Oracle数据库中，差运算不是except， 而是minus；Oracle数据库union可以后面跟all， 但是interscet和minus后面不可以（不同数据库不同）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="空值NULL"><a href="#空值NULL" class="headerlink" title="空值NULL"></a>空值NULL</h2></blockquote>
-<ul>
-<li>NULL就是不确定的值，参与数值运算和字符串运算时，不同的数据库采取的处理不同；</li>
-<li>Oracle 数据库中，NULL无论参与数值运算还是字符串运算，都会使整体为NULL</li>
-<li><p>获取系统时间</p>
-<ul>
-<li>Oracle数据库的查询语句必须有from</li>
-<li><p>故采用如下方法获取系统时间</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 其中dual是Oracle数据库系统自带的一行一列的表</span></span><br><span class="line"><span class="comment">-- 其他数据库没有这个表</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span></span><br><span class="line"><span class="keyword">FROM</span> dual</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>MySQL就没有这个限制</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在MySQL和SQL Server中用下面的语句就可获得系统时间</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>日期类型的运算</p>
-<ul>
-<li><p>可与数值类型做加减运算（在Oracle数据库里面单位为天，·.·在MySQL里面竟然是秒）</p>
-<ul>
-<li><p>举个栗子（MySQL里面测试）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span>() - <span class="number">1</span>, <span class="keyword">SYSDATE</span>(), <span class="keyword">SYSDATE</span>() + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-</li>
-<li>|’SYSDATE() - 1’ |’SYSDATE()’  | ‘SYSDATE() + 1’  |<br>|:——-:|:—:| :—–:|<br>|20170919183000    |2017-09-19 18:30:01| 20170919183002|</li>
-</ul>
-</li>
-<li>可与日期类型做减运算，得到连个日期之前的差值</li>
-<li>不可与日期类型做加运算（在Oracle数据库执行日期间加运算直接报错，Mysql数据库直接真的返回两个日期加以后的值，不过巨耗时，mmp）</li>
-<li>与NULL值运算得NULL值（在Oracle和MySQL上测试结果都正确）</li>
-</ul>
-</li>
-<li>where 子句，判断是否为空<ul>
-<li>用is NULL 和 is not NULL 判断</li>
-<li>而不用 = NULL 和 != NULL</li>
-</ul>
-</li>
-<li>布尔变量有三个取值：TRUE，FALSE, NULL<ul>
-<li>三种取值以and，or相连时的结果，与并联串联电路的判断类</li>
-<li>TRUE and NULL = NULL</li>
-<li>TRUE OR NULL = TRUE</li>
-<li>FALSE and NULL = FALSE</li>
-<li>FALSE OR NULL = NULL</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句将会返回Student表中的所有信息</span></span><br><span class="line"><span class="comment">-- 因为where子句后面的条件为真</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> <span class="literal">TRUE</span> <span class="keyword">OR</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="去重关键字-distinct"><a href="#去重关键字-distinct" class="headerlink" title="去重关键字 distinct"></a>去重关键字 distinct</h2></blockquote>
-<ul>
-<li>跟在SELECT的后面，并且置于所有字段的前面</li>
-<li>会将其后的字段都作为判断重复的条件</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就是列出学生表中的数据，并去除stu_name和age都相同的数据重复</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> stu_name, age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="聚集函数（Aggregate-Functions）"><a href="#聚集函数（Aggregate-Functions）" class="headerlink" title="聚集函数（Aggregate Functions）"></a>聚集函数（Aggregate Functions）</h2><p>多行输入，一行输出</p>
-</blockquote>
-<ul>
-<li>此类函数有MIN，MAX，COUNT，AVG，SUM。其中<strong>AVG和SUM只能参与数值运算</strong></li>
-<li><strong>聚集函数在使用时会忽略空值NULL</strong><ul>
-<li>除了COUNT(*)，COUNT(*)在统计的时候是不忽略空值的</li>
-</ul>
-</li>
-<li><h3 id="Count"><a href="#Count" class="headerlink" title="Count"></a>Count</h3><ul>
-<li>在计数时，忽略空值项</li>
-<li><p>默认是统计重复项的，其中ALL是默认的，顾可以不显示指明</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COUNT(ALL age)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果统计去除重复以后的结果,可如下面写法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COUNT(DISTINCT age)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Oracle中用作对null值数据处理的函数nvl</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 下面的语句表示对数据表中的分数做加和，如果遇到为空的项，则取其值为0</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(NVL(score, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>COUNT(*)==&gt;可返回满足where子句条件的所有数据的数量</p>
-<ul>
-<li><strong>这是COUNT独有的用法，其他聚集函数里面只能放字段或表达式</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="SUM"><a href="#SUM" class="headerlink" title="SUM"></a>SUM</h3><ul>
-<li><strong>SUM(age) + SUM(score) &gt;= SUM(age + score)</strong></li>
-<li>因为聚集函数在使用时会忽略空值，而NULL值直接参与运算可能会导致整体为空，顾有上述结论</li>
-<li>当且仅当数据中没有空值时，上述等号成立</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>分组聚集（Aggregation）</p>
-</blockquote>
-<ul>
-<li>GROUP BY <strong><em>字段序列</em></strong><ul>
-<li>GROUP BY 后面跟的字段序列作为分组条件，值相同的为一组</li>
-<li>可以是多个字段（顺序不影响结果）</li>
-</ul>
-</li>
-<li><strong>当SELECT列表中出现了聚集函数，select中能出现以下字段</strong><ul>
-<li>可以放group by 后面的字段</li>
-<li>可以放聚集函数处理了的字段或表达式<blockquote>
-<p>上面两种情况下的字段在每组的取值都是唯一的，故而可以保证结果集中每一项的行数是一致的</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>having， 解决where子句中不能包含聚集函数的问题</p>
-<ul>
-<li><a href="http://wiki.jikexueyuan.com/project/sql/having-clause.html" target="_blank" rel="noopener">传送门</a></li>
-</ul>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1895,7 +1807,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1908,7 +1820,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

@@ -313,6 +313,196 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/26/android_wifi_direct_01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/26/android_wifi_direct_01/" itemprop="url">Android WI-FI Direct Kotlin 浅析（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T00:00:00+08:00">
+                2018-03-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/26/android_wifi_direct_01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/26/android_wifi_direct_01/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/03/26/android_wifi_direct_01/" class="leancloud_visitors" data-flag-title="Android WI-FI Direct Kotlin 浅析（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2></blockquote>
+<ul>
+<li><p>百度百科：2010年10月，Wi-Fi Alliance（wi-fi联盟）发布Wi-Fi Direct白皮书，白皮书中介绍了有关于这种技术的基本信息、这种技术的特点和这种技术的功能，Wi-Fi Direct标准是指允许无线网络中的设备无需通过无线路由器即可相互连接。与蓝牙技术类似，这种标准允许无线设备以点对点形式互连，而且在传输速度与传输距离方面则比蓝牙有大幅提升</p>
+</li>
+<li><p>与Android开发者而言呢，Google嗅到了WI-FI直连的发展前景，整了一套WI-FI直连的API，在Android4.0+（API &gt;= 14）的设备上均能使用。这给我们进行手机之间的互联操作提供了一个新的实现思路。它可以不需要路由而让两个设备直接相连，但其传输速度可是远远超过蓝牙传输。而且它不需要热点的建立，甚至两个设备不需要在一个局域网下。想象一下，不用建立热点也可以实现像快牙，茄子一类的面对面快传的需求～》《～</p>
+<blockquote>
+<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></blockquote>
+</li>
+<li><h3 id="定义一个广播接收器"><a href="#定义一个广播接收器" class="headerlink" title="定义一个广播接收器"></a>定义一个广播接收器</h3><blockquote>
+<ul>
+<li>每当当前设备与Wi-fi直连相关的状态发生改变，系统便会以广播的形式通知我们，所以让我们定义一个Receiver欢迎它</li>
+<li>在下面定义的Receiver里面我们监听了4个Action，这是最常用的4个，还有其它的Action可以看官方文档，或者，来去撸一波源码</li>
+</ul>
+</blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectReceiver</span> : <span class="type">BroadcastReceiver</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写一个便捷的注册方法，动态注册的时候就不用写intentFilter了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">registerReceiver</span><span class="params">(context: <span class="type">Context</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intentFilter = IntentFilter()</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)</span><br><span class="line">        context.registerReceiver(<span class="keyword">this</span>, intentFilter)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onReceive</span><span class="params">(context: <span class="type">Context</span>?, intent: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">when</span> (intent?.action) &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment">         * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="接下来在Activity中动态注册"><a href="#接下来在Activity中动态注册" class="headerlink" title="接下来在Activity中动态注册"></a>接下来在Activity中动态注册</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> wifiDirectReceiver = WifiDirectReceiver()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart()</span><br><span class="line">        wifiDirectReceiver.registerReceiver(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop()</span><br><span class="line">        unregisterReceiver(wifiDirectReceiver)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>没错，直接动态注册了！！！Android8.0的新特性让Android开发喵几乎一夜之间丧失在AndroidManifest中静态注册的技能（所以为了，考虑兼容，我们就直接动态注册了）</li>
+</ul>
+</li>
+<li><h3 id="好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION"><a href="#好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION" class="headerlink" title="好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION"></a>好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION</h3><ul>
+<li><p>我们在Receiver里面加点输出（实际开发还是用Log，极不推荐直接输出，这里笔者还是决定偷懒♪(^∇^*)）</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//get the state of current device</span></span><br><span class="line">    <span class="keyword">val</span> state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE,</span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_DISABLED)</span><br><span class="line">    <span class="keyword">if</span> (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) &#123;</span><br><span class="line">        <span class="comment">//Wifi p2p enable</span></span><br><span class="line">        println(<span class="string">"wifi enable"</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//wifi p2p disEnable</span></span><br><span class="line">        println(<span class="string">"wifi disEnable"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后跑到真机上（万能的模拟器然而并不能模拟wifi功能，只能真机实测一波啦），反复开关Wifi功能</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:26:08.744 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:26:11.098 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi disEnable</span><br><span class="line">03-26 16:32:16.376 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>OK, 得到上面的输出，我们就知道确实，这个ACTION在WI-FI功能开关的时候会触发</p>
+</li>
+</ul>
+</li>
+<li><h3 id="WIFI-P2P-THIS-DEVICE-CHANGED-ACTION"><a href="#WIFI-P2P-THIS-DEVICE-CHANGED-ACTION" class="headerlink" title="WIFI_P2P_THIS_DEVICE_CHANGED_ACTION"></a>WIFI_P2P_THIS_DEVICE_CHANGED_ACTION</h3><ul>
+<li>大新闻：这个ACTION携带了一团神秘数据，^``^,那就是本设备的设备信息啦～</li>
+<li><p>同样的，我们加一点输出，看一下都包含哪些信息（当然，最直接的是看WifiP2pDevice这个数据）</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> device: WifiP2pDevice = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE)</span><br><span class="line">    println(device)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同样真机测试，来调皮的开关一下WI-FI功能（当然，一开始也会打印出设备信息，那就是在这个Receiver被注册的时候）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:43:29.420 30294-30294/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out: Device: 魅蓝 Note3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  deviceAddress: 2e:57:31:98:45:34</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  primary <span class="built_in">type</span>: 10-0050F204-5</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  secondary <span class="built_in">type</span>: null</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wps: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  grpcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  devcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  status: 3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wfdInfo: WFD enabled: falseWFD DeviceInfo: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD CtrlPort: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD MaxThroughput: 0</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以看到包括设备的名字，本设备的MAC地址，状态balabala</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>###</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/19/ngrok_01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1063,177 +1253,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_l/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/06/super_c_l/" itemprop="url">高级C与网络编程复习（12）—— 路由套接字和秘钥管理套接字（Routing Sockets and Key Managment Sockets）（第18章，第19章）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T18:00:00+08:00">
-                2018-01-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/06/super_c_l/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_l/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/06/super_c_l/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（12）—— 路由套接字和秘钥管理套接字（Routing Sockets and Key Managment Sockets）（第18章，第19章）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>AF_ROUTE domain: <strong>唯一支持的套接字是原始套接字</strong>(raw socket)</p>
-</blockquote>
-<ul>
-<li><h3 id="一个路由套接字上支持以下的三种操作"><a href="#一个路由套接字上支持以下的三种操作" class="headerlink" title="一个路由套接字上支持以下的三种操作"></a>一个路由套接字上支持以下的三种操作</h3><ol>
-<li>通过往路由套接字写数据来<strong>向内核发送消息</strong>（例如: 添加或删除路由）</li>
-<li>通过从路由套接字读数据来<strong>接收内核发送的消息</strong>（例如：内核在接收到一个ICMP重定向消息的时候，就通过这种方式通知进程）</li>
-<li>进程可以使用<strong>sysctl函数倾泻出路由表或列出所有已配置的接口</strong></li>
-</ol>
-</li>
-<li><p>前两种需要超级权限，最后一种操作任何进程都可以执行</p>
-</li>
-<li><p>前两种可以复合起来使用，比如：进程通过写一个路由套接字往内核发送一个消息，请求内核提供关于某个给定路径的所有信息，又通过这个这个路由套接字接收内核的应答</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="数据链路套接字地址结构"><a href="#数据链路套接字地址结构" class="headerlink" title="数据链路套接字地址结构"></a>数据链路套接字地址结构</h2></blockquote>
-<figure class="highlight c"><figcaption><span><br>&ensp; <net if_dl.h=""></net></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_dl</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_len;           <span class="comment">//数据链路层地址是可变长度的，这个成员即为记录地址结构的长度</span></span><br><span class="line">  <span class="keyword">sa_family_t</span>   sdl_family;        <span class="comment">//AF_LINK</span></span><br><span class="line">  <span class="keyword">uint16_t</span>      sdl_index;         <span class="comment">//网络接口的正值索引，if &gt; 0</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_type;          <span class="comment">//IFT_ETHER等</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_nlen;          <span class="comment">//名字的长度</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_alen;          <span class="comment">//链路层地址的长度</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_slen;          <span class="comment">//链路层选择器的长度</span></span><br><span class="line">  <span class="keyword">char</span>          sdl_data[<span class="number">12</span>];      <span class="comment">//数据域:         0 ~ sdl_nlen - 1  ==&gt;  name</span></span><br><span class="line">                                   <span class="comment">//         sdl_len ~ sdl_alen - 1  ==&gt;  link-layer address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="创建一个路由套接字"><a href="#创建一个路由套接字" class="headerlink" title="创建一个路由套接字"></a>创建一个路由套接字</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(AF_ROUTE, SOCK_RAW, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="Key-Managment-概述"><a href="#Key-Managment-概述" class="headerlink" title="Key Managment 概述"></a>Key Managment 概述</h2></blockquote>
-<ul>
-<li>PE_KEY domain: <strong>唯一支持的套接字是原始套接字</strong>(raw socket)</li>
-</ul>
-<blockquote>
-<h2 id="创建一个秘钥管理套接字"><a href="#创建一个秘钥管理套接字" class="headerlink" title="创建一个秘钥管理套接字"></a>创建一个秘钥管理套接字</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(PF_KEY, SOCK_RAW, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1288,7 +1307,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1301,7 +1320,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

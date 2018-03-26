@@ -313,6 +313,247 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/03/super_c_b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/03/super_c_b/" itemprop="url">高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP（第二章）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-03T00:00:00+08:00">
+                2018-01-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/03/super_c_b/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/03/super_c_b/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/01/03/super_c_b/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（2）—— 传输层：TCP、UDP、SCTP（第二章）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="总图（Big-Picture）"><a href="#总图（Big-Picture）" class="headerlink" title="总图（Big Picture）"></a>总图（Big Picture）</h2></blockquote>
+<img src="/img/unp_1.png" title="TCP/IP协议概况">
+<blockquote>
+<h2 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h2></blockquote>
+<ul>
+<li>UDP应用程序将数据封装到UDP数据报，，并将其写到UDP socket。进而封装成IPV4或IPV6数据报（datagram），然后发送到目的地</li>
+<li>UDP提供的是<strong>无连接的服务</strong>（connectionless service）</li>
+<li><strong>每个UDP数据报都有一个长度</strong>，如果一个数据报正确地到达目的地，那么数据报的长度将随数据一道传递给接收端应用程序</li>
+<li>RFC 768 [Postel 1980]</li>
+</ul>
+<blockquote>
+<h2 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h2></blockquote>
+<ul>
+<li>面向连接（Connection-oriented）</li>
+<li>提供可靠传输（Reliable）</li>
+<li>TCP通过给每个字节关联一个序列号（sequence）对所发送的数据进行排序（sequencing）</li>
+<li>TCP提供流量控制（flow control）==&gt; 控制接收端收包的速率</li>
+<li>全双工（full-duplex）</li>
+</ul>
+<blockquote>
+<h2 id="TCP连接的建立和终止"><a href="#TCP连接的建立和终止" class="headerlink" title="TCP连接的建立和终止"></a>TCP连接的建立和终止</h2></blockquote>
+<ul>
+<li><h3 id="三路握手-————-Three-Way-Handshake-SYN-ACK"><a href="#三路握手-————-Three-Way-Handshake-SYN-ACK" class="headerlink" title="三路握手 ———— Three-Way Handshake (SYN, ACK)"></a>三路握手 ———— Three-Way Handshake (SYN, ACK)</h3><img src="/img/unp_2.png" title="TCP三路握手">
+<ol>
+<li><p>服务器通过socket，bind，listen创建一个<strong>监听socket</strong>，并调用accpet准备接受外来的连接（这些工作要在客户端请求来临之前做好）。</p>
+</li>
+<li><p>客户端通过socket函数创建一个<strong>未连接的socket</strong>，再调用connect尝试连接到服务器（此时客户端阻塞，等待服务器响应）。此时会向服务器<strong>发送一个SYN包</strong>（<strong>表明客户端欲向服务器申请服务</strong>），等待服务器的确认。</p>
+</li>
+<li><p>服务器<strong>收到SYN包</strong>，则<strong>向客户端发送一个ACK</strong>（告诉客户端，请求我已经收到）。<strong>同时发送一个SYN</strong>（通知客户端服务器需要知道客户端是否收到回复，收到则请回一个ACK）</p>
+</li>
+<li><p>客户端收到服务器发回的ACK和SYN之后，<strong>connect函数返回</strong>（表示连接服务器成功），<strong>并向服务器回一个ACK</strong>（告知服务器我已经收到你的回复）</p>
+</li>
+<li><p>服务器收到客户端的ACK以后<strong>accept函数返回</strong>（此时连接正式建立，可以开始后通信）</p>
+<blockquote>
+<ul>
+<li>ACK如果不捎带数据的话，是不占序列号的</li>
+<li>SYN占一个序列号</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+<li><h3 id="四路终止-————-Four-Way-Termination-FIN-ACK"><a href="#四路终止-————-Four-Way-Termination-FIN-ACK" class="headerlink" title="四路终止 ———— Four-Way Termination (FIN, ACK)"></a>四路终止 ———— Four-Way Termination (FIN, ACK)</h3><img src="/img/unp_3.png" title="TCP连接关闭时的分组交换(客户端主动关闭连接)">
+<ol>
+<li><p>客户端调用close（任意一端都可以发起终止，此处以客户端发起为例，<strong>发起终止的一端称为执行主动关闭</strong>）。接着<strong>向服务器发送一个FIN</strong>，表示数据发送完毕</p>
+</li>
+<li><p><strong>服务器接收到FIN后回复一个ACK</strong>（此时服务器称为执行被动关闭的一端），同时服务器的read函数会读到一个EOF，导致read函数退出</p>
+</li>
+<li><p>一段时间后，<strong>服务器</strong>也调用close，<strong>向客户端发送一个FIN</strong></p>
+</li>
+<li><p>客户端收到FIN以后回复一个ACK</p>
+<blockquote>
+<ul>
+<li>FIN占一个序列号</li>
+<li>在被动关闭一端收到FIN到其调用close函数之间的间隙，称为<strong>半关闭状态</strong>（half-close），在这段时间内理论上仍然有发送数据的可能（但是通过close方式关闭的话，时无法再进行通信的，因为close会同时关闭写一端和读一端，后面接收<a href="../../05/super_c_f#shutdown函数">shutdown</a>就可以只关闭写或读）</li>
+<li>当一个Unix进程无论自愿（调用exit或main函数返回）还是非自愿（收到一个终止本进程的信号）的终止时，所有打开的描述符都将被关闭，这也导致主机向仍然打开的任何TCP连接上发出一个FIN（对于那些描述符只被这个终止的进程持有的连接而言）</li>
+</ul>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP状态转换图"><a href="#TCP状态转换图" class="headerlink" title="TCP状态转换图"></a>TCP状态转换图</h2></blockquote>
+  <img src="/img/unp_4.png" title="TCP状态转换图">
+<ul>
+<li>上述状态转移图中的<strong>细线</strong>表示的是<strong>可能执行的路线</strong>。粗线和虚线表示的是TCP服务器和客户端正常情况（或说大多数情况）走的状态转移路线。</li>
+<li>当发生错误，或遇到一些比较凑巧的事件，就可能走细线指向的转移路线<ul>
+<li>举例来说：途中有一条细线是SYN_SENT ——&gt; SYN_RCVD的</li>
+<li>这种情况可能是客户端发出了一个SYN到服务器，并希望服务器回一个ACK和一个SYN</li>
+<li>但是由于一些不可预知的错误，服务器返回的SYN和ACK只有SYN回到了客户端，而ACK则延迟了或丢了</li>
+<li>这个时候客户端的状态就转移到了SYN_RCVD。之后一旦收到ACK（可能是服务器发送的消息丢包后重传，也可能是延迟的消息到达了），则客户端的状态可正常转移到ESTABLISHED状态</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP的限制"><a href="#TCP的限制" class="headerlink" title="TCP的限制"></a>TCP的限制</h2></blockquote>
+<ul>
+<li>TCP同时提供<strong>可靠数据传输</strong>和<strong>严格的有序数据分发</strong>。然而有一些应用程序需要可靠数据传输，但是不需要顺序维护，而另一些应用过程序只需要部分有序即可。</li>
+<li>TCP这种面向数据流的传输方式有时候是不方便的。应用程序必须添加自己的记录标记。</li>
+<li>TCP套接字的范围有限，使得为多宿主主机提供高可用数据传输能力的任务变得复杂</li>
+<li>容易受到拒绝服务攻击，例如SYN攻击</li>
+<li>这些限制影响公共交换电话网的IP性能</li>
+</ul>
+<blockquote>
+<h2 id="端口号（Port-Numbers）"><a href="#端口号（Port-Numbers）" class="headerlink" title="端口号（Port Numbers）"></a>端口号（Port Numbers）</h2></blockquote>
+<ul>
+<li>众所周知（well-know）的端口：0 ~ 1023</li>
+<li>已注册端口：1024 ～ 49151</li>
+<li>动态或私有端口：49152 ～ 65535<img src="/img/unp_5.png" title="端口号的分配">
+</li>
+</ul>
+<blockquote>
+<h2 id="TCP端口号与并发服务器"><a href="#TCP端口号与并发服务器" class="headerlink" title="TCP端口号与并发服务器"></a>TCP端口号与并发服务器</h2></blockquote>
+<img src="/img/unp_6.png" title="TCP服务器在端口21上执行被动打开">
+<img src="/img/unp_7.png" title="客户对服务器的连接请求">
+<img src="/img/unp_8.png" title="并发服务器让子进程处理客户">
+<img src="/img/unp_9.png" title="第二个客户与同一个服务器的连接">
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/02/super_c_a/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1497,232 +1738,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（h）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="url">软件工程复习（八）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-31T10:00:00+08:00">
-                2017-12-31
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/12/31/2017-12-31-软件工程复习（h）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/12/31/2017-12-31-软件工程复习（h）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/12/31/2017-12-31-软件工程复习（h）/" class="leancloud_visitors" data-flag-title="软件工程复习（八）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h1 id="要求掌握UML图的绘制方法，需求规范"><a href="#要求掌握UML图的绘制方法，需求规范" class="headerlink" title="要求掌握UML图的绘制方法，需求规范"></a>要求掌握UML图的绘制方法，需求规范</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Unified Modeling Language(UML) 统一建模语言 <br><br>1977.11.17，OMG采纳 ==&gt; ISO标准 ==&gt; 事实的工业标准</p>
-</blockquote>
-<ul>
-<li><h3 id="元元模型（meta-metamodel）层"><a href="#元元模型（meta-metamodel）层" class="headerlink" title="元元模型（meta_metamodel）层"></a>元元模型（meta_metamodel）层</h3><ul>
-<li>由UML中最基本的元素“<strong>事物</strong>（thing）”组成</li>
-</ul>
-</li>
-<li><h3 id="元模型（metamodel）层"><a href="#元模型（metamodel）层" class="headerlink" title="元模型（metamodel）层"></a>元模型（metamodel）层</h3><ul>
-<li>这一层的每个概念都是元元模型中“事物”概念的实例</li>
-</ul>
-</li>
-<li><h3 id="模型（model）层"><a href="#模型（model）层" class="headerlink" title="模型（model）层"></a>模型（model）层</h3></li>
-<li><h3 id="用户模型（user-model）层"><a href="#用户模型（user-model）层" class="headerlink" title="用户模型（user model）层"></a>用户模型（user model）层</h3></li>
-</ul>
-<blockquote>
-<h2 id="UML的表示法"><a href="#UML的表示法" class="headerlink" title="UML的表示法"></a>UML的表示法</h2></blockquote>
-<ul>
-<li>视图（view）<ul>
-<li>通常包括多个图</li>
-</ul>
-</li>
-<li>图（diagram）</li>
-<li>模型元素（model element）=&gt;可以在图中使用的概念</li>
-<li>通用机制（general mechanism）<ul>
-<li>通过通用机制可以为UML中的图附加一些额外的信息</li>
-<li>比如：构造型，标签值，笔记（写注释）等</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="UML中的图"><a href="#UML中的图" class="headerlink" title="UML中的图"></a>UML中的图</h2></blockquote>
-<ul>
-<li><h3 id="用例图-（use-case-diagram）"><a href="#用例图-（use-case-diagram）" class="headerlink" title="用例图 （use-case diagram）"></a>用例图 （use-case diagram）</h3><ul>
-<li><strong>用例</strong>是对<strong>系统提供的功能</strong>（即系统的具体用法）的描述</li>
-<li>用例图<strong>从用户的角度描述系统功能</strong>，并<strong>指出</strong>各个<strong>功能的操作者</strong></li>
-<li>用例图定义了系统的<strong>功能需求</strong><blockquote>
-<p>用例图描述的是一个动态的交互场景，而不是一个静态的功能</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h3 id="静态图（static-diagram）"><a href="#静态图（static-diagram）" class="headerlink" title="静态图（static diagram）"></a>静态图（static diagram）</h3><ul>
-<li>静态图描述系统的静态结构，包括：<ul>
-<li><strong>类图</strong>（class diagram）</li>
-<li><strong>对象图</strong>（object diagram） ==&gt; 是类图的实例，有生命周期</li>
-</ul>
-</li>
-<li>一般说来，对象图没有类图重要，它主要用来帮助对类图的理解，也可用在协作图中，表示一组对象之间的动态协作关系</li>
-</ul>
-</li>
-<li><h3 id="行为图（behavior-diagram）"><a href="#行为图（behavior-diagram）" class="headerlink" title="行为图（behavior diagram）"></a>行为图（behavior diagram）</h3><ul>
-<li>这类图描述系统的动态行为和组成系统的对象间的交互关系，包括：<ul>
-<li><strong>状态图</strong>(state diagram)    ==&gt; 描述一个类，多个场景</li>
-<li><strong>活动图</strong>(activity diagram) ==&gt; 描述多个类，多个场景</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="交互图-（interaction-diagram）"><a href="#交互图-（interaction-diagram）" class="headerlink" title="交互图 （interaction diagram）"></a>交互图 （interaction diagram）</h3><ul>
-<li>这类图描述对象间的交互关系，包括<ul>
-<li><strong>顺序图</strong>（sequence diagram）</li>
-<li><strong>协作图</strong>（collaboration diagram）</li>
-</ul>
-</li>
-<li>描述一个场景中若干个类的交互（动态协作）</li>
-</ul>
-</li>
-<li><h3 id="实现图（implementation-diagram）"><a href="#实现图（implementation-diagram）" class="headerlink" title="实现图（implementation diagram）"></a>实现图（implementation diagram）</h3><ul>
-<li>这类图提供关于系统实现方面的信息，包括：<ul>
-<li>构件图（component diagram）</li>
-<li>配置图（deployment diagram）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<img src="/img/se_72.jpg">
-<img src="/img/se_73.jpg">
-<img src="/img/se_74.jpg">
-<img src="/img/se_75.jpg">
-<img src="/img/se_76.jpg">
-<img src="/img/se_77.jpg">
-<img src="/img/se_78.jpg">
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1777,7 +1792,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1790,7 +1805,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
