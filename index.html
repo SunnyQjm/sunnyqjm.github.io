@@ -313,6 +313,184 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/30/kotlin_01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/30/kotlin_01/" itemprop="url">Kotlin use函数的魔法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+08:00">
+                2018-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/30/kotlin_01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/30/kotlin_01/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/03/30/kotlin_01/" class="leancloud_visitors" data-flag-title="Kotlin use函数的魔法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="魔法预览"><a href="#魔法预览" class="headerlink" title="魔法预览"></a>魔法预览</h2></blockquote>
+<ul>
+<li>实现了Closeable接口的对象可调用use函数</li>
+<li>use函数会自动关闭调用者（无论中间是否出现异常）</li>
+<li>Kotlin的File对象和IO流操作变得行云流水</li>
+</ul>
+<blockquote>
+<h2 id="use函数的原型"><a href="#use函数的原型" class="headerlink" title="use函数的原型"></a>use函数的原型</h2></blockquote>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Executes the given [block] function on this resource and then closes it down correctly whether an exception</span></span><br><span class="line"><span class="comment"> * is thrown or not.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> block a function to process this [Closeable] resource.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the result of [block] function invoked on this resource.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@InlineOnly</span></span><br><span class="line"><span class="meta">@RequireKotlin(<span class="meta-string">"1.2"</span>, versionKind = RequireKotlinVersionKind.COMPILER_VERSION, message = <span class="meta-string">"Requires newer compiler version to be inlined correctly."</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Closeable?, R&gt;</span> T.<span class="title">use</span><span class="params">(block: (<span class="type">T</span>)</span></span> -&gt; R): R &#123;</span><br><span class="line">    <span class="keyword">var</span> exception: Throwable? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> block(<span class="keyword">this</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Throwable) &#123;</span><br><span class="line">        exception = e</span><br><span class="line">        <span class="keyword">throw</span> e</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">when</span> &#123;</span><br><span class="line">            apiVersionIsAtLeast(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>) -&gt; <span class="keyword">this</span>.closeFinally(exception)</span><br><span class="line">            <span class="keyword">this</span> == <span class="literal">null</span> -&gt; &#123;&#125;</span><br><span class="line">            exception == <span class="literal">null</span> -&gt; close()</span><br><span class="line">            <span class="keyword">else</span> -&gt;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    close()</span><br><span class="line">                &#125; <span class="keyword">catch</span> (closeException: Throwable) &#123;</span><br><span class="line">                    <span class="comment">// cause.addSuppressed(closeException) // ignored here</span></span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>可以看出，use函数内部实现也是通过try-catch-finally块捕捉的方式，所以不用担心会有异常抛出导致程序退出</li>
+<li>close操作在finally里面执行，所以无论是正常结束还是出现异常，都能正确关闭调用者</li>
+</ul>
+<blockquote>
+<h2 id="来一波对比"><a href="#来一波对比" class="headerlink" title="来一波对比"></a>来一波对比</h2></blockquote>
+<ul>
+<li><h3 id="实现读取一个文件内每一行的功能"><a href="#实现读取一个文件内每一行的功能" class="headerlink" title="实现读取一个文件内每一行的功能"></a>实现读取一个文件内每一行的功能</h3><ul>
+<li><p>java实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fis = <span class="keyword">null</span>;</span><br><span class="line">DataInputStream dis = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    fis = <span class="keyword">new</span> FileInputStream(<span class="string">"/home/test.txt"</span>);</span><br><span class="line">    dis = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> BufferedInputStream(fis));</span><br><span class="line">    String lines = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">while</span>((lines = dis.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">        System.out.println(lines);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(dis != <span class="keyword">null</span>)</span><br><span class="line">            dis.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(fis != <span class="keyword">null</span>)</span><br><span class="line">            fis.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Kotlin实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File(<span class="string">"/home/test.txt"</span>).readLines()</span><br><span class="line">        .forEach &#123; println(it) &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对Kotlin就是可以两行实现。</p>
+</li>
+<li>仔细翻阅readLines这个扩展函数的实现你会发现，它也是间接调用了use，这样就省去了捕捉异常和关闭的烦恼</li>
+<li>同样的，经过包装以后你只需要关注读出来的数据本身而不需要care各种异常情况</li>
+</ul>
+</li>
+<li><h3 id="File的一些其它有用的扩展函数"><a href="#File的一些其它有用的扩展函数" class="headerlink" title="File的一些其它有用的扩展函数"></a>File的一些其它有用的扩展函数</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将文件里的所有数据以字节数组的形式读出</span></span><br><span class="line"><span class="comment">* Tip：显然这不适用于大文件，文件过大，会导致创建一个超大数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readBytes</span><span class="params">()</span></span>: ByteArray</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 与上一个函数类似，不过这个是写（如果文件存在，则覆盖）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">writeBytes</span><span class="params">(array: <span class="type">ByteArray</span>)</span></span>： <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将array数组中的数据添加到文件里（如果文件存在则在文件尾部添加）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">appendBytes</span><span class="params">(array: <span class="type">ByteArray</span>)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将文件以指定buffer大小，分块读出（适用于大文件，也是最常用的方法）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">forEachBlock</span><span class="params">(action: (<span class="type">buffer</span>: <span class="type">ByteArray</span>, bytesRead: <span class="type">Int</span>)</span></span> -&gt; <span class="built_in">Unit</span>): <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Gets the entire content of this file as a String using UTF-8 or specified [charset].</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This method is not recommended on huge files. It has an internal limitation of 2 GB file size.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the entire content of this file as a String.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readText</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: String</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the content of this file as [text] encoded using UTF-8 or specified [charset].</span></span><br><span class="line"><span class="comment"> * If this file exists, it becomes overwritten.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text text to write into file.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">writeText</span><span class="params">(text: <span class="type">String</span>, charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Appends [text] to the content of this file using UTF-8 or the specified [charset].</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text text to append to file.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">appendText</span><span class="params">(text: <span class="type">String</span>, charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reads this file line by line using the specified [charset] and calls [action] for each line.</span></span><br><span class="line"><span class="comment"> * Default charset is UTF-8.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * You may use this function on huge files.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> action function to process file lines.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">forEachLine</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8, action: (<span class="type">line</span>: <span class="type">String</span>)</span></span> -&gt; <span class="built_in">Unit</span>): <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reads the file content as a list of lines.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Do not use this function for huge files.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use. By default uses UTF-8 charset.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> list of file lines.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readLines</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: List&lt;String&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Calls the [block] callback giving it a sequence of all the lines in this file and closes the reader once</span></span><br><span class="line"><span class="comment"> * the processing is complete.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use. By default uses UTF-8 charset.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the value returned by [block].</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequireKotlin(<span class="meta-string">"1.2"</span>, versionKind = RequireKotlinVersionKind.COMPILER_VERSION, message = <span class="meta-string">"Requires newer compiler version to be inlined correctly."</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> File.<span class="title">useLines</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8, block: (<span class="type">Sequence</span>&lt;<span class="type">String</span>&gt;)</span></span> -&gt; T): T</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面的函数都是基于use实现的，可以放心使用，而不用担心异常的发生，并且会自动关闭IO流</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/26/android_wifi_direct_01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1158,186 +1336,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_m/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/06/super_c_m/" itemprop="url">高级C与网络编程复习（13）—— 线程（Threads）（第26章）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T19:00:00+08:00">
-                2018-01-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/06/super_c_m/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_m/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/06/super_c_m/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（13）—— 线程（Threads）（第26章）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2></blockquote>
-<ul>
-<li><h3 id="用fork实现并发要求存在的问题"><a href="#用fork实现并发要求存在的问题" class="headerlink" title="用fork实现并发要求存在的问题"></a>用fork实现并发要求存在的问题</h3><ul>
-<li>fork的代价是比较昂贵的</li>
-<li>fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。</li>
-</ul>
-</li>
-<li><h3 id="使用线程可以有效的解决上面的问题"><a href="#使用线程可以有效的解决上面的问题" class="headerlink" title="使用线程可以有效的解决上面的问题"></a>使用线程可以有效的解决上面的问题</h3><ul>
-<li>线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍</li>
-<li>同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synchronization)问题</li>
-</ul>
-</li>
-<li><h3 id="同一进程内的线程共享："><a href="#同一进程内的线程共享：" class="headerlink" title="同一进程内的线程共享："></a>同一进程内的线程共享：</h3><ul>
-<li>全局变量</li>
-<li>进程指令（process instruction）</li>
-<li>大多数数据（most data）</li>
-<li>打开的文件（open file）==&gt; 即描述符</li>
-<li>信号处理函数和信号处置（Signal handlers and signal disposition）</li>
-<li>当前工作目录（Current working directory）</li>
-<li>用户ID和组ID（User and group ID）</li>
-</ul>
-</li>
-<li><h3 id="线程独享以下内容："><a href="#线程独享以下内容：" class="headerlink" title="线程独享以下内容："></a>线程独享以下内容：</h3><ul>
-<li>线程ID （thread ID）</li>
-<li>寄存器集合，包括程序计数器和栈指针 （Set of registers， including program counter and stack pointer）</li>
-<li>栈（用于存放局部变量和返回地址）  Stack（for local variables and return address）</li>
-<li>errno ==&gt; 全局动态变量（记录最近的一次错误）</li>
-<li>信号掩码(Signal mask)</li>
-<li>优先级(Priority)</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1387,7 +1390,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
