@@ -1143,7 +1143,7 @@
 </ul>
 </li>
 <li><h4 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h4><ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行结构就是原表中的数据也被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> emp_info</span><br><span class="line"><span class="keyword">WHERE</span> emp_info.EMPNO = <span class="number">8888</span></span><br></pre></td></tr></table></figure>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行结果就是原表中的数据也被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> emp_info</span><br><span class="line"><span class="keyword">WHERE</span> emp_info.EMPNO = <span class="number">8888</span></span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -1154,11 +1154,26 @@
 <li>一般用的很少，常用于数据仓库</li>
 </ul>
 </li>
-</ul>
+<li><h3 id="视图更新检查（WITH-CHECK-OPTION）"><a href="#视图更新检查（WITH-CHECK-OPTION）" class="headerlink" title="视图更新检查（WITH CHECK OPTION）"></a>视图更新检查（<strong>WITH CHECK OPTION</strong>）</h3><ul>
+<li>默认情况下，如果一个视图满足以上可更新视图的定义，则通常的更新操作是允许被执行的</li>
+<li>但是如果在创建视图的时候，在后面跟上 <strong>WITH CHECK OPTION</strong>,那么对视图的每一个更新操作，都会检查，更改后的结果，是否满足创建视图时WHERE子句中的限定。</li>
+<li><p>举个栗子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们在上面定义视图的栗子基础上改造一下，并加上WITH CHECK OPTION</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> emp_info <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> EMPNO, ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">3000</span></span><br><span class="line"><span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面视图的定义就是包含了工资超过3000的所有员工的员工号，名字，以及工资</li>
+<li><p>这个时候如果我们执行下面的更新操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面这个操作将会被拒绝执行</span></span><br><span class="line"><span class="keyword">UPDATE</span> emp_info</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="number">2000</span></span><br><span class="line"><span class="keyword">WHERE</span> ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于在定义视图的时候添加了 <strong>WITH CHEKC OPTION</strong> 选项，所以在执行更新操作的时候回检查是否符合创建视图时WHERE子句中的条件，显然上面的操作不满足，故被拒绝执行。</p>
 <blockquote>
 <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2></blockquote>
-<ul>
-<li>一个事务就是一个原子的，不可分割的任务，里面可能包含多条SQL语句。在事务机制下，一个事务中的多条SQL语句要么都执行，要么都不执行。</li>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>一个事务就是一个原子的，不可分割的任务，里面可能包含多条SQL语句。在事务机制下，一个事务中的多条SQL语句要么都执行，要么都不执行。</p>
+</li>
 <li><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
 <li>原子性<ul>
 <li>事务是原子的，里面包含的一条或多条SQL语句要么都执行，要么都不执行</li>
