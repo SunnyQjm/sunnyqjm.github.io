@@ -88,7 +88,7 @@
 <meta property="og:description" content="SQL教程  DBS（Database System）  传统的文件处理系统中存储组织信息的主要弊端 数据的冗余和不一致性（data redundancy and inconsistency） 数据访问困难（dificulty in accessing data） 数据孤立（data isolation） 完整性问题（integrity problem） 原子性问题（atomicity probl">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-d79e079d68fdf082.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:updated_time" content="2018-05-02T09:10:24.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（一）">
 <meta name="twitter:description" content="SQL教程  DBS（Database System）  传统的文件处理系统中存储组织信息的主要弊端 数据的冗余和不一致性（data redundancy and inconsistency） 数据访问困难（dificulty in accessing data） 数据孤立（data isolation） 完整性问题（integrity problem） 原子性问题（atomicity probl">
@@ -484,7 +484,8 @@
 <li>row（行）==&gt;对应于数据库表中的一行数据（对应于数学概念中的元组）</li>
 <li>SQL（Structured Query Language）==&gt;结构化的查询语言</li>
 <li>DDL：Data Define Language（数据定义语言）==&gt;执行 该类SQL语句会导致表结构的变化</li>
-<li>DML：Data Manager Language（数据操纵（管理）语言）==&gt;执行该类SQL语句对表中的数据进行增删改查</li>
+<li>DML：Data Manipulation Language（数据操纵（管理）语言）==&gt;执行该类SQL语句对表中的数据进行增删改查</li>
+<li>查询语言（query language）：DML中涉及信息检索的部分称之为查询语言</li>
 <li>tuple（元组）==&gt;对应于数据表中的一行数据</li>
 <li>domain（域）==&gt;字段的取值范围</li>
 <li><a href="https://baike.baidu.com/item/Schema/15286221" target="_blank" rel="noopener">schema</a>（方案/模式）==&gt;数据库中的Schema，为数据库对象的集合，一个用户一般对应一个schema</li>
@@ -499,7 +500,7 @@
 </ul>
 <hr>
 <blockquote>
-<p>DDL （数据定义语言）<br><a href="https://baike.baidu.com/item/DDL/21997?fr=aladdin" target="_blank" rel="noopener">数据库模式定义语言DDL(Data Definition Language)</a>，是用于描述数据库中要存储的现实世界实体的语言。一个数据库模式包含该数据库中所有实体的描述定义。</p>
+<p>DDL （数据定义语言）<br><a href="https://baike.baidu.com/item/DDL/21997?fr=aladdin" target="_blank" rel="noopener">数据库模式定义语言DDL(Data Definition Language)</a>，是用于描述数据库中要存储的现实世界实体的语言。一个数据库模式包含该数据库中所有实体的描述定义。<strong>DDL用来定义一个数据库的模式</strong></p>
 </blockquote>
 <ul>
 <li>执行此类语句会导致数据库结构的变化</li>

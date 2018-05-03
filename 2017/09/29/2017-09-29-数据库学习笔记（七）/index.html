@@ -97,7 +97,7 @@
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-24eeb8dd9e7220e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-22a77fd9ef19119d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
 <meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-7ba5a1d249d51f88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:updated_time" content="2018-05-02T12:37:56.175Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（七）">
 <meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)    在开始今天的摸鱼大业之前，让我们继续延用之前用的表       外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的">
@@ -477,10 +477,13 @@
 <p>得到下面结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-24eeb8dd9e7220e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
 </li>
 <li>可以看出来，采用自然连接以后，原本的同名字段DEPTNO只出现了一次,可以理解为采用自然连接以后FROM子句的结果就是上面那张表，同时原来的同名字段合成了一个。所以在SELECT子句中书写的时候可以不加表限定名（在Oracle数据库中不能加表限定名）</li>
+<li><strong>对比join操作</strong>，如果你直接用内连接或者外连接，而不是自然连接，会发现结果集里面用来连接的字段即便同名，也是会出现两次的（<strong>这也很好的解释了，为什么之前说在进行内外连操作的时候，用来连接的字段是需要用表明来限定的，不然SQL语句会有歧义，导致无法正确被解析</strong>————见数据库笔记（六））<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 你可以试试执行下面的SQL语句，会发现，结果集中名为DEPTNO的列有两列</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT d <span class="keyword">on</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 </li>
-<li>让我们对上面的结果小结一下<ul>
-<li>在采用自然连接的时候，对于同名字段，可以不写表限定名</li>
+<li><p>让我们对上面的结果小结一下</p>
+<ul>
+<li>在采用自然连接的时候，对于同名字段，可以不写表限定名（<strong>但是在使用非自然连接的时候，同名字段一定要用表名来限定</strong>）</li>
 <li>至于能不能写，得看具体是什么数据库，Oracle此种情况下就不允许在同名字段前写表限定名，而MySQL中则可以</li>
 <li>所以推荐是在<strong>采用自然连接的时候</strong>，<strong>非同名字段都加上限定名，同名字段都不加</strong></li>
 </ul>

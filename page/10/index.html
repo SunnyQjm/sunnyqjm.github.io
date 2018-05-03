@@ -419,7 +419,7 @@
 </li>
 <li><h3 id="数据操纵语言（Data-Manipulation-Language，DML）"><a href="#数据操纵语言（Data-Manipulation-Language，DML）" class="headerlink" title="数据操纵语言（Data-Manipulation Language，DML）"></a>数据操纵语言（Data-Manipulation Language，DML）</h3><ul>
 <li>SQL DML提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
-<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系并没有改变，只是该表关系的实例）</li>
+<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系模式并没有改变，改变的只是表中的数据）</li>
 </ul>
 </li>
 <li><h3 id="完整性约束（integrity）"><a href="#完整性约束（integrity）" class="headerlink" title="完整性约束（integrity）"></a>完整性约束（integrity）</h3><ul>
@@ -453,7 +453,7 @@
 </blockquote>
 <ul>
 <li><h3 id="char-n-——全称character"><a href="#char-n-——全称character" class="headerlink" title="char(n)——全称character"></a>char(n)——全称character</h3><ul>
-<li>用户指定长度的字符串，所有取值的长度都固定位n长的char</li>
+<li>用户指定长度的字符串，所有取值的长度都固定为长度为n的char</li>
 <li>比如身份证或者电话号码等长度固定的数据可以使用这个</li>
 <li>一般实际用的较少</li>
 </ul>
@@ -472,7 +472,7 @@
 <li>小整数类型</li>
 </ul>
 </li>
-<li><h3 id="number-p-d"><a href="#number-p-d" class="headerlink" title="number(p, d)"></a>number(p, d)</h3><ul>
+<li><h3 id="numeric-p-d"><a href="#numeric-p-d" class="headerlink" title="numeric(p, d)"></a>numeric(p, d)</h3><ul>
 <li>定点数，这个数有p位数字，其中小数点右边有d位</li>
 <li>例如，numberic(3, 1)可表示-99.9 ~ 99.9</li>
 <li><p>下面在MySQL数据库上面的测试，举个栗子：(<strong><em>测试结果表明，如果定义numberic(3, 1), 则小数点前面有三位数时是无法插入的，如果小数点后面有多位小数，则通过四舍五入的方法只保留一位小数</em></strong>)</p>
@@ -538,10 +538,8 @@
 <blockquote>
 <h1 id="SQL中的完整性约束"><a href="#SQL中的完整性约束" class="headerlink" title="SQL中的完整性约束"></a>SQL中的完整性约束</h1><p>下文中列举的只是部分简单约束，具体的会在后面的内容中讨论</p>
 </blockquote>
-<pre><code>       先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束
-  （这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的
-约束，（***如果没有对违反约束行为做特殊的处理***）这个操作就不会成功
-</code></pre><ul>
+<p>  先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束（这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的约束，（<strong>如果没有对违反约束行为做特殊的处理</strong>）这个操作就不会成功</p>
+<ul>
 <li><h3 id="primary-key（A1-A2-…-An）——主键约束"><a href="#primary-key（A1-A2-…-An）——主键约束" class="headerlink" title="primary key（A1, A2, …, An）——主键约束"></a>primary key（A1, A2, …, An）——主键约束</h3><ul>
 <li>该约束主要指定了以属性A1~An构成关系的主键，该主键值必须非空且唯一</li>
 <li>即只要一个表的主键确定，那这个表中就不允许存在一行数据其主键的值为null， 也不允许存在两行数据其主键的值一样。一旦后续操作违反了这个原则（约束），则该操作就不会被执行</li>
@@ -596,18 +594,51 @@
 <ul>
 <li>执行上面操作后的结果</li>
 </ul>
-<p>|dept_name |building  | budget  |<br>|:——-:|:—:| :—–:|<br>|DUT|A|100000|</p>
-<p>|course_id |title  | dept_name  |credits|<br>|:——-:|:—:| :—–:| :—-:|<br>|08|Endlish|DUT|3</p>
-</li>
-<li><p>此时我们如果试图删除department表中dept_name = DUT的那条数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败</p>
 </li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">dept_name</th>
+<th style="text-align:center">building</th>
+<th style="text-align:center">budget</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DUT</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">100000</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">course_id</th>
+<th style="text-align:center">title</th>
+<th style="text-align:center">dept_name</th>
+<th style="text-align:center">credits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">08</td>
+<td style="text-align:center">Endlish</td>
+<td style="text-align:center">DUT</td>
+<td style="text-align:center">3</td>
+</tr>
+</tbody>
+</table>
+<pre><code>* 此时我们如果试图删除department表中dept_name = DUT的那条数据
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
+
+* 同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败
+</code></pre><ul>
 <li><h3 id="not-null——非空约束"><a href="#not-null——非空约束" class="headerlink" title="not null——非空约束"></a>not null——非空约束</h3><ul>
 <li>理解上面两个约束以后这个就很好理解了，这个约束就是指定某个字段不能为空，试图传入null值的操作都不会成功</li>
 <li>作为主键的字段隐式拥有非空约束</li>
