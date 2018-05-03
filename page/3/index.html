@@ -1269,7 +1269,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/04/super_c_c/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/04/super_c_d/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1288,7 +1288,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/01/04/super_c_c/" itemprop="url">高级C与网络编程复习（3）—— 套接字编程简介（Sockets Introducrion）（第三章）</a></h1>
+                <a class="post-title-link" href="/2018/01/04/super_c_d/" itemprop="url">高级C与网络编程复习（4）—— 基本套接字函数（Elementary Sockets Functions）（第四章）</a></h1>
         
 
         <div class="post-meta">
@@ -1320,8 +1320,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/01/04/super_c_c/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/04/super_c_c/" itemprop="commentsCount"></span>
+                <a href="/2018/01/04/super_c_d/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/04/super_c_d/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -1330,7 +1330,7 @@
 
           
           
-             <span id="/2018/01/04/super_c_c/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（3）—— 套接字编程简介（Sockets Introducrion）（第三章）">
+             <span id="/2018/01/04/super_c_d/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（4）—— 基本套接字函数（Elementary Sockets Functions）（第四章）">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -1363,150 +1363,187 @@
       
         
           
-            <blockquote>
-<h2 id="套接字地址结构（Socket-Address-Structures）"><a href="#套接字地址结构（Socket-Address-Structures）" class="headerlink" title="套接字地址结构（Socket Address Structures）"></a>套接字地址结构（Socket Address Structures）</h2><ul>
-<li>大多数套接字函数（socket function）都 需要一个指向套接字地址结构（socket address structure）的指针作为参数</li>
-<li>每个协议族（protocol suite）都定义它自己的套接字地址结构</li>
-<li>这些结构的名字均以<strong>sockaddr_开头</strong>，并以对应每个协议族的唯一后缀结尾</li>
-</ul>
-</blockquote>
+            <img src="/img/unp_14.png" title="基本TCP客户/服务器程序的套接字函数">
+<blockquote>
+<h2 id="socket函数"><a href="#socket函数" class="headerlink" title="socket函数"></a>socket函数</h2></blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 该函数用于创建一个socket套接字</span></span><br><span class="line"><span class="comment">* @param domin    协议族/地址族</span></span><br><span class="line"><span class="comment">* @param type     套接字的类型</span></span><br><span class="line"><span class="comment">*                 SOCK_STREAM ==&gt; TCP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_DGRAM  ==&gt; UDP套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_RAW    ==&gt; 原始套接字</span></span><br><span class="line"><span class="comment">*                 SOCK_PACKET ==&gt; 可用于链路层访问控制</span></span><br><span class="line"><span class="comment">* @param protocol 指定协议</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         返回一个socket描述符 sockfd</span></span><br><span class="line"><span class="comment">*                 sockfd &lt; 0  ==&gt; 创建失败</span></span><br><span class="line"><span class="comment">*                 sockfd &gt;= 0 ==&gt; 创建成功，之后可用该sockfd进行IO操作</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">socket</span><span class="params">(<span class="keyword">int</span> family, <span class="keyword">int</span> type, <span class="keyword">int</span> protocol)</span></span>;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><h3 id="IPV4套接字地址结构"><a href="#IPV4套接字地址结构" class="headerlink" title="IPV4套接字地址结构"></a>IPV4套接字地址结构</h3><figure class="highlight c"><figcaption><span><br>&ensp;网际（IPV4）套接字地址结构：<b>sockaddr_in</b>&nbsp;-->&nbsp;定义在&lt;netinet/in.h&gt;当中</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span>&#123;</span></span><br><span class="line">  <span class="keyword">in_addr_t</span>     s_addr;             <span class="comment">//32-bit ipv4 Address, network byyte ordered</span></span><br><span class="line">                                    <span class="comment">//32为的ipv地址，采用网络字节序</span></span><br><span class="line">&#125;；</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>         sin_len;            <span class="comment">//length of structure (16)</span></span><br><span class="line">  <span class="keyword">sa_family_t</span>     sin_family;         <span class="comment">//AF_INET ==&gt;本地址结构是IPV4的地址结构，他属于网际协议族</span></span><br><span class="line">  <span class="keyword">in_port_t</span>       sin_port;           <span class="comment">//16-bit TCP or UDP port, 网络字节序</span></span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">in_addr</span>  <span class="title">sin_addr</span>;</span>           <span class="comment">//32-bit ipv4 address, 网络字节序</span></span><br><span class="line">  <span class="keyword">char</span>            sin_zero[<span class="number">8</span>];        <span class="comment">//unused ==&gt; 保留位，未使用</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>POSIX规范要求的数据类型<img src="/img/unp_10.png" title="POSIX规范要求的数据类型"></li>
-<li>IPV4地址和TCP或UDP端口号都采用网络字节序（大端序）存储</li>
-<li>IPV4地址存在两种访问方法（因为历史原因）<ul>
-<li>serv.sin_addr            (结构体)</li>
-<li>serv.sin_addr.in_addr_t （通常是一个无符号的32为整数）</li>
-</ul>
-</li>
-<li>sin_zero字段未被使用，不过在填写这种结构的时候sin_zero通常被置为0。（<strong>通常的做法是，在填写之前，用bzero将整个结构体清0，再填写，可以保证未填写的部分都是0</strong>）</li>
-<li>套接字地址结构仅在主机上使用，虽然结构体中的某些字段（例如IP地址和端口号）用在不同主机之间的通信，但是<strong>结构体本身并不在主机之间传递</strong></li>
-</ul>
-</li>
-<li><h3 id="通用套接字地址结构"><a href="#通用套接字地址结构" class="headerlink" title="通用套接字地址结构"></a>通用套接字地址结构</h3><figure class="highlight c"><figcaption><span><br>&ensp;通用套接字地址结构：<b>sockaddr</b>&nbsp;-->&nbsp;定义在&lt;sys/socket.h&gt;当中</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sa_len;</span><br><span class="line">  <span class="keyword">sa_family_t</span>   sa_family;      <span class="comment">//Address family: AF_XXX value</span></span><br><span class="line">  <span class="keyword">char</span>          sa_data[<span class="number">14</span>];    <span class="comment">//protocol-specific address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>前面提到过，大多数套接字函数都需要一个指向套接字地址结构的指针。但是套接字函数大多支持多个协议族，也就是说在调用的时候可能传入不同协议族的地址结构指针，那<strong>套接字函数在定义的时候就必须要有一个类型，可以接收各个协议族对应的地址结构指针</strong>。</li>
-<li><p>这种需求可以用<strong>void *</strong>来解决，实际上也更方便，如果用void *来定义，<strong>可以接收任意类型的指针</strong>，而且<strong>不用显示转换</strong>。但是void *实在ANSI C中提出的，而套接字函数是在ANSI C之前定义的，所以为了解决上述需求，采用了通用套接字，下面是一个套接字函数的栗子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">(<span class="keyword">int</span>, struct sockaddr *, <span class="keyword">socklen_t</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用方式如下</span></span><br><span class="line">bind(sockfd, (struct sockaddr *) &amp;serv, <span class="keyword">sizeof</span>(serv));</span><br></pre></td></tr></table></figure>
-<ul>
-<li>通用套接字地址结构<strong>sockaddr</strong>和其他协议族各自的地址结构<strong>sockaddr_XX</strong>规定的<strong>最小</strong>size是一样的，都是<strong>16个字节</strong></li>
-<li>套接字函数在具体处理的时候<strong>根据sa_family字段区分不同的地址结构</strong>，对应不同的处理</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="IPV6套接字地址结构"><a href="#IPV6套接字地址结构" class="headerlink" title="IPV6套接字地址结构"></a>IPV6套接字地址结构</h3><figure class="highlight c"><figcaption><span><br>&ensp;IPv6套接字地址结构：<b>sockaddr_in6</b>&nbsp;-->&nbsp;定义在&lt;netinet/in.h&gt;当中</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">in6_addr</span> &#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>             s6_addr[<span class="number">16</span>];         <span class="comment">//128-bit IPV6 address</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIN6_LEN                  <span class="comment">//require for compile-time tests</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in6</span> &#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>             sin6_len;         <span class="comment">//length of this struct, 大小为28个字节</span></span><br><span class="line">  <span class="keyword">sa_family_t</span>         sin6_family;      <span class="comment">//AF_INET6</span></span><br><span class="line">  <span class="keyword">in_port_t</span>           sin6_port;        <span class="comment">//传输层端口，网络字节序</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">uint32_t</span>            sin6_flowinfo;    <span class="comment">//flow information, undefined</span></span><br><span class="line">  <span class="class"><span class="keyword">struct</span> <span class="title">in6_addr</span>     <span class="title">sin6_addr</span>;</span>        <span class="comment">//IPV6 address, 网络字节序</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">uint32_t</span>            sin6_scope_id;    <span class="comment">//set of interfaces for a scope</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>family 常值<img src="/img/unp_15.png" title="socket函数的family常值"></li>
+<li>type 常值<img src="/img/unp_16.png" title="socket函数的type常值"></li>
+<li>protocol 常值<img src="/img/unp_17.png" title="socket函数的AF_INET或AF_INET6的常值"></li>
+<li>socket函数中的family不是任意组合都是有效的，下面是组合效果：<img src="/img/unp_18.png" title="socket函数中family和type参数的组合">
 </li>
 </ul>
 <blockquote>
-<h2 id="值-结果参数（Value-Result-Argument）"><a href="#值-结果参数（Value-Result-Argument）" class="headerlink" title="值-结果参数（Value-Result Argument）"></a>值-结果参数（Value-Result Argument）</h2><ul>
-<li>一个参数，当函数调用时，其作为一个值从函数外传入函数内，当函数返回时，该参数又存储了函数执行的部分结果，这种类型的参数称为<strong>value-result参数</strong></li>
-<li><strong>value-result参数总是以引用/指针的方式传递</strong>（只能用地址传递的方式，如果用值传递方式获取不到函数的返回信息）</li>
+<h2 id="AF-XXX-和-PF-XXX"><a href="#AF-XXX-和-PF-XXX" class="headerlink" title="AF_XXX 和 PF_XXX"></a>AF_XXX 和 PF_XXX</h2></blockquote>
+<ul>
+<li><strong>AF_</strong>前缀表示<strong>地址族</strong>，<strong>PF_</strong>前缀表示<strong>协议族</strong></li>
+<li>历史上曾有这样的想法：单个协议族可以支持多个地址族，PF<em>值用来创建套接字，而AF</em>值用于套接字地址结构。</li>
+<li>但实际上，支持多个地址族的协议从未出现过，而且<strong>头文件 &lt;sys/socket.h&gt;中为一给定协议定义的PF<em>值总是与此协议的AF</em>值相等</strong></li>
+</ul>
+<blockquote>
+<h2 id="connect函数"><a href="#connect函数" class="headerlink" title="connect函数"></a>connect函数</h2></blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**T</span></span><br><span class="line"><span class="comment">* 该函数用于建立与指定socket的连接</span></span><br><span class="line"><span class="comment">* @param sockfd       一个未连接的socket的描述符</span></span><br><span class="line"><span class="comment">* @param sockaddr     指向要连接的套接字的sockaddr结构体的指针</span></span><br><span class="line"><span class="comment">* @param addrlen      上述sockaddr结构体的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return         成功则返回0, 失败返回-1, 错误原因存于errno 中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> struct sockaddr * servaddr, <span class="keyword">int</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>如果是<strong>TCP套接字</strong>，调用<strong>connect</strong>函数将<strong>激发TCP的三路握手过程</strong>。而且<strong>仅在连接建立成功或出错时才返回</strong></li>
+<li><h3 id="connect错误："><a href="#connect错误：" class="headerlink" title="connect错误："></a>connect错误：</h3><ul>
+<li>ETIMEOUT（超时错误）: TCP客户<strong>没有</strong>收到对发出的SYN分节的<strong>响应</strong></li>
+<li>ECONNREFUSED（连接拒绝错误）：客户在发出SYN分节后收到<strong>RST响应</strong><ul>
+<li>表明服务器主机在我们指定的端口上没有进程在等待与之连接（通常是服务器进程没有在运行，或者是客户端连接的时候指定了错误的端口号）</li>
+<li>或TCP向取消一个已有的连接</li>
+<li>或TCP接收到一个根本不存在的连接上的分节</li>
+<li><strong>硬错误</strong>（hard error）</li>
+</ul>
+</li>
+<li>EHOSTUNREACH或ENETUNREACH（主机不可达或）<ul>
+<li>客户咋中间的某个路由器上引发了一个“destination unreachable”（目的地不可达）ICMP错误</li>
+<li>并且在某个规定时间（4.4BSD规定75s）内仍未收到响应</li>
+<li><strong>软错误</strong>（soft error）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><ul>
+<li>TCP状态转换图<img src="/img/unp_4.png" title="TCP状态转换图"></li>
+<li>connect函数导致当前客户套接字从CLOSED状态（该套接字自从由socket函数创建以来，一直处于CLOSED状态）转移到SYN_SENT状态</li>
+<li>如果连接成功则转移到ESTABLISHED状态</li>
+<li><strong>若connect失败，则该套接字不可再用</strong>，必须关闭，我们不能对这样的套接字再次调用connect函数</li>
+<li>当循环调用函数connect为给定主机尝试各个IP地址直到有一个成功时，在<strong>每次connect失败后，都必须close当前的套接字描述符</strong>并重新调用socket</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="bind函数"><a href="#bind函数" class="headerlink" title="bind函数"></a>bind函数</h2><ul>
+<li><strong>bind函数把一个本地协议地址赋予一个套接字</strong></li>
+<li>对于网际协议，协议地址是32位的IPv4地址或128位的IPv6地址与16位的TCP或UDP端口号的组合</li>
+<li>调用bind函数可以指定一个端口号，或指定一个IP地址，也可以两者都指定或两者都不指定</li>
 </ul>
 </blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/****</span></span><br><span class="line"><span class="comment">*  sockfd：   标识一未捆绑套接口的描述字。</span></span><br><span class="line"><span class="comment">*  my_addr：  赋予套接口的地址。sockaddr结构定义如下：</span></span><br><span class="line"><span class="comment">*             struct sockaddr&#123;</span></span><br><span class="line"><span class="comment">*               u_short sa_family;</span></span><br><span class="line"><span class="comment">*               char sa_data[14];</span></span><br><span class="line"><span class="comment">*             &#125;;</span></span><br><span class="line"><span class="comment">*  addrlen：  my_addr的长度。</span></span><br><span class="line"><span class="comment">*  返回值：    成功返回0，失败返回-1.</span></span><br><span class="line"><span class="comment">****/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">bind</span><span class="params">( <span class="keyword">int</span> sockfd , <span class="keyword">const</span> struct sockaddr * my_addr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>上文曾提到过，当<strong>往一个套接字函数传递地址结构的时候</strong>，该结构总是以引用的方式传递（即传递地址结构的指针）。<strong>该结构的长度也作为一个参数来传递</strong>，不过其<strong>传递的方式可能是传值，也可能是传指针</strong>，具体的传递方式<strong>取决于该结构的传递方向</strong>：是从进程到内核，还是从内核到进程</li>
-<li><h3 id="从进程到内核传递套接字地址结构"><a href="#从进程到内核传递套接字地址结构" class="headerlink" title="从进程到内核传递套接字地址结构"></a>从进程到内核传递套接字地址结构</h3><ul>
-<li>涉及的函数有：<strong>bind、connect、sendto</strong></li>
-<li>传递结构长度的时候传值就好了</li>
+<li><h3 id="端口的绑定"><a href="#端口的绑定" class="headerlink" title="端口的绑定"></a>端口的绑定</h3><ul>
+<li>通常用于<strong>服务器在启动的时候捆绑他们众所周知的端口</strong></li>
+<li>对于客户机，不调用bind绑定端口，而是在发送消息的时候由内核临时分配一个端口，这是正常的</li>
+<li>而对于服务器而言，不绑定端口是极为罕见的</li>
+</ul>
+</li>
+<li><h3 id="地址的绑定"><a href="#地址的绑定" class="headerlink" title="地址的绑定"></a>地址的绑定</h3><ul>
+<li><strong>进程</strong>可以<strong>把</strong>一个<strong>特定的IP地址绑定到它的套接字</strong>上，不过这个IP必须属于其所在主机的网络接口之一</li>
+<li>对于<strong>客户端</strong>而言，<strong>绑定IP地址</strong>就相当于<strong>为该套接字上发送IP数据报指定了源IP地址</strong></li>
+<li>对于<strong>服务器</strong>而言，<strong>绑定IP地址</strong>就相当于<strong>限定该套接字只能接收那些目的地为这个IP地址的客户连接</strong></li>
+</ul>
+</li>
+<li><h3 id="给bind函数指定要捆绑的IP地址和端口号产生的结果"><a href="#给bind函数指定要捆绑的IP地址和端口号产生的结果" class="headerlink" title="给bind函数指定要捆绑的IP地址和端口号产生的结果"></a>给bind函数指定要捆绑的IP地址和端口号产生的结果</h3><img src="/img/unp_19.png" title="给bind函数指定要捆绑的IP地址和端口号产生的结果"></li>
+<li><h3 id="通配地址-wildcard-address"><a href="#通配地址-wildcard-address" class="headerlink" title="通配地址(wildcard address)"></a>通配地址(wildcard address)</h3><ul>
+<li><p>IPv4: INADDR_ANY</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IPv4</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line">servaddr.sin_addr.s_addr = htonl(INADDR_ANY);   <span class="comment">//wildcard</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>IPv6: in6addr_any</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IPv6</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in6</span> <span class="title">serv</span>;</span></span><br><span class="line">serv.sin6_addr = in6addr_any;               <span class="comment">//wildcard</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="错误"><a href="#错误" class="headerlink" title="错误"></a>错误</h3><ul>
+<li>EADDRINUSE(“Address already in use”, 地址已使用)</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="listen函数"><a href="#listen函数" class="headerlink" title="listen函数"></a>listen函数</h2><p><strong>仅由TCP服务器调用</strong>，它做两件事情</p>
+<ul>
+<li>当<strong>socket函数创建</strong>一个套接字时，它被假设为<strong>一个主动套接字</strong>(active socket)，也就是说，它是一个将调用connect发起连接的客户套接字。<strong>listen函数把</strong>一个<strong>未连接的套接字转换成一个被动套接字</strong>，之后是内核应接收指向该套接字的连接请求。</li>
+<li>本函数的第二个参数规定了内核应该为相应套接字排队的最大连接个数</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个未连接的套接字转换成监听套接字，这样即可以用来监听来自客户端的请求了</span></span><br><span class="line"><span class="comment">* @param  sockfd     一个未连接的套接字描述符</span></span><br><span class="line"><span class="comment">* @param  backlog    等待连接队列的最大长度</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">listen</span><span class="params">( <span class="keyword">int</span> sockfd, <span class="keyword">int</span> backlog)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h3 id="调用时机"><a href="#调用时机" class="headerlink" title="调用时机"></a>调用时机</h3><ul>
+<li>本函数通常应该在调用socket和bind这两个函数以后，并在调用accept函数之前调用</li>
+</ul>
+</li>
+<li><h3 id="内核为任何一个给定的监听套接字维护两个队列"><a href="#内核为任何一个给定的监听套接字维护两个队列" class="headerlink" title="内核为任何一个给定的监听套接字维护两个队列"></a>内核为任何一个给定的监听套接字维护两个队列</h3><img src="/img/unp_20.png" title="TCP为监听套接字维护的两个队列">
+<ul>
+<li>未完成连接队列（incomplete connection queue）：服务器收到请求的SYN分节，并且正在等待完成相应的TCP三路握手过程。<strong>这些套接字处于SYN_RCVD状态</strong></li>
+<li>已完成连接队列（completed connection queue）：每个已完成TCP三路握手过程的客户对应其中的一项。<strong>这些套接字处于ESTABLISHED状态</strong></li>
+<li><a href="../../03/super_c_b#TCP状态转换图">点我可查看TCP状态转换图</a></li>
+</ul>
+</li>
+<li><h3 id="listen函数的第二个参数通常指的是已完成连接队列的最大长度"><a href="#listen函数的第二个参数通常指的是已完成连接队列的最大长度" class="headerlink" title="listen函数的第二个参数通常指的是已完成连接队列的最大长度"></a>listen函数的第二个参数通常指的是已完成连接队列的最大长度</h3></li>
+<li><h3 id="两个队列的建立时机"><a href="#两个队列的建立时机" class="headerlink" title="两个队列的建立时机"></a>两个队列的建立时机</h3><img src="/img/unp_21.png" title="TCP三路握手和监听套接字的两个队列">
+</li>
+</ul>
+<blockquote>
+<h2 id="accept函数"><a href="#accept函数" class="headerlink" title="accept函数"></a>accept函数</h2><ul>
+<li><strong>accpet函数</strong>由TCP服务器调用，用于<strong>从已完成连接队列头返回一个已完成连接</strong></li>
+<li>如果已完成连接队列为空，那么进程将被投入睡眠（假定套接字为默认的阻塞方式）</li>
+</ul>
+</blockquote>
+  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 在一个套接字的监听队列中取一个连接，如果没有，则死等</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    监听描述符（在调用listen之后监听来自客户端的连接）</span></span><br><span class="line"><span class="comment">* @param addr      (可选)用来保存新连接的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   (可选)用来保存新连接的源端地址结构的长度</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return          如果连接成功，则返回一个已连接的套接字描述符（用于和客户端通信）</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">SOCKET <span class="title">accept</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *addr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>后两个参数为Value-Result参数 ==&gt; <a href="../super_c_c#值-结果参数（Value-Result-Argument）">点我查看Value-Result参数详情</a></li>
+</ul>
+<blockquote>
+<h2 id="fork和exec函数"><a href="#fork和exec函数" class="headerlink" title="fork和exec函数"></a>fork和exec函数</h2></blockquote>
+<ul>
+<li><h3 id="fork函数"><a href="#fork函数" class="headerlink" title="fork函数"></a>fork函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用fork函数创建一个新进程，与当前进程并行执行</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 在子进程中为0，在父进程中为子进程ID，若出错返回-1</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">pid_t</span> fork(<span class="keyword">void</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>fork函数是Unix中派生新进程的唯一方法</strong></li>
+<li><strong>调用一次，返回两次</strong>。返回值告知当前进程是子进程还是父进程</li>
+<li>子进程可通过getppid获取父进程的id</li>
+<li>父进程fork之前打开的<strong>所有文件描述符都会copy一份给子进程</strong>（各个<a href="./#描述符引用计数">描述符的引用计数</a>加1）</li>
+<li>两个典型用法：<ul>
+<li>创建自身副本，每个副本并行执行各自的操作</li>
+<li>一个进程想要执行另一个程序，则fork一下，在子进程调用exec执行其它程序</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="exec函数"><a href="#exec函数" class="headerlink" title="exec函数"></a>exec函数</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execl</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">const</span> <span class="keyword">char</span> *arg0, ... <span class="comment">/*(char*)*/</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">execv</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span>* pathname, <span class="keyword">char</span>* <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<ul>
+<li>存放在硬盘上的可执行程序文件能够被Unix执行的唯一方法是：由一个现有的进程调用上述6个exec函数中的一个</li>
+<li>exec把当前进程映像替换成新的程序文件，而且该程序通常从main函数开始执行。进程ID不改变</li>
+<li>我们称调用exec的进程为<strong>调用进程</strong>（calling process），称新执行的程序为<strong>新程序</strong>（new program）</li>
+<li>这些函数只在出错时才返回到调用跟着，否则，控制将被传递给新程序的起始点，通常就是main函数</li>
+<li>6个exec函数的关系<img src="/img/unp_22.png" title="6个exec函数的关系">
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="描述符引用计数"><a href="#描述符引用计数" class="headerlink" title="描述符引用计数"></a>描述符引用计数</h2></blockquote>
+<ul>
+<li>Unix系统内核为每个文件描述符（包括socket fd）维护一个<strong>引用计数</strong>,这个引用计数标识当前打开着的引用该文件或套接字的描述符的个数</li>
+<li>当某个<strong>文件描述符或套接字描述符关闭的时候</strong>，不是直接关闭文件或套接字，而是<strong>引用计数减1</strong>，当引用计数减到0的时候执行关闭操作</li>
+<li>需要注意的是：如果多个进程同时拥有指向同一个文件或套接字的描述符。且其中一个没有关闭（并且不再使用了），则就算其他文件描述符都关闭了，这个文件或套接字也不会关闭。就会造成内存泄露</li>
 <li><p>举个栗子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">serv</span>;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*fill in serv&#123;&#125;*/</span></span><br><span class="line"></span><br><span class="line">connect(sockfd, (SA *) &amp;serv, <span class="keyword">sizeof</span>(serv));</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>图示：</p>
-<img src="/img/unp_11.png" title="从进程到内核传递套接字地址结构"></li>
-</ul>
-</li>
-<li><h3 id="从内核到进程传递套接字地址结构"><a href="#从内核到进程传递套接字地址结构" class="headerlink" title="从内核到进程传递套接字地址结构"></a>从内核到进程传递套接字地址结构</h3><ul>
-<li>涉及的函数有：<strong>accpet、recvfrom、getsockname、getpeername</strong></li>
-<li>传递结构长度的时候传入一个指向socklen_t的指针（而不是int，POSIX规范建议将socklen_t定义为uint32_t）</li>
-<li><p>举个栗子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_un</span>   <span class="title">cli</span>;</span></span><br><span class="line"><span class="keyword">socklen_t</span> len;</span><br><span class="line"></span><br><span class="line">len = <span class="keyword">sizeof</span>(cli);</span><br><span class="line">getpeername(unixfd, (SA *) &amp;cli, &amp;len);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>图示：</p>
-<img src="/img/unp_12.png" title="从内核到进程传递套接字地址结构"></li>
-<li>当<strong>函数被调用时</strong>，结构大小是一个值（value），它<strong>告诉内核该结构的大小，这样内核在写该结构的时候不至于越界</strong>；当<strong>函数返回时</strong>，结构大小又是一个结果（result），它<strong>告诉进程内核在该结构中究竟存储了多少信息</strong>。</li>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pid_t</span> pid;</span><br><span class="line"><span class="keyword">int</span> listenfd, connfd;</span><br><span class="line">listenfd = Socket(...);</span><br><span class="line"></span><br><span class="line"><span class="comment">/*fill in sockaddr_in&#123;&#125; with server's well-know port*/</span></span><br><span class="line"></span><br><span class="line">Bind(listenfd, ...)</span><br><span class="line">Listen(listenfd, LISTENQ);</span><br><span class="line"><span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">  connfd = Accept(listenfd, ...);</span><br><span class="line">  <span class="keyword">if</span>( (pid = Fork()) == <span class="number">0</span> )&#123;        <span class="comment">//子进程</span></span><br><span class="line">    Close(listenfd);</span><br><span class="line">    doit(connfd);</span><br><span class="line">    Close(connfd);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  Close(connfd);                    <span class="comment">//父进程</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面的代码中，调用了fork之后，connfd和listenfd在父子进程中都有一份</li>
+<li>所以在父进程中，只用处理listenfd，故关掉connfd</li>
+<li>在子进程中，只用处理connfd，故关掉listenfd</li>
+<li><strong>试想</strong>：如果父进程中没有关闭connfd，则就算子进程执行完毕，connfd关联的套接字的引用计数还是不为0，所以一直不会释放。连接多了之后，每个连接的socket都不释放，慢慢的服务器内存就炸了。</li>
 </ul>
 </li>
 </ul>
 <blockquote>
-<h2 id="字节排序函数（Byte-Ordering）"><a href="#字节排序函数（Byte-Ordering）" class="headerlink" title="字节排序函数（Byte Ordering）"></a>字节排序函数（Byte Ordering）</h2></blockquote>
+<h2 id="close函数"><a href="#close函数" class="headerlink" title="close函数"></a>close函数</h2></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通常Unix close函数也用来光比套接字，并终止TCP序列</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return    0 ==&gt; 成功</span></span><br><span class="line"><span class="comment">*           -1 ==&gt; 出错</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">close</span><span class="params">(<span class="keyword">int</span> sockfd)</span></span>;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><h3 id="大端和小端（big-endian-and-little-endian）"><a href="#大端和小端（big-endian-and-little-endian）" class="headerlink" title="大端和小端（big-endian and little-endian）"></a>大端和小端（big-endian and little-endian）</h3><img src="/img/unp_13.png" title="16位整数的小端字节序和大端字节序">
-<ul>
-<li>小端：低字节存储在起始地址</li>
-<li>大端：高字节存储在起始地址</li>
-<li>举个例子：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x0102</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//从左到右为内存增大方向</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//在大端系统中存储</span></span><br><span class="line"><span class="number">00000001</span> <span class="number">00000010</span></span><br><span class="line"><span class="comment">//在小端系统中存储</span></span><br><span class="line"><span class="number">00000010</span> <span class="number">00000001</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h3 id="测试主机是大端还是小端的实践-–-gt-click-me"><a href="#测试主机是大端还是小端的实践-–-gt-click-me" class="headerlink" title="测试主机是大端还是小端的实践 –&gt; click_me"></a>测试主机是大端还是小端的实践 –&gt; <a href="https://github.com/SunnyQjm/unpv13e/blob/master/job/chapter3/byteorder.c" target="_blank" rel="noopener">click_me</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./byteorder</span><br><span class="line"></span><br><span class="line">x86_64-unknown-linux-gnu: little-endian</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="网络字节序"><a href="#网络字节序" class="headerlink" title="网络字节序"></a>网络字节序</h3><ul>
-<li>不同的机器可能采用不同的存储方式（大端/小端），为了统一，便为网际协议约定了一个<strong>网络字节序</strong></li>
-<li>网际协议使用<strong>大端字节序</strong>来传送多字节整数</li>
-<li>由于不同主机的差异性，便需要有一些函数来进行网络字节序和主机字节序的转换</li>
-</ul>
-</li>
-<li><h3 id="字节转换函数"><a href="#字节转换函数" class="headerlink" title="字节转换函数"></a>字节转换函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netinet/in.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* host to network short</span></span><br><span class="line"><span class="comment">* 将主机字节序的16位短整型转换为网络字节序的16位短整型</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">uint16_t</span> htons(<span class="keyword">uint16_t</span> host16bitvalue);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* host to network long</span></span><br><span class="line"><span class="comment">* 将主机字节序的32位整型转换为网络字节序的32位整型</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">uint32_t</span> htonl(<span class="keyword">uint32_t</span> host32bitvalue);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* network to host short</span></span><br><span class="line"><span class="comment">* 将网络字节序的16位短整型转换为主机字节序的16位短整型</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">uint16_t</span> ntohs(<span class="keyword">uint16_t</span> net16bitvalue);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* network to host long</span></span><br><span class="line"><span class="comment">* 将网络字节序的32位整型转换为主机字节序的32位整型</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">uint32_t</span> ntohl(<span class="keyword">uint32_t</span> net32bitvalue);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>事实上，在64为的系统中，尽管长整数占64位，htonl和ntohl函数操作的仍然是32位值</li>
-</ul>
-</li>
+<li>通常close函数的默认行为是<strong>把该套接字标记成已关闭</strong>，然后立即返回</li>
+<li>被标记的套接字<strong>不能再被进程使用</strong>，即不能read/write</li>
+<li>然后<strong>尝试将缓存或队列中所有的Message发出</strong></li>
+<li>接着就是<strong>正常的TCP终止序列</strong></li>
+<li>close函数会将读和写两个方向的连接都关掉</li>
 </ul>
 <blockquote>
-<h2 id="字节操纵函数"><a href="#字节操纵函数" class="headerlink" title="字节操纵函数"></a>字节操纵函数</h2><p>字节操作函数和有两组，本书中只用到了bzero</p>
-</blockquote>
+<h2 id="gesockname-和-getpeername-函数"><a href="#gesockname-和-getpeername-函数" class="headerlink" title="gesockname 和 getpeername 函数"></a>gesockname 和 getpeername 函数</h2></blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 返回与sockfd关联的本地协议地址</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsockname</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *localaddr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 返回与sockfd关联的外地协议地址</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getpeername</span><span class="params">(<span class="keyword">int</span> sockfd, struct sockaddr *peeraddr, <span class="keyword">socklen_t</span> *addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
 <ul>
-<li><h3 id="源自Berkeley的函数（b开头的字节操纵函数）"><a href="#源自Berkeley的函数（b开头的字节操纵函数）" class="headerlink" title="源自Berkeley的函数（b开头的字节操纵函数）"></a>源自Berkeley的函数（b开头的字节操纵函数）</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;strings.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将以dest为起始的目标串的前nbytes个字节置为0</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bzero</span><span class="params">(<span class="keyword">void</span> *dest, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将dst中的前nbytes个字节拷贝到src串中</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bcopy</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">void</span> *dst, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 比较ptr1和ptr2串的前n个字节</span></span><br><span class="line"><span class="comment">* @return   若相等则返回0， 否则返回非0</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bcmp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr1, <span class="keyword">const</span> <span class="keyword">void</span> *ptr2, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="ANSI-C函数（mem开头的字节操纵函数）"><a href="#ANSI-C函数（mem开头的字节操纵函数）" class="headerlink" title="ANSI C函数（mem开头的字节操纵函数）"></a>ANSI C函数（mem开头的字节操纵函数）</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 把dest串的前len个字节置为c</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memset</span><span class="params">(<span class="keyword">void</span> *dest, <span class="keyword">int</span> c, <span class="keyword">size_t</span> len)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* memcpy类似bcopy，但是两个指针的位置时候是相反的</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* PS：当dest串和src串重叠时，bcopy可正常处理，memcpy的处理结果不可知，此时改用memmove函数</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memcpy</span><span class="params">(<span class="keyword">void</span> *dest, <span class="keyword">const</span> <span class="keyword">void</span> *src, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 比较两个串的前nbytes个字节</span></span><br><span class="line"><span class="comment">* @rerurn    0    相等</span></span><br><span class="line"><span class="comment">*            &gt;0   第一个不相等字节，ptr1 &gt; ptr2</span></span><br><span class="line"><span class="comment">*            &lt;0   第一个不相等字节，ptr1 &lt; ptr2</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">memcmp</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *ptr1, <span class="keyword">const</span> <span class="keyword">void</span> *ptr2, <span class="keyword">size_t</span> nbytes)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>之前的文章提到过有一个叫<a href="../../02/super_c_a#bzero">bzero宏</a>的东西。其实是因为笔者的系统不是源自Berkeley的，所有没有bzero函数。但是Steven考虑的比较全面，为没有bzero函数的系统定义了一个bzero宏，间接调用memset函数，但是同样可以实现bzero的效果。</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="地址转换函数"><a href="#地址转换函数" class="headerlink" title="地址转换函数"></a>地址转换函数</h2><ul>
-<li>地址转换函数在ASCII字符串和网络字节序的二进制值之间转换网际地址</li>
-<li><strong>inet_aton、inet_addr、inet_ntoa</strong>在点分十进制数串（例如“192.168.1.1”）与它长度为32位的网络字节序二进制值之间转换IPv4地址。</li>
-<li>两个比较新的函数，<strong>inet_pton</strong>和<strong>inet_ntop</strong>对于IPv4和IPv6都适用</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="inet-aton、inet-addr-和inet-ntoa函数"><a href="#inet-aton、inet-addr-和inet-ntoa函数" class="headerlink" title="inet_aton、inet_addr 和inet_ntoa函数"></a>inet_aton、<del>inet_addr</del> 和inet_ntoa函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将strptr所指c字符串转换成一个32位的网络字节序二进制值，并通过addrptr指针来存储</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_aton</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *strptr, struct in_addr *addrptr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将strptr所指c字符串转换成一个32位的网络字节序二进制值, 并返回</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">in_addr_t</span> inet_addr(<span class="keyword">const</span> <span class="keyword">char</span> *strptr);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将一个32位的网络字节序二进制IPv4地址转换成相应的点分十进制数串。</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">inet_ntoa</span><span class="params">(struct in_addr inaddr)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>inet_addr 被废弃</strong><ul>
-<li>inet_addr函数出错时返回INADDR_NOE(通常是一个32位均为1的值)</li>
-<li>这意味着该函数不能处理“255.255.255.255”，因为它的二进制值和INADDR_NONE的值是一样的，被用来指示函数执行失败</li>
-</ul>
-</li>
-<li><strong>inet_ntoa函数</strong>返回值所指向的串驻留在静态内存当中，着意味着该函数<strong>是不可重入的</strong></li>
-<li>上面这些函数至支持IPv4，如果要支持IPv6，使用下面介绍的两个函数</li>
-</ul>
-</li>
-<li><h3 id="inet-pton-和-inet-ntop-函数"><a href="#inet-pton-和-inet-ntop-函数" class="headerlink" title="inet_pton 和 inet_ntop 函数"></a>inet_pton 和 inet_ntop 函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;arpa/inet.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 尝试转换由strptr所指的字符串，并通过addrptr指针存放二进制结果</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return   1 ==&gt; 转换成功</span></span><br><span class="line"><span class="comment">*           0 ==&gt; 输入的不是有效表达式</span></span><br><span class="line"><span class="comment">*          -1 ==&gt; 转换出错</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">inet_pton</span><span class="params">(<span class="keyword">int</span> family, <span class="keyword">const</span> <span class="keyword">char</span>*strptr, <span class="keyword">void</span> *addrptr)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 与inet_pton进行相反的转换，从数值格式（addrptr）转换到表达式格式（strptr）。</span></span><br><span class="line"><span class="comment">* @param len     指定目标存储单元的大小，以免该函数溢出调用者的缓冲区</span></span><br><span class="line"><span class="comment">* @param strptr  用来存储目标串，如果执行成功，返回值即为这个指针</span></span><br><span class="line"><span class="comment">*               （不能传递空指针，调用这必须为目标存储单元分配内存，并指定其大小）</span></span><br><span class="line"><span class="comment">* @return  NULL   ==&gt; 失败</span></span><br><span class="line"><span class="comment">*          strptr ==&gt; 成功</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">inet_ntop</span><span class="params">(<span class="keyword">int</span> family, <span class="keyword">void</span> *addrptr, <span class="keyword">char</span> *strptr, <span class="keyword">size_t</span> len)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>两个函数的<strong>family参数可以是AF_INET或AF_INET6</strong>。如果以不被支持的地址族作为family参数。这两个函数都返回一个错误，并将errno置为EAFNOSUPPORT</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="sock-ntop和相关函数"><a href="#sock-ntop和相关函数" class="headerlink" title="sock_ntop和相关函数"></a>sock_ntop和相关函数</h2></blockquote>
-<ul>
-<li><p>在使用inet_ntop的时候，对于IPv4和IPv6的调用方法不同（这<strong>使得我们的代码和协议相关了</strong>）：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//IPv4</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">addr</span>;</span></span><br><span class="line">inet_ntop(AF_INET, &amp;addr.sin_addr, str, <span class="keyword">sizeof</span>(str));</span><br><span class="line"></span><br><span class="line"><span class="comment">//IPv6</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in6</span> <span class="title">addr6</span>;</span></span><br><span class="line">inet_ntop(AF_INET6, &amp;addr6.sin6_addr, str, <span class="keyword">sizeof</span>(str));</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>所以Steven针对上述问题写了下面这么个封装函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"unp.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 同时支持IPv4和IPv6版本的inet_ntop</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 成功  ==&gt; 非空指针</span></span><br><span class="line"><span class="comment">*         出错  ==&gt; NULL</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function"><span class="keyword">char</span> *<span class="title">sock_ntop</span><span class="params">(<span class="keyword">const</span> struct *sockaddr, <span class="keyword">socklen_t</span> addrlen)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>sock_ntop的实现和其它相关函数此处不做详细讨论，有兴趣可以查看Steven的《Unix 网络编程 卷1》</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="readn-writen-和-readline-函数"><a href="#readn-writen-和-readline-函数" class="headerlink" title="readn, writen 和 readline 函数"></a>readn, writen 和 readline 函数</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"unp.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 从一个描述符中读n字节</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> readn(<span class="keyword">int</span> filedes, <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 往一个描述符里写n个字节</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> writen(<span class="keyword">int</span> filedes, <span class="keyword">const</span> <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 从一个描述符中读文本行，以字节为单位</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="keyword">ssize_t</span> readline(<span class="keyword">int</span> filedes, <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> maxlen);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>上面三个函数对read和write操作可能发生的EINTR错误做了处理，是比较安全的读写函数</li>
+<li>其中，两个函数的后两个参数均为<a href="../super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a></li>
+<li>可以<strong>用getsockname获取内核为我们分配的地址或端口号</strong></li>
+<li><strong>getsockname</strong>还可以用于<strong>获取</strong>某个套接字的<strong>协议族</strong></li>
+<li>上面两个函数中的第一个参数<strong>sockfd必须是已连接的套接字描述符</strong></li>
+<li>当服务器进程通过accept的某个进程通过调用exec执行程序时，getpeername是唯一可以用来获取对端设备地址信息的函数</li>
 </ul>
 
           
