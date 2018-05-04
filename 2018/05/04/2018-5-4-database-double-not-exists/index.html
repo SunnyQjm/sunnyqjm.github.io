@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://qjm253.cn/img/database/database_double_exists03.png">
 <meta property="og:image" content="http://qjm253.cn/img/database/database_double_exists05.png">
 <meta property="og:image" content="http://qjm253.cn/img/database/database_double_exists06.png">
-<meta property="og:updated_time" content="2018-05-04T09:56:16.949Z">
+<meta property="og:updated_time" content="2018-05-04T12:23:38.314Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SQL中实现关系代数中的除运算浅析">
 <meta name="twitter:description" content="准备工作  先给出构造测试表的初始化代码，有兴趣的小伙伴可以跑一跑试试 12345678910111213141516171819202122232425262728293031323334353637383940drop table R;drop table S;create table R (  X integer,  Y varchar(5));create table S (  Y va">
@@ -422,8 +422,8 @@
 </li>
 <li><p>现在整体的表结构如下</p>
 <ul>
-<li>R<img src="/img/database/database_double_exists01.png" title="R表详情"></li>
-<li>S<img src="/img/database/database_double_exists02.png" title="S表详情"></li>
+<li>R<br><img src="http://qjm253.cn/img/database/database_double_exists01.png" alt="R表详情"></li>
+<li>S<br><img src="http://qjm253.cn/img/database/database_double_exists02.png" alt="S表详情"></li>
 </ul>
 </li>
 <li>解释<ul>
@@ -447,14 +447,13 @@
 <li>R表示学生的选课信息，其中X表示学号，Y表示课程号</li>
 <li>S表示课程的信息，其中Y表示课程号，Z表示学分</li>
 <li>好现在，上面的两种表就变成下面这样了<ul>
-<li>R<img src="/img/database/database_double_exists04.png" title="选课信息"></li>
-<li>S<img src="/img/database/database_double_exists03.png" title="课程信息"></li>
+<li>R<br><img src="http://qjm253.cn/img/database/database_double_exists04.png" alt="选课信息"></li>
+<li>S<br><img src="http://qjm253.cn/img/database/database_double_exists03.png" alt="课程信息"></li>
 </ul>
 </li>
 <li>ok，现在我们要找出一部分学生的学号，他们选了所有的课</li>
 <li>R÷S ==&gt; 选了所有课的学生（很显然，上面只有学号为1的学生选了所有的课）</li>
-<li>结果如下：<img src="/img/database/database_double_exists05.png" title="选了所有课的学生">
-</li>
+<li>结果如下：<br><img src="http://qjm253.cn/img/database/database_double_exists05.png" alt="选了所有课的学生"></li>
 </ul>
 </li>
 </ul>
@@ -470,8 +469,8 @@
 <li><p>执行下面代码：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> R R2</span><br><span class="line">  <span class="keyword">WHERE</span> R2.X = <span class="number">1</span> <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> R R2</span><br><span class="line">  <span class="keyword">WHERE</span> R2.X = <span class="number">2</span> <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>第一个执行结果为空，第二个执行结果如下</p>
-<img src="/img/database/database_double_exists06.png" title="学号为2的同学没选的课"></li>
+<li><p>第一个执行结果为空，第二个执行结果如下<br><img src="http://qjm253.cn/img/database/database_double_exists06.png" alt="学号为2的同学没选的课"></p>
+</li>
 <li>分析一下可以知道，上面的SQL完成的任务是“<strong>对于某个学号的学生，求得该学生未选的课程列表</strong>”</li>
 </ul>
 </li>
