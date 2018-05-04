@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="基本运算每一种基本运算的结果都是一个新的关系，可以用这个关系继续参与运算，借此便可进行复杂的运算   选择运算（select）==&amp;gt;相当于SQL语句中的WHERE子句的职能 格式：σ选择谓词(关系) 举个栗子：  σSAL&amp;gt;1000(EMP)  上式表示取出查询工资大于1000的所有员工的信息  等价于下面的SQL语句123SELECT *FROM EMPWHERE SAL &amp;gt;">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:updated_time" content="2018-05-04T12:13:04.782Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（十）——关系代数">
 <meta name="twitter:description" content="基本运算每一种基本运算的结果都是一个新的关系，可以用这个关系继续参与运算，借此便可进行复杂的运算   选择运算（select）==&amp;gt;相当于SQL语句中的WHERE子句的职能 格式：σ选择谓词(关系) 举个栗子：  σSAL&amp;gt;1000(EMP)  上式表示取出查询工资大于1000的所有员工的信息  等价于下面的SQL语句123SELECT *FROM EMPWHERE SAL &amp;gt;">
@@ -602,7 +602,7 @@
 </ul>
 </li>
 <li>举个栗子<ul>
-<li>∏<sub>name, course_id</sub>(instructor ⋈<sub>intructor.SAL &gt; 5000 </sub> teaches)</li>
+<li>∏<sub>name, course_id</sub>(instructor ⋈<sub>instructor.ID = teaches.ID</sub> teaches)</li>
 <li>上面的式子表示列出所有工资高于5000的老师的名字以及其所授课程的id， 等价于下面的SQL语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">name</span>, course_id</span><br><span class="line"><span class="keyword">FROM</span> instructor <span class="keyword">join</span> teaches <span class="keyword">on</span> instructor.ID = teaches.ID</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -615,7 +615,8 @@
 <ul>
 <li><h4 id="格式：-关系-÷-关系"><a href="#格式：-关系-÷-关系" class="headerlink" title="格式：(关系)÷(关系)"></a>格式：(关系)÷(关系)</h4></li>
 <li>形式化定义：<br>R÷S = ∏<sub>R∪S</sub>( ( ∏<sub>R-S</sub>(r) × S ) - ∏<sub>R-S, S</sub>(r) )</li>
-<li>解释起来挺麻烦的，这边给出一个博客链接：<a href="http://blog.csdn.net/qq_22627687/article/details/53789362" target="_blank" rel="noopener">点我</a></li>
+<li>笔者还有一篇介绍用SQL实现关系代数中除运算的文章=&gt;<a href="http://qjm253.cn/2018/05/04/2018-5-4-database-double-not-exists/">点我传送</a></li>
+<li>解释起来挺麻烦的，这边给出一个博客链接：<a href="http://blog.csdn.net/qq_22627687/article/details/53789362" target="_blank" rel="noopener">点我传送</a></li>
 </ul>
 </li>
 <li><h3 id="赋值运算"><a href="#赋值运算" class="headerlink" title="赋值运算"></a>赋值运算</h3><blockquote>
