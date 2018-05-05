@@ -535,6 +535,313 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库笔记（一）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库笔记（一）/" itemprop="url">数据库笔记（一）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">
+                2017-09-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/12/2017-09-12-数据库笔记（一）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/12/2017-09-12-数据库笔记（一）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/09/12/2017-09-12-数据库笔记（一）/" class="leancloud_visitors" data-flag-title="数据库笔记（一）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><a href="http://www.w3school.com.cn/sql/index.asp" target="_blank" rel="noopener">SQL教程</a></p>
+<blockquote>
+<h2 id="DBS（Database-System）"><a href="#DBS（Database-System）" class="headerlink" title="DBS（Database System）"></a>DBS（Database System）</h2></blockquote>
+<ul>
+<li>传统的文件处理系统中存储组织信息的主要弊端<ul>
+<li>数据的冗余和不一致性（data redundancy and inconsistency）</li>
+<li>数据访问困难（dificulty in accessing data）</li>
+<li>数据孤立（data isolation）</li>
+<li>完整性问题（integrity problem）</li>
+<li>原子性问题（atomicity problem）</li>
+<li>并发访问异常（concurrent-access anomaly）</li>
+<li>安全性问题（security problem）</li>
+</ul>
+</li>
+<li>数据库系统的目标：<strong>提供一种可以方便高效地存取数据库信息的途径</strong></li>
+</ul>
+<blockquote>
+<h2 id="数据视图"><a href="#数据视图" class="headerlink" title="数据视图"></a>数据视图</h2><p>数据库系统的一个主要目的是给用户提供数据的抽象视图，也就是说隐藏关于数据存储和维护的某些细节</p>
+</blockquote>
+<ul>
+<li><h3 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h3><p><img src="http://upload-images.jianshu.io/upload_images/7222676-d79e079d68fdf082.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据视图"></p>
+<ul>
+<li>物理层（physical level）<ul>
+<li>最低层次的抽象</li>
+<li>描述了数据实际上是怎么存的（比如是都存在一个文件里还是分散在多个文件里）</li>
+</ul>
+</li>
+<li>逻辑层（logical level）<ul>
+<li>比物理层层次稍高的抽象</li>
+<li>描述了数据库中存什么数据以及数据之间的关系</li>
+<li>逻辑层的用户不需要去关系数据具体是怎么存的，这称作<strong>物理数据独立性（physical data independence）</strong><blockquote>
+<p>ps: 对于具有物理数据独立性的设计，即便底层的物理存储改变了，逻辑层也不需要做任何的修改</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li>视图层（view level）<ul>
+<li>最高层次的抽象，<strong>只描述整个数据库的某个部分</strong></li>
+<li>简而言之，对于逻辑层的数据，我们可以通过不同的视图，以不同的视角以及视野去查看它</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="实例和模式"><a href="#实例和模式" class="headerlink" title="实例和模式"></a>实例和模式</h3><blockquote>
+<p>类比：模式类比于变量的声明，实例类比于变量在特定时刻的值</p>
+</blockquote>
+<ul>
+<li>模式： 数据库的总体设计<ul>
+<li>数据库的模式限定了数据库中都有哪些表，表中都有哪些字段以及表与表之间的关系</li>
+</ul>
+</li>
+<li>实例： 特定时刻存储在数据库中的信息的集合<ul>
+<li>数据库的一个实例包含了数据库在一个时刻下的所有表的信息</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><ul>
+<li>关系模型</li>
+<li>实体—联系模型</li>
+<li>基于对象的数据模型</li>
+<li>半结构化的模型</li>
+<li>网状数据模型</li>
+<li>层次数据模型</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="关系型数据库的一些基本术语"><a href="#关系型数据库的一些基本术语" class="headerlink" title="关系型数据库的一些基本术语"></a>关系型数据库的一些基本术语</h2></blockquote>
+<ul>
+<li>relation（关系）==&gt;表</li>
+<li>column（列）==&gt;字段（同一字段内所有数据的数据类型一致）</li>
+<li>row（行）==&gt;对应于数据库表中的一行数据（对应于数学概念中的元组）</li>
+<li>SQL（Structured Query Language）==&gt;结构化的查询语言</li>
+<li>DDL：Data Define Language（数据定义语言）==&gt;执行 该类SQL语句会导致表结构的变化</li>
+<li>DML：Data Manipulation Language（数据操纵（管理）语言）==&gt;执行该类SQL语句对表中的数据进行增删改查</li>
+<li>查询语言（query language）：DML中涉及信息检索的部分称之为查询语言</li>
+<li>tuple（元组）==&gt;对应于数据表中的一行数据</li>
+<li>domain（域）==&gt;字段的取值范围</li>
+<li><a href="https://baike.baidu.com/item/Schema/15286221" target="_blank" rel="noopener">schema</a>（方案/模式）==&gt;数据库中的Schema，为数据库对象的集合，一个用户一般对应一个schema</li>
+<li>Cartesian product（笛卡儿积）<ul>
+<li><a href="https://baike.baidu.com/item/%E7%AC%9B%E5%8D%A1%E5%B0%94%E4%B9%98%E7%A7%AF/6323173?fr=aladdin&amp;fromid=1434391&amp;fromtitle=%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF" target="_blank" rel="noopener">百度百科对笛卡尔积的解释</a></li>
+<li><a href="http://blog.csdn.net/zouxiang2188/article/details/38731949" target="_blank" rel="noopener">一篇介绍笛卡儿积与数据库关联的博客</a><blockquote>
+<p>ps: 应当避免表与表之间相关联的时候采用全匹配（如果采用笛卡尔积的匹配方式即为全匹配）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p>DDL （数据定义语言）<br><a href="https://baike.baidu.com/item/DDL/21997?fr=aladdin" target="_blank" rel="noopener">数据库模式定义语言DDL(Data Definition Language)</a>，是用于描述数据库中要存储的现实世界实体的语言。一个数据库模式包含该数据库中所有实体的描述定义。<strong>DDL用来定义一个数据库的模式</strong></p>
+</blockquote>
+<ul>
+<li>执行此类语句会导致数据库结构的变化</li>
+<li><p><strong>create</strong>（创建一个表）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句创建了一个用户表，以id为主键，并添加了username和age字段</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">User</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    username <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="string">""</span>,</span><br><span class="line">    age <span class="built_in">INT</span> <span class="keyword">DEFAULT</span> <span class="number">18</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> User_id_uindex <span class="keyword">ON</span> <span class="keyword">User</span> (<span class="keyword">id</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>alter</strong>（修改表的结构）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句修改了user表的id属性</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">user</span> <span class="keyword">MODIFY</span> <span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>drop</strong>（删除一张表）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句删除了为user表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> demo.user;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>rename</strong>（用于对一张表的名字进行重命名）</p>
+<ul>
+<li>Oracle数据库将其划分到DDL</li>
+<li>SQL server数据库将其归到DML<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句将user表的表名改成new_user</span></span><br><span class="line"><span class="keyword">rename</span> <span class="keyword">table</span> <span class="keyword">user</span> <span class="keyword">to</span> new_user</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>truncate</strong>（截断==&gt;用于删除数据表中的所有数据，但是保留表结构，不同公司的数据库实现的机制不同）</p>
+<blockquote>
+<p>DML<br><a href="https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E6%93%8D%E7%B8%B1%E8%AA%9E%E8%A8%80" target="_blank" rel="noopener"><strong>数据操纵语言</strong>（Data Manipulation Language, DML）</a>是<a href="https://zh.wikipedia.org/wiki/SQL" target="_blank" rel="noopener">SQL</a>语言中，负责对数据库对象运行数据访问工作的指令集，以INSERT、UPDATE、DELETE三种指令为核心，分别代表插入、更新与删除，是开发以数据为中心的应用程序必定会使用到的指令，因此有很多开发人员都把加上SQL的SELECT语句的四大指令以“<a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener">CRUD</a>”来称呼。</p>
+</blockquote>
+</li>
+<li><p>此类语句对数据进行增删改查（CRUD）</p>
+</li>
+<li><p><a href="http://www.w3school.com.cn/sql/sql_insert.asp" target="_blank" rel="noopener"><strong>insert</strong></a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句往user用户表中插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">into</span> <span class="keyword">user</span>(username, age) <span class="keyword">VALUES</span>(<span class="string">'Robbin'</span>, <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="http://www.w3school.com.cn/sql/sql_update.asp" target="_blank" rel="noopener"><strong>update</strong></a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句修改了user表中username为Robbin的表项（元组）的数据</span></span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> username = <span class="string">'Robbin2'</span>, age = <span class="number">17</span> <span class="keyword">WHERE</span> username = <span class="string">'Robbin'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="http://www.w3school.com.cn/sql/sql_delete.asp" target="_blank" rel="noopener"><strong>delete</strong></a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句删除user表中username为Robbin2的表项（元组）</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username = <span class="string">'Robbin2'</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><a href="http://www.w3school.com.cn/sql/sql_select.asp" target="_blank" rel="noopener"><strong>select</strong></a></p>
+<ul>
+<li>DB2将select归到DML</li>
+<li>Oracle将select单独划为一类（因为select操作只是对数据库进行查询操作，没有实质改变数据库中的数据）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询user表中的所有数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> DML和DDL的区别</p>
+<ul>
+<li>DML语句支持回滚，采用事务，可以保证数据的一致性；而DDL语句采用隐式commit，是不支持回滚的（一旦执行就不可撤回）</li>
+<li><a href="http://www.jianshu.com/p/3817c9bf5d01" target="_blank" rel="noopener">四种SQL语句</a></li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>Key</strong>（键/码）</p>
+<ul>
+<li>superkey（超码）==&gt;一个或多个字段的集合，可唯一标识一行数据</li>
+<li>candidate keys（候选码）==&gt;最小的超码（即本集合为超码，且集合内除本身外的任何子集都不能作为超码）</li>
+<li><p>Primary key（主码/主键）==&gt;从候选码中选取一个作为主码（主键），可以由多个字段组成</p>
+</li>
+<li><p>Primary attribute（主属性）==&gt;包含于某个候选码的属性</p>
+</li>
+<li>Non-Prime attribute（非主属性）==&gt;不包含于某个候选码的属性</li>
+</ul>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>Note:</strong></p>
+<ul>
+<li>数据表中字段的个数是有限的</li>
+<li>属性在元组中是无序的（但是设计的时候一般把主键放在前面）</li>
+<li>设计字段的时候要保证字段的原子性</li>
+<li>NULL==&gt;空值表示不确定的值，不代表0，也不代表空串</li>
+</ul>
+</blockquote>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -867,313 +1174,6 @@
 </ul>
 </li>
 </ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库笔记（一）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/12/2017-09-12-数据库笔记（一）/" itemprop="url">数据库笔记（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">
-                2017-09-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/12/2017-09-12-数据库笔记（一）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/12/2017-09-12-数据库笔记（一）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/12/2017-09-12-数据库笔记（一）/" class="leancloud_visitors" data-flag-title="数据库笔记（一）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p><a href="http://www.w3school.com.cn/sql/index.asp" target="_blank" rel="noopener">SQL教程</a></p>
-<blockquote>
-<h2 id="DBS（Database-System）"><a href="#DBS（Database-System）" class="headerlink" title="DBS（Database System）"></a>DBS（Database System）</h2></blockquote>
-<ul>
-<li>传统的文件处理系统中存储组织信息的主要弊端<ul>
-<li>数据的冗余和不一致性（data redundancy and inconsistency）</li>
-<li>数据访问困难（dificulty in accessing data）</li>
-<li>数据孤立（data isolation）</li>
-<li>完整性问题（integrity problem）</li>
-<li>原子性问题（atomicity problem）</li>
-<li>并发访问异常（concurrent-access anomaly）</li>
-<li>安全性问题（security problem）</li>
-</ul>
-</li>
-<li>数据库系统的目标：<strong>提供一种可以方便高效地存取数据库信息的途径</strong></li>
-</ul>
-<blockquote>
-<h2 id="数据视图"><a href="#数据视图" class="headerlink" title="数据视图"></a>数据视图</h2><p>数据库系统的一个主要目的是给用户提供数据的抽象视图，也就是说隐藏关于数据存储和维护的某些细节</p>
-</blockquote>
-<ul>
-<li><h3 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h3><p><img src="http://upload-images.jianshu.io/upload_images/7222676-d79e079d68fdf082.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据视图"></p>
-<ul>
-<li>物理层（physical level）<ul>
-<li>最低层次的抽象</li>
-<li>描述了数据实际上是怎么存的（比如是都存在一个文件里还是分散在多个文件里）</li>
-</ul>
-</li>
-<li>逻辑层（logical level）<ul>
-<li>比物理层层次稍高的抽象</li>
-<li>描述了数据库中存什么数据以及数据之间的关系</li>
-<li>逻辑层的用户不需要去关系数据具体是怎么存的，这称作<strong>物理数据独立性（physical data independence）</strong><blockquote>
-<p>ps: 对于具有物理数据独立性的设计，即便底层的物理存储改变了，逻辑层也不需要做任何的修改</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>视图层（view level）<ul>
-<li>最高层次的抽象，<strong>只描述整个数据库的某个部分</strong></li>
-<li>简而言之，对于逻辑层的数据，我们可以通过不同的视图，以不同的视角以及视野去查看它</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="实例和模式"><a href="#实例和模式" class="headerlink" title="实例和模式"></a>实例和模式</h3><blockquote>
-<p>类比：模式类比于变量的声明，实例类比于变量在特定时刻的值</p>
-</blockquote>
-<ul>
-<li>模式： 数据库的总体设计<ul>
-<li>数据库的模式限定了数据库中都有哪些表，表中都有哪些字段以及表与表之间的关系</li>
-</ul>
-</li>
-<li>实例： 特定时刻存储在数据库中的信息的集合<ul>
-<li>数据库的一个实例包含了数据库在一个时刻下的所有表的信息</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><ul>
-<li>关系模型</li>
-<li>实体—联系模型</li>
-<li>基于对象的数据模型</li>
-<li>半结构化的模型</li>
-<li>网状数据模型</li>
-<li>层次数据模型</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="关系型数据库的一些基本术语"><a href="#关系型数据库的一些基本术语" class="headerlink" title="关系型数据库的一些基本术语"></a>关系型数据库的一些基本术语</h2></blockquote>
-<ul>
-<li>relation（关系）==&gt;表</li>
-<li>column（列）==&gt;字段（同一字段内所有数据的数据类型一致）</li>
-<li>row（行）==&gt;对应于数据库表中的一行数据（对应于数学概念中的元组）</li>
-<li>SQL（Structured Query Language）==&gt;结构化的查询语言</li>
-<li>DDL：Data Define Language（数据定义语言）==&gt;执行 该类SQL语句会导致表结构的变化</li>
-<li>DML：Data Manipulation Language（数据操纵（管理）语言）==&gt;执行该类SQL语句对表中的数据进行增删改查</li>
-<li>查询语言（query language）：DML中涉及信息检索的部分称之为查询语言</li>
-<li>tuple（元组）==&gt;对应于数据表中的一行数据</li>
-<li>domain（域）==&gt;字段的取值范围</li>
-<li><a href="https://baike.baidu.com/item/Schema/15286221" target="_blank" rel="noopener">schema</a>（方案/模式）==&gt;数据库中的Schema，为数据库对象的集合，一个用户一般对应一个schema</li>
-<li>Cartesian product（笛卡儿积）<ul>
-<li><a href="https://baike.baidu.com/item/%E7%AC%9B%E5%8D%A1%E5%B0%94%E4%B9%98%E7%A7%AF/6323173?fr=aladdin&amp;fromid=1434391&amp;fromtitle=%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF" target="_blank" rel="noopener">百度百科对笛卡尔积的解释</a></li>
-<li><a href="http://blog.csdn.net/zouxiang2188/article/details/38731949" target="_blank" rel="noopener">一篇介绍笛卡儿积与数据库关联的博客</a><blockquote>
-<p>ps: 应当避免表与表之间相关联的时候采用全匹配（如果采用笛卡尔积的匹配方式即为全匹配）</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p>DDL （数据定义语言）<br><a href="https://baike.baidu.com/item/DDL/21997?fr=aladdin" target="_blank" rel="noopener">数据库模式定义语言DDL(Data Definition Language)</a>，是用于描述数据库中要存储的现实世界实体的语言。一个数据库模式包含该数据库中所有实体的描述定义。<strong>DDL用来定义一个数据库的模式</strong></p>
-</blockquote>
-<ul>
-<li>执行此类语句会导致数据库结构的变化</li>
-<li><p><strong>create</strong>（创建一个表）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句创建了一个用户表，以id为主键，并添加了username和age字段</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">User</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    username <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="string">""</span>,</span><br><span class="line">    age <span class="built_in">INT</span> <span class="keyword">DEFAULT</span> <span class="number">18</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> User_id_uindex <span class="keyword">ON</span> <span class="keyword">User</span> (<span class="keyword">id</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>alter</strong>（修改表的结构）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句修改了user表的id属性</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">user</span> <span class="keyword">MODIFY</span> <span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>drop</strong>（删除一张表）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句删除了为user表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> demo.user;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>rename</strong>（用于对一张表的名字进行重命名）</p>
-<ul>
-<li>Oracle数据库将其划分到DDL</li>
-<li>SQL server数据库将其归到DML<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句将user表的表名改成new_user</span></span><br><span class="line"><span class="keyword">rename</span> <span class="keyword">table</span> <span class="keyword">user</span> <span class="keyword">to</span> new_user</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><strong>truncate</strong>（截断==&gt;用于删除数据表中的所有数据，但是保留表结构，不同公司的数据库实现的机制不同）</p>
-<blockquote>
-<p>DML<br><a href="https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E6%93%8D%E7%B8%B1%E8%AA%9E%E8%A8%80" target="_blank" rel="noopener"><strong>数据操纵语言</strong>（Data Manipulation Language, DML）</a>是<a href="https://zh.wikipedia.org/wiki/SQL" target="_blank" rel="noopener">SQL</a>语言中，负责对数据库对象运行数据访问工作的指令集，以INSERT、UPDATE、DELETE三种指令为核心，分别代表插入、更新与删除，是开发以数据为中心的应用程序必定会使用到的指令，因此有很多开发人员都把加上SQL的SELECT语句的四大指令以“<a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener">CRUD</a>”来称呼。</p>
-</blockquote>
-</li>
-<li><p>此类语句对数据进行增删改查（CRUD）</p>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_insert.asp" target="_blank" rel="noopener"><strong>insert</strong></a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句往user用户表中插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">into</span> <span class="keyword">user</span>(username, age) <span class="keyword">VALUES</span>(<span class="string">'Robbin'</span>, <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_update.asp" target="_blank" rel="noopener"><strong>update</strong></a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句修改了user表中username为Robbin的表项（元组）的数据</span></span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> username = <span class="string">'Robbin2'</span>, age = <span class="number">17</span> <span class="keyword">WHERE</span> username = <span class="string">'Robbin'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_delete.asp" target="_blank" rel="noopener"><strong>delete</strong></a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句删除user表中username为Robbin2的表项（元组）</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username = <span class="string">'Robbin2'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_select.asp" target="_blank" rel="noopener"><strong>select</strong></a></p>
-<ul>
-<li>DB2将select归到DML</li>
-<li>Oracle将select单独划为一类（因为select操作只是对数据库进行查询操作，没有实质改变数据库中的数据）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询user表中的所有数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p> DML和DDL的区别</p>
-<ul>
-<li>DML语句支持回滚，采用事务，可以保证数据的一致性；而DDL语句采用隐式commit，是不支持回滚的（一旦执行就不可撤回）</li>
-<li><a href="http://www.jianshu.com/p/3817c9bf5d01" target="_blank" rel="noopener">四种SQL语句</a></li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<p><strong>Key</strong>（键/码）</p>
-<ul>
-<li>superkey（超码）==&gt;一个或多个字段的集合，可唯一标识一行数据</li>
-<li>candidate keys（候选码）==&gt;最小的超码（即本集合为超码，且集合内除本身外的任何子集都不能作为超码）</li>
-<li><p>Primary key（主码/主键）==&gt;从候选码中选取一个作为主码（主键），可以由多个字段组成</p>
-</li>
-<li><p>Primary attribute（主属性）==&gt;包含于某个候选码的属性</p>
-</li>
-<li>Non-Prime attribute（非主属性）==&gt;不包含于某个候选码的属性</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<p><strong>Note:</strong></p>
-<ul>
-<li>数据表中字段的个数是有限的</li>
-<li>属性在元组中是无序的（但是设计的时候一般把主键放在前面）</li>
-<li>设计字段的时候要保证字段的原子性</li>
-<li>NULL==&gt;空值表示不确定的值，不代表0，也不代表空串</li>
-</ul>
-</blockquote>
 
           
         

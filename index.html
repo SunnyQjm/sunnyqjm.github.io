@@ -472,13 +472,121 @@
 </ul>
 <blockquote>
 <h2 id="The-Network-Edge-网络边缘"><a href="#The-Network-Edge-网络边缘" class="headerlink" title="The Network Edge (网络边缘)"></a>The Network Edge (网络边缘)</h2><ul>
-<li>end systems</li>
-<li>access network</li>
-<li>links</li>
+<li>end systems     （终端）</li>
+<li>access network  （接入网）</li>
+<li>links           （链接）</li>
 </ul>
 </blockquote>
 <ul>
-<li><h3 id="Client-and-Server-Programs-C-S"><a href="#Client-and-Server-Programs-C-S" class="headerlink" title="Client and Server Programs (C / S)"></a>Client and Server Programs (C / S)</h3></li>
+<li><h3 id="Client-and-Server-Programs-C-S"><a href="#Client-and-Server-Programs-C-S" class="headerlink" title="Client and Server Programs (C / S)"></a>Client and Server Programs (C / S)</h3><ul>
+<li><p>C/S</p>
+<p>A <strong>client program</strong> is a program running on one end system that requests and receives a service from a <strong>server program</strong> running on another end system.</p>
+<p>客户端程序运行在一个终端上，并且向运行在另一个终端上的服务端程序请求并获取服务。</p>
+</li>
+<li><p>P2P</p>
+<p>同一个终端既可以作为客户端请求服务，也可以作为服务端程序提供服务</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Access-network-（接入网）"><a href="#Access-network-（接入网）" class="headerlink" title="Access network （接入网）"></a>Access network （接入网）</h3><p>=&gt; 主机（终端）与边缘路由器相连的那段网络（Physical link）称之为接入网</p>
+<p>=&gt; <strong>接入网很大程度上决定了用户的所能真正享有的带宽</strong></p>
+</li>
+<li><h3 id="Physical-Media-（物理媒介）"><a href="#Physical-Media-（物理媒介）" class="headerlink" title="Physical Media （物理媒介）"></a>Physical Media （物理媒介）</h3><blockquote>
+<ul>
+<li>传输的是Bits（一系列的比特流）；</li>
+<li>guided media =&gt; 导向型（有线）</li>
+<li>unduided media =&gt; 无导向型（无线）</li>
+</ul>
+</blockquote>
+<ul>
+<li>Twisted Pair(TP) =&gt; 双绞线</li>
+<li>Coaxial Cable =&gt; 同轴电缆</li>
+<li>Fiber Optics =&gt; 光纤（ <strong><em>low bit error rate (比特差错率低)</em></strong> ）</li>
+<li>Terrestrial Radio Channels =&gt; 地面无线信道</li>
+<li>Satellite Radio Channels =&gt; 卫星无线信道</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="The-Network-Core-网络核心"><a href="#The-Network-Core-网络核心" class="headerlink" title="The Network Core (网络核心)"></a>The Network Core (网络核心)</h2><p>=&gt; 分组交换机以及连接分组交换机间的链路</p>
+</blockquote>
+<p>电路交换网络和分组交换网络可以类比为饭馆订餐：电路交换网络就好比一个饭店，需要提前预定座位，并且饭店会在你预定之后再规定时间内一直为你保留预定的座位，你在既定时段的任何一个时间点去都是有位置的，期间有未预定的顾客进入，即便饭店有空位，也无法入座；而分组交换网络则好比不需要预定的饭店，先到先得，如果饭店满座了就需要等待。</p>
+<ul>
+<li><h3 id="Circuit-Switching-电路交换网络"><a href="#Circuit-Switching-电路交换网络" class="headerlink" title="Circuit Switching (电路交换网络)"></a>Circuit Switching (电路交换网络)</h3><blockquote>
+<p>典型的就是电话网络</p>
+</blockquote>
+<ul>
+<li><strong>Dedicated allocation</strong> =&gt; 固定分配，独占独享</li>
+<li><strong>Resource reservation</strong> =&gt; 资源预留（不共享，不允许别的连接使用）</li>
+<li><strong>Multiplexing</strong> =&gt; 多路复用(将网络资源切片)<ul>
+<li>frequency-division multiplexing =&gt; <strong>频分多路复用</strong> (FDM)</li>
+<li>time-division multiplexing =&gt; <strong>时分多路复用</strong> (TDM)</li>
+</ul>
+</li>
+<li>需要呼叫建立</li>
+<li><p>时延小，无资源竞争</p>
+</li>
+<li><p>由于电路交换网络给每个Connection分配固定的带宽，分配的连接越多，意味着每个Conncetion所能享有的带宽就越少</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Packet-Switching-分组交换网络"><a href="#Packet-Switching-分组交换网络" class="headerlink" title="Packet Switching (分组交换网络)"></a>Packet Switching (分组交换网络)</h3><blockquote>
+<p>典型的，Internet网络采用的就是分组交换网络</p>
+</blockquote>
+<ul>
+<li>Share network resources =&gt; 各个分组 <strong>共享网络资源</strong></li>
+<li>each packet uses full link bandwidth =&gt; <strong>每个分组均能使用全部的链路带宽</strong></li>
+<li>resources used as needed =&gt; <strong>资源按需分配</strong></li>
+<li><p>resource contention =&gt; <strong>存在资源竞争</strong> =&gt; 可能会导致丢包，拥塞，延时等一系列问题</p>
+</li>
+<li><p>Statistical Multiplexing =&gt; <strong>统计复用</strong> （异步时分多路复用）</p>
+<ul>
+<li><p>传统的 <strong>TDM</strong>（时分多路复用）是给每一个终端分配一个 <strong>time-slot</strong>（时隙），对于某个具体的终端，不管这个终端有没有在进行通信，分配给它的那部分带宽都将被占用，是同步的</p>
+</li>
+<li><p>而 <strong>统计复用</strong>（异步时分多路复用）是把公共信道的时隙实行“ <strong>按需分配</strong> ”，即只对那些需要传送信息或正在工作的终端分配time-slot，这样就能使所有的时隙都能被充分的利用，可以使服务的终端数大于一个周期内时隙划分的个数，提高了媒质的利用率，从而起到了复用的作用。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Store-and-forward</strong> （存储转发）</p>
+<p>=&gt; 以太网交换机的控制器先将输入端口到来的数据包缓存起来，先检查数据包是否正确，并过滤掉冲突包错误 （增加了网络的时延，但是使得网络有了一定的检错功能）</p>
+</li>
+<li>与电路交换相比<ul>
+<li>Packet switching allows more users to use network( <strong>分组交换允许更多的用户使用网路</strong> )</li>
+<li>Great forbursty data ( <strong>处理突发数据极为有效</strong> )</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="两种网络的应用场景"><a href="#两种网络的应用场景" class="headerlink" title="两种网络的应用场景"></a>两种网络的应用场景</h3><ul>
+<li>在 <strong>带宽需求相对固定</strong> 的情况下， <strong>电路交换网络</strong> 比较合适<ul>
+<li>资源需求稳定</li>
+<li>固定电话的通信就是，语音要求的带宽非常固定，而且采用电路交换网络也可以保证通话的质量</li>
+</ul>
+</li>
+<li>在 <strong>带宽需求动态变化</strong> 时，<strong>分组交换网络</strong> 比较适用<ul>
+<li>典型的Internet网络的带宽需求就是动态变化的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Delay-loss-and-throughputin-Packet-Switched-Neworks"><a href="#Delay-loss-and-throughputin-Packet-Switched-Neworks" class="headerlink" title="Delay, loss and throughputin Packet-Switched Neworks"></a>Delay, loss and throughputin Packet-Switched Neworks</h2></blockquote>
+<ul>
+<li><h3 id="Delay"><a href="#Delay" class="headerlink" title="Delay"></a>Delay</h3><img src="/img/computer_network/computer_network_01.png" title="路由器A的节点传输延迟">
+<ul>
+<li><p>Nodal procesing delay =&gt; <strong>节点处理延迟</strong>（一般是很短的）</p>
+<ul>
+<li>差错检测</li>
+<li>决定从哪个口转发出去</li>
+</ul>
+</li>
+<li><p>Queueing delay =&gt; 排队延迟（可以为0，也可以很长，取决于当前网络的状态）<br>=&gt; 所以 <strong>提高网络带宽只能降低传输延迟</strong></p>
+</li>
+<li>Transimission delay =&gt; 传输延迟（可以很小，也可以很长，取决于数据包的长度以及网络的带宽）<img src="/img/computer_network/computer_network_02.png" title="传输延迟计算方法">
+</li>
+</ul>
+</li>
 </ul>
 
           
