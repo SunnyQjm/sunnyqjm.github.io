@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="What is the Internet? There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic hardware and software components that make up the">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-05T07:15:23.157Z">
+<meta property="og:updated_time" content="2018-05-05T11:25:58.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 1 Computer Network and the Internet">
 <meta name="twitter:description" content="What is the Internet? There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic hardware and software components that make up the">
@@ -410,7 +410,7 @@
         <blockquote>
 <h2 id="What-is-the-Internet"><a href="#What-is-the-Internet" class="headerlink" title="What is the Internet?"></a>What is the Internet?</h2><ul>
 <li>There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic hardware and software components that make up the Internet. Second, we can describe the Internet in terms of a networking infrastructure that provides services to distributed applications</li>
-<li>对于什么是因特网，可以从两方面来描述。首先，我们可以描述它的基本原理，即构成Internet的基本硬件和软件组件。其次，我们可以将其描述为一个网络基础设施，它为分布式应用程序提供服务</li>
+<li>对于什么是因特网，可以从两方面来描述。首先，我们可以描述它的基本原理，即 <strong>构成Internet的基本硬件和软件组件</strong> 。其次，我们可以将其描述为 <strong>一个网络基础设施，它为分布式应用程序提供服务</strong></li>
 </ul>
 </blockquote>
 <ul>
@@ -419,10 +419,66 @@
 </blockquote>
 <ul>
 <li><h4 id="主机-终端（host-end-systems）"><a href="#主机-终端（host-end-systems）" class="headerlink" title="主机/终端（host/end systems）"></a>主机/终端（host/end systems）</h4>广义所指，除了传统的PC、Linux工作站等还包括手机、TV等一众可以连接到互联网的设备</li>
-<li><h4 id="通信链路（communication-links）"><a href="#通信链路（communication-links）" class="headerlink" title="通信链路（communication links）"></a>通信链路（communication links）</h4>通信链路有多种类型，它们基于不同的物理介质，如：同轴电缆（coaxial cable），铜线（copper wire），光纤（fiber optics）等</li>
-<li><h4 id="分组交换机（packet-switches）"><a href="#分组交换机（packet-switches）" class="headerlink" title="分组交换机（packet switches）"></a>分组交换机（packet switches）</h4></li>
+<li><h4 id="通信链路（communication-links）"><a href="#通信链路（communication-links）" class="headerlink" title="通信链路（communication links）"></a>通信链路（communication links）</h4><p>通信链路有多种类型，它们基于不同的物理介质，如：同轴电缆（coaxial cable），铜线（copper wire），光纤（fiber optics）等，采用不同的材质，会影响链路的 <strong>传输速率（transmission rate）</strong></p>
+<ul>
+<li>传输速率（transmission rate）<ul>
+<li>transmission rate = bandwidth（传输速率=带宽）==&gt; <strong>发送端发包的速率</strong></li>
+<li>ps: 吞吐量 ==&gt; <strong>接收端收包的速率</strong></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><h4 id="分组交换机（packet-switches）"><a href="#分组交换机（packet-switches）" class="headerlink" title="分组交换机（packet switches）"></a>分组交换机（packet switches）</h4><p>A packet switch takes a packet arriving on one of its incoming communication links and forwards the packet on one of its outgoing communication links. (分组交换机的功能就是接收一个链路上发来的数据包，并将其转发给它的另一个出口链路上)目前Internet上的分组交换机主要有两种：<strong>路由器（routers）</strong> 和 <strong>链路层交换机（link-layer switches）</strong></p>
+<ul>
+<li>路由器（routers） ==&gt; 常在网络核心（network core）中使用</li>
+<li>链路层交换机（link-layer switches） ==&gt; 常在接入网（access network）中使用</li>
+</ul>
+</li>
+<li><h4 id="路由（route-path）"><a href="#路由（route-path）" class="headerlink" title="路由（route / path）"></a>路由（route / path）</h4>The sequence of communication links and packet switches traversed by a oacket from the sending end system and to the receiving end system is know as <strong>route</strong> or <strong>path</strong> (数据包从发送端到接收端所途经的通信链路和分组交换机组成所谓的路由) ==&gt; <strong>一个路由其实就是网络上的一条路径</strong>，某些数据包通过这条路径从发送端传输到接收端</li>
+<li><h4 id="互联网服务提供商（Internet-Serveice-Providers，ISPs）"><a href="#互联网服务提供商（Internet-Serveice-Providers，ISPs）" class="headerlink" title="互联网服务提供商（Internet Serveice Providers，ISPs）"></a>互联网服务提供商（Internet Serveice Providers，ISPs）</h4>互联网服务提供商，即向广大用户综合提供互联网接入业务、信息业务、和增值业务的电信运营商</li>
+</ul>
+</li>
+<li><h3 id="A-Sercices-description"><a href="#A-Sercices-description" class="headerlink" title="A Sercices description"></a>A Sercices description</h3><blockquote>
+<p>The Internet is an infrastructure for providing services to distributed applications ==&gt; <strong>Internet一个为分布式应用提供服务的网络基础设置</strong></p>
+</blockquote>
+<p>对于一个分布式的网络应用程序，程序之间要进行通信就需要一个传输媒介，而Internet就很好的扮演了这个角色。</p>
+</li>
+</ul>
+<ul>
+<li><h3 id="What-is-Protocol"><a href="#What-is-Protocol" class="headerlink" title="What is Protocol?"></a>What is Protocol?</h3><p>A <strong>protocol</strong> defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.</p>
+<p>一个协议定义了两个通信实体之间交换信息的格式和顺序，以及在消息和其它事件的发送或接收时所采取的响应动作</p>
+</li>
+<li><h3 id="The-topology-structure-拓扑结构"><a href="#The-topology-structure-拓扑结构" class="headerlink" title="The topology structure (拓扑结构)"></a>The topology structure (拓扑结构)</h3><ul>
+<li><h4 id="集中式"><a href="#集中式" class="headerlink" title="集中式"></a>集中式</h4>单点故障；结构，管理简单；中心节点价格昂贵，维护困难；<ul>
+<li>Star =&gt; 星型</li>
+<li>Tree =&gt; 树型</li>
+</ul>
+</li>
+<li><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><ul>
+<li>Bus =&gt; 总线型</li>
+<li>Mesh =&gt; 网状网 （适用于无线通信）</li>
+<li>Ring =&gt; 环形</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Network-structure-网络结构"><a href="#Network-structure-网络结构" class="headerlink" title="Network structure(网络结构)"></a>Network structure(网络结构)</h3><ul>
+<li>Network edge    （网络边缘）</li>
+<li>Access network  （接入网）</li>
+<li>Physical media  （物理介质）</li>
+<li>Network core    （网络核心）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="The-Network-Edge-网络边缘"><a href="#The-Network-Edge-网络边缘" class="headerlink" title="The Network Edge (网络边缘)"></a>The Network Edge (网络边缘)</h2><ul>
+<li>end systems</li>
+<li>access network</li>
+<li>links</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Client-and-Server-Programs-C-S"><a href="#Client-and-Server-Programs-C-S" class="headerlink" title="Client and Server Programs (C / S)"></a>Client and Server Programs (C / S)</h3></li>
 </ul>
 
       
@@ -624,7 +680,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-the-Internet"><span class="nav-number">1.</span> <span class="nav-text">What is the Internet?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Nuts-and-Bolts-description"><span class="nav-number">1.1.</span> <span class="nav-text">A Nuts-and-Bolts description</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主机-终端（host-end-systems）"><span class="nav-number">1.1.1.</span> <span class="nav-text">主机/终端（host/end systems）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通信链路（communication-links）"><span class="nav-number">1.1.2.</span> <span class="nav-text">通信链路（communication links）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组交换机（packet-switches）"><span class="nav-number">1.1.3.</span> <span class="nav-text">分组交换机（packet switches）</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#What-is-the-Internet"><span class="nav-number">1.</span> <span class="nav-text">What is the Internet?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Nuts-and-Bolts-description"><span class="nav-number">1.1.</span> <span class="nav-text">A Nuts-and-Bolts description</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#主机-终端（host-end-systems）"><span class="nav-number">1.1.1.</span> <span class="nav-text">主机/终端（host/end systems）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#通信链路（communication-links）"><span class="nav-number">1.1.2.</span> <span class="nav-text">通信链路（communication links）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分组交换机（packet-switches）"><span class="nav-number">1.1.3.</span> <span class="nav-text">分组交换机（packet switches）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#路由（route-path）"><span class="nav-number">1.1.4.</span> <span class="nav-text">路由（route / path）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#互联网服务提供商（Internet-Serveice-Providers，ISPs）"><span class="nav-number">1.1.5.</span> <span class="nav-text">互联网服务提供商（Internet Serveice Providers，ISPs）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Sercices-description"><span class="nav-number">1.2.</span> <span class="nav-text">A Sercices description</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-is-Protocol"><span class="nav-number">1.3.</span> <span class="nav-text">What is Protocol?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-topology-structure-拓扑结构"><span class="nav-number">1.4.</span> <span class="nav-text">The topology structure (拓扑结构)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#集中式"><span class="nav-number">1.4.1.</span> <span class="nav-text">集中式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式"><span class="nav-number">1.5.</span> <span class="nav-text">分布式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Network-structure-网络结构"><span class="nav-number">1.6.</span> <span class="nav-text">Network structure(网络结构)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Network-Edge-网络边缘"><span class="nav-number">2.</span> <span class="nav-text">The Network Edge (网络边缘)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Client-and-Server-Programs-C-S"><span class="nav-number">2.1.</span> <span class="nav-text">Client and Server Programs (C / S)</span></a></li></ol></li></ol></div>
             
 
           </div>
