@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的）  候选码定义:  设K为关系模式R的属性(组)，若K→FU，则称K为R的 候选码。  主码：若R有多个候选码，则可以从中选定一个作为R的主码。 主属性：包含在任一个候选码中的属性，称作主属性。 非主属性：不包含在任一个候选码中的属性，称作非主属性">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:updated_time" content="2018-05-05T06:36:59.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（补充）——候选码的确定方法">
 <meta name="twitter:description" content="写在前面：前面一堆都了解了解，重点在后面一个关于求候选码的算法（要是题里面没有给主属性，就要通过这个方法求哪些是主属性，哪些不是了，所以还是挺实用的）  候选码定义:  设K为关系模式R的属性(组)，若K→FU，则称K为R的 候选码。  主码：若R有多个候选码，则可以从中选定一个作为R的主码。 主属性：包含在任一个候选码中的属性，称作主属性。 非主属性：不包含在任一个候选码中的属性，称作非主属性">
@@ -417,11 +417,11 @@
 <li>全码：关系模式的码由全部属性构成。</li>
 </ul>
 </blockquote>
-<p>注: <strong>码或者是某一函数依赖的左部, 或是一个属性组</strong>。</p>
+<p>注: <strong>码或是某一函数依赖的左部, 或是一个属性组</strong>。</p>
 <blockquote>
 <p>引例：求出关系模式R<u, f="">的所有候选码：<br>U={ A , B , C , D , E }<br>F={AB→C, B→D, C→E, EC→B, AC→B }</u,></p>
 </blockquote>
-<p>解： 验证AB是否码, 须证明  AB→<sup>F</sup>ABCDE是否成立?<br>∵AB→C(已知), 而AB→AB(自反), ∴AB → ABC(合并)<br>∵B→D(已知), ∴AB→AD(增广), ∴AB → ABCD(合并)<br>∵C→E(已知),  AB→C(已知),  ∴AB → E(传递)<br>   于是 AB → ABCDE(合并)</p>
+<p>解： 验证AB是否是码, 须证明  AB→<sup>F</sup>ABCDE是否成立?<br>∵AB→C(已知), 而AB→AB(自反), ∴AB → ABC(合并)<br>∵B→D(已知), ∴AB→AD(增广), ∴AB → ABCD(合并)<br>∵C→E(已知),  AB→C(已知),  ∴AB → E(传递)<br>   于是 AB → ABCDE(合并)</p>
 <p>同理可证：AC也是一个候选码</p>
 <h3 id="上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"><a href="#上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）" class="headerlink" title="上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）"></a>上述例题实际上就是利用Amstrong公式，最后得到一个属性集可以推出U（关系模式的全集）</h3><blockquote>
 <p>练习： 根据码的定义，求关系模式R<u, f="">的所有候选码。<br>U={ A , B , C , D }， F={A→ B, C→B }</u,></p>
@@ -429,6 +429,7 @@
 <p>答：ACD</p>
 <blockquote>
 <p>关于2NF的结论</p>
+</blockquote>
 <ol>
 <li>不存在非主属性的关系模式属于2NF。 （没有非主属性）</li>
 <li>全码关系模式属于2NF。 （没有非主属性）</li>
@@ -436,7 +437,9 @@
 <li>二目关系模式属于2NF。 （码或是一个属性，或是全码）</li>
 <li>若R属于1NF，但R不一定属于2NF。<br>例如,  关系模式 S(S#, SN, SD, DEAN, C#, G)</li>
 </ol>
+<blockquote>
 <p>关于3NF的结论</p>
+</blockquote>
 <ol>
 <li>不存在非主属性的关系模式属于3NF。 （没有非主属性）</li>
 <li>全码关系模式属于3NF。 （没有非主属性）</li>
@@ -444,7 +447,9 @@
 <li>若R属于3NF，那么R也属于2NF。<br>（可证明，反证）</li>
 <li>若R属于2NF，但R不一定属于3NF。<br>例如，关系模式 S_SD(S#, SN, SD, DEAN)</li>
 </ol>
+<blockquote>
 <p><strong>BCNF</strong>定义：关系模式R<u, f=""> ∈1NF，对于属性组X和Y，若X→Y且Y ∉ X时X必含有码，则R<u, f=""> ∈BCNF</u,></u,></p>
+</blockquote>
 <ul>
 <li>由BCNF的定义，对于非平凡的函数依赖:  X  →  Y<ul>
 <li>X包含码，或者X本身就是码（换句话说，X是一个超码）</li>
@@ -455,6 +460,7 @@
 <li>没有任何属性完全函数依赖于非码的任何一组属性。</li>
 <li>若R∈BCNF, 则必有R∈3NF; 反之不一定成立</li>
 </ul>
+<blockquote>
 <h3 id="铛铛铛！！！敲黑板，候选码的求解算法"><a href="#铛铛铛！！！敲黑板，候选码的求解算法" class="headerlink" title="铛铛铛！！！敲黑板，候选码的求解算法"></a>铛铛铛！！！敲黑板，候选码的求解算法</h3><p>以下算法会涉及到求属性集的闭包，<a href="http://www.jianshu.com/p/78d16f97ef0c" target="_blank" rel="noopener">函数依赖集和属性集闭包传送阵</a></p>
 </blockquote>
 <h4 id="设关系模式R"><a href="#设关系模式R" class="headerlink" title="设关系模式R"></a>设关系模式R<u, f=""></u,></h4><ol>
@@ -645,7 +651,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -658,7 +664,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

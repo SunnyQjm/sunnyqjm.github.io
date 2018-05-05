@@ -313,6 +313,352 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/29/2017-09-29-数据库学习笔记（七）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/09/29/2017-09-29-数据库学习笔记（七）/" itemprop="url">数据库笔记（七）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T00:00:00+08:00">
+                2017-09-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/29/2017-09-29-数据库学习笔记（七）/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/29/2017-09-29-数据库学习笔记（七）/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/09/29/2017-09-29-数据库学习笔记（七）/" class="leancloud_visitors" data-flag-title="数据库笔记（七）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
+<blockquote>
+<p>外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的限制，如果某个操作执行后会破坏这个完整性，就将被拒绝执行。这个在之前的博客中有介绍==&gt;<a href="http://www.jianshu.com/p/6f5032194eab" target="_blank" rel="noopener"> 传送门</a></p>
+</blockquote>
+<hr>
+<blockquote>
+<h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><p>一个表与自身相连接的操作，其实与多表连接是一样的，只是连接的两张表用的是同一张表而已</p>
+</blockquote>
+<ul>
+<li><h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询了所有员工的名字以及其经理的名字</span></span><br><span class="line"><span class="keyword">SELECT</span> w.ENAME <span class="keyword">as</span> worker_name, m.ENAME <span class="keyword">as</span> manager_name</span><br><span class="line"><span class="keyword">FROM</span> EMP w</span><br><span class="line">  <span class="keyword">JOIN</span> EMP m <span class="keyword">ON</span> w.MGR = m.EMPNO;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-6b77b742a7e84c86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+</li>
+<li>上面得到的结果是采用内连接得到的结果，所以对于那些MGR为null（没有经理）的员工，其信息就得不到显示，可以采用左外连接（LEFT OUTER JOIN）</li>
+<li><p>员工表中MGR 和 EMPNO 字段应该有一层限制，MGR的取值应该是某一个EMPNO的取值（话句话说，一个员工的经理号应该也是同一张表中这个经理的职工号）。在定义这张表的时候可以给这两个字段加上一个外键约束。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句模拟了这一操作</span></span><br><span class="line"><span class="comment">--只关注了EMPNO和MGR这两个字段，其他字段的描述省略了</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> EMP(</span><br><span class="line">  EMPNO <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  MGR <span class="built_in">INTEGER</span>,</span><br><span class="line">  ....</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span>(MGR) <span class="keyword">REFERENCES</span> EMP(EMPNO)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>还是那句话：<strong>绝大多数连接条件是建立在外键与外键的参照键之间的</strong>(自连接也不例外)</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="自然连接（NATURAL-JOIN）"><a href="#自然连接（NATURAL-JOIN）" class="headerlink" title="自然连接（NATURAL JOIN）"></a>自然连接（NATURAL JOIN）</h2><p>其实自然连接就是写法更简单的多表连接，无需书写连接条件，让数据库自己判断应该采用什么连接条件（自然连接的语法是SQL的标准语法，但是并不是所有的数据库都支持，SQL Server就不支持自然连接的语法，但是Oracle和MySQL数据库都是支持的。。<strong>所以下面的测试就在MySQL里面测试啦，上次用IDEA连的那个数据库里面我已经建好了和在上面测试用例一样的表和数据，可以直接用</strong>）</p>
+</blockquote>
+<ul>
+<li><h3 id="可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"><a href="#可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致" class="headerlink" title="可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"></a>可采用自然连接的前提条件：<strong><em>两个表中要有同名字段，并且同名字段的数据类型要一致</em></strong></h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就实现了查询所有的员工名字及其所在部门名</span></span><br><span class="line"><span class="comment">-- 相当于内连接</span></span><br><span class="line"><span class="comment">-- 因为两个表中有同名字段DEPTNO，并且数据类型相同，数据库就用这个作为连接条件</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 上面的语句等价于下面的内连接语句</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-c9b92501a39f2897.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+</li>
+<li>如果两个表中有同名字段，但是数据类型不一致，执行自然连接是会失败的，因为此时数据库不知道应该怎么连接两张表</li>
+</ul>
+</li>
+<li><h3 id="当然如果想要执行外连接（左外，右外，全外）也是一样的"><a href="#当然如果想要执行外连接（左外，右外，全外）也是一样的" class="headerlink" title="当然如果想要执行外连接（左外，右外，全外）也是一样的"></a>当然如果想要执行外连接（左外，右外，全外）也是一样的</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面几个语句是等价的，会得到相同的结果，都采用了左外连接</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-c65af46549b6e705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+</li>
+</ul>
+</li>
+<li><h3 id="在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"><a href="#在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）" class="headerlink" title="在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"></a>在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们在上面例子的基础上，多显示一个部门号，下面的两条语句如果能执行，执行完的结果都是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句在Oracle数据库执行会报错</span></span><br><span class="line"><span class="comment">-- 但是在MySQL中执行是能过的</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面这种写法在Oracle和MySQL中都是能过的</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>让我们先分析一下，为什么在使用自然连接的时候同名字段可以不写限定名</p>
+<ul>
+<li><p>先看看执行下面的语句有什么结果：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br></pre></td></tr></table></figure>
+<p>得到下面结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-24eeb8dd9e7220e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+</li>
+<li>可以看出来，采用自然连接以后，原本的同名字段DEPTNO只出现了一次,可以理解为采用自然连接以后FROM子句的结果就是上面那张表，同时原来的同名字段合成了一个。所以在SELECT子句中书写的时候可以不加表限定名（在Oracle数据库中不能加表限定名）</li>
+<li><strong>对比join操作</strong>，如果你直接用内连接或者外连接，而不是自然连接，会发现结果集里面用来连接的字段即便同名，也是会出现两次的（<strong>这也很好的解释了，为什么之前说在进行内外连操作的时候，用来连接的字段是需要用表明来限定的，不然SQL语句会有歧义，导致无法正确被解析</strong>————见数据库笔记（六））<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 你可以试试执行下面的SQL语句，会发现，结果集中名为DEPTNO的列有两列</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT d <span class="keyword">on</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>让我们对上面的结果小结一下</p>
+<ul>
+<li>在采用自然连接的时候，对于同名字段，可以不写表限定名（<strong>但是在使用非自然连接的时候，同名字段一定要用表名来限定</strong>）</li>
+<li>至于能不能写，得看具体是什么数据库，Oracle此种情况下就不允许在同名字段前写表限定名，而MySQL中则可以</li>
+<li>所以推荐是在<strong>采用自然连接的时候</strong>，<strong>非同名字段都加上限定名，同名字段都不加</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="下面是在多表操作中的一点建议"><a href="#下面是在多表操作中的一点建议" class="headerlink" title="下面是在多表操作中的一点建议"></a>下面是在多表操作中的一点建议</h3><ul>
+<li>在多表连接中，所有的字段前面都建议加上限定名</li>
+<li>特殊的是，在使用自然连接的时候，同名字段不要写限定名</li>
+</ul>
+</li>
+<li><h3 id="有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"><a href="#有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。" class="headerlink" title="有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"></a>有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面这个栗子没有实际执行，想象一下就好</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 假设我们给部门表的部门名字段更名：DNAME--&gt;ENAME</span></span><br><span class="line"><span class="comment">-- 然后我们仍然执行上面的例子</span></span><br><span class="line"><span class="comment">-- 结果应该是没有数据，除非有一个员工，他的名字和他所在部门的名字是一样的。</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.ENMAE</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导致上面结果的原因是采用了自然连接以后，数据库会把所有同名并且类型相同的字段作为连接条件</p>
+</li>
+<li>有时候我们并不希望所有的同名字段都作为条件，这个时候我们就不能用上面的自然连接操作，就应该使用介绍的有关JOIN … USING的用法</li>
+</ul>
+</li>
+<li><h3 id="利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件"><a href="#利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件" class="headerlink" title="利用JOIN … USING 可以灵活的指定用什么字段做连接条件"></a>利用JOIN … USING 可以灵活的指定用什么字段做连接条件</h3><ul>
+<li>JOIN…USING 同样是一种自然连接，且是一种特殊的自然连接，不需要显示写明连接条件，只需要指定用什么字段连接即可</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 用下面的语句同样可以实现查询所有员工名字以及其所在部门名字的需求</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">USING</span> (DEPTNO);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 同样的，如果我们给部门表的部门名字段更名：DNAME--&gt;ENAME</span></span><br><span class="line"><span class="comment">-- 为了避免上面提到的问题，我们可以只指定DEPTNO作为连接条件，就轻松解决上面的问题</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.ENAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">USING</span> (DEPTNO);</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-22a77fd9ef19119d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+</li>
+<li>其中<strong>JOIN 表名 USING (字段序列)</strong>，字段序列可以是一个或多个字段</li>
+</ul>
+</li>
+<li><h3 id="如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"><a href="#如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的" class="headerlink" title="如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"></a>如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的</h3></li>
+<li><h3 id="连接类型和连接条件-就是老师上课提到的课本上那个图"><a href="#连接类型和连接条件-就是老师上课提到的课本上那个图" class="headerlink" title="连接类型和连接条件(就是老师上课提到的课本上那个图)"></a>连接类型和连接条件(就是老师上课提到的课本上那个图)</h3><ul>
+<li><h4 id="连接类型"><a href="#连接类型" class="headerlink" title="连接类型"></a>连接类型</h4><ul>
+<li>INNER JOIN</li>
+<li>LEFT OUTER JOIN</li>
+<li>RIGHT OUTER JOIN</li>
+<li>FULL OUTER JOIN</li>
+</ul>
+</li>
+<li><h4 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h4><ul>
+<li>NATURAL</li>
+<li>ON&lt; predicate></li>
+<li>USING(A1, A2, …, An)</li>
+</ul>
+</li>
+<li>其中上面的连接类型和连接条件可以任意组合使用</li>
+<li>但不是所有数据库都支持NATURAL 和 USING的用法，SQL Server不支持，Oracle和MySQL支持，即便支持，有一些细节还是不一样的（比如上面同名字段前面能不能加限定词的问题）</li>
+<li>ON的话是都支持的，建议用ON，有更好的可读性和灵活性</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="FROM子句中的子查询"><a href="#FROM子句中的子查询" class="headerlink" title="FROM子句中的子查询"></a>FROM子句中的子查询</h2></blockquote>
+<ul>
+<li><h3 id="如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"><a href="#如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表" class="headerlink" title="如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"></a>如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表</h3><ul>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的例子求出了工资比本部门平均工资高的员工的名字和其工资，以及其所在部门的平均工资</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-7ba5a1d249d51f88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+</li>
+<li>分析上面的执行过程的时候，可以先分析一下子查询执行的结果是什么，然后再把它当做一张表放在上面，继续分析整个语句</li>
+</ul>
+</li>
+<li><h3 id="可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"><a href="#可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字" class="headerlink" title="可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"></a>可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字</h3><ul>
+<li><p>最常见的是下面这种命名方法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E(DEPTNO, avg_sal)</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>直接在子查询后面用as关系指定表名以及子查询结果中每个字段的别名</li>
+</ul>
+</li>
+<li><p>但是也不是所有数据库都支持上面那种用法，Oracle数据库中就不支持用as关键字指定子查询的表名，也不支持在表名后面加上每个字段的名字，那这个时候怎么办呢？（<strong>可以在子查询里面给每个字段取别名，最后再给子查询得到的虚表用空格分隔取个表名就好了</strong>）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) E</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>下面提几点注意（对于FROM子句中的子查询）</strong>：</p>
+<ul>
+<li>如果子查询中含有聚集函数（组函数）,一定要给它起个别名</li>
+<li>对每个子查询得到的虚表都务必取个表名（虽然有些数据库可以不起表名，但是有些数据库不起表名是会出错的，所以建议还是都起一个表名）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="With-子句"><a href="#With-子句" class="headerlink" title="With 子句"></a>With 子句</h2><p>其实with子句的作用和在FROM子句中使用子查询时一样的，同样是得到了一张虚表，只是把FROM中冗长的子查询移到外面，可读性 更好一点</p>
+</blockquote>
+<ul>
+<li><h3 id="with子句的作用是定义一张临时表"><a href="#with子句的作用是定义一张临时表" class="headerlink" title="with子句的作用是定义一张临时表"></a>with子句的作用是定义一张临时表</h3></li>
+<li><h3 id="WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"><a href="#WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多" class="headerlink" title="WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"></a>WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多</h3></li>
+<li><h3 id="WITH-的基本使用方法"><a href="#WITH-的基本使用方法" class="headerlink" title="WITH 的基本使用方法"></a>WITH 的基本使用方法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WITH &lt; 临时表名 &gt; （字段别名序列）AS (子查询)</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的例子和上面找大于本部门平均工资的例子是等效的</span></span><br><span class="line"><span class="comment">-- 执行的结果也是相同的</span></span><br><span class="line">WITH avg_tab(DEPTNO, avg_sal)</span><br><span class="line">AS (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">    <span class="keyword">FROM</span> EMP</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO)</span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, avg_tab.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, avg_tab</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = avg_tab.DEPTNO <span class="keyword">AND</span> e.SAL &gt; avg_tab.avg_sal;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句和上面的等效</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E(DEPTNO, avg_sal)</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="标量子查询"><a href="#标量子查询" class="headerlink" title="标量子查询"></a>标量子查询</h2></blockquote>
+<ul>
+<li><h3 id="把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING"><a href="#把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING" class="headerlink" title="把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING"></a>把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING</h3></li>
+<li><h3 id="子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"><a href="#子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）" class="headerlink" title="子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"></a>子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）</h3><blockquote>
+<h2 id="带子查询的DELETE语句"><a href="#带子查询的DELETE语句" class="headerlink" title="带子查询的DELETE语句"></a>带子查询的DELETE语句</h2></blockquote>
+</li>
+<li><p>举个栗子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句可以用来删除所有销售部的员工的信息</span></span><br><span class="line"><span class="keyword">DELETE</span></span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> DEPTNO = (</span><br><span class="line">  <span class="keyword">SELECT</span> DEPT.DEPTNO</span><br><span class="line">  <span class="keyword">FROM</span> DEPT</span><br><span class="line">  <span class="keyword">WHERE</span> DNAME = <span class="string">'SALES'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="带子查询的INSERT语句"><a href="#带子查询的INSERT语句" class="headerlink" title="带子查询的INSERT语句"></a>带子查询的INSERT语句</h2></blockquote>
+<ul>
+<li><p>基本格式</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> &lt; 表名 &gt;（字段序列）</span><br><span class="line">子查询</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举个栗子</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于SQL Server中是没有dual这张系统表的，而Oracle和MySQL数据库中是有的，所以下面的测试是在MySQL中测试的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句很巧妙的实现了：</span></span><br><span class="line"><span class="comment">--如果部门表中没有部门号为666的部门的话，就将摸鱼部门的信息插入到部门表中</span></span><br><span class="line"><span class="comment">--如果部门表中有部门号为666的部门，则不执行插入操作</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT (DEPTNO, DNAME, LOC)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'666'</span>, <span class="string">'MOYU'</span>, <span class="string">'DUT'</span></span><br><span class="line"><span class="keyword">FROM</span> dual</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> *</span><br><span class="line">              <span class="keyword">FROM</span> EMP</span><br><span class="line">              <span class="keyword">WHERE</span> DEPTNO = <span class="string">'666'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="UPDATE语句的扩展"><a href="#UPDATE语句的扩展" class="headerlink" title="UPDATE语句的扩展"></a>UPDATE语句的扩展</h2></blockquote>
+<ul>
+<li><h3 id="有下面几个扩展"><a href="#有下面几个扩展" class="headerlink" title="有下面几个扩展"></a>有下面几个扩展</h3><ul>
+<li>可以嵌入子查询（这个不在举例，和上面的用法类似）</li>
+<li>case分支结构</li>
+</ul>
+</li>
+<li><h3 id="case分支结构-可以有效的避免更新次序引发的问题"><a href="#case分支结构-可以有效的避免更新次序引发的问题" class="headerlink" title="case分支结构(可以有效的避免更新次序引发的问题)"></a>case分支结构(可以有效的避免更新次序引发的问题)</h3><ul>
+<li><p>第一种用法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CASE WHEN &lt;条件&gt;</span><br><span class="line">        THEN ...</span><br><span class="line">     WHEN &lt;条件&gt;</span><br><span class="line">        THEN ...</span><br><span class="line">        ...</span><br><span class="line">    ELSE ...</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二种用法</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CASE &lt;条件&gt;</span><br><span class="line">WHEN &lt;值&gt; THEN ...</span><br><span class="line">WHEN &lt;值&gt; THEN ...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对比两种方法，可以将第一种方法类比成其他编程语言的if-else分支语句，而将第二种用法类比成switch语句</p>
+</li>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们的需求是给员工涨工资，工资大于等于3000的涨2%</span></span><br><span class="line"><span class="comment">-- 工资大于等于两千的涨3%</span></span><br><span class="line"><span class="comment">-- 工资小于2000的涨5%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--第一种尝试</span></span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.02</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt;= <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.03</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt;= <span class="number">2000</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.05</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &lt; <span class="number">2000</span>;</span><br><span class="line"><span class="comment">--会发现上面执行的次序不一样会导致结果不一样，如果把第三个更新语句先执行，那么可能某个工资低于2000的员工涨了一次工资后工资大于两千了，于是执行第二个更新语句的时候又给他涨了一遍工资</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 第二种尝试</span></span><br><span class="line"><span class="comment">--下面就完美的实现了上面的需求，而且没有执行次序导致的问题</span></span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="keyword">CASE</span></span><br><span class="line">    <span class="keyword">WHEN</span> SAL &gt;= <span class="number">3000</span> <span class="keyword">THEN</span> SAL * <span class="number">1.02</span></span><br><span class="line">    <span class="keyword">WHEN</span> SAL &gt;= <span class="number">2000</span> <span class="keyword">THEN</span> SAL * <span class="number">1.03</span></span><br><span class="line">    <span class="keyword">ELSE</span> SAL * <span class="number">1.05</span></span><br><span class="line">    <span class="keyword">END</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="case分支结构不止可以用在update子句中，在select子句中也是有的"><a href="#case分支结构不止可以用在update子句中，在select子句中也是有的" class="headerlink" title="case分支结构不止可以用在update子句中，在select子句中也是有的"></a>case分支结构不止可以用在update子句中，在select子句中也是有的</h4><blockquote>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>啊啊啊啊啊，这个内容还不是三言两语讲的玩的，下次吧下次吧。&gt;.&lt;</p>
+</blockquote>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/26/2017-09-26-数据库学习笔记（六）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1579,228 +1925,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="url">Java环境简单配置+IDEA（小白版）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-16T00:00:00+08:00">
-                2017-09-16
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="leancloud_visitors" data-flag-title="Java环境简单配置+IDEA（小白版）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h3 id="JDK配置"><a href="#JDK配置" class="headerlink" title="JDK配置"></a>JDK配置</h3></blockquote>
-<ol>
-<li>首先到官网下载最新版JDK：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle官网下载</a></li>
-</ol>
-<ul>
-<li>Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>开始安装JDK</li>
-</ol>
-<ul>
-<li>选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>安装过程中会跳出Jre的安装界面，你可以放到和之前JDK在同一个文件夹下，也可默认。然后直接下一步开始安装<br><img src="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>环境变量配置</li>
-</ol>
-<ul>
-<li>右击我的电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>新建环境变量，变量名为：JAVA_HOME，变量值为之前JDK的安装路径，此处安装在：C:\Program Files\Java\jdk1.8.0_131<br>（可以在系统变量下新建，这样可以为每个登录该pc的用户都配置，如果在用户变量中新建，则只为当前用户配置，此处以在系统变量下新建为例）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>找到Path变量–&gt;编辑<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win10系统，则进入后界面如下，选择新建两个环境变量，<br>一个值为：%JAVA_HOME%\bin<br>另一个为：%JAVA_HOME%\jre\bin<br>（此处笔者已经配置好）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>配置好就如下图<br><img src="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win7及之前的系统则进入后界面如下:<br>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;<br>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>验证一下^-^</li>
-</ol>
-<ul>
-<li>win + R–&gt;输入cmd，进入cmd命令行<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入：java -version    就可以查看版本信息，如果显示如下信息，则表示环境配置成功<br><img src="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>到这里我们就可以骚操作一波，用记事本写简单Java程序（纯属骚操作，如果用IDE开发（比如我们接下来的部分要介绍的重头戏，用IDEA实现真正的骚操作）可不看这个hhhhhh，如果不想使用IDE开发的话，建议可以使用NotePad++、sublimeText或Atom进行代码编辑，不过真想用记事本敲也无可厚非）</li>
-</ol>
-<ul>
-<li>新建一个文本文档，并修改后缀为.java<br><img src="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>修改以后如下：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>如果没有显示后缀名，则可通过如下方式修改：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>用记事本打开，输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-<ul>
-<li>直接在创建文件的文件夹下按住Shift + 右键，选择在此处打开命令窗口（环境变量的配置使得用户可以在任意目录下调用javac 和java 命令）<br>输入：<br>javac Hello.java    （用于编译java源程序）<br>java Hello（运行java程序）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<p><strong>自此JDK的配置就OK了，可以开始Java从入门到放弃的修炼了~~</strong></p>
-<blockquote>
-<h3 id="极其好用的IDE–-gt-IDEA"><a href="#极其好用的IDE–-gt-IDEA" class="headerlink" title="极其好用的IDE–&gt;IDEA"></a><strong>极其好用的IDE–&gt;IDEA</strong></h3><p>ps:如果在打开IDEA之前没有下载好JDK的道友，请先往上看详细步骤</p>
-</blockquote>
-<ol>
-<li>先来一波官网的下载链接：<a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">IDEA官网下载地址</a><br>我们下载社区版（别问为啥，社区版免费，如果下载左边的旗舰版也行，但是需要注册码，之前有个网上长期流传的获取注册码的路子，现在貌似不好用了，如果道友是学生就可以用学校给的邮箱百度“IDEA学生”去注册一个IDEA的学生账号（学生账号有自己的注册码，有效期为1年），如果不是就买或者用社区版吧）：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二步我们来开始安装：</li>
-</ol>
-<ul>
-<li>选择安装路径：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>上面的是创建桌面图标，选择自己电脑对应的版本就行了；下面的可以全选，表示什么格式的文件可直接关联到IDEA，用IDEA来打开<br><img src="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>下一步直接install<br><img src="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol>
-<li>启动刚安装好的IDEA</li>
-</ol>
-<ul>
-<li>如果第一次安装，就直接不导入设置，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>选个喜欢的主题（此处笔者选这骚气黑），然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接start</li>
-</ul>
-<ol>
-<li>接下来新建一个项目练练手</li>
-</ol>
-<ul>
-<li>create a project<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果显示NO SDK， 找到之前安装的JDK所在路径，然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二行选择项目的存放路径，第一行给项目取个名字，然后Finish<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>右击src文件夹–&gt;new–&gt;java class<br><img src="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>给类取个名字，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行程序：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行成功，开始你的表演：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1855,7 +1979,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-count">48</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1868,7 +1992,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
