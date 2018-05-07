@@ -1,0 +1,1701 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,计算机网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Principles of Network Applications 只有端系统中才有应用层和传输层    网络应用体系架构（Network Application Architectures） client-server （C / S） Peer-to-peer (P2P) Hybird of C/S and P2P (混合架构)  ps: 与网络体系架构（5层架构、OSI/ISO七层架构…）">
+<meta name="keywords" content="学习,笔记,计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 2 Applicaiton Layer">
+<meta property="og:url" content="http://qjm253.cn/2018/05/06/computer_networking_02/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="Principles of Network Applications 只有端系统中才有应用层和传输层    网络应用体系架构（Network Application Architectures） client-server （C / S） Peer-to-peer (P2P) Hybird of C/S and P2P (混合架构)  ps: 与网络体系架构（5层架构、OSI/ISO七层架构…）">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_08.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_09.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_02.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_10.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_11.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_12.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_13.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_14.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_15.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_16.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_17.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_18.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_19.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_20.png">
+<meta property="og:updated_time" content="2018-05-07T13:20:42.907Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Applicaiton Layer">
+<meta name="twitter:description" content="Principles of Network Applications 只有端系统中才有应用层和传输层    网络应用体系架构（Network Application Architectures） client-server （C / S） Peer-to-peer (P2P) Hybird of C/S and P2P (混合架构)  ps: 与网络体系架构（5层架构、OSI/ISO七层架构…）">
+<meta name="twitter:image" content="http://qjm253.cn/img/computer_network/computer_network_08.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qjm253.cn/2018/05/06/computer_networking_02/"/>
+
+
+
+
+
+  <title>Chapter 2 Applicaiton Layer | 建明 | Ming.J</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a9fa95ff997969441c084d8d73eacfb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-games">
+          <a href="/game/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gamepad"></i> <br />
+            
+            游戏
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/06/computer_networking_02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter 2 Applicaiton Layer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-06T18:00:00+08:00">
+                2018-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/06/computer_networking_02/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/05/06/computer_networking_02/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/05/06/computer_networking_02/" class="leancloud_visitors" data-flag-title="Chapter 2 Applicaiton Layer">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="Principles-of-Network-Applications"><a href="#Principles-of-Network-Applications" class="headerlink" title="Principles of Network Applications"></a>Principles of Network Applications</h2><ul>
+<li><strong>只有端系统中才有应用层和传输层</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="网络应用体系架构（Network-Application-Architectures）"><a href="#网络应用体系架构（Network-Application-Architectures）" class="headerlink" title="网络应用体系架构（Network Application Architectures）"></a>网络应用体系架构（Network Application Architectures）</h3><ul>
+<li>client-server （C / S）</li>
+<li>Peer-to-peer (P2P)</li>
+<li><p>Hybird of C/S and P2P (混合架构)</p>
+<blockquote>
+<p>ps: 与网络体系架构（5层架构、OSI/ISO七层架构…）做一下区分</p>
+</blockquote>
+</li>
+<li><h4 id="C-S"><a href="#C-S" class="headerlink" title="C/S"></a>C/S</h4><ul>
+<li><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
+<li><strong>服务端要一直在线</strong>，且要 <strong>先于客户端启动</strong></li>
+<li>服务端通常 <strong>要有一个固定的，长期不变的唯一地址</strong>（IP Address）</li>
+<li>客户端之间并不直接进行通信，<strong>所有的客户端都直接与服务端通信</strong></li>
+<li>易于管理</li>
+</ul>
+</li>
+<li><h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>单点故障</li>
+<li>接入客户端过多的时候，容易导致服务器过载（所以服务端通常采用分布式集群，且性能一般都比较强大）</li>
+<li>维护、升级成本大</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h4><ul>
+<li>不需要一直在线的服务端</li>
+<li>任意两个主机之间都可以直接通信</li>
+<li><strong>高可扩展性</strong> （<strong><em>设备增加不会系统影响整体的性能</em></strong>），但是不易管理</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Process-Communication（进程通信）"><a href="#Process-Communication（进程通信）" class="headerlink" title="Process Communication（进程通信）"></a>Process Communication（进程通信）</h3><blockquote>
+<p><strong>同一主机的进程之间</strong> 通过 <strong>进程间通信（innerprocess communication）</strong> 进行通信，而不同主机的进程之间通过交换数据报（message）进行通信 =&gt; 发送进程将构造message并将其发送到网络当中，接收进程从网络中接收message，并解析它</p>
+</blockquote>
+<ul>
+<li><h4 id="Client-and-Server-Processes-（客户端和服务端进程）"><a href="#Client-and-Server-Processes-（客户端和服务端进程）" class="headerlink" title="Client and Server Processes （客户端和服务端进程）"></a>Client and Server Processes （客户端和服务端进程）</h4><p><strong><em>In the context of a communication session between on pair of processes, the process that initiates the communication (that is, initially contacts the other process at the begining of the session) is labeled as the client, The process that waits to be contacted to begin the session is the server</em></strong></p>
+<ul>
+<li><p>通常我们将 <strong>发起通信的一端标记为客户端</strong></p>
+</li>
+<li><p>不只是C/S架构中有 <strong>服务端和客户端的概念，P2P架构中同样也有</strong>，不同的是在C/S架构中一个进程扮演的角色是固定的，而 <strong>P2P架构中同一个进程既可以是客户端，也可以是服务端</strong>，甚至可以同时扮演两个角色</p>
+</li>
+</ul>
+</li>
+<li><h4 id="The-Interface-Between-the-Process-and-the-Computer-Network-进程和网络之间的接口-gt-Socket"><a href="#The-Interface-Between-the-Process-and-the-Computer-Network-进程和网络之间的接口-gt-Socket" class="headerlink" title="The Interface Between the Process and the Computer Network (进程和网络之间的接口) =&gt; Socket"></a>The Interface Between the Process and the Computer Network (进程和网络之间的接口) =&gt; Socket</h4><img src="/img/computer_network/computer_network_08.png" title="进程和Socket关系图解">
+<ul>
+<li><p><strong>Socket作为Process和Network之间的门户</strong> ，发送和接收message都需要经过Socket。可以把Process比作一个工厂或仓库，而Socket就是工厂或长裤的大门</p>
+</li>
+<li><p>一个Socket只属于一个Process，而一个Process可以持有多个Socket</p>
+</li>
+<li><p>我们用 IP+Port 标识一个进程</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Transport-Services-Available-to-Applications-（传输层给应用层所提供的服务）"><a href="#Transport-Services-Available-to-Applications-（传输层给应用层所提供的服务）" class="headerlink" title="Transport Services Available to Applications （传输层给应用层所提供的服务）"></a>Transport Services Available to Applications （传输层给应用层所提供的服务）</h3><blockquote>
+<p>同时也可以说是理想情况下，应用层需要传输层给它提供哪些服务</p>
+</blockquote>
+<ul>
+<li><h4 id="Reliable-Data-Transfer-数据的可靠传输"><a href="#Reliable-Data-Transfer-数据的可靠传输" class="headerlink" title="Reliable Data Transfer (数据的可靠传输)"></a>Reliable Data Transfer (数据的可靠传输)</h4>传输层需要向应用层提供进程到进程的可靠通信</li>
+<li><h4 id="Throughput-（最小带宽的保障）"><a href="#Throughput-（最小带宽的保障）" class="headerlink" title="Throughput （最小带宽的保障）"></a>Throughput （最小带宽的保障）</h4>有些网络应用（比如网络电话）是对带宽比较敏感的，被称为 <strong>带宽敏感型应用（bandwidth-sensitive-applications）</strong>。这些应用对吞吐量有一定要求，要求吞吐量至少高于某个速率才能正常工作这样子。所以传输层就需要能为应用层提供保证吞吐量的服务</li>
+<li><h4 id="Timing-（延迟保障）"><a href="#Timing-（延迟保障）" class="headerlink" title="Timing （延迟保障）"></a>Timing （延迟保障）</h4></li>
+<li><h4 id="Security-（安全保障）"><a href="#Security-（安全保障）" class="headerlink" title="Security （安全保障）"></a>Security （安全保障）</h4></li>
+</ul>
+</li>
+<li><h3 id="Transport-Services-Providede-by-the-Internet"><a href="#Transport-Services-Providede-by-the-Internet" class="headerlink" title="Transport Services Providede by the Internet"></a>Transport Services Providede by the Internet</h3><blockquote>
+<p>互联网所提供的传输层服务</p>
+</blockquote>
+<ul>
+<li><h4 id="TCP-Services"><a href="#TCP-Services" class="headerlink" title="TCP Services"></a>TCP Services</h4><blockquote>
+<p>提供数据的可靠传输，不提供最小带宽，最短时延的保障，不提供安全保障</p>
+</blockquote>
+<ul>
+<li>connect-oriented (面向连接)</li>
+<li>reliable transport (可靠传输)</li>
+<li>flow control (流量控制)</li>
+<li>congestion control (拥塞控制)</li>
+</ul>
+</li>
+<li><h4 id="UDP-services"><a href="#UDP-services" class="headerlink" title="UDP services"></a>UDP services</h4><blockquote>
+<p>不提供可靠数据传输，不提供最小带宽，最短时延的保障，不提供安全保障</p>
+</blockquote>
+</li>
+<li><h4 id="一些经典应用程序所采用的应用层协议和传输层协议"><a href="#一些经典应用程序所采用的应用层协议和传输层协议" class="headerlink" title="一些经典应用程序所采用的应用层协议和传输层协议"></a>一些经典应用程序所采用的应用层协议和传输层协议</h4><img src="/img/computer_network/computer_network_09.png" title="一些经典的应用程序所采用的应用层协议和传输层协议">
+<ul>
+<li>TCP: Telnet, FTP, SMTP, HTTP</li>
+<li>UDP: SNMP, DNS, RTP, RIP</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="The-Web-and-HTTP"><a href="#The-Web-and-HTTP" class="headerlink" title="The Web and HTTP"></a>The Web and HTTP</h2></blockquote>
+<ul>
+<li><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><blockquote>
+<p>HTTP——HypreText Transfer Protol（超文本传输协议）</p>
+</blockquote>
+<ul>
+<li>HTTP是应用层协议（Application protocol）</li>
+<li>HTTP采用的是C/S架构</li>
+<li>基于TCP</li>
+<li>HTTP是无状态的(stateless) =&gt; 不保存用户端的状态信息，所以HTTP协议也被称为无状态协议（stateless protocol）</li>
+</ul>
+</li>
+<li><h3 id="Non-Persistent-and-Persistent-Connections"><a href="#Non-Persistent-and-Persistent-Connections" class="headerlink" title="Non-Persistent and Persistent Connections"></a>Non-Persistent and Persistent Connections</h3><ul>
+<li><h4 id="RTT-Round-trip-time-往返时间"><a href="#RTT-Round-trip-time-往返时间" class="headerlink" title="RTT (Round-trip time, 往返时间)"></a>RTT (Round-trip time, 往返时间)</h4><p><strong>定义</strong>：一个很小的数据包（小到可以近乎忽略数据包的长度）从客户端到服务端往返一次所需要的时间</p>
+<img src="/img/computer_network/computer_network_02.jpg" title="RTT">
+</li>
+<li><h4 id="一次HTTP请求的响应时间"><a href="#一次HTTP请求的响应时间" class="headerlink" title="一次HTTP请求的响应时间"></a>一次HTTP请求的响应时间</h4><img src="/img/computer_network/computer_network_10.png" title="一次HTTP请求的响应时间">
+<ul>
+<li>total = 2*RTT + transimit time</li>
+<li>总的响应时间 = 2倍的RTT + 收到整个返回的对象所需要的时间（文件长度/带宽）</li>
+</ul>
+</li>
+<li><h4 id="Non-Persistent-HTTP-（非坚持的HTTP）"><a href="#Non-Persistent-HTTP-（非坚持的HTTP）" class="headerlink" title="Non-Persistent HTTP （非坚持的HTTP）"></a>Non-Persistent HTTP （非坚持的HTTP）</h4><p>每建立一个TCP连接，只能传一个对象（object =&gt; HTML file, JPEG…）</p>
+<ul>
+<li>由于接收每个对象都要单独建立连接，所以 <strong>接收每个对象所需要的响应时间都包含至少两个RTT</strong></li>
+<li><strong>服务器负担重</strong>：传送每个对象都需要服务器维护一个新的连接，而连接的建立和维护是有一定开销的</li>
+</ul>
+</li>
+<li><h4 id="Persistent-HTTP-（坚持的HTTP）"><a href="#Persistent-HTTP-（坚持的HTTP）" class="headerlink" title="Persistent HTTP （坚持的HTTP）"></a>Persistent HTTP （坚持的HTTP）</h4>一个连接建立可以传第一个Object<ul>
+<li>这个接收第一个对象的时候需要至少两个RTT，紧接着后面的每个对象都少了建立连接的RTT了。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="HTTP-Message-Format"><a href="#HTTP-Message-Format" class="headerlink" title="HTTP Message Format"></a>HTTP Message Format</h3><ul>
+<li><h4 id="HTTP-Request-Message-HTTP请求消息格式"><a href="#HTTP-Request-Message-HTTP请求消息格式" class="headerlink" title="HTTP Request Message (HTTP请求消息格式)"></a>HTTP Request Message (HTTP请求消息格式)</h4><img src="/img/computer_network/computer_network_11.png" title="HTTP请求消息的通用格式">
+<ul>
+<li><strong>method field</strong> (方法域)：GET, POST, HEAD, PUT, DELETE …</li>
+<li><strong>URL</strong>: 请求位置</li>
+<li><strong>Version</strong>：HTTP协议的版本号</li>
+<li><strong>Header lines</strong>: 包含了请求头信息，请求头中包含一系列的键值对</li>
+<li><strong>Entity body</strong>: 数据域，当使用GET请求的时候，这个域是为空的，当使用POST请求的时候，这个域包含了请求所携带的数据</li>
+<li><strong>HTTP Request message都是用ASCII text表示的</strong></li>
+<li>需要注意的是，请求中携带数据，不一定要使用POST方法， <strong>GET方法也同样可以携带数据</strong>。虽然GET请求的Entity body域是空的，但是GET方法可以在URL后面包含数据。</li>
+</ul>
+</li>
+<li><h4 id="一个HTTP请求的简单例子"><a href="#一个HTTP请求的简单例子" class="headerlink" title="一个HTTP请求的简单例子"></a>一个HTTP请求的简单例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /somedir/page.html HTTP/1.1</span><br><span class="line">Host: www.someschool.edu</span><br><span class="line">Connection: close</span><br><span class="line">User-agent: Mozilla/4.0</span><br><span class="line">Accept-language: fr</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其中第一行分别是请求方法，URL和HTTP版本</li>
+<li>后面四行是请求头<ul>
+<li>Host: 服务器主机的域名</li>
+<li>Connection: close =&gt; 要求服务器在发送完所请求的数据之后，不保持连接</li>
+<li>User-agent =&gt; 通常用来标识浏览器内核版本，服务端可以通过这个请求头对不同的浏览器返回不同的文件，这样就可以实现同一个URL针对不同的浏览器返回不同数据的功能</li>
+<li>Accept-language =&gt; 告诉服务器前端所期望服务器返回数据的语言</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="HTTP-Response-Message-（HTTP返回消息格式）"><a href="#HTTP-Response-Message-（HTTP返回消息格式）" class="headerlink" title="HTTP Response Message （HTTP返回消息格式）"></a>HTTP Response Message （HTTP返回消息格式）</h4><img src="/img/computer_network/computer_network_12.png" title="HTTP返回消息的通用格式">
+<ul>
+<li><strong>status line</strong><ul>
+<li><strong>version</strong>: HTTP协议的版本号</li>
+<li><strong>status code</strong>: 本次请求的状态码</li>
+<li><strong>parase</strong>: 对状态码的简单描述</li>
+</ul>
+</li>
+<li><strong>Header lines</strong>: 包含了返回头信息，返回头中包含一系列的键值对</li>
+<li><strong>Entity body</strong>: 数据域，如果有的话包含了服务器返回的数据</li>
+</ul>
+</li>
+<li><h4 id="HTTP-Response-Status-Code-HTTP-返回消息状态码"><a href="#HTTP-Response-Status-Code-HTTP-返回消息状态码" class="headerlink" title="HTTP Response Status Code (HTTP 返回消息状态码)"></a>HTTP Response Status Code (HTTP 返回消息状态码)</h4><blockquote>
+<p><a href="http://tool.oschina.net/commons?type=5" target="_blank" rel="noopener">状态码列表</a></p>
+</blockquote>
+<ul>
+<li>200 OK: 本次请求成功，并且所请求的object对象已经在Response消息中返回</li>
+<li>301 Moved Permanently: 所请求的Object已经被移到另一个位置，在Response Message的Location 头中包含了Object的新位置，正常情况下浏览器会自动访问新地址</li>
+<li>400 Bad Request: 服务器无法理解客户端的请求</li>
+<li>404 Not Found: 所请求的object在服务器上不存在</li>
+<li>505 HTTP Version Not Supported: 请求的HTTP协议版本不被服务端支持</li>
+</ul>
+</li>
+<li><h4 id="一个HTTP回复消息的简单例子"><a href="#一个HTTP回复消息的简单例子" class="headerlink" title="一个HTTP回复消息的简单例子"></a>一个HTTP回复消息的简单例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Connection: close</span><br><span class="line">Date: Sat, 07 Jul 2007 12:00:15 GMT</span><br><span class="line">Server: Apache/1.3.0 (Unix)</span><br><span class="line">Last-Modified: Sun, 6 May 2007 09:23:24 GMT</span><br><span class="line">Content-Length: 6821</span><br><span class="line">Content-Type: text/html</span><br><span class="line"></span><br><span class="line">(data data data data data ....)</span><br></pre></td></tr></table></figure>
+<p>上面的消息中包含：an initial status line，six header lines，the entity body</p>
+<ul>
+<li>第一行表示服务端HTTP协议版本号为1.1，客户端本次请求的状态码为200，状态码的描述为OK（表示客户端请求的服务器存在，并且服务器上存在客户端所请求的文件）</li>
+<li><strong>Connection: close</strong> =&gt; 告知客户端，服务器发送完这个Object对象之后就会关闭连接</li>
+<li><strong>Date</strong> =&gt; 表示服务器创建这个message的时间</li>
+<li><strong>Server</strong> =&gt; 包含了服务器的一些信息，与User-Agent类似</li>
+<li><strong>Last-Modified</strong> =&gt; 表示这个Object的最后修改时间，这个在浏览器进行缓存处理的时候极为有用</li>
+<li><strong>Content-Length</strong> =&gt; 返回Object的数据长度</li>
+<li><strong>Content-Type</strong> =&gt; 返回Object的类型</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="User-Server-Interaction-Cookies-用户服务器交互：Cookies"><a href="#User-Server-Interaction-Cookies-用户服务器交互：Cookies" class="headerlink" title="User-Server Interaction: Cookies (用户服务器交互：Cookies)"></a>User-Server Interaction: Cookies (用户服务器交互：Cookies)</h3><ul>
+<li><h4 id="Cookies-技术四大组件"><a href="#Cookies-技术四大组件" class="headerlink" title="Cookies 技术四大组件"></a>Cookies 技术四大组件</h4><ul>
+<li>A cookie header line in the HTTP response message (HTTP返回消息中的一个cookie头行：例如 <strong>Set-cookie: 1678</strong>)</li>
+<li>A cookie header line in the HTTP request message（HTTP请求消息中的一个cookie头行：例如 <strong>Cookie: 1678</strong>）</li>
+<li>A cookie file kept on the use’s end system and managed by use’s browser (一个cookie文件，持久化在客户终端，并且由客户端浏览器统一管理)</li>
+<li>A back-end database at the Web site (网站上的后端数据库 =&gt; 服务器上记录用户的状态信息，通过请求中的cookie，从数据库中取出对应的信息).</li>
+</ul>
+</li>
+<li><h4 id="交互示例"><a href="#交互示例" class="headerlink" title="交互示例"></a>交互示例</h4><img src="/img/computer_network/computer_network_13.png" title="用户通过Cookies与服务器交互示意图">
+<ul>
+<li>用户一开始向服务器发送一个正常的HTTP请求</li>
+<li>服务器在返回的消息中，通过 <strong>Set-cookie</strong> 头示意客户端浏览器保存一个Cookie。客户端浏览器如果打开了Cookie支持，就会将收到的Cookie存起来，持久化到Cookie文件里面</li>
+<li>之后对同一网站的请求，浏览器都会在每个请求消息中自动加入 <strong>Cookie</strong> 头，并将之前持久化保存起来的Cookie信息取出，填上去</li>
+<li>服务器收到带Cookie头的请求就会去数据库查询相关信息，</li>
+</ul>
+</li>
+<li><p>使用Cookie技术，可以 <strong>在无状态的HTTP上层创建了一个可以保持用户状态的用户会话层</strong></p>
+</li>
+</ul>
+</li>
+<li><h3 id="Web-Caching（Web缓存）"><a href="#Web-Caching（Web缓存）" class="headerlink" title="Web Caching（Web缓存）"></a>Web Caching（Web缓存）</h3><blockquote>
+<p><strong>Web Caching</strong>（Web缓存）也称之为 <strong>proxy server</strong>（代理服务器）。是一个可以代替源端Web服务器响应客户端请求的这么一个网络实体</p>
+<ul>
+<li>WEB缓存在同一时刻既作为Client（客户端），也作为Server（服务端）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="Web-Caching-的工作流程"><a href="#Web-Caching-的工作流程" class="headerlink" title="Web Caching 的工作流程"></a>Web Caching 的工作流程</h4><img src="/img/computer_network/computer_network_14.png" title="Web缓存工作示意图">
+<ol>
+<li>首先，客户端浏览器建立一个到Web缓存的TCP连接，并将请求发送给Web缓存</li>
+<li>Web缓存收到客户端的请求之后，检查本地是否有客户端要请求的object的本地缓存，如果有就将其放入HTTP Response Message中返回给客户端，否则转第三步</li>
+<li>如果Web Caching中没有客户需要的Object，Web缓存就根据客户端请求中的目标地址，向源Web服务器发起一个请求，获取到客户需要的Object</li>
+<li>接着Web缓存将从源服务器中收到的Object缓存到本地，并奖客户端需要的Object放入HTTP Response Message返回给客户端</li>
+</ol>
+</li>
+<li><h4 id="采用Web缓存的好处"><a href="#采用Web缓存的好处" class="headerlink" title="采用Web缓存的好处"></a>采用Web缓存的好处</h4><ol>
+<li>WEB缓存可以大大地减少客户端请求的响应时间，特别是当客户端与源服务器的瓶颈带宽远小于客户端与WEB缓存之间的瓶颈带宽的时候。=&gt; <strong>缩短响应时间，提高响应速度</strong></li>
+<li><p>Web缓存能够大大减少一个机构的接入 链路到闲特网的通信量。通过减少通信量，该机构(如一家公司或者一所大学)就不必急 于增加带宽，因此降低了费用。此外，Web缓器能从整体上大大减低因特网上的 Web 流量，从而改善了所有应用的性能。 =&gt; <strong>减少源服务器的负载，降低机构的出口带宽费用，改善整个因特网的性能</strong></p>
+<img src="/img/computer_network/computer_network_15.png" title="添加本地Web缓存之后的系统">
+</li>
+<li><p>可以提供另一条路径去访问远程服务器（VPN）。客户端访问不到源服务器但是可以访问Web缓存，而Web缓存可以访问到源服务器，那客户端就可以通过WEB缓存的代理，间接访问源服务器</p>
+</li>
+</ol>
+</li>
+<li><h4 id="采用Web缓存可能存在的缺陷"><a href="#采用Web缓存可能存在的缺陷" class="headerlink" title="采用Web缓存可能存在的缺陷"></a>采用Web缓存可能存在的缺陷</h4><ul>
+<li>信息的滞后性，客户端获取到的可能不是源端最新的版本</li>
+<li>解决办法：通过 <strong>Conditional GET(有条件的GET)</strong>，当Web缓存收到客户端的请求的时候，就向源服务器发送一个有条件的GET，询问客户端请求的Object与Web缓存本地的缓存的对象相比是否有更新。如果有更新，就从源服务器下载Object，更新本地的缓存，并将最新的Object返回给客户端；如果没有更新，Web缓存就直接将本地缓存的Object返回给客户端。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Conditional-GET-有条件的GET"><a href="#Conditional-GET-有条件的GET" class="headerlink" title="Conditional GET (有条件的GET)"></a>Conditional GET (有条件的GET)</h3><ul>
+<li><h4 id="什么是有条件的GET"><a href="#什么是有条件的GET" class="headerlink" title="什么是有条件的GET"></a>什么是有条件的GET</h4><ul>
+<li>The Request message use the <strong>GET</strong> method （用GET方法请求）</li>
+<li>The Request message includes an <strong>If-Modified-Since:</strong> header line （请求的时候带上If-Modified-Since头）</li>
+</ul>
+</li>
+<li><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><ol>
+<li><p>一开始Web缓存本地没有缓存，收到一个客户端的请求之后就转而去请求源服务器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /fruit/kiwi.gif HTTP/1.1</span><br><span class="line">Host: www.exotiquecuisine.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接着源服务器会返回类似如下的返回消息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sat, 7 Jul 2007 15:39:29</span><br><span class="line">Server: Apache/1.3.0 (Unix)</span><br><span class="line">Last-Modified: Wed, 4 Jul 2007 09:23:24</span><br><span class="line">Content-Type: image/gif</span><br><span class="line"></span><br><span class="line">(data data data data ...)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>Web缓存收到源服务器返回的消息之后</strong>，就会将Object缓存下来，同时也 <strong>会把对应的Last-Modified头信息（Object最后修改时间）保存下来</strong>。一段时间后，比如过了一周，又有一个客户端向Web缓存请求这个Object，由于过了一段时间了，这个Object可能被修改/更新过了，所以 <strong>Web缓存需要向源服务器发送一个Conditional GET</strong>， 以确定是否要从源服务器更新本地的缓存。Conditional GET请求如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /fruit/kiwi.gif HTTP/1.1</span><br><span class="line">Host: www.exotiquecuisine.com</span><br><span class="line">If-Modified-Since: Wed, 4 Jul 2007 09:23:24</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>源服务器收到一个Conditional GET之后，会检查目标Object的最后修改时间和GET请求中 <strong>If-Modified-Since:</strong>字段的时间孰大孰小，如果时间一致，表示不用更新，会返回如下信息（如果时间不一致，则正常返回要请求的Object）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 304 Not Modified</span><br><span class="line">Date: Sat, 14 Jul 2007 15:39:29</span><br><span class="line">Server: Apache/1.3.0 (Unix)</span><br><span class="line"></span><br><span class="line">(empty entity body)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Web缓存的 <strong>Conditional GET请求</strong> 如果收到 <strong>源服务器返回的304状态码</strong>，就认为本地缓存的Object是最新的，直接将其放入HTTP Response Message 当中返回给客户端</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="File-Transfer-FTP-（文件传输协议）"><a href="#File-Transfer-FTP-（文件传输协议）" class="headerlink" title="File Transfer: FTP （文件传输协议）"></a>File Transfer: FTP （文件传输协议）</h2></blockquote>
+  <img src="/img/computer_network/computer_network_16.png" title="FTP协议工作示意图">
+<ul>
+<li><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
+<li>基于TCP</li>
+<li>采用C/S架构</li>
+<li>是应用层协议</li>
+<li>控制流和信息流分离，<strong>控制信息的传输采用带外传输</strong>（out-of-bound）的方式</li>
+</ul>
+</li>
+<li><h3 id="两种连接"><a href="#两种连接" class="headerlink" title="两种连接"></a>两种连接</h3><img src="/img/computer_network/computer_network_17.png" title="FTP控制连接和数据连接">
+<ul>
+<li>FTP协议在 <strong>21端口上传递控制信息</strong>，在 <strong>22端口上传递数据</strong>（文件）</li>
+<li>初始时客户端通过向服务器的21号端口建立一条TCP连接（control connection），并且向服务端发送identifycation，username，password等信息。接着服务端向客户端建立一条TCP连接用于传输数据（data connection）。即便在同一个Session，每传递一个新的文件都需要新开一个data connection</li>
+<li><strong>控制连接</strong>（control connection）始终处于连接的状态，并且是维持用户状态的（state），<strong>数据连接</strong> 在每传输完一个文件之后就关闭，同时传输多个文件会开启多个数据连接（<strong>Non-Persistent Connection</strong>）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Electronic-Mail-in-the-Internet-因特网中的电子邮件"><a href="#Electronic-Mail-in-the-Internet-因特网中的电子邮件" class="headerlink" title="Electronic Mail in the Internet (因特网中的电子邮件)"></a>Electronic Mail in the Internet (因特网中的电子邮件)</h2><ul>
+<li>SMTP（简单邮件传输协议）=&gt; TCP</li>
+<li>POP3</li>
+<li>IMAP</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="对比SMTP和HTTP"><a href="#对比SMTP和HTTP" class="headerlink" title="对比SMTP和HTTP"></a>对比SMTP和HTTP</h3><ul>
+<li><h4 id="同："><a href="#同：" class="headerlink" title="同："></a>同：</h4><ul>
+<li>两种协议都是用于从一个主机向另一个主机传输文件</li>
+<li>持久HTTP和SMTP都采用持久连接</li>
+<li>都是应用层协议</li>
+<li>都基于TCP</li>
+</ul>
+</li>
+<li><h4 id="异："><a href="#异：" class="headerlink" title="异："></a>异：</h4><ul>
+<li><strong>HTTP</strong> 是一种 <strong>拉式协议（pull protocol）</strong>，它由想接受文件的一端发起连接；而 <strong>SMTP</strong> 是一种 <strong>推式协议（push protocol）</strong>，它由想发送文件的一端发起连接</li>
+<li><strong>SMTP</strong> 的message需要使用 <strong>7-bits ASCII</strong> 格式，对于不是7-bits ASCII格式的文字或者包含比特流，都需编码为 7-bits ASCII 格式之后传送。而相比之下，HTTP就没有这种限制</li>
+<li>对于包含文本和图形的文档<ul>
+<li>HTTP是把每个Object放到一个Response message中发送</li>
+<li>而SMTP是把所有的Object放在一个报文中发送</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>SMTP是一种推式协议，所以不能用来从邮件服务器上获取邮件，而应该采用其它协议来获取邮件</li>
+</ul>
+</li>
+<li><h3 id="收发邮件所用的协议"><a href="#收发邮件所用的协议" class="headerlink" title="收发邮件所用的协议"></a>收发邮件所用的协议</h3><ul>
+<li><h4 id="发邮件"><a href="#发邮件" class="headerlink" title="发邮件"></a>发邮件</h4><ul>
+<li><strong>SMTP</strong> (Simple Mail Transfer Protocol)</li>
+</ul>
+</li>
+<li><h3 id="收邮件"><a href="#收邮件" class="headerlink" title="收邮件"></a>收邮件</h3><ul>
+<li><strong>POP3</strong> (Post Office Protocol——Version 3) =&gt; 邮局协议，端口110<ul>
+<li>“download and delete” mode</li>
+<li>“download and keep” mode</li>
+</ul>
+</li>
+<li><strong>IMAP</strong> (Internet Mail Access Protocol) =&gt; 互联网邮件访问协议</li>
+<li><strong>HTTP</strong> (HyperText Transfer Protocol) =&gt; 超文本传输协议</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
+<li>Domain Name System, 域名系统</li>
+<li><strong>DNS 协议基于UDP</strong>，PORT 53</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="DNS-Servers-组成"><a href="#DNS-Servers-组成" class="headerlink" title="DNS Servers 组成"></a>DNS Servers 组成</h3><ul>
+<li><strong><em>A distributed databse implemented in a hierarchy of DNS Servers</em></strong> (一个由分层的DNS服务器实现的分布式数据库)</li>
+<li><strong><em>An application-layer protocol that allows hosts to query the distributed database</em></strong> (一个使得主机能够查询这个分布式数据库的应用层协议)</li>
+</ul>
+</li>
+<li><h3 id="Services-Provided-by-DNS-DNS所提供的服务"><a href="#Services-Provided-by-DNS-DNS所提供的服务" class="headerlink" title="Services Provided by DNS (DNS所提供的服务)"></a>Services Provided by DNS (DNS所提供的服务)</h3><ul>
+<li>实现域名（<strong><em>hostname</em></strong>）和IP地址的转换 =&gt; 最主要的功能</li>
+<li>支持给主机设置别名（<strong><em>Host aliasing</em></strong>）=&gt; 可以给复杂难记的域名指定一个简单易记的别名，别名指向的原域名我们称之为 <strong>规范主机名</strong>(<strong><em>canonical hostname</em></strong>)。我们可以用这个别名通过DNS服务器查到其规范主机名，进而查到对应的IP</li>
+<li>支持给邮件服务器设置别名 (<strong><em>Mail Server aliasing</em></strong>)</li>
+<li>支持负载均衡 (<strong><em>Load distribution</em></strong>) =&gt; 对同一个域名的访问/请求，可以由多个服务器分担</li>
+</ul>
+</li>
+<li><h3 id="DNS服务为什么不采用集中式设计（centralized-design）"><a href="#DNS服务为什么不采用集中式设计（centralized-design）" class="headerlink" title="DNS服务为什么不采用集中式设计（centralized design）"></a>DNS服务为什么不采用集中式设计（centralized design）</h3><ul>
+<li>单点故障 （<strong><em>A Single point of failure</em></strong>）</li>
+<li>通信容量限制（<strong><em>Traffic volume</em></strong>）=&gt; 单个服务器无法处理上亿个甚至更多的请求</li>
+<li>远距离的集中式数据库（<strong><em>Distant centralized databse</em></strong>）=&gt; 单个DNS服务器无法临近所有主机，距离越远，所产生的时延也就越大</li>
+<li>维护困难（<strong><em>Maintenance</em></strong>）=&gt; 单个DNS服务器将为互联网的所有主机保存数据，将会导致中央数据库非常的庞大，难于维护。</li>
+</ul>
+</li>
+<li><h3 id="DNS-Server-是一个分布式、分层的数据库"><a href="#DNS-Server-是一个分布式、分层的数据库" class="headerlink" title="DNS Server 是一个分布式、分层的数据库"></a>DNS Server 是一个分布式、分层的数据库</h3><img src="/img/computer_network/computer_network_18.png" title="DNS Server 分层">
+<ul>
+<li>Root DNS Servers =&gt; 根域名服务器（全球只有13个，大部分在北美）</li>
+<li>Top-level domain (TLD) =&gt; 顶级域名服务器</li>
+<li>Authoritative DNS Servers =&gt; 权威域名服务器</li>
+<li>Local DNS Server =&gt; 本地域名服务器（通常每个ISP会有一个本地的域名服务器）</li>
+</ul>
+</li>
+<li><h3 id="两种查询方式"><a href="#两种查询方式" class="headerlink" title="两种查询方式"></a>两种查询方式</h3><ul>
+<li><h4 id="交互式查询（Interactive-Queries）"><a href="#交互式查询（Interactive-Queries）" class="headerlink" title="交互式查询（Interactive Queries）"></a>交互式查询（Interactive Queries）</h4><img src="/img/computer_network/computer_network_19.png" title="交互式查询方式示意图"></li>
+<li><h4 id="递归式查询（Recursive-Queries）"><a href="#递归式查询（Recursive-Queries）" class="headerlink" title="递归式查询（Recursive Queries）"></a>递归式查询（Recursive Queries）</h4><img src="/img/computer_network/computer_network_20.png" title="递归式查询示意图"></li>
+</ul>
+</li>
+<li><h3 id="DNS-Caching-DNS缓存"><a href="#DNS-Caching-DNS缓存" class="headerlink" title="DNS Caching (DNS缓存)"></a>DNS Caching (DNS缓存)</h3><p>DNS服务器会对查询过的域名对应有缓存，并且该缓存会有一个存活时间，被访问的越频繁越不容易失效</p>
+<ul>
+<li>DNS Caching 可以减少客户端查询DNS服务器所导致的延迟</li>
+<li>DNS Caching 可以降低高级域名服务器的负载</li>
+</ul>
+</li>
+<li><h3 id="DNS-Records"><a href="#DNS-Records" class="headerlink" title="DNS Records"></a>DNS Records</h3><p>一个DNS记录是如下的四元组</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 域名，值，类型，存活时间（Time-to-live）</span></span><br><span class="line">(Name, Value, Type, TTL)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="记录的类型"><a href="#记录的类型" class="headerlink" title="记录的类型"></a>记录的类型</h4><ul>
+<li><p><strong>A记录</strong>：Name -&gt; hostname, Value -&gt; IP</p>
+<p>例：(relay1.bar.foo.com, 145.37.93.126, A)</p>
+</li>
+<li><p><strong>NS记录</strong>：Name -&gt; ，则 Name 是个域 (如foo. com) ，而 Value 是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名</p>
+<p>例：(foo.com, dns.foo.com, NS)</p>
+</li>
+<li><p><strong>CNAME记录</strong>：则 Value 是别名为 Name 的主机对应的规范主机名</p>
+<p>例：（foo.com, relat1.var.foo.com, CNAME）</p>
+</li>
+<li><p><strong>MX记录</strong>：，则 Value 是个别名为 Name 的邮件服务器的规范主机名</p>
+<p>例：（foo.com, mail.bar.foo.com, MX）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Peer-to-peer-Applicaions（P2P应用程序）"><a href="#Peer-to-peer-Applicaions（P2P应用程序）" class="headerlink" title="Peer-to-peer Applicaions（P2P应用程序）"></a>Peer-to-peer Applicaions（P2P应用程序）</h2><ul>
+<li>共享资源</li>
+<li>节点间课直接通信</li>
+<li>非集中式</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="C-S-架构中存在的问题"><a href="#C-S-架构中存在的问题" class="headerlink" title="C/S 架构中存在的问题"></a>C/S 架构中存在的问题</h3><ul>
+<li>难于扩展（由于服务端负载有限额，当客户端达到一定额度之后，就很难在扩展了）</li>
+<li>单点故障</li>
+<li>需要超级节点作为管理者（服务器的性能要足够好）</li>
+<li>网络边缘的资源未得到充分的利用</li>
+</ul>
+</li>
+<li><h3 id="P2P-的特点"><a href="#P2P-的特点" class="headerlink" title="P2P 的特点"></a>P2P 的特点</h3><ul>
+<li>资源利用率高</li>
+<li>可扩展性好</li>
+<li>可靠性/健壮性好（无单点故障，文件有多份拷贝）</li>
+<li>不需要超级节点管理，节点自管理</li>
+<li>隐私不可控（BT）</li>
+<li>动态性更强</li>
+<li>搭便车问题</li>
+</ul>
+</li>
+<li><h3 id="Robustness（健壮性）"><a href="#Robustness（健壮性）" class="headerlink" title="Robustness（健壮性）"></a>Robustness（健壮性）</h3>系统受到干扰之后迅速恢复回原来状态的能力。</li>
+<li><h3 id="Flooding（洪泛）"><a href="#Flooding（洪泛）" class="headerlink" title="Flooding（洪泛）"></a>Flooding（洪泛）</h3>每次受到邻居节点消息之后都无条件的转发给其它邻居，导致洪泛发生。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/05/computer_networking_01/" rel="next" title="Chapter 1 Computer Network and the Internet">
+                <i class="fa fa-chevron-left"></i> Chapter 1 Computer Network and the Internet
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar-r.jpg"
+                alt="建明 | Ming.J" />
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Network-Applications"><span class="nav-number">1.</span> <span class="nav-text">Principles of Network Applications</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络应用体系架构（Network-Application-Architectures）"><span class="nav-number">1.1.</span> <span class="nav-text">网络应用体系架构（Network Application Architectures）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#C-S"><span class="nav-number">1.1.1.</span> <span class="nav-text">C/S</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#特点"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#P2P"><span class="nav-number">1.1.2.</span> <span class="nav-text">P2P</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Process-Communication（进程通信）"><span class="nav-number">1.2.</span> <span class="nav-text">Process Communication（进程通信）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Client-and-Server-Processes-（客户端和服务端进程）"><span class="nav-number">1.2.1.</span> <span class="nav-text">Client and Server Processes （客户端和服务端进程）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#The-Interface-Between-the-Process-and-the-Computer-Network-进程和网络之间的接口-gt-Socket"><span class="nav-number">1.2.2.</span> <span class="nav-text">The Interface Between the Process and the Computer Network (进程和网络之间的接口) =&gt; Socket</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transport-Services-Available-to-Applications-（传输层给应用层所提供的服务）"><span class="nav-number">1.3.</span> <span class="nav-text">Transport Services Available to Applications （传输层给应用层所提供的服务）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Reliable-Data-Transfer-数据的可靠传输"><span class="nav-number">1.3.1.</span> <span class="nav-text">Reliable Data Transfer (数据的可靠传输)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Throughput-（最小带宽的保障）"><span class="nav-number">1.3.2.</span> <span class="nav-text">Throughput （最小带宽的保障）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Timing-（延迟保障）"><span class="nav-number">1.3.3.</span> <span class="nav-text">Timing （延迟保障）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Security-（安全保障）"><span class="nav-number">1.3.4.</span> <span class="nav-text">Security （安全保障）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transport-Services-Providede-by-the-Internet"><span class="nav-number">1.4.</span> <span class="nav-text">Transport Services Providede by the Internet</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-Services"><span class="nav-number">1.4.1.</span> <span class="nav-text">TCP Services</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP-services"><span class="nav-number">1.4.2.</span> <span class="nav-text">UDP services</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一些经典应用程序所采用的应用层协议和传输层协议"><span class="nav-number">1.4.3.</span> <span class="nav-text">一些经典应用程序所采用的应用层协议和传输层协议</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#The-Web-and-HTTP"><span class="nav-number">2.</span> <span class="nav-text">The Web and HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP"><span class="nav-number">2.1.</span> <span class="nav-text">HTTP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Non-Persistent-and-Persistent-Connections"><span class="nav-number">2.2.</span> <span class="nav-text">Non-Persistent and Persistent Connections</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#RTT-Round-trip-time-往返时间"><span class="nav-number">2.2.1.</span> <span class="nav-text">RTT (Round-trip time, 往返时间)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一次HTTP请求的响应时间"><span class="nav-number">2.2.2.</span> <span class="nav-text">一次HTTP请求的响应时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Non-Persistent-HTTP-（非坚持的HTTP）"><span class="nav-number">2.2.3.</span> <span class="nav-text">Non-Persistent HTTP （非坚持的HTTP）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Persistent-HTTP-（坚持的HTTP）"><span class="nav-number">2.2.4.</span> <span class="nav-text">Persistent HTTP （坚持的HTTP）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-Message-Format"><span class="nav-number">2.3.</span> <span class="nav-text">HTTP Message Format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-Request-Message-HTTP请求消息格式"><span class="nav-number">2.3.1.</span> <span class="nav-text">HTTP Request Message (HTTP请求消息格式)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个HTTP请求的简单例子"><span class="nav-number">2.3.2.</span> <span class="nav-text">一个HTTP请求的简单例子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-Response-Message-（HTTP返回消息格式）"><span class="nav-number">2.3.3.</span> <span class="nav-text">HTTP Response Message （HTTP返回消息格式）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#HTTP-Response-Status-Code-HTTP-返回消息状态码"><span class="nav-number">2.3.4.</span> <span class="nav-text">HTTP Response Status Code (HTTP 返回消息状态码)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个HTTP回复消息的简单例子"><span class="nav-number">2.3.5.</span> <span class="nav-text">一个HTTP回复消息的简单例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#User-Server-Interaction-Cookies-用户服务器交互：Cookies"><span class="nav-number">2.4.</span> <span class="nav-text">User-Server Interaction: Cookies (用户服务器交互：Cookies)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cookies-技术四大组件"><span class="nav-number">2.4.1.</span> <span class="nav-text">Cookies 技术四大组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#交互示例"><span class="nav-number">2.4.2.</span> <span class="nav-text">交互示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Web-Caching（Web缓存）"><span class="nav-number">2.5.</span> <span class="nav-text">Web Caching（Web缓存）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Web-Caching-的工作流程"><span class="nav-number">2.5.1.</span> <span class="nav-text">Web Caching 的工作流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#采用Web缓存的好处"><span class="nav-number">2.5.2.</span> <span class="nav-text">采用Web缓存的好处</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#采用Web缓存可能存在的缺陷"><span class="nav-number">2.5.3.</span> <span class="nav-text">采用Web缓存可能存在的缺陷</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Conditional-GET-有条件的GET"><span class="nav-number">2.6.</span> <span class="nav-text">Conditional GET (有条件的GET)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是有条件的GET"><span class="nav-number">2.6.1.</span> <span class="nav-text">什么是有条件的GET</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例"><span class="nav-number">2.6.2.</span> <span class="nav-text">实例</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#File-Transfer-FTP-（文件传输协议）"><span class="nav-number">3.</span> <span class="nav-text">File Transfer: FTP （文件传输协议）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#特点-1"><span class="nav-number">3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种连接"><span class="nav-number">3.2.</span> <span class="nav-text">两种连接</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Electronic-Mail-in-the-Internet-因特网中的电子邮件"><span class="nav-number">4.</span> <span class="nav-text">Electronic Mail in the Internet (因特网中的电子邮件)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#对比SMTP和HTTP"><span class="nav-number">4.1.</span> <span class="nav-text">对比SMTP和HTTP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#同："><span class="nav-number">4.1.1.</span> <span class="nav-text">同：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#异："><span class="nav-number">4.1.2.</span> <span class="nav-text">异：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收发邮件所用的协议"><span class="nav-number">4.2.</span> <span class="nav-text">收发邮件所用的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发邮件"><span class="nav-number">4.2.1.</span> <span class="nav-text">发邮件</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#收邮件"><span class="nav-number">4.3.</span> <span class="nav-text">收邮件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS"><span class="nav-number">5.</span> <span class="nav-text">DNS</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Servers-组成"><span class="nav-number">5.1.</span> <span class="nav-text">DNS Servers 组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Services-Provided-by-DNS-DNS所提供的服务"><span class="nav-number">5.2.</span> <span class="nav-text">Services Provided by DNS (DNS所提供的服务)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS服务为什么不采用集中式设计（centralized-design）"><span class="nav-number">5.3.</span> <span class="nav-text">DNS服务为什么不采用集中式设计（centralized design）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Server-是一个分布式、分层的数据库"><span class="nav-number">5.4.</span> <span class="nav-text">DNS Server 是一个分布式、分层的数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#两种查询方式"><span class="nav-number">5.5.</span> <span class="nav-text">两种查询方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#交互式查询（Interactive-Queries）"><span class="nav-number">5.5.1.</span> <span class="nav-text">交互式查询（Interactive Queries）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#递归式查询（Recursive-Queries）"><span class="nav-number">5.5.2.</span> <span class="nav-text">递归式查询（Recursive Queries）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Caching-DNS缓存"><span class="nav-number">5.6.</span> <span class="nav-text">DNS Caching (DNS缓存)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNS-Records"><span class="nav-number">5.7.</span> <span class="nav-text">DNS Records</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#记录的类型"><span class="nav-number">5.7.1.</span> <span class="nav-text">记录的类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Peer-to-peer-Applicaions（P2P应用程序）"><span class="nav-number">6.</span> <span class="nav-text">Peer-to-peer Applicaions（P2P应用程序）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#C-S-架构中存在的问题"><span class="nav-number">6.1.</span> <span class="nav-text">C/S 架构中存在的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#P2P-的特点"><span class="nav-number">6.2.</span> <span class="nav-text">P2P 的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Robustness（健壮性）"><span class="nav-number">6.3.</span> <span class="nav-text">Robustness（健壮性）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flooding（洪泛）"><span class="nav-number">6.4.</span> <span class="nav-text">Flooding（洪泛）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2018/05/06/computer_networking_02/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/99614/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("eyIFq6kYslRSDIa8lqlCIThp-gzGzoHsz", "iUAeNEuxcBmYdpgAATCh4AlH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
