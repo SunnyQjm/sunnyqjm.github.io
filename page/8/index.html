@@ -313,6 +313,333 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" itemprop="url">数据库笔记（补充）——数据库设计和E——R模型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-08T00:00:00+08:00">
+                2017-11-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2017/11/08/2017-11-08-数据库笔记（补充）——数据库设计和E——R模型/" class="leancloud_visitors" data-flag-title="数据库笔记（补充）——数据库设计和E——R模型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="实体—联系模型"><a href="#实体—联系模型" class="headerlink" title="实体—联系模型"></a>实体—联系模型</h2></blockquote>
+<ul>
+<li><h3 id="实体集"><a href="#实体集" class="headerlink" title="实体集"></a>实体集</h3><ul>
+<li>实体（entity）：现实世界中一个可以区别于其他对象的一个“事物”或对象</li>
+<li>实体集（entity set）：相同类型（<strong><em>即具有相同性质/属性</em></strong>）的实体的集合</li>
+<li>外延（extension）：属于实体集的实体的实际集合<blockquote>
+<p>ps: 实体集和外延的关系类似于之前讲的<a href="http://www.jianshu.com/p/c7f7d50edfa3" target="_blank" rel="noopener">模式和实例的关系</a></p>
+</blockquote>
+</li>
+<li>属性（attribute）：实体集中每个成员所具有的描述性性质</li>
+<li>值（value）：每个实体的每个属性都有一个<strong>值</strong></li>
+</ul>
+</li>
+<li><h3 id="联系集"><a href="#联系集" class="headerlink" title="联系集"></a>联系集</h3><ul>
+<li><p>联系（relationship）：多个实体间的相互关联</p>
+</li>
+<li><p>联系集（relationship set）： 相同类型联系的集合</p>
+</li>
+<li>实体集之间的关联称之为参与：实体集E<sub>1</sub>, E<sub>2</sub>, E<sub>3</sub> <strong>参与</strong> 联系集R</li>
+<li>联系也可以具有 <strong>描述性属性</strong></li>
+<li>实体在联系中扮演的功能称为<strong>角色</strong></li>
+<li>参与联系集的实体集的数目称为<strong>联系集的度</strong>， 二元联系集的度为2</li>
+</ul>
+</li>
+<li><h3 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h3><ul>
+<li><p>域（domain）/ 值集：每个 <strong>属性</strong> 都有一个 <strong>可取值的集合</strong> ，称为该属性的 <strong>域</strong> 或 <strong>值集</strong></p>
+</li>
+<li><p>简单（simple） 和复合（composite）属性</p>
+<ul>
+<li>简单属性不可以再分成更小的部分，而复合属性可以(例如下面的name即为复合属性)<br><img src="http://upload-images.jianshu.io/upload_images/7222676-401cb7a8533ae4c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></li>
+</ul>
+</li>
+<li>单值（single-value）和多值（multivalued）属性<ul>
+<li>单值：一个实体在的单值属性只对应一个值</li>
+<li>多值：一个实体的多值属性可以对应多个值（如，phone_number）</li>
+</ul>
+</li>
+<li><h4 id="派生（derived）属性"><a href="#派生（derived）属性" class="headerlink" title="派生（derived）属性"></a>派生（derived）属性</h4><ul>
+<li><p>派生属性的值可以从别的相关属性或实体派生出来</p>
+<ul>
+<li>eg.:银行账户的余额可以从账户的存取款明细中计算出来</li>
+</ul>
+</li>
+<li><p>派生属性在原则上是不用保存的，但是有时候保存派生属性可以节约计算时间（空间换时间）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="约束"><a href="#约束" class="headerlink" title="约束"></a>约束</h3><ul>
+<li><h4 id="映射基数约束"><a href="#映射基数约束" class="headerlink" title="映射基数约束"></a>映射基数约束</h4><ul>
+<li>一对一（one-to-one）</li>
+<li>一对多（one-to-many）</li>
+<li>多对一（many-to-one）</li>
+<li>多对多（many-to-many）</li>
+</ul>
+</li>
+<li><h4 id="参与约束"><a href="#参与约束" class="headerlink" title="参与约束"></a>参与约束</h4><ul>
+<li><p>全部参与：实体集E的每一个实体都参与到联系集R的至少一个联系中</p>
+</li>
+<li><p>部分参与：实体集E中只有部分实体参与到联系集R的联系中</p>
+</li>
+</ul>
+</li>
+<li><h4 id="码"><a href="#码" class="headerlink" title="码"></a>码</h4><ul>
+<li>超码</li>
+<li>候选码</li>
+<li>主码</li>
+</ul>
+</li>
+<li><h4 id="从实体集中删除冗余属性"><a href="#从实体集中删除冗余属性" class="headerlink" title="从实体集中删除冗余属性"></a>从实体集中删除冗余属性</h4><ul>
+<li>要点： <strong>删除其他实体的主键</strong></li>
+<li>其他实体的主键相当于外建的存在，一般属于联系集的属性</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>instructor(ID, name, dept_name, salary)，其中ID为主键</p>
+</li>
+<li><p>department(dept_name, building, budget)，其中dept_name为主键</p>
+</li>
+<li>属性dept_name在两个表中都出现了，所以它属于冗余属性，他又是department的主键，故应该将其从instructor表中移除（实际数据库实现的时候instructor表中是有一个dept_name属性的，他作为一个外建存在，实际上是两者的联系集是简单的1对多的关系，便没有单独成表，而是采用外键相联系）</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="实体——联系图"><a href="#实体——联系图" class="headerlink" title="实体——联系图"></a>实体——联系图</h2></blockquote>
+<ul>
+<li><h3 id="基本结构"><a href="#基本结构" class="headerlink" title="基本结构"></a>基本结构</h3><ul>
+<li><h4 id="分成两部分的矩形-代表-实体集"><a href="#分成两部分的矩形-代表-实体集" class="headerlink" title="分成两部分的矩形 代表 实体集"></a><strong>分成两部分的矩形</strong> 代表 <strong>实体集</strong></h4><p><img src="http://upload-images.jianshu.io/upload_images/7222676-3efdb480d2cbdab7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+</li>
+<li><p><strong>菱形</strong> 代表 <strong>联系集</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-8326ccc00ed7b43e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+</li>
+<li><p><strong>未分割的矩形</strong> 代表 <strong>联系集的属性</strong></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-46db5dae213b6bc8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
+</li>
+<li><p><strong>线段</strong> 将实体集连接到联系集</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1c38fc5cfb403d5d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
+</li>
+<li><p><strong>虚线</strong> 将联系集属性连接到联系集</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-2cd9d60543960ffd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
+</li>
+<li><strong>双线</strong> 显示实体在联系集中的参与度(用双线与联系集相连表示全部参与)</li>
+<li><strong>双菱形</strong> 代表连接到弱实体集的 <strong>标志性实体集</strong></li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-783c1d6c2b081798.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="7.png"></p>
+</li>
+<li><h3 id="映射基数"><a href="#映射基数" class="headerlink" title="映射基数"></a>映射基数</h3><ul>
+<li>一对一</li>
+<li>一对多</li>
+<li>多对一</li>
+<li>多对多</li>
+</ul>
+</li>
+<li><h3 id="balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"><a href="#balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集" class="headerlink" title="balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集"></a>balabala，图画起来太麻烦了，其他的直接看书，下面聊一聊弱实体集</h3></li>
+<li><h3 id="弱实体集"><a href="#弱实体集" class="headerlink" title="弱实体集"></a>弱实体集</h3><ul>
+<li><p>定义：没有足够的属性以形成主码的实体集称之为 <strong>弱实体集（weak entity set）</strong></p>
+</li>
+<li><p>先举个栗子：(由于简书不支持下划线的写法，所以下面表中所有的主码都用斜体表示)</p>
+<ul>
+<li><strong>course</strong> (<strong><em>course_id</em></strong>, titles, credits)</li>
+<li><strong>section</strong> (<strong><em>sec_id</em></strong>, <strong><em>semester</em></strong>, <strong><em>year</em></strong>)</li>
+<li><p>对于上面的两个实体集，参与如下联系集</p>
+<ul>
+<li>sec_course(course_id, sec_id, semester, year)</li>
+</ul>
+</li>
+<li><p>上面的section实体集实际上就是一个弱联系集</p>
+<ul>
+<li>一个section实体如果不与一个course对相关联是毫无意义的，并且只有sec_id, semester, year三个属性也是决定不了一个section的</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>弱实体集必须于另一个称作标识（identifying）或属主和实体集（owner entity set）的实体集相关联才有意义</li>
+<li>虽然弱实体集没有主码，但是本身仍要有在依赖于强实体集的基础上的进一步区分的方法，<strong>弱实体集的分辨符/部分码</strong>（discriminator）便可以用来做进一步的区分<ul>
+<li>上述例子中的sec_id, semester, year便组成了section的分辨符</li>
+<li>在画ER图的时候，组成分辨符的属性底下画虚线（可参见教材 图7-5）</li>
+</ul>
+</li>
+<li>弱实体集的主码由 <strong>标识实体集的主码</strong> 加上 <strong>该弱实体集的分辨符</strong> 构成</li>
+<li><h4 id="ER图中的表示"><a href="#ER图中的表示" class="headerlink" title="ER图中的表示"></a>ER图中的表示</h4><ul>
+<li>组成分辨符的属性底下画虚线，而不是实线</li>
+<li>关联弱实体集和标识性强实体集的联系集以双菱形表示</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"><a href="#接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了" class="headerlink" title="接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了"></a>接着，只需要把教材图7-15的图看懂理解，ER图的绘制基本上就没有毛病了</h3></li>
+</ul>
+<blockquote>
+<h2 id="ER图转换为关系模式"><a href="#ER图转换为关系模式" class="headerlink" title="ER图转换为关系模式"></a>ER图转换为关系模式</h2><p>这个不难下面简单列几点注意事项</p>
+</blockquote>
+<ul>
+<li><strong>复合属性</strong><ul>
+<li>将每个子属性单独作为一个属性来处理</li>
+</ul>
+</li>
+<li><strong>派生属性</strong><ul>
+<li>不显示表示出来</li>
+</ul>
+</li>
+<li><strong>多值属性</strong><ul>
+<li>单独成表</li>
+</ul>
+</li>
+<li><strong>弱实体集转换</strong><ul>
+<li>对于从弱实体集转换而来的模式，该模式的主码由其所依赖的强实体集的主码与弱实体集的分辨符组成</li>
+</ul>
+</li>
+<li><strong>联系集</strong><ul>
+<li>多对多的情况一定单独成表</li>
+<li>联系集拥有描述性属性的情况单独成表</li>
+<li>其它情况下均可不单独成表<ul>
+<li>一对一情况下讲任意实体集的主键作为另一个实体集的外建均可</li>
+<li>一对多和多对一的情况下，将“一”端的主键作为”多”端的外建</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/11/01/2017-11-01-数据库笔记（十二）——函数依赖理论和分解算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1686,243 +2013,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" itemprop="url">数据库笔记（九）——对违反约束的处理</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-15T00:00:00+08:00">
-                2017-10-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" class="leancloud_visitors" data-flag-title="数据库笔记（九）——对违反约束的处理">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章的一些尾巴，然后开始讲第六章的关系代数<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在开始今天的摸鱼大业之前，让我们构造一些简单表</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的语句构造表</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="级联操作"><a href="#级联操作" class="headerlink" title="级联操作"></a>级联操作</h2><p>在指定外键以后，由于存在完整性约束，所以在执行删除或更新的时候由于语句可能会破坏完整性约束而执行失败。因此可以在定义外键的时候声明为级联删除和级联更新(<strong>是一种对违反参照完整性约束时的处理方式</strong>)</p>
-</blockquote>
-<ul>
-<li><h3 id="使用方式"><a href="#使用方式" class="headerlink" title="使用方式"></a>使用方式</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">table</span> 表名(</span><br><span class="line">  ...</span><br><span class="line">  FOREGIN <span class="keyword">KEY</span> (字段序列) <span class="keyword">REFERENCES</span> 表名(字段序列)</span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span>,</span><br><span class="line">  ...</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="级联删除（ON-DELETE-CASCADE）"><a href="#级联删除（ON-DELETE-CASCADE）" class="headerlink" title="级联删除（ON DELETE CASCADE）"></a>级联删除（ON DELETE CASCADE）</h3><ul>
-<li>级联删除是在定义外键时指定的，但是却会在执行删除语句时产生影响</li>
-<li><p>举个栗子</p>
-<ul>
-<li><p>我们先不指定级联</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后执行下面的删除操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面我们试图删除中国的信息，但是在person表里有一条数据引用了中国，所以因为参照完整性约束的存在，所以这条语句会执行失败</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接下来我们重新构造一遍（当然直接用DDL语句更新也是可以的）–并在构造person表时指定了级联删除</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">      <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后再次执行下面的删除操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 此时执行会发现语句成功执行了，不但删除了中国的信息，连带person表中引用了中国信息的所有数据都被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>上面的例子便很好的说明了级联删除的作用。如果我们视图删除外键参照键所在表（此处为country表）的某条数据A（此处是中国的信息），而这条数据又被外键所在表的一条或多条数据B所关联（此处person表中Sunny的country_id关联了country表中中国的id）。在指定了级联删除的情况下，删除A会连带着删除所有满足条件的B</p>
-</li>
-<li>当然在实际使用的时候用的还是比较少的，因为参照完整性约束在一定程度上可以防止数据的误删除，对数据库的完整性起了一定的保护作用，如果指定了级联删除，这层保护就失效了。所以还是视情况而用</li>
-</ul>
-</li>
-<li><h3 id="级联更新（ON-UPDATE-CASCADE）"><a href="#级联更新（ON-UPDATE-CASCADE）" class="headerlink" title="级联更新（ON UPDATE CASCADE）"></a>级联更新（ON UPDATE CASCADE）</h3><ul>
-<li>类似的，级联更新和级联删除一样，如果我们更新时违反了完整性约束，同样更新操作不被拒绝，而是级联更新</li>
-<li><p>举个栗子（我们在上面操作的基础上执行，上面构造时指定了级联删除，但是没指定级联更新）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们试图执行下面的更新操作，我们把修改English的country_id， 但是由于person表中还有数据的country_id=2,如果下面的更新成功执行，则会导致person表中存在country_id=2的数据，而country中却没有对应数了，违反参照完整性约束，故下面的语句执行失败</span></span><br><span class="line"><span class="keyword">UPDATE</span> country</span><br><span class="line"><span class="keyword">SET</span> country_id = <span class="number">4</span></span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">2</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样的，我们重新构造一下，此时指定级联更新</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">CASCADE</span></span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">UPDATE</span> <span class="keyword">CASCADE</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>此时再执行一下上面的更新语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于指定了级联更新，所以会发现下面的语句执行成功了，不但更改了country表中的数据，连带着person表中的数据也一并更新了</span></span><br><span class="line"><span class="keyword">UPDATE</span> country</span><br><span class="line"><span class="keyword">SET</span> country_id = <span class="number">4</span></span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">2</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面就是级联更新的效果</p>
-</li>
-</ul>
-</li>
-<li><h3 id="另一类对违反完整性约束的处理"><a href="#另一类对违反完整性约束的处理" class="headerlink" title="另一类对违反完整性约束的处理"></a>另一类对违反完整性约束的处理</h3><ul>
-<li>SET DEFAULT<ul>
-<li>一旦违反完整性约束，就将参照域（此处为country_id）设置为默认值</li>
-</ul>
-</li>
-<li>SET NULL<ul>
-<li>一旦违反完整性约束，就将参照域（此处为country_id）设置为NULL</li>
-</ul>
-</li>
-<li><p>举个栗子</p>
-<ul>
-<li><p>执行下面的构造</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> person;</span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> country;</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> country(</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  country_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> person(</span><br><span class="line">  person_id <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  country_id <span class="built_in">INTEGER</span> FOREIGN <span class="keyword">KEY</span> <span class="keyword">REFERENCES</span> country(country_id)</span><br><span class="line">    <span class="keyword">ON</span> <span class="keyword">DELETE</span> <span class="keyword">SET</span> <span class="literal">NULL</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'China'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'English'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'America'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">1</span>, <span class="string">'Sunny'</span>, <span class="number">1</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">2</span>, <span class="string">'Robbin'</span>, <span class="number">2</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">3</span>, <span class="string">'Jane'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后执行下面的删除操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的删除操作成功执行，但不是级联删除，而是把person表中原来country_id=1的数据的country_id都设成了NULL</span></span><br><span class="line"><span class="keyword">DELETE</span> country</span><br><span class="line"><span class="keyword">WHERE</span> country_id = <span class="number">1</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="延迟检查"><a href="#延迟检查" class="headerlink" title="延迟检查"></a>延迟检查</h2><p>这是由于数据库默认是在执行每一条SQL语句的时候都进行完整性约束的检查，导致有些操作无法进行。延迟操作就将完整性约束的检查延迟到了事务结束的时候检查（大多数数据库不支持，比如SQL Server， 但Oracle数据支持）</p>
-</blockquote>
-<ul>
-<li><p>由于不常用，SQL Server也不支持，这里就讲一下概念，不举实际的栗子了。</p>
-</li>
-<li><p>假设上面的例子表中没有指定延迟检查</p>
-<ul>
-<li>执行下面的语句<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面两条语句是会出错的，因为插入第一条数据的时候，由于完整性约束的存在，要求country表中要有country_id=4的数据，但是这个数据目前还不存在（所以只要先执行第二条语句，这两个语句才能成功执行）</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'Jerry'</span>, <span class="number">4</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'France'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>而如果指定了延迟检查呢</p>
-<ul>
-<li>执行下面语句（下面两个语句处于同一个事务中）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于是延迟检查，所以两条数据都插入完，执行commit，事务结束时才进行完整性约束的检查，此时就不会出错，可以正常插入</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> person (person_id, <span class="keyword">name</span>, country_id) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'Jerry'</span>, <span class="number">4</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> country (country_id, country_name) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">4</span>, <span class="string">'France'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>虽然SQL标准中有这个概念，但是大多数数据库没有提供支持，并且不常用</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1977,7 +2067,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -313,6 +313,537 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/08/computer_networking_03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/08/computer_networking_03/" itemprop="url">Chapter 3 Transport Layer</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T18:00:00+08:00">
+                2018-05-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/08/computer_networking_03/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/05/08/computer_networking_03/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/05/08/computer_networking_03/" class="leancloud_visitors" data-flag-title="Chapter 3 Transport Layer">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）"><a href="#Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）" class="headerlink" title="Introduction of Transport-Layer Servicers （传输层提供的服务）"></a>Introduction of Transport-Layer Servicers （传输层提供的服务）</h2><ul>
+<li>传输层将网络层所提供的主机到主机之间的 <strong>逻辑通信</strong>（<strong><em>logical comminication</em></strong>）扩展为进程到进程间的通信 =&gt; <strong>!!最主要的的功能</strong></li>
+<li><strong>传输层只在端系统（end systems / hosts）中才有</strong>，在路由器和二层交换机上没有</li>
+<li>Inetnet的传输层协议：<strong>TCP、UDP</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="传输层-VS-网络层"><a href="#传输层-VS-网络层" class="headerlink" title="传输层 VS 网络层"></a>传输层 VS 网络层</h3><ul>
+<li><p><strong>网络层</strong> 完成的是 <strong>主机到主机</strong> 之间的逻辑通信， <strong>传输层</strong> 完成的是不同主机间 <strong>进程到进程</strong> 的逻辑通信 =&gt; 可以说，<strong>传输层扩展了网络层的配送域</strong></p>
+<p>PS: 并不是说传输层可以单独完成不同主机间进程到进程通信，肯定是要基于网络层及之下各层所提供服务的支持。但是以应用进程的视角来看，确实它只要把通信的消息传给传输层，传输层会帮他把消息投递到目的主机的传输层，目的主机进程就从它的传输层中获取消息。</p>
+</li>
+<li><p><strong>网络层提供的是不可靠的传输</strong>（<strong><em>best-effort delivery service</em></strong>）， 而 <strong>传输层可以</strong> 在网络层不可靠的基础上引入一些可靠数据传输的机制，来向上 <strong>提供可靠的传输</strong>（如：TCP）</p>
+</li>
+<li><p>网络层和传输层都不能提供最短延迟和最小带宽的保障</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Internet-传输层协议"><a href="#Internet-传输层协议" class="headerlink" title="Internet 传输层协议"></a>Internet 传输层协议</h3><ul>
+<li><h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><ul>
+<li>可靠数据传输 （<strong><em>reliable data transfer</em></strong>）</li>
+<li>保证数据有序分发</li>
+<li>拥塞控制（<strong><em>congestion control</em></strong>）</li>
+<li>流量控制（<strong><em>flow control</em></strong>）</li>
+</ul>
+</li>
+<li><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><ul>
+<li>不可靠</li>
+<li>无序分发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Multiplexing-and-DeMultiplexing-（分解与复用）"><a href="#Multiplexing-and-DeMultiplexing-（分解与复用）" class="headerlink" title="Multiplexing and DeMultiplexing （分解与复用）"></a>Multiplexing and DeMultiplexing （分解与复用）</h2><p>传输层通过复用收集各进程的消息，通过分解将消息分发给各个进程</p>
+</blockquote>
+<ul>
+<li>各层的PDU（某一层协议所处理的最小数据单元）<img src="/img/computer_network/computer_network_01.jpg" title="五层网络协议栈模型"></li>
+<li>Socket 是数据穿梭于网络进程和网络之间的大门，同时也就是传输层和进程之间的门户。与传输层直接通信的其实是进程中的Socket（一个进程可以由多个Socket）</li>
+<li><h3 id="Demultiplexing（分解）"><a href="#Demultiplexing（分解）" class="headerlink" title="Demultiplexing（分解）"></a>Demultiplexing（分解）</h3>传输层将收到的网络层投递给它的Segments，去除传输层头部，分发给正确的Socket</li>
+<li><h3 id="Multiplexing（复用）"><a href="#Multiplexing（复用）" class="headerlink" title="Multiplexing（复用）"></a>Multiplexing（复用）</h3><p>传输层收集来自各个Socket的message，并加上传输层头部，生产Segment，再交由网络层</p>
+</li>
+<li><p>每个Socket对应于一个端口号，传输层在分发Segments的时候通过目的端端口号判断应该分发给哪个Socket</p>
+</li>
+<li><h3 id="UDP-的-Multiplexing-and-DeMultiplexing"><a href="#UDP-的-Multiplexing-and-DeMultiplexing" class="headerlink" title="UDP 的 Multiplexing and DeMultiplexing"></a>UDP 的 Multiplexing and DeMultiplexing</h3><ul>
+<li>一个 <strong>UDP Socket</strong> 由一个二元组唯一标识（目的IP，目的端口号）</li>
+<li>UDP协议在分发的时候就根据上面提到的二元组分发Segment给对应的Socket（实际上是去除传输层头部，然后将里面的Message发送给Socket）</li>
+<li><strong>来自不同IP、端口（源IP，源端口），但是目的IP和端口号一致的Segment会被分发给同一个Socket</strong></li>
+</ul>
+</li>
+<li><h3 id="TCP-的-Multiplexing-and-DeMultiplexing"><a href="#TCP-的-Multiplexing-and-DeMultiplexing" class="headerlink" title="TCP 的 Multiplexing and DeMultiplexing"></a>TCP 的 Multiplexing and DeMultiplexing</h3><ul>
+<li>一个 <strong>TCP Socket</strong> 有一个四元组唯一标识（源IP，源端口号，目的IP，目的端口号）</li>
+<li>TCP协议在分发的时候就根据标识TCP Socket的四元组来分发Segments</li>
+<li><strong>来自不同IP、端口（源IP，源端口）的Segment会被分发给不同的Socket</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）"><a href="#Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）" class="headerlink" title="Connectionless Transport: UDP （无连接的传输层协议）——UDP）"></a>Connectionless Transport: UDP （无连接的传输层协议）——UDP）</h2><ul>
+<li>UDP（User Datagram Protocol, 用户数据报协议）</li>
+<li>基于UDP的应用层协议：SNMP、RIP、DNS、NFS</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="为什么需要UDP？"><a href="#为什么需要UDP？" class="headerlink" title="为什么需要UDP？"></a>为什么需要UDP？</h3><ul>
+<li>UDP <strong>不需要建立连接</strong> （少了建立连接的开销以及带来的时延）</li>
+<li><strong>实现简单</strong> =&gt; 发送者与接受者之间由于是无连接的，所以不需要保存连接状态信息</li>
+<li><strong>没有拥塞控制</strong> =&gt; 不限速</li>
+<li><strong>UDP头部较小</strong>（<strong><em>Small packet header overhead</em></strong>）=&gt; UDP由于需要实现的功能较少，头部的字段也比较少，只需要8 byte</li>
+</ul>
+</li>
+<li><h3 id="UDP的应用场景"><a href="#UDP的应用场景" class="headerlink" title="UDP的应用场景"></a>UDP的应用场景</h3><ul>
+<li>多媒体（在线视频）</li>
+<li>具有重复性操作的场合（如：DNS）</li>
+<li>一对多通信的场景</li>
+</ul>
+<img src="/img/computer_network/computer_network_21.png" title="常见应用层协议所用的传输层协议"></li>
+<li><h3 id="UDP所提供的服务"><a href="#UDP所提供的服务" class="headerlink" title="UDP所提供的服务"></a>UDP所提供的服务</h3><ul>
+<li>传输层将网络层所提供的 <strong>主机到主机</strong> 之间的逻辑通信 <strong>扩展到进程到进程</strong> 间的逻辑通信</li>
+<li><strong>校验和</strong>（<strong><em>Checksum</em></strong>）</li>
+</ul>
+</li>
+<li><h3 id="UDP-Segment-Structure"><a href="#UDP-Segment-Structure" class="headerlink" title="UDP Segment Structure"></a>UDP Segment Structure</h3><img src="/img/computer_network/computer_network_23.png" title="UDP Segment Structure">
+<ul>
+<li><strong>首部</strong> 只有四个字段，<strong>只占8 bits</strong> 结构异常简单</li>
+<li><strong>Length指的是整个Segment的长度</strong>，包括数据域，以字节为单位</li>
+<li><strong>UDP的Checksum只能检错，不能纠错</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Principles-of-Reliable-Data-Transfer（可靠数据传输原理）"><a href="#Principles-of-Reliable-Data-Transfer（可靠数据传输原理）" class="headerlink" title="Principles of Reliable Data Transfer（可靠数据传输原理）"></a>Principles of Reliable Data Transfer（可靠数据传输原理）</h2><ul>
+<li><strong>校验和</strong> =&gt; 检验比特差错</li>
+<li><strong>ACK反馈</strong></li>
+<li><strong>序列号</strong> =&gt; 解决冗余数据包问题（冗余数据包指的是接收端会收到一个数据包的多份拷贝）</li>
+<li><strong>定时器超时重传</strong> =&gt; 解决丢包问题</li>
+<li><strong>重传</strong></li>
+</ul>
+</blockquote>
+<img src="/img/computer_network/computer_network_24.png" title="传输层实现可靠数据传输示意图">
+<ul>
+<li><h3 id="rdt1-0"><a href="#rdt1-0" class="headerlink" title="rdt1.0"></a>rdt1.0</h3>=&gt; <strong>假设信道完全可靠，无丢包，无比特差错</strong><img src="/img/computer_network/computer_network_25.png" title="rdt1.0协议有限状态机示意图">
+<ul>
+<li>发送端传输层只要完成从应用层接收message，打包（给message加上传输层头部，构建Segment），并发送给可靠信道进行传输。而接收端传输层只需要从信道获取Segment，解包，然后分发给对应的Socket即可</li>
+</ul>
+</li>
+<li><h3 id="rdt2-0"><a href="#rdt2-0" class="headerlink" title="rdt2.0"></a>rdt2.0</h3><p>=&gt; <strong>假设信道无丢包，但是有可能发生比特差错</strong><br>=&gt; rdt2.0是一个典型的 <strong>ARQ协议</strong>，也是一种<strong>停等协议</strong>（<strong><em>stop-and-wait protocol</em></strong>）</p>
+<img src="/img/computer_network/computer_network_26.png" title="rdt2.0协议有限状态机示意图">
+<ul>
+<li><h4 id="ARQ-Automatic-Repeat-reQuest-protocols"><a href="#ARQ-Automatic-Repeat-reQuest-protocols" class="headerlink" title="ARQ (Automatic Repeat reQuest) protocols"></a>ARQ (Automatic Repeat reQuest) protocols</h4><p><strong><em>In a computer network setting, reliable data transfer protocols based on such retransmission are known as ARQ prorocols</em></strong></p>
+<p>在计算机网络中，<strong>基于重传的可靠数据传输协议</strong>，我们称之为ARQ协议</p>
+<ul>
+<li><strong>ARQ协议的要求：</strong><ul>
+<li>Error detection（错误检测）</li>
+<li>Receiver feedback（接收反馈）</li>
+<li>Retransmission（重传）</li>
+</ul>
+</li>
+<li><strong>rdt2.0 协议就是一种ARQ协议</strong></li>
+</ul>
+</li>
+<li><h4 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h4><ul>
+<li>从上层应用层获取消息，打包，发送到信道传输。接着进入等待状态，<strong>等待接收端的ACK/NAK</strong>。</li>
+<li>如果收到ACK，则表示接收端收到了正确无误的数据包，状态切换回等待消息的状态，如果有消息就继续发送，如果没有，则等待应用层的消息</li>
+<li>如果收到NAK，则表示接收端收到了数据包，但是数据包 <strong>发生了比特差错，则重传</strong>之前发送的数据包</li>
+</ul>
+</li>
+<li><h4 id="接收端"><a href="#接收端" class="headerlink" title="接收端"></a>接收端</h4><ul>
+<li>接收端从下层接收到数据包之后进行校验，如果 <strong>发生比特差错</strong>，则 <strong>向发送端发送一个NAK并丢弃该数据包</strong></li>
+<li>如果 <strong>没有发生比特差错</strong>，则解包后 <strong>传递给上层</strong>，并<strong>向发送端发送一个ACK</strong></li>
+</ul>
+</li>
+<li><h4 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h4>如果当<strong>接收端返回的ACK/NAK也发生了比特差错</strong>时，发送端并不知道此次发送是否成功，那么它该作何处理？<ul>
+<li><h5 id="思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…"><a href="#思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…" class="headerlink" title="思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …"></a>思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …</h5>简单粗暴，接收端收到一个回复不知道是ACK还是NAK就再次询问客户端到底有没有正确接收。怕不是要打起来一会儿。。。</li>
+<li><h5 id="思路二：引入比特校准机制"><a href="#思路二：引入比特校准机制" class="headerlink" title="思路二：引入比特校准机制"></a>思路二：引入比特校准机制</h5>添加最够的Checksum，让其既具备检错功能，也具备纠错功能。这要求信道传输数据包的时候不能丢失（在rdt2.0的假设中是具备的，但是实际中是会发生丢包的），而且可能因为要兼具纠错功能，Checksum会很长</li>
+<li><h5 id="思路三：瞎几把重传"><a href="#思路三：瞎几把重传" class="headerlink" title="思路三：瞎几把重传"></a>思路三：瞎几把重传</h5>一旦发送端收到的回复发生比特差错，无法判断的时候，就直接重传。这是一个稍微可行的方案，但是由于在无法判断传输是否成功的情况就重传，客户端可能会收到一个数据包的多个拷贝(<strong>产生冗余数据包（duplicate packets）问题</strong>)，这个时候客户端就不知道该如何判断服务器发过来的是一个没有接收过的数据包还是一个冗余的数据包 =&gt;</li>
+</ul>
+</li>
+<li><h4 id="解决冗余数据包问题-gt-引入序列号-sequence-number-机制"><a href="#解决冗余数据包问题-gt-引入序列号-sequence-number-机制" class="headerlink" title="解决冗余数据包问题 =&gt; 引入序列号 (sequence number) 机制"></a>解决冗余数据包问题 =&gt; 引入序列号 (<strong><em>sequence number</em></strong>) 机制</h4>发送端在发送数据包的头部多加一个Sequence number的字段，接收端在接收到一个数据包的时候将其序列号取出，与自己已经接收到的前一个数据包的序列号对比，就可以判断这个数据包是不是冗余的了。因为rdt2.0采用是一种停等协议的工作模式，所以用1 bit的序列号就可以解决这个问题</li>
+</ul>
+</li>
+<li><h3 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h3><p>=&gt; 在rdt2.0的基础上采用上面思路三 + 引入序列号的方式解决了冗余数据包问题</p>
+<p>=&gt; 还是采用了NAK + ACK的实现方案</p>
+<img src="/img/computer_network/computer_network_27.png" title="rdt2.1 Sender">
+<img src="/img/computer_network/computer_network_28.png" title="rdt2.1 Receiver"></li>
+<li><h3 id="rdt2-2"><a href="#rdt2-2" class="headerlink" title="rdt2.2"></a>rdt2.2</h3><p>=&gt; 在rdt2.1的基础上，去除了NAK，收到错误数据包之后不发送NAK，而将最近一次成功接收到的数据包的ACK发送回去</p>
+<p>=&gt; 这种方案就导致发送端可能接收到同一个数据包的多个ACK (<strong>冗余ACK，duplicate ACKs</strong>)</p>
+<img src="/img/computer_network/computer_network_29.png" title="rdt2.2 Sender">
+<img src="/img/computer_network/computer_network_30.png" title="rdt2.2 Receiver">
+</li>
+<li><h3 id="rdt3-0"><a href="#rdt3-0" class="headerlink" title="rdt3.0"></a>rdt3.0</h3><p>=&gt; <strong>假设信道可能丢包，但是有可能发生比特差错</strong></p>
+<p>=&gt; 在rdt2.2的基础上，考虑丢包问题。</p>
+<p>=&gt; <strong>定时器 + 超时重传 =&gt; 解决丢包问题</strong></p>
+<img src="/img/computer_network/computer_network_31.png" title="rdt3.0 Sender">
+<p>接收端FMS(finite-state machine, 有限状态机)图同rdt2.2</p>
+</li>
+<li><h3 id="Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）"><a href="#Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）" class="headerlink" title="Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）"></a>Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）</h3><img src="/img/computer_network/computer_network_32.png" title="停等协议与流水线型协议的对比">
+rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大限制了网络的传输性能（发送端必须接收到接收端返回的ACK才发送下一个数据包或者重传，增大了传输时延，降低了带宽利用率）。而相比之下，<strong><em>流水线型可靠数据传输协议</em></strong> <strong>允许已发送未确认的数据包可以有多个</strong><ul>
+<li>Go-Back-N (回退N)</li>
+<li>Selective repeat（选择重传）</li>
+</ul>
+</li>
+<li><h3 id="Go-Back-N-GBN"><a href="#Go-Back-N-GBN" class="headerlink" title="Go-Back-N (GBN)"></a>Go-Back-N (GBN)</h3><p>回退N</p>
+<blockquote>
+<ul>
+<li><strong>定时器超时</strong>，所有已发送未被确认的数据包都 <strong>重传</strong></li>
+<li><strong>采用累积确认</strong>：收到ack=10，则表示序列号为10及之前的数据包都已正确接收，接收端下一个期望收到的数据包的序列号为11</li>
+<li>接收端收到乱序的数据包直接丢弃</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="Go-Back-N滑动窗口"><a href="#Go-Back-N滑动窗口" class="headerlink" title="Go-Back-N滑动窗口"></a>Go-Back-N滑动窗口</h4><img src="/img/computer_network/computer_network_33.png" title="发送端视角看回退N的序列号窗口">
+<ul>
+<li><strong>base</strong> : 最早的发送却没有被确认的数据包的序列号</li>
+<li><strong>nextseqnum</strong> : 最小的没有使用的序列号（实际上指的是发送下一个非重传数据包时所使用的序列号）</li>
+<li><strong>N</strong> : 发送端序列号窗口的大小（限制发送端已发送未被确认数据包的数量，在流量控制的时候可以遏制发送端发包的速率）</li>
+<li><strong>[base, nextseqnum - 1]</strong> : 已发送未被确认的数据包的序列号范围</li>
+<li><strong>[0, base - 1]</strong> : 发送且已被确认的数据包的序列号</li>
+<li><strong>[nextseqnum, base + N - 1]</strong> : 剩余可用的序列号范围（指的是该时刻在不溢出发送窗口大小N的情况下，可以继续使用的序列号）<blockquote>
+<p>ps: 如果序列号的取值是以取模的方式循环使用，上面的范围划分就略有变动，但是意思是差不多的</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h4 id="Go-Back-N-FSM-图"><a href="#Go-Back-N-FSM-图" class="headerlink" title="Go-Back-N FSM 图"></a>Go-Back-N FSM 图</h4><ul>
+<li><h5 id="发送端-1"><a href="#发送端-1" class="headerlink" title="发送端"></a>发送端</h5><img src="/img/computer_network/computer_network_34.png" title="Go-Back-N发送端FSM图">
+<ul>
+<li><strong>上层的调用</strong>（<strong><em>Invocation from above</em></strong>）: 当上层调用rdt_send()发送数据包的时候，<strong>发送端检查发送窗口是否已满</strong>（即检查一发送未确认的数据包的个数是不是已经达到N了），如果满了就通知上层拒绝发送（接着上层肯能会一段时间后重试），没有满则生成一个Segment并发送</li>
+<li><strong>收到一个ACK</strong>（Receipt of an ACK）: 发送端采用 <strong>累积确认</strong>（<strong><em>cumulative acknowledgment</em></strong>）的方式，例如：收到ack=10，则表示序列号为10及之前的数据包都已正确接收，接收端下一个期望收到的数据包的序列号为11</li>
+<li><strong>超时事件</strong>（<strong><em>A timeout event</em></strong>）: 发送端开始发送数据包的时候回启动一个定时器，之后<strong>每收到一个ACK会检查是否还有已发送未确认的数据包</strong>。有则重启定时器，没有则停止定时器。<strong>一旦定时器超时，所有已发送但未确认的数据包都将被重传</strong>（最多重传N个）</li>
+</ul>
+</li>
+<li><h5 id="接收端-1"><a href="#接收端-1" class="headerlink" title="接收端"></a>接收端</h5><img src="/img/computer_network/computer_network_35.png" title="Go-Back-N接收端FSM图">
+<ul>
+<li><strong>接收端收到</strong> 一个序列号为n的 <strong>有序的数据包</strong>（<strong><em>in-order packet</em></strong>, 表示接收端最近一次传递给上层的数据包的序列号为n-1），则给发送端回一个对应序列号的ACK，同时将数据包解包够传递给上层</li>
+<li><strong>接收端收到错误的数据包</strong> 则 <strong>直接丢弃</strong></li>
+<li><strong>接收端收到正确但乱序的数据包</strong>（就比如收到的数据包序列号为n，但是上一次传递给上层的数据包的序列号不是n-1），接收端的处理也是 <strong>直接丢弃</strong>。这虽然看起来很浪费，但却是比较明智的处理方式。试想，如果接收端收到一个序列号为n+1的数据包，但是上一次传递给上层的却是序列号为n-1的数据包，则很可能序列号为n的数据包在传输的过程中丢失了，那么必然导致发送端计时器超时，发送端会重发数据包为n和n+1的数据包，所以接收端完全没有必要缓存序列号为n+1的数据包（这样实现起来简单并且有效）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><ul>
+<li>发送端既然采用的是累积确认，那么如果发送端收到一个对序列号为n的ACK，但是上次收到的是n-3的，对n-1和n-2的ACK可能丢失了。这个时候发送端不会理会那两个丢失的ACK。因为接收端是有序接收的，所以发送端收到对序列号为n的数据包的ACK就可以认为序列号为n以及比n小的数据包都已经成功被接收了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Selective-Repeat（SR）"><a href="#Selective-Repeat（SR）" class="headerlink" title="Selective Repeat（SR）"></a>Selective Repeat（SR）</h3><p>选择重传</p>
+<img src="/img/computer_network/computer_network_36.png" title="选择重传（SR）发送方与接收方的序号空间">
+<ul>
+<li><h4 id="发送端-2"><a href="#发送端-2" class="headerlink" title="发送端"></a>发送端</h4><ul>
+<li><strong>从上层收到数据</strong>（<strong><em>Data received from above</em></strong>）：当发送端接收到上层的数据时，<strong>获取下一个可用的序列号</strong>，如果该序列好在发送端序列号窗口内（表示当前窗口未满），则打包发送。如果不在序列号窗口内，则和GBN一样，发回给上层或缓存起来。</li>
+<li><strong>超时</strong>（<strong><em>Timeout</em></strong>）：发送端会为每一个已发送未确认的数据包维护一个逻辑计时器，一旦某个计时器超时，就重发它所负责监视的那个数据包。</li>
+<li><strong>收到ACK</strong>（<strong><em>ACK received</em></strong>）：<ul>
+<li>收到的ACK所确认的数据包的序列号 <strong>落在滑动窗口内，则将其标记为已确认</strong></li>
+<li>收到的ACK所确认的数据包的序列号 <strong>等于send_base</strong>（就是滑动窗口的第一个序列号），则 <strong>将滑动窗口右移至第一个未被确认的序列号处</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="接收端-2"><a href="#接收端-2" class="headerlink" title="接收端"></a>接收端</h4><ul>
+<li>如果<strong>序列号在[recv_base, recv_base + N - 1]范围内被接收</strong>（也就是说收到的数据包在接收端的滑动窗口内）：向发送端 <strong>回一个对该序列号的ACK</strong>。<ul>
+<li><strong>如果该序列号不等于recv_base</strong>，则将该序列号标记为已接收，将数据包缓存起来</li>
+<li><strong>如果该序列号等于recv_base</strong>，则接收端 <strong>滑动窗口右移</strong>至第一个未标记的序列号处。并将刚才扫过的数据包（就是[old_recv_base, new_recv_base - 1]之间的数据包）一并上交给上层。</li>
+</ul>
+</li>
+<li><p>如果<strong>序列号在[recv_base - N, recv_base - 1]范围内被接收</strong>（也就是说这个刚收到的数据包之前已经接收过并回复ACK了）：向发送端回一个该序列号的ACK</p>
+<p>=&gt; 这个ACK看起来是多余的，其实是必须的。因为接收端将ACK发出之后就可能导致滑动窗口右移的操作。如果发送给发送端的ACK没有到达或者出错了，接收端在计时器超时之后就会重传，而这个时候发送端的窗口已经右移了。如果不再对这个数据包回复一个ACK，则导致发送端该序列号一直没有被确认，发送端就会不断重发这个数据包，而且滑动窗口也会停滞不前。</p>
+</li>
+<li><p><strong>其他情况</strong>（发生比特差错，收到右溢出滑动窗口的包等）：忽略这个数据包，直接丢弃</p>
+</li>
+</ul>
+</li>
+<li><h4 id="滑动窗口大小的问题"><a href="#滑动窗口大小的问题" class="headerlink" title="滑动窗口大小的问题"></a>滑动窗口大小的问题</h4><p>=&gt; <strong>滑动窗口的大小应该小于或等于序列号空间大小的一半</strong></p>
+<p>当序列号范围有限时，如果接收端滑动窗口太大，可能导致接收端无法判断刚接收到的数据包是一个新的未接收过的数据包还是重复的已经接收过的数据包</p>
+<ul>
+<li><p>举个栗子：</p>
+<img src="/img/computer_network/computer_network_37.png" title="采用有限序列号范围时，接收端滑动窗口太大的栗子">
+<ul>
+<li>图中，<strong>1等待接收</strong>（可能由于丢包，比特差错等，等待发送端重传。或者是由于所走路由的问题，比2,3到来的晚），<strong>2,3已经接收</strong>，<strong>4可以接收</strong></li>
+<li>recv_base = 1, N = 4。显然，序列号是采用 mod 6 的方式复用的</li>
+<li>这个时候 <strong>收到一个序列号为4的数据包</strong>，<ul>
+<li>那么它 <strong>可能是一个新到来的落在滑动窗口内的数据包</strong>(<strong><em>[1, 2, 3, 4] =&gt; [recv_base, recv_base + N - 1]</em></strong>)</li>
+<li>也 <strong>可能是上一轮滑动窗口中已经接收并回复ACK</strong>，但是由于发送端没有正确接收到ACK而重发的数据包，因此 <strong>这个数据包可能是之前已经接收过的冗余数据包</strong>（<strong><em>[3, 4, 5, 0] =&gt; [recv_base - N, recv_base - 1]</em></strong>）</li>
+</ul>
+</li>
+<li><strong>对于第一种情况，我们需要缓存该数据包并回复ACK，而对于第二种情况我们只需要回复ACK即可</strong></li>
+</ul>
+</li>
+<li><p>为了避免上述情况，<strong>滑动窗口的大小应该小于或等于序列号空间大小的一半</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Connection-Oriented-Transport-TCP"><a href="#Connection-Oriented-Transport-TCP" class="headerlink" title="Connection-Oriented Transport: TCP"></a>Connection-Oriented Transport: TCP</h2><ul>
+<li>点对点（<strong><em>Point-to-Point</em></strong>）</li>
+<li>传输可靠、有序的字节流 =&gt; 对每个字节进行编号</li>
+<li>流水线型（<strong><em>Pipelined</em></strong>）</li>
+<li>发送端和接收端都有缓存（<strong><em>send &amp; receive buffers</em></strong>）</li>
+<li>全双工通信（<strong><em>full-duplex service</em></strong>）</li>
+<li>面向连接的（<strong><em>connection-oriented</em></strong>）</li>
+<li>拥塞控制（<strong><em>congestion control</em></strong>）</li>
+<li>流量控制（<strong><em>flow control</em></strong>）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="TCP接收和发送缓存"><a href="#TCP接收和发送缓存" class="headerlink" title="TCP接收和发送缓存"></a>TCP接收和发送缓存</h3><img src="/img/computer_network/computer_network_38.png" title="TCP发送和接收缓存">
+=&gt; <strong>注意：</strong>在TCP连接的两端各自都有自己的发送和接收缓存（因为TCP是全双工的，所以两端的终端都有发送和接收数据的需求）</li>
+<li><h3 id="MSS（Maximum-Segment-Size-最大报文长度）"><a href="#MSS（Maximum-Segment-Size-最大报文长度）" class="headerlink" title="MSS（Maximum Segment Size, 最大报文长度）"></a>MSS（Maximum Segment Size, 最大报文长度）</h3><p><strong><em>MSS is the maximun amount of application-layer data</em></strong></p>
+<p>MSS指的是Segment中应用层数据的最大长度，并不包括传输层头部</p>
+</li>
+<li><h3 id="TCP-Segment-Structure"><a href="#TCP-Segment-Structure" class="headerlink" title="TCP Segment Structure"></a>TCP Segment Structure</h3><img src="/img/computer_network/computer_network_39.png" title="TCP报文结构">
+<ul>
+<li><h4 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h4><ul>
+<li><strong><em>Source port</em></strong> : 源端端口号（<strong><em>16 bits</em></strong>）</li>
+<li><strong><em>Dest port</em></strong> : 目的端端口号（<strong><em>16 bits</em></strong>）</li>
+<li><strong><em>Sequence number</em></strong> : 序列号（<strong><em>32 bits</em></strong>）</li>
+<li><strong><em>Acknowledgment number</em></strong> : 确认号（<strong><em>32 bits</em></strong>）</li>
+<li><strong><em>Header length</em></strong> : TCP Segment头部（传输层头部）的长度（<strong><em>4 bits</em></strong>）。<strong>单位是4个字节，一行</strong></li>
+<li><strong><em>Unused</em></strong> : 目前未使用的字段域（<strong><em>6 bits</em></strong>）</li>
+<li><strong><em>Flag filed</em></strong> : 标志域（<strong><em>6 bits</em></strong>）<ul>
+<li><strong><em>URG、PSH</em></strong> : 与urgent data pointer filed 并用，处理紧急数据包（实践中未用到） =&gt; Don’t care now</li>
+<li><strong><em>ACK</em></strong> : 标识这个数据包是不是一个ACK</li>
+<li><strong><em>RST、SYN、FIN</em></strong> : 这三个字段域用于创建TCP连接过程中</li>
+</ul>
+</li>
+<li><strong><em>Receive window</em></strong> : 该字段用于流量控制，指示的是发送数据包一端，接收窗口的剩余可用大小</li>
+<li><strong><em>Internet checksum</em></strong> : 校验和，用于检测数据包是否出错</li>
+<li><strong><em>Urgent data pointer</em></strong> : 指向紧急数据尾的指针（实践中未用）=&gt; Don’t care</li>
+<li><strong><em>Options</em></strong> : TCP Segment头部的可选字段，可以没有</li>
+<li><strong><em>Data</em></strong> : TCP Segment的数据域，包含了上层传递下来的message</li>
+</ul>
+</li>
+<li><h4 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h4><ul>
+<li><strong>TCP首部的开销至少是20个字节</strong>，通常默认情况下Options字段域是为空的</li>
+<li><strong>Header length 的单位是4个字节</strong>（一行32bits）</li>
+</ul>
+</li>
+<li><h3 id="TCP的序列号和确认号"><a href="#TCP的序列号和确认号" class="headerlink" title="TCP的序列号和确认号"></a>TCP的序列号和确认号</h3><ul>
+<li>序列号和确认号是TCP提供可靠数据传输最重要的两个重要字段</li>
+<li><strong>TCP</strong> 把data看做有序的字节流。它按字节编号，<strong>给每一个字节分配一个序列号</strong> =&gt; <strong>一个Segment的序列号由其数据域第一个字节的序列号所代表</strong></li>
+<li><p><strong>TCP同样也是使用累积确认的机制</strong>，但是和之前讲的有点不一样：<strong><em>The acknowledgment number that Host A puts in its segment is the sequence number of the next byte Host A is expecting from Host B</em></strong> （主机A在给主机B发送的ACK包的确认号是主机A期望从主机B获取到的下一个数据包的序列号）</p>
+<p>例如：发送端如果收到确认号为536的ACK包，则表示序列号为536之前的所有数据包均已被成功接收，并且接收端期望下一个收到序列号为536的数据包</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Reliable-Data-Transfer-gt-TCP-的可靠数据传输"><a href="#Reliable-Data-Transfer-gt-TCP-的可靠数据传输" class="headerlink" title="Reliable Data Transfer =&gt; (TCP)的可靠数据传输"></a>Reliable Data Transfer =&gt; (TCP)的可靠数据传输</h3><ul>
+<li>TCP在IP不可靠服务的基础上实现了可靠数据传输</li>
+<li><strong>流水线型协议</strong> =&gt; 带宽利用率高</li>
+<li><strong>采用累积确认</strong></li>
+<li><strong>TCP采用单个重传计时器</strong></li>
+<li><strong>重传的时机</strong>：<ul>
+<li>定时器超时</li>
+<li>收到3次冗余ACK</li>
+</ul>
+</li>
+<li><strong>快速重传</strong> =&gt; 当收到3次冗余ACK时（<strong><em>实际上是收到了4个相同的ACK</em></strong>），就认为定时器超时，重传已发送未确认的编号最小的数据包</li>
+</ul>
+</li>
+<li><h3 id="TCP中使用了哪些机制来实现可靠数据传输"><a href="#TCP中使用了哪些机制来实现可靠数据传输" class="headerlink" title="TCP中使用了哪些机制来实现可靠数据传输"></a>TCP中使用了哪些机制来实现可靠数据传输</h3><ul>
+<li><strong>引入序列号来解决冗余数据包的问题</strong><br>=&gt; 接收端收到序列号与之前收到的数据包序列号相同时，就丢弃该包</li>
+<li><strong>采用累积确认</strong><br>=&gt; 发送端如果收到确认号为536的ACK包，则表示序列号为536之前的所有数据包均已被成功接收，并且接收端期望下一个收到序列号为536的数据包</li>
+<li><strong>TCP采用单个重传计时器+快速重传+累积确认来解决丢包问题</strong><br>=&gt; 当发送端定时器超时或者收到相同数据包的3次冗余ACK时，便重传已发送未被确认的数据包中编号最小的数据包</li>
+<li><strong>Checksum</strong> =&gt; 用来检测数据包是否出现差错</li>
+</ul>
+</li>
+<li><h3 id="TCP交互流程图中ACK和ack"><a href="#TCP交互流程图中ACK和ack" class="headerlink" title="TCP交互流程图中ACK和ack"></a>TCP交互流程图中ACK和ack</h3><ul>
+<li><strong>ACK</strong> =&gt; 表示的是TCP Segment中的ACK标志域，如果ACK=1则表示这是一个ACK包，如果ACK=0则表示这不是一个ACK包</li>
+<li><strong>ack</strong> =&gt; 表示的是TCP Segment中的确认号字段</li>
+</ul>
+</li>
+<li><h3 id="Flow-Control（流量控制）"><a href="#Flow-Control（流量控制）" class="headerlink" title="Flow Control（流量控制）"></a>Flow Control（流量控制）</h3><ul>
+<li><strong>调节发送端发包的速率，防止接收端缓存溢出</strong></li>
+<li><strong>控制已发送未被确认的数据包的数量 ≤ Receive Window size</strong> （接收端剩余缓存空间的大小 =&gt; 接收端通过ACK返回给发送端）</li>
+</ul>
+</li>
+<li><h3 id="TCP-Connection-Management（TCP连接管理）"><a href="#TCP-Connection-Management（TCP连接管理）" class="headerlink" title="TCP Connection Management（TCP连接管理）"></a>TCP Connection Management（TCP连接管理）</h3><ul>
+<li><h4 id="TCP-三路握手"><a href="#TCP-三路握手" class="headerlink" title="TCP 三路握手"></a>TCP 三路握手</h4><img src="/img/computer_network/computer_network_40.png" title="TCP三路握手">
+<ul>
+<li>① 客户端首先向服务端 <strong>发送一个SYN Segment</strong>，其中SYN = 1，并且 <strong>随机生成一个起始的序列号 client_initial = 5 赋给seq</strong>（将随机生成的序列号填入SYN Segment的序列号字段）=&gt; <strong>没有应用层data，但是占用一个序列号</strong></li>
+<li>② 服务端收到客户端发送的TCP SYN Segment后，服务端分配发送和接收buffer以及相关变量。<strong>同时发送一个SYNACK Segment</strong> 给客户端，SYN = 1，ACK=1（表示这是一个ACK包），ack = 6 （client_initial + 1）。同时 <strong>随机生成一个服务端的初始化序列号 server_initial = 17 赋值给seq</strong> （通知客户端我已经接收到你建立连接的请求，并且返回给客户端自己的初始化序列号）。 =&gt; <strong>SYNACK 包也没有应用层data，但也同样占用一个序列号</strong></li>
+<li>③ 第三步客户端给服务端返回一个普通的ACK，普通ACK是 <strong>不占用序列号</strong> 的，但是 <strong>可以捎带数据</strong>（捎带数据指的是，客户端可以在建立连接的最后一个ACK中，放入一部分要发送的数据。则这个数据包即完成了作为ACK的职能，也携带了一部分数据。）</li>
+</ul>
+</li>
+<li><h4 id="TCP-四路挥手"><a href="#TCP-四路挥手" class="headerlink" title="TCP 四路挥手"></a>TCP 四路挥手</h4><img src="/img/computer_network/computer_network_41.png" title="客户端发起的双向关闭TCP连接示意图">
+<ul>
+<li>不含data的正常ACK，序列号可以不写（因为不占用序列号）；</li>
+<li>在非ACK数据包中的ack无含义，不用写。</li>
+</ul>
+</li>
+<li><h4 id="TCP状态转换图-gt-点我"><a href="#TCP状态转换图-gt-点我" class="headerlink" title="TCP状态转换图 =&gt; 点我"></a>TCP状态转换图 =&gt; <a href="http://qjm253.cn/2018/01/04/super_c_d/#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2">点我</a></h4></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Principles-of-Congestion-control"><a href="#Principles-of-Congestion-control" class="headerlink" title="Principles of Congestion control"></a>Principles of Congestion control</h2><p>拥塞控制</p>
+</blockquote>
+<p><strong>调节发送端发包的速率，避免路由器缓存溢出</strong></p>
+<blockquote>
+<h2 id="TCP-Congestion-Control（TCP拥塞控制）"><a href="#TCP-Congestion-Control（TCP拥塞控制）" class="headerlink" title="TCP Congestion Control（TCP拥塞控制）"></a>TCP Congestion Control（TCP拥塞控制）</h2></blockquote>
+<img src="/img/computer_network/computer_network_42.png" title="TCP拥塞窗口的演化（Tahoe and Reno）">
+<p>=&gt; TCP Tahoe（代表系统首次启动的情况）： <strong>1~4时刻为慢启动阶段</strong>，cwnd以指数方式增长，其中 <strong>时刻4的时候达到了系统初始设置的慢启动阈值</strong>，系统进入拥塞避免状态，cwnd的增加开始放缓速度，以线性方式增加。到时刻 <strong>8的时候定时器超时</strong>，<strong>ssthesh = cwnd / 2， cwnd = 1 (MSS)</strong>。系统 <strong>进入慢启动阶段</strong>。到时刻12的时候达到了系统初始设置的慢启动阈值，系统进入拥塞避免状态。</p>
+<p>=&gt; TCP Reno（代表系统运行时收到3次冗余ACK的情景）：时刻9系统收到3次冗余ACK，<strong>cwnd = cwnd / 2</strong>，系统 <strong>进入快速恢复阶段</strong></p>
+<ul>
+<li><h3 id="慢启动（slow-start）"><a href="#慢启动（slow-start）" class="headerlink" title="慢启动（slow start）"></a>慢启动（<strong><em>slow start</em></strong>）</h3><p>首次启动时，拥塞窗口（<strong><em>cwnd</em></strong>）的大小置为1 MSS（<strong><em>Maximum Segment Size</em></strong>），接着每收到一个ACK，<strong>cwnd</strong> 的值便翻一番，指数增长。当 <strong>定时器第一次超时时</strong>，<strong>cwnd的值置为1，同时将慢启动阈值</strong> （<strong><em>ssthresh</em></strong>）的值设置为 <strong>cwnd/2</strong>。接下来 <strong>cwnd</strong> 仍然以指数方式增长，但是 <strong>当达到ssthesh时，进入拥塞避免状态</strong>（需要注意的是，初始的时候，ssthesh会设置有一个初始值，当如果第一次启动时在没有超时之前，cwnd达到了预设的ssthesh，也会进入拥塞避免状态）。</p>
+</li>
+<li><h3 id="拥塞避免（Congestion-Avoidance）"><a href="#拥塞避免（Congestion-Avoidance）" class="headerlink" title="拥塞避免（Congestion Avoidance）"></a>拥塞避免（<strong><em>Congestion Avoidance</em></strong>）</h3><p>当<strong>进入拥塞避免状态之后</strong>，<strong>cwnd</strong> 不再以指数方式增长，而是 <strong>以线性方式增长</strong>。</p>
+<ul>
+<li><p>当定时器超时时，<strong>ssthesh = cwnd / 2， cwnd = 1 (MSS)</strong>。系统 <strong>进入慢启动阶段</strong>；</p>
+</li>
+<li><p>当收到3次冗余ACK时，<strong>cwnd = cwnd / 2</strong>，系统 <strong>进入快速恢复阶段</strong></p>
+</li>
+</ul>
+</li>
+<li><h3 id="快速恢复（Fast-Recovery）"><a href="#快速恢复（Fast-Recovery）" class="headerlink" title="快速恢复（Fast Recovery）"></a>快速恢复（<strong><em>Fast Recovery</em></strong>）</h3><p>每收到一个冗余ACK，<strong>cwnd + 1</strong></p>
+<ul>
+<li><p>如果引发TCP进入快速恢复阶段的 <strong>缺失报文段在定时器超时之前到达</strong>，<strong>进入拥塞避免状态</strong>。</p>
+</li>
+<li><p>如果在此期间，<strong>定时器超时，则ssthesh = cwnd / 2, cwnd = 1 (MSS)，进入慢启动状态</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/06/computer_networking_02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1655,276 +2186,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/26/android_wifi_direct_01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/26/android_wifi_direct_01/" itemprop="url">Android WI-FI Direct Kotlin 浅析（一）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-26T00:00:00+08:00">
-                2018-03-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/26/android_wifi_direct_01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/26/android_wifi_direct_01/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/03/26/android_wifi_direct_01/" class="leancloud_visitors" data-flag-title="Android WI-FI Direct Kotlin 浅析（一）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2></blockquote>
-<ul>
-<li><p>百度百科：2010年10月，Wi-Fi Alliance（wi-fi联盟）发布Wi-Fi Direct白皮书，白皮书中介绍了有关于这种技术的基本信息、这种技术的特点和这种技术的功能，Wi-Fi Direct标准是指允许无线网络中的设备无需通过无线路由器即可相互连接。与蓝牙技术类似，这种标准允许无线设备以点对点形式互连，而且在传输速度与传输距离方面则比蓝牙有大幅提升</p>
-</li>
-<li><p>与Android开发者而言呢，Google嗅到了WI-FI直连的发展前景，整了一套WI-FI直连的API，在Android4.0+（API &gt;= 14）的设备上均能使用。这给我们进行手机之间的互联操作提供了一个新的实现思路。它可以不需要路由而让两个设备直接相连，但其传输速度可是远远超过蓝牙传输。而且它不需要热点的建立，甚至两个设备不需要在一个局域网下。想象一下，不用建立热点也可以实现像快牙，茄子一类的面对面快传的需求～》《～</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></blockquote>
-<ul>
-<li><h3 id="定义一个广播接收器"><a href="#定义一个广播接收器" class="headerlink" title="定义一个广播接收器"></a>定义一个广播接收器</h3><blockquote>
-<ul>
-<li>每当当前设备与Wi-fi直连相关的状态发生改变，系统便会以广播的形式通知我们，所以让我们定义一个Receiver欢迎它</li>
-<li>在下面定义的Receiver里面我们监听了4个Action，这是最常用的4个，还有其它的Action可以看官方文档，或者，来去撸一波源码</li>
-</ul>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectReceiver</span> : <span class="type">BroadcastReceiver</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写一个便捷的注册方法，动态注册的时候就不用写intentFilter了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">registerReceiver</span><span class="params">(context: <span class="type">Context</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intentFilter = IntentFilter()</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)</span><br><span class="line">        context.registerReceiver(<span class="keyword">this</span>, intentFilter)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onReceive</span><span class="params">(context: <span class="type">Context</span>?, intent: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">when</span> (intent?.action) &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment">         * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="接下来在Activity中动态注册"><a href="#接下来在Activity中动态注册" class="headerlink" title="接下来在Activity中动态注册"></a>接下来在Activity中动态注册</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> wifiDirectReceiver = WifiDirectReceiver()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart()</span><br><span class="line">        wifiDirectReceiver.registerReceiver(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop()</span><br><span class="line">        unregisterReceiver(wifiDirectReceiver)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>没错，直接动态注册了！！！Android8.0的新特性让Android开发喵几乎一夜之间丧失在AndroidManifest中静态注册的技能（所以为了，考虑兼容，我们就直接动态注册了）</li>
-</ul>
-</li>
-<li><h3 id="好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION"><a href="#好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION" class="headerlink" title="好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION"></a>好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION</h3><ul>
-<li><p>我们在Receiver里面加点输出（实际开发还是用Log，极不推荐直接输出，这里笔者还是决定偷懒♪(^∇^*)）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//get the state of current device</span></span><br><span class="line">    <span class="keyword">val</span> state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE,</span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_DISABLED)</span><br><span class="line">    <span class="keyword">if</span> (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) &#123;</span><br><span class="line">        <span class="comment">//Wifi p2p enable</span></span><br><span class="line">        println(<span class="string">"wifi enable"</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//wifi p2p disEnable</span></span><br><span class="line">        println(<span class="string">"wifi disEnable"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后跑到真机上（万能的模拟器然而并不能模拟wifi功能，只能真机实测一波啦），反复开关Wifi功能</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:26:08.744 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:26:11.098 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi disEnable</span><br><span class="line">03-26 16:32:16.376 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>OK, 得到上面的输出，我们就知道确实，这个ACTION在WI-FI功能开关的时候会触发</p>
-</li>
-</ul>
-</li>
-<li><h3 id="WIFI-P2P-THIS-DEVICE-CHANGED-ACTION"><a href="#WIFI-P2P-THIS-DEVICE-CHANGED-ACTION" class="headerlink" title="WIFI_P2P_THIS_DEVICE_CHANGED_ACTION"></a>WIFI_P2P_THIS_DEVICE_CHANGED_ACTION</h3><ul>
-<li>大新闻：这个ACTION携带了一团神秘数据，^``^,那就是本设备的设备信息啦～</li>
-<li><p>同样的，我们加一点输出，看一下都包含哪些信息（当然，最直接的是看WifiP2pDevice这个数据）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> device: WifiP2pDevice = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE)</span><br><span class="line">    println(device)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样真机测试，来调皮的开关一下WI-FI功能（当然，一开始也会打印出设备信息，那就是在这个Receiver被注册的时候）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:43:29.420 30294-30294/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out: Device: 魅蓝 Note3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  deviceAddress: 2e:57:31:98:45:35</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  primary <span class="built_in">type</span>: 10-0050F204-5</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  secondary <span class="built_in">type</span>: null</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wps: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  grpcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  devcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  status: 3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wfdInfo: WFD enabled: falseWFD DeviceInfo: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD CtrlPort: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD MaxThroughput: 0</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看到包括设备的名字，本设备的MAC地址，状态balabala</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="后面两种ACTION涉及到连接，我们等下讨论"><a href="#后面两种ACTION涉及到连接，我们等下讨论" class="headerlink" title="后面两种ACTION涉及到连接，我们等下讨论"></a>后面两种ACTION涉及到连接，我们等下讨论</h3></li>
-</ul>
-<blockquote>
-<h2 id="WifiP2pManager-的异种接口"><a href="#WifiP2pManager-的异种接口" class="headerlink" title="WifiP2pManager 的异种接口"></a>WifiP2pManager 的异种接口</h2><ul>
-<li>requestPeers、requestGroupInfo、discoverPeers、createGroup、removeGroup等等</li>
-<li>当然可以直接用，不过为了简介，我们一边用一遍封装出一个管理类</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="获得WifiP2pManager对象"><a href="#获得WifiP2pManager对象" class="headerlink" title="获得WifiP2pManager对象"></a>获得WifiP2pManager对象</h3><ul>
-<li><strong>下面的操作需要添加以下权限</strong><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_WIFI_STATE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.CHANGE_WIFI_STATE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> WifiDirectManager&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> manager: WifiP2pManager <span class="keyword">by</span> Delegates.notNull()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> channel: WifiP2pManager.Channel <span class="keyword">by</span> Delegates.notNull()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">init</span><span class="params">(context: <span class="type">Context</span>)</span></span>: WifiDirectManager&#123;</span><br><span class="line">        <span class="comment">//通过获取系统服务的方式获得Manager对象</span></span><br><span class="line">        manager = context.getSystemService(Context.WIFI_P2P_SERVICE) <span class="keyword">as</span> WifiP2pManager</span><br><span class="line">        channel = manager.initialize(context, Looper.getMainLooper())&#123;</span><br><span class="line">            <span class="comment">//初始化操作成功的回调</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>利用Kotlin 的object关键字，快速创建一个单例对象</li>
-<li>channel在后续的操作中要用到，这个是manager初始化成功之后返回的渠道对象</li>
-<li>上述init方法建议在Application的onCreate中调用，至少在使用前调用</li>
-</ul>
-</li>
-<li><h3 id="discoverPeers"><a href="#discoverPeers" class="headerlink" title="discoverPeers"></a>discoverPeers</h3><ul>
-<li><p>在上述的WifiDirectManager类里面添加如下方法</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * discover available peer list</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">discoverPeers</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.discoverPeers(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"discover Peers success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"discover Peers fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * request the peer list available</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">requestPeers</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.requestPeers(channel) &#123; peers -&gt;</span><br><span class="line">        <span class="comment">//请求对等节点列表操作成功</span></span><br><span class="line">        println(peers)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Activity里面拖一个button，在点击事件里面调用这个函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">btnSendTestBroadcast.setOnClickListener &#123;</span><br><span class="line">    WifiDirectManager.discoverPeers()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面的方法，望文生义，就是用来检索附近的可用对等节点列表，然后后面就是这个整套API最坑的一个回调了</p>
-</li>
-<li><strong>WifiP2pManager.ActionListener</strong> 这个回调里面的success和failure<strong>表示的是一个操作是否执行成功，而并不能反映出这个操作的结果</strong></li>
-<li>所以从上面这个回调里我们只能知道，执行discoverPeers这个操作有没有成功，是无法获取到对等节点列表的</li>
-<li>那怎么获取检索的结果呢，答案是:<ul>
-<li>在Receiver里面直接获取（API &gt;= 18）</li>
-<li>在Receiver里面调用requestPeers()获取<br>-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="两种获取对等节点列表的方式"><a href="#两种获取对等节点列表的方式" class="headerlink" title="两种获取对等节点列表的方式"></a>两种获取对等节点列表的方式</h3><blockquote>
-<p>Tip：在调用discoverPeers之后才能获取到对等节点列表</p>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//api &gt; 18 have this extra info,</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR2) &#123;</span><br><span class="line">        <span class="keyword">val</span> wifiP2pList: WifiP2pDeviceList = intent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST)</span><br><span class="line">        println(wifiP2pList)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//if the sdk version lower than 18</span></span><br><span class="line">        <span class="comment">//get WifiP2pDeviceList by call WifiP2pManager.requestPeers to get</span></span><br><span class="line">        WifiDirectManager.requestPeers()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看到，当可用对等节点列表变化时，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播，我们有两种方式获取对等节点列表</li>
-<li>API &gt;= 18 的时候可以直接在 intent 携带数据中获取到 WifiP2pDeviceList 对象</li>
-<li>当 API 在[14, 18) 之间的时候，只能调用manager的requestPeers方法，在回调当中获取</li>
-<li><strong>其实</strong>：只要都采用第二种方式，就能保持一致性了</li>
-<li>具体输出结果可以自己试一试</li>
-</ul>
-</li>
-<li><h3 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * connect by MAC address(hardware address)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">connect</span><span class="params">(deviceAddress: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> config = WifiP2pConfig()</span><br><span class="line">    config.deviceAddress = deviceAddress</span><br><span class="line">    config.wps.setup = WpsInfo.PBC</span><br><span class="line">    manager.connect(channel, config, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"connect operator success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"connect operator fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * invoke this method to connect a p2p device</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">connect</span><span class="params">(device: <span class="type">WifiP2pDevice</span>)</span></span>: WifiDirectManager &#123;</span><br><span class="line">    connect(device.deviceAddress)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在前面我们已经获取到对等节点列表了，每个对等节点设备信息里面包含其mac地址，用mac地址就能连接</li>
-<li>连接成功以后 系统就会发送 WIFI_P2P_CONNECTION_CHANGED_ACTION 广播了，你可在里面获取对方设备的信息以及群组的信息</li>
-<li>如果两个对等节点都没有创建群组，则连接之后其中一端设备会自动成为群组，每个组员都能获取到群组的IP</li>
-</ul>
-</li>
-<li><h3 id="WIFI-P2P-CONNECTION-CHANGED-ACTION-包含的信息"><a href="#WIFI-P2P-CONNECTION-CHANGED-ACTION-包含的信息" class="headerlink" title="WIFI_P2P_CONNECTION_CHANGED_ACTION 包含的信息"></a>WIFI_P2P_CONNECTION_CHANGED_ACTION 包含的信息</h3><ul>
-<li><p>给WifiDirectManager类添加几个封装函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * request the group info</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">requestGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.requestGroupInfo(channel) &#123; group -&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * create a group</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">createGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.createGroup(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"create group fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"create group success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * remove a group</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">removeGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.removeGroup(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"remove group success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"remove group success: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>看看Receiver里面的代码</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment"> * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">        <span class="keyword">val</span> networkInfo = intent.getParcelableExtra&lt;NetworkInfo&gt;(WifiP2pManager.EXTRA_NETWORK_INFO)</span><br><span class="line">        <span class="keyword">val</span> wifiP2pInfo = intent.getParcelableExtra&lt;WifiP2pInfo&gt;(WifiP2pManager.EXTRA_WIFI_P2P_INFO)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR2) &#123;</span><br><span class="line">            <span class="keyword">val</span> wifiP2pGroupInfo =  intent.getParcelableExtra&lt;WifiP2pGroup&gt;(WifiP2pManager.EXTRA_WIFI_P2P_GROUP)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>从上面可以看出，当收到系统发送的 WIFI_P2P_CONNECTION_CHANGED_ACTION 广播的时候，我们可以获取下面信息</p>
-<ul>
-<li>NetworkInfo</li>
-<li>WifiP2pInfo (对端设备的信息)</li>
-<li>WifiP2pGroup （两种方式获取， 和之前获取对等节点列表的操作类似）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="应用方式"><a href="#应用方式" class="headerlink" title="应用方式"></a>应用方式</h3><ul>
-<li>可以一个设备主动创建一个Group，然后其它设备检索后连接</li>
-<li>一旦连接成功，这些设备就处于同一自组网下了，组员是可以直接在WifiP2pGroup里面获取到群主的ip。接下来就可以直接用Socket进行各种骚操作了</li>
-<li>至于群主如何获取组员的IP，目前想到的一种方式是群主开一个Socket监听，组员连接成功通过socket向群主发送一个请求，然后群主就可以在请求的socket对象里面获取组员的IP了</li>
-</ul>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1979,7 +2240,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">50</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
