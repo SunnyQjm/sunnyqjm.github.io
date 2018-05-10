@@ -313,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/08/computer_networking_03/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/10/computer_networking_04/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -332,7 +332,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/05/08/computer_networking_03/" itemprop="url">Chapter 3 Transport Layer</a></h1>
+                <a class="post-title-link" href="/2018/05/10/computer_networking_04/" itemprop="url">Chapter 4 The Network Layer</a></h1>
         
 
         <div class="post-meta">
@@ -344,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-08T18:00:00+08:00">
-                2018-05-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-10T18:00:00+08:00">
+                2018-05-10
               </time>
             
 
@@ -364,8 +364,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/08/computer_networking_03/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/05/08/computer_networking_03/" itemprop="commentsCount"></span>
+                <a href="/2018/05/10/computer_networking_04/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/05/10/computer_networking_04/" itemprop="commentsCount"></span>
                 </a>
               </span>
               <!--/noindex-->
@@ -374,7 +374,7 @@
 
           
           
-             <span id="/2018/05/08/computer_networking_03/" class="leancloud_visitors" data-flag-title="Chapter 3 Transport Layer">
+             <span id="/2018/05/10/computer_networking_04/" class="leancloud_visitors" data-flag-title="Chapter 4 The Network Layer">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -407,397 +407,167 @@
       
         
           
-            <blockquote>
-<h2 id="Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）"><a href="#Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）" class="headerlink" title="Introduction of Transport-Layer Servicers （传输层提供的服务）"></a>Introduction of Transport-Layer Servicers （传输层提供的服务）</h2><ul>
-<li>传输层将网络层所提供的主机到主机之间的 <strong>逻辑通信</strong>（<strong><em>logical comminication</em></strong>）扩展为进程到进程间的通信 =&gt; <strong>!!最主要的的功能</strong></li>
-<li><strong>传输层只在端系统（end systems / hosts）中才有</strong>，在路由器和二层交换机上没有</li>
-<li>Inetnet的传输层协议：<strong>TCP、UDP</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="传输层-VS-网络层"><a href="#传输层-VS-网络层" class="headerlink" title="传输层 VS 网络层"></a>传输层 VS 网络层</h3><ul>
-<li><p><strong>网络层</strong> 完成的是 <strong>主机到主机</strong> 之间的逻辑通信， <strong>传输层</strong> 完成的是不同主机间 <strong>进程到进程</strong> 的逻辑通信 =&gt; 可以说，<strong>传输层扩展了网络层的配送域</strong></p>
-<p>PS: 并不是说传输层可以单独完成不同主机间进程到进程通信，肯定是要基于网络层及之下各层所提供服务的支持。但是以应用进程的视角来看，确实它只要把通信的消息传给传输层，传输层会帮他把消息投递到目的主机的传输层，目的主机进程就从它的传输层中获取消息。</p>
-</li>
-<li><p><strong>网络层提供的是不可靠的传输</strong>（<strong><em>best-effort delivery service</em></strong>）， 而 <strong>传输层可以</strong> 在网络层不可靠的基础上引入一些可靠数据传输的机制，来向上 <strong>提供可靠的传输</strong>（如：TCP）</p>
-</li>
-<li><p>网络层和传输层都不能提供最短延迟和最小带宽的保障</p>
-</li>
-</ul>
-</li>
-<li><h3 id="Internet-传输层协议"><a href="#Internet-传输层协议" class="headerlink" title="Internet 传输层协议"></a>Internet 传输层协议</h3><ul>
-<li><h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><ul>
-<li>可靠数据传输 （<strong><em>reliable data transfer</em></strong>）</li>
-<li>保证数据有序分发</li>
-<li>拥塞控制（<strong><em>congestion control</em></strong>）</li>
-<li>流量控制（<strong><em>flow control</em></strong>）</li>
-</ul>
-</li>
-<li><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><ul>
-<li>不可靠</li>
-<li>无序分发</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Multiplexing-and-DeMultiplexing-（分解与复用）"><a href="#Multiplexing-and-DeMultiplexing-（分解与复用）" class="headerlink" title="Multiplexing and DeMultiplexing （分解与复用）"></a>Multiplexing and DeMultiplexing （分解与复用）</h2><p>传输层通过复用收集各进程的消息，通过分解将消息分发给各个进程</p>
-</blockquote>
-<ul>
-<li>各层的PDU（某一层协议所处理的最小数据单元）<img src="/img/computer_network/computer_network_01.jpg" title="五层网络协议栈模型"></li>
-<li>Socket 是数据穿梭于网络进程和网络之间的大门，同时也就是传输层和进程之间的门户。与传输层直接通信的其实是进程中的Socket（一个进程可以由多个Socket）</li>
-<li><h3 id="Demultiplexing（分解）"><a href="#Demultiplexing（分解）" class="headerlink" title="Demultiplexing（分解）"></a>Demultiplexing（分解）</h3>传输层将收到的网络层投递给它的Segments，去除传输层头部，分发给正确的Socket</li>
-<li><h3 id="Multiplexing（复用）"><a href="#Multiplexing（复用）" class="headerlink" title="Multiplexing（复用）"></a>Multiplexing（复用）</h3><p>传输层收集来自各个Socket的message，并加上传输层头部，生产Segment，再交由网络层</p>
-</li>
-<li><p>每个Socket对应于一个端口号，传输层在分发Segments的时候通过目的端端口号判断应该分发给哪个Socket</p>
-</li>
-<li><h3 id="UDP-的-Multiplexing-and-DeMultiplexing"><a href="#UDP-的-Multiplexing-and-DeMultiplexing" class="headerlink" title="UDP 的 Multiplexing and DeMultiplexing"></a>UDP 的 Multiplexing and DeMultiplexing</h3><ul>
-<li>一个 <strong>UDP Socket</strong> 由一个二元组唯一标识（目的IP，目的端口号）</li>
-<li>UDP协议在分发的时候就根据上面提到的二元组分发Segment给对应的Socket（实际上是去除传输层头部，然后将里面的Message发送给Socket）</li>
-<li><strong>来自不同IP、端口（源IP，源端口），但是目的IP和端口号一致的Segment会被分发给同一个Socket</strong></li>
-</ul>
-</li>
-<li><h3 id="TCP-的-Multiplexing-and-DeMultiplexing"><a href="#TCP-的-Multiplexing-and-DeMultiplexing" class="headerlink" title="TCP 的 Multiplexing and DeMultiplexing"></a>TCP 的 Multiplexing and DeMultiplexing</h3><ul>
-<li>一个 <strong>TCP Socket</strong> 有一个四元组唯一标识（源IP，源端口号，目的IP，目的端口号）</li>
-<li>TCP协议在分发的时候就根据标识TCP Socket的四元组来分发Segments</li>
-<li><strong>来自不同IP、端口（源IP，源端口）的Segment会被分发给不同的Socket</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）"><a href="#Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）" class="headerlink" title="Connectionless Transport: UDP （无连接的传输层协议）——UDP）"></a>Connectionless Transport: UDP （无连接的传输层协议）——UDP）</h2><ul>
-<li>UDP（User Datagram Protocol, 用户数据报协议）</li>
-<li>基于UDP的应用层协议：SNMP、RIP、DNS、NFS</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="为什么需要UDP？"><a href="#为什么需要UDP？" class="headerlink" title="为什么需要UDP？"></a>为什么需要UDP？</h3><ul>
-<li>UDP <strong>不需要建立连接</strong> （少了建立连接的开销以及带来的时延）</li>
-<li><strong>实现简单</strong> =&gt; 发送者与接受者之间由于是无连接的，所以不需要保存连接状态信息</li>
-<li><strong>没有拥塞控制</strong> =&gt; 不限速</li>
-<li><strong>UDP头部较小</strong>（<strong><em>Small packet header overhead</em></strong>）=&gt; UDP由于需要实现的功能较少，头部的字段也比较少，只需要8 byte</li>
-</ul>
-</li>
-<li><h3 id="UDP的应用场景"><a href="#UDP的应用场景" class="headerlink" title="UDP的应用场景"></a>UDP的应用场景</h3><ul>
-<li>多媒体（在线视频）</li>
-<li>具有重复性操作的场合（如：DNS）</li>
-<li>一对多通信的场景</li>
-</ul>
-<img src="/img/computer_network/computer_network_21.png" title="常见应用层协议所用的传输层协议"></li>
-<li><h3 id="UDP所提供的服务"><a href="#UDP所提供的服务" class="headerlink" title="UDP所提供的服务"></a>UDP所提供的服务</h3><ul>
-<li>传输层将网络层所提供的 <strong>主机到主机</strong> 之间的逻辑通信 <strong>扩展到进程到进程</strong> 间的逻辑通信</li>
-<li><strong>校验和</strong>（<strong><em>Checksum</em></strong>）</li>
-</ul>
-</li>
-<li><h3 id="UDP-Segment-Structure"><a href="#UDP-Segment-Structure" class="headerlink" title="UDP Segment Structure"></a>UDP Segment Structure</h3><img src="/img/computer_network/computer_network_23.png" title="UDP Segment Structure">
-<ul>
-<li><strong>首部</strong> 只有四个字段，<strong>只占8 bits</strong> 结构异常简单</li>
-<li><strong>Length指的是整个Segment的长度</strong>，包括数据域，以字节为单位</li>
-<li><strong>UDP的Checksum只能检错，不能纠错</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Principles-of-Reliable-Data-Transfer（可靠数据传输原理）"><a href="#Principles-of-Reliable-Data-Transfer（可靠数据传输原理）" class="headerlink" title="Principles of Reliable Data Transfer（可靠数据传输原理）"></a>Principles of Reliable Data Transfer（可靠数据传输原理）</h2><ul>
-<li><strong>校验和</strong> =&gt; 检验比特差错</li>
-<li><strong>ACK反馈</strong></li>
-<li><strong>序列号</strong> =&gt; 解决冗余数据包问题（冗余数据包指的是接收端会收到一个数据包的多份拷贝）</li>
-<li><strong>定时器超时重传</strong> =&gt; 解决丢包问题</li>
-<li><strong>重传</strong></li>
-</ul>
-</blockquote>
-<img src="/img/computer_network/computer_network_24.png" title="传输层实现可靠数据传输示意图">
-<ul>
-<li><h3 id="rdt1-0"><a href="#rdt1-0" class="headerlink" title="rdt1.0"></a>rdt1.0</h3>=&gt; <strong>假设信道完全可靠，无丢包，无比特差错</strong><img src="/img/computer_network/computer_network_25.png" title="rdt1.0协议有限状态机示意图">
-<ul>
-<li>发送端传输层只要完成从应用层接收message，打包（给message加上传输层头部，构建Segment），并发送给可靠信道进行传输。而接收端传输层只需要从信道获取Segment，解包，然后分发给对应的Socket即可</li>
-</ul>
-</li>
-<li><h3 id="rdt2-0"><a href="#rdt2-0" class="headerlink" title="rdt2.0"></a>rdt2.0</h3><p>=&gt; <strong>假设信道无丢包，但是有可能发生比特差错</strong><br>=&gt; rdt2.0是一个典型的 <strong>ARQ协议</strong>，也是一种<strong>停等协议</strong>（<strong><em>stop-and-wait protocol</em></strong>）</p>
-<img src="/img/computer_network/computer_network_26.png" title="rdt2.0协议有限状态机示意图">
-<ul>
-<li><h4 id="ARQ-Automatic-Repeat-reQuest-protocols"><a href="#ARQ-Automatic-Repeat-reQuest-protocols" class="headerlink" title="ARQ (Automatic Repeat reQuest) protocols"></a>ARQ (Automatic Repeat reQuest) protocols</h4><p><strong><em>In a computer network setting, reliable data transfer protocols based on such retransmission are known as ARQ prorocols</em></strong></p>
-<p>在计算机网络中，<strong>基于重传的可靠数据传输协议</strong>，我们称之为ARQ协议</p>
-<ul>
-<li><strong>ARQ协议的要求：</strong><ul>
-<li>Error detection（错误检测）</li>
-<li>Receiver feedback（接收反馈）</li>
-<li>Retransmission（重传）</li>
-</ul>
-</li>
-<li><strong>rdt2.0 协议就是一种ARQ协议</strong></li>
-</ul>
-</li>
-<li><h4 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h4><ul>
-<li>从上层应用层获取消息，打包，发送到信道传输。接着进入等待状态，<strong>等待接收端的ACK/NAK</strong>。</li>
-<li>如果收到ACK，则表示接收端收到了正确无误的数据包，状态切换回等待消息的状态，如果有消息就继续发送，如果没有，则等待应用层的消息</li>
-<li>如果收到NAK，则表示接收端收到了数据包，但是数据包 <strong>发生了比特差错，则重传</strong>之前发送的数据包</li>
-</ul>
-</li>
-<li><h4 id="接收端"><a href="#接收端" class="headerlink" title="接收端"></a>接收端</h4><ul>
-<li>接收端从下层接收到数据包之后进行校验，如果 <strong>发生比特差错</strong>，则 <strong>向发送端发送一个NAK并丢弃该数据包</strong></li>
-<li>如果 <strong>没有发生比特差错</strong>，则解包后 <strong>传递给上层</strong>，并<strong>向发送端发送一个ACK</strong></li>
-</ul>
-</li>
-<li><h4 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h4>如果当<strong>接收端返回的ACK/NAK也发生了比特差错</strong>时，发送端并不知道此次发送是否成功，那么它该作何处理？<ul>
-<li><h5 id="思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…"><a href="#思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…" class="headerlink" title="思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …"></a>思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …</h5>简单粗暴，接收端收到一个回复不知道是ACK还是NAK就再次询问客户端到底有没有正确接收。怕不是要打起来一会儿。。。</li>
-<li><h5 id="思路二：引入比特校准机制"><a href="#思路二：引入比特校准机制" class="headerlink" title="思路二：引入比特校准机制"></a>思路二：引入比特校准机制</h5>添加最够的Checksum，让其既具备检错功能，也具备纠错功能。这要求信道传输数据包的时候不能丢失（在rdt2.0的假设中是具备的，但是实际中是会发生丢包的），而且可能因为要兼具纠错功能，Checksum会很长</li>
-<li><h5 id="思路三：瞎几把重传"><a href="#思路三：瞎几把重传" class="headerlink" title="思路三：瞎几把重传"></a>思路三：瞎几把重传</h5>一旦发送端收到的回复发生比特差错，无法判断的时候，就直接重传。这是一个稍微可行的方案，但是由于在无法判断传输是否成功的情况就重传，客户端可能会收到一个数据包的多个拷贝(<strong>产生冗余数据包（duplicate packets）问题</strong>)，这个时候客户端就不知道该如何判断服务器发过来的是一个没有接收过的数据包还是一个冗余的数据包 =&gt;</li>
-</ul>
-</li>
-<li><h4 id="解决冗余数据包问题-gt-引入序列号-sequence-number-机制"><a href="#解决冗余数据包问题-gt-引入序列号-sequence-number-机制" class="headerlink" title="解决冗余数据包问题 =&gt; 引入序列号 (sequence number) 机制"></a>解决冗余数据包问题 =&gt; 引入序列号 (<strong><em>sequence number</em></strong>) 机制</h4>发送端在发送数据包的头部多加一个Sequence number的字段，接收端在接收到一个数据包的时候将其序列号取出，与自己已经接收到的前一个数据包的序列号对比，就可以判断这个数据包是不是冗余的了。因为rdt2.0采用是一种停等协议的工作模式，所以用1 bit的序列号就可以解决这个问题</li>
-</ul>
-</li>
-<li><h3 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h3><p>=&gt; 在rdt2.0的基础上采用上面思路三 + 引入序列号的方式解决了冗余数据包问题</p>
-<p>=&gt; 还是采用了NAK + ACK的实现方案</p>
-<img src="/img/computer_network/computer_network_27.png" title="rdt2.1 Sender">
-<img src="/img/computer_network/computer_network_28.png" title="rdt2.1 Receiver"></li>
-<li><h3 id="rdt2-2"><a href="#rdt2-2" class="headerlink" title="rdt2.2"></a>rdt2.2</h3><p>=&gt; 在rdt2.1的基础上，去除了NAK，收到错误数据包之后不发送NAK，而将最近一次成功接收到的数据包的ACK发送回去</p>
-<p>=&gt; 这种方案就导致发送端可能接收到同一个数据包的多个ACK (<strong>冗余ACK，duplicate ACKs</strong>)</p>
-<img src="/img/computer_network/computer_network_29.png" title="rdt2.2 Sender">
-<img src="/img/computer_network/computer_network_30.png" title="rdt2.2 Receiver">
-</li>
-<li><h3 id="rdt3-0"><a href="#rdt3-0" class="headerlink" title="rdt3.0"></a>rdt3.0</h3><p>=&gt; <strong>假设信道可能丢包，但是有可能发生比特差错</strong></p>
-<p>=&gt; 在rdt2.2的基础上，考虑丢包问题。</p>
-<p>=&gt; <strong>定时器 + 超时重传 =&gt; 解决丢包问题</strong></p>
-<img src="/img/computer_network/computer_network_31.png" title="rdt3.0 Sender">
-<p>接收端FMS(finite-state machine, 有限状态机)图同rdt2.2</p>
-</li>
-<li><h3 id="Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）"><a href="#Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）" class="headerlink" title="Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）"></a>Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）</h3><img src="/img/computer_network/computer_network_32.png" title="停等协议与流水线型协议的对比">
-rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大限制了网络的传输性能（发送端必须接收到接收端返回的ACK才发送下一个数据包或者重传，增大了传输时延，降低了带宽利用率）。而相比之下，<strong><em>流水线型可靠数据传输协议</em></strong> <strong>允许已发送未确认的数据包可以有多个</strong><ul>
-<li>Go-Back-N (回退N)</li>
-<li>Selective repeat（选择重传）</li>
-</ul>
-</li>
-<li><h3 id="Go-Back-N-GBN"><a href="#Go-Back-N-GBN" class="headerlink" title="Go-Back-N (GBN)"></a>Go-Back-N (GBN)</h3><p>回退N</p>
-<blockquote>
-<ul>
-<li><strong>定时器超时</strong>，所有已发送未被确认的数据包都 <strong>重传</strong></li>
-<li><strong>采用累积确认</strong>：收到ack=10，则表示序列号为10及之前的数据包都已正确接收，接收端下一个期望收到的数据包的序列号为11</li>
-<li>接收端收到乱序的数据包直接丢弃</li>
-</ul>
-</blockquote>
-<ul>
-<li><h4 id="Go-Back-N滑动窗口"><a href="#Go-Back-N滑动窗口" class="headerlink" title="Go-Back-N滑动窗口"></a>Go-Back-N滑动窗口</h4><img src="/img/computer_network/computer_network_33.png" title="发送端视角看回退N的序列号窗口">
-<ul>
-<li><strong>base</strong> : 最早的发送却没有被确认的数据包的序列号</li>
-<li><strong>nextseqnum</strong> : 最小的没有使用的序列号（实际上指的是发送下一个非重传数据包时所使用的序列号）</li>
-<li><strong>N</strong> : 发送端序列号窗口的大小（限制发送端已发送未被确认数据包的数量，在流量控制的时候可以遏制发送端发包的速率）</li>
-<li><strong>[base, nextseqnum - 1]</strong> : 已发送未被确认的数据包的序列号范围</li>
-<li><strong>[0, base - 1]</strong> : 发送且已被确认的数据包的序列号</li>
-<li><strong>[nextseqnum, base + N - 1]</strong> : 剩余可用的序列号范围（指的是该时刻在不溢出发送窗口大小N的情况下，可以继续使用的序列号）<blockquote>
-<p>ps: 如果序列号的取值是以取模的方式循环使用，上面的范围划分就略有变动，但是意思是差不多的</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h4 id="Go-Back-N-FSM-图"><a href="#Go-Back-N-FSM-图" class="headerlink" title="Go-Back-N FSM 图"></a>Go-Back-N FSM 图</h4><ul>
-<li><h5 id="发送端-1"><a href="#发送端-1" class="headerlink" title="发送端"></a>发送端</h5><img src="/img/computer_network/computer_network_34.png" title="Go-Back-N发送端FSM图">
-<ul>
-<li><strong>上层的调用</strong>（<strong><em>Invocation from above</em></strong>）: 当上层调用rdt_send()发送数据包的时候，<strong>发送端检查发送窗口是否已满</strong>（即检查一发送未确认的数据包的个数是不是已经达到N了），如果满了就通知上层拒绝发送（接着上层肯能会一段时间后重试），没有满则生成一个Segment并发送</li>
-<li><strong>收到一个ACK</strong>（Receipt of an ACK）: 发送端采用 <strong>累积确认</strong>（<strong><em>cumulative acknowledgment</em></strong>）的方式，例如：收到ack=10，则表示序列号为10及之前的数据包都已正确接收，接收端下一个期望收到的数据包的序列号为11</li>
-<li><strong>超时事件</strong>（<strong><em>A timeout event</em></strong>）: 发送端开始发送数据包的时候回启动一个定时器，之后<strong>每收到一个ACK会检查是否还有已发送未确认的数据包</strong>。有则重启定时器，没有则停止定时器。<strong>一旦定时器超时，所有已发送但未确认的数据包都将被重传</strong>（最多重传N个）</li>
-</ul>
-</li>
-<li><h5 id="接收端-1"><a href="#接收端-1" class="headerlink" title="接收端"></a>接收端</h5><img src="/img/computer_network/computer_network_35.png" title="Go-Back-N接收端FSM图">
-<ul>
-<li><strong>接收端收到</strong> 一个序列号为n的 <strong>有序的数据包</strong>（<strong><em>in-order packet</em></strong>, 表示接收端最近一次传递给上层的数据包的序列号为n-1），则给发送端回一个对应序列号的ACK，同时将数据包解包够传递给上层</li>
-<li><strong>接收端收到错误的数据包</strong> 则 <strong>直接丢弃</strong></li>
-<li><strong>接收端收到正确但乱序的数据包</strong>（就比如收到的数据包序列号为n，但是上一次传递给上层的数据包的序列号不是n-1），接收端的处理也是 <strong>直接丢弃</strong>。这虽然看起来很浪费，但却是比较明智的处理方式。试想，如果接收端收到一个序列号为n+1的数据包，但是上一次传递给上层的却是序列号为n-1的数据包，则很可能序列号为n的数据包在传输的过程中丢失了，那么必然导致发送端计时器超时，发送端会重发数据包为n和n+1的数据包，所以接收端完全没有必要缓存序列号为n+1的数据包（这样实现起来简单并且有效）。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><ul>
-<li>发送端既然采用的是累积确认，那么如果发送端收到一个对序列号为n的ACK，但是上次收到的是n-3的，对n-1和n-2的ACK可能丢失了。这个时候发送端不会理会那两个丢失的ACK。因为接收端是有序接收的，所以发送端收到对序列号为n的数据包的ACK就可以认为序列号为n以及比n小的数据包都已经成功被接收了</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Selective-Repeat（SR）"><a href="#Selective-Repeat（SR）" class="headerlink" title="Selective Repeat（SR）"></a>Selective Repeat（SR）</h3><p>选择重传</p>
-<img src="/img/computer_network/computer_network_36.png" title="选择重传（SR）发送方与接收方的序号空间">
-<ul>
-<li><h4 id="发送端-2"><a href="#发送端-2" class="headerlink" title="发送端"></a>发送端</h4><ul>
-<li><strong>从上层收到数据</strong>（<strong><em>Data received from above</em></strong>）：当发送端接收到上层的数据时，<strong>获取下一个可用的序列号</strong>，如果该序列好在发送端序列号窗口内（表示当前窗口未满），则打包发送。如果不在序列号窗口内，则和GBN一样，发回给上层或缓存起来。</li>
-<li><strong>超时</strong>（<strong><em>Timeout</em></strong>）：发送端会为每一个已发送未确认的数据包维护一个逻辑计时器，一旦某个计时器超时，就重发它所负责监视的那个数据包。</li>
-<li><strong>收到ACK</strong>（<strong><em>ACK received</em></strong>）：<ul>
-<li>收到的ACK所确认的数据包的序列号 <strong>落在滑动窗口内，则将其标记为已确认</strong></li>
-<li>收到的ACK所确认的数据包的序列号 <strong>等于send_base</strong>（就是滑动窗口的第一个序列号），则 <strong>将滑动窗口右移至第一个未被确认的序列号处</strong>。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="接收端-2"><a href="#接收端-2" class="headerlink" title="接收端"></a>接收端</h4><ul>
-<li>如果<strong>序列号在[recv_base, recv_base + N - 1]范围内被接收</strong>（也就是说收到的数据包在接收端的滑动窗口内）：向发送端 <strong>回一个对该序列号的ACK</strong>。<ul>
-<li><strong>如果该序列号不等于recv_base</strong>，则将该序列号标记为已接收，将数据包缓存起来</li>
-<li><strong>如果该序列号等于recv_base</strong>，则接收端 <strong>滑动窗口右移</strong>至第一个未标记的序列号处。并将刚才扫过的数据包（就是[old_recv_base, new_recv_base - 1]之间的数据包）一并上交给上层。</li>
-</ul>
-</li>
-<li><p>如果<strong>序列号在[recv_base - N, recv_base - 1]范围内被接收</strong>（也就是说这个刚收到的数据包之前已经接收过并回复ACK了）：向发送端回一个该序列号的ACK</p>
-<p>=&gt; 这个ACK看起来是多余的，其实是必须的。因为接收端将ACK发出之后就可能导致滑动窗口右移的操作。如果发送给发送端的ACK没有到达或者出错了，接收端在计时器超时之后就会重传，而这个时候发送端的窗口已经右移了。如果不再对这个数据包回复一个ACK，则导致发送端该序列号一直没有被确认，发送端就会不断重发这个数据包，而且滑动窗口也会停滞不前。</p>
-</li>
-<li><p><strong>其他情况</strong>（发生比特差错，收到右溢出滑动窗口的包等）：忽略这个数据包，直接丢弃</p>
-</li>
-</ul>
-</li>
-<li><h4 id="滑动窗口大小的问题"><a href="#滑动窗口大小的问题" class="headerlink" title="滑动窗口大小的问题"></a>滑动窗口大小的问题</h4><p>=&gt; <strong>滑动窗口的大小应该小于或等于序列号空间大小的一半</strong></p>
-<p>当序列号范围有限时，如果接收端滑动窗口太大，可能导致接收端无法判断刚接收到的数据包是一个新的未接收过的数据包还是重复的已经接收过的数据包</p>
-<ul>
-<li><p>举个栗子：</p>
-<img src="/img/computer_network/computer_network_37.png" title="采用有限序列号范围时，接收端滑动窗口太大的栗子">
-<ul>
-<li>图中，<strong>1等待接收</strong>（可能由于丢包，比特差错等，等待发送端重传。或者是由于所走路由的问题，比2,3到来的晚），<strong>2,3已经接收</strong>，<strong>4可以接收</strong></li>
-<li>recv_base = 1, N = 4。显然，序列号是采用 mod 6 的方式复用的</li>
-<li>这个时候 <strong>收到一个序列号为4的数据包</strong>，<ul>
-<li>那么它 <strong>可能是一个新到来的落在滑动窗口内的数据包</strong>(<strong><em>[1, 2, 3, 4] =&gt; [recv_base, recv_base + N - 1]</em></strong>)</li>
-<li>也 <strong>可能是上一轮滑动窗口中已经接收并回复ACK</strong>，但是由于发送端没有正确接收到ACK而重发的数据包，因此 <strong>这个数据包可能是之前已经接收过的冗余数据包</strong>（<strong><em>[3, 4, 5, 0] =&gt; [recv_base - N, recv_base - 1]</em></strong>）</li>
-</ul>
-</li>
-<li><strong>对于第一种情况，我们需要缓存该数据包并回复ACK，而对于第二种情况我们只需要回复ACK即可</strong></li>
-</ul>
-</li>
-<li><p>为了避免上述情况，<strong>滑动窗口的大小应该小于或等于序列号空间大小的一半</strong></p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Connection-Oriented-Transport-TCP"><a href="#Connection-Oriented-Transport-TCP" class="headerlink" title="Connection-Oriented Transport: TCP"></a>Connection-Oriented Transport: TCP</h2><ul>
-<li>点对点（<strong><em>Point-to-Point</em></strong>）</li>
-<li>传输可靠、有序的字节流 =&gt; 对每个字节进行编号</li>
-<li>流水线型（<strong><em>Pipelined</em></strong>）</li>
-<li>发送端和接收端都有缓存（<strong><em>send &amp; receive buffers</em></strong>）</li>
-<li>全双工通信（<strong><em>full-duplex service</em></strong>）</li>
-<li>面向连接的（<strong><em>connection-oriented</em></strong>）</li>
-<li>拥塞控制（<strong><em>congestion control</em></strong>）</li>
-<li>流量控制（<strong><em>flow control</em></strong>）</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="TCP接收和发送缓存"><a href="#TCP接收和发送缓存" class="headerlink" title="TCP接收和发送缓存"></a>TCP接收和发送缓存</h3><img src="/img/computer_network/computer_network_38.png" title="TCP发送和接收缓存">
-=&gt; <strong>注意：</strong>在TCP连接的两端各自都有自己的发送和接收缓存（因为TCP是全双工的，所以两端的终端都有发送和接收数据的需求）</li>
-<li><h3 id="MSS（Maximum-Segment-Size-最大报文长度）"><a href="#MSS（Maximum-Segment-Size-最大报文长度）" class="headerlink" title="MSS（Maximum Segment Size, 最大报文长度）"></a>MSS（Maximum Segment Size, 最大报文长度）</h3><p><strong><em>MSS is the maximun amount of application-layer data</em></strong></p>
-<p>MSS指的是Segment中应用层数据的最大长度，并不包括传输层头部</p>
-</li>
-<li><h3 id="TCP-Segment-Structure"><a href="#TCP-Segment-Structure" class="headerlink" title="TCP Segment Structure"></a>TCP Segment Structure</h3><img src="/img/computer_network/computer_network_39.png" title="TCP报文结构">
-<ul>
-<li><h4 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h4><ul>
-<li><strong><em>Source port</em></strong> : 源端端口号（<strong><em>16 bits</em></strong>）</li>
-<li><strong><em>Dest port</em></strong> : 目的端端口号（<strong><em>16 bits</em></strong>）</li>
-<li><strong><em>Sequence number</em></strong> : 序列号（<strong><em>32 bits</em></strong>）</li>
-<li><strong><em>Acknowledgment number</em></strong> : 确认号（<strong><em>32 bits</em></strong>）</li>
-<li><strong><em>Header length</em></strong> : TCP Segment头部（传输层头部）的长度（<strong><em>4 bits</em></strong>）。<strong>单位是4个字节，一行</strong></li>
-<li><strong><em>Unused</em></strong> : 目前未使用的字段域（<strong><em>6 bits</em></strong>）</li>
-<li><strong><em>Flag filed</em></strong> : 标志域（<strong><em>6 bits</em></strong>）<ul>
-<li><strong><em>URG、PSH</em></strong> : 与urgent data pointer filed 并用，处理紧急数据包（实践中未用到） =&gt; Don’t care now</li>
-<li><strong><em>ACK</em></strong> : 标识这个数据包是不是一个ACK</li>
-<li><strong><em>RST、SYN、FIN</em></strong> : 这三个字段域用于创建TCP连接过程中</li>
-</ul>
-</li>
-<li><strong><em>Receive window</em></strong> : 该字段用于流量控制，指示的是发送数据包一端，接收窗口的剩余可用大小</li>
-<li><strong><em>Internet checksum</em></strong> : 校验和，用于检测数据包是否出错</li>
-<li><strong><em>Urgent data pointer</em></strong> : 指向紧急数据尾的指针（实践中未用）=&gt; Don’t care</li>
-<li><strong><em>Options</em></strong> : TCP Segment头部的可选字段，可以没有</li>
-<li><strong><em>Data</em></strong> : TCP Segment的数据域，包含了上层传递下来的message</li>
-</ul>
-</li>
-<li><h4 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h4><ul>
-<li><strong>TCP首部的开销至少是20个字节</strong>，通常默认情况下Options字段域是为空的</li>
-<li><strong>Header length 的单位是4个字节</strong>（一行32bits）</li>
-</ul>
-</li>
-<li><h3 id="TCP的序列号和确认号"><a href="#TCP的序列号和确认号" class="headerlink" title="TCP的序列号和确认号"></a>TCP的序列号和确认号</h3><ul>
-<li>序列号和确认号是TCP提供可靠数据传输最重要的两个重要字段</li>
-<li><strong>TCP</strong> 把data看做有序的字节流。它按字节编号，<strong>给每一个字节分配一个序列号</strong> =&gt; <strong>一个Segment的序列号由其数据域第一个字节的序列号所代表</strong></li>
-<li><p><strong>TCP同样也是使用累积确认的机制</strong>，但是和之前讲的有点不一样：<strong><em>The acknowledgment number that Host A puts in its segment is the sequence number of the next byte Host A is expecting from Host B</em></strong> （主机A在给主机B发送的ACK包的确认号是主机A期望从主机B获取到的下一个数据包的序列号）</p>
-<p>例如：发送端如果收到确认号为536的ACK包，则表示序列号为536之前的所有数据包均已被成功接收，并且接收端期望下一个收到序列号为536的数据包</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Reliable-Data-Transfer-gt-TCP-的可靠数据传输"><a href="#Reliable-Data-Transfer-gt-TCP-的可靠数据传输" class="headerlink" title="Reliable Data Transfer =&gt; (TCP)的可靠数据传输"></a>Reliable Data Transfer =&gt; (TCP)的可靠数据传输</h3><ul>
-<li>TCP在IP不可靠服务的基础上实现了可靠数据传输</li>
-<li><strong>流水线型协议</strong> =&gt; 带宽利用率高</li>
-<li><strong>采用累积确认</strong></li>
-<li><strong>TCP采用单个重传计时器</strong></li>
-<li><strong>重传的时机</strong>：<ul>
-<li>定时器超时</li>
-<li>收到3次冗余ACK</li>
-</ul>
-</li>
-<li><strong>快速重传</strong> =&gt; 当收到3次冗余ACK时（<strong><em>实际上是收到了4个相同的ACK</em></strong>），就认为定时器超时，重传已发送未确认的编号最小的数据包</li>
-</ul>
-</li>
-<li><h3 id="TCP中使用了哪些机制来实现可靠数据传输"><a href="#TCP中使用了哪些机制来实现可靠数据传输" class="headerlink" title="TCP中使用了哪些机制来实现可靠数据传输"></a>TCP中使用了哪些机制来实现可靠数据传输</h3><ul>
-<li><strong>引入序列号来解决冗余数据包的问题</strong><br>=&gt; 接收端收到序列号与之前收到的数据包序列号相同时，就丢弃该包</li>
-<li><strong>采用累积确认</strong><br>=&gt; 发送端如果收到确认号为536的ACK包，则表示序列号为536之前的所有数据包均已被成功接收，并且接收端期望下一个收到序列号为536的数据包</li>
-<li><strong>TCP采用单个重传计时器+快速重传+累积确认来解决丢包问题</strong><br>=&gt; 当发送端定时器超时或者收到相同数据包的3次冗余ACK时，便重传已发送未被确认的数据包中编号最小的数据包</li>
-<li><strong>Checksum</strong> =&gt; 用来检测数据包是否出现差错</li>
-</ul>
-</li>
-<li><h3 id="TCP交互流程图中ACK和ack"><a href="#TCP交互流程图中ACK和ack" class="headerlink" title="TCP交互流程图中ACK和ack"></a>TCP交互流程图中ACK和ack</h3><ul>
-<li><strong>ACK</strong> =&gt; 表示的是TCP Segment中的ACK标志域，如果ACK=1则表示这是一个ACK包，如果ACK=0则表示这不是一个ACK包</li>
-<li><strong>ack</strong> =&gt; 表示的是TCP Segment中的确认号字段</li>
-</ul>
-</li>
-<li><h3 id="Flow-Control（流量控制）"><a href="#Flow-Control（流量控制）" class="headerlink" title="Flow Control（流量控制）"></a>Flow Control（流量控制）</h3><ul>
-<li><strong>调节发送端发包的速率，防止接收端缓存溢出</strong></li>
-<li><strong>控制已发送未被确认的数据包的数量 ≤ Receive Window size</strong> （接收端剩余缓存空间的大小 =&gt; 接收端通过ACK返回给发送端）</li>
-</ul>
-</li>
-<li><h3 id="TCP-Connection-Management（TCP连接管理）"><a href="#TCP-Connection-Management（TCP连接管理）" class="headerlink" title="TCP Connection Management（TCP连接管理）"></a>TCP Connection Management（TCP连接管理）</h3><ul>
-<li><h4 id="TCP-三路握手"><a href="#TCP-三路握手" class="headerlink" title="TCP 三路握手"></a>TCP 三路握手</h4><img src="/img/computer_network/computer_network_40.png" title="TCP三路握手">
-<ul>
-<li>① 客户端首先向服务端 <strong>发送一个SYN Segment</strong>，其中SYN = 1，并且 <strong>随机生成一个起始的序列号 client_initial = 5 赋给seq</strong>（将随机生成的序列号填入SYN Segment的序列号字段）=&gt; <strong>没有应用层data，但是占用一个序列号</strong></li>
-<li>② 服务端收到客户端发送的TCP SYN Segment后，服务端分配发送和接收buffer以及相关变量。<strong>同时发送一个SYNACK Segment</strong> 给客户端，SYN = 1，ACK=1（表示这是一个ACK包），ack = 6 （client_initial + 1）。同时 <strong>随机生成一个服务端的初始化序列号 server_initial = 17 赋值给seq</strong> （通知客户端我已经接收到你建立连接的请求，并且返回给客户端自己的初始化序列号）。 =&gt; <strong>SYNACK 包也没有应用层data，但也同样占用一个序列号</strong></li>
-<li>③ 第三步客户端给服务端返回一个普通的ACK，普通ACK是 <strong>不占用序列号</strong> 的，但是 <strong>可以捎带数据</strong>（捎带数据指的是，客户端可以在建立连接的最后一个ACK中，放入一部分要发送的数据。则这个数据包即完成了作为ACK的职能，也携带了一部分数据。）</li>
-</ul>
-</li>
-<li><h4 id="TCP-四路挥手"><a href="#TCP-四路挥手" class="headerlink" title="TCP 四路挥手"></a>TCP 四路挥手</h4><img src="/img/computer_network/computer_network_41.png" title="客户端发起的双向关闭TCP连接示意图">
-<ul>
-<li>不含data的正常ACK，序列号可以不写（因为不占用序列号）；</li>
-<li>在非ACK数据包中的ack无含义，不用写。</li>
-</ul>
-</li>
-<li><h4 id="TCP状态转换图-gt-点我"><a href="#TCP状态转换图-gt-点我" class="headerlink" title="TCP状态转换图 =&gt; 点我"></a>TCP状态转换图 =&gt; <a href="http://qjm253.cn/2018/01/04/super_c_d/#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2">点我</a></h4></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Principles-of-Congestion-control"><a href="#Principles-of-Congestion-control" class="headerlink" title="Principles of Congestion control"></a>Principles of Congestion control</h2><p>拥塞控制</p>
-</blockquote>
-<p><strong>调节发送端发包的速率，避免路由器缓存溢出</strong></p>
-<blockquote>
-<h2 id="TCP-Congestion-Control（TCP拥塞控制）"><a href="#TCP-Congestion-Control（TCP拥塞控制）" class="headerlink" title="TCP Congestion Control（TCP拥塞控制）"></a>TCP Congestion Control（TCP拥塞控制）</h2></blockquote>
-<img src="/img/computer_network/computer_network_42.png" title="TCP拥塞窗口的演化（Tahoe and Reno）">
-<p>=&gt; TCP Tahoe（代表系统首次启动的情况）： <strong>1~4时刻为慢启动阶段</strong>，cwnd以指数方式增长，其中 <strong>时刻4的时候达到了系统初始设置的慢启动阈值</strong>，系统进入拥塞避免状态，cwnd的增加开始放缓速度，以线性方式增加。到时刻 <strong>8的时候定时器超时</strong>，<strong>ssthesh = cwnd / 2， cwnd = 1 (MSS)</strong>。系统 <strong>进入慢启动阶段</strong>。到时刻12的时候达到了系统初始设置的慢启动阈值，系统进入拥塞避免状态。</p>
-<p>=&gt; TCP Reno（代表系统运行时收到3次冗余ACK的情景）：时刻9系统收到3次冗余ACK，<strong>cwnd = cwnd / 2</strong>，系统 <strong>进入快速恢复阶段</strong></p>
-<ul>
-<li><h3 id="慢启动（slow-start）"><a href="#慢启动（slow-start）" class="headerlink" title="慢启动（slow start）"></a>慢启动（<strong><em>slow start</em></strong>）</h3><p>首次启动时，拥塞窗口（<strong><em>cwnd</em></strong>）的大小置为1 MSS（<strong><em>Maximum Segment Size</em></strong>），接着每收到一个ACK，<strong>cwnd</strong> 的值便翻一番，指数增长。当 <strong>定时器第一次超时时</strong>，<strong>cwnd的值置为1，同时将慢启动阈值</strong> （<strong><em>ssthresh</em></strong>）的值设置为 <strong>cwnd/2</strong>。接下来 <strong>cwnd</strong> 仍然以指数方式增长，但是 <strong>当达到ssthesh时，进入拥塞避免状态</strong>（需要注意的是，初始的时候，ssthesh会设置有一个初始值，当如果第一次启动时在没有超时之前，cwnd达到了预设的ssthesh，也会进入拥塞避免状态）。</p>
-</li>
-<li><h3 id="拥塞避免（Congestion-Avoidance）"><a href="#拥塞避免（Congestion-Avoidance）" class="headerlink" title="拥塞避免（Congestion Avoidance）"></a>拥塞避免（<strong><em>Congestion Avoidance</em></strong>）</h3><p>当<strong>进入拥塞避免状态之后</strong>，<strong>cwnd</strong> 不再以指数方式增长，而是 <strong>以线性方式增长</strong>。</p>
-<ul>
-<li><p>当定时器超时时，<strong>ssthesh = cwnd / 2， cwnd = 1 (MSS)</strong>。系统 <strong>进入慢启动阶段</strong>；</p>
-</li>
-<li><p>当收到3次冗余ACK时，<strong>cwnd = cwnd / 2</strong>，系统 <strong>进入快速恢复阶段</strong></p>
-</li>
-</ul>
-</li>
-<li><h3 id="快速恢复（Fast-Recovery）"><a href="#快速恢复（Fast-Recovery）" class="headerlink" title="快速恢复（Fast Recovery）"></a>快速恢复（<strong><em>Fast Recovery</em></strong>）</h3><p>每收到一个冗余ACK，<strong>cwnd + 1</strong></p>
-<ul>
-<li><p>如果引发TCP进入快速恢复阶段的 <strong>缺失报文段在定时器超时之前到达</strong>，<strong>进入拥塞避免状态</strong>。</p>
-</li>
-<li><p>如果在此期间，<strong>定时器超时，则ssthesh = cwnd / 2, cwnd = 1 (MSS)，进入慢启动状态</strong></p>
-</li>
-</ul>
-</li>
-</ul>
+          
+          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/10/computer_networking_04/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/09/computer_networking_03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/09/computer_networking_03/" itemprop="url">Chapter 3 Transport Layer</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-09T18:00:00+08:00">
+                2018-05-09
+              </time>
+            
+
+            
+
+            
+          </span>
 
           
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/09/computer_networking_03/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/05/09/computer_networking_03/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/05/09/computer_networking_03/" class="leancloud_visitors" data-flag-title="Chapter 3 Transport Layer">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+Introduction of Transport-Layer Servicers （传输层提供的服务）
+传输层将网络层所提供的主机到主机之间的 逻辑通信（logical comminication）扩展为进程到进程间的通信 =&gt; !!最主要的的功能
+传输层只在端系统（end systems
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/09/computer_networking_03/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -938,440 +708,24 @@ rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大�
       
         
           
-            <blockquote>
-<h2 id="Principles-of-Network-Applications"><a href="#Principles-of-Network-Applications" class="headerlink" title="Principles of Network Applications"></a>Principles of Network Applications</h2><ul>
-<li><strong>只有端系统中才有应用层和传输层</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="网络应用体系架构（Network-Application-Architectures）"><a href="#网络应用体系架构（Network-Application-Architectures）" class="headerlink" title="网络应用体系架构（Network Application Architectures）"></a>网络应用体系架构（Network Application Architectures）</h3><ul>
-<li>client-server （C / S）</li>
-<li>Peer-to-peer (P2P)</li>
-<li><p>Hybird of C/S and P2P (混合架构)</p>
-<blockquote>
-<p>ps: 与网络体系架构（5层架构、OSI/ISO七层架构…）做一下区分</p>
-</blockquote>
-</li>
-<li><h4 id="C-S"><a href="#C-S" class="headerlink" title="C/S"></a>C/S</h4><ul>
-<li><h5 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h5><ul>
-<li><strong>服务端要一直在线</strong>，且要 <strong>先于客户端启动</strong></li>
-<li>服务端通常 <strong>要有一个固定的，长期不变的唯一地址</strong>（IP Address）</li>
-<li>客户端之间并不直接进行通信，<strong>所有的客户端都直接与服务端通信</strong></li>
-<li>易于管理</li>
-</ul>
-</li>
-<li><h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
-<li>单点故障</li>
-<li>接入客户端过多的时候，容易导致服务器过载（所以服务端通常采用分布式集群，且性能一般都比较强大）</li>
-<li>维护、升级成本大</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="P2P"><a href="#P2P" class="headerlink" title="P2P"></a>P2P</h4><ul>
-<li>不需要一直在线的服务端</li>
-<li>任意两个主机之间都可以直接通信</li>
-<li><strong>高可扩展性</strong> （<strong><em>设备增加不会系统影响整体的性能</em></strong>），但是不易管理</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Process-Communication（进程通信）"><a href="#Process-Communication（进程通信）" class="headerlink" title="Process Communication（进程通信）"></a>Process Communication（进程通信）</h3><blockquote>
-<p><strong>同一主机的进程之间</strong> 通过 <strong>进程间通信（innerprocess communication）</strong> 进行通信，而不同主机的进程之间通过交换数据报（message）进行通信 =&gt; 发送进程将构造message并将其发送到网络当中，接收进程从网络中接收message，并解析它</p>
-</blockquote>
-<ul>
-<li><h4 id="Client-and-Server-Processes-（客户端和服务端进程）"><a href="#Client-and-Server-Processes-（客户端和服务端进程）" class="headerlink" title="Client and Server Processes （客户端和服务端进程）"></a>Client and Server Processes （客户端和服务端进程）</h4><p><strong><em>In the context of a communication session between on pair of processes, the process that initiates the communication (that is, initially contacts the other process at the begining of the session) is labeled as the client, The process that waits to be contacted to begin the session is the server</em></strong></p>
-<ul>
-<li><p>通常我们将 <strong>发起通信的一端标记为客户端</strong></p>
-</li>
-<li><p>不只是C/S架构中有 <strong>服务端和客户端的概念，P2P架构中同样也有</strong>，不同的是在C/S架构中一个进程扮演的角色是固定的，而 <strong>P2P架构中同一个进程既可以是客户端，也可以是服务端</strong>，甚至可以同时扮演两个角色</p>
-</li>
-</ul>
-</li>
-<li><h4 id="The-Interface-Between-the-Process-and-the-Computer-Network-进程和网络之间的接口-gt-Socket"><a href="#The-Interface-Between-the-Process-and-the-Computer-Network-进程和网络之间的接口-gt-Socket" class="headerlink" title="The Interface Between the Process and the Computer Network (进程和网络之间的接口) =&gt; Socket"></a>The Interface Between the Process and the Computer Network (进程和网络之间的接口) =&gt; Socket</h4><img src="/img/computer_network/computer_network_08.png" title="进程和Socket关系图解">
-<ul>
-<li><p><strong>Socket作为Process和Network之间的门户</strong> ，发送和接收message都需要经过Socket。可以把Process比作一个工厂或仓库，而Socket就是工厂或长裤的大门</p>
-</li>
-<li><p>一个Socket只属于一个Process，而一个Process可以持有多个Socket</p>
-</li>
-<li><p>我们用 IP+Port 标识一个进程</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Transport-Services-Available-to-Applications-（传输层给应用层所提供的服务）"><a href="#Transport-Services-Available-to-Applications-（传输层给应用层所提供的服务）" class="headerlink" title="Transport Services Available to Applications （传输层给应用层所提供的服务）"></a>Transport Services Available to Applications （传输层给应用层所提供的服务）</h3><blockquote>
-<p>同时也可以说是理想情况下，应用层需要传输层给它提供哪些服务</p>
-</blockquote>
-<ul>
-<li><h4 id="Reliable-Data-Transfer-数据的可靠传输"><a href="#Reliable-Data-Transfer-数据的可靠传输" class="headerlink" title="Reliable Data Transfer (数据的可靠传输)"></a>Reliable Data Transfer (数据的可靠传输)</h4>传输层需要向应用层提供进程到进程的可靠通信</li>
-<li><h4 id="Throughput-（最小带宽的保障）"><a href="#Throughput-（最小带宽的保障）" class="headerlink" title="Throughput （最小带宽的保障）"></a>Throughput （最小带宽的保障）</h4>有些网络应用（比如网络电话）是对带宽比较敏感的，被称为 <strong>带宽敏感型应用（bandwidth-sensitive-applications）</strong>。这些应用对吞吐量有一定要求，要求吞吐量至少高于某个速率才能正常工作这样子。所以传输层就需要能为应用层提供保证吞吐量的服务</li>
-<li><h4 id="Timing-（延迟保障）"><a href="#Timing-（延迟保障）" class="headerlink" title="Timing （延迟保障）"></a>Timing （延迟保障）</h4></li>
-<li><h4 id="Security-（安全保障）"><a href="#Security-（安全保障）" class="headerlink" title="Security （安全保障）"></a>Security （安全保障）</h4></li>
-</ul>
-</li>
-<li><h3 id="Transport-Services-Providede-by-the-Internet"><a href="#Transport-Services-Providede-by-the-Internet" class="headerlink" title="Transport Services Providede by the Internet"></a>Transport Services Providede by the Internet</h3><blockquote>
-<p>互联网所提供的传输层服务</p>
-</blockquote>
-<ul>
-<li><h4 id="TCP-Services"><a href="#TCP-Services" class="headerlink" title="TCP Services"></a>TCP Services</h4><blockquote>
-<p>提供数据的可靠传输，不提供最小带宽，最短时延的保障，不提供安全保障</p>
-</blockquote>
-<ul>
-<li>connect-oriented (面向连接)</li>
-<li>reliable transport (可靠传输)</li>
-<li>flow control (流量控制)</li>
-<li>congestion control (拥塞控制)</li>
-</ul>
-</li>
-<li><h4 id="UDP-services"><a href="#UDP-services" class="headerlink" title="UDP services"></a>UDP services</h4><blockquote>
-<p>不提供可靠数据传输，不提供最小带宽，最短时延的保障，不提供安全保障</p>
-</blockquote>
-</li>
-<li><h4 id="一些经典应用程序所采用的应用层协议和传输层协议"><a href="#一些经典应用程序所采用的应用层协议和传输层协议" class="headerlink" title="一些经典应用程序所采用的应用层协议和传输层协议"></a>一些经典应用程序所采用的应用层协议和传输层协议</h4><img src="/img/computer_network/computer_network_09.png" title="一些经典的应用程序所采用的应用层协议和传输层协议">
-<ul>
-<li>TCP: Telnet, FTP, SMTP, HTTP</li>
-<li>UDP: SNMP, DNS, RTP, RIP</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="The-Web-and-HTTP"><a href="#The-Web-and-HTTP" class="headerlink" title="The Web and HTTP"></a>The Web and HTTP</h2></blockquote>
-<ul>
-<li><h3 id="HTTP"><a href="#HTTP" class="headerlink" title="HTTP"></a>HTTP</h3><blockquote>
-<p>HTTP——HypreText Transfer Protol（超文本传输协议）</p>
-</blockquote>
-<ul>
-<li>HTTP是应用层协议（Application protocol）</li>
-<li>HTTP采用的是C/S架构</li>
-<li>基于TCP</li>
-<li>HTTP是无状态的(stateless) =&gt; 不保存用户端的状态信息，所以HTTP协议也被称为无状态协议（stateless protocol）</li>
-</ul>
-</li>
-<li><h3 id="Non-Persistent-and-Persistent-Connections"><a href="#Non-Persistent-and-Persistent-Connections" class="headerlink" title="Non-Persistent and Persistent Connections"></a>Non-Persistent and Persistent Connections</h3><ul>
-<li><h4 id="RTT-Round-trip-time-往返时间"><a href="#RTT-Round-trip-time-往返时间" class="headerlink" title="RTT (Round-trip time, 往返时间)"></a>RTT (Round-trip time, 往返时间)</h4><p><strong>定义</strong>：一个很小的数据包（小到可以近乎忽略数据包的长度）从客户端到服务端往返一次所需要的时间</p>
-<img src="/img/computer_network/computer_network_02.jpg" title="RTT">
-</li>
-<li><h4 id="一次HTTP请求的响应时间"><a href="#一次HTTP请求的响应时间" class="headerlink" title="一次HTTP请求的响应时间"></a>一次HTTP请求的响应时间</h4><img src="/img/computer_network/computer_network_10.png" title="一次HTTP请求的响应时间">
-<ul>
-<li>total = 2*RTT + transimit time</li>
-<li>总的响应时间 = 2倍的RTT + 收到整个返回的对象所需要的时间（文件长度/带宽）</li>
-</ul>
-</li>
-<li><h4 id="Non-Persistent-HTTP-（非坚持的HTTP）"><a href="#Non-Persistent-HTTP-（非坚持的HTTP）" class="headerlink" title="Non-Persistent HTTP （非坚持的HTTP）"></a>Non-Persistent HTTP （非坚持的HTTP）</h4><p>每建立一个TCP连接，只能传一个对象（object =&gt; HTML file, JPEG…）</p>
-<ul>
-<li>由于接收每个对象都要单独建立连接，所以 <strong>接收每个对象所需要的响应时间都包含至少两个RTT</strong></li>
-<li><strong>服务器负担重</strong>：传送每个对象都需要服务器维护一个新的连接，而连接的建立和维护是有一定开销的</li>
-</ul>
-</li>
-<li><h4 id="Persistent-HTTP-（坚持的HTTP）"><a href="#Persistent-HTTP-（坚持的HTTP）" class="headerlink" title="Persistent HTTP （坚持的HTTP）"></a>Persistent HTTP （坚持的HTTP）</h4>一个连接建立可以传第一个Object<ul>
-<li>这个接收第一个对象的时候需要至少两个RTT，紧接着后面的每个对象都少了建立连接的RTT了。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="HTTP-Message-Format"><a href="#HTTP-Message-Format" class="headerlink" title="HTTP Message Format"></a>HTTP Message Format</h3><ul>
-<li><h4 id="HTTP-Request-Message-HTTP请求消息格式"><a href="#HTTP-Request-Message-HTTP请求消息格式" class="headerlink" title="HTTP Request Message (HTTP请求消息格式)"></a>HTTP Request Message (HTTP请求消息格式)</h4><img src="/img/computer_network/computer_network_11.png" title="HTTP请求消息的通用格式">
-<ul>
-<li><strong>method field</strong> (方法域)：GET, POST, HEAD, PUT, DELETE …</li>
-<li><strong>URL</strong>: 请求位置</li>
-<li><strong>Version</strong>：HTTP协议的版本号</li>
-<li><strong>Header lines</strong>: 包含了请求头信息，请求头中包含一系列的键值对</li>
-<li><strong>Entity body</strong>: 数据域，当使用GET请求的时候，这个域是为空的，当使用POST请求的时候，这个域包含了请求所携带的数据</li>
-<li><strong>HTTP Request message都是用ASCII text表示的</strong></li>
-<li>需要注意的是，请求中携带数据，不一定要使用POST方法， <strong>GET方法也同样可以携带数据</strong>。虽然GET请求的Entity body域是空的，但是GET方法可以在URL后面包含数据。</li>
-</ul>
-</li>
-<li><h4 id="一个HTTP请求的简单例子"><a href="#一个HTTP请求的简单例子" class="headerlink" title="一个HTTP请求的简单例子"></a>一个HTTP请求的简单例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">GET /somedir/page.html HTTP/1.1</span><br><span class="line">Host: www.someschool.edu</span><br><span class="line">Connection: close</span><br><span class="line">User-agent: Mozilla/4.0</span><br><span class="line">Accept-language: fr</span><br></pre></td></tr></table></figure>
-<ul>
-<li>其中第一行分别是请求方法，URL和HTTP版本</li>
-<li>后面四行是请求头<ul>
-<li>Host: 服务器主机的域名</li>
-<li>Connection: close =&gt; 要求服务器在发送完所请求的数据之后，不保持连接</li>
-<li>User-agent =&gt; 通常用来标识浏览器内核版本，服务端可以通过这个请求头对不同的浏览器返回不同的文件，这样就可以实现同一个URL针对不同的浏览器返回不同数据的功能</li>
-<li>Accept-language =&gt; 告诉服务器前端所期望服务器返回数据的语言</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="HTTP-Response-Message-（HTTP返回消息格式）"><a href="#HTTP-Response-Message-（HTTP返回消息格式）" class="headerlink" title="HTTP Response Message （HTTP返回消息格式）"></a>HTTP Response Message （HTTP返回消息格式）</h4><img src="/img/computer_network/computer_network_12.png" title="HTTP返回消息的通用格式">
-<ul>
-<li><strong>status line</strong><ul>
-<li><strong>version</strong>: HTTP协议的版本号</li>
-<li><strong>status code</strong>: 本次请求的状态码</li>
-<li><strong>parase</strong>: 对状态码的简单描述</li>
-</ul>
-</li>
-<li><strong>Header lines</strong>: 包含了返回头信息，返回头中包含一系列的键值对</li>
-<li><strong>Entity body</strong>: 数据域，如果有的话包含了服务器返回的数据</li>
-</ul>
-</li>
-<li><h4 id="HTTP-Response-Status-Code-HTTP-返回消息状态码"><a href="#HTTP-Response-Status-Code-HTTP-返回消息状态码" class="headerlink" title="HTTP Response Status Code (HTTP 返回消息状态码)"></a>HTTP Response Status Code (HTTP 返回消息状态码)</h4><blockquote>
-<p><a href="http://tool.oschina.net/commons?type=5" target="_blank" rel="noopener">状态码列表</a></p>
-</blockquote>
-<ul>
-<li>200 OK: 本次请求成功，并且所请求的object对象已经在Response消息中返回</li>
-<li>301 Moved Permanently: 所请求的Object已经被移到另一个位置，在Response Message的Location 头中包含了Object的新位置，正常情况下浏览器会自动访问新地址</li>
-<li>400 Bad Request: 服务器无法理解客户端的请求</li>
-<li>404 Not Found: 所请求的object在服务器上不存在</li>
-<li>505 HTTP Version Not Supported: 请求的HTTP协议版本不被服务端支持</li>
-</ul>
-</li>
-<li><h4 id="一个HTTP回复消息的简单例子"><a href="#一个HTTP回复消息的简单例子" class="headerlink" title="一个HTTP回复消息的简单例子"></a>一个HTTP回复消息的简单例子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Connection: close</span><br><span class="line">Date: Sat, 07 Jul 2007 12:00:15 GMT</span><br><span class="line">Server: Apache/1.3.0 (Unix)</span><br><span class="line">Last-Modified: Sun, 6 May 2007 09:23:24 GMT</span><br><span class="line">Content-Length: 6821</span><br><span class="line">Content-Type: text/html</span><br><span class="line"></span><br><span class="line">(data data data data data ....)</span><br></pre></td></tr></table></figure>
-<p>上面的消息中包含：an initial status line，six header lines，the entity body</p>
-<ul>
-<li>第一行表示服务端HTTP协议版本号为1.1，客户端本次请求的状态码为200，状态码的描述为OK（表示客户端请求的服务器存在，并且服务器上存在客户端所请求的文件）</li>
-<li><strong>Connection: close</strong> =&gt; 告知客户端，服务器发送完这个Object对象之后就会关闭连接</li>
-<li><strong>Date</strong> =&gt; 表示服务器创建这个message的时间</li>
-<li><strong>Server</strong> =&gt; 包含了服务器的一些信息，与User-Agent类似</li>
-<li><strong>Last-Modified</strong> =&gt; 表示这个Object的最后修改时间，这个在浏览器进行缓存处理的时候极为有用</li>
-<li><strong>Content-Length</strong> =&gt; 返回Object的数据长度</li>
-<li><strong>Content-Type</strong> =&gt; 返回Object的类型</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="User-Server-Interaction-Cookies-用户服务器交互：Cookies"><a href="#User-Server-Interaction-Cookies-用户服务器交互：Cookies" class="headerlink" title="User-Server Interaction: Cookies (用户服务器交互：Cookies)"></a>User-Server Interaction: Cookies (用户服务器交互：Cookies)</h3><ul>
-<li><h4 id="Cookies-技术四大组件"><a href="#Cookies-技术四大组件" class="headerlink" title="Cookies 技术四大组件"></a>Cookies 技术四大组件</h4><ul>
-<li>A cookie header line in the HTTP response message (HTTP返回消息中的一个cookie头行：例如 <strong>Set-cookie: 1678</strong>)</li>
-<li>A cookie header line in the HTTP request message（HTTP请求消息中的一个cookie头行：例如 <strong>Cookie: 1678</strong>）</li>
-<li>A cookie file kept on the use’s end system and managed by use’s browser (一个cookie文件，持久化在客户终端，并且由客户端浏览器统一管理)</li>
-<li>A back-end database at the Web site (网站上的后端数据库 =&gt; 服务器上记录用户的状态信息，通过请求中的cookie，从数据库中取出对应的信息).</li>
-</ul>
-</li>
-<li><h4 id="交互示例"><a href="#交互示例" class="headerlink" title="交互示例"></a>交互示例</h4><img src="/img/computer_network/computer_network_13.png" title="用户通过Cookies与服务器交互示意图">
-<ul>
-<li>用户一开始向服务器发送一个正常的HTTP请求</li>
-<li>服务器在返回的消息中，通过 <strong>Set-cookie</strong> 头示意客户端浏览器保存一个Cookie。客户端浏览器如果打开了Cookie支持，就会将收到的Cookie存起来，持久化到Cookie文件里面</li>
-<li>之后对同一网站的请求，浏览器都会在每个请求消息中自动加入 <strong>Cookie</strong> 头，并将之前持久化保存起来的Cookie信息取出，填上去</li>
-<li>服务器收到带Cookie头的请求就会去数据库查询相关信息，</li>
-</ul>
-</li>
-<li><p>使用Cookie技术，可以 <strong>在无状态的HTTP上层创建了一个可以保持用户状态的用户会话层</strong></p>
-</li>
-</ul>
-</li>
-<li><h3 id="Web-Caching（Web缓存）"><a href="#Web-Caching（Web缓存）" class="headerlink" title="Web Caching（Web缓存）"></a>Web Caching（Web缓存）</h3><blockquote>
-<p><strong>Web Caching</strong>（Web缓存）也称之为 <strong>proxy server</strong>（代理服务器）。是一个可以代替源端Web服务器响应客户端请求的这么一个网络实体</p>
-<ul>
-<li>WEB缓存在同一时刻既作为Client（客户端），也作为Server（服务端）</li>
-</ul>
-</blockquote>
-<ul>
-<li><h4 id="Web-Caching-的工作流程"><a href="#Web-Caching-的工作流程" class="headerlink" title="Web Caching 的工作流程"></a>Web Caching 的工作流程</h4><img src="/img/computer_network/computer_network_14.png" title="Web缓存工作示意图">
-<ol>
-<li>首先，客户端浏览器建立一个到Web缓存的TCP连接，并将请求发送给Web缓存</li>
-<li>Web缓存收到客户端的请求之后，检查本地是否有客户端要请求的object的本地缓存，如果有就将其放入HTTP Response Message中返回给客户端，否则转第三步</li>
-<li>如果Web Caching中没有客户需要的Object，Web缓存就根据客户端请求中的目标地址，向源Web服务器发起一个请求，获取到客户需要的Object</li>
-<li>接着Web缓存将从源服务器中收到的Object缓存到本地，并奖客户端需要的Object放入HTTP Response Message返回给客户端</li>
-</ol>
-</li>
-<li><h4 id="采用Web缓存的好处"><a href="#采用Web缓存的好处" class="headerlink" title="采用Web缓存的好处"></a>采用Web缓存的好处</h4><ol>
-<li>WEB缓存可以大大地减少客户端请求的响应时间，特别是当客户端与源服务器的瓶颈带宽远小于客户端与WEB缓存之间的瓶颈带宽的时候。=&gt; <strong>缩短响应时间，提高响应速度</strong></li>
-<li><p>Web缓存能够大大减少一个机构的接入 链路到闲特网的通信量。通过减少通信量，该机构(如一家公司或者一所大学)就不必急 于增加带宽，因此降低了费用。此外，Web缓器能从整体上大大减低因特网上的 Web 流量，从而改善了所有应用的性能。 =&gt; <strong>减少源服务器的负载，降低机构的出口带宽费用，改善整个因特网的性能</strong></p>
-<img src="/img/computer_network/computer_network_15.png" title="添加本地Web缓存之后的系统">
-</li>
-<li><p>可以提供另一条路径去访问远程服务器（VPN）。客户端访问不到源服务器但是可以访问Web缓存，而Web缓存可以访问到源服务器，那客户端就可以通过WEB缓存的代理，间接访问源服务器</p>
-</li>
-</ol>
-</li>
-<li><h4 id="采用Web缓存可能存在的缺陷"><a href="#采用Web缓存可能存在的缺陷" class="headerlink" title="采用Web缓存可能存在的缺陷"></a>采用Web缓存可能存在的缺陷</h4><ul>
-<li>信息的滞后性，客户端获取到的可能不是源端最新的版本</li>
-<li>解决办法：通过 <strong>Conditional GET(有条件的GET)</strong>，当Web缓存收到客户端的请求的时候，就向源服务器发送一个有条件的GET，询问客户端请求的Object与Web缓存本地的缓存的对象相比是否有更新。如果有更新，就从源服务器下载Object，更新本地的缓存，并将最新的Object返回给客户端；如果没有更新，Web缓存就直接将本地缓存的Object返回给客户端。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Conditional-GET-有条件的GET"><a href="#Conditional-GET-有条件的GET" class="headerlink" title="Conditional GET (有条件的GET)"></a>Conditional GET (有条件的GET)</h3><ul>
-<li><h4 id="什么是有条件的GET"><a href="#什么是有条件的GET" class="headerlink" title="什么是有条件的GET"></a>什么是有条件的GET</h4><ul>
-<li>The Request message use the <strong>GET</strong> method （用GET方法请求）</li>
-<li>The Request message includes an <strong>If-Modified-Since:</strong> header line （请求的时候带上If-Modified-Since头）</li>
-</ul>
-</li>
-<li><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><ol>
-<li><p>一开始Web缓存本地没有缓存，收到一个客户端的请求之后就转而去请求源服务器</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /fruit/kiwi.gif HTTP/1.1</span><br><span class="line">Host: www.exotiquecuisine.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>接着源服务器会返回类似如下的返回消息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sat, 7 Jul 2007 15:39:29</span><br><span class="line">Server: Apache/1.3.0 (Unix)</span><br><span class="line">Last-Modified: Wed, 4 Jul 2007 09:23:24</span><br><span class="line">Content-Type: image/gif</span><br><span class="line"></span><br><span class="line">(data data data data ...)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>Web缓存收到源服务器返回的消息之后</strong>，就会将Object缓存下来，同时也 <strong>会把对应的Last-Modified头信息（Object最后修改时间）保存下来</strong>。一段时间后，比如过了一周，又有一个客户端向Web缓存请求这个Object，由于过了一段时间了，这个Object可能被修改/更新过了，所以 <strong>Web缓存需要向源服务器发送一个Conditional GET</strong>， 以确定是否要从源服务器更新本地的缓存。Conditional GET请求如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GET /fruit/kiwi.gif HTTP/1.1</span><br><span class="line">Host: www.exotiquecuisine.com</span><br><span class="line">If-Modified-Since: Wed, 4 Jul 2007 09:23:24</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>源服务器收到一个Conditional GET之后，会检查目标Object的最后修改时间和GET请求中 <strong>If-Modified-Since:</strong>字段的时间孰大孰小，如果时间一致，表示不用更新，会返回如下信息（如果时间不一致，则正常返回要请求的Object）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 304 Not Modified</span><br><span class="line">Date: Sat, 14 Jul 2007 15:39:29</span><br><span class="line">Server: Apache/1.3.0 (Unix)</span><br><span class="line"></span><br><span class="line">(empty entity body)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Web缓存的 <strong>Conditional GET请求</strong> 如果收到 <strong>源服务器返回的304状态码</strong>，就认为本地缓存的Object是最新的，直接将其放入HTTP Response Message 当中返回给客户端</p>
-</li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="File-Transfer-FTP-（文件传输协议）"><a href="#File-Transfer-FTP-（文件传输协议）" class="headerlink" title="File Transfer: FTP （文件传输协议）"></a>File Transfer: FTP （文件传输协议）</h2></blockquote>
-  <img src="/img/computer_network/computer_network_16.png" title="FTP协议工作示意图">
-<ul>
-<li><h3 id="特点-1"><a href="#特点-1" class="headerlink" title="特点"></a>特点</h3><ul>
-<li>基于TCP</li>
-<li>采用C/S架构</li>
-<li>是应用层协议</li>
-<li>控制流和信息流分离，<strong>控制信息的传输采用带外传输</strong>（out-of-bound）的方式</li>
-</ul>
-</li>
-<li><h3 id="两种连接"><a href="#两种连接" class="headerlink" title="两种连接"></a>两种连接</h3><img src="/img/computer_network/computer_network_17.png" title="FTP控制连接和数据连接">
-<ul>
-<li>FTP协议在 <strong>21端口上传递控制信息</strong>，在 <strong>22端口上传递数据</strong>（文件）</li>
-<li>初始时客户端通过向服务器的21号端口建立一条TCP连接（control connection），并且向服务端发送identifycation，username，password等信息。接着服务端向客户端建立一条TCP连接用于传输数据（data connection）。即便在同一个Session，每传递一个新的文件都需要新开一个data connection</li>
-<li><strong>控制连接</strong>（control connection）始终处于连接的状态，并且是维持用户状态的（state），<strong>数据连接</strong> 在每传输完一个文件之后就关闭，同时传输多个文件会开启多个数据连接（<strong>Non-Persistent Connection</strong>）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Electronic-Mail-in-the-Internet-因特网中的电子邮件"><a href="#Electronic-Mail-in-the-Internet-因特网中的电子邮件" class="headerlink" title="Electronic Mail in the Internet (因特网中的电子邮件)"></a>Electronic Mail in the Internet (因特网中的电子邮件)</h2><ul>
-<li>SMTP（简单邮件传输协议）=&gt; TCP</li>
-<li>POP3</li>
-<li>IMAP</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="对比SMTP和HTTP"><a href="#对比SMTP和HTTP" class="headerlink" title="对比SMTP和HTTP"></a>对比SMTP和HTTP</h3><ul>
-<li><h4 id="同："><a href="#同：" class="headerlink" title="同："></a>同：</h4><ul>
-<li>两种协议都是用于从一个主机向另一个主机传输文件</li>
-<li>持久HTTP和SMTP都采用持久连接</li>
-<li>都是应用层协议</li>
-<li>都基于TCP</li>
-</ul>
-</li>
-<li><h4 id="异："><a href="#异：" class="headerlink" title="异："></a>异：</h4><ul>
-<li><strong>HTTP</strong> 是一种 <strong>拉式协议（pull protocol）</strong>，它由想接受文件的一端发起连接；而 <strong>SMTP</strong> 是一种 <strong>推式协议（push protocol）</strong>，它由想发送文件的一端发起连接</li>
-<li><strong>SMTP</strong> 的message需要使用 <strong>7-bits ASCII</strong> 格式，对于不是7-bits ASCII格式的文字或者包含比特流，都需编码为 7-bits ASCII 格式之后传送。而相比之下，HTTP就没有这种限制</li>
-<li>对于包含文本和图形的文档<ul>
-<li>HTTP是把每个Object放到一个Response message中发送</li>
-<li>而SMTP是把所有的Object放在一个报文中发送</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>SMTP是一种推式协议，所以不能用来从邮件服务器上获取邮件，而应该采用其它协议来获取邮件</li>
-</ul>
-</li>
-<li><h3 id="收发邮件所用的协议"><a href="#收发邮件所用的协议" class="headerlink" title="收发邮件所用的协议"></a>收发邮件所用的协议</h3><ul>
-<li><h4 id="发邮件"><a href="#发邮件" class="headerlink" title="发邮件"></a>发邮件</h4><ul>
-<li><strong>SMTP</strong> (Simple Mail Transfer Protocol)</li>
-</ul>
-</li>
-<li><h3 id="收邮件"><a href="#收邮件" class="headerlink" title="收邮件"></a>收邮件</h3><ul>
-<li><strong>POP3</strong> (Post Office Protocol——Version 3) =&gt; 邮局协议，端口110<ul>
-<li>“download and delete” mode</li>
-<li>“download and keep” mode</li>
-</ul>
-</li>
-<li><strong>IMAP</strong> (Internet Mail Access Protocol) =&gt; 互联网邮件访问协议</li>
-<li><strong>HTTP</strong> (HyperText Transfer Protocol) =&gt; 超文本传输协议</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="DNS"><a href="#DNS" class="headerlink" title="DNS"></a>DNS</h2><ul>
-<li>Domain Name System, 域名系统</li>
-<li><strong>DNS 协议基于UDP</strong>，PORT 53</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="DNS-Servers-组成"><a href="#DNS-Servers-组成" class="headerlink" title="DNS Servers 组成"></a>DNS Servers 组成</h3><ul>
-<li><strong><em>A distributed databse implemented in a hierarchy of DNS Servers</em></strong> (一个由分层的DNS服务器实现的分布式数据库)</li>
-<li><strong><em>An application-layer protocol that allows hosts to query the distributed database</em></strong> (一个使得主机能够查询这个分布式数据库的应用层协议)</li>
-</ul>
-</li>
-<li><h3 id="Services-Provided-by-DNS-DNS所提供的服务"><a href="#Services-Provided-by-DNS-DNS所提供的服务" class="headerlink" title="Services Provided by DNS (DNS所提供的服务)"></a>Services Provided by DNS (DNS所提供的服务)</h3><ul>
-<li>实现域名（<strong><em>hostname</em></strong>）和IP地址的转换 =&gt; 最主要的功能</li>
-<li>支持给主机设置别名（<strong><em>Host aliasing</em></strong>）=&gt; 可以给复杂难记的域名指定一个简单易记的别名，别名指向的原域名我们称之为 <strong>规范主机名</strong>(<strong><em>canonical hostname</em></strong>)。我们可以用这个别名通过DNS服务器查到其规范主机名，进而查到对应的IP</li>
-<li>支持给邮件服务器设置别名 (<strong><em>Mail Server aliasing</em></strong>)</li>
-<li>支持负载均衡 (<strong><em>Load distribution</em></strong>) =&gt; 对同一个域名的访问/请求，可以由多个服务器分担</li>
-</ul>
-</li>
-<li><h3 id="DNS服务为什么不采用集中式设计（centralized-design）"><a href="#DNS服务为什么不采用集中式设计（centralized-design）" class="headerlink" title="DNS服务为什么不采用集中式设计（centralized design）"></a>DNS服务为什么不采用集中式设计（centralized design）</h3><ul>
-<li>单点故障 （<strong><em>A Single point of failure</em></strong>）</li>
-<li>通信容量限制（<strong><em>Traffic volume</em></strong>）=&gt; 单个服务器无法处理上亿个甚至更多的请求</li>
-<li>远距离的集中式数据库（<strong><em>Distant centralized databse</em></strong>）=&gt; 单个DNS服务器无法临近所有主机，距离越远，所产生的时延也就越大</li>
-<li>维护困难（<strong><em>Maintenance</em></strong>）=&gt; 单个DNS服务器将为互联网的所有主机保存数据，将会导致中央数据库非常的庞大，难于维护。</li>
-</ul>
-</li>
-<li><h3 id="DNS-Server-是一个分布式、分层的数据库"><a href="#DNS-Server-是一个分布式、分层的数据库" class="headerlink" title="DNS Server 是一个分布式、分层的数据库"></a>DNS Server 是一个分布式、分层的数据库</h3><img src="/img/computer_network/computer_network_18.png" title="DNS Server 分层">
-<ul>
-<li>Root DNS Servers =&gt; 根域名服务器（全球只有13个，大部分在北美）</li>
-<li>Top-level domain (TLD) =&gt; 顶级域名服务器</li>
-<li>Authoritative DNS Servers =&gt; 权威域名服务器</li>
-<li>Local DNS Server =&gt; 本地域名服务器（通常每个ISP会有一个本地的域名服务器）</li>
-</ul>
-</li>
-<li><h3 id="两种查询方式"><a href="#两种查询方式" class="headerlink" title="两种查询方式"></a>两种查询方式</h3><ul>
-<li><h4 id="交互式查询（Interactive-Queries）"><a href="#交互式查询（Interactive-Queries）" class="headerlink" title="交互式查询（Interactive Queries）"></a>交互式查询（Interactive Queries）</h4><img src="/img/computer_network/computer_network_19.png" title="交互式查询方式示意图"></li>
-<li><h4 id="递归式查询（Recursive-Queries）"><a href="#递归式查询（Recursive-Queries）" class="headerlink" title="递归式查询（Recursive Queries）"></a>递归式查询（Recursive Queries）</h4><img src="/img/computer_network/computer_network_20.png" title="递归式查询示意图"></li>
-</ul>
-</li>
-<li><h3 id="DNS-Caching-DNS缓存"><a href="#DNS-Caching-DNS缓存" class="headerlink" title="DNS Caching (DNS缓存)"></a>DNS Caching (DNS缓存)</h3><p>DNS服务器会对查询过的域名对应有缓存，并且该缓存会有一个存活时间，被访问的越频繁越不容易失效</p>
-<ul>
-<li>DNS Caching 可以减少客户端查询DNS服务器所导致的延迟</li>
-<li>DNS Caching 可以降低高级域名服务器的负载</li>
-</ul>
-</li>
-<li><h3 id="DNS-Records"><a href="#DNS-Records" class="headerlink" title="DNS Records"></a>DNS Records</h3><p>一个DNS记录是如下的四元组</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 域名，值，类型，存活时间（Time-to-live）</span></span><br><span class="line">(Name, Value, Type, TTL)</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="记录的类型"><a href="#记录的类型" class="headerlink" title="记录的类型"></a>记录的类型</h4><ul>
-<li><p><strong>A记录</strong>：Name -&gt; hostname, Value -&gt; IP</p>
-<p>例：(relay1.bar.foo.com, 145.37.93.126, A)</p>
-</li>
-<li><p><strong>NS记录</strong>：Name -&gt; ，则 Name 是个域 (如foo. com) ，而 Value 是个知道如何获得该域中主机IP地址的权威DNS服务器的主机名</p>
-<p>例：(foo.com, dns.foo.com, NS)</p>
-</li>
-<li><p><strong>CNAME记录</strong>：则 Value 是别名为 Name 的主机对应的规范主机名</p>
-<p>例：（foo.com, relat1.var.foo.com, CNAME）</p>
-</li>
-<li><p><strong>MX记录</strong>：，则 Value 是个别名为 Name 的邮件服务器的规范主机名</p>
-<p>例：（foo.com, mail.bar.foo.com, MX）</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Peer-to-peer-Applicaions（P2P应用程序）"><a href="#Peer-to-peer-Applicaions（P2P应用程序）" class="headerlink" title="Peer-to-peer Applicaions（P2P应用程序）"></a>Peer-to-peer Applicaions（P2P应用程序）</h2><ul>
-<li>共享资源</li>
-<li>节点间课直接通信</li>
-<li>非集中式</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="C-S-架构中存在的问题"><a href="#C-S-架构中存在的问题" class="headerlink" title="C/S 架构中存在的问题"></a>C/S 架构中存在的问题</h3><ul>
-<li>难于扩展（由于服务端负载有限额，当客户端达到一定额度之后，就很难在扩展了）</li>
-<li>单点故障</li>
-<li>需要超级节点作为管理者（服务器的性能要足够好）</li>
-<li>网络边缘的资源未得到充分的利用</li>
-</ul>
-</li>
-<li><h3 id="P2P-的特点"><a href="#P2P-的特点" class="headerlink" title="P2P 的特点"></a>P2P 的特点</h3><ul>
-<li>资源利用率高</li>
-<li>可扩展性好</li>
-<li>可靠性/健壮性好（无单点故障，文件有多份拷贝）</li>
-<li>不需要超级节点管理，节点自管理</li>
-<li>隐私不可控（BT）</li>
-<li>动态性更强</li>
-<li>搭便车问题</li>
-</ul>
-</li>
-<li><h3 id="Robustness（健壮性）"><a href="#Robustness（健壮性）" class="headerlink" title="Robustness（健壮性）"></a>Robustness（健壮性）</h3>系统受到干扰之后迅速恢复回原来状态的能力。</li>
-<li><h3 id="Flooding（洪泛）"><a href="#Flooding（洪泛）" class="headerlink" title="Flooding（洪泛）"></a>Flooding（洪泛）</h3>每次受到邻居节点消息之后都无条件的转发给其它邻居，导致洪泛发生。</li>
-</ul>
-
           
+Principles of Network Applications
+只有端系统中才有应用层和传输层
+
+
+
+网络应用体系架构（Network Application Architectures）
+client-server （C / S）
+Peer-to-peer (P2P)
+Hybird of 
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/06/computer_networking_02/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1512,256 +866,17 @@ rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大�
       
         
           
-            <blockquote>
-<h2 id="What-is-the-Internet"><a href="#What-is-the-Internet" class="headerlink" title="What is the Internet?"></a>What is the Internet?</h2><ul>
-<li>There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic hardware and software components that make up the Internet. Second, we can describe the Internet in terms of a networking infrastructure that provides services to distributed applications</li>
-<li>对于什么是因特网，可以从两方面来描述。首先，我们可以描述它的基本原理，即 <strong>构成Internet的基本硬件和软件组件</strong> 。其次，我们可以将其描述为 <strong>一个网络基础设施，它为分布式应用程序提供服务</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="A-Nuts-and-Bolts-description"><a href="#A-Nuts-and-Bolts-description" class="headerlink" title="A Nuts-and-Bolts description"></a>A Nuts-and-Bolts description</h3><blockquote>
-<p>数以百万计的计算机设备——<strong>主机/终端（host/end systems）</strong> 通过 <strong>通信链路（communication links）</strong> 和 <strong>分组交换机（packet switches）</strong> 相互连接在一起。</p>
-</blockquote>
-<ul>
-<li><h4 id="主机-终端（host-end-systems）"><a href="#主机-终端（host-end-systems）" class="headerlink" title="主机/终端（host/end systems）"></a>主机/终端（host/end systems）</h4>广义所指，除了传统的PC、Linux工作站等还包括手机、TV等一众可以连接到互联网的设备</li>
-<li><h4 id="通信链路（communication-links）"><a href="#通信链路（communication-links）" class="headerlink" title="通信链路（communication links）"></a>通信链路（communication links）</h4><p>通信链路有多种类型，它们基于不同的物理介质，如：同轴电缆（coaxial cable），铜线（copper wire），光纤（fiber optics）等，采用不同的材质，会影响链路的 <strong>传输速率（transmission rate）</strong></p>
-<ul>
-<li>传输速率（transmission rate）<ul>
-<li>transmission rate = bandwidth（传输速率=带宽）==&gt; <strong>发送端发包的速率</strong></li>
-<li>ps: 吞吐量 ==&gt; <strong>接收端收包的速率</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="分组交换机（packet-switches）"><a href="#分组交换机（packet-switches）" class="headerlink" title="分组交换机（packet switches）"></a>分组交换机（packet switches）</h4><p>A packet switch takes a packet arriving on one of its incoming communication links and forwards the packet on one of its outgoing communication links. (分组交换机的功能就是接收一个链路上发来的数据包，并将其转发给它的另一个出口链路上)目前Internet上的分组交换机主要有两种：<strong>路由器（routers）</strong> 和 <strong>链路层交换机（link-layer switches）</strong></p>
-<ul>
-<li>路由器（routers） ==&gt; 常在网络核心（network core）中使用</li>
-<li>链路层交换机（link-layer switches） ==&gt; 常在接入网（access network）中使用</li>
-</ul>
-</li>
-<li><h4 id="路由（route-path）"><a href="#路由（route-path）" class="headerlink" title="路由（route / path）"></a>路由（route / path）</h4>The sequence of communication links and packet switches traversed by a oacket from the sending end system and to the receiving end system is know as <strong>route</strong> or <strong>path</strong> (数据包从发送端到接收端所途经的通信链路和分组交换机组成所谓的路由) ==&gt; <strong>一个路由其实就是网络上的一条路径</strong>，某些数据包通过这条路径从发送端传输到接收端</li>
-<li><h4 id="互联网服务提供商（Internet-Serveice-Providers，ISPs）"><a href="#互联网服务提供商（Internet-Serveice-Providers，ISPs）" class="headerlink" title="互联网服务提供商（Internet Serveice Providers，ISPs）"></a>互联网服务提供商（Internet Serveice Providers，ISPs）</h4>互联网服务提供商，即向广大用户综合提供互联网接入业务、信息业务、和增值业务的电信运营商</li>
-</ul>
-</li>
-<li><h3 id="A-Sercices-description"><a href="#A-Sercices-description" class="headerlink" title="A Sercices description"></a>A Sercices description</h3><blockquote>
-<p>The Internet is an infrastructure for providing services to distributed applications ==&gt; <strong>Internet一个为分布式应用提供服务的网络基础设置</strong></p>
-</blockquote>
-<p>对于一个分布式的网络应用程序，程序之间要进行通信就需要一个传输媒介，而Internet就很好的扮演了这个角色。</p>
-</li>
-</ul>
-<ul>
-<li><h3 id="What-is-Protocol"><a href="#What-is-Protocol" class="headerlink" title="What is Protocol?"></a>What is Protocol?</h3><p>A <strong>protocol</strong> defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.</p>
-<p>一个协议定义了两个通信实体之间交换信息的格式和顺序，以及在消息和其它事件的发送或接收时所采取的响应动作</p>
-</li>
-<li><h3 id="The-topology-structure-拓扑结构"><a href="#The-topology-structure-拓扑结构" class="headerlink" title="The topology structure (拓扑结构)"></a>The topology structure (拓扑结构)</h3><ul>
-<li><h4 id="集中式"><a href="#集中式" class="headerlink" title="集中式"></a>集中式</h4>单点故障；结构，管理简单；中心节点价格昂贵，维护困难；<ul>
-<li>Star =&gt; 星型</li>
-<li>Tree =&gt; 树型</li>
-</ul>
-</li>
-<li><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><ul>
-<li>Bus =&gt; 总线型</li>
-<li>Mesh =&gt; 网状网 （适用于无线通信）</li>
-<li>Ring =&gt; 环形</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Network-structure-网络结构"><a href="#Network-structure-网络结构" class="headerlink" title="Network structure(网络结构)"></a>Network structure(网络结构)</h3><ul>
-<li>Network edge    （网络边缘）</li>
-<li>Access network  （接入网）</li>
-<li>Physical media  （物理介质）</li>
-<li>Network core    （网络核心）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="The-Network-Edge-网络边缘"><a href="#The-Network-Edge-网络边缘" class="headerlink" title="The Network Edge (网络边缘)"></a>The Network Edge (网络边缘)</h2><ul>
-<li>end systems     （终端）</li>
-<li>access network  （接入网）</li>
-<li>links           （链接）</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="Client-and-Server-Programs-C-S"><a href="#Client-and-Server-Programs-C-S" class="headerlink" title="Client and Server Programs (C / S)"></a>Client and Server Programs (C / S)</h3><ul>
-<li><p>C/S</p>
-<p>A <strong>client program</strong> is a program running on one end system that requests and receives a service from a <strong>server program</strong> running on another end system.</p>
-<p>客户端程序运行在一个终端上，并且向运行在另一个终端上的服务端程序请求并获取服务。</p>
-</li>
-<li><p>P2P</p>
-<p>同一个终端既可以作为客户端请求服务，也可以作为服务端程序提供服务</p>
-</li>
-</ul>
-</li>
-<li><h3 id="Access-network-（接入网）"><a href="#Access-network-（接入网）" class="headerlink" title="Access network （接入网）"></a>Access network （接入网）</h3><p>=&gt; 主机（终端）与边缘路由器相连的那段网络（Physical link）称之为接入网</p>
-<p>=&gt; <strong>接入网很大程度上决定了用户的所能真正享有的带宽</strong></p>
-</li>
-<li><h3 id="Physical-Media-（物理媒介）"><a href="#Physical-Media-（物理媒介）" class="headerlink" title="Physical Media （物理媒介）"></a>Physical Media （物理媒介）</h3><blockquote>
-<ul>
-<li>传输的是Bits（一系列的比特流）；</li>
-<li>guided media =&gt; 导向型（有线）</li>
-<li>unduided media =&gt; 无导向型（无线）</li>
-</ul>
-</blockquote>
-<ul>
-<li>Twisted Pair(TP) =&gt; 双绞线</li>
-<li>Coaxial Cable =&gt; 同轴电缆</li>
-<li>Fiber Optics =&gt; 光纤（ <strong><em>low bit error rate (比特差错率低)</em></strong> ）</li>
-<li>Terrestrial Radio Channels =&gt; 地面无线信道</li>
-<li>Satellite Radio Channels =&gt; 卫星无线信道</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="The-Network-Core-网络核心"><a href="#The-Network-Core-网络核心" class="headerlink" title="The Network Core (网络核心)"></a>The Network Core (网络核心)</h2><p>=&gt; 分组交换机以及连接分组交换机间的链路</p>
-</blockquote>
-<p>电路交换网络和分组交换网络可以类比为饭馆订餐：电路交换网络就好比一个饭店，需要提前预定座位，并且饭店会在你预定之后再规定时间内一直为你保留预定的座位，你在既定时段的任何一个时间点去都是有位置的，期间有未预定的顾客进入，即便饭店有空位，也无法入座；而分组交换网络则好比不需要预定的饭店，先到先得，如果饭店满座了就需要等待。</p>
-<ul>
-<li><h3 id="Circuit-Switching-电路交换网络"><a href="#Circuit-Switching-电路交换网络" class="headerlink" title="Circuit Switching (电路交换网络)"></a>Circuit Switching (电路交换网络)</h3><blockquote>
-<p>典型的就是电话网络</p>
-</blockquote>
-<ul>
-<li><strong>Dedicated allocation</strong> =&gt; 固定分配，独占独享</li>
-<li><strong>Resource reservation</strong> =&gt; 资源预留（不共享，不允许别的连接使用）</li>
-<li><strong>Multiplexing</strong> =&gt; 多路复用(将网络资源切片)<ul>
-<li>frequency-division multiplexing =&gt; <strong>频分多路复用</strong> (FDM)</li>
-<li>time-division multiplexing =&gt; <strong>时分多路复用</strong> (TDM)<img src="/img/computer_network/computer_network_03.png" title="FDM和TDM图解"></li>
-</ul>
-</li>
-<li>需要呼叫建立</li>
-<li><p>时延小，无资源竞争</p>
-</li>
-<li><p>由于电路交换网络给每个Connection分配固定的带宽，分配的连接越多，意味着每个Conncetion所能享有的带宽就越少</p>
-</li>
-</ul>
-</li>
-<li><h3 id="Packet-Switching-分组交换网络"><a href="#Packet-Switching-分组交换网络" class="headerlink" title="Packet Switching (分组交换网络)"></a>Packet Switching (分组交换网络)</h3><blockquote>
-<p>典型的，Internet网络采用的就是分组交换网络</p>
-</blockquote>
-<ul>
-<li>Share network resources =&gt; 各个分组 <strong>共享网络资源</strong></li>
-<li>each packet uses full link bandwidth =&gt; <strong>每个分组均能使用全部的链路带宽</strong></li>
-<li>resources used as needed =&gt; <strong>资源按需分配</strong></li>
-<li><p>resource contention =&gt; <strong>存在资源竞争</strong> =&gt; 可能会导致丢包，拥塞，延时等一系列问题</p>
-</li>
-<li><p>Statistical Multiplexing =&gt; <strong>统计复用</strong> （异步时分多路复用）</p>
-<ul>
-<li><p>传统的 <strong>TDM</strong>（时分多路复用）是给每一个终端分配一个 <strong>time-slot</strong>（时隙），对于某个具体的终端，不管这个终端有没有在进行通信，分配给它的那部分带宽都将被占用，是同步的</p>
-</li>
-<li><p>而 <strong>统计复用</strong>（异步时分多路复用）是把公共信道的时隙实行“ <strong>按需分配</strong> ”，即只对那些需要传送信息或正在工作的终端分配time-slot，这样就能使所有的时隙都能被充分的利用，可以使服务的终端数大于一个周期内时隙划分的个数，提高了媒质的利用率，从而起到了复用的作用。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>Store-and-forward</strong> （存储转发）</p>
-<p>=&gt; 以太网交换机的控制器先将输入端口到来的数据包缓存起来，先检查数据包是否正确，并过滤掉冲突包错误 （增加了网络的时延，但是使得网络有了一定的检错功能）</p>
-</li>
-<li>与电路交换相比<ul>
-<li>Packet switching allows more users to use network( <strong>分组交换允许更多的用户使用网路</strong> )</li>
-<li>Great forbursty data ( <strong>处理突发数据极为有效</strong> )</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="两种网络的应用场景"><a href="#两种网络的应用场景" class="headerlink" title="两种网络的应用场景"></a>两种网络的应用场景</h3><ul>
-<li>在 <strong>带宽需求相对固定</strong> 的情况下， <strong>电路交换网络</strong> 比较合适<ul>
-<li>资源需求稳定</li>
-<li>固定电话的通信就是，语音要求的带宽非常固定，而且采用电路交换网络也可以保证通话的质量</li>
-</ul>
-</li>
-<li>在 <strong>带宽需求动态变化</strong> 时，<strong>分组交换网络</strong> 比较适用<ul>
-<li>典型的Internet网络的带宽需求就是动态变化的</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Delay-loss-and-throughputin-Packet-Switched-Neworks"><a href="#Delay-loss-and-throughputin-Packet-Switched-Neworks" class="headerlink" title="Delay, loss and throughputin Packet-Switched Neworks"></a>Delay, loss and throughputin Packet-Switched Neworks</h2><p>在分组交换网络中的延迟，丢包和吞吐量</p>
-</blockquote>
-<ul>
-<li><h3 id="Delay（延迟）"><a href="#Delay（延迟）" class="headerlink" title="Delay（延迟）"></a>Delay（延迟）</h3><img src="/img/computer_network/computer_network_01.png" title="路由器A的节点传输延迟">
-<ul>
-<li><p><strong>Nodal procesing delay</strong> =&gt; <strong>节点处理延迟</strong>（一般是很短的）</p>
-<ul>
-<li>差错检测 （check bit error）</li>
-<li>决定从哪个口转发出去 (determine output link)</li>
-</ul>
-</li>
-<li><p><strong>Queueing delay</strong> =&gt; 排队延迟（可以为0，也可以很长，取决于当前网络的状态）</p>
-</li>
-<li><strong>Transimission delay</strong> =&gt; 传输延迟（可以很小，也可以很长，取决于数据包的长度以及网络的带宽）<img src="/img/computer_network/computer_network_02.png" title="传输延迟计算方法">
-=&gt; 所以 <strong>提高网络带宽只能降低传输延迟</strong></li>
-<li><strong>Propagation delay</strong> =&gt; 传播延迟 （延迟的大小由物理介质的长度决定，因为传播的速度很快，所以一般这个延迟也不会很大）<img src="/img/computer_network/computer_network_04.png" title="传播延迟计算方法">
-<ul>
-<li>其中传播的具体速度的大小取决于是用那种物理介质传输的（光纤，双绞线等等）</li>
-<li>取值范围：2*10<sup>8</sup> m/s ~ 3*10<sup>8</sup> m/s (最快接近光速)</li>
-<li><strong>与数据包的长度无关</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>!!! <strong> d<sub>nodal</sub> = d<sub>proc</sub> + d<sub>queue</sub> + d<sub>trans</sub> + d<sub>prop</sub></strong><br>(数据包在一个节点上的时延 = 节点处理延迟 + 排队延迟 + 传输延迟 + 传播延迟)</p>
-</blockquote>
-</li>
-<li><h3 id="Loss（丢包）"><a href="#Loss（丢包）" class="headerlink" title="Loss（丢包）"></a>Loss（丢包）</h3><p>当分组交换机（链路层交换机和路由器）有限缓存溢出的时候就会发生丢包</p>
-<ul>
-<li>可能会由前一个节点或源端节点重传，或者压根不重传</li>
-<li>在端系统的视角看来，就是一个数据包已经被发送到网络核心，当时却没有到达目的节点</li>
-</ul>
-</li>
-<li><h3 id="Throughput（吞吐量）"><a href="#Throughput（吞吐量）" class="headerlink" title="Throughput（吞吐量）"></a>Throughput（吞吐量）</h3><blockquote>
-<p><a href="https://baike.baidu.com/item/%E5%90%9E%E5%90%90%E9%87%8F/157092" target="_blank" rel="noopener">百度百科</a>： 吞吐量是指对网络、设备、端口、虚电路或其他设施，单位时间内成功地传送数据的数量（以比特、字节、分组等测量）</p>
-<ul>
-<li>instantaneous throughput (瞬时吞吐量)</li>
-<li>average throughput (平均吞吐量)</li>
-</ul>
-</blockquote>
-<ul>
-<li>在Internet网络中端到端的<strong>吞吐量</strong> 通常和 <strong>接收端收包的速率</strong> 是一致的</li>
-<li>在Internet网络中的端到端吞吐量取决于网络中的<strong>瓶颈链路（Bottleneck link）</strong><img src="/img/computer_network/computer_network_05.png" title="吞吐量受瓶颈链路的影响">
-</li>
-</ul>
-</li>
-<li><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
-<li>所有网络信号在物理介质上的速度近似为光速，可以认为是一样的 =&gt; 即 <strong>网络信号在传输时并无快慢之分</strong></li>
-<li>之所以在 <strong>不同的链路上有带宽差别</strong>，是因为由于协议，技术等原因导致 <strong>两个相邻的数据包之间存在不同大小的时隙</strong></li>
-<li>网络中一条链路上数据的传输永远是串行的（并不会出现类似“多车道”的情况）</li>
-<li>Quality of service, Qos =&gt; 服务质量</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Protocol-Layers-and-Their-Service-Models（协议分层以及他们的服务模型）"><a href="#Protocol-Layers-and-Their-Service-Models（协议分层以及他们的服务模型）" class="headerlink" title="Protocol Layers and Their Service Models（协议分层以及他们的服务模型）"></a>Protocol Layers and Their Service Models（协议分层以及他们的服务模型）</h2><p>计算机网路的体系结构（architecture）是计算机网络各层及其协议的集合</p>
-</blockquote>
-  <img src="/img/computer_network/computer_network_06.png" title="两种网络协议分层模型">
-<ul>
-<li><h3 id="PDU-Protocol-Data-Unit-网络协议数据单元"><a href="#PDU-Protocol-Data-Unit-网络协议数据单元" class="headerlink" title="PDU (Protocol Data Unit, 网络协议数据单元)"></a>PDU (Protocol Data Unit, 网络协议数据单元)</h3>同一层的所有协议所处理的数据单元</li>
-<li><h3 id="Five-layer-Internet-protocol-stack-五层网络协议栈、TCP-IP协议栈"><a href="#Five-layer-Internet-protocol-stack-五层网络协议栈、TCP-IP协议栈" class="headerlink" title="Five-layer Internet protocol stack (五层网络协议栈、TCP/IP协议栈)"></a>Five-layer Internet protocol stack (五层网络协议栈、TCP/IP协议栈)</h3><img src="/img/computer_network/computer_network_01.jpg" title="五层网络协议栈模型">
-<ul>
-<li><h4 id="各层提供的功能"><a href="#各层提供的功能" class="headerlink" title="各层提供的功能"></a>各层提供的功能</h4><ul>
-<li>Applicaiton（应用层）: 仅为用户提供接口</li>
-<li>Transport（传输层）：实现进程到进程间的通信</li>
-<li>Network（网络层）：实现主机到主机之间的通信</li>
-<li>Link（数据链路层）：实现相邻节点间的数据传输</li>
-<li>Physical（物理层）：在物理介质上传输比特流</li>
-</ul>
-</li>
-<li><h4 id="各层的PDU"><a href="#各层的PDU" class="headerlink" title="各层的PDU"></a>各层的PDU</h4><ul>
-<li>Applicaiton（应用层）: message（报文 / 消息）</li>
-<li>Transport（传输层）：segment（报文段）</li>
-<li>Network（网络层）：datagram（数据报）</li>
-<li>Link（数据链路层）：frame（数据帧）</li>
-<li>Physical（物理层）：bit（比特）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>协议</strong> 是对等实体之间的， <strong>服务</strong> 则是由下层通过向上层提供接口提供的</li>
-<li><h3 id="Seven-layer-ISO-OSI-reference-model"><a href="#Seven-layer-ISO-OSI-reference-model" class="headerlink" title="Seven-layer ISO/OSI reference model"></a>Seven-layer ISO/OSI reference model</h3><img src="/img/computer_network/computer_network_07.png" title="OSI/ISO 七层网络协议栈模型">
-</li>
-</ul>
-
           
+What is the Internet?
+There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/05/computer_networking_01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1902,257 +1017,19 @@ rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大�
       
         
           
-            <blockquote>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2></blockquote>
-<ul>
-<li><p>先给出构造测试表的初始化代码，有兴趣的小伙伴可以跑一跑试试</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> R;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> S;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> R (</span><br><span class="line">  X <span class="built_in">integer</span>,</span><br><span class="line">  Y <span class="built_in">varchar</span>(<span class="number">5</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> S (</span><br><span class="line">  Y <span class="built_in">varchar</span>(<span class="number">5</span>),</span><br><span class="line">  Z <span class="built_in">integer</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">1</span>, <span class="string">'A'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">2</span>, <span class="string">'B'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">3</span>, <span class="string">'C'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">1</span>, <span class="string">'B'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">1</span>, <span class="string">'C'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">2</span>, <span class="string">'A'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> S (Y, Z) <span class="keyword">values</span> (</span><br><span class="line">  <span class="string">'A'</span>, <span class="number">3</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> S (Y, Z) <span class="keyword">values</span> (</span><br><span class="line">  <span class="string">'B'</span>, <span class="number">3</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> S (Y, Z) <span class="keyword">values</span> (</span><br><span class="line">  <span class="string">'C'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>现在整体的表结构如下</p>
-<ul>
-<li>R<br><img src="http://qjm253.cn/img/database/database_double_exists01.png" alt="R表详情"></li>
-<li>S<br><img src="http://qjm253.cn/img/database/database_double_exists02.png" alt="S表详情"></li>
-</ul>
-</li>
-<li>解释<ul>
-<li>其中X,Y,Z都可以代表一个或多个字段</li>
-<li>Y为两张表中的相同字段</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="关系代数除运算（division）扫盲"><a href="#关系代数除运算（division）扫盲" class="headerlink" title="关系代数除运算（division）扫盲"></a>关系代数除运算（division）扫盲</h2></blockquote>
-<ul>
-<li>R÷S<ul>
-<li>对于某个R关系中的X的某个具体值x映射到Y的集合，如果它包含关系S中Y的集合，那么这个x就会出现在结果集当中</li>
-<li>像上面构造的两张表R和S，R÷S的结果就是’A’了</li>
-</ul>
-</li>
-</ul>
-<p>OK，所以说了和没说差不多，我还是不懂什么是关系代数中的除运算<em>(:з」∠)</em><br>…那下面就来举一个形象一点的栗子ლ(╹◡╹ლ)</p>
-<ul>
-<li>这是栗子<ul>
-<li>R表示学生的选课信息，其中X表示学号，Y表示课程号</li>
-<li>S表示课程的信息，其中Y表示课程号，Z表示学分</li>
-<li>好现在，上面的两种表就变成下面这样了<ul>
-<li>R<br><img src="http://qjm253.cn/img/database/database_double_exists04.png" alt="选课信息"></li>
-<li>S<br><img src="http://qjm253.cn/img/database/database_double_exists03.png" alt="课程信息"></li>
-</ul>
-</li>
-<li>ok，现在我们要找出一部分学生的学号，他们选了所有的课</li>
-<li>R÷S ==&gt; 选了所有课的学生（很显然，上面只有学号为1的学生选了所有的课）</li>
-<li>结果如下：<br><img src="http://qjm253.cn/img/database/database_double_exists05.png" alt="选了所有课的学生"></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="SQL实现"><a href="#SQL实现" class="headerlink" title="SQL实现"></a>SQL实现</h2><p>网上常见的方式就是用双重not exists来实现，咋一看不是很好理解，笔者这里对其进行稍详尽点的分步分析</p>
-</blockquote>
-<ul>
-<li><h3 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> R1.X</span><br><span class="line"><span class="keyword">FROM</span> R R1</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> S</span><br><span class="line">  <span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> *</span><br><span class="line">    <span class="keyword">FROM</span> R R2</span><br><span class="line">    <span class="keyword">WHERE</span> R2.X = R1.X <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
-<li><p>我们先来对里面一层的not exists进行分析</p>
-<ul>
-<li><p>执行下面代码：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> R R2</span><br><span class="line">  <span class="keyword">WHERE</span> R2.X = <span class="number">1</span> <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> R R2</span><br><span class="line">  <span class="keyword">WHERE</span> R2.X = <span class="number">2</span> <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第一个执行结果为空，第二个执行结果如下<br><img src="http://qjm253.cn/img/database/database_double_exists06.png" alt="学号为2的同学没选的课"></p>
-</li>
-<li>分析一下可以知道，上面的SQL完成的任务是“<strong>对于某个学号的学生，求得该学生未选的课程列表</strong>”</li>
-</ul>
-</li>
-<li><p>OK，我们加上外层的not exists</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> R1.X</span><br><span class="line"><span class="keyword">FROM</span> R R1</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> S</span><br><span class="line">  <span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> *</span><br><span class="line">    <span class="keyword">FROM</span> R R2</span><br><span class="line">    <span class="keyword">WHERE</span> R2.X = R1.X <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>从上面的分析我们知道，内层的SQL求的是对于一个具体的学生，其未选课程的列表</li>
-<li>那么外层加上一个not exists，整个SQL的含义就是求没有未选课程的学生，换句话说，就是求选了所有课的学生</li>
-<li>当然，第一行的DISTINCT也是很有必要的，去除了重复的X，你可以试试，不加，看一下结果，会发现每一个结果都会出现S表中Y集合的大小那么多次。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
           
-        
-      
-    </div>
-    
-    
-    
+准备工作
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/30/kotlin_01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/30/kotlin_01/" itemprop="url">Kotlin use函数的魔法</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+08:00">
-                2018-03-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/03/30/kotlin_01/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/30/kotlin_01/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/03/30/kotlin_01/" class="leancloud_visitors" data-flag-title="Kotlin use函数的魔法">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="魔法预览"><a href="#魔法预览" class="headerlink" title="魔法预览"></a>魔法预览</h2></blockquote>
-<ul>
-<li>实现了Closeable接口的对象可调用use函数</li>
-<li>use函数会自动关闭调用者（无论中间是否出现异常）</li>
-<li>Kotlin的File对象和IO流操作变得行云流水</li>
-</ul>
-<blockquote>
-<h2 id="use函数的原型"><a href="#use函数的原型" class="headerlink" title="use函数的原型"></a>use函数的原型</h2></blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Executes the given [block] function on this resource and then closes it down correctly whether an exception</span></span><br><span class="line"><span class="comment"> * is thrown or not.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> block a function to process this [Closeable] resource.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the result of [block] function invoked on this resource.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@InlineOnly</span></span><br><span class="line"><span class="meta">@RequireKotlin(<span class="meta-string">"1.2"</span>, versionKind = RequireKotlinVersionKind.COMPILER_VERSION, message = <span class="meta-string">"Requires newer compiler version to be inlined correctly."</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Closeable?, R&gt;</span> T.<span class="title">use</span><span class="params">(block: (<span class="type">T</span>)</span></span> -&gt; R): R &#123;</span><br><span class="line">    <span class="keyword">var</span> exception: Throwable? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> block(<span class="keyword">this</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Throwable) &#123;</span><br><span class="line">        exception = e</span><br><span class="line">        <span class="keyword">throw</span> e</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">when</span> &#123;</span><br><span class="line">            apiVersionIsAtLeast(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>) -&gt; <span class="keyword">this</span>.closeFinally(exception)</span><br><span class="line">            <span class="keyword">this</span> == <span class="literal">null</span> -&gt; &#123;&#125;</span><br><span class="line">            exception == <span class="literal">null</span> -&gt; close()</span><br><span class="line">            <span class="keyword">else</span> -&gt;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    close()</span><br><span class="line">                &#125; <span class="keyword">catch</span> (closeException: Throwable) &#123;</span><br><span class="line">                    <span class="comment">// cause.addSuppressed(closeException) // ignored here</span></span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看出，use函数内部实现也是通过try-catch-finally块捕捉的方式，所以不用担心会有异常抛出导致程序退出</li>
-<li>close操作在finally里面执行，所以无论是正常结束还是出现异常，都能正确关闭调用者</li>
-</ul>
-<blockquote>
-<h2 id="来一波对比"><a href="#来一波对比" class="headerlink" title="来一波对比"></a>来一波对比</h2></blockquote>
-<ul>
-<li><h3 id="实现读取一个文件内每一行的功能"><a href="#实现读取一个文件内每一行的功能" class="headerlink" title="实现读取一个文件内每一行的功能"></a>实现读取一个文件内每一行的功能</h3><ul>
-<li><p>java实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fis = <span class="keyword">null</span>;</span><br><span class="line">DataInputStream dis = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    fis = <span class="keyword">new</span> FileInputStream(<span class="string">"/home/test.txt"</span>);</span><br><span class="line">    dis = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> BufferedInputStream(fis));</span><br><span class="line">    String lines = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">while</span>((lines = dis.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">        System.out.println(lines);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(dis != <span class="keyword">null</span>)</span><br><span class="line">            dis.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(fis != <span class="keyword">null</span>)</span><br><span class="line">            fis.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Kotlin实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File(<span class="string">"/home/test.txt"</span>).readLines()</span><br><span class="line">        .forEach &#123; println(it) &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>对Kotlin就是可以两行实现。</p>
-</li>
-<li>仔细翻阅readLines这个扩展函数的实现你会发现，它也是间接调用了use，这样就省去了捕捉异常和关闭的烦恼</li>
-<li>同样的，经过包装以后你只需要关注读出来的数据本身而不需要care各种异常情况</li>
-</ul>
-</li>
-<li><h3 id="File的一些其它有用的扩展函数"><a href="#File的一些其它有用的扩展函数" class="headerlink" title="File的一些其它有用的扩展函数"></a>File的一些其它有用的扩展函数</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将文件里的所有数据以字节数组的形式读出</span></span><br><span class="line"><span class="comment">* Tip：显然这不适用于大文件，文件过大，会导致创建一个超大数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readBytes</span><span class="params">()</span></span>: ByteArray</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 与上一个函数类似，不过这个是写（如果文件存在，则覆盖）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">writeBytes</span><span class="params">(array: <span class="type">ByteArray</span>)</span></span>： <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将array数组中的数据添加到文件里（如果文件存在则在文件尾部添加）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">appendBytes</span><span class="params">(array: <span class="type">ByteArray</span>)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将文件以指定buffer大小，分块读出（适用于大文件，也是最常用的方法）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">forEachBlock</span><span class="params">(action: (<span class="type">buffer</span>: <span class="type">ByteArray</span>, bytesRead: <span class="type">Int</span>)</span></span> -&gt; <span class="built_in">Unit</span>): <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Gets the entire content of this file as a String using UTF-8 or specified [charset].</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This method is not recommended on huge files. It has an internal limitation of 2 GB file size.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the entire content of this file as a String.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readText</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: String</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the content of this file as [text] encoded using UTF-8 or specified [charset].</span></span><br><span class="line"><span class="comment"> * If this file exists, it becomes overwritten.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text text to write into file.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">writeText</span><span class="params">(text: <span class="type">String</span>, charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Appends [text] to the content of this file using UTF-8 or the specified [charset].</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text text to append to file.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">appendText</span><span class="params">(text: <span class="type">String</span>, charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reads this file line by line using the specified [charset] and calls [action] for each line.</span></span><br><span class="line"><span class="comment"> * Default charset is UTF-8.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * You may use this function on huge files.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> action function to process file lines.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">forEachLine</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8, action: (<span class="type">line</span>: <span class="type">String</span>)</span></span> -&gt; <span class="built_in">Unit</span>): <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reads the file content as a list of lines.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Do not use this function for huge files.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use. By default uses UTF-8 charset.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> list of file lines.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readLines</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: List&lt;String&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Calls the [block] callback giving it a sequence of all the lines in this file and closes the reader once</span></span><br><span class="line"><span class="comment"> * the processing is complete.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use. By default uses UTF-8 charset.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the value returned by [block].</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequireKotlin(<span class="meta-string">"1.2"</span>, versionKind = RequireKotlinVersionKind.COMPILER_VERSION, message = <span class="meta-string">"Requires newer compiler version to be inlined correctly."</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> File.<span class="title">useLines</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8, block: (<span class="type">Sequence</span>&lt;<span class="type">String</span>&gt;)</span></span> -&gt; T): T</span><br></pre></td></tr></table></figure>
-<ul>
-<li>上面的函数都是基于use实现的，可以放心使用，而不用担心异常的发生，并且会自动关闭IO流</li>
-</ul>
-</li>
-</ul>
-
-          
+先给出构造测试表的初始化代码，有兴趣的小伙伴可以跑一跑试试
+12345678910111213141516171819202122232425262728293031323334353637383940drop table R;drop table S;create table R (
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/05/04/2018-5-4-database-double-not-exists/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2190,7 +1067,7 @@ rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大�
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2240,7 +1117,7 @@ rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大�
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -313,6 +313,164 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/30/kotlin_01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/30/kotlin_01/" itemprop="url">Kotlin use函数的魔法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+08:00">
+                2018-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/03/30/kotlin_01/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/03/30/kotlin_01/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/03/30/kotlin_01/" class="leancloud_visitors" data-flag-title="Kotlin use函数的魔法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          
+魔法预览
+
+实现了Closeable接口的对象可调用use函数
+use函数会自动关闭调用者（无论中间是否出现异常）
+Kotlin的File对象和IO流操作变得行云流水
+
+
+use函数的原型
+123456789101112131415161718192021222324252627282930/**
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/30/kotlin_01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/03/26/android_wifi_direct_01/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -407,136 +565,18 @@
       
         
           
-            <blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2></blockquote>
-<ul>
-<li><p>百度百科：2010年10月，Wi-Fi Alliance（wi-fi联盟）发布Wi-Fi Direct白皮书，白皮书中介绍了有关于这种技术的基本信息、这种技术的特点和这种技术的功能，Wi-Fi Direct标准是指允许无线网络中的设备无需通过无线路由器即可相互连接。与蓝牙技术类似，这种标准允许无线设备以点对点形式互连，而且在传输速度与传输距离方面则比蓝牙有大幅提升</p>
-</li>
-<li><p>与Android开发者而言呢，Google嗅到了WI-FI直连的发展前景，整了一套WI-FI直连的API，在Android4.0+（API &gt;= 14）的设备上均能使用。这给我们进行手机之间的互联操作提供了一个新的实现思路。它可以不需要路由而让两个设备直接相连，但其传输速度可是远远超过蓝牙传输。而且它不需要热点的建立，甚至两个设备不需要在一个局域网下。想象一下，不用建立热点也可以实现像快牙，茄子一类的面对面快传的需求～》《～</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></blockquote>
-<ul>
-<li><h3 id="定义一个广播接收器"><a href="#定义一个广播接收器" class="headerlink" title="定义一个广播接收器"></a>定义一个广播接收器</h3><blockquote>
-<ul>
-<li>每当当前设备与Wi-fi直连相关的状态发生改变，系统便会以广播的形式通知我们，所以让我们定义一个Receiver欢迎它</li>
-<li>在下面定义的Receiver里面我们监听了4个Action，这是最常用的4个，还有其它的Action可以看官方文档，或者，来去撸一波源码</li>
-</ul>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectReceiver</span> : <span class="type">BroadcastReceiver</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写一个便捷的注册方法，动态注册的时候就不用写intentFilter了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">registerReceiver</span><span class="params">(context: <span class="type">Context</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intentFilter = IntentFilter()</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)</span><br><span class="line">        context.registerReceiver(<span class="keyword">this</span>, intentFilter)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onReceive</span><span class="params">(context: <span class="type">Context</span>?, intent: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">when</span> (intent?.action) &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment">         * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="接下来在Activity中动态注册"><a href="#接下来在Activity中动态注册" class="headerlink" title="接下来在Activity中动态注册"></a>接下来在Activity中动态注册</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> wifiDirectReceiver = WifiDirectReceiver()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart()</span><br><span class="line">        wifiDirectReceiver.registerReceiver(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop()</span><br><span class="line">        unregisterReceiver(wifiDirectReceiver)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>没错，直接动态注册了！！！Android8.0的新特性让Android开发喵几乎一夜之间丧失在AndroidManifest中静态注册的技能（所以为了，考虑兼容，我们就直接动态注册了）</li>
-</ul>
-</li>
-<li><h3 id="好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION"><a href="#好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION" class="headerlink" title="好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION"></a>好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION</h3><ul>
-<li><p>我们在Receiver里面加点输出（实际开发还是用Log，极不推荐直接输出，这里笔者还是决定偷懒♪(^∇^*)）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//get the state of current device</span></span><br><span class="line">    <span class="keyword">val</span> state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE,</span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_DISABLED)</span><br><span class="line">    <span class="keyword">if</span> (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) &#123;</span><br><span class="line">        <span class="comment">//Wifi p2p enable</span></span><br><span class="line">        println(<span class="string">"wifi enable"</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//wifi p2p disEnable</span></span><br><span class="line">        println(<span class="string">"wifi disEnable"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后跑到真机上（万能的模拟器然而并不能模拟wifi功能，只能真机实测一波啦），反复开关Wifi功能</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:26:08.744 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:26:11.098 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi disEnable</span><br><span class="line">03-26 16:32:16.376 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>OK, 得到上面的输出，我们就知道确实，这个ACTION在WI-FI功能开关的时候会触发</p>
-</li>
-</ul>
-</li>
-<li><h3 id="WIFI-P2P-THIS-DEVICE-CHANGED-ACTION"><a href="#WIFI-P2P-THIS-DEVICE-CHANGED-ACTION" class="headerlink" title="WIFI_P2P_THIS_DEVICE_CHANGED_ACTION"></a>WIFI_P2P_THIS_DEVICE_CHANGED_ACTION</h3><ul>
-<li>大新闻：这个ACTION携带了一团神秘数据，^``^,那就是本设备的设备信息啦～</li>
-<li><p>同样的，我们加一点输出，看一下都包含哪些信息（当然，最直接的是看WifiP2pDevice这个数据）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> device: WifiP2pDevice = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE)</span><br><span class="line">    println(device)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样真机测试，来调皮的开关一下WI-FI功能（当然，一开始也会打印出设备信息，那就是在这个Receiver被注册的时候）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:43:29.420 30294-30294/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out: Device: 魅蓝 Note3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  deviceAddress: 2e:57:31:98:45:35</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  primary <span class="built_in">type</span>: 10-0050F204-5</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  secondary <span class="built_in">type</span>: null</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wps: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  grpcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  devcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  status: 3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wfdInfo: WFD enabled: falseWFD DeviceInfo: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD CtrlPort: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD MaxThroughput: 0</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看到包括设备的名字，本设备的MAC地址，状态balabala</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="后面两种ACTION涉及到连接，我们等下讨论"><a href="#后面两种ACTION涉及到连接，我们等下讨论" class="headerlink" title="后面两种ACTION涉及到连接，我们等下讨论"></a>后面两种ACTION涉及到连接，我们等下讨论</h3></li>
-</ul>
-<blockquote>
-<h2 id="WifiP2pManager-的异种接口"><a href="#WifiP2pManager-的异种接口" class="headerlink" title="WifiP2pManager 的异种接口"></a>WifiP2pManager 的异种接口</h2><ul>
-<li>requestPeers、requestGroupInfo、discoverPeers、createGroup、removeGroup等等</li>
-<li>当然可以直接用，不过为了简介，我们一边用一遍封装出一个管理类</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="获得WifiP2pManager对象"><a href="#获得WifiP2pManager对象" class="headerlink" title="获得WifiP2pManager对象"></a>获得WifiP2pManager对象</h3><ul>
-<li><strong>下面的操作需要添加以下权限</strong><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_WIFI_STATE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.CHANGE_WIFI_STATE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> WifiDirectManager&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> manager: WifiP2pManager <span class="keyword">by</span> Delegates.notNull()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> channel: WifiP2pManager.Channel <span class="keyword">by</span> Delegates.notNull()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">init</span><span class="params">(context: <span class="type">Context</span>)</span></span>: WifiDirectManager&#123;</span><br><span class="line">        <span class="comment">//通过获取系统服务的方式获得Manager对象</span></span><br><span class="line">        manager = context.getSystemService(Context.WIFI_P2P_SERVICE) <span class="keyword">as</span> WifiP2pManager</span><br><span class="line">        channel = manager.initialize(context, Looper.getMainLooper())&#123;</span><br><span class="line">            <span class="comment">//初始化操作成功的回调</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>利用Kotlin 的object关键字，快速创建一个单例对象</li>
-<li>channel在后续的操作中要用到，这个是manager初始化成功之后返回的渠道对象</li>
-<li>上述init方法建议在Application的onCreate中调用，至少在使用前调用</li>
-</ul>
-</li>
-<li><h3 id="discoverPeers"><a href="#discoverPeers" class="headerlink" title="discoverPeers"></a>discoverPeers</h3><ul>
-<li><p>在上述的WifiDirectManager类里面添加如下方法</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * discover available peer list</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">discoverPeers</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.discoverPeers(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"discover Peers success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"discover Peers fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * request the peer list available</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">requestPeers</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.requestPeers(channel) &#123; peers -&gt;</span><br><span class="line">        <span class="comment">//请求对等节点列表操作成功</span></span><br><span class="line">        println(peers)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Activity里面拖一个button，在点击事件里面调用这个函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">btnSendTestBroadcast.setOnClickListener &#123;</span><br><span class="line">    WifiDirectManager.discoverPeers()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面的方法，望文生义，就是用来检索附近的可用对等节点列表，然后后面就是这个整套API最坑的一个回调了</p>
-</li>
-<li><strong>WifiP2pManager.ActionListener</strong> 这个回调里面的success和failure<strong>表示的是一个操作是否执行成功，而并不能反映出这个操作的结果</strong></li>
-<li>所以从上面这个回调里我们只能知道，执行discoverPeers这个操作有没有成功，是无法获取到对等节点列表的</li>
-<li>那怎么获取检索的结果呢，答案是:<ul>
-<li>在Receiver里面直接获取（API &gt;= 18）</li>
-<li>在Receiver里面调用requestPeers()获取<br>-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="两种获取对等节点列表的方式"><a href="#两种获取对等节点列表的方式" class="headerlink" title="两种获取对等节点列表的方式"></a>两种获取对等节点列表的方式</h3><blockquote>
-<p>Tip：在调用discoverPeers之后才能获取到对等节点列表</p>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//api &gt; 18 have this extra info,</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR2) &#123;</span><br><span class="line">        <span class="keyword">val</span> wifiP2pList: WifiP2pDeviceList = intent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST)</span><br><span class="line">        println(wifiP2pList)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//if the sdk version lower than 18</span></span><br><span class="line">        <span class="comment">//get WifiP2pDeviceList by call WifiP2pManager.requestPeers to get</span></span><br><span class="line">        WifiDirectManager.requestPeers()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看到，当可用对等节点列表变化时，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播，我们有两种方式获取对等节点列表</li>
-<li>API &gt;= 18 的时候可以直接在 intent 携带数据中获取到 WifiP2pDeviceList 对象</li>
-<li>当 API 在[14, 18) 之间的时候，只能调用manager的requestPeers方法，在回调当中获取</li>
-<li><strong>其实</strong>：只要都采用第二种方式，就能保持一致性了</li>
-<li>具体输出结果可以自己试一试</li>
-</ul>
-</li>
-<li><h3 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * connect by MAC address(hardware address)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">connect</span><span class="params">(deviceAddress: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> config = WifiP2pConfig()</span><br><span class="line">    config.deviceAddress = deviceAddress</span><br><span class="line">    config.wps.setup = WpsInfo.PBC</span><br><span class="line">    manager.connect(channel, config, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"connect operator success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"connect operator fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * invoke this method to connect a p2p device</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">connect</span><span class="params">(device: <span class="type">WifiP2pDevice</span>)</span></span>: WifiDirectManager &#123;</span><br><span class="line">    connect(device.deviceAddress)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在前面我们已经获取到对等节点列表了，每个对等节点设备信息里面包含其mac地址，用mac地址就能连接</li>
-<li>连接成功以后 系统就会发送 WIFI_P2P_CONNECTION_CHANGED_ACTION 广播了，你可在里面获取对方设备的信息以及群组的信息</li>
-<li>如果两个对等节点都没有创建群组，则连接之后其中一端设备会自动成为群组，每个组员都能获取到群组的IP</li>
-</ul>
-</li>
-<li><h3 id="WIFI-P2P-CONNECTION-CHANGED-ACTION-包含的信息"><a href="#WIFI-P2P-CONNECTION-CHANGED-ACTION-包含的信息" class="headerlink" title="WIFI_P2P_CONNECTION_CHANGED_ACTION 包含的信息"></a>WIFI_P2P_CONNECTION_CHANGED_ACTION 包含的信息</h3><ul>
-<li><p>给WifiDirectManager类添加几个封装函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * request the group info</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">requestGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.requestGroupInfo(channel) &#123; group -&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * create a group</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">createGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.createGroup(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"create group fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"create group success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * remove a group</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">removeGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.removeGroup(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"remove group success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"remove group success: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>看看Receiver里面的代码</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment"> * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">        <span class="keyword">val</span> networkInfo = intent.getParcelableExtra&lt;NetworkInfo&gt;(WifiP2pManager.EXTRA_NETWORK_INFO)</span><br><span class="line">        <span class="keyword">val</span> wifiP2pInfo = intent.getParcelableExtra&lt;WifiP2pInfo&gt;(WifiP2pManager.EXTRA_WIFI_P2P_INFO)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR2) &#123;</span><br><span class="line">            <span class="keyword">val</span> wifiP2pGroupInfo =  intent.getParcelableExtra&lt;WifiP2pGroup&gt;(WifiP2pManager.EXTRA_WIFI_P2P_GROUP)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>从上面可以看出，当收到系统发送的 WIFI_P2P_CONNECTION_CHANGED_ACTION 广播的时候，我们可以获取下面信息</p>
-<ul>
-<li>NetworkInfo</li>
-<li>WifiP2pInfo (对端设备的信息)</li>
-<li>WifiP2pGroup （两种方式获取， 和之前获取对等节点列表的操作类似）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="应用方式"><a href="#应用方式" class="headerlink" title="应用方式"></a>应用方式</h3><ul>
-<li>可以一个设备主动创建一个Group，然后其它设备检索后连接</li>
-<li>一旦连接成功，这些设备就处于同一自组网下了，组员是可以直接在WifiP2pGroup里面获取到群主的ip。接下来就可以直接用Socket进行各种骚操作了</li>
-<li>至于群主如何获取组员的IP，目前想到的一种方式是群主开一个Socket监听，组员连接成功通过socket向群主发送一个请求，然后群主就可以在请求的socket对象里面获取组员的IP了</li>
-</ul>
-</li>
-</ul>
-
           
+简介
+
+百度百科：2010年10月，Wi-Fi Alliance（wi-fi联盟）发布Wi-Fi Direct白皮书，白皮书中介绍了有关于这种技术的基本信息、这种技术的特点和这种技术的功能，Wi-Fi Direct标准是指允许无线网络中的设备无需通过无线路由器即可相互连接。与蓝牙技术类似，这种标准
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/26/android_wifi_direct_01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -677,84 +717,15 @@
       
         
           
-            <p>实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。</p>
-<blockquote>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2></blockquote>
-<ul>
-<li><h4 id="一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行"><a href="#一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行" class="headerlink" title="一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行"></a>一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行</h4><ul>
-<li>这个公网服务器主要用作反向代理，我们在本文中称之为VPS服务器</li>
-</ul>
-</li>
-<li><h4 id="一个独立的域名"><a href="#一个独立的域名" class="headerlink" title="一个独立的域名"></a>一个独立的域名</h4></li>
-<li><h4 id="一个用于提供服务的本地PC"><a href="#一个用于提供服务的本地PC" class="headerlink" title="一个用于提供服务的本地PC"></a>一个用于提供服务的本地PC</h4></li>
-</ul>
-<blockquote>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2></blockquote>
-<ul>
-<li><h3 id="GO语言环境搭建"><a href="#GO语言环境搭建" class="headerlink" title="GO语言环境搭建"></a>GO语言环境搭建</h3>ngrok项目是用GO语言实现的，需要先安装GOLANG开发环境，系统不限，因为GO语言是跨平台的！安装过程很简单，参考<a href="https://golang.org/dl/" target="_blank" rel="noopener">官网的教程</a>即可！</li>
-<li><h3 id="获取ngrok源码"><a href="#获取ngrok源码" class="headerlink" title="获取ngrok源码"></a>获取ngrok源码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面是直接去ngrok的github地址下载（待会儿make的时候还会需要装几个其它的依赖，可能会出现很多问题）</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/inconshreveable/ngrok.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面是笔者将代码clone下来，并添加了相应依赖之后的地址，如果用上面的方式出现错误，可以clone下面的地址</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/SunnyQjm/ngrok.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h3><p>因为我们自己搭建，需要使用自己的域名（以 test.j.cn ）为例，我们需要做以下解析：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test.j.cn    ------------&gt; A记录到你的VPS服务器的IP</span><br><span class="line"></span><br><span class="line"><span class="comment"># ngrok可以指定子域名，下面的解析方式可以让任意子域名都能得到正确的解析</span></span><br><span class="line">*.test.j.cn  ------------&gt; CNAME记录到 test.j.cn</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="生成签名证书"><a href="#生成签名证书" class="headerlink" title="生成签名证书"></a>生成签名证书</h3><blockquote>
-<ul>
-<li>因为我们是自己搭建，就不能用ngrok官方的SSL证书，需要自己生成</li>
-<li>下面<strong>生成</strong>的<strong>证书</strong>在编译项目的时候要用到，所以<strong>务必要在编译之前生成</strong></li>
-<li>需要注意的是，<strong>客户端和服务器的证书必须是同一份</strong>，这样在程序在认证的时候才能正确解析</li>
-</ul>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先导出环境变量，将下面的值替换成你的域名</span></span><br><span class="line"><span class="built_in">export</span> NGROK_DOMAIN=<span class="string">"test.j.cn"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#先进入到ngrok的根目录，生成证书的操作需要在根目录下进行</span></span><br><span class="line"><span class="built_in">cd</span> ngrok</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令用于生成证书</span></span><br><span class="line">openssl genrsa -out rootCA.key 2048</span><br><span class="line">openssl req -x509 -new -nodes -key rootCA.key -subj <span class="string">"/CN=<span class="variable">$NGROK_DOMAIN</span>"</span> -days 5000 -out rootCA.pem</span><br><span class="line">openssl genrsa -out device.key 2048</span><br><span class="line">openssl req -new -key device.key -subj <span class="string">"/CN=<span class="variable">$NGROK_DOMAIN</span>"</span> -out device.csr</span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令用于将我们生成的证书替换ngrok默认的证书</span></span><br><span class="line">cp rootCA.pem assets/client/tls/ngrokroot.crt</span><br><span class="line">cp device.crt assets/server/tls/snakeoil.crt</span><br><span class="line">cp device.key assets/server/tls/snakeoil.key</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h3><ul>
-<li><h4 id="服务端（VPS服务器一端）"><a href="#服务端（VPS服务器一端）" class="headerlink" title="服务端（VPS服务器一端）"></a>服务端（VPS服务器一端）</h4><ul>
-<li><p>首先指定一下环境变量，在不同的操作系统下需要指定不同的环境变量，才能正确编译(默认是Linux 64位的配置，如果你的服务器是64位的Linux系统，也可以不指定，直接用默认的就行)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GOOS=linux GOARCH=amd64</span><br><span class="line"><span class="comment">#如果是32位系统，这里 GOARCH=386</span></span><br><span class="line"><span class="comment">#如果是windows系统，GOOS=windows</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后make出服务端程序</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make release-server</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果编译成功，你会在bin目录下看到ngrokd程序</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看使用帮助</span></span><br><span class="line">./ngrokd -h</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看使用帮助</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看使用帮助</span></span><br><span class="line">./ngrokd -h</span><br><span class="line">  -domain string</span><br><span class="line">    	Domain <span class="built_in">where</span> the tunnels are hosted (default <span class="string">"ngrok.com"</span>)</span><br><span class="line">  -httpAddr string</span><br><span class="line">    	Public address <span class="keyword">for</span> HTTP connections, empty string to <span class="built_in">disable</span> (default <span class="string">":80"</span>)</span><br><span class="line">  -httpsAddr string</span><br><span class="line">    	Public address listening <span class="keyword">for</span> HTTPS connections, emptry string to <span class="built_in">disable</span> (default <span class="string">":443"</span>)</span><br><span class="line">  -<span class="built_in">log</span> string</span><br><span class="line">    	Write <span class="built_in">log</span> messages to this file. <span class="string">'stdout'</span> and <span class="string">'none'</span> have special meanings (default <span class="string">"stdout"</span>)</span><br><span class="line">  -<span class="built_in">log</span>-level string</span><br><span class="line">    	The level of messages to <span class="built_in">log</span>. One of: DEBUG, INFO, WARNING, ERROR (default <span class="string">"DEBUG"</span>)</span><br><span class="line">  -tlsCrt string</span><br><span class="line">    	Path to a TLS certificate file</span><br><span class="line">  -tlsKey string</span><br><span class="line">    	Path to a TLS key file</span><br><span class="line">  -tunnelAddr string</span><br><span class="line">    	Public address listening <span class="keyword">for</span> ngrok client (default <span class="string">":4443"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动服务端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不能执行，你可能需要用 sudo chmod +x ngrokd 给它执行权限</span></span><br><span class="line"><span class="comment"># domain域输入之前生成证书时指定的域名</span></span><br><span class="line"><span class="comment"># httpAddr 指定转发http协议的哪个端口</span></span><br><span class="line"><span class="comment"># httpAddrs 指定转发https协议的哪个端口（如果不需要可以省略）</span></span><br><span class="line">./ngrokd  -domain=<span class="string">"<span class="variable">$NGROK_DOMAIN</span>"</span> -httpAddr=<span class="string">":8000"</span> -httpsAddr=<span class="string">":4433"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果执行成功，你会看到类似以下界面：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/<span class="built_in">log</span>.(*PrefixLogger).Info:83) [registry] [tun] No affinity cache specified</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> public http connections on [::]:9748</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> public https connections on [::]:443</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> control and proxy connections on [::]:4443</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/<span class="built_in">log</span>.(*PrefixLogger).Info:83) [metrics] Reporting every 30 seconds</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>自此，服务端算是配置好了</p>
-</li>
-</ul>
-</li>
-<li><h4 id="客户端（部署了服务，需要内网穿透访问的主机）"><a href="#客户端（部署了服务，需要内网穿透访问的主机）" class="headerlink" title="客户端（部署了服务，需要内网穿透访问的主机）"></a>客户端（部署了服务，需要内网穿透访问的主机）</h4><blockquote>
-<p>客户端要做的事情就是指定把本机的那个端口暴露给VPS服务器，客户端要在该端口上部署了服务（web服务或者tomcat服务等），这样VPS就能够将请求转发到该端口对应的服务上了</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为前面说过，服务端和客户端的证书要是同一份，这样认证才能通过，所以好的解决方案是在服务端上把客户端程序也编译出来，然后通过scp命令拷贝到客户端</span></span><br><span class="line"><span class="comment"># 假设我要在mac上运行客户端，需要在编译命令前加上一些参数(如果客户端服务器也是Linux 64位，则不用指定环境变量)</span></span><br><span class="line">GOOS=darwin GOARCH=amd64 make release-client</span><br><span class="line">make release-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译好后scp到本地</span></span><br><span class="line">scp xxx xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面开始本地配置（下面的配置在客户端进行）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一个配置文件（在ngrok/bin目录下）</span></span><br><span class="line">vim ngrok.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一下两行</span></span><br><span class="line"><span class="comment"># 第一行是将要绑定的域名+4443端口（因为ngrok服务端默认有一个服务是坚挺在4443端口的，客户端会通过这个端口与之相连）==&gt; 记得将域名换成自己在生成证书时指定的</span></span><br><span class="line">server_addr: <span class="string">"test.j.cn:4443"</span></span><br><span class="line">trust_host_root_certs: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 帮助信息</span></span><br><span class="line">./ngrok -h</span><br><span class="line">Examples:</span><br><span class="line">    ngrok 80</span><br><span class="line">    ngrok -subdomain=example 8080</span><br><span class="line">    ngrok -proto=tcp 22</span><br><span class="line">    ngrok -hostname=<span class="string">"example.com"</span> -httpauth=<span class="string">"user:password"</span> 10.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 80就是我们要转发的端口了</span></span><br><span class="line">./ngrok -config=./ngrok.cfg 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定协议和端口，不指定默认是 http+https</span></span><br><span class="line">./ngrok -config=./ngrok.cfg -proto=tcp 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定子域名，不指定就会随机生成</span></span><br><span class="line">./ngrok -config=./ngrok.cfg -subdomain=<span class="built_in">test</span> 80</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>连接成功会显示如下状态：</p>
-<ul>
-<li><img src="/img/ngrok_01_1.png" title="连接成功"></li>
-<li>在浏览器中输入<a href="http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！" target="_blank" rel="noopener">http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
-<li>上文中所有出现域名的地方都要统一，客户端和服务端的证书要是同一份，否则在连接的时候会出现bad certification</li>
-</ul>
-</li>
-<li><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
-<li><a href="https://blog.phpgao.com/ngrok_how_to.html" target="_blank" rel="noopener">自己建立ngrok服务器进行内网穿透</a></li>
-<li><a href="http://zpblog.cn/linux/run-ngrok-on-your-own-server.html" target="_blank" rel="noopener">CentOS上搭建ngrok服务端（内网穿透）</a></li>
-</ul>
-</li>
-</ul>
-
-          
+          实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/19/ngrok_01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -895,64 +866,20 @@
       
         
           
-            <blockquote>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>最近刚入坑web前端，学了一点基础，便准备写个简单的2048小游戏试试手。开发过程中发现，<br>PC端可以直接监听键盘输入，但是移动端就不得不监听屏幕上的滑动事件了。</p>
-</blockquote>
-<ul>
-<li>现有的js库中没有可以直接满足上述要求的封装</li>
-<li>在JQuery Mobile 中 可以通过 .on 的方式监听左右滑动事件，但是没有上下滑动事件（而且我想写一个PC端和移动端都通用的网页的话，就必须引入Jquery，同时引入Jquery和Jquery Mobile 使得Bootstrap中的按钮样式改变了，这显然不是想要的结果）</li>
-<li>所以为了保持PC端和移动端的一致性，决定直接封装一下js的移动端的触摸事件，实现上述需求</li>
-</ul>
-<blockquote>
-<h2 id="2048"><a href="#2048" class="headerlink" title="2048"></a>2048</h2><p>可以在手机上打开，仍然具有不错的交互</p>
-</blockquote>
-<ul>
-<li><a href="../../../../2048">点我体验</a></li>
-<li><a href="https://github.com/SunnyQjm/2048" target="_blank" rel="noopener">源码地址</a></li>
-<li><img src="/img/game_01.png" width="500" height="500" title="2048">
-</li>
-</ul>
-<blockquote>
-<h2 id="JS-触摸事件（event）"><a href="#JS-触摸事件（event）" class="headerlink" title="JS 触摸事件（event）"></a>JS 触摸事件（event）</h2></blockquote>
-<ul>
-<li><h3 id="event的类型"><a href="#event的类型" class="headerlink" title="event的类型"></a>event的类型</h3><ul>
-<li>touchstart: 当<strong>手指触摸屏幕时</strong>触发（相当于Android中的ACTION_DOWN事件）</li>
-<li>touchmove: 当<strong>手指在屏幕上滑动时</strong>连续触发（相当于Android中的ACTION_MOVE事件）— <strong><em>期间调用preventDefault()可以屏蔽事件的默认行为，达到阻止滚动的效果</em></strong></li>
-<li>touchend: 当<strong>手指从屏幕上移开时</strong>触发（相当与Android中的ACTION_UP）</li>
-<li>touchcancel: 当系统停止跟踪触摸时触发。关于此事件的触发时机，文档中没有明确说明（我们在接下来的过程中也用不到）</li>
-</ul>
-</li>
-<li><h3 id="event用于跟踪触摸的属性"><a href="#event用于跟踪触摸的属性" class="headerlink" title="event用于跟踪触摸的属性"></a>event用于跟踪触摸的属性</h3><ul>
-<li>touches: 表示当前跟踪的触摸操作的Touch对象的数组</li>
-<li>targetTouches: 特定于事件目标的Touch对象数组</li>
-<li>changeTouches: 表示子上次触摸以来发生了什么改变的Touch对象的数组<blockquote>
-<p>注意： 在touchend事件发生时，event的touches对象中就没有元素了，需要到changeTouches中去获取触摸离开时的位置信息</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h3 id="Touch对象包含的数组"><a href="#Touch对象包含的数组" class="headerlink" title="Touch对象包含的数组"></a>Touch对象包含的数组</h3><ul>
-<li>clentX: 触摸目标在窗口中的x坐标</li>
-<li>clientY: 触摸目标在窗口中的y坐标</li>
-<li>identifier: 标识触摸的唯一ID</li>
-<li>pageX： 触摸目标在页面中的x坐标</li>
-<li>pageY： 触摸目标在页面中的y坐标</li>
-<li>screenX： 触摸目标在屏幕中的x坐标</li>
-<li>screenY： 触摸目标在屏幕中的y坐标</li>
-<li>target：触摸的DOM节点目标</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="封装一个操作对象"><a href="#封装一个操作对象" class="headerlink" title="封装一个操作对象"></a>封装一个操作对象</h2><p>该对象的封装，前两个函数参考书籍《JavaScript 高级程序设计》（第三版）</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil = &#123;</span><br><span class="line">    addHandler: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (element.addEventListener)</span><br><span class="line">            element.addEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent)</span><br><span class="line">            element.attachEvent(<span class="string">"on"</span> + type, handler);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            element[<span class="string">"on"</span> + type] = handler;</span><br><span class="line">    &#125;,</span><br><span class="line">    removeHandler: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(element.removeEventListener)</span><br><span class="line">            element.removeEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(element.detachEvent)</span><br><span class="line">            element.detachEvent(<span class="string">"on"</span> + type, handler);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            element[<span class="string">"on"</span> + type] = handler;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 监听触摸的方向</span></span><br><span class="line"><span class="comment">     * @param target            要绑定监听的目标元素</span></span><br><span class="line"><span class="comment">     * @param isPreventDefault  是否屏蔽掉触摸滑动的默认行为（例如页面的上下滚动，缩放等）</span></span><br><span class="line"><span class="comment">     * @param upCallback        向上滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     * @param rightCallback     向右滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     * @param downCallback      向下滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     * @param leftCallback      向左滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    listenTouchDirection: <span class="function"><span class="keyword">function</span> (<span class="params">target, isPreventDefault, upCallback, rightCallback, downCallback, leftCallback</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addHandler(target, <span class="string">"touchstart"</span>, handleTouchEvent);</span><br><span class="line">        <span class="keyword">this</span>.addHandler(target, <span class="string">"touchend"</span>, handleTouchEvent);</span><br><span class="line">        <span class="keyword">this</span>.addHandler(target, <span class="string">"touchmove"</span>, handleTouchEvent);</span><br><span class="line">        <span class="keyword">var</span> startX;</span><br><span class="line">        <span class="keyword">var</span> startY;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handleTouchEvent</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (event.type)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"touchstart"</span>:</span><br><span class="line">                    startX = event.touches[<span class="number">0</span>].pageX;</span><br><span class="line">                    startY = event.touches[<span class="number">0</span>].pageY;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"touchend"</span>:</span><br><span class="line">                    <span class="keyword">var</span> spanX = event.changedTouches[<span class="number">0</span>].pageX - startX;</span><br><span class="line">                    <span class="keyword">var</span> spanY = event.changedTouches[<span class="number">0</span>].pageY - startY;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(spanX) &gt; <span class="built_in">Math</span>.abs(spanY))&#123;      <span class="comment">//认定为水平方向滑动</span></span><br><span class="line">                        <span class="keyword">if</span>(spanX &gt; <span class="number">30</span>)&#123;         <span class="comment">//向右</span></span><br><span class="line">                            <span class="keyword">if</span>(rightCallback)</span><br><span class="line">                                rightCallback();</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(spanX &lt; <span class="number">-30</span>)&#123; <span class="comment">//向左</span></span><br><span class="line">                            <span class="keyword">if</span>(leftCallback)</span><br><span class="line">                                leftCallback();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;                                    <span class="comment">//认定为垂直方向滑动</span></span><br><span class="line">                        <span class="keyword">if</span>(spanY &gt; <span class="number">30</span>)&#123;         <span class="comment">//向下</span></span><br><span class="line">                            <span class="keyword">if</span>(downCallback)</span><br><span class="line">                                downCallback();</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (spanY &lt; <span class="number">-30</span>) &#123;<span class="comment">//向上</span></span><br><span class="line">                            <span class="keyword">if</span>(upCallback)</span><br><span class="line">                                upCallback();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"touchmove"</span>:</span><br><span class="line">                    <span class="comment">//阻止默认行为</span></span><br><span class="line">                    <span class="keyword">if</span>(isPreventDefault)</span><br><span class="line">                        event.preventDefault();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用的时候很简单，只需要向下面这样调用即可</span></span><br><span class="line"><span class="comment">//其中下面监听的是整个DOM</span></span><br><span class="line"><span class="comment">//up, right, down, left为四个回调函数，分别处理上下左右的滑动事件</span></span><br><span class="line">EventUtil.listenTouchDirection(<span class="built_in">document</span>, <span class="literal">true</span>, up， right, down, left)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
           
+Introduction最近刚入坑web前端，学了一点基础，便准备写个简单的2048小游戏试试手。开发过程中发现，PC端可以直接监听键盘输入，但是移动端就不得不监听屏幕上的滑动事件了。
+
+
+现有的js库中没有可以直接满足上述要求的封装
+在JQuery Mobile 中 可以通过 .on 的方式监听
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/24/js_01/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1093,213 +1020,32 @@
       
         
           
-            <blockquote>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2></blockquote>
-<ul>
-<li>最后一个高C课，老师旁边围了一圈，就有了如下信息</li>
-</ul>
-<blockquote>
-<h2 id="题型"><a href="#题型" class="headerlink" title="题型"></a>题型</h2></blockquote>
-<ul>
-<li>简答：50</li>
-<li>编程：30</li>
-<li>实验：20 （代码分析，分析哪里错了…）</li>
-</ul>
-<blockquote>
-<h2 id="以下不用看"><a href="#以下不用看" class="headerlink" title="以下不用看"></a>以下不用看</h2><p>括号里是我加的，以防万一</p>
-</blockquote>
-<ul>
-<li>timewait不用看</li>
-<li>key managment不用看 （知道怎么创建一个秘钥管理套接字：socket(PF_KEY, SOCK_RAW, 0)）</li>
-<li>ioctl 不用看</li>
-</ul>
-<blockquote>
-<h2 id="老师说会考"><a href="#老师说会考" class="headerlink" title="老师说会考"></a>老师说会考</h2></blockquote>
-<ul>
-<li>前几章重点</li>
-<li>大端小端代码</li>
-<li>traceroute、ping会考（研究生学长说不考，但是今年王老师出卷，其它先复习，有时间看看ping和traceroute的源码）</li>
-<li>HDR_INCL套接字选项（原始套接字设置该选项可以自己构造IP首部）</li>
-<li>BPF、DLPI、SOCK_PACKET（三种提供链路层访问控制的方式）</li>
-<li>掌握netstat怎么用（用于显示各个端口的状态）</li>
-</ul>
-
           
-        
-      
-    </div>
-    
-    
-    
+说明
 
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
+最后一个高C课，老师旁边围了一圈，就有了如下信息
 
 
-    
-      
+题型
 
-  
+简答：50
+编程：30
+实验：20 （代码分析，分析哪里错了…）
 
-  
-  
-  
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_m/">
+以下不用看括号里是我加的，以防万一
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar-r.jpg">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/01/06/super_c_m/" itemprop="url">高级C与网络编程复习（13）—— 线程（Threads）（第26章）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-06T19:00:00+08:00">
-                2018-01-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-            <!--noindex-->
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/01/06/super_c_m/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2018/01/06/super_c_m/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-              <!--/noindex-->
-            
-          
-
-          
-          
-             <span id="/2018/01/06/super_c_m/" class="leancloud_visitors" data-flag-title="高级C与网络编程复习（13）—— 线程（Threads）（第26章）">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2></blockquote>
-<ul>
-<li><h3 id="用fork实现并发要求存在的问题"><a href="#用fork实现并发要求存在的问题" class="headerlink" title="用fork实现并发要求存在的问题"></a>用fork实现并发要求存在的问题</h3><ul>
-<li>fork的代价是比较昂贵的</li>
-<li>fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。</li>
-</ul>
-</li>
-<li><h3 id="使用线程可以有效的解决上面的问题"><a href="#使用线程可以有效的解决上面的问题" class="headerlink" title="使用线程可以有效的解决上面的问题"></a>使用线程可以有效的解决上面的问题</h3><ul>
-<li>线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍</li>
-<li>同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synchronization)问题</li>
-</ul>
-</li>
-<li><h3 id="同一进程内的线程共享："><a href="#同一进程内的线程共享：" class="headerlink" title="同一进程内的线程共享："></a>同一进程内的线程共享：</h3><ul>
-<li>全局变量</li>
-<li>进程指令（process instruction）</li>
-<li>大多数数据（most data）</li>
-<li>打开的文件（open file）==&gt; 即描述符</li>
-<li>信号处理函数和信号处置（Signal handlers and signal disposition）</li>
-<li>当前工作目录（Current working directory）</li>
-<li>用户ID和组ID（User and group ID）</li>
-</ul>
-</li>
-<li><h3 id="线程独享以下内容："><a href="#线程独享以下内容：" class="headerlink" title="线程独享以下内容："></a>线程独享以下内容：</h3><ul>
-<li>线程ID （thread ID）</li>
-<li>寄存器集合，包括程序计数器和栈指针 （Set of registers， including program counter and stack pointer）</li>
-<li>栈（用于存放局部变量和返回地址）  Stack（for local variables and return address）</li>
-<li>errno ==&gt; 全局动态变量（记录最近的一次错误）</li>
-<li>信号掩码(Signal mask)</li>
-<li>优先级(Priority)</li>
-</ul>
-</li>
-</ul>
-
-          
+timewait不用看
+key managment不用看 （知道怎么创建一个秘钥管理套接字：socket(PF_KEY
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/06/super_c_n/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1337,7 +1083,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1387,7 +1133,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
