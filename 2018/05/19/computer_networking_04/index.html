@@ -105,7 +105,12 @@
 <meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_59.png">
 <meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_58.png">
 <meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_60.png">
-<meta property="og:updated_time" content="2018-05-20T07:27:55.608Z">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_61.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_62.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_63.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_64.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_65.png">
+<meta property="og:updated_time" content="2018-05-21T04:57:16.047Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chapter 4 The Network Layer">
 <meta name="twitter:description" content="Introduction 网络层完成主机到主机之间的数据传输 网络层协议存在于所有的主机和路由器当中（二层交换机中没有） 当IP数据报通过路由器时，路由器会检查所有数据报首部字段（Header Checksum）    Forwarding and Routing ( 存储和转发 ) Forwarding（转发）When a packet arrives at a router’s input">
@@ -804,6 +809,209 @@
 </ul>
 </li>
 </ul>
+<blockquote>
+<h2 id="Routing-algorithms-（路由算法）"><a href="#Routing-algorithms-（路由算法）" class="headerlink" title="Routing algorithms （路由算法）"></a>Routing algorithms （路由算法）</h2><ul>
+<li><strong>Routing</strong> =&gt; 确定一条从源端到目的端的一条路径的过程（不一定是最短的）</li>
+<li><strong>global routing algorithms</strong> =&gt; 集中式路由算法</li>
+<li><strong>decentralized routing algorithms</strong> =&gt; 分散式路由算法</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="The-Link-State-LS-Routing-Algorithms"><a href="#The-Link-State-LS-Routing-Algorithms" class="headerlink" title="The Link-State (LS) Routing Algorithms"></a>The Link-State (LS) Routing Algorithms</h3><blockquote>
+<ul>
+<li>链路状态路由算法（<strong>集中式</strong>）</li>
+<li>采用Dijstra算法求最短路径</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><ul>
+<li><strong>u</strong> =&gt; 源端</li>
+<li><strong>N’</strong> =&gt; 一个包含所有到源端最短路径已知的点的集合</li>
+<li><strong>C(x, y)</strong> =&gt; x, y之间的link-cost</li>
+<li><strong>D(v)</strong> =&gt; 节点v到源端的距离，不可达则为∞</li>
+<li><strong>P(v)</strong> =&gt; 节点v到源端路径的前向节点</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Initiazation:</span><br><span class="line">  N' = &#123;u&#125;</span><br><span class="line">  <span class="keyword">for</span> all nodes v</span><br><span class="line">    <span class="keyword">if</span> v adjacent to u</span><br><span class="line">      then D(v) = C(u, v)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      D(v) = ∞</span><br><span class="line"></span><br><span class="line">Loop</span><br><span class="line">  find w <span class="keyword">not</span> in N' such that D(w) is a minimum, add to N'</span><br><span class="line">  update D(v) <span class="keyword">for</span> all v adjacent to w</span><br><span class="line">    D(v) = min&#123;D(v), D(w) + C(w, v)&#125;</span><br><span class="line">Until all nodes in N'</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h4><img src="/img/computer_network/computer_network_61.png" title="一个链路运行链路状态路由算法的栗子">
+</li>
+<li><h4 id="运行链路状态路由算法得到的结果"><a href="#运行链路状态路由算法得到的结果" class="headerlink" title="运行链路状态路由算法得到的结果"></a>运行链路状态路由算法得到的结果</h4><img src="/img/computer_network/computer_network_62.png" title="运行链路状态路由算法得到的结果">
+<ul>
+<li><strong>得到一颗最小生成树</strong></li>
+<li><strong>得到一张转发表</strong></li>
+</ul>
+</li>
+<li><p>在LS路由算法中，为了获取所有节点的Link-cost，有一个 <strong>链路状态广播</strong>（利用洪泛获取link-cost信息） 的过程，开销相对较大</p>
+</li>
+</ul>
+</li>
+<li><h3 id="The-Distance-Vector-DV-Routing-Algorithms"><a href="#The-Distance-Vector-DV-Routing-Algorithms" class="headerlink" title="The Distance-Vector(DV) Routing Algorithms"></a>The Distance-Vector(DV) Routing Algorithms</h3><blockquote>
+<ul>
+<li>链路状态路由算法（分散式）</li>
+<li>利用的是动态规划的思想</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="伪代码-1"><a href="#伪代码-1" class="headerlink" title="伪代码"></a>伪代码</h4><ul>
+<li><strong>Dx(y)</strong> =&gt; x到y的最短路径的link-cost</li>
+<li><strong>Dx(y) = MINv{C(x, v) + Dv(y)}</strong> =&gt; 其中，v为x的所有邻居</li>
+</ul>
+<p>对于每个节点x，运行如下路由算法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Initialization:</span><br><span class="line">  <span class="keyword">for</span> all destinations y in N:</span><br><span class="line">    Dx(y) = C(x, y)   <span class="comment">//如果是x的邻居则有值，否则为 ∞</span></span><br><span class="line">  <span class="keyword">for</span> each neighbor w:</span><br><span class="line">    <span class="comment">//一开始不知道邻居到其它节点的Link-cost</span></span><br><span class="line">    Dx(y) = ? <span class="keyword">for</span> all desrinations y in N</span><br><span class="line">  <span class="keyword">for</span> each neighbor w:</span><br><span class="line">    <span class="comment">//向自己的邻居节点发送自己已知的距离向量</span></span><br><span class="line">    send distance <span class="built_in">vector</span> Dx = [Dx(y): y in N] to w、</span><br><span class="line"></span><br><span class="line">Loop</span><br><span class="line">  <span class="comment">//等待自己到邻居的link-cost改变，或者收到邻居发给自己的距离向量</span></span><br><span class="line">  wait (until I see a link cost change to some neighbor w <span class="keyword">or</span></span><br><span class="line">    until I receive a distance <span class="built_in">vector</span> from some neighbor w)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> each y in N:</span><br><span class="line">    Dx(y) = MINv&#123;C(x, v) + Dv(y)&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果自己到任一节点的link-cost发生变化，向所有的邻居发送距离向量</span></span><br><span class="line">  <span class="keyword">if</span> Dx(y) change <span class="keyword">for</span> any destination y:</span><br><span class="line">    send distance <span class="built_in">vector</span> Dx = [Dx(y): y in N] to all neighbors</span><br><span class="line">forever</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="伪代码说明"><a href="#伪代码说明" class="headerlink" title="伪代码说明"></a>伪代码说明</h4><ul>
+<li>每个节点在本地保存自己的距离向量和所有邻居节点的距离向量</li>
+<li>一旦自己到邻居的link-cost变化或者收到邻居发的距离向量，则重新计算自己的距离向量，如果有变化就发给所有的邻居。</li>
+</ul>
+</li>
+<li><h4 id="Link-cost-change"><a href="#Link-cost-change" class="headerlink" title="Link-cost change:"></a>Link-cost change:</h4><ul>
+<li>good news travels fast =&gt; 当某个 link-cost 减小，网络很快趋于稳定（收敛）</li>
+<li>bad news travels slow =&gt; 当某个 link-cost 增大，需要经过很多次迭代才收敛（存在计数到无穷问题）</li>
+</ul>
+</li>
+<li><h4 id="poison-reverse-毒性反转"><a href="#poison-reverse-毒性反转" class="headerlink" title="poison reverse(毒性反转)"></a>poison reverse(毒性反转)</h4><p>当RouterA发现与RouterX的连接断开，并准备向邻居节点发送新的距离向量的时候，并不是忽略它，而是将到他的路径毒化，设置其跳数为最大跳数加1，即不可到达。让其他节点尽快知道RouterX已经不可经由RouterA到达了，加快网络的收敛速度。</p>
+</li>
+</ul>
+</li>
+<li><h3 id="DV-vs-LS"><a href="#DV-vs-LS" class="headerlink" title="DV vs LS"></a>DV vs LS</h3><ul>
+<li>Message Complexity（报文复杂性）<ul>
+<li>LS: n个node，E跳link，需发送O(nE)个messages</li>
+<li>DV: 只在相邻节点间传递消息</li>
+</ul>
+</li>
+<li>收敛速度<ul>
+<li>LS: 固定，要求发送O(nE)个messages =&gt; 可能存在震荡</li>
+<li>DV: 收敛时间变化不定 =&gt; 环路问题，计数到无穷问题</li>
+</ul>
+</li>
+<li>健壮性<ul>
+<li>LS: 节点<strong>可能通告不正确的链路费用</strong> ；每个节点仅计算自己的表</li>
+<li>DV: 节点<strong>可能通告不正确的路径信息</strong> ；每个节点的表都由他人使用 =&gt; 差错通过网络进行传播</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Distance Vector</th>
+<th style="text-align:center">Link State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">仅与邻居节点交换消息</td>
+<td style="text-align:center">向网络上所有其他节点广播消息</td>
+</tr>
+<tr>
+<td style="text-align:center">消息包括到所有节点的最短距离</td>
+<td style="text-align:center">消息仅包括到邻居节点的距离</td>
+</tr>
+<tr>
+<td style="text-align:center">收敛速度比较慢</td>
+<td style="text-align:center">收敛速度比较快</td>
+</tr>
+<tr>
+<td style="text-align:center">会广播不正确的路径信息</td>
+<td style="text-align:center">会广播不正确的链路信息</td>
+</tr>
+<tr>
+<td style="text-align:center">有计数到无穷（Count to Infinity Problem）问题</td>
+<td style="text-align:center">没有计数到无穷（Count to Infinity Problem）问题</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h3 id="Hierarchical-Routing（分层式路由）"><a href="#Hierarchical-Routing（分层式路由）" class="headerlink" title="Hierarchical Routing（分层式路由）"></a>Hierarchical Routing（分层式路由）</h3><ul>
+<li>Intra-AS routing algorithms =&gt; <strong>自治系统内部路由算法</strong></li>
+<li>Inter-AS routing algorithms =&gt; <strong>自治系统间路由算法</strong>（只传递可达性信息）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Routing-in-the-Internet"><a href="#Routing-in-the-Internet" class="headerlink" title="Routing in the Internet"></a>Routing in the Internet</h2><ul>
+<li><strong>内部网关协议</strong>(<strong><em>IGP</em></strong>) =&gt; 自治系统内部路由协议的总称<ul>
+<li>RIP</li>
+<li>OSPF</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="RIP"><a href="#RIP" class="headerlink" title="RIP"></a>RIP</h3><ul>
+<li><strong>基于UDP</strong>，且RIP为应用层协议（RIP的报文封装在UDP数据报中发送，故RIP为应用层协议）=&gt; 值得注意的是，<strong>路由器应该有应用层和传输层</strong>，否则无法运行路由协议。但是在转发数据包的时候不使用传输层和应用层的功能</li>
+<li><strong>采用距离向量路由算法</strong>（DV算法）=&gt; 以跳数作为距离指标，并且将跳数限制在15跳以内</li>
+<li><strong>RIP跳数</strong> =&gt; 从当前节点到目的节点所穿越的子网个数，包含目的子网（最小为1）</li>
+<li><strong>RIP协议的最大跳数为15</strong></li>
+<li><strong>每30s更新一次，如果180s未收到某个邻居节点的向量表，则认为其已经断开</strong>（采用毒性反转之后，如果收到某个邻居节点的向量表中包含某个跳数大于RIP的最大跳数，就认为那条路径断开，而不用等待180s）</li>
+<li><h4 id="转发表示例"><a href="#转发表示例" class="headerlink" title="转发表示例"></a>转发表示例</h4><img src="/img/computer_network/computer_network_63.png" title="RIP转发表示例">
+</li>
+</ul>
+</li>
+<li><h3 id="OSPF"><a href="#OSPF" class="headerlink" title="OSPF"></a>OSPF</h3><ul>
+<li>读书路由协议属于应用层，而 <strong>OSPF</strong> 不是，它 <strong>是传输层协议</strong>。它在IP之上却没有使用其他传输层协议</li>
+<li><strong>采用的是链路状态路由算法</strong>（LS算法）</li>
+</ul>
+</li>
+<li><h3 id="BGP-边界网关协议"><a href="#BGP-边界网关协议" class="headerlink" title="BGP(边界网关协议)"></a>BGP(边界网关协议)</h3><ul>
+<li>自治系统间的路由协议</li>
+<li>基于TCP</li>
+<li>主要传递可达性信息</li>
+</ul>
+</li>
+<li><h3 id="静态路由表的计算-（！！！圈重点）"><a href="#静态路由表的计算-（！！！圈重点）" class="headerlink" title="静态路由表的计算 （！！！圈重点）"></a>静态路由表的计算 （！！！圈重点）</h3><ul>
+<li><h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><img src="/img/computer_network/computer_network_64.png" title="静态路由表栗子题目"></li>
+<li><h4 id="解答："><a href="#解答：" class="headerlink" title="解答："></a>解答：</h4><img src="/img/computer_network/computer_network_65.png" title="静态路由表栗子解答"></li>
+</ul>
+</li>
+<li><h3 id="单播、组播、广播、任播"><a href="#单播、组播、广播、任播" class="headerlink" title="单播、组播、广播、任播"></a>单播、组播、广播、任播</h3><ul>
+<li>单播：一对一，只有一个接收端</li>
+<li>组播：一对一组 =&gt; 组内成员可以来自不同的子网，接收端是组内的所有成员</li>
+<li><p>广播：一对所有 =&gt; 默认是在某个子网内部，不能穿越路由器</p>
+</li>
+<li><p>共性：一个发送端</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Brodcast-and-multicast-routing"><a href="#Brodcast-and-multicast-routing" class="headerlink" title="Brodcast and multicast routing"></a>Brodcast and multicast routing</h2><p><strong>实现广播的两种复制数据的方式</strong></p>
+<ul>
+<li>Source-duplication =&gt; <strong>源端复制</strong>（效率很低）</li>
+<li>In-network duplication =&gt; <strong>网内复制</strong>（会有洪泛问题）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Uncontrolled-Flooding（不可控洪泛）"><a href="#Uncontrolled-Flooding（不可控洪泛）" class="headerlink" title="Uncontrolled Flooding（不可控洪泛）"></a>Uncontrolled Flooding（不可控洪泛）</h3><p>When node receives broadcast packet, sends copy to all neighbors</p>
+<p><strong>当收到某个邻居的广播报文时，无条件地转播给其它所有的邻居</strong></p>
+<p>=&gt; 如果有网络有回路存在，就会导致“广播风暴”</p>
+</li>
+<li><h3 id="Controlled-Flooding（可控洪泛）"><a href="#Controlled-Flooding（可控洪泛）" class="headerlink" title="Controlled Flooding（可控洪泛）"></a>Controlled Flooding（可控洪泛）</h3><ul>
+<li><h4 id="Sequence-number-controlled-flooding-（序列号可控洪泛）"><a href="#Sequence-number-controlled-flooding-（序列号可控洪泛）" class="headerlink" title="Sequence-number-controlled flooding （序列号可控洪泛）"></a>Sequence-number-controlled flooding （序列号可控洪泛）</h4><p>给每个数据包都加上一个序列号，当再次收到一个序列号相同的数据包的时候不再转发给邻居</p>
+<p>=&gt; 可以避免“广播风暴”，但是不能完全解决冗余数据包的问题</p>
+</li>
+<li><h4 id="Reverse-path-forwarding-RPF-反向路径转发"><a href="#Reverse-path-forwarding-RPF-反向路径转发" class="headerlink" title="Reverse path forwarding (RPF, 反向路径转发)"></a>Reverse path forwarding (RPF, 反向路径转发)</h4><ul>
+<li>依赖于路由器知道自己与发送端的一条最短路径</li>
+<li>当收到一个数据包的时候<ul>
+<li><strong>先创建一个从自己到源端的最短路径</strong></li>
+<li>如果发送这个 <strong>数据包的节点在该路径上</strong>，<strong>则将其转发给所有的邻居</strong>，否则不转发</li>
+</ul>
+</li>
+<li>可以避免 <strong>广播风暴</strong>，但是仍然存在冗余数据包问题</li>
+</ul>
+</li>
+<li><h4 id="利用生成树进行广播"><a href="#利用生成树进行广播" class="headerlink" title="利用生成树进行广播"></a>利用生成树进行广播</h4><p>生成树构建好之后，路由器收到一个广播数据包，只转发向包含于生成树的路径转发数据包</p>
+<p>=&gt; 没有冗余数据包，也可以避免广播风暴</p>
+</li>
+</ul>
+</li>
+<li><h3 id="用于组播的协议"><a href="#用于组播的协议" class="headerlink" title="用于组播的协议"></a>用于组播的协议</h3><ul>
+<li>Distance-Vector Multicast Routing Protocol(DVMRP)</li>
+<li>Protocol-Independent Multicast(PIM) routinh protocol</li>
+</ul>
+</li>
+</ul>
 
       
     </div>
@@ -1004,7 +1212,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Forwarding-and-Routing-存储和转发"><span class="nav-number">1.1.</span> <span class="nav-text">Forwarding and Routing ( 存储和转发 )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Forwarding（转发）"><span class="nav-number">1.1.1.</span> <span class="nav-text">Forwarding（转发）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Routing（路由）"><span class="nav-number">1.1.2.</span> <span class="nav-text">Routing（路由）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充"><span class="nav-number">1.1.3.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Connection-Setup（连接建立）"><span class="nav-number">1.1.4.</span> <span class="nav-text">Connection Setup（连接建立）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-Circuit-and-Datagram-Networks"><span class="nav-number">2.</span> <span class="nav-text">Virtual Circuit and Datagram Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Circuit-Networks-（虚电路网络）"><span class="nav-number">2.1.</span> <span class="nav-text">Virtual-Circuit Networks （虚电路网络）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组成"><span class="nav-number">2.1.1.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">2.1.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datagram-networks（数据报网络）"><span class="nav-number">2.2.</span> <span class="nav-text">Datagram networks（数据报网络）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚电路网络-VS-数据报网络"><span class="nav-number">2.3.</span> <span class="nav-text">虚电路网络 VS 数据报网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-inside-a-Router"><span class="nav-number">3.</span> <span class="nav-text">What’s inside a Router?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Router的两个功能"><span class="nav-number">3.1.</span> <span class="nav-text">Router的两个功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-ports"><span class="nav-number">3.2.</span> <span class="nav-text">Input ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种类型的交换"><span class="nav-number">3.3.</span> <span class="nav-text">三种类型的交换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-ports"><span class="nav-number">3.4.</span> <span class="nav-text">Output ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Where-does-Queuing-Occur"><span class="nav-number">3.5.</span> <span class="nav-text">Where does Queuing Occur?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送排队的时机"><span class="nav-number">3.5.1.</span> <span class="nav-text">发送排队的时机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存溢出时的策略"><span class="nav-number">3.5.2.</span> <span class="nav-text">缓存溢出时的策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-Internet-Protocol-网际协议"><span class="nav-number">4.</span> <span class="nav-text">IP(Internet Protocol, 网际协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Datagram-Format-（数据报结构）"><span class="nav-number">4.1.</span> <span class="nav-text">Datagram Format （数据报结构）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层只对Datagram首部进行校验"><span class="nav-number">4.1.1.</span> <span class="nav-text">网络层只对Datagram首部进行校验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可行性"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">可行性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存在的问题"><span class="nav-number">4.1.1.3.</span> <span class="nav-text">存在的问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何每个路由器都要对数据包进行重新打包？"><span class="nav-number">4.1.2.</span> <span class="nav-text">为何每个路由器都要对数据包进行重新打包？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4-Datagram-Fragmentation-（IPv4-数据报分片）"><span class="nav-number">4.2.</span> <span class="nav-text">IPv4 Datagram Fragmentation （IPv4 数据报分片）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么（何时）要进行分片？"><span class="nav-number">4.2.1.</span> <span class="nav-text">为什么（何时）要进行分片？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4用于实现分片的头部字段"><span class="nav-number">4.2.2.</span> <span class="nav-text">IPv4用于实现分片的头部字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个示例"><span class="nav-number">4.2.3.</span> <span class="nav-text">一个示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">4.2.4.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何IP分片重组只在目的主机进行"><span class="nav-number">4.2.5.</span> <span class="nav-text">为何IP分片重组只在目的主机进行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4-Addressing-（IPv4编址）"><span class="nav-number">4.3.</span> <span class="nav-text">IPv4 Addressing （IPv4编址）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP-address"><span class="nav-number">4.3.1.</span> <span class="nav-text">IP address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Interface（接口）"><span class="nav-number">4.3.2.</span> <span class="nav-text">Interface（接口）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Subnets（子网）"><span class="nav-number">4.3.3.</span> <span class="nav-text">Subnets（子网）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CIDR-Classless-Interdomain-Routing-无类型域间选路"><span class="nav-number">4.3.4.</span> <span class="nav-text">CIDR(Classless Interdomain Routing, 无类型域间选路)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Classful-Addressing（分类编址）"><span class="nav-number">4.3.5.</span> <span class="nav-text">Classful Addressing（分类编址）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Private-IP（私有IP地址-内网地址）"><span class="nav-number">4.3.6.</span> <span class="nav-text">Private IP（私有IP地址 / 内网地址）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的IP地址"><span class="nav-number">4.3.7.</span> <span class="nav-text">特殊的IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何辨别IP地址"><span class="nav-number">4.3.8.</span> <span class="nav-text">如何辨别IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">4.3.9.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP-Dynamic-Host-Configuration-Protocol-动态主机配置协议"><span class="nav-number">4.4.</span> <span class="nav-text">DHCP (Dynamic Host Configuration Protocol, 动态主机配置协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为何选用UDP"><span class="nav-number">4.4.1.</span> <span class="nav-text">为何选用UDP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4地址耗尽的解决措施"><span class="nav-number">4.5.</span> <span class="nav-text">IPv4地址耗尽的解决措施</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT-Network-Address-Translation-网络地址转换"><span class="nav-number">5.</span> <span class="nav-text">NAT (Network Address Translation, 网络地址转换)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ICPM-Internet-Control-Message-Protocol-互联网控制消息协议"><span class="nav-number">6.</span> <span class="nav-text">ICPM (Internet Control Message Protocol, 互联网控制消息协议)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-number">7.</span> <span class="nav-text">IPv6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#制定IPv6协议的动机"><span class="nav-number">7.1.</span> <span class="nav-text">制定IPv6协议的动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6-datagram-format"><span class="nav-number">7.2.</span> <span class="nav-text">IPv6 datagram format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">7.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报的一般格式"><span class="nav-number">7.2.2.</span> <span class="nav-text">IPv6数据报的一般格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报的首部"><span class="nav-number">7.2.3.</span> <span class="nav-text">IPv6数据报的首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报格式"><span class="nav-number">7.2.4.</span> <span class="nav-text">IPv6数据报格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充-1"><span class="nav-number">7.2.5.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4映射的IPv6地址"><span class="nav-number">7.2.6.</span> <span class="nav-text">IPv4映射的IPv6地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6相较于IPv4的变化"><span class="nav-number">7.3.</span> <span class="nav-text">IPv6相较于IPv4的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMPv6"><span class="nav-number">7.4.</span> <span class="nav-text">ICMPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4向IPv6过渡的方案"><span class="nav-number">7.5.</span> <span class="nav-text">IPv4向IPv6过渡的方案</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Forwarding-and-Routing-存储和转发"><span class="nav-number">1.1.</span> <span class="nav-text">Forwarding and Routing ( 存储和转发 )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Forwarding（转发）"><span class="nav-number">1.1.1.</span> <span class="nav-text">Forwarding（转发）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Routing（路由）"><span class="nav-number">1.1.2.</span> <span class="nav-text">Routing（路由）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充"><span class="nav-number">1.1.3.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Connection-Setup（连接建立）"><span class="nav-number">1.1.4.</span> <span class="nav-text">Connection Setup（连接建立）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-Circuit-and-Datagram-Networks"><span class="nav-number">2.</span> <span class="nav-text">Virtual Circuit and Datagram Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Circuit-Networks-（虚电路网络）"><span class="nav-number">2.1.</span> <span class="nav-text">Virtual-Circuit Networks （虚电路网络）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组成"><span class="nav-number">2.1.1.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">2.1.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datagram-networks（数据报网络）"><span class="nav-number">2.2.</span> <span class="nav-text">Datagram networks（数据报网络）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚电路网络-VS-数据报网络"><span class="nav-number">2.3.</span> <span class="nav-text">虚电路网络 VS 数据报网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-inside-a-Router"><span class="nav-number">3.</span> <span class="nav-text">What’s inside a Router?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Router的两个功能"><span class="nav-number">3.1.</span> <span class="nav-text">Router的两个功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-ports"><span class="nav-number">3.2.</span> <span class="nav-text">Input ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种类型的交换"><span class="nav-number">3.3.</span> <span class="nav-text">三种类型的交换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-ports"><span class="nav-number">3.4.</span> <span class="nav-text">Output ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Where-does-Queuing-Occur"><span class="nav-number">3.5.</span> <span class="nav-text">Where does Queuing Occur?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送排队的时机"><span class="nav-number">3.5.1.</span> <span class="nav-text">发送排队的时机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存溢出时的策略"><span class="nav-number">3.5.2.</span> <span class="nav-text">缓存溢出时的策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-Internet-Protocol-网际协议"><span class="nav-number">4.</span> <span class="nav-text">IP(Internet Protocol, 网际协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Datagram-Format-（数据报结构）"><span class="nav-number">4.1.</span> <span class="nav-text">Datagram Format （数据报结构）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层只对Datagram首部进行校验"><span class="nav-number">4.1.1.</span> <span class="nav-text">网络层只对Datagram首部进行校验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可行性"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">可行性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存在的问题"><span class="nav-number">4.1.1.3.</span> <span class="nav-text">存在的问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何每个路由器都要对数据包进行重新打包？"><span class="nav-number">4.1.2.</span> <span class="nav-text">为何每个路由器都要对数据包进行重新打包？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4-Datagram-Fragmentation-（IPv4-数据报分片）"><span class="nav-number">4.2.</span> <span class="nav-text">IPv4 Datagram Fragmentation （IPv4 数据报分片）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么（何时）要进行分片？"><span class="nav-number">4.2.1.</span> <span class="nav-text">为什么（何时）要进行分片？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4用于实现分片的头部字段"><span class="nav-number">4.2.2.</span> <span class="nav-text">IPv4用于实现分片的头部字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个示例"><span class="nav-number">4.2.3.</span> <span class="nav-text">一个示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">4.2.4.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何IP分片重组只在目的主机进行"><span class="nav-number">4.2.5.</span> <span class="nav-text">为何IP分片重组只在目的主机进行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4-Addressing-（IPv4编址）"><span class="nav-number">4.3.</span> <span class="nav-text">IPv4 Addressing （IPv4编址）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP-address"><span class="nav-number">4.3.1.</span> <span class="nav-text">IP address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Interface（接口）"><span class="nav-number">4.3.2.</span> <span class="nav-text">Interface（接口）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Subnets（子网）"><span class="nav-number">4.3.3.</span> <span class="nav-text">Subnets（子网）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CIDR-Classless-Interdomain-Routing-无类型域间选路"><span class="nav-number">4.3.4.</span> <span class="nav-text">CIDR(Classless Interdomain Routing, 无类型域间选路)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Classful-Addressing（分类编址）"><span class="nav-number">4.3.5.</span> <span class="nav-text">Classful Addressing（分类编址）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Private-IP（私有IP地址-内网地址）"><span class="nav-number">4.3.6.</span> <span class="nav-text">Private IP（私有IP地址 / 内网地址）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的IP地址"><span class="nav-number">4.3.7.</span> <span class="nav-text">特殊的IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何辨别IP地址"><span class="nav-number">4.3.8.</span> <span class="nav-text">如何辨别IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">4.3.9.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP-Dynamic-Host-Configuration-Protocol-动态主机配置协议"><span class="nav-number">4.4.</span> <span class="nav-text">DHCP (Dynamic Host Configuration Protocol, 动态主机配置协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为何选用UDP"><span class="nav-number">4.4.1.</span> <span class="nav-text">为何选用UDP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4地址耗尽的解决措施"><span class="nav-number">4.5.</span> <span class="nav-text">IPv4地址耗尽的解决措施</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT-Network-Address-Translation-网络地址转换"><span class="nav-number">5.</span> <span class="nav-text">NAT (Network Address Translation, 网络地址转换)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ICPM-Internet-Control-Message-Protocol-互联网控制消息协议"><span class="nav-number">6.</span> <span class="nav-text">ICPM (Internet Control Message Protocol, 互联网控制消息协议)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-number">7.</span> <span class="nav-text">IPv6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#制定IPv6协议的动机"><span class="nav-number">7.1.</span> <span class="nav-text">制定IPv6协议的动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6-datagram-format"><span class="nav-number">7.2.</span> <span class="nav-text">IPv6 datagram format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">7.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报的一般格式"><span class="nav-number">7.2.2.</span> <span class="nav-text">IPv6数据报的一般格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报的首部"><span class="nav-number">7.2.3.</span> <span class="nav-text">IPv6数据报的首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报格式"><span class="nav-number">7.2.4.</span> <span class="nav-text">IPv6数据报格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充-1"><span class="nav-number">7.2.5.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4映射的IPv6地址"><span class="nav-number">7.2.6.</span> <span class="nav-text">IPv4映射的IPv6地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6相较于IPv4的变化"><span class="nav-number">7.3.</span> <span class="nav-text">IPv6相较于IPv4的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMPv6"><span class="nav-number">7.4.</span> <span class="nav-text">ICMPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4向IPv6过渡的方案"><span class="nav-number">7.5.</span> <span class="nav-text">IPv4向IPv6过渡的方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing-algorithms-（路由算法）"><span class="nav-number">8.</span> <span class="nav-text">Routing algorithms （路由算法）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Link-State-LS-Routing-Algorithms"><span class="nav-number">8.1.</span> <span class="nav-text">The Link-State (LS) Routing Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码"><span class="nav-number">8.1.1.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子-1"><span class="nav-number">8.1.2.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行链路状态路由算法得到的结果"><span class="nav-number">8.1.3.</span> <span class="nav-text">运行链路状态路由算法得到的结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Distance-Vector-DV-Routing-Algorithms"><span class="nav-number">8.2.</span> <span class="nav-text">The Distance-Vector(DV) Routing Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码-1"><span class="nav-number">8.2.1.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码说明"><span class="nav-number">8.2.2.</span> <span class="nav-text">伪代码说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link-cost-change"><span class="nav-number">8.2.3.</span> <span class="nav-text">Link-cost change:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#poison-reverse-毒性反转"><span class="nav-number">8.2.4.</span> <span class="nav-text">poison reverse(毒性反转)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DV-vs-LS"><span class="nav-number">8.3.</span> <span class="nav-text">DV vs LS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hierarchical-Routing（分层式路由）"><span class="nav-number">8.4.</span> <span class="nav-text">Hierarchical Routing（分层式路由）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing-in-the-Internet"><span class="nav-number">9.</span> <span class="nav-text">Routing in the Internet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RIP"><span class="nav-number">9.1.</span> <span class="nav-text">RIP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#转发表示例"><span class="nav-number">9.1.1.</span> <span class="nav-text">转发表示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSPF"><span class="nav-number">9.2.</span> <span class="nav-text">OSPF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BGP-边界网关协议"><span class="nav-number">9.3.</span> <span class="nav-text">BGP(边界网关协议)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态路由表的计算-（！！！圈重点）"><span class="nav-number">9.4.</span> <span class="nav-text">静态路由表的计算 （！！！圈重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题："><span class="nav-number">9.4.1.</span> <span class="nav-text">例题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解答："><span class="nav-number">9.4.2.</span> <span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单播、组播、广播、任播"><span class="nav-number">9.5.</span> <span class="nav-text">单播、组播、广播、任播</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brodcast-and-multicast-routing"><span class="nav-number">10.</span> <span class="nav-text">Brodcast and multicast routing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uncontrolled-Flooding（不可控洪泛）"><span class="nav-number">10.1.</span> <span class="nav-text">Uncontrolled Flooding（不可控洪泛）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controlled-Flooding（可控洪泛）"><span class="nav-number">10.2.</span> <span class="nav-text">Controlled Flooding（可控洪泛）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sequence-number-controlled-flooding-（序列号可控洪泛）"><span class="nav-number">10.2.1.</span> <span class="nav-text">Sequence-number-controlled flooding （序列号可控洪泛）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reverse-path-forwarding-RPF-反向路径转发"><span class="nav-number">10.2.2.</span> <span class="nav-text">Reverse path forwarding (RPF, 反向路径转发)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用生成树进行广播"><span class="nav-number">10.2.3.</span> <span class="nav-text">利用生成树进行广播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用于组播的协议"><span class="nav-number">10.3.</span> <span class="nav-text">用于组播的协议</span></a></li></ol></li></ol></div>
             
 
           </div>
