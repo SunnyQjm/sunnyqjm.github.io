@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习,笔记,计算机网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Link Layer: Introduction and Services 链路层实现相邻节点间的可靠数据传输 nodes(节点) =&amp;gt; 主机/端系统 和 路由器 links(链路) =&amp;gt; 连接两相邻节点间的通信频道    The Services Provided by the Link Layer（链路层所提供的服务）链路层 所提供的 最基本的服务 就是 在两个相邻节点见得单个通">
+<meta name="keywords" content="学习,笔记,计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 5 The Data Link Layer">
+<meta property="og:url" content="http://qjm253.cn/2018/05/21/computer_networking_05/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="Link Layer: Introduction and Services 链路层实现相邻节点间的可靠数据传输 nodes(节点) =&amp;gt; 主机/端系统 和 路由器 links(链路) =&amp;gt; 连接两相邻节点间的通信频道    The Services Provided by the Link Layer（链路层所提供的服务）链路层 所提供的 最基本的服务 就是 在两个相邻节点见得单个通">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_66.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_67.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_68.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_69.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_70.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_71.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_72.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_73.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_74.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_75.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_76.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_77.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_78.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_79.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_80.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_81.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_82.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_83.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_84.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_85.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_86.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_87.png">
+<meta property="og:updated_time" content="2018-05-22T07:39:54.328Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 5 The Data Link Layer">
+<meta name="twitter:description" content="Link Layer: Introduction and Services 链路层实现相邻节点间的可靠数据传输 nodes(节点) =&amp;gt; 主机/端系统 和 路由器 links(链路) =&amp;gt; 连接两相邻节点间的通信频道    The Services Provided by the Link Layer（链路层所提供的服务）链路层 所提供的 最基本的服务 就是 在两个相邻节点见得单个通">
+<meta name="twitter:image" content="http://qjm253.cn/img/computer_network/computer_network_66.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qjm253.cn/2018/05/21/computer_networking_05/"/>
+
+
+
+
+
+  <title>Chapter 5 The Data Link Layer | 建明 | Ming.J</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a9fa95ff997969441c084d8d73eacfb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-games">
+          <a href="/game/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gamepad"></i> <br />
+            
+            游戏
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/21/computer_networking_05/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter 5 The Data Link Layer</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-21T18:00:00+08:00">
+                2018-05-21
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+            <!--noindex-->
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/05/21/computer_networking_05/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count hc-comment-count" data-xid="2018/05/21/computer_networking_05/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+              <!--/noindex-->
+            
+          
+
+          
+          
+             <span id="/2018/05/21/computer_networking_05/" class="leancloud_visitors" data-flag-title="Chapter 5 The Data Link Layer">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="Link-Layer-Introduction-and-Services"><a href="#Link-Layer-Introduction-and-Services" class="headerlink" title="Link Layer: Introduction and Services"></a>Link Layer: Introduction and Services</h2><ul>
+<li>链路层实现相邻节点间的可靠数据传输</li>
+<li><strong>nodes</strong>(节点) =&gt; <strong>主机/端系统</strong> 和 <strong>路由器</strong></li>
+<li><strong>links</strong>(链路) =&gt; 连接两相邻节点间的通信频道</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="The-Services-Provided-by-the-Link-Layer（链路层所提供的服务）"><a href="#The-Services-Provided-by-the-Link-Layer（链路层所提供的服务）" class="headerlink" title="The Services Provided by the Link Layer（链路层所提供的服务）"></a>The Services Provided by the Link Layer（链路层所提供的服务）</h3><p><strong>链路层</strong> 所提供的 <strong>最基本的服务</strong> 就是 <strong>在两个相邻节点见得单个通信链路上转移datagram</strong></p>
+<ul>
+<li><h4 id="成帧（Framing）"><a href="#成帧（Framing）" class="headerlink" title="成帧（Framing）"></a>成帧（<strong><em>Framing</em></strong>）</h4><ul>
+<li>在 <strong>发送端</strong> 将构造数据帧，将datagram放入数据域，加头加尾（尾部是用来检测及纠错的），<strong>打包成帧</strong></li>
+<li>在 <strong>接收端解开</strong> 收到的 <strong>数据帧</strong>，将datagram传递给上层</li>
+</ul>
+</li>
+<li><h4 id="链路接入（Link-access）"><a href="#链路接入（Link-access）" class="headerlink" title="链路接入（Link access）"></a>链路接入（<strong><em>Link access</em></strong>）</h4><ul>
+<li><strong>MAC</strong> (<strong><em>Medium access control</em></strong>, 介质访问控制) 协议详细规定了数据帧何时如何发送到链路上</li>
+<li>MAC协议还用于当多个节点共享同一链路的时候，协调多个节点如何传递数据帧</li>
+</ul>
+</li>
+<li><h4 id="可靠数据传输（Relilable-delivery）"><a href="#可靠数据传输（Relilable-delivery）" class="headerlink" title="可靠数据传输（Relilable delivery）"></a>可靠数据传输（<strong><em>Relilable delivery</em></strong>）</h4><p>数据链路层可提供两相邻节点间的可靠数据传输（但不是必须的，大多数无线协议是不提供可靠数据传输的）</p>
+</li>
+<li><h4 id="流量控制（flow-control）"><a href="#流量控制（flow-control）" class="headerlink" title="流量控制（flow control）"></a>流量控制（<strong><em>flow control</em></strong>）</h4><p>调节接收端发包的速率，防止接收端缓存溢出</p>
+</li>
+<li><h4 id="差错检测（Error-detection）"><a href="#差错检测（Error-detection）" class="headerlink" title="差错检测（Error detection）"></a>差错检测（<strong><em>Error detection</em></strong>）</h4><p>通过添加错误检测位，在接收端可以对收到的数据帧进行错误检测</p>
+</li>
+<li><h4 id="差错纠正（Error-correction）"><a href="#差错纠正（Error-correction）" class="headerlink" title="差错纠正（Error correction）"></a>差错纠正（<strong><em>Error correction</em></strong>）</h4></li>
+<li><h4 id="半双工和全双工（Half-duplex-and-full-duplex）"><a href="#半双工和全双工（Half-duplex-and-full-duplex）" class="headerlink" title="半双工和全双工（Half-duplex and full-duplex）"></a>半双工和全双工（<strong><em>Half-duplex and full-duplex</em></strong>）</h4></li>
+</ul>
+</li>
+<li><h3 id="链路层的实现"><a href="#链路层的实现" class="headerlink" title="链路层的实现"></a>链路层的实现</h3><img src="/img/computer_network/computer_network_66.png" title="网络适配器与其他主机组件以及网络协议栈的关系">
+<p>数据链路层的实现是：硬件 + 软件</p>
+<ul>
+<li><strong>大部分功能在硬件（网卡）中实现</strong>：framing, link access, flow control, err dectection 等等</li>
+<li><strong>部分功能由运行在CPU上的软件完成</strong>：发送端从网络层接收datagram，以及接收端将解开frame得到的datagram传递给网络层等</li>
+<li><strong>硬件实现的效率高，可以做纠错等比较复杂的操作而不太影响性能</strong></li>
+<li>现今很多人致力于将网络层甚至传输层的一部分工作，比如Checksum放到网卡中用硬件来实现，虽然这于网络协议栈分层的思想相悖，但是确实可以提高网络性能</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Error-Detection-and-Correction-Techniques"><a href="#Error-Detection-and-Correction-Techniques" class="headerlink" title="Error-Detection and Correction Techniques"></a>Error-Detection and Correction Techniques</h2><ul>
+<li>奇偶校验（<strong><em>Parity checking</em></strong>）</li>
+<li>校验和（<strong><em>Checksum</em></strong>）</li>
+<li>循环冗余校验（<strong><em>Cyclic Redundancy Check</em></strong>）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="奇偶校验（Parity-checking）"><a href="#奇偶校验（Parity-checking）" class="headerlink" title="奇偶校验（Parity checking）"></a>奇偶校验（<strong><em>Parity checking</em></strong>）</h3><ul>
+<li><h4 id="奇校验和偶校验"><a href="#奇校验和偶校验" class="headerlink" title="奇校验和偶校验"></a>奇校验和偶校验</h4><ul>
+<li>奇校验：数据位上1的个数个校验位上1的个数之和为奇数</li>
+<li>偶校验：数据位上1的个数个校验位上1的个数之和为偶数</li>
+</ul>
+</li>
+<li><h4 id="One-bit-even-parity（单比特位偶校验）"><a href="#One-bit-even-parity（单比特位偶校验）" class="headerlink" title="One-bit even parity（单比特位偶校验）"></a>One-bit even parity（单比特位偶校验）</h4><img src="/img/computer_network/computer_network_67.png" title="单比特位偶校验图示">
+<ul>
+<li>存在的问题：当有偶数个bit为发送错误的时候，这种方式无法检测</li>
+<li><strong>可以用来检错，但是准确率不高</strong></li>
+</ul>
+</li>
+<li><h4 id="Two-dimensional-even-parity（二位偶校验）"><a href="#Two-dimensional-even-parity（二位偶校验）" class="headerlink" title="Two-dimensional even parity（二位偶校验）"></a>Two-dimensional even parity（二位偶校验）</h4><img src="/img/computer_network/computer_network_68.png" title="二位偶校验图示">
+<ul>
+<li>即使偶数位比特位发送错误，也能检测出来</li>
+<li>通过二维校验位的定位，可以精确到哪一个bit位发生错误，进而改正这个错误（接收端如果能自行改正错误将降低网络的整体时延，提升网络的性能）</li>
+<li><strong>可以检错，也可以纠错</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="校验和（Checksum）"><a href="#校验和（Checksum）" class="headerlink" title="校验和（Checksum）"></a>校验和（<strong><em>Checksum</em></strong>）</h3><p>通常发送端用校验和算法将让整个数据包的所有bit位参与计算，得到一个校验和（最简单的实现方式是将其看做一系列的数值，直接相加），在接收端再次计算这个校验和，并与收到的校验和逐bit比对</p>
+</li>
+<li><h3 id="循环冗余校验（Cyclic-Redundancy-Check）"><a href="#循环冗余校验（Cyclic-Redundancy-Check）" class="headerlink" title="循环冗余校验（Cyclic Redundancy Check）"></a>循环冗余校验（<strong><em>Cyclic Redundancy Check</em></strong>）</h3><img src="/img/computer_network/computer_network_69.png" title="循环冗余校验码格式">
+<ul>
+<li><h4 id="数据格式说明"><a href="#数据格式说明" class="headerlink" title="数据格式说明"></a>数据格式说明</h4><ul>
+<li><strong>前d位为数据域</strong></li>
+<li><strong>后r位为CRC码</strong></li>
+</ul>
+</li>
+<li><h4 id="生成多项式G"><a href="#生成多项式G" class="headerlink" title="生成多项式G"></a>生成多项式G</h4><ul>
+<li>生成多项式 <strong>G</strong> 共有 <strong>r + 1位</strong> （其中R位CRC码的长度）</li>
+<li>可能直接以 <strong>二进制的形式</strong> 给出</li>
+<li><p>也可能以 <strong>多项式的形式</strong> 给出（需要先转成二进制形式）</p>
+<p>Eg.: G = x<sup>4</sup> + x<sup>3</sup> + x  ==&gt; G : 11010</p>
+</li>
+</ul>
+</li>
+<li><h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><img src="/img/computer_network/computer_network_70.png" title="计算CRC码的栗子">
+<ul>
+<li>在data后面加上r位0用与计算</li>
+<li>其中里面每一步处理的时候执行的是 <strong>异或运算</strong></li>
+<li>若最后的结果位数不够r为，则要在前面补上足够的0</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Multiple-Access-Protocols（多路访问协议）"><a href="#Multiple-Access-Protocols（多路访问协议）" class="headerlink" title="Multiple Access Protocols（多路访问协议）"></a>Multiple Access Protocols（多路访问协议）</h2><ul>
+<li>网络的两种链路类型<ul>
+<li>point-to-point link (点对点链路) =&gt; 只有一个发送端和接收端</li>
+<li>brodcast link (广播链路) =&gt; 可能同时存在多个发送端和接收端在同一个链路上通信</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ul>
+<li><h4 id="多路访问问题（multiple-access-problem）"><a href="#多路访问问题（multiple-access-problem）" class="headerlink" title="多路访问问题（multiple access problem）"></a>多路访问问题（<strong><em>multiple access problem</em></strong>）</h4><p>当在同一个通信链路上同时存在多个发送端和接收端的时候，他们之间要进行通信，由于同一时刻必然只有一个接收端和发送端，如何确保并协调这些节点的通信就是 <strong>多路访问问题</strong> =&gt; <strong>多路访问协议</strong>（<strong><em>Multiple Access Protocol</em></strong>）就是致力于解决这个问题</p>
+</li>
+<li><h4 id="碰撞的发生及处理"><a href="#碰撞的发生及处理" class="headerlink" title="碰撞的发生及处理"></a>碰撞的发生及处理</h4><p>在广播链路中，通常一个节点发送数据，该链路连接的所有节点都会收到一份copy，如果同一时刻有两个发送端在发送数据，则接收端无法解析这些数据，这就发送了 <strong>碰撞</strong>（<strong><em>collide</em></strong>） =&gt; 通常一旦碰撞发生，接收端就会选择丢弃这些包，这就相当于丢包发送了。这一段时间，两个发送端发送数据都不会被成功接收，链路并没有成功传输数据，<strong>浪费了带宽资源</strong>。而且通常不作处理的话，接入的节点越多，发生碰撞的几率越高，带宽就被大量的浪费</p>
+</li>
+<li><h4 id="多路访问协议分类"><a href="#多路访问协议分类" class="headerlink" title="多路访问协议分类"></a>多路访问协议分类</h4><ul>
+<li><strong>信道分隔协议</strong>（<strong><em>channel partitioning protocols</em></strong>）</li>
+<li><strong>随机访问协议</strong>（<strong><em>random access protocols</em></strong>）</li>
+<li><strong>轮询协议</strong>（<strong><em>taking-turns protocols</em></strong>）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Channel-Partitioning-Protocols"><a href="#Channel-Partitioning-Protocols" class="headerlink" title="Channel Partitioning Protocols"></a>Channel Partitioning Protocols</h3><img src="/img/computer_network/computer_network_71.png" title="4个节点的TDM和FDM分隔信道图示">
+<ul>
+<li>采用固定的资源分配方式，<strong>资源独占独享</strong></li>
+<li><strong>资源利用率低</strong></li>
+<li><strong>不会发生冲突</strong></li>
+<li>TDM 和 FDM</li>
+</ul>
+</li>
+<li><h3 id="Random-Access-Protocols"><a href="#Random-Access-Protocols" class="headerlink" title="Random Access Protocols"></a>Random Access Protocols</h3><blockquote>
+<p>使用随机访问协议时，一个 <strong>正在传输的节点</strong> 总是可以 <strong>享用所有的带宽</strong>。当 <strong>发生碰撞</strong> 时，所有 <strong>参与碰撞的节点</strong> 都会 <strong>重传数据包</strong>。但并不是立即重传，而是 <strong>随机等待一段时间之后再重传</strong>（<strong><em>It waits a random delay before retransmitting th frame</em></strong>）。而且每个参与碰撞的节点<strong>产生时延都是独立且随机的</strong>，这样就可以保证一部分节点可以错开其它节点，不发生冲突而成功传送数据包。</p>
+</blockquote>
+<ul>
+<li><h4 id="Sloted-ALOHA-（分时隙的ALOHA协议）"><a href="#Sloted-ALOHA-（分时隙的ALOHA协议）" class="headerlink" title="Sloted ALOHA （分时隙的ALOHA协议）"></a>Sloted ALOHA （分时隙的ALOHA协议）</h4><ul>
+<li><h5 id="假设"><a href="#假设" class="headerlink" title="假设"></a>假设</h5><ul>
+<li><p>所有数据帧的长度都为L比特（<strong><em>All frames consist of exactly L bits</em></strong>）</p>
+</li>
+<li><p>每个时隙的大小为L/R秒，也就是说一个在 <strong>一个时隙内刚好可以传输一个数据帧</strong> （<strong><em>Time is divided int oslots of size L/R seconds, that is, a slot equals the time to transmit one frame</em></strong>）</p>
+</li>
+<li><p><strong>节点只在时隙开始的时候传递数据包</strong>（<strong><em>Nodes start to transmit framges only at the beginings of slots</em></strong>） =&gt; 也就是说在时隙内不会有其它未在传输的节点试图传递数据</p>
+</li>
+<li><p>所有节点都是同步的，这样所有节点都能知道时隙什么时候开始（<strong><em>The nodes are synchronized so that each node knows when the slots begin</em></strong>）=&gt; 前面的是书上的原话，同步和异步的定义在不同的场景下的定义可能不一样。这里所说的同步应该是对时间轴进行同步，所有实现的时候，只要时隙一开始，所有节点都能知道，并单独决定是否发送数据帧。</p>
+</li>
+<li><p>一旦两个或更多的数据帧在同一时隙内发生了 <strong>冲突</strong>（<strong><em>collide</em></strong>），所有的节点都能在时隙结束前知道发生了冲突。（<strong><em>If two or more frames collide in a slot, then all the nodes detect the collission event before the slot ends</em></strong>）</p>
+</li>
+</ul>
+</li>
+<li><h5 id="每个节点所执行的操作"><a href="#每个节点所执行的操作" class="headerlink" title="每个节点所执行的操作"></a>每个节点所执行的操作</h5><ul>
+<li><p>当节点 <strong>有一个新的数据帧要发送</strong> 时，它会 <strong>等待下一个时隙的开始</strong>，并试图 <strong>在下一个时隙内发送整个数据帧</strong> （<strong><em>When the node has a fresh frame to send, it waits until the begining of the next slot and transmit the entire frame in the slot.</em></strong>）</p>
+</li>
+<li><p>如果 <strong>没有发送冲突</strong> ，则节点 <strong>认为数据包已成功传输且不用考虑重传</strong>，如果还有数据帧未发的话，这个时候节点就可以准备发送下一个数据帧。（<strong><em>If there isn’t collision, the node has successfully transmited its frame and thus need not consider restransmitting the frame. The node can prepare a new frame for transimission, if it has one</em></strong>）</p>
+</li>
+<li><p>如果 <strong>发生了冲突</strong>，节点能够在时隙结束前获悉，<strong>节点会在接下来的连续时隙内以概率p重传数据帧</strong>，直到这个数据帧被成功发送且没有发送冲突。（<strong><em>If there is a collision, the node detects the collision before the end of the slot. The node restransmits its frame in each subsequent slot with probability p until the frame is transimited without a collision</em></strong>）</p>
+</li>
+</ul>
+</li>
+<li><h5 id="以概率p发送数据帧"><a href="#以概率p发送数据帧" class="headerlink" title="以概率p发送数据帧"></a>以概率p发送数据帧</h5><p>这是在发送冲突以后，节点会重传因为冲突而未传输成功的数据帧。但是为了避免下一时隙的大概率冲突，Slotted ALOHA协议选择让每个节点以概率p重传，也就是说<strong>发送冲突的每个节点在下一时隙有概率p的可能重传数据包，有 (1 - p) 的可能选择等待</strong>（值得注意的是，选择等待的节点在没有重传成功之前，都会在下一时隙开始时以概率p重传发送冲突的数据包） 。而且每个节点在未重传成功之前，都会每次以概率p发送，且是各自独立的，这也就实现了随机访问协议中 <strong>当冲突发生的时候，每个节点会独立的随机等待一段时间</strong> 的特性</p>
+</li>
+<li><h5 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h5><img src="/img/computer_network/computer_network_72.png" title="Slotted ALOHA协议执行示例">
+<p>上面假设三个节点各有一个数据包需要发送</p>
+<ul>
+<li>1时刻，3个节点都试图发送数据，发送冲突</li>
+<li>2时刻，3个节点都有需要重传的数据包，但是选择等待</li>
+<li>3时刻node3选择等待，但是另外连个节点选择发送，发送冲突</li>
+<li>4时刻只有node2选择发送，发送成功（至此，node2已经没有需要发送的数据帧）</li>
+<li>5时刻node1和node3都选择等待</li>
+<li>6时刻只有node1选择发送，发送成功（至此，node1已经没有需要发送的数据帧）</li>
+<li>7时刻，node3成功发送数据帧</li>
+</ul>
+<p>可以看出，发送3个数据帧，却用了7个时隙，浪费了带宽</p>
+</li>
+<li><h5 id="Slotted-ALOHA-协议的优点"><a href="#Slotted-ALOHA-协议的优点" class="headerlink" title="Slotted ALOHA 协议的优点"></a>Slotted ALOHA 协议的优点</h5><ul>
+<li>单节点的瞬时带宽可达到最大带宽</li>
+<li>时隙的分配高度分散，只给需要传输数据的节点分配时隙（当系统中每个时隙只有一个节点需要发送数据的时候，该协议可以工作的很好）</li>
+<li>实现简单</li>
+</ul>
+</li>
+<li><h5 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h5><ul>
+<li>有可能发生碰撞进而浪费时隙（而且参与的节点越多，发生碰撞的可能性越大）</li>
+<li>需要严格的时钟同步</li>
+</ul>
+</li>
+<li>当有 <strong>大量的节点参与</strong> 的时候，<strong>时隙（带宽）的最大利用率</strong> 大概只有 <strong>1 / e ≈ 37%</strong></li>
+</ul>
+</li>
+<li><h4 id="Aloha-pure-ALOHA"><a href="#Aloha-pure-ALOHA" class="headerlink" title="Aloha (pure ALOHA)"></a>Aloha (pure ALOHA)</h4><img src="/img/computer_network/computer_network_73.png" title="Pure ALOHA协议执行示例">
+<p>纯的ALOHA协议没有时钟同步。当有一个数据帧要发送的时候就立即发送，当发生冲突的时候就立即以概率p重传，以概率（1  - p）等待传输一个数据帧所需要的时间。=&gt; 冲突发生的概率更大了，当有 <strong>大量的节点参与</strong> 的时候，<strong>带宽的最大利用率</strong> 大概只有 <strong>1 / 2e ≈ 18.5%</strong></p>
+</li>
+<li><h4 id="Carrier-Sense-Multiple-Access-CSMA-载波侦听多路访问"><a href="#Carrier-Sense-Multiple-Access-CSMA-载波侦听多路访问" class="headerlink" title="Carrier Sense Multiple Access (CSMA, 载波侦听多路访问)"></a>Carrier Sense Multiple Access (CSMA, 载波侦听多路访问)</h4><ul>
+<li><h5 id="文明交流所必备的两个素质"><a href="#文明交流所必备的两个素质" class="headerlink" title="文明交流所必备的两个素质"></a>文明交流所必备的两个素质</h5><ul>
+<li><p><strong><em>Listen before speaking</em></strong> ：如果别人在啊讲话，则等别人说完再发表言论。在网络世界中，就是当你有一个数据帧需要发送的时候，而这个时候其它节点正在发送数据帧，则当前节点等待一段时间后再看是否还有节点在传输，仍有则继续等待，直到信道空闲的时候，发送数据。=&gt; <strong>载波侦听</strong>（<strong><em>carrier sensing</em></strong>）</p>
+</li>
+<li><p><strong><em>If someone else begins talking at the same time, stop talking</em></strong> ：如果在发送数据的过程中，发现其它节点也在发送数据，则停止发送数据。=&gt; <strong>冲突检测</strong>（<strong><em>collision dection</em></strong>）</p>
+</li>
+</ul>
+</li>
+<li><h5 id="CSMA的大致原理"><a href="#CSMA的大致原理" class="headerlink" title="CSMA的大致原理"></a>CSMA的大致原理</h5><p>发送数据帧之前先侦听信道，如果信道为忙则等待一段时间后再尝试发送，如果为闲，则立即发送。</p>
+</li>
+<li><h5 id="CSMA仍然存在冲突"><a href="#CSMA仍然存在冲突" class="headerlink" title="CSMA仍然存在冲突"></a>CSMA仍然存在冲突</h5><p>当 <strong>一个节点A发送数据到信道中，到另一个节点B可以侦听到节点A正在发送数据之间存在一段时延</strong>，如果在这短时间内，节点B刚好有数据发送，那么由于它还没有检测到A正在发送数据，就会认为当前信道是空闲的，接着B就开始发送数据，这样冲突就出现了。</p>
+</li>
+<li><h5 id="不侦听信道，冲突发生时不处理"><a href="#不侦听信道，冲突发生时不处理" class="headerlink" title="不侦听信道，冲突发生时不处理"></a>不侦听信道，冲突发生时不处理</h5><img src="/img/computer_network/computer_network_74.png" title="不侦听信道，冲突发生时不处理">
+</li>
+<li><h5 id="侦听信道，冲突发生时停止发送"><a href="#侦听信道，冲突发生时停止发送" class="headerlink" title="侦听信道，冲突发生时停止发送"></a>侦听信道，冲突发生时停止发送</h5><img src="/img/computer_network/computer_network_75.png" title="侦听信道，冲突发生时停止发送">
+</li>
+<li><h5 id="Nonpersistent-CSMA-gt-不持续侦听信道"><a href="#Nonpersistent-CSMA-gt-不持续侦听信道" class="headerlink" title="Nonpersistent CSMA =&gt; 不持续侦听信道"></a>Nonpersistent CSMA =&gt; 不持续侦听信道</h5><ul>
+<li>当节点有数据需要发送的时候，信道为闲则发</li>
+<li>信道为忙，则等待一段时间后在尝试发送</li>
+</ul>
+</li>
+<li><h5 id="1-persistent-CSMA"><a href="#1-persistent-CSMA" class="headerlink" title="1-persistent CSMA"></a>1-persistent CSMA</h5><ul>
+<li>信道为闲，则发</li>
+<li>信道为忙，则持续侦听信道，知道信道为闲，然后以概率1发数据（当两个节点同时侦听到信道闲，并都以概率1发数据，就发生了冲突）</li>
+</ul>
+</li>
+<li><h5 id="p-persistent-CSMA"><a href="#p-persistent-CSMA" class="headerlink" title="p-persistent CSMA"></a>p-persistent CSMA</h5><ul>
+<li>信道为闲，则发</li>
+<li>信道为忙，则持续侦听信道，知道信道为闲，然后以概率p发数据</li>
+</ul>
+</li>
+<li><h5 id="CSMA-with-collision-detection-CSMA-CD-带冲突检测的载波侦听多路访问协议"><a href="#CSMA-with-collision-detection-CSMA-CD-带冲突检测的载波侦听多路访问协议" class="headerlink" title="CSMA with collision detection (CSMA/CD, 带冲突检测的载波侦听多路访问协议)"></a>CSMA with collision detection (CSMA/CD, 带冲突检测的载波侦听多路访问协议)</h5><ul>
+<li>要求节点必须全双工工作（发送数据包的同时也尝试接收数据包），<strong>当检测到冲突时</strong>（如果发送数据包的时候收到其他节点发送的数据包就表示发送了冲突），<strong>立即停止发送数据包</strong> =&gt; <strong>可以把冲突带来损失降低</strong></li>
+<li>目前为止，所有的无线传输都是半双工的，故不能采用CSMA/CD</li>
+</ul>
+</li>
+<li><h5 id="CSMA-with-collistion-avoid-CSMA-CA-带冲突避免的载波侦听多路访问协议"><a href="#CSMA-with-collistion-avoid-CSMA-CA-带冲突避免的载波侦听多路访问协议" class="headerlink" title="CSMA with collistion avoid (CSMA/CA, 带冲突避免的载波侦听多路访问协议)"></a>CSMA with collistion avoid (CSMA/CA, 带冲突避免的载波侦听多路访问协议)</h5><p>因为无线传输时半双工的，无法再发包的同时检测冲突，故一旦冲突发生，发包也不会停止，故应该尽量避免冲突</p>
+</li>
+</ul>
+</li>
+<li><h4 id="Taking-Turns-Protocols（轮流协议）"><a href="#Taking-Turns-Protocols（轮流协议）" class="headerlink" title="Taking-Turns Protocols（轮流协议）"></a>Taking-Turns Protocols（轮流协议）</h4><ul>
+<li><h5 id="polling-protocol-轮询协议"><a href="#polling-protocol-轮询协议" class="headerlink" title="polling protocol (轮询协议)"></a>polling protocol (轮询协议)</h5><p>主节点对每个节点进行轮询，只要当被询问时才可以发送数据</p>
+<ul>
+<li>优点：没有冲突，没有空时隙</li>
+<li>缺点：会有询问延时，需要主节点，会有单点故障</li>
+</ul>
+</li>
+<li><h5 id="token-passing-protocol（令牌传递协议）"><a href="#token-passing-protocol（令牌传递协议）" class="headerlink" title="token-passing protocol（令牌传递协议）"></a>token-passing protocol（令牌传递协议）</h5><p>一个特殊的帧被作为令牌，在节点之间按特定的顺序传递，只有持有令牌的节点才可以发送数据（且每次发送的数据有上限）</p>
+<ul>
+<li>优点：不需要主节点，没有冲突，没有空时隙</li>
+<li>缺点：可能有些节点中途宕机，导致令牌无法传递，或者持有令牌后宕机，导致令牌丢失等等</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="Local-Area-Networks-LANs-本地局域网"><a href="#Local-Area-Networks-LANs-本地局域网" class="headerlink" title="Local Area Networks (LANs, 本地局域网)"></a>Local Area Networks (LANs, 本地局域网)</h4><img src="/img/computer_network/computer_network_76.png" title="LAN">
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Link-Layer-Address-（链路层寻址）"><a href="#Link-Layer-Address-（链路层寻址）" class="headerlink" title="Link-Layer Address （链路层寻址）"></a>Link-Layer Address （链路层寻址）</h2></blockquote>
+<ul>
+<li><h3 id="MAC-Address"><a href="#MAC-Address" class="headerlink" title="MAC Address"></a>MAC Address</h3><img src="/img/computer_network/computer_network_77.png" title="每个连接到LAN的网络适配器都有一个唯一的MAC地址">
+<ul>
+<li>MAC地址是 <strong>数据链路层的地址</strong>，同时也是数据链路层所采用的编址方式</li>
+<li><strong>长度为48 bits</strong>，常用12个16进制的数字表示（2个一组，6组）</li>
+<li>每个网络适配器上有一个网路地址，网卡出厂的时候的MAC地址是全球唯一的（是由IEEE统一管理的），但是现在可以用软件修改网络适配器的MAC地址，这里仍然假设它是唯一且不变的。</li>
+</ul>
+</li>
+<li><h3 id="Address-Resolution-Protocol-ARP-地址解析协议"><a href="#Address-Resolution-Protocol-ARP-地址解析协议" class="headerlink" title="Address Resolution Protocol (ARP, 地址解析协议)"></a>Address Resolution Protocol (ARP, 地址解析协议)</h3><blockquote>
+<p>ARP 协议实现的是IP地址到MAC地址的映射</p>
+</blockquote>
+<img src="/img/computer_network/computer_network_78.png" title="每个节点都有网络层地址和链路层地址">
+<ul>
+<li><p>当 <strong>一个节点发送一个frame</strong> 时，实际上所有在 <strong>同一个子网内的节点都会收到</strong> 一个copy，只是在链路层做了一层判断，若 <strong>该frame的目的MAC地址与本节点的MAC地址匹配则解包，传递给上层，否则直接丢弃</strong>。</p>
+</li>
+<li><p><strong>每一个</strong> 藉由网络适配器在局域网内通信的 <strong>节点都会在内存中维护一张 ARP table</strong>（地址映射表），保存了 <strong>当前局域网内所有已知主机的IP地址与MAC地址的映关系</strong>。（且映射表中的每一个表项都有一个TTL，一旦过期便会移除该表项）</p>
+</li>
+<li><p>当欲发送的frame的目标IP在本地ARP table中 <strong>找不到对应的映射时</strong> ，节点 <strong>发送一个APR query package</strong>，目的MAC地址为全1，作为广播，只有与目的IP匹配的设备会返回一个正常的数据帧，节点再记录下IP地址与返回消息中包含的目标节点的MAC地址的映射。</p>
+<img src="/img/computer_network/computer_network_79.png" title="ARP table">
+</li>
+<li><p><strong>ARP协议是即插即用的</strong></p>
+</li>
+<li><p><strong>MAC地址只在本局域网内有效</strong></p>
+<img src="/img/computer_network/computer_network_80.png" title="一个路由器连接两个子网">
+<p>=&gt; <strong>数据帧在穿越路由器的时候链路层首部的源MAC地址和目的MAC地址都要修改</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Ethernet-以太网"><a href="#Ethernet-以太网" class="headerlink" title="Ethernet (以太网)"></a>Ethernet (以太网)</h2><ul>
+<li>它是互联网中有线网络通信的事实标准</li>
+<li>所采用的MAC (<strong><em>Multiple Access Control</em></strong>, 多路访问控制) 协议为 <strong>1-persistent CSMA/CD</strong> (<strong><em>Carrier Sense Multiple Access with Collide Detection</em></strong>, 带冲突检测的载波侦听多路访问协议)</li>
+<li>以太网相较于其他有线局域网最大的优势：<strong>实现简单，价格便宜</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Ethernet-Frame-Structure-以太网帧结构"><a href="#Ethernet-Frame-Structure-以太网帧结构" class="headerlink" title="Ethernet Frame Structure (以太网帧结构)"></a>Ethernet Frame Structure (以太网帧结构)</h3><img src="/img/computer_network/computer_network_81.png" title="以太网帧结构2">
+<ul>
+<li><strong>Preamble</strong> (<strong><em>8 bytes</em></strong>) : 前序/序文，不算在以太网帧长度里面<ul>
+<li><strong>Dest. address</strong> (<strong><em>6 bytes</em></strong>) : 目的端MAC地址节点A向B发一个数据包，在数据包到达B之前，B恰好要想A发一个数据包，此时因未收到A发的包，故认为信道空闲，B向A发一个包。在B收到A的包后，意识到发送了冲突，停止发送数据包。<em>**</em></li>
+</ul>
+</li>
+<li><strong>Source address</strong> (<strong><em>6 bytes</em></strong>) : 源端MAC地址</li>
+<li><strong>Type</strong> : 标识使用的是哪个网络层协议</li>
+<li><strong>Data</strong> : 数据域</li>
+<li><strong>CRC</strong> : 冗余校验码</li>
+</ul>
+<p>=&gt; <strong>以太网frame的长度范围：64 bytes ~ 1518 bytes</strong> (其中最大是因为协议规定了MTU，需要有最小长度的原因稍后会解释)</p>
+</li>
+<li><h3 id="CSMA-CD-Thernet’s-Multiple-Access-Protocol"><a href="#CSMA-CD-Thernet’s-Multiple-Access-Protocol" class="headerlink" title="CSMA/CD: Thernet’s Multiple Access Protocol"></a>CSMA/CD: Thernet’s Multiple Access Protocol</h3><ul>
+<li>信道空闲时，立即发送，若信道为忙，则持续侦听信道 =&gt; <strong>持续侦听</strong></li>
+<li>信道侦听过程中，一旦信道再次空闲，则以概率1发送数据包 =&gt; <strong>1-persistent</strong></li>
+<li>在边发送数据的同时，边接收数据 =&gt; <strong>发送数据过程中如果收到数据包则表示发送了冲突</strong></li>
+<li>一旦<strong>发生冲突</strong>，立即<strong>停止发送数据包</strong>，并<strong>广播一个信号</strong>（告知其它用户发送冲突了），同时<strong>等待一段时间</strong>（具体等待的时间由 <strong>“二进制退避算法”</strong> 求得）</li>
+</ul>
+</li>
+<li><h3 id="二进制退避算法"><a href="#二进制退避算法" class="headerlink" title="* 二进制退避算法"></a>* 二进制退避算法</h3><p>{0， 1， 2， ···， 2<sup>m</sup> - 1}</p>
+<ul>
+<li>其中m是发生冲突的次数</li>
+<li>随机选择一个元素 x 512 bits times</li>
+<li><strong>bit times</strong>: 在当前网络环境下传输1 bit所需要的时间</li>
+<li><strong>冲突10次以后集合不在扩大</strong>，即集合最大为1024个元素。<strong>冲突16次以后直接丢弃该包</strong>，不再传输</li>
+</ul>
+</li>
+<li><h3 id="为什么以太网帧的长度最小为64-bits？"><a href="#为什么以太网帧的长度最小为64-bits？" class="headerlink" title="为什么以太网帧的长度最小为64 bits？"></a>为什么以太网帧的长度最小为64 bits？</h3><ul>
+<li><h4 id="数据帧长度不够长所引发的问题"><a href="#数据帧长度不够长所引发的问题" class="headerlink" title="数据帧长度不够长所引发的问题"></a>数据帧长度不够长所引发的问题</h4><img src="/img/computer_network/computer_network_82.png" title="数据帧长度不够长所引发的问题">
+<p>节点A向B发一个数据包，在数据包到达B之前，B恰好要想A发一个数据包，此时因未收到A发的包，故认为信道空闲，B向A发一个包。在B收到A的包后，意识到发送了冲突，停止发送数据包。<strong>如果A在B发的包到达A之前就已经将数据包发送完毕了，即A发的数据包不够长的情况下，A可能以为数据包发送成功了吗，而实际上是发送冲突了</strong></p>
+</li>
+<li><h4 id="为什么是64个字节"><a href="#为什么是64个字节" class="headerlink" title="为什么是64个字节"></a>为什么是64个字节</h4><img src="/img/computer_network/computer_network_83.png" title="为什么是64个字节">
+</li>
+</ul>
+</li>
+<li><h3 id="CSMA-CD-efficiency"><a href="#CSMA-CD-efficiency" class="headerlink" title="CSMA/CD efficiency"></a>CSMA/CD efficiency</h3><img src="/img/computer_network/computer_network_84.png" title="CSMA/CD efficiency">
+<ul>
+<li>当d<sub>prop</sub> -&gt; 0，或d<sub>trans</sub> -&gt; ∞，效率 -&gt; 1</li>
+<li>数据包长度越长，节点间距离越短，效率越高</li>
+<li>节点数据↑，发送冲突的可能性↑，效率↓</li>
+</ul>
+</li>
+<li><h3 id="不同的以太网标准"><a href="#不同的以太网标准" class="headerlink" title="不同的以太网标准"></a>不同的以太网标准</h3><img src="/img/computer_network/computer_network_85.png" title="不同的以太网标准">
+<ul>
+<li>T开头的都是双绞线</li>
+<li>所有非T开头的都是光纤</li>
+<li>同轴电缆的格式：10Base2</li>
+</ul>
+</li>
+</ul>
+<p>=&gt; <strong>以太网负载在30%以内的时候性能很好，基本不丢包，但超过30%就会发生一系列的问题</strong></p>
+<blockquote>
+<h2 id="Link-layer-Switches-链路层交换机"><a href="#Link-layer-Switches-链路层交换机" class="headerlink" title="Link-layer Switches (链路层交换机)"></a>Link-layer Switches (链路层交换机)</h2></blockquote>
+<ul>
+<li><h3 id="几种常见网络设备区别"><a href="#几种常见网络设备区别" class="headerlink" title="几种常见网络设备区别"></a>几种常见网络设备区别</h3><ul>
+<li><strong>中继器</strong>（<strong><em>repeter</em></strong>）：物理层设备 =&gt; <strong>将信号放大后转发</strong></li>
+<li><strong>集线器</strong>（<strong><em>hubs</em></strong>）：物理层设备 =&gt; <strong>不能隔离冲突域</strong>（集线器是一种特殊的中继器）</li>
+<li><strong>网桥</strong>（<strong><em>Bridge</em></strong>）：二层网络设备 =&gt; <strong>可隔离冲突域</strong></li>
+<li><strong>交换机</strong>（<strong><em>Switches</em></strong>）：二层网络设备 =&gt; <strong>可隔离冲突域</strong></li>
+<li><strong>路由器</strong>（<strong><em>Router</em></strong>）：3层网络设备 =&gt; <strong>可隔离广播域</strong></li>
+</ul>
+<p>=&gt; 网桥和交换机的功能基本一致，不过 <strong>网桥是二段口的，而交换机是多端口</strong> 的，同时 <strong>交换机还兼备“自学习”</strong> 等功能</p>
+</li>
+<li><h3 id="冲突域和广播域"><a href="#冲突域和广播域" class="headerlink" title="冲突域和广播域"></a>冲突域和广播域</h3><ul>
+<li><strong>冲突域</strong>：在同一个冲突域的两个设备同时通信会导致冲突</li>
+<li><strong>广播域</strong>：在同一个广播域中的设备可以互相广播</li>
+</ul>
+</li>
+<li><h3 id="交换机（Switches）"><a href="#交换机（Switches）" class="headerlink" title="交换机（Switches）"></a>交换机（Switches）</h3><ul>
+<li>是 <strong>链路层设备</strong>，比Hub更智能，其重要作用 =&gt; <strong>存储转发以太网帧</strong></li>
+<li><strong>对主机透明</strong></li>
+<li><strong>即插即用</strong></li>
+<li><strong>自学习</strong></li>
+<li>允许多路同步传输 =&gt; <strong>交换机隔离了冲突域</strong></li>
+</ul>
+</li>
+<li><h3 id="Switch-table-and-self-learn"><a href="#Switch-table-and-self-learn" class="headerlink" title="Switch table and self-learn"></a>Switch table and self-learn</h3><blockquote>
+<p>交换机通过自学习填充交换表</p>
+</blockquote>
+<ul>
+<li><h4 id="self-learn（自学习）"><a href="#self-learn（自学习）" class="headerlink" title="self-learn（自学习）"></a>self-learn（自学习）</h4><p>交换机通过自学习可以在 Switch table中记录下从哪个端口可以到达哪个主机（下面建立交换表的过程中会详细讲述自学习）</p>
+</li>
+<li><h4 id="Switch-table"><a href="#Switch-table" class="headerlink" title="Switch table"></a>Switch table</h4><img src="/img/computer_network/computer_network_86.png" title="交换表">
+<ul>
+<li><p>交换表初始时为空</p>
+</li>
+<li><p>当收到一个frame时，记录下发送端的MAC地址以及从哪个端口进来的，并去查询交换表中有无到目的主机MAC地址对应的记录，若有则直接转发到对应端口，若无，执行下一步</p>
+</li>
+<li><p>若交换表中无对应的记录，则向所有的端口广播一个消息，目的MAC地址设置为目的主机，目的主机收到之后会回发一个数据包，交换机记录下其MAC地址以及从哪个端口可达。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>交换机可以将一个子网分隔成多个局域网</strong></p>
+</li>
+<li><h3 id="hubs-routers-switches的比较"><a href="#hubs-routers-switches的比较" class="headerlink" title="hubs, routers, switches的比较"></a>hubs, routers, switches的比较</h3><img src="/img/computer_network/computer_network_87.png" title="hubs, routers, switches的比较">
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/19/computer_networking_04/" rel="next" title="Chapter 4 The Network Layer">
+                <i class="fa fa-chevron-left"></i> Chapter 4 The Network Layer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="hypercomments_widget"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar-r.jpg"
+                alt="建明 | Ming.J" />
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Link-Layer-Introduction-and-Services"><span class="nav-number">1.</span> <span class="nav-text">Link Layer: Introduction and Services</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Services-Provided-by-the-Link-Layer（链路层所提供的服务）"><span class="nav-number">1.1.</span> <span class="nav-text">The Services Provided by the Link Layer（链路层所提供的服务）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#成帧（Framing）"><span class="nav-number">1.1.1.</span> <span class="nav-text">成帧（Framing）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#链路接入（Link-access）"><span class="nav-number">1.1.2.</span> <span class="nav-text">链路接入（Link access）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可靠数据传输（Relilable-delivery）"><span class="nav-number">1.1.3.</span> <span class="nav-text">可靠数据传输（Relilable delivery）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流量控制（flow-control）"><span class="nav-number">1.1.4.</span> <span class="nav-text">流量控制（flow control）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#差错检测（Error-detection）"><span class="nav-number">1.1.5.</span> <span class="nav-text">差错检测（Error detection）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#差错纠正（Error-correction）"><span class="nav-number">1.1.6.</span> <span class="nav-text">差错纠正（Error correction）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#半双工和全双工（Half-duplex-and-full-duplex）"><span class="nav-number">1.1.7.</span> <span class="nav-text">半双工和全双工（Half-duplex and full-duplex）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#链路层的实现"><span class="nav-number">1.2.</span> <span class="nav-text">链路层的实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Error-Detection-and-Correction-Techniques"><span class="nav-number">2.</span> <span class="nav-text">Error-Detection and Correction Techniques</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#奇偶校验（Parity-checking）"><span class="nav-number">2.1.</span> <span class="nav-text">奇偶校验（Parity checking）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#奇校验和偶校验"><span class="nav-number">2.1.1.</span> <span class="nav-text">奇校验和偶校验</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#One-bit-even-parity（单比特位偶校验）"><span class="nav-number">2.1.2.</span> <span class="nav-text">One-bit even parity（单比特位偶校验）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Two-dimensional-even-parity（二位偶校验）"><span class="nav-number">2.1.3.</span> <span class="nav-text">Two-dimensional even parity（二位偶校验）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#校验和（Checksum）"><span class="nav-number">2.2.</span> <span class="nav-text">校验和（Checksum）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环冗余校验（Cyclic-Redundancy-Check）"><span class="nav-number">2.3.</span> <span class="nav-text">循环冗余校验（Cyclic Redundancy Check）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据格式说明"><span class="nav-number">2.3.1.</span> <span class="nav-text">数据格式说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成多项式G"><span class="nav-number">2.3.2.</span> <span class="nav-text">生成多项式G</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">2.3.3.</span> <span class="nav-text">举个栗子</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiple-Access-Protocols（多路访问协议）"><span class="nav-number">3.</span> <span class="nav-text">Multiple Access Protocols（多路访问协议）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Introduction"><span class="nav-number">3.1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#多路访问问题（multiple-access-problem）"><span class="nav-number">3.1.1.</span> <span class="nav-text">多路访问问题（multiple access problem）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#碰撞的发生及处理"><span class="nav-number">3.1.2.</span> <span class="nav-text">碰撞的发生及处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#多路访问协议分类"><span class="nav-number">3.1.3.</span> <span class="nav-text">多路访问协议分类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Channel-Partitioning-Protocols"><span class="nav-number">3.2.</span> <span class="nav-text">Channel Partitioning Protocols</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Random-Access-Protocols"><span class="nav-number">3.3.</span> <span class="nav-text">Random Access Protocols</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sloted-ALOHA-（分时隙的ALOHA协议）"><span class="nav-number">3.3.1.</span> <span class="nav-text">Sloted ALOHA （分时隙的ALOHA协议）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#假设"><span class="nav-number">3.3.1.1.</span> <span class="nav-text">假设</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#每个节点所执行的操作"><span class="nav-number">3.3.1.2.</span> <span class="nav-text">每个节点所执行的操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#以概率p发送数据帧"><span class="nav-number">3.3.1.3.</span> <span class="nav-text">以概率p发送数据帧</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#举个栗子-1"><span class="nav-number">3.3.1.4.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Slotted-ALOHA-协议的优点"><span class="nav-number">3.3.1.5.</span> <span class="nav-text">Slotted ALOHA 协议的优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缺点"><span class="nav-number">3.3.1.6.</span> <span class="nav-text">缺点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Aloha-pure-ALOHA"><span class="nav-number">3.3.2.</span> <span class="nav-text">Aloha (pure ALOHA)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Carrier-Sense-Multiple-Access-CSMA-载波侦听多路访问"><span class="nav-number">3.3.3.</span> <span class="nav-text">Carrier Sense Multiple Access (CSMA, 载波侦听多路访问)</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#文明交流所必备的两个素质"><span class="nav-number">3.3.3.1.</span> <span class="nav-text">文明交流所必备的两个素质</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSMA的大致原理"><span class="nav-number">3.3.3.2.</span> <span class="nav-text">CSMA的大致原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSMA仍然存在冲突"><span class="nav-number">3.3.3.3.</span> <span class="nav-text">CSMA仍然存在冲突</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#不侦听信道，冲突发生时不处理"><span class="nav-number">3.3.3.4.</span> <span class="nav-text">不侦听信道，冲突发生时不处理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#侦听信道，冲突发生时停止发送"><span class="nav-number">3.3.3.5.</span> <span class="nav-text">侦听信道，冲突发生时停止发送</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Nonpersistent-CSMA-gt-不持续侦听信道"><span class="nav-number">3.3.3.6.</span> <span class="nav-text">Nonpersistent CSMA =&gt; 不持续侦听信道</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#1-persistent-CSMA"><span class="nav-number">3.3.3.7.</span> <span class="nav-text">1-persistent CSMA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#p-persistent-CSMA"><span class="nav-number">3.3.3.8.</span> <span class="nav-text">p-persistent CSMA</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSMA-with-collision-detection-CSMA-CD-带冲突检测的载波侦听多路访问协议"><span class="nav-number">3.3.3.9.</span> <span class="nav-text">CSMA with collision detection (CSMA/CD, 带冲突检测的载波侦听多路访问协议)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#CSMA-with-collistion-avoid-CSMA-CA-带冲突避免的载波侦听多路访问协议"><span class="nav-number">3.3.3.10.</span> <span class="nav-text">CSMA with collistion avoid (CSMA/CA, 带冲突避免的载波侦听多路访问协议)</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Taking-Turns-Protocols（轮流协议）"><span class="nav-number">3.3.4.</span> <span class="nav-text">Taking-Turns Protocols（轮流协议）</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#polling-protocol-轮询协议"><span class="nav-number">3.3.4.1.</span> <span class="nav-text">polling protocol (轮询协议)</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#token-passing-protocol（令牌传递协议）"><span class="nav-number">3.3.4.2.</span> <span class="nav-text">token-passing protocol（令牌传递协议）</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Local-Area-Networks-LANs-本地局域网"><span class="nav-number">3.3.5.</span> <span class="nav-text">Local Area Networks (LANs, 本地局域网)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link-Layer-Address-（链路层寻址）"><span class="nav-number">4.</span> <span class="nav-text">Link-Layer Address （链路层寻址）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#MAC-Address"><span class="nav-number">4.1.</span> <span class="nav-text">MAC Address</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Address-Resolution-Protocol-ARP-地址解析协议"><span class="nav-number">4.2.</span> <span class="nav-text">Address Resolution Protocol (ARP, 地址解析协议)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ethernet-以太网"><span class="nav-number">5.</span> <span class="nav-text">Ethernet (以太网)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Ethernet-Frame-Structure-以太网帧结构"><span class="nav-number">5.1.</span> <span class="nav-text">Ethernet Frame Structure (以太网帧结构)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSMA-CD-Thernet’s-Multiple-Access-Protocol"><span class="nav-number">5.2.</span> <span class="nav-text">CSMA/CD: Thernet’s Multiple Access Protocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二进制退避算法"><span class="nav-number">5.3.</span> <span class="nav-text">* 二进制退避算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么以太网帧的长度最小为64-bits？"><span class="nav-number">5.4.</span> <span class="nav-text">为什么以太网帧的长度最小为64 bits？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#数据帧长度不够长所引发的问题"><span class="nav-number">5.4.1.</span> <span class="nav-text">数据帧长度不够长所引发的问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么是64个字节"><span class="nav-number">5.4.2.</span> <span class="nav-text">为什么是64个字节</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CSMA-CD-efficiency"><span class="nav-number">5.5.</span> <span class="nav-text">CSMA/CD efficiency</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不同的以太网标准"><span class="nav-number">5.6.</span> <span class="nav-text">不同的以太网标准</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Link-layer-Switches-链路层交换机"><span class="nav-number">6.</span> <span class="nav-text">Link-layer Switches (链路层交换机)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#几种常见网络设备区别"><span class="nav-number">6.1.</span> <span class="nav-text">几种常见网络设备区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#冲突域和广播域"><span class="nav-number">6.2.</span> <span class="nav-text">冲突域和广播域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#交换机（Switches）"><span class="nav-number">6.3.</span> <span class="nav-text">交换机（Switches）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Switch-table-and-self-learn"><span class="nav-number">6.4.</span> <span class="nav-text">Switch table and self-learn</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#self-learn（自学习）"><span class="nav-number">6.4.1.</span> <span class="nav-text">self-learn（自学习）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Switch-table"><span class="nav-number">6.4.2.</span> <span class="nav-text">Switch table</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hubs-routers-switches的比较"><span class="nav-number">6.5.</span> <span class="nav-text">hubs, routers, switches的比较</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+		<script type="text/javascript">
+		_hcwp = window._hcwp || [];
+
+		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
+
+		
+		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2018/05/21/computer_networking_05/"});
+		
+
+		(function() {
+		if("HC_LOAD_INIT" in window)return;
+		HC_LOAD_INIT = true;
+		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
+		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
+		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/99614/"+lang+"/widget.js";
+		var s = document.getElementsByTagName("script")[0];
+		s.parentNode.insertBefore(hcc, s.nextSibling);
+		})();
+		</script>
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("eyIFq6kYslRSDIa8lqlCIThp-gzGzoHsz", "iUAeNEuxcBmYdpgAATCh4AlH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
