@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="问题需求 求 ab % c, 其中a，b的值可能很大，导致 ab 的值long long都存不下  预备知识  模运算的性质：(a · b) mod c = [ (a mod c) · (b mod c) ] mod c · =&amp;gt; 点乘，在这里就是指普通乘法云算法   实现思路 对于 ab % c  首先我们将b分解成如下表示 b = b0 + b1 * 20 + ··· + bn * 2">
+<meta name="description" content="问题需求 求 ab % c, 其中a，b的值可能很大，导致 ab 的值long long都存不下  预备知识  模运算的性质：(a · b) mod c = [ (a mod c) · (b mod c) ] mod c · =&amp;gt; 点乘，在这里就是指普通乘法云算法   实现思路 对于 ab % c  首先我们将b分解成如下表示 b = b0 + b1 * 21 + ··· + bn * 2">
 <meta name="keywords" content="学习,笔记,c++语言">
 <meta property="og:type" content="article">
 <meta property="og:title" content="快速幂取模算法">
 <meta property="og:url" content="http://qjm253.cn/2018/06/03/c++02/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
-<meta property="og:description" content="问题需求 求 ab % c, 其中a，b的值可能很大，导致 ab 的值long long都存不下  预备知识  模运算的性质：(a · b) mod c = [ (a mod c) · (b mod c) ] mod c · =&amp;gt; 点乘，在这里就是指普通乘法云算法   实现思路 对于 ab % c  首先我们将b分解成如下表示 b = b0 + b1 * 20 + ··· + bn * 2">
+<meta property="og:description" content="问题需求 求 ab % c, 其中a，b的值可能很大，导致 ab 的值long long都存不下  预备知识  模运算的性质：(a · b) mod c = [ (a mod c) · (b mod c) ] mod c · =&amp;gt; 点乘，在这里就是指普通乘法云算法   实现思路 对于 ab % c  首先我们将b分解成如下表示 b = b0 + b1 * 21 + ··· + bn * 2">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-03T07:44:58.077Z">
+<meta property="og:updated_time" content="2018-06-03T08:06:36.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="快速幂取模算法">
-<meta name="twitter:description" content="问题需求 求 ab % c, 其中a，b的值可能很大，导致 ab 的值long long都存不下  预备知识  模运算的性质：(a · b) mod c = [ (a mod c) · (b mod c) ] mod c · =&amp;gt; 点乘，在这里就是指普通乘法云算法   实现思路 对于 ab % c  首先我们将b分解成如下表示 b = b0 + b1 * 20 + ··· + bn * 2">
+<meta name="twitter:description" content="问题需求 求 ab % c, 其中a，b的值可能很大，导致 ab 的值long long都存不下  预备知识  模运算的性质：(a · b) mod c = [ (a mod c) · (b mod c) ] mod c · =&amp;gt; 点乘，在这里就是指普通乘法云算法   实现思路 对于 ab % c  首先我们将b分解成如下表示 b = b0 + b1 * 21 + ··· + bn * 2">
 
 
 
@@ -421,11 +421,21 @@
 <p>对于 <strong>a<sup>b</sup> % c</strong></p>
 <ol>
 <li><p>首先我们将b分解成如下表示</p>
-<p><strong>b = b<sub>0</sub> + b<sub>1</sub> * 2<sup>0</sup> + ··· + b<sub>n</sub> * 2<sup>n</sup></strong></p>
+<p><strong>b = b<sub>0</sub> + b<sub>1</sub> * 2<sup>1</sup> + ··· + b<sub>n</sub> * 2<sup>n</sup></strong></p>
 <p>(其中的 b<sub>0</sub>, b<sub>1</sub>, ···, b<sub>n</sub> 指的是对应b的二进制表示法中对应位置的取值，1或者0) =&gt; 比如：6 —&gt; 110  =&gt;  b<sub>0</sub> = 0, b<sub>1</sub> = 1, b<sub>2</sub> = 1</p>
 </li>
+<li><p>则 <strong>a<sup>b</sup></strong> 可以表示成下面的形式</p>
+<p><strong>a<sup>b</sup> = a<sup>b<sub>0</sub></sup> * a<sup>b<sub>1</sub> * 2<sup>1</sup></sup> * ··· * a<sup>b<sub>n</sub> * 2<sup>n</sup></sup></strong></p>
+<p>=&gt; 令 <strong>a<sub>i</sub> = a<sup>b<sub>i</sub> * 2<sup>i</sup></sup></strong></p>
+<p>=&gt; 则：<strong>a<sup>b</sup> = a<sub>0</sub> * a<sub>1</sub> * ··· * a<sub>n</sub></strong></p>
+</li>
+<li><p>运用上面提到的关于幂运算的性质 -&gt; <strong>(a · b) mod c = [ (a mod c) · (b mod c) ] mod c</strong></p>
+<p>则 <strong>a<sup>b</sup> % c = ( (a<sub>0</sub> % c) * (a<sub>1</sub> % c) * ··· * (a<sub>n</sub> % c ) ) % c</strong></p>
+</li>
 </ol>
-<p>2.</p>
+<blockquote>
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2></blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">quickMod</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> ans = <span class="number">1</span>;</span><br><span class="line">  a = a % c;   <span class="comment">//所有项里面都有a，提取出来可统一先取模一下，减少计算量, 也可不加</span></span><br><span class="line">  <span class="keyword">while</span>(b != <span class="number">0</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span>(b &amp; <span class="number">1</span>)</span><br><span class="line">      ans = (ans * a) % c;</span><br><span class="line">    b &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    a = (a * a) % c;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -626,7 +636,7 @@ var jiathis_config={
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题需求"><span class="nav-number">1.</span> <span class="nav-text">问题需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路"><span class="nav-number">3.</span> <span class="nav-text">实现思路</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题需求"><span class="nav-number">1.</span> <span class="nav-text">问题需求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预备知识"><span class="nav-number">2.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现思路"><span class="nav-number">3.</span> <span class="nav-text">实现思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#算法实现"><span class="nav-number">4.</span> <span class="nav-text">算法实现</span></a></li></ol></div>
             
 
           </div>
