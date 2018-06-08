@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="问题描述 N&amp;lt;k时，root(N,k) = N，否则，root(N,k) = root(N’,k)。N’为N的k进制表示的各位数字之和。输入x,y,k，输出root(x^y,k)的值 (这里^为乘方，不是异或)，2=&amp;lt;k&amp;lt;=16，0&amp;lt;x,y&amp;lt;2000000000，有一半的测试点里 x^y 会溢出int的范围(&amp;gt;=2000000000)  输入描述 每组测试数据">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-03T09:22:17.441Z">
+<meta property="og:updated_time" content="2018-06-03T09:27:06.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="求root(N, k) 快速幂取模的应用">
 <meta name="twitter:description" content="问题描述 N&amp;lt;k时，root(N,k) = N，否则，root(N,k) = root(N’,k)。N’为N的k进制表示的各位数字之和。输入x,y,k，输出root(x^y,k)的值 (这里^为乘方，不是异或)，2=&amp;lt;k&amp;lt;=16，0&amp;lt;x,y&amp;lt;2000000000，有一半的测试点里 x^y 会溢出int的范围(&amp;gt;=2000000000)  输入描述 每组测试数据">
@@ -448,13 +448,13 @@
 <li><p>递推归纳</p>
 <p>令 N’ = N<sub>1</sub>, N” = N<sub>2</sub>, ···</p>
 <p>则有：</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;(N - N<sub>1</sub>) % (k - 1) = 0</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;(N<sub>1</sub> - N<sub>2</sub>) % (k - 1) = 0</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;…</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;(N<sub>r - 1</sub> - N<sub>r</sub>) % (k - 1) = 0</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;其中 N<sub>r</sub> 为我们要求的结果</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;(N - N<sub>1</sub>) % (k - 1) = 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;(N<sub>1</sub> - N<sub>2</sub>) % (k - 1) = 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;…</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;(N<sub>r - 1</sub> - N<sub>r</sub>) % (k - 1) = 0</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;其中 N<sub>r</sub> 为我们要求的结果</p>
 <p>将上面的各个递推公式相加得到：</p>
-<p> &nbsp;&nbsp;&nbsp;&nbsp;<strong>(N - N<sub>r</sub>) % (k - 1) = 0</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;<strong>(N - N<sub>r</sub>) % (k - 1) = 0</strong></p>
 <p>∴ <strong>N<sub>r</sub> = N % (k - 1)</strong></p>
 </li>
 <li><p>得出结论</p>
@@ -509,6 +509,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/08/c++Uva201/" rel="prev" title="Uva- 201 - Squares">
+                Uva- 201 - Squares <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -620,7 +624,7 @@ var jiathis_config={
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">55</span>
+                  <span class="site-state-item-count">56</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -633,7 +637,7 @@ var jiathis_config={
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
