@@ -99,7 +99,7 @@
 <meta property="og:image" content="http://qjm253.cn/img/database/10.png">
 <meta property="og:image" content="http://qjm253.cn/img/database/11.png">
 <meta property="og:image" content="http://qjm253.cn/img/database/12.png">
-<meta property="og:updated_time" content="2018-06-09T05:47:20.433Z">
+<meta property="og:updated_time" content="2018-06-09T05:52:27.049Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（三）">
 <meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)    SELECT * 与 SELECT 全字段 的执    行效率是有差别的  数据库在具体执行 SELECT * 的时候可以这样理解：首先把 * 替换成对应表的全字段序列，再执行。故在执行的的时候 SELECT * 的效率是会更低的 事实上 SELECT * 也是">
@@ -454,7 +454,8 @@
 <h1 id="SQL-附加的基本运算"><a href="#SQL-附加的基本运算" class="headerlink" title="SQL 附加的基本运算"></a>SQL 附加的基本运算</h1></blockquote>
 <ul>
 <li><h3 id="更名运算-as"><a href="#更名运算-as" class="headerlink" title="更名运算 as"></a>更名运算 <strong>as</strong></h3><img src="/img/database/01.png">
-<p>首先存在如上表结构</p>
+<center>首先存在如上表结构</center>
+
 <ul>
 <li>需要事先申明的是，这里所说的更名并不是实际更改数据库中的表结构，更改只是在执行查询操作的过程中得到的结果视图</li>
 <li><p>as 关键字可用于SELECT语句中给字段更名</p>
@@ -474,7 +475,7 @@
 </li>
 <li><p>还有一种情况需要用as修改表名，就是需要比较同一个关系中的元组的时候，必须要用别名，要不然无法区分</p>
 <img src="/img/database/03.png">
-<p>  现在表中有如上数据</p>
+<p><center>现在表中有如上数据</center></p>
 <ul>
 <li>我们需要查询表中所有比Jane的成绩高的学生的名字</li>
 <li><p>则可以用下面的语句实现：</p>
@@ -510,7 +511,7 @@
 <li><h2 id="字符串的拼接运算"><a href="#字符串的拼接运算" class="headerlink" title="字符串的拼接运算"></a>字符串的拼接运算</h2><ul>
 <li><p>不用数据库采用不同的运算符，常见的有 <strong>||</strong> 和 <strong>+</strong></p>
   <img src="/img/database/05.png">
-<p>  现在表中有如上数据</p>
+<p>  <center>现在表中有如上数据</center></p>
 <ul>
 <li><p>执行下面的语句(笔者是在Mysql下测试的，Mysql的字符串拼接是用connect函数实现的，所以略有不同)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'name: '</span>, S.stu_name) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
@@ -565,8 +566,7 @@
 </li>
 </ul>
 <img src="/img/database/09.png">
-<p>现在表中还是有如上数据</p>
-</li>
+<center>现在表中还是有如上数据</center></li>
 <li><p>执行下面操作</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句用来查询表中stu_name的值为Ja开头，且至少长度为三的所有学生名字</span></span><br><span class="line"><span class="keyword">SELECT</span> stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> stu_name <span class="keyword">LIKE</span> <span class="string">'Ja_%'</span></span><br></pre></td></tr></table></figure>
 <p>得到如下结果</p>
@@ -683,8 +683,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" rel="next" title="Java环境简单配置+IDEA（小白版）">
-                <i class="fa fa-chevron-left"></i> Java环境简单配置+IDEA（小白版）
+              <a href="/2017/09/12/2017-09-12-数据库笔记（一）/" rel="next" title="数据库笔记（一）">
+                <i class="fa fa-chevron-left"></i> 数据库笔记（一）
               </a>
             
           </div>
@@ -693,8 +693,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" rel="prev" title="数据库笔记（四）">
-                数据库笔记（四） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" rel="prev" title="Java环境简单配置+IDEA（小白版）">
+                Java环境简单配置+IDEA（小白版） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>

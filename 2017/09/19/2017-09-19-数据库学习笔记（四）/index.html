@@ -87,10 +87,19 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)下面的例子中的测试都是在MySQL数据库中测试的    集合运算此处集合运算的概念与数学中集合的概念类似，可以借助文氏图加深理解。故此处对并运算进行展开，其他啊两个自己类比，后面还会对集合运算的几个注意点进提醒。   union(集合并运算) union 默认去除重复，">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:image" content="http://qjm253.cn/img/database/13.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/14.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/15.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/16.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/17.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/18.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/19.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/20.png">
+<meta property="og:updated_time" content="2018-06-09T05:59:23.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（四）">
 <meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)下面的例子中的测试都是在MySQL数据库中测试的    集合运算此处集合运算的概念与数学中集合的概念类似，可以借助文氏图加深理解。故此处对并运算进行展开，其他啊两个自己类比，后面还会对集合运算的几个注意点进提醒。   union(集合并运算) union 默认去除重复，">
+<meta name="twitter:image" content="http://qjm253.cn/img/database/13.png">
 
 
 
@@ -419,19 +428,23 @@
 <li>union 默认去除重复，并升序排序（因为涉及到排序，故而会有效率上的劣势）</li>
 <li>union all 就可保留重复项，并且保留原序（不进行排序）</li>
 <li><p>举个栗子（现有两张表如下）</p>
+  <img src="/img/database/13.png">
+  <center>Student表</center>
+
+  <img src="/img/database/14.png">
+  <center>Teacher表</center>
+
 <ul>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Sunny|    18|    98|<br>|Robbin|    18    |96|<br>|James|    19|    67|<br>|Jane|    17|    82|<br>Student表信息如上</li>
-<li>|tech_name |age  |<br>|:——-:|:—:|<br>|James    |32|<br>|Marry    |33|<br>|Lory    |33|<br>Teacher表的信息如上</li>
 <li><p>执行以下运算</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
 <p>得到如下结果(得到的结果没有重复元素，但是没有排序，说明MySQL数据库在此处没有对其进行排序输出，但是Oracle数据库是会对数据进行升序排序的)</p>
+<img src="/img/database/15.png">
 </li>
-<li>|age |<br>|:——-:|<br>|18|<br>|19|<br>|17|<br>|32|<br>|33|</li>
 <li><p>执行以下运算</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
 <p>得到如下结果(可以知道，UNION ALL 保留了重复元素)</p>
+<img src="/img/database/16.png">
 </li>
-<li>|age |<br>|:——-:|<br>|18|<br>|18|<br>|19|<br>|17|<br>|32|<br>|33|<br>|33|</li>
 </ul>
 </li>
 </ul>
@@ -450,8 +463,9 @@
 <li><p>举个栗子</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 按上面的说法下面语句执行是非法的</span></span><br><span class="line"><span class="comment">-- 因为第二个字段的数据类型不兼容，一个是浮点型，一个是字符串类型</span></span><br><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age, tech_name</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
 <p>上面的书法在Oracle数据库里得到了证实，确实执行是会报错的，<br>那MySQL数据库呢？我们执行以下，得到以下结果</p>
+<img src="/img/database/17.png">
+<p>说明该写法在Mysql里面竟然是合法的（所以所有的特性都要视不同的数据库，视情况而分析）</p>
 </li>
-<li>|age |score  |<br>|:——-:|:—:|<br>|18    |98|<br>|18    ||<br>|19    |67|<br>|17    |82|<br>|32    |James|<br>|33    |Marry|<br>|33    |Lory|<br>说明该写法在Mysql里面竟然是合法的（所以所有的特性都要视不同的数据库，视情况而分析）</li>
 </ul>
 </li>
 <li><p>若无字段可加，又需保证列数相同，可控NULL做填充</p>
@@ -459,8 +473,8 @@
 <li><p>举个栗子</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age, <span class="literal">NULL</span></span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
 <p>得到如下结果哦</p>
+<img src="/img/database/18.png">
 </li>
-<li>|age |score  |<br>|:——-:|:—:|<br>|18    |98|<br>|18    ||<br>|19    |67|<br>|17    |82|<br>|32    ||<br>|33    ||<br>|33    ||</li>
 </ul>
 </li>
 <li><p>集合运算的结果视图的字段名以第一个结果集的字段名为主</p>
@@ -468,11 +482,12 @@
 <li><p>举个栗子</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> tech_name</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
 <p>得到如下结果：</p>
+<img src="/img/database/19.png">
 </li>
-<li>|stu_name |<br>|:——-:|<br>|Sunny|<br>|Robbin|<br>|Marry|<br>|Lory|<br>|Jane|<br>|James|</li>
 </ul>
 </li>
-<li>Oracle数据库中，差运算不是except， 而是minus；Oracle数据库union可以后面跟all， 但是interscet和minus后面不可以（不同数据库不同）</li>
+<li><p>Oracle数据库中，差运算不是except， 而是minus；Oracle数据库union可以后面跟all， 但是interscet和minus后面不可以（不同数据库不同）</p>
+</li>
 </ul>
 </li>
 </ul>
@@ -499,11 +514,12 @@
 <li><p>举个栗子（MySQL里面测试）</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span>() - <span class="number">1</span>, <span class="keyword">SYSDATE</span>(), <span class="keyword">SYSDATE</span>() + <span class="number">1</span></span><br></pre></td></tr></table></figure>
 <p>得到如下结果</p>
+<img src="/img/database/20.png">  
 </li>
-<li>|’SYSDATE() - 1’ |’SYSDATE()’  | ‘SYSDATE() + 1’  |<br>|:——-:|:—:| :—–:|<br>|20170919183000    |2017-09-19 18:30:01| 20170919183002|</li>
 </ul>
 </li>
-<li>可与日期类型做减运算，得到连个日期之前的差值</li>
+<li><p>可与日期类型做减运算，得到连个日期之前的差值</p>
+</li>
 <li>不可与日期类型做加运算（在Oracle数据库执行日期间加运算直接报错，Mysql数据库直接真的返回两个日期加以后的值，不过巨耗时，mmp）</li>
 <li>与NULL值运算得NULL值（在Oracle和MySQL上测试结果都正确）</li>
 </ul>
@@ -624,8 +640,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" rel="next" title="数据库笔记（三）">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（三）
+              <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" rel="next" title="Java环境简单配置+IDEA（小白版）">
+                <i class="fa fa-chevron-left"></i> Java环境简单配置+IDEA（小白版）
               </a>
             
           </div>
