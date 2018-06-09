@@ -87,10 +87,23 @@
 <meta property="og:site_name" content="建明 | Ming.J">
 <meta property="og:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)    SELECT * 与 SELECT 全字段 的执    行效率是有差别的  数据库在具体执行 SELECT * 的时候可以这样理解：首先把 * 替换成对应表的全字段序列，再执行。故在执行的的时候 SELECT * 的效率是会更低的 事实上 SELECT * 也是">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-01-02T19:49:27.420Z">
+<meta property="og:image" content="http://qjm253.cn/img/database/01.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/02.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/03.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/04.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/05.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/06.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/07.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/08.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/09.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/10.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/11.png">
+<meta property="og:image" content="http://qjm253.cn/img/database/12.png">
+<meta property="og:updated_time" content="2018-06-09T05:47:20.433Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数据库笔记（三）">
 <meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)    SELECT * 与 SELECT 全字段 的执    行效率是有差别的  数据库在具体执行 SELECT * 的时候可以这样理解：首先把 * 替换成对应表的全字段序列，再执行。故在执行的的时候 SELECT * 的效率是会更低的 事实上 SELECT * 也是">
+<meta name="twitter:image" content="http://qjm253.cn/img/database/01.png">
 
 
 
@@ -440,16 +453,17 @@
 <blockquote>
 <h1 id="SQL-附加的基本运算"><a href="#SQL-附加的基本运算" class="headerlink" title="SQL 附加的基本运算"></a>SQL 附加的基本运算</h1></blockquote>
 <ul>
-<li><h3 id="更名运算-as"><a href="#更名运算-as" class="headerlink" title="更名运算 as"></a>更名运算 <strong>as</strong></h3><ul>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|stu1    | 18|     98|<br>首先存在如上表结构</li>
+<li><h3 id="更名运算-as"><a href="#更名运算-as" class="headerlink" title="更名运算 as"></a>更名运算 <strong>as</strong></h3><img src="/img/database/01.png">
+<p>首先存在如上表结构</p>
+<ul>
 <li>需要事先申明的是，这里所说的更名并不是实际更改数据库中的表结构，更改只是在执行查询操作的过程中得到的结果视图</li>
 <li><p>as 关键字可用于SELECT语句中给字段更名</p>
 <ul>
 <li><p>执行如下语句：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stu_name <span class="keyword">as</span> student_name, age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br></pre></td></tr></table></figure>
 <p>得到如下结果</p>
+<img src="/img/database/02.png">
 </li>
-<li>|student_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|stu1    | 18|     98|</li>
 </ul>
 </li>
 <li><p>as 关键字可用于FROM语句中给表更名</p>
@@ -459,18 +473,23 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面两个语句实现的效果是一样的,但是显然第二种比较简洁</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> Student.stu_name, Student.age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> S.stu_name, S.age</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>还有一种情况需要用as修改表名，就是需要比较同一个关系中的元组的时候，必须要用别名，要不然无法区分</p>
+<img src="/img/database/03.png">
+<p>  现在表中有如上数据</p>
 <ul>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Sunny|    18|    98|<br>|Robbin|    18    |96|<br>|James|    19|    67|<br>|Jane|    17|    82|<br>现在表中有如上数据</li>
 <li>我们需要查询表中所有比Jane的成绩高的学生的名字</li>
 <li><p>则可以用下面的语句实现：</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> T.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> T, Student <span class="keyword">as</span> S</span><br><span class="line"><span class="keyword">WHERE</span> T.score &gt; S.score <span class="keyword">and</span> S.stu_name = <span class="string">'Jane'</span></span><br></pre></td></tr></table></figure>
 <p>得到以下结果</p>
+<img src="/img/database/04.png">
 </li>
-<li>|stu_name |<br>|:——-:|<br>|Sunny|<br>|Robbin|</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<ul>
 <li><p>大多数数据库中可以用空格替代as</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面两个语句是等价的（在Mysql数据库上测试）</span></span><br><span class="line"><span class="keyword">SELECT</span> T.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> T, Student <span class="keyword">as</span> S</span><br><span class="line"><span class="keyword">WHERE</span> T.score &gt; S.score <span class="keyword">and</span> S.stu_name = <span class="string">'Jane'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> T.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student T, Student S</span><br><span class="line"><span class="keyword">WHERE</span> T.score &gt; S.score <span class="keyword">and</span> S.stu_name = <span class="string">'Jane'</span></span><br></pre></td></tr></table></figure>
 </li>
@@ -487,16 +506,17 @@
 </ul>
 </li>
 </ul>
-</li>
+<ul>
 <li><h2 id="字符串的拼接运算"><a href="#字符串的拼接运算" class="headerlink" title="字符串的拼接运算"></a>字符串的拼接运算</h2><ul>
 <li><p>不用数据库采用不同的运算符，常见的有 <strong>||</strong> 和 <strong>+</strong></p>
+  <img src="/img/database/05.png">
+<p>  现在表中有如上数据</p>
 <ul>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Sunny|    18|    98|<br>|Robbin|    18    |96|<br>|James|    19|    67|<br>|Jane|    17|    82|<br>现在表中有如上数据</li>
 <li><p>执行下面的语句(笔者是在Mysql下测试的，Mysql的字符串拼接是用connect函数实现的，所以略有不同)</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'name: '</span>, S.stu_name) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
 <p>得到如下结果</p>
+<img src="/img/database/06.png">
 </li>
-<li>|stu_name | info|<br>|:——-:|:—:|<br>|Sunny    |name: Sunny|<br>|Robbin|    name: Robbin|<br>|James    |name: James|<br>|Jane    |name: Jane|</li>
 </ul>
 </li>
 <li><p>对于null值的处理，不同的数据库采取的处理不同</p>
@@ -507,13 +527,14 @@
 <li><p>执行以下语句</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'name: '</span>, S.stu_name, <span class="literal">NULL</span> ) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
 <p>结果如下</p>
-</li>
-<li>|stu_name | info|<br>|:——-:|:—:|<br>|Sunny    |null|<br>|Robbin|    null|<br>|James    |null|<br>|Jane    |null|</li>
-</ul>
+<img src="/img/database/07.png">
 </li>
 </ul>
 </li>
-<li>可以与字符串常量拼接<ul>
+</ul>
+</li>
+<li><p>可以与字符串常量拼接</p>
+<ul>
 <li>sql里面就用一对单引号包含一个字符串表示字符串常量，如’name: ‘</li>
 <li>上面的例子里面就用到了与字符串常量拼接，这里就不再赘述了</li>
 </ul>
@@ -523,8 +544,8 @@
 <li><p>比如执行下面的语句</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 下面的字符串常量中出现了四个单引号，其中首位两个是用来标示这个是一个字符串常量，第二个单引号是用来转义第三个单引号</span><br><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'I''m '</span>, S.stu_name) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
 <p>结果如下：</p>
+<img src="/img/database/08.png">
 </li>
-<li>|stu_name | info|<br>|:——-:|:—:|<br>|Sunny    |I’m Sunny|<br>|Robbin|    I’m Robbin|<br>|James    |I’m James|<br>|Jane    |I’m Jane|</li>
 </ul>
 </li>
 </ul>
@@ -543,15 +564,16 @@
 <li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句标示查询条件是第三个字符是A的stu_name</span></span><br><span class="line">WHERE stu_name LIKE '__A%'</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句标示查询条件是第三个字符是A，且长度至少为4的stu_name</span></span><br><span class="line">WHERE stu_name LIKE '__A_%'</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-</li>
-<li><p>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Sunny|    18|    98|<br>|Robbin|    18    |96|<br>|James|    19|    67|<br>|Jane|    17|    82|<br>现在表中还是有如上数据</p>
+<img src="/img/database/09.png">
+<p>现在表中还是有如上数据</p>
 </li>
 <li><p>执行下面操作</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句用来查询表中stu_name的值为Ja开头，且至少长度为三的所有学生名字</span></span><br><span class="line"><span class="keyword">SELECT</span> stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> stu_name <span class="keyword">LIKE</span> <span class="string">'Ja_%'</span></span><br></pre></td></tr></table></figure>
 <p>得到如下结果</p>
+<img src="/img/database/10.png">
 </li>
-<li>|stu_name |<br>|:——-:|<br>|James|<br>|Jane|</li>
-<li>如果模式串（我们这里称like后面的串为模式串）中需要包含‘_’或者‘%’等通配符关键字，就需要用到转义，SQL里面用escape来指定转义字符<ul>
+<li><p>如果模式串（我们这里称like后面的串为模式串）中需要包含‘_’或者‘%’等通配符关键字，就需要用到转义，SQL里面用escape来指定转义字符</p>
+<ul>
 <li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句在最后面定义‘\’为转义字符</span></span><br><span class="line"><span class="comment">-- 所以实际的效果是匹配所有以 Ja_ 开头的 stu_name</span></span><br><span class="line">WHERE stu_name LIKE 'Ja\_%' escape '\'</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
@@ -565,13 +587,14 @@
 <li>Oracle 将null值当做最大</li>
 <li>SQL Server 将null值当做最小</li>
 <li><p>接下来来去测测Mysql数据库</p>
+<img src="/img/database/11.png">
+<p>首先表中的数据是上面酱紫的</p>
 <ul>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Sunny|    18|    98|<br>|Robbin|    18    ||<br>|James|    19|    67|<br>|Jane|    17|    82|<br>首先表中的数据是上面酱紫的</li>
 <li><p>然后执行下面操作</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询学生表中的所有数据，并按成绩排序（因为没有指定</span></span><br><span class="line"><span class="comment">-- 升序还是降序，所以默认是升序的）</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score;</span><br></pre></td></tr></table></figure>
 <p>结果如下（可以看出，Mysql是将null值当做最小值）</p>
+<img src="/img/database/12.png">
 </li>
-<li>|stu_name |age  | score  |<br>|:——-:|:—:| :—–:|<br>|Robbin|    18    ||<br>|James|    19|    67|<br>|Jane|    17|    82|<br>|Sunny|    18|    98|</li>
 </ul>
 </li>
 </ul>
@@ -660,8 +683,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/12/2017-09-12-数据库学习笔记（二）/" rel="next" title="数据库笔记（二）">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（二）
+              <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" rel="next" title="Java环境简单配置+IDEA（小白版）">
+                <i class="fa fa-chevron-left"></i> Java环境简单配置+IDEA（小白版）
               </a>
             
           </div>
@@ -670,8 +693,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" rel="prev" title="Java环境简单配置+IDEA（小白版）">
-                Java环境简单配置+IDEA（小白版） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" rel="prev" title="数据库笔记（四）">
+                数据库笔记（四） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
