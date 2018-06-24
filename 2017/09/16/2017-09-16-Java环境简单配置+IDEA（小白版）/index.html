@@ -395,17 +395,16 @@
 
           
             
-            <!--noindex-->
               <span class="post-comments-count">
                 <span class="post-meta-divider">|</span>
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
                 <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count hc-comment-count" data-xid="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentsCount"></span>
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" itemprop="commentCount"></span>
                 </a>
               </span>
-              <!--/noindex-->
             
           
 
@@ -552,8 +551,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" rel="next" title="数据库笔记（三）">
-                <i class="fa fa-chevron-left"></i> 数据库笔记（三）
+              <a href="/2017/09/12/2017-09-12-数据库学习笔记（二）/" rel="next" title="数据库笔记（二）">
+                <i class="fa fa-chevron-left"></i> 数据库笔记（二）
               </a>
             
           </div>
@@ -562,8 +561,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/09/19/2017-09-19-数据库学习笔记（四）/" rel="prev" title="数据库笔记（四）">
-                数据库笔记（四） <i class="fa fa-chevron-right"></i>
+              <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" rel="prev" title="数据库笔记（三）">
+                数据库笔记（三） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -621,7 +620,12 @@ var jiathis_config={
 
   
     <div class="comments" id="comments">
-      <div id="hypercomments_widget"></div>
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
     </div>
 
   
@@ -878,34 +882,36 @@ var jiathis_config={
 
   
 
+    
+      <script id="dsq-count-scr" src="https://visitor.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/';
+          this.page.identifier = '2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/';
+          this.page.title = 'Java环境简单配置+IDEA（小白版）';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://visitor.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
 
 
 
-	
-
-		<script type="text/javascript">
-		_hcwp = window._hcwp || [];
-
-		_hcwp.push({widget:"Bloggerstream", widget_id: 99614, selector:".hc-comment-count", label: "{\%COUNT%\}" });
-
-		
-		_hcwp.push({widget:"Stream", widget_id: 99614, xid: "2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/"});
-		
-
-		(function() {
-		if("HC_LOAD_INIT" in window)return;
-		HC_LOAD_INIT = true;
-		var lang = (navigator.language || navigator.systemLanguage || navigator.userLanguage || "en").substr(0, 2).toLowerCase();
-		var hcc = document.createElement("script"); hcc.type = "text/javascript"; hcc.async = true;
-		hcc.src = ("https:" == document.location.protocol ? "https" : "http")+"://w.hypercomments.com/widget/hc/99614/"+lang+"/widget.js";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hcc, s.nextSibling);
-		})();
-		</script>
 
 	
 
 
+
+
+
+  
 
 
 
@@ -1360,6 +1366,28 @@ var jiathis_config={
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
 
   
 
