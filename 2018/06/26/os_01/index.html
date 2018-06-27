@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="笔记,操作系统," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="进程 进程是程序在特定输入下的一次执行 是现代分时系统的工作单元，是系统进行资源分配和调度的基本单位   进程 是执行中的程序，不只是程序代码 ( 程序代码也称为文本段/代码段 )，还包括：  当前的活动：通过 程序计数器的值 以及 寄存器的内容 表示 =&amp;gt; 当前正在执行哪一条指令处理什么数据 堆栈端：包括临时数据。如函数参数、返回地址和局部变量 数据段：包括全局变量 堆：进程运行期间动态">
+<meta name="keywords" content="笔记,操作系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进程">
+<meta property="og:url" content="http://qjm253.cn/2018/06/26/os_01/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="进程 进程是程序在特定输入下的一次执行 是现代分时系统的工作单元，是系统进行资源分配和调度的基本单位   进程 是执行中的程序，不只是程序代码 ( 程序代码也称为文本段/代码段 )，还包括：  当前的活动：通过 程序计数器的值 以及 寄存器的内容 表示 =&amp;gt; 当前正在执行哪一条指令处理什么数据 堆栈端：包括临时数据。如函数参数、返回地址和局部变量 数据段：包括全局变量 堆：进程运行期间动态">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_01.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_02.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_03.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_05.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_04.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_06.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_07.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_08.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_09.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_10.png">
+<meta property="og:updated_time" content="2018-06-27T07:24:27.831Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进程">
+<meta name="twitter:description" content="进程 进程是程序在特定输入下的一次执行 是现代分时系统的工作单元，是系统进行资源分配和调度的基本单位   进程 是执行中的程序，不只是程序代码 ( 程序代码也称为文本段/代码段 )，还包括：  当前的活动：通过 程序计数器的值 以及 寄存器的内容 表示 =&amp;gt; 当前正在执行哪一条指令处理什么数据 堆栈端：包括临时数据。如函数参数、返回地址和局部变量 数据段：包括全局变量 堆：进程运行期间动态">
+<meta name="twitter:image" content="http://qjm253.cn/img/os/os_01.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://qjm253.cn/2018/06/26/os_01/"/>
+
+
+
+
+
+  <title>进程 | 建明 | Ming.J</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a9fa95ff997969441c084d8d73eacfb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-games">
+          <a href="/game/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-gamepad"></i> <br />
+            
+            游戏
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/06/26/os_01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar-r.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-26T00:00:00+08:00">
+                2018-06-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/26/os_01/" class="leancloud_visitors" data-flag-title="进程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="进程"><a href="#进程" class="headerlink" title="进程"></a>进程</h2><ul>
+<li><strong>进程是程序在特定输入下的一次执行</strong></li>
+<li>是现代分时系统的工作单元，<strong>是系统进行资源分配和调度的基本单位</strong></li>
+</ul>
+</blockquote>
+<p><strong>进程</strong> 是执行中的程序，不只是<strong>程序代码</strong> ( <strong><em>程序代码也称为文本段/代码段</em></strong> )，还包括：</p>
+<ul>
+<li><strong>当前的活动</strong>：通过 <strong>程序计数器的值</strong> 以及 <strong>寄存器的内容</strong> 表示 =&gt; 当前正在执行哪一条指令处理什么数据</li>
+<li><strong>堆栈端</strong>：包括临时数据。如函数参数、返回地址和局部变量</li>
+<li><strong>数据段</strong>：包括全局变量</li>
+<li><p><strong>堆</strong>：进程运行期间动态分配的内存</p>
+<img src="/img/os/os_01.png" title="内存中的进程">
+</li>
+</ul>
+<ul>
+<li><h3 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h3><img src="/img/os/os_02.png" title="进程状态图">
+<ul>
+<li><strong>new</strong> (新建状态): 进程正在被创建</li>
+<li><strong>ready</strong> (就绪状态): 进程等待被分配CPU</li>
+<li><strong>running</strong> (运行状态): 指令正在被执行</li>
+<li><strong>waiting</strong> (等待状态): 进程等待某个事件的发生（如I/O完成或收到信号）</li>
+<li><strong>terminated</strong> (终止状态): 进程完成执行</li>
+</ul>
+</li>
+<li><h3 id="进程控制块-PCB"><a href="#进程控制块-PCB" class="headerlink" title="进程控制块 (PCB)"></a>进程控制块 (<strong><em>PCB</em></strong>)</h3><blockquote>
+<ul>
+<li>PCB是操作系统用来管理进程的唯一控制数据结构</li>
+<li>每一个进程在操作系统内都用一个PCB数据结构表示</li>
+<li><strong>PCB</strong> : Process Control Block</li>
+</ul>
+</blockquote>
+<img src="/img/os/os_03.png" title="PCB结构">
+</li>
+</ul>
+<blockquote>
+<h2 id="进程调度"><a href="#进程调度" class="headerlink" title="进程调度"></a>进程调度</h2><p>进程调度选择一个可用的进程（可能从多个可用进程集合中选择）到CPU上执行</p>
+</blockquote>
+<ul>
+<li><h3 id="为何要进行进程调度？"><a href="#为何要进行进程调度？" class="headerlink" title="为何要进行进程调度？"></a>为何要进行进程调度？</h3><p>在多道程序设计当中，由 <strong>多个进程竞争使用有限的CPU资源</strong>，如何合理的分配CPU资源便是进程调度要解决的问题。进程调度的<strong>目标</strong>是 =&gt; <strong>使得CPU的利用率最大化</strong></p>
+<img src="/img/os/os_05.png" title="CPU在进程间切换">
+</li>
+<li><h3 id="调度队列"><a href="#调度队列" class="headerlink" title="调度队列"></a>调度队列</h3><ul>
+<li><h4 id="作业队列"><a href="#作业队列" class="headerlink" title="作业队列"></a>作业队列</h4>该队列包含系统中所有的进程（包括在内存中的、被交换到外存的以及在外存缓冲池当中的进程）</li>
+<li><h4 id="就绪队列"><a href="#就绪队列" class="headerlink" title="就绪队列"></a>就绪队列</h4>该队列保存有驻留在内存中的就绪的、等待被分配CPU的进程</li>
+<li><h4 id="设备队列"><a href="#设备队列" class="headerlink" title="设备队列"></a>设备队列</h4>等待特定I/O设备的进程列表称为 <strong>设备队列</strong>，每个设备都有自己的设备队列。<img src="/img/os/os_04.png" title="就绪队列和各种设备队列">
+</li>
+</ul>
+</li>
+<li><h3 id="调度程序"><a href="#调度程序" class="headerlink" title="调度程序"></a>调度程序</h3><p>进程在其生命周期中会在各种调度队列之间迁移，而操作系统通过执行调度程序来选择队列中的进程进行相应的迁移。</p>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/u013007900/article/details/50550415" target="_blank" rel="noopener">https://blog.csdn.net/u013007900/article/details/50550415</a></p>
+</blockquote>
+<img src="/img/os/os_06.png" title="三种调度程序图示">
+<ul>
+<li><h4 id="长期调度程序（long-term-scheduler）"><a href="#长期调度程序（long-term-scheduler）" class="headerlink" title="长期调度程序（long-term scheduler）"></a>长期调度程序（<strong><em>long-term scheduler</em></strong>）</h4><p><strong>长期调度</strong> 又称为 <strong>作业调度</strong> 或 <strong>高级调度</strong>，这种调度将已进入系统并处于后备状态的作业按某种算法选择一个或一批装载入内存准备执行。</p>
+<ul>
+<li><p>长期调度程序执行的并 <strong>不频繁</strong></p>
+</li>
+<li><p><strong>常用于批处理系统</strong>，在分时系统和实时系统中通常不需要长期调度</p>
+</li>
+<li><p>通过长期调度程序可以<strong>控制多道程序度</strong> （内存中的进程数量）=&gt; 在合适的时机从外存装载进内存（比如可以在一个进程执行完时），从而使得 <strong>创建进程的平均速度等于进程离开系统的平均速度，使得多道程序度达到稳定状态</strong></p>
+</li>
+<li><p>在进行长期调度的时候，<strong>应该选择一个合理的包含I/O为主的和CPU为主的组合进程</strong>。（<strong><em>如果都是以I/O为主，那么可能就绪队列几乎为空，都在等待队列中等待I/O的结束，这使得短期调度无进程可调，CPU也没有得到充分的利用</em></strong>）</p>
+</li>
+</ul>
+</li>
+<li><h4 id="短期调度程序（short-term-scheduler）"><a href="#短期调度程序（short-term-scheduler）" class="headerlink" title="短期调度程序（short-term scheduler）"></a>短期调度程序（<strong><em>short-term scheduler</em></strong>）</h4><blockquote>
+<p>CPU调度算法：后续补充</p>
+</blockquote>
+<p><strong>短期调度</strong> 又称为 <strong>CPU调度</strong> 或 <strong>低级调度</strong>，它的主要任务是在就绪队列中选择一个进程，为其分配CPU，让其进入运行态开始执行。</p>
+<ul>
+<li><p>短期调度程序执行的 <strong>非常频繁</strong></p>
+</li>
+<li><p>常说的进程调度指的就是短期调度，其可分为 <strong>抢占式和非抢占式</strong></p>
+</li>
+</ul>
+</li>
+<li><h4 id="中期调度程序（medium-term-scheduler）"><a href="#中期调度程序（medium-term-scheduler）" class="headerlink" title="中期调度程序（medium-term scheduler）"></a>中期调度程序（<strong><em>medium-term scheduler</em></strong>）</h4><p><strong>中期调度</strong> 又称为 <strong>交换调度</strong>，其核心思想是 <strong>将进程从内存（或从CPU竞争）中移出，从而降低多道程序度</strong></p>
+<ul>
+<li>进程被移出内存后，在CPU相对空闲时又能被重新调入内存，并从中断处继续执行。这种方案称之为 <strong>交换</strong>（<strong><em>swapping</em></strong>）</li>
+<li>为了改善进程组合，或者因内存要求的改变引起了内存的过度使用而需要释放内存，就有必要使用交换。<img src="/img/os/os_07.png" title="增加了中期调度的队列图">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="上下文切换"><a href="#上下文切换" class="headerlink" title="上下文切换"></a>上下文切换</h3><p>将CPU切换到另一个进程需要 <strong>保存当前进程的状态并回复另一个进程的状态</strong>，这一任务称为 <strong>上下文切换</strong>（<strong><em>context switch</em></strong>）</p>
+<ul>
+<li><p>当发生上下文切换时，内核会将旧进程的状态保存在其PCB中，然后装入经调度要执行的并已保存的新进程的上下文</p>
+</li>
+<li><p>上下文切换时间是额外的开销</p>
+</li>
+<li><p>上下文切换发生的时机：正在运行的进程被中断、进程运行结束、时间片到期等</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="进程操作"><a href="#进程操作" class="headerlink" title="进程操作"></a>进程操作</h2><p>本小结介绍进程的创建和如何终止进程，代码示例则以Unix平台为例</p>
+</blockquote>
+<ul>
+<li><h3 id="进程创建"><a href="#进程创建" class="headerlink" title="进程创建"></a>进程创建</h3><p>在进程执行的过程当中，可以通过 <strong>调用创建进程的系统调用</strong> 创建多个进程。创建进程称为 <strong>父进程</strong>，新创建的进程称为子进程。每个新进程又可以再创建其它进程，从而形成进程树。</p>
+<img src="/img/os/os_08.png" title="进程树示意图">
+<ul>
+<li><h4 id="进程标识符-pid-process-identifier"><a href="#进程标识符-pid-process-identifier" class="headerlink" title="进程标识符 (pid, process identifier)"></a>进程标识符 (pid, <strong><em>process identifier</em></strong>)</h4><p>大多数操作系统根据一个 <strong>pid</strong> 来 <strong>唯一标识一个进程</strong>，pid通常是一个整数值。</p>
+</li>
+<li><h4 id="创建子进程后，父进程的行为"><a href="#创建子进程后，父进程的行为" class="headerlink" title="创建子进程后，父进程的行为"></a>创建子进程后，父进程的行为</h4><ul>
+<li><p>父进程与子进并发执行</p>
+</li>
+<li><p>父进程等待，直到某个或全部子进程执行完毕</p>
+</li>
+</ul>
+</li>
+<li><h4 id="新创建进程的地址空间也有两种可能"><a href="#新创建进程的地址空间也有两种可能" class="headerlink" title="新创建进程的地址空间也有两种可能"></a>新创建进程的地址空间也有两种可能</h4><ul>
+<li><p>子进程是父进程的复制品 =&gt; <strong>具有与父进程完全相同的程序和数据</strong></p>
+</li>
+<li><p>子进程装入另一个新程序</p>
+</li>
+</ul>
+</li>
+<li><h4 id="Unix创建进程相关的命令"><a href="#Unix创建进程相关的命令" class="headerlink" title="Unix创建进程相关的命令"></a>Unix创建进程相关的命令</h4><ul>
+<li><p><strong>fork</strong> =&gt; 创建一个新进程，详细介绍可参考<a href="http://qjm253.cn/2018/01/04/super_c_d/#fork%E5%92%8Cexec%E5%87%BD%E6%95%B0">我的另一篇博客</a></p>
+</li>
+<li><p><strong>exec</strong> =&gt; 实际上代表的是一个函数族，共有六个函数，主要用于在进程中调用其它的可执行程序。详细介绍可参考<a href="http://qjm253.cn/2018/01/04/super_c_d/#fork%E5%92%8Cexec%E5%87%BD%E6%95%B0">我的另一篇博客</a></p>
+</li>
+<li><p><strong>wait</strong> =&gt; wait函数可用于等待子进程的结束（其主要功能还是用于清理僵死进程），详细接收可参考<a href="http://qjm253.cn/2018/01/05/super_c_e/#wait%E5%92%8Cwaitpid%E5%87%BD%E6%95%B0">我的另一篇博客</a></p>
+</li>
+</ul>
+</li>
+<li><h4 id="举个创建子进程的栗子"><a href="#举个创建子进程的栗子" class="headerlink" title="举个创建子进程的栗子"></a>举个创建子进程的栗子</h4><blockquote>
+<p>如果子进程创建成功，则fork函数会返回两次，在子进程中返回0，在父进程中返回子进程id</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">pid_t</span> pid;</span><br><span class="line">    <span class="comment">//创建一个新进程</span></span><br><span class="line">    pid = fork();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(pid &lt; <span class="number">0</span>) &#123;   <span class="comment">//error occurred</span></span><br><span class="line">        <span class="built_in">fprintf</span>(<span class="built_in">stderr</span>, <span class="string">"Fork failed"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">-1</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>) &#123; <span class="comment">//child process</span></span><br><span class="line">        execlp(<span class="string">"/bin/ls"</span>, <span class="string">"ls"</span>, <span class="literal">NULL</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;  <span class="comment">//parent process</span></span><br><span class="line">        <span class="comment">//parent will wait for the child to complete</span></span><br><span class="line">        wait(<span class="literal">NULL</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"Child Completed\n"</span>);</span><br><span class="line">        <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>9    : 创建一个进程并记录fork()函数的返回值</li>
+<li>11-13: 如果pid &lt; 0 表示创建进程失败，打印出错误提示并退出程序</li>
+<li>14-15: pid == 0，表示当前进程是子进程，执行一个exec函数调用系统的ls命令查看当前文件夹的信息</li>
+<li>16-20: pid &gt; 0，表示当前进程是父进程，调用wait等待子进程执行结束，接着打印子进程结束信息，退出程序。<img src="/img/os/os_09.png" title="上述创建子进程的流程图示">
+</li>
+</ul>
+</li>
+<li><h3 id="进程终止"><a href="#进程终止" class="headerlink" title="进程终止"></a>进程终止</h3><p>进程可以在执行的过程中，调用 <strong>exit</strong> 系统调用来要求操作系统终止自身。当然，通过适当的系统调用，一个进程也可以终止另一个进程（比如Unix中常用kill命令杀死其它进程）</p>
+<ul>
+<li><h4 id="父进程终止子进程的原因"><a href="#父进程终止子进程的原因" class="headerlink" title="父进程终止子进程的原因"></a>父进程终止子进程的原因</h4><ul>
+<li><p>子进程使用了超过它所分配到的一些资源。（为了判定是否发生这种情况，要求父进程有一个检查子进程状态的机制）</p>
+</li>
+<li><p>分配给子进程的任务已不再需要</p>
+</li>
+<li><p>父进程退出，操作系统不允许子进程继续（对有些操作系统而言）</p>
+</li>
+</ul>
+</li>
+<li><h4 id="父进程退出时子进程如何处置？"><a href="#父进程退出时子进程如何处置？" class="headerlink" title="父进程退出时子进程如何处置？"></a>父进程退出时子进程如何处置？</h4><ul>
+<li><p><strong>有些操作系统</strong>，包括VMS，<strong>不允许子进程在父进程已终止的情况下存在</strong>。对于这类操作系统，<strong>如果一个进程终止，那么它的所有子进程都将终止</strong>。这种现象称之为 <strong>级联终止</strong>（<strong><em>cascading termination</em></strong>）</p>
+</li>
+<li><p>而对于常见的一些操作系统，如<strong>Unix</strong>，如果一个<strong>进程终止</strong>，则其<strong>所有的子进程</strong>并不终止，而是将其<strong>托管给init进程</strong>，init进程便是它的新父进程。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h2><p>如果一个进程不被其他进程影响，也不影响其它进程，则称这个进程是<strong>独立的</strong>；如果一个进程能影响其他进程或被其它进程影响，则称该进程是<strong>协作的</strong>。=&gt;进程间进行协作需要一种<strong>进程间通信机制</strong>（<strong><em>interprocess communication, IPC</em></strong>）</p>
+</blockquote>
+<ul>
+<li><h3 id="为什么进程间要进行协作？"><a href="#为什么进程间要进行协作？" class="headerlink" title="为什么进程间要进行协作？"></a>为什么进程间要进行协作？</h3><ul>
+<li><strong>信息共享</strong>（<strong><em>information sharing</em></strong>）=&gt; 多个进程可以并发的访问同一块数据</li>
+<li><strong>提高运算速度</strong>（<strong><em>computation speedup</em></strong>）=&gt; 将一个任务分为若干个子任务交由多个进程执行，可以提高运算速度</li>
+<li><strong>模块化</strong>（<strong><em>modularity</em></strong>）=&gt; 一个系统可能被设计为多个模块，而每个模块各自在一个进程中运行，那么这些模块间肯定需要进行协同，这就要求进程间要能够进行通信。</li>
+<li><strong>方便</strong>（<strong><em>convenience</em></strong>）</li>
+</ul>
+</li>
+<li><h3 id="进程间通信的方式"><a href="#进程间通信的方式" class="headerlink" title="进程间通信的方式"></a>进程间通信的方式</h3><img src="/img/os/os_10.png" title="进程间通信模型，(a)为消息传递模式，(b)为共享内存模式">
+<ul>
+<li><h4 id="共享内存"><a href="#共享内存" class="headerlink" title="共享内存"></a>共享内存</h4><p>建立一块共享内存区域，对于需要访问共享内存区域的两个或多个进程需要打破操作系统对一个进程不能访问另一个进程的内存空间的限制。</p>
+<ul>
+<li><p>可用来解决生产者消费者问题</p>
+</li>
+<li><p>可以采用有限缓冲和无限缓冲两种模式</p>
+</li>
+<li><p>只有在建立共享内存区域的时候需要内核干预，在具体通信的时候都是对内存的访问，可以不需要内核干预。可以以较大的速率进行同行。</p>
+</li>
+</ul>
+</li>
+<li><h4 id="消息传递"><a href="#消息传递" class="headerlink" title="消息传递"></a>消息传递</h4><p>进程间通过互相发送消息来直接或间接的通信。</p>
+<ul>
+<li><h5 id="直接通信或间接通信"><a href="#直接通信或间接通信" class="headerlink" title="直接通信或间接通信"></a>直接通信或间接通信</h5><ul>
+<li>直接通信：通信进程之间直接建立通信线路，互相发送消息来进行通信</li>
+<li>间接通信：需要一个邮箱作为中转，进程均直接与邮箱进行通信，向邮箱发送消息或者从邮箱接收消息</li>
+</ul>
+</li>
+<li><h5 id="同步或异步通信"><a href="#同步或异步通信" class="headerlink" title="同步或异步通信"></a>同步或异步通信</h5><ul>
+<li>同步通信：消息的发送和接收是阻塞执行的。直到发送的消息被成功接收或者成功接收到消息，才会继续执行之后的操作</li>
+<li>异步通信：消息发送和接收是异步的。对于发送操作，消息发出后不关心是否被接收，直接执行之后的操作；对于接收操作，每次接收，均一个有效的消息或者是一个空消息，然后继续执行之后的操作。</li>
+</ul>
+</li>
+<li><h5 id="缓冲"><a href="#缓冲" class="headerlink" title="缓冲"></a>缓冲</h5><p>不管通信是直接的还是间接的，通信进程所交换的消息都驻留在临时队列当中。简单讲，队列有以下三种实现方式：</p>
+<ul>
+<li>零容量：缓冲队列为0</li>
+<li>有限容量：缓冲队列为n</li>
+<li>无线容量：缓冲队列无限大</li>
+</ul>
+<p>零容量的情况称为<strong>没有缓冲的系统</strong>，其它情况称为<strong>自动缓冲</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/操作系统/" rel="tag"># 操作系统</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/08/c++Uva1589/" rel="next" title="Uva- 1589 - Xiangqi">
+                <i class="fa fa-chevron-left"></i> Uva- 1589 - Xiangqi
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/27/os_02/" rel="prev" title="线程">
+                线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+<span class="jiathis_txt">分享到：</span>
+<a class="jiathis_button_fav">收藏夹</a>
+<a class="jiathis_button_copy">复制网址</a>
+<a class="jiathis_button_email">邮件</a>
+<a class="jiathis_button_weixin">微信</a>
+<a class="jiathis_button_qzone">QQ空间</a>
+<a class="jiathis_button_tqq">腾讯微博</a>
+<a class="jiathis_button_douban">豆瓣</a>
+<a class="jiathis_button_share">一键分享</a>
+
+<a href="http://www.jiathis.com/share?uid=2140465" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank">更多</a>
+<a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+var jiathis_config={
+  data_track_clickback:true,
+  summary:"",
+  shortUrl:false,
+  hideMore:false
+}
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzU2Mi8xNDA5NA=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar-r.jpg"
+                alt="建明 | Ming.J" />
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">60</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程"><span class="nav-number">1.</span> <span class="nav-text">进程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程状态"><span class="nav-number">1.1.</span> <span class="nav-text">进程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程控制块-PCB"><span class="nav-number">1.2.</span> <span class="nav-text">进程控制块 (PCB)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程调度"><span class="nav-number">2.</span> <span class="nav-text">进程调度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为何要进行进程调度？"><span class="nav-number">2.1.</span> <span class="nav-text">为何要进行进程调度？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度队列"><span class="nav-number">2.2.</span> <span class="nav-text">调度队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#作业队列"><span class="nav-number">2.2.1.</span> <span class="nav-text">作业队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#就绪队列"><span class="nav-number">2.2.2.</span> <span class="nav-text">就绪队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设备队列"><span class="nav-number">2.2.3.</span> <span class="nav-text">设备队列</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#调度程序"><span class="nav-number">2.3.</span> <span class="nav-text">调度程序</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#长期调度程序（long-term-scheduler）"><span class="nav-number">2.3.1.</span> <span class="nav-text">长期调度程序（long-term scheduler）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#短期调度程序（short-term-scheduler）"><span class="nav-number">2.3.2.</span> <span class="nav-text">短期调度程序（short-term scheduler）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#中期调度程序（medium-term-scheduler）"><span class="nav-number">2.3.3.</span> <span class="nav-text">中期调度程序（medium-term scheduler）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上下文切换"><span class="nav-number">2.4.</span> <span class="nav-text">上下文切换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程操作"><span class="nav-number">3.</span> <span class="nav-text">进程操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程创建"><span class="nav-number">3.1.</span> <span class="nav-text">进程创建</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#进程标识符-pid-process-identifier"><span class="nav-number">3.1.1.</span> <span class="nav-text">进程标识符 (pid, process identifier)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建子进程后，父进程的行为"><span class="nav-number">3.1.2.</span> <span class="nav-text">创建子进程后，父进程的行为</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#新创建进程的地址空间也有两种可能"><span class="nav-number">3.1.3.</span> <span class="nav-text">新创建进程的地址空间也有两种可能</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Unix创建进程相关的命令"><span class="nav-number">3.1.4.</span> <span class="nav-text">Unix创建进程相关的命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个创建子进程的栗子"><span class="nav-number">3.1.5.</span> <span class="nav-text">举个创建子进程的栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程终止"><span class="nav-number">3.2.</span> <span class="nav-text">进程终止</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#父进程终止子进程的原因"><span class="nav-number">3.2.1.</span> <span class="nav-text">父进程终止子进程的原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#父进程退出时子进程如何处置？"><span class="nav-number">3.2.2.</span> <span class="nav-text">父进程退出时子进程如何处置？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程间通信"><span class="nav-number">4.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么进程间要进行协作？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么进程间要进行协作？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程间通信的方式"><span class="nav-number">4.2.</span> <span class="nav-text">进程间通信的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#共享内存"><span class="nav-number">4.2.1.</span> <span class="nav-text">共享内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#消息传递"><span class="nav-number">4.2.2.</span> <span class="nav-text">消息传递</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#直接通信或间接通信"><span class="nav-number">4.2.2.1.</span> <span class="nav-text">直接通信或间接通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#同步或异步通信"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">同步或异步通信</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#缓冲"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">缓冲</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("eyIFq6kYslRSDIa8lqlCIThp-gzGzoHsz", "iUAeNEuxcBmYdpgAATCh4AlH");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
