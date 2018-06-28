@@ -79,15 +79,26 @@
 
 
 
+<meta name="description" content="线程 线程是CPU使用的基本单元，它由线程ID、程序计数器，寄存器集合和栈组成。它与属于同一个进程的其它线程共享代码段、数据段和其它操作系统资源，如打开文件和信号。   线程的优点 响应度高：交互式应用程序采用多线程实现的话，可以一部分线程处理用户I/O等耗时操作，而一部分用来响应用户的操作。这就不会出现用户一次交互之后系统由于等待I/O而卡住的情况，可交互性大大提升。  资源共享：同一个进程的">
 <meta name="keywords" content="笔记,操作系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="线程">
 <meta property="og:url" content="http://qjm253.cn/2018/06/27/os_02/index.html">
 <meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="线程 线程是CPU使用的基本单元，它由线程ID、程序计数器，寄存器集合和栈组成。它与属于同一个进程的其它线程共享代码段、数据段和其它操作系统资源，如打开文件和信号。   线程的优点 响应度高：交互式应用程序采用多线程实现的话，可以一部分线程处理用户I/O等耗时操作，而一部分用来响应用户的操作。这就不会出现用户一次交互之后系统由于等待I/O而卡住的情况，可交互性大大提升。  资源共享：同一个进程的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-27T07:25:07.167Z">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_11.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_12.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_13.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_14.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_15.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_16.png">
+<meta property="og:image" content="http://qjm253.cn/img/os/os_17.png">
+<meta property="og:updated_time" content="2018-06-28T13:26:24.063Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线程">
+<meta name="twitter:description" content="线程 线程是CPU使用的基本单元，它由线程ID、程序计数器，寄存器集合和栈组成。它与属于同一个进程的其它线程共享代码段、数据段和其它操作系统资源，如打开文件和信号。   线程的优点 响应度高：交互式应用程序采用多线程实现的话，可以一部分线程处理用户I/O等耗时操作，而一部分用来响应用户的操作。这就不会出现用户一次交互之后系统由于等待I/O而卡住的情况，可交互性大大提升。  资源共享：同一个进程的">
+<meta name="twitter:image" content="http://qjm253.cn/img/os/os_11.png">
 
 
 
@@ -392,7 +403,173 @@
       
 
       
-        
+        <blockquote>
+<h2 id="线程"><a href="#线程" class="headerlink" title="线程"></a>线程</h2></blockquote>
+<p><strong>线程</strong>是<strong>CPU使用的基本单元</strong>，它由线程ID、程序计数器，寄存器集合和栈组成。它与属于同一个进程的其它线程共享代码段、数据段和其它操作系统资源，如打开文件和信号。</p>
+<img src="/img/os/os_11.png" title="单线程进程和多线程进程">
+<ul>
+<li><h3 id="线程的优点"><a href="#线程的优点" class="headerlink" title="线程的优点"></a>线程的优点</h3><ul>
+<li><p><strong>响应度高</strong>：交互式应用程序采用多线程实现的话，可以一部分线程处理用户I/O等耗时操作，而一部分用来响应用户的操作。这就不会出现用户一次交互之后系统由于等待I/O而卡住的情况，可交互性大大提升。</p>
+</li>
+<li><p><strong>资源共享</strong>：同一个进程的线程间共享进程的内存和资源，线程之间的交互也比进程间交互要容易的多</p>
+</li>
+<li><p><strong>经济</strong>：创建一个线程所需要的开销远比创建一个进程的开销要小，所以相对于创建进程来说，创建一个线程是更为经济的。</p>
+</li>
+<li><p><strong>多处理器体系结构的应用</strong>：对于单线程进程，即便硬件有多个处理器，一个进程同一时刻只能在一个处理器上运行。而对于一个<strong>多线程进程</strong>，<strong>可以将线程同时运行在多个处理器上</strong>，这样就充分的发挥了多处理器的好处，<strong>加强了并发功能</strong></p>
+</li>
+</ul>
+</li>
+<li><h3 id="用户线程和内核线程"><a href="#用户线程和内核线程" class="headerlink" title="用户线程和内核线程"></a>用户线程和内核线程</h3><blockquote>
+<p>参考：<a href="https://blog.csdn.net/gatieme/article/details/51892437" target="_blank" rel="noopener">线程的3种实现方式–内核级线程, 用户级线程和混合型线程</a></p>
+</blockquote>
+<ul>
+<li><h4 id="用户线程"><a href="#用户线程" class="headerlink" title="用户线程"></a>用户线程</h4><ul>
+<li><p>用户线程<strong>存在于用户空间</strong>，<strong>由线程库统一管理</strong>，<strong>对内核透明</strong>（也就是说内核并不知道有用户线程的存在）</p>
+</li>
+<li><p>用户线程的<strong>创建和销毁均</strong>在用户空间由线程库实现，<strong>无需内核干预，不需要调用系统调用</strong>，也就不会有用户态与内核态相互切换的开销</p>
+</li>
+<li><p>用户线程不具有自己的上下文，不能直接参与CPU的竞争，必须关联一个内核线程，由内核线程去竞争CPU资源（<strong>操作系统是以内核线程为最基本的单位，分配CPU资源的</strong>）</p>
+</li>
+</ul>
+</li>
+<li><h4 id="内核线程"><a href="#内核线程" class="headerlink" title="内核线程"></a>内核线程</h4><ul>
+<li><p>内核线程<strong>存在于内核空间</strong>，由<strong>操作系统管理</strong>。</p>
+</li>
+<li><p>内核线程的<strong>创建和销毁</strong>都是<strong>通过系统调用来完成的</strong></p>
+</li>
+<li><p>内核线程是<strong>操作系统分配CPU资源的最小单位</strong>（也就是说内核线程是直接参与CPU竞争的）=&gt; 每次调度器选择一个内核级线程，为其分配CPU的使用权（比如说可以是时间片）</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="多线程模型"><a href="#多线程模型" class="headerlink" title="多线程模型"></a>多线程模型</h2><ul>
+<li>多对一模型</li>
+<li>一对一模型</li>
+<li>多对一模型</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="多对一模型"><a href="#多对一模型" class="headerlink" title="多对一模型"></a>多对一模型</h3><p>一个进程的<strong>所有用户线程都映射到同一个内核线程上</strong>，<strong>线程的管理交由线程库</strong></p>
+<img src="/img/os/os_12.png" title="多对一模型">
+<ul>
+<li><p>就<strong>内核的视角</strong>来看，进程仍然<strong>是一个单线程进程</strong>，用户线程对内核是透明的</p>
+</li>
+<li><p>因为都映射到同一个内核线程，所以<strong>同一时刻只有一个线程能访问内核</strong>，也就是说同一时刻只能有一个线程可以调用系统调用（如果此时<strong>某个线程执行了一个阻塞的系统调用，那么同进程的其它线程都将被阻塞</strong>）</p>
+</li>
+<li><p>因为<strong>线程的管理</strong>都是由<strong>线程库在用户空间完成</strong>的，<strong>不涉及系统调用</strong>，所以<strong>效率会比较高</strong></p>
+</li>
+</ul>
+</li>
+<li><h3 id="一对一模型"><a href="#一对一模型" class="headerlink" title="一对一模型"></a>一对一模型</h3><p><strong>每个用户线程都映射一个内核线程</strong>。</p>
+<img src="/img/os/os_13.png" title="一对一模型">
+<ul>
+<li><p>由于每个用户线程各自映射一个内核线程，所以当<strong>一个线程执行阻塞系统调用的时候，同进程的其它线程并不受其影响</strong>。=&gt; <strong>提供了比较好的并发功能</strong></p>
+</li>
+<li><p><strong>允许同进程的多个线程运行在多个处理器上</strong></p>
+</li>
+<li><p>唯一的缺点就是，内核线程的创建是开销比较大的，过多的创建会影响系统的性能，所以导致<strong>所能创建的线程数量也是大受限制</strong>。</p>
+</li>
+</ul>
+</li>
+<li><h3 id="多对多模型"><a href="#多对多模型" class="headerlink" title="多对多模型"></a>多对多模型</h3><p><strong>多对多模型</strong> 克服了多对一模型并发性不行以及一对一模型所能创建线程数量受限的问题。</p>
+<img src="/img/os/os_14.png" title="多对多模型">
+<ul>
+<li><p><strong>开发人员可以创建任意多的用户线程，并且相应的内核线程能在多处理系统上并发执行</strong>。</p>
+</li>
+<li><p>当一个线程执行阻塞系统调用的时候，内核能调度另一个线程来执行</p>
+</li>
+</ul>
+</li>
+<li><h3 id="二级模型"><a href="#二级模型" class="headerlink" title="二级模型"></a>二级模型</h3><p>是上述一对一模型和多对多模型的变种。</p>
+<img src="/img/os/os_15.png" title="二级模型">
+</li>
+</ul>
+<blockquote>
+<h2 id="线程库"><a href="#线程库" class="headerlink" title="线程库"></a>线程库</h2><p>线程库为程序员<strong>提供创建和管理线程的API</strong></p>
+</blockquote>
+<ul>
+<li><h3 id="用户级线程库和内核级线程库"><a href="#用户级线程库和内核级线程库" class="headerlink" title="用户级线程库和内核级线程库"></a>用户级线程库和内核级线程库</h3><ul>
+<li><h4 id="用户级线程库"><a href="#用户级线程库" class="headerlink" title="用户级线程库"></a>用户级线程库</h4><p>用户级线程库的实现是在用户空间中<strong>提供一个没有内核支持的库</strong>，此库的<strong>所有代码和数据结构都存在于用户空间</strong>当中。<strong>调用库中的一个函数只是导致用户空间一个本地函数的调用，而不是系统调用</strong>。</p>
+</li>
+<li><h4 id="内核级线程库"><a href="#内核级线程库" class="headerlink" title="内核级线程库"></a>内核级线程库</h4><p>内核级线程库的实现方法是执行一个<strong>由操作系统直接支持的内核级的库</strong>，<strong>库的代码和数据结构存在于内核空间当中</strong>。<strong>调用一个库的API函数通常会导致对内核的系统调用</strong>。</p>
+</li>
+</ul>
+</li>
+<li><h3 id="常用线程库"><a href="#常用线程库" class="headerlink" title="常用线程库"></a>常用线程库</h3><ul>
+<li><h4 id="POSIX-Pthread"><a href="#POSIX-Pthread" class="headerlink" title="POSIX Pthread"></a>POSIX Pthread</h4>扩展自POSIX标准，<strong>可以提供用户级或内核级的库</strong></li>
+<li><h4 id="Win32"><a href="#Win32" class="headerlink" title="Win32"></a>Win32</h4>适用于Windows操作系统的<strong>内核级线程库</strong></li>
+<li><h4 id="Java"><a href="#Java" class="headerlink" title="Java"></a>Java</h4>Java线程API通常<strong>采用宿主系统上的线程库来实现</strong>。意味着在Windows系统上，Java线程通常采用Win32 API实现，而在Unix和LInux系统上采用Pthread。</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="多线程相关问题"><a href="#多线程相关问题" class="headerlink" title="多线程相关问题"></a>多线程相关问题</h2></blockquote>
+<ul>
+<li><h3 id="系统调用fork-和exec"><a href="#系统调用fork-和exec" class="headerlink" title="系统调用fork()和exec()"></a>系统调用fork()和exec()</h3><p>通常，如果在<strong>调用fork之后立即调用exec函数，那么只复制当前线程</strong>（因为新的程序会替换掉整个进程）；如果在<strong>调用fork函数之后不调用exec函数，那么应复制所有线程</strong></p>
+<ul>
+<li><h4 id="fork"><a href="#fork" class="headerlink" title="fork()"></a>fork()</h4>通常在线程内执行fork函数时，系统有两种选择。一种是<strong>复制当前进程的所有线程到新进程</strong>；另一种是<strong>只复制调用fork()的那个线程</strong>。</li>
+<li><h4 id="exec"><a href="#exec" class="headerlink" title="exec()"></a>exec()</h4>如果一个线程调用了exec()系统调用，那么exec()所启动的<strong>新的程序会替换当前的整个进程，包括所有的线程</strong></li>
+</ul>
+</li>
+<li><h3 id="线程取消"><a href="#线程取消" class="headerlink" title="线程取消"></a>线程取消</h3><p>线程取消（<strong><em>thread cancellation</em></strong>）指的是<strong>在线程完成之前终止线程的任务</strong></p>
+<ul>
+<li><strong>异步取消</strong>（<strong><em>asynchronous cancellation</em></strong>）：一个线程立即终止目标线程</li>
+<li><strong>延迟取消</strong>（<strong><em>deferred cancellation</em></strong>）：目标线程不断自检是否应该终止，这允许线程有机会以有序的方式来终止自己。</li>
+</ul>
+</li>
+<li><h3 id="信号处理"><a href="#信号处理" class="headerlink" title="信号处理"></a>信号处理</h3><p><strong>信号</strong> 在Unix中用来 <strong>通知进程某个特定事件发生了</strong></p>
+<ul>
+<li><h4 id="信号的共同特征"><a href="#信号的共同特征" class="headerlink" title="信号的共同特征"></a>信号的共同特征</h4><ul>
+<li>信号是由<strong>特定事件的发生所产生</strong>的</li>
+<li>产生的<strong>信号要发送到进程</strong></li>
+<li><strong>一旦发送，信号必须加以处理</strong></li>
+</ul>
+</li>
+<li><h4 id="同步信号和异步信号"><a href="#同步信号和异步信号" class="headerlink" title="同步信号和异步信号"></a>同步信号和异步信号</h4><ul>
+<li><strong>同步信号</strong>：同步信号由正在运行的进程产生并发送给自己处理</li>
+<li><strong>异步信号</strong>：异步信号通常是由运行进程之外的其它进程产生，发送给本进程处理。</li>
+</ul>
+</li>
+<li><h4 id="对于多线程程序，信号发给谁？"><a href="#对于多线程程序，信号发给谁？" class="headerlink" title="对于多线程程序，信号发给谁？"></a>对于多线程程序，信号发给谁？</h4><ul>
+<li>发送信号到信号所应用的线程</li>
+<li>发送信号到进程内的每个线程</li>
+<li>发送信号到进程内的某些固定线程</li>
+<li>规定一个特定线程以接收进程的所有信号</li>
+</ul>
+<p>通常，对于Unix系统，允许线程描述它会接收或者拒绝哪些信号。因此，<strong>有时一个异步的信号只能发送给那些不拒绝它的线程</strong>。</p>
+</li>
+<li><h4 id="信号的处理？"><a href="#信号的处理？" class="headerlink" title="信号的处理？"></a>信号的处理？</h4><ul>
+<li>每个信号都有一个<strong>默认信号处理程序</strong>（<strong><em>default signal handler</em></strong>），如果不作额外的处理，<strong>每当信号来临，就会执行信号对应的默认处理程序</strong>。</li>
+<li>当然，这种默认动作也可以通过<strong><em>用户自定义一个信号处理程序</em></strong>来覆盖默认行为。一旦定义了某个信号的处理程序来覆盖默认响应，<strong>信号来临时就会执行用户定义的行为，而不是信号的默认行为</strong>。</li>
+</ul>
+</li>
+<li><h4 id="线程池"><a href="#线程池" class="headerlink" title="线程池"></a>线程池</h4><p><strong>线程池</strong>（<strong><em>thread pool</em></strong>）的主要思想是在进程<strong>开始的时候创建一定数量的线程</strong>，并<strong>放入到池中</strong>以等待工作。当服务器<strong>收到请求</strong>时，它会<strong>唤醒池中的一个线程</strong>（如果有可用线程的话），并将请求交由该线程处理。<strong>处理完</strong> 请求之后，再让线程<strong>返回池中等待</strong>下一个任务。如果<strong>池中没有可用线程，则服务器会一直等待，直到有空线程为止</strong>。</p>
+</li>
+<li><h4 id="线程特定数据"><a href="#线程特定数据" class="headerlink" title="线程特定数据"></a>线程特定数据</h4><p><strong>线程特定数据</strong>（thread-specific data），也就是<strong>线程局部数据</strong>，为每一个线程所私有而不与其他线程共享。</p>
+</li>
+<li><h4 id="调度程序激活"><a href="#调度程序激活" class="headerlink" title="调度程序激活"></a>调度程序激活</h4><p><strong>调度程序激活机制</strong> 实际上是一种内核与线程库进行通信的机制。目的是 <strong>模拟内核线程的功能</strong>，但是同时又<strong>保留线程库在用户空间中实现拥有更佳的性能以及灵活性的优点</strong>。</p>
+<ul>
+<li><h5 id="轻量级进程（Light-weight-process，LWP）"><a href="#轻量级进程（Light-weight-process，LWP）" class="headerlink" title="轻量级进程（Light-weight process，LWP）"></a>轻量级进程（Light-weight process，LWP）</h5><p>轻量级进程是在内核线程与用户线程之间设置的一个中间的数据结构。<strong>对于线程库</strong>，LWP<strong>表现为一种虚拟处理器</strong>，线程库可以调度<strong>用户线程运行在这些虚拟处理器上</strong>。（也就是说线程库在调度用户线程的时候，就把LPW当做处理器来看待，用户线程要运行就必须竞争LPW的使用权，而线程库调度就是负责分派LPW的使用权给适当的用户线程）</p>
+<img src="/img/os/os_16.png" title="轻量级进程（LWP）"></li>
+<li><h5 id="上行调用（upcall）"><a href="#上行调用（upcall）" class="headerlink" title="上行调用（upcall）"></a>上行调用（upcall）</h5><p><strong>上行调用</strong>（<strong><em>upcall</em></strong>）可以认为是内核给用户空间的进程的运行时系统发送的一个信号，进程的运行时系统根据收到的信号对应的作出处理。</p>
+</li>
+<li><h5 id="调度程序激活机制"><a href="#调度程序激活机制" class="headerlink" title="调度程序激活机制"></a>调度程序激活机制</h5><ul>
+<li><p>每个内核线程会关联一个LWP，应用程序可以调度一个用户线程到一个可用的LWP上执行，而内核线程则会被调度到真实的物理处理器上执行。</p>
+</li>
+<li><p>内核通过upcall告知应用程序一些特定的事件，比如一个<strong>用户线程A</strong>运行在<strong>LWP①</strong>上，它调用了一个阻塞的系统调用，那么内核将会发一个 <strong>upcall<sub>A</sub></strong> 告知应用程序，让其阻塞并标识这个<strong>用户线程A</strong>。接着内核会分配一个新的LWP（记作<strong>LWP②</strong>）给应用程序，应用程序会在<strong>LWP②</strong>上处理刚才的upcall<sub>A</sub>，标记<strong>用户线程A</strong>为阻塞，解除其与<strong>LWP①</strong> 的关联，然后在应用程序通过调度，在就绪队列里面找到一个等待执行的 <strong>用户线程B</strong>，将其与<strong>LWP②</strong>关联，让其运行在<strong>LWP②</strong> 上。当 <strong>用户线程A</strong> 所等待的阻塞事件结束的时候，内核会发送另一个 <strong>upcall<sub>B</sub></strong>，通知应用程序先前阻塞的 <strong>用户线程A</strong> 又可以运行了，然后应用程序根据情况进行调度（选择是否为其分配一个LWP让其执行，或是将其放到就绪队里当中）。</p>
+<img src="/img/os/os_17.png" title="调度程序激活流程">
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     
@@ -515,8 +692,17 @@ var jiathis_config={
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -571,6 +757,22 @@ var jiathis_config={
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程"><span class="nav-number">1.</span> <span class="nav-text">线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线程的优点"><span class="nav-number">1.1.</span> <span class="nav-text">线程的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用户线程和内核线程"><span class="nav-number">1.2.</span> <span class="nav-text">用户线程和内核线程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户线程"><span class="nav-number">1.2.1.</span> <span class="nav-text">用户线程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内核线程"><span class="nav-number">1.2.2.</span> <span class="nav-text">内核线程</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程模型"><span class="nav-number">2.</span> <span class="nav-text">多线程模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#多对一模型"><span class="nav-number">2.1.</span> <span class="nav-text">多对一模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对一模型"><span class="nav-number">2.2.</span> <span class="nav-text">一对一模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对多模型"><span class="nav-number">2.3.</span> <span class="nav-text">多对多模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二级模型"><span class="nav-number">2.4.</span> <span class="nav-text">二级模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程库"><span class="nav-number">3.</span> <span class="nav-text">线程库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#用户级线程库和内核级线程库"><span class="nav-number">3.1.</span> <span class="nav-text">用户级线程库和内核级线程库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#用户级线程库"><span class="nav-number">3.1.1.</span> <span class="nav-text">用户级线程库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#内核级线程库"><span class="nav-number">3.1.2.</span> <span class="nav-text">内核级线程库</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用线程库"><span class="nav-number">3.2.</span> <span class="nav-text">常用线程库</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#POSIX-Pthread"><span class="nav-number">3.2.1.</span> <span class="nav-text">POSIX Pthread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Win32"><span class="nav-number">3.2.2.</span> <span class="nav-text">Win32</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java"><span class="nav-number">3.2.3.</span> <span class="nav-text">Java</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程相关问题"><span class="nav-number">4.</span> <span class="nav-text">多线程相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#系统调用fork-和exec"><span class="nav-number">4.1.</span> <span class="nav-text">系统调用fork()和exec()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#fork"><span class="nav-number">4.1.1.</span> <span class="nav-text">fork()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#exec"><span class="nav-number">4.1.2.</span> <span class="nav-text">exec()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#线程取消"><span class="nav-number">4.2.</span> <span class="nav-text">线程取消</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号处理"><span class="nav-number">4.3.</span> <span class="nav-text">信号处理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#信号的共同特征"><span class="nav-number">4.3.1.</span> <span class="nav-text">信号的共同特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步信号和异步信号"><span class="nav-number">4.3.2.</span> <span class="nav-text">同步信号和异步信号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对于多线程程序，信号发给谁？"><span class="nav-number">4.3.3.</span> <span class="nav-text">对于多线程程序，信号发给谁？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#信号的处理？"><span class="nav-number">4.3.4.</span> <span class="nav-text">信号的处理？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程池"><span class="nav-number">4.3.5.</span> <span class="nav-text">线程池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程特定数据"><span class="nav-number">4.3.6.</span> <span class="nav-text">线程特定数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调度程序激活"><span class="nav-number">4.3.7.</span> <span class="nav-text">调度程序激活</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#轻量级进程（Light-weight-process，LWP）"><span class="nav-number">4.3.7.1.</span> <span class="nav-text">轻量级进程（Light-weight process，LWP）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#上行调用（upcall）"><span class="nav-number">4.3.7.2.</span> <span class="nav-text">上行调用（upcall）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#调度程序激活机制"><span class="nav-number">4.3.7.3.</span> <span class="nav-text">调度程序激活机制</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
