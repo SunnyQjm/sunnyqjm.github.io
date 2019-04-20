@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>反馈</title>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript">
+        axios.defaults.baseURL = "http://eupan.club:8080";
+        $(document).ready(function () {
+            $("#btnFeedback").click(function () {
+                axios({
+                    method: 'post',
+                    url: 'app/feedback',
+                    data: {
+                        content: $("#feedbackContent").text(),
+                        contactInfo: $("#contactInfo").text()
+                    },
+                    headers: {
+                        'Content-Type': "application/json"
+                    }
+                }).then(function (response) {
+                    var res = JSON.parse(response);
+                    if(res.success){
+                        alert("反馈成功")
+                    }
+                }).catch(function (reason) {
+                    console.log(reason)
+                })
+            })
+        })
+    </script>
+</head>
+<style>
+    .divider {
+        height: 200px;
+    }
+
+    .divider-small {
+        height: 50px;
+    }
+
+    .h-span-50 {
+        width: 50px;
+    }
+
+    .feedback_input {
+        padding: 10px;
+    }
+</style>
+<body style="background-color: #f5f5f5">
+<!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+<div class="divider"></div>
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col text-center" style="font-size: 2em">
+            在使用过程中遇到任何问题均可以在这里告诉我们哦，我们会努力变得更好～
+        </div>
+    </div>
+
+    <div class="row divider"></div>
+
+    <div class="row justify-content-center">
+        <div class="col">
+            <textarea id="feedbackContent" type="text" class="form-control feedback_input" rows="5"
+                      placeholder="请输入要反馈的内容"></textarea>
+        </div>
+        <div class="w-100 divider-small"></div>
+        <div class="col">
+            <div class="input-group">
+                <input id="contactInfo" type="text" class="form-control" placeholder="如果愿意，可以在此留下您的联系方式">
+                <span class="h-span-50"></span>
+                <span class="input-group-btn">
+                    <button id="btnFeedback" class="btn btn-secondary" type="button">反馈</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
