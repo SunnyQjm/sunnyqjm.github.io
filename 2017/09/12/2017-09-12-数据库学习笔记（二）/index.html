@@ -1,0 +1,1538 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章   SQL的组成PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧   数据定义语言（Data-Definition Language， DDL） 提供定义关系模式，删除关系以及修改关系模式的命令 如create、drop、alter等执行以后会产生、销毁表（定义、">
+<meta name="keywords" content="数据库,学习,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库笔记（二）">
+<meta property="og:url" content="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章   SQL的组成PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧   数据定义语言（Data-Definition Language， DDL） 提供定义关系模式，删除关系以及修改关系模式的命令 如create、drop、alter等执行以后会产生、销毁表（定义、">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/zan_shang.png">
+<meta property="og:updated_time" content="2019-04-20T12:23:47.924Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库笔记（二）">
+<meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章   SQL的组成PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧   数据定义语言（Data-Definition Language， DDL） 提供定义关系模式，删除关系以及修改关系模式的命令 如create、drop、alter等执行以后会产生、销毁表（定义、">
+<meta name="twitter:image" content="http://qjm253.cn/img/zan_shang.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据库笔记（二） | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/12/2017-09-12-数据库学习笔记（二）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库笔记（二）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-09-12 00:00:00" itemprop="dateCreated datePublished" datetime="2017-09-12T00:00:00+08:00">2017-09-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 20:23:47" itemprop="dateModified" datetime="2019-04-20T20:23:47+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章</p>
+</blockquote>
+<blockquote>
+<h1 id="SQL的组成"><a href="#SQL的组成" class="headerlink" title="SQL的组成"></a>SQL的组成</h1><p>PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧</p>
+</blockquote>
+<ul>
+<li><h3 id="数据定义语言（Data-Definition-Language，-DDL）"><a href="#数据定义语言（Data-Definition-Language，-DDL）" class="headerlink" title="数据定义语言（Data-Definition Language， DDL）"></a>数据定义语言（Data-Definition Language， DDL）</h3><ul>
+<li>提供定义关系模式，删除关系以及修改关系模式的命令</li>
+<li>如create、drop、alter等执行以后会产生、销毁表（定义、删除关系模式）或改变表的结构（修改关系模式）</li>
+</ul>
+</li>
+<li><h3 id="数据操纵语言（Data-Manipulation-Language，DML）"><a href="#数据操纵语言（Data-Manipulation-Language，DML）" class="headerlink" title="数据操纵语言（Data-Manipulation Language，DML）"></a>数据操纵语言（Data-Manipulation Language，DML）</h3><ul>
+<li>SQL DML提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
+<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系模式并没有改变，改变的只是表中的数据）</li>
+</ul>
+</li>
+<li><h3 id="完整性约束（integrity）"><a href="#完整性约束（integrity）" class="headerlink" title="完整性约束（integrity）"></a>完整性约束（integrity）</h3><ul>
+<li>SQL DDL 会给每一个关系（每一张表）在定义或者修改的时候定义一定的完整性约束。之后所有的操作都应该满足这些约束，不满足的操作将不被允许执行<blockquote>
+<p>复习注释: 不过如果对违反约束的行为做了处理，有些违反约束的语句也是可以成功执行的。比如在定义外键的时候指定了级联删除，那么一旦删除语句违反了外键约束，数据库不是拒绝执行，而是级联删除相关数据</p>
+</blockquote>
+</li>
+<li>比如<strong>主键约束</strong>表示一个或多个字段唯一标识了一行数据，如果试图插入主键值相同的数据，就不会被允许</li>
+<li>具体的下面会单独说明并举例</li>
+</ul>
+</li>
+<li><h3 id="视图定义（view-definition）"><a href="#视图定义（view-definition）" class="headerlink" title="视图定义（view definition）"></a>视图定义（view definition）</h3><ul>
+<li>SQL DDL 包括定义视图的命令</li>
+</ul>
+</li>
+<li><h3 id="事务控制（transaction-control）"><a href="#事务控制（transaction-control）" class="headerlink" title="事务控制（transaction control）"></a>事务控制（transaction control）</h3><ul>
+<li>SQL包括定义事务的开始和结束的命令</li>
+</ul>
+</li>
+<li><h3 id="嵌入式SQL和动态SQL（embedded-SQL）"><a href="#嵌入式SQL和动态SQL（embedded-SQL）" class="headerlink" title="嵌入式SQL和动态SQL（embedded SQL）"></a>嵌入式SQL和动态SQL（embedded SQL）</h3><ul>
+<li>嵌入式和动态SQL定义SQL语句如何嵌入到通用编程语言，如C、C++、Java</li>
+</ul>
+</li>
+<li><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><ul>
+<li>SQL DDL包括定义对关系和视图的访问权限的命令</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h1 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h1><p>这些基本数据类型不依赖于某一个具体的数据库，是SQL数据库通用的类型</p>
+</blockquote>
+<ul>
+<li><h3 id="char-n-——全称character"><a href="#char-n-——全称character" class="headerlink" title="char(n)——全称character"></a>char(n)——全称character</h3><ul>
+<li>用户指定长度的字符串，所有取值的长度都固定为长度为n的char</li>
+<li>比如身份证或者电话号码等长度固定的数据可以使用这个</li>
+<li>一般实际用的较少</li>
+</ul>
+</li>
+<li><h3 id="varchar-n-——全称character-varying"><a href="#varchar-n-——全称character-varying" class="headerlink" title="varchar(n)——全称character varying"></a>varchar(n)——全称character varying</h3><ul>
+<li>可变长的字符串，n为串的最大允许长度</li>
+<li>实际存的时候数据多长，就存多长，较省空间</li>
+<li>实际应用中大多用varchar，而不是char</li>
+</ul>
+</li>
+<li><h3 id="int——integer"><a href="#int——integer" class="headerlink" title="int——integer"></a>int——integer</h3><ul>
+<li>整数类型，没啥好讲的，Oj8k</li>
+</ul>
+</li>
+<li><h3 id="smallint"><a href="#smallint" class="headerlink" title="smallint"></a>smallint</h3><ul>
+<li>小整数类型</li>
+</ul>
+</li>
+<li><h3 id="numeric-p-d"><a href="#numeric-p-d" class="headerlink" title="numeric(p, d)"></a>numeric(p, d)</h3><ul>
+<li>定点数，这个数有p位数字，其中小数点右边有d位</li>
+<li>例如，numberic(3, 1)可表示-99.9 ~ 99.9</li>
+<li><p>下面在MySQL数据库上面的测试，举个栗子：(<strong><em>测试结果表明，如果定义numberic(3, 1), 则小数点前面有三位数时是无法插入的，如果小数点后面有多位小数，则通过四舍五入的方法只保留一位小数</em></strong>)</p>
+<ul>
+<li><p>先简单定义一张Student表（没有定义主键，允许插入相同的数据）</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面定义了一张学生表，其中grade的取值范围为-99.9 ~ 99.9（不合理的取值，只是为了测试）</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  study_id <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  age <span class="built_in">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  grade <span class="built_in">NUMERIC</span>(<span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行正常的插入操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 下面两条插入语句都能正常执行，并且结果正确</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590001'</span>, <span class="number">18</span>, <span class="number">92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590002'</span>, <span class="number">18</span>, <span class="number">-92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.6，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590003'</span>, <span class="number">18</span>, <span class="number">-92.56</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.5，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590004'</span>, <span class="number">18</span>, <span class="number">-92.54</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的这条插入操作将会报错</span></span><br><span class="line"><span class="comment">--  [22001][1264] Data truncation: Out of range value for column 'grade' at row 1</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590005'</span>, <span class="number">18</span>, <span class="number">192.5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行上面操作后的结果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">study_id</th>
+<th style="text-align:center">age</th>
+<th style="text-align:center">grade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">201590001</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">92.5</td>
+</tr>
+<tr>
+<td style="text-align:center">201590002</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">-92.5</td>
+</tr>
+<tr>
+<td style="text-align:center">201590003</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">-92.6</td>
+</tr>
+<tr>
+<td style="text-align:center">201590004</td>
+<td style="text-align:center">18</td>
+<td style="text-align:center">-92.5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h3 id="real-double-precision"><a href="#real-double-precision" class="headerlink" title="real,double,precision"></a>real,double,precision</h3><ul>
+<li>浮点数与双精度浮点数</li>
+</ul>
+</li>
+<li><h3 id="float-n"><a href="#float-n" class="headerlink" title="float(n)"></a>float(n)</h3><ul>
+<li>精度至少为n位的浮点数</li>
+</ul>
+</li>
+<li><h3 id="Date-time-timestamp-interval"><a href="#Date-time-timestamp-interval" class="headerlink" title="Date, time, timestamp, interval"></a>Date, time, timestamp, interval</h3><ul>
+<li>日期类型</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h1 id="SQL中的完整性约束"><a href="#SQL中的完整性约束" class="headerlink" title="SQL中的完整性约束"></a>SQL中的完整性约束</h1><p>下文中列举的只是部分简单约束，具体的会在后面的内容中讨论</p>
+</blockquote>
+<p>  先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束（这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的约束，（<strong>如果没有对违反约束行为做特殊的处理</strong>）这个操作就不会成功</p>
+<ul>
+<li><h3 id="primary-key（A1-A2-…-An）——主键约束"><a href="#primary-key（A1-A2-…-An）——主键约束" class="headerlink" title="primary key（A1, A2, …, An）——主键约束"></a>primary key（A1, A2, …, An）——主键约束</h3><ul>
+<li>该约束主要指定了以属性A1~An构成关系的主键，该主键值必须非空且唯一</li>
+<li>即只要一个表的主键确定，那这个表中就不允许存在一行数据其主键的值为null， 也不允许存在两行数据其主键的值一样。一旦后续操作违反了这个原则（约束），则该操作就不会被执行</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>新定义一张department表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作创建了一张department表，并指定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面顺序执行一系列插入操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作将成功插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面再执行一次与上面一模一样的操作，会发现报错，因为之前已经有一条</span></span><br><span class="line"><span class="comment">-- 记录的主键值为'Software'，顾无法再插入主键值相同的数据</span></span><br><span class="line"><span class="comment">-- [23000][1062] Duplicate entry 'Software' for key 'PRIMARY'</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句试图插入一条dept_name为空的数据，显然也是报错的</span></span><br><span class="line"><span class="comment">-- 因为作为主键的字段是不允许为空的</span></span><br><span class="line"><span class="comment">-- [23000][1048] Column 'dept_name' cannot be null</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="literal">NULL</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>执行上面操作后的结果</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">dept_name</th>
+<th style="text-align:center">building</th>
+<th style="text-align:center">budget</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">Software</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">100000</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h3 id="foregin-key-A1-A2-…-An-references-——-外键约束"><a href="#foregin-key-A1-A2-…-An-references-——-外键约束" class="headerlink" title="foregin key(A1, A2, …, An) references —— 外键约束"></a>foregin key(A1, A2, …, An) references —— 外键约束</h3><ul>
+<li>简单来讲如果<strong><em>一个关系（表）A</em></strong>中包含<strong><em>一个外键C</em></strong>，则作为外键的一个或多个字段必然是<strong><em>另一张表B</em></strong>的主键。则由于外键约束这一层关系，对A表和B表都会收一定程度的限制（现在解释的还是比较抽象，看下面的例子会比较直观一点）<ul>
+<li>如果想向A表中插入一条数据，且数据中C的值在B表中找不到对应表项，则这个操作不会成功（就像你如果向运动员表中插入一条数据，国家属性对应的标识在国家表中不存在，则这次插入操作就会失败）</li>
+<li>如果试图删除一个表B的记录，而这条记录的主键只正好是A表中某条数据的外键，则这次删除操作不会成功</li>
+</ul>
+</li>
+<li><p>举个栗子：</p>
+<ul>
+<li><p>先创建两张表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一张表department，并制定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再创建一张couese表，并指定dept_name为本表关于department表的外键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> course (</span><br><span class="line">  course_id <span class="built_in">VARCHAR</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  title     <span class="built_in">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  credits   <span class="built_in">NUMERIC</span>(<span class="number">2</span>, <span class="number">0</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (course_id),</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span> (dept_name) <span class="keyword">REFERENCES</span> department (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们先试图插入一条course记录</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面试图往course表中插入一条记录，但是department表中并没有</span></span><br><span class="line"><span class="comment">-- dept_name = 'DUT'的记录，故该操作会失败</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>我们先往department表中插入记录，再往course表中插入记录，下面的操作就能成功插入</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="string">'DUT'</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行上面操作后的结果</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">dept_name</th>
+<th style="text-align:center">building</th>
+<th style="text-align:center">budget</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">DUT</td>
+<td style="text-align:center">A</td>
+<td style="text-align:center">100000</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">course_id</th>
+<th style="text-align:center">title</th>
+<th style="text-align:center">dept_name</th>
+<th style="text-align:center">credits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">08</td>
+<td style="text-align:center">Endlish</td>
+<td style="text-align:center">DUT</td>
+<td style="text-align:center">3</td>
+</tr>
+</tbody>
+</table>
+<pre><code>* 此时我们如果试图删除department表中dept_name = DUT的那条数据
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
+
+* 同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败
+</code></pre><ul>
+<li><h3 id="not-null——非空约束"><a href="#not-null——非空约束" class="headerlink" title="not null——非空约束"></a>not null——非空约束</h3><ul>
+<li>理解上面两个约束以后这个就很好理解了，这个约束就是指定某个字段不能为空，试图传入null值的操作都不会成功</li>
+<li>作为主键的字段隐式拥有非空约束</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="打赏"><a href="#打赏" class="headerlink" title="打赏"></a>打赏</h2><p>如果你觉得本篇博文写的还过得去，而且乐意随手打赏，将是对博主最大的鼓励～</p>
+</blockquote>
+<img src="/img/zan_shang.png">
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/12/2017-09-12-数据库笔记（一）/" rel="prev" title="数据库笔记（一）">
+                数据库笔记（一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL的组成"><span class="nav-number">1.</span> <span class="nav-text">SQL的组成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据定义语言（Data-Definition-Language，-DDL）"><span class="nav-number">1.0.1.</span> <span class="nav-text">数据定义语言（Data-Definition Language， DDL）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据操纵语言（Data-Manipulation-Language，DML）"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据操纵语言（Data-Manipulation Language，DML）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#完整性约束（integrity）"><span class="nav-number">1.0.3.</span> <span class="nav-text">完整性约束（integrity）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图定义（view-definition）"><span class="nav-number">1.0.4.</span> <span class="nav-text">视图定义（view definition）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务控制（transaction-control）"><span class="nav-number">1.0.5.</span> <span class="nav-text">事务控制（transaction control）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#嵌入式SQL和动态SQL（embedded-SQL）"><span class="nav-number">1.0.6.</span> <span class="nav-text">嵌入式SQL和动态SQL（embedded SQL）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#授权"><span class="nav-number">1.0.7.</span> <span class="nav-text">授权</span></a></li></ol></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#基本类型"><span class="nav-number">2.</span> <span class="nav-text">基本类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#char-n-——全称character"><span class="nav-number">2.0.1.</span> <span class="nav-text">char(n)——全称character</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#varchar-n-——全称character-varying"><span class="nav-number">2.0.2.</span> <span class="nav-text">varchar(n)——全称character varying</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#int——integer"><span class="nav-number">2.0.3.</span> <span class="nav-text">int——integer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#smallint"><span class="nav-number">2.0.4.</span> <span class="nav-text">smallint</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#numeric-p-d"><span class="nav-number">2.0.5.</span> <span class="nav-text">numeric(p, d)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#real-double-precision"><span class="nav-number">2.0.6.</span> <span class="nav-text">real,double,precision</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float-n"><span class="nav-number">2.0.7.</span> <span class="nav-text">float(n)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Date-time-timestamp-interval"><span class="nav-number">2.0.8.</span> <span class="nav-text">Date, time, timestamp, interval</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#SQL中的完整性约束"><span class="nav-number">3.</span> <span class="nav-text">SQL中的完整性约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#primary-key（A1-A2-…-An）——主键约束"><span class="nav-number">3.0.1.</span> <span class="nav-text">primary key（A1, A2, …, An）——主键约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#foregin-key-A1-A2-…-An-references-——-外键约束"><span class="nav-number">3.0.2.</span> <span class="nav-text">foregin key(A1, A2, …, An) references —— 外键约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not-null——非空约束"><span class="nav-number">3.0.3.</span> <span class="nav-text">not null——非空约束</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#打赏"><span class="nav-number">3.1.</span> <span class="nav-text">打赏</span></a></li></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

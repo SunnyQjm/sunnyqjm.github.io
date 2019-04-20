@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
+<meta name="keywords" content="学习,笔记,C语言,网络编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）">
+<meta property="og:url" content="http://qjm253.cn/2018/01/06/super_c_i/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/unp_42.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_43.png">
+<meta property="og:updated_time" content="2019-04-20T02:55:18.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）">
+<meta name="twitter:description" content="概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码   主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr 服务名字和端口号之间转换：getservbyname、getservbyport 两个协议无关的转换函数：getaddrinfo、getnameinfo   域名系统（Domain Name System， DN">
+<meta name="twitter:image" content="http://qjm253.cn/img/unp_42.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2018/01/06/super_c_i/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章） | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/06/super_c_i/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（9）—— 名字和地址转换（Name and Address Conversions）（第11章）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-01-06 14:00:00" itemprop="dateCreated datePublished" datetime="2018-01-06T14:00:00+08:00">2018-01-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生<br><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter11" target="_blank" rel="noopener">点我获取本文源码</a></p>
+</blockquote>
+<ul>
+<li>主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr</li>
+<li>服务名字和端口号之间转换：getservbyname、getservbyport</li>
+<li>两个协议无关的转换函数：getaddrinfo、getnameinfo</li>
+</ul>
+<blockquote>
+<h2 id="域名系统（Domain-Name-System，-DNS）"><a href="#域名系统（Domain-Name-System，-DNS）" class="headerlink" title="域名系统（Domain Name System， DNS）"></a>域名系统（Domain Name System， DNS）</h2><ul>
+<li>主要用于主机名字和和IP地址之间的映射</li>
+<li><strong>基于UDP</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><a href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）" class="headerlink" title="简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）"></a>简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</h3><ul>
+<li>简单名字：如 solaris或bsdi</li>
+<li>全限定域名：如 qjm253.top<ul>
+<li>严格来说FQDN最后必须以.结尾，但通常用户会省略。例如上面个域名严格来讲为： qjm253.top.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="资源记录"><a href="#资源记录" class="headerlink" title="资源记录"></a>资源记录</h3><ul>
+<li><strong>A</strong>：A记录把一个<strong>主机名映射成一个32位的IPv4地址</strong></li>
+<li><strong>AAAA</strong>：AAAA记录把一个<strong>主机名映射成一个128位的IPv6地址</strong></li>
+<li><strong>PTR</strong>：称为指针记录（pointer record）的PTR记录把<strong>IP地址映射成主机名</strong>（IPv4、IPv6）</li>
+<li><strong>MX</strong>：MX记录<strong>把一个主机指定作为个给定主机的“邮件交换器”（mail exchanger）</strong></li>
+<li><strong>CNAME</strong>：CNAME代表“canonical name”（规范名字），<strong>常用作为常用的服务指派CNAME记录</strong></li>
+</ul>
+</li>
+<li><h3 id="解析器和名字服务器（Resolvers-and-Name-Servers）"><a href="#解析器和名字服务器（Resolvers-and-Name-Servers）" class="headerlink" title="解析器和名字服务器（Resolvers and Name Servers）"></a>解析器和名字服务器（Resolvers and Name Servers）</h3><ul>
+<li>名字服务器：存储了域名和IP地址的对应关系</li>
+<li>解析器：客户端通过调用解析器中的函数来实现与DNS名字服务器的交互（实现名字与IP地址的转换）<img src="/img/unp_42.png" title="客户、解析器和名字服务器的典型关系">
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="gethostbyname函数"><a href="#gethostbyname函数" class="headerlink" title="gethostbyname函数"></a>gethostbyname函数</h2></blockquote>
+<ul>
+<li><h3 id="原型："><a href="#原型：" class="headerlink" title="原型："></a>原型：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 根据名字获取IPv4地址信息</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param 待转换的名字，如：qjm253.top</span></span><br><span class="line"><span class="comment">* @return 成功则返回非空指针，出错则返回NULL，并且设置h_errno</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct hostent *<span class="title">gethostbyname</span><span class="params">(<span class="keyword">const</span> chat *hostname)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* host entry 结构体，该结构中包含了所查找主机的所有IPv4地址信息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span>   *h_name;             <span class="comment">//正式主机名</span></span><br><span class="line">  <span class="keyword">char</span>  **h_aliases;          <span class="comment">//主机别名</span></span><br><span class="line">  <span class="keyword">int</span>     h_addrtype;         <span class="comment">//地址类型</span></span><br><span class="line">  <span class="keyword">int</span>     h_length;           <span class="comment">//地址长度，单位：byte</span></span><br><span class="line">  <span class="keyword">char</span>  **h_addr_list;        <span class="comment">//主机包含的IPv4地址列表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>hostent结构和它所包含的信息<img src="/img/unp_43.png" title="hostent结构和它所包含的信息"></li>
+</ul>
+</li>
+<li><h3 id="错误：h-errno"><a href="#错误：h-errno" class="headerlink" title="错误：h_errno"></a>错误：h_errno</h3><ul>
+<li>当调用gethostbyname出错时，便会设置h_errno的值为下列常值之一</li>
+<li><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><ul>
+<li>HOST_NOT_FOUND</li>
+<li>TRY_AGAIN</li>
+<li>NO_RECOVERY</li>
+<li>NO_DATA（等同于HOST_NOT_FOUND）</li>
+</ul>
+</li>
+<li>hstrerrno函数接收一个上述常值之一，返回错误的具体描述</li>
+</ul>
+</li>
+<li><h3 id="栗子："><a href="#栗子：" class="headerlink" title="栗子："></a>栗子：</h3><ul>
+<li><p>本程序与课本略有不同，简单的支持一个地址解析以及默认解析IPv4</p>
+<figure class="highlight c"><figcaption><span><br>&ensp; ghbn.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *ptr, **pptr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">hptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> str[INET_ADDRSTRLEN];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./ghbn &lt;Domain name&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( (hptr = gethostbyname(argv[<span class="number">1</span>])) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        err_msg(<span class="string">"get hostbyname error for host %s : %s"</span>, argv[<span class="number">1</span>], hstrerror(h_errno));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"official hostname: %s\n"</span>, hptr-&gt;h_name);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_aliases; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\talist: %s\n"</span>, *pptr);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_addr_list; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"address: %s\n"</span>, Inet_ntop(AF_INET, *pptr, str, <span class="keyword">sizeof</span>(str)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们先来测试一下正常的情况</span></span><br><span class="line"><span class="comment">//可以很容易看出本博客是搭建在github上的，并且使用了一个作者自己的域名指向github上的域名</span></span><br><span class="line">输入：  ./ghbn qjm253.top</span><br><span class="line">输出：</span><br><span class="line">      official hostname: sni.github.<span class="built_in">map</span>.fastly.net</span><br><span class="line">      	alist: qjm253.top</span><br><span class="line">      	alist: sunnyqjm.github.io</span><br><span class="line">      address: <span class="number">151.101</span><span class="number">.77</span><span class="number">.147</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//再来测试一下域名不存在的情况</span></span><br><span class="line">输入： ./ghbn qjm253.top.c</span><br><span class="line">输出：</span><br><span class="line">      get hostbyname error <span class="keyword">for</span> host qjm253.top.c : Unknown host</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试一下域名存在，但是没有映射地址的情况</span></span><br><span class="line"><span class="comment">//qjm253.cn是笔者的一个保留域名，目前还没有解析到任何地址</span></span><br><span class="line">输入： ./ghbn qjm253.cn</span><br><span class="line">输出：</span><br><span class="line">      get hostbyname error <span class="keyword">for</span> host qjm253.cn : No address associated with name</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="gethostbyaddr函数"><a href="#gethostbyaddr函数" class="headerlink" title="gethostbyaddr函数"></a>gethostbyaddr函数</h2></blockquote>
+<ul>
+<li><h3 id="原型：-1"><a href="#原型：-1" class="headerlink" title="原型："></a>原型：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 本函数试图由一个二进制的IP地址和找到相应的主机名，与gethostbyname的行为相反</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param addr   addr参数实际上不是一个char *类型的指针，而是一个指向in_addr结构的指针</span></span><br><span class="line"><span class="comment">* @param len    len实际上就是in_addr结构体的大小</span></span><br><span class="line"><span class="comment">* @param family 由于本函数只支持IPv4，所以family为AF_INET</span></span><br><span class="line"><span class="comment">* @return 成功则返回非空指针，失败则返回NULL，并且设置h_errno</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">struct hostent *<span class="title">gethostbyaddr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *addr, <span class="keyword">socklen_t</span> len, <span class="keyword">int</span> family)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><figure class="highlight c"><figcaption><span><br>&ensp; ghba.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *ptr, **pptr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">hptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> str[INET_ADDRSTRLEN];</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">ia</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./ghbn &lt;IPAddress&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    Inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;ia.sin_addr);</span><br><span class="line">    <span class="keyword">if</span>( (hptr = gethostbyaddr(&amp;ia.sin_addr, <span class="keyword">sizeof</span>(ia.sin_addr), AF_INET)) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        err_msg(<span class="string">"get hostbyname error for host %s : %s"</span>, argv[<span class="number">1</span>], hstrerror(h_errno));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"official hostname: %s\n"</span>, hptr-&gt;h_name);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_aliases; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\talist: %s\n"</span>, *pptr);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_addr_list; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"address: %s\n"</span>, Inet_ntop(AF_INET, *pptr, str, <span class="keyword">sizeof</span>(str)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>gethostbyaddr的第一个参数虽然是in_addr的地址结构，但是传的时候不能直接用in_addr，要使用sockaddr_in里面的in_addr。（博主猜想是应用的头文件中可能包含了in_addr结构体的多种实现，而gethostbyaddr函数要求的in_addr地址结构必须时候sockaddr_in里面定义的那种，读者有兴趣可以自行验证）</li>
+<li><p>测试：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入： ./ghba <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">输出：</span><br><span class="line">      official hostname: localhost</span><br><span class="line">      address: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上面测试的是本机的回环地址，是成功的。如果要测试其它地址则不成功，具体可<a href="https://www.cnblogs.com/wunaozai/p/3753731.html" target="_blank" rel="noopener">点我查看</a></p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="getservbyname和getservbyport"><a href="#getservbyname和getservbyport" class="headerlink" title="getservbyname和getservbyport"></a>getservbyname和getservbyport</h2></blockquote>
+<ul>
+<li><h3 id="getservbyname"><a href="#getservbyname" class="headerlink" title="getservbyname"></a>getservbyname</h3><ul>
+<li><h4 id="原型：-2"><a href="#原型：-2" class="headerlink" title="原型："></a>原型：</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过服务名获取服务信息</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param servname   服务名，如：domain, ftp</span></span><br><span class="line"><span class="comment">* @param protoname  协议名，如：TCP, UDP</span></span><br><span class="line"><span class="comment">* @return 若成功则返回非空指针，若出错则返回NULL</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">struct servent *<span class="title">getservbyname</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *servname, <span class="keyword">const</span> <span class="keyword">char</span> *protoname)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">servent</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span>    *s_name;        <span class="comment">//正式的服务名</span></span><br><span class="line">  <span class="keyword">char</span>   **s_aliases;     <span class="comment">//服务别名列表</span></span><br><span class="line">  <span class="keyword">int</span>      s_port;        <span class="comment">//网络字节序的端口号</span></span><br><span class="line">  <span class="keyword">char</span>    *s_proto;       <span class="comment">//协议名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="栗子-1"><a href="#栗子-1" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight c"><figcaption><span><br>&ensp; gsbn.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">servent</span> *<span class="title">sptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> **sptrs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">3</span>)</span><br><span class="line">        err_quit(<span class="string">"usgae: ./gsbn &lt;servname&gt; &lt;protoname&gt;"</span>);</span><br><span class="line">    sptr = getservbyname(argv[<span class="number">1</span>], argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span>(sptr == <span class="literal">NULL</span>)</span><br><span class="line">        err_quit(<span class="string">"get error"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"official name: %s\n"</span>, sptr-&gt;s_name);</span><br><span class="line">    <span class="keyword">for</span>(sptrs = sptr-&gt;s_aliases; *sptrs != <span class="literal">NULL</span>; sptrs++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\t\talias: %s\n"</span>, *sptrs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"port: %d\n"</span>, sptr-&gt;s_port);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"protocol: %s\n"</span>, sptr-&gt;s_proto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入： ./gsbn domain udp</span><br><span class="line">输出：</span><br><span class="line">      official name: domain</span><br><span class="line">      port: <span class="number">13568</span></span><br><span class="line">      protocol: udp</span><br><span class="line"></span><br><span class="line">输入： ./gsbn ftp tcp</span><br><span class="line">输出：</span><br><span class="line">      official name: ftp</span><br><span class="line">      port: <span class="number">5376</span></span><br><span class="line">      protocol: tcp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="getservbyport"><a href="#getservbyport" class="headerlink" title="getservbyport"></a>getservbyport</h3><ul>
+<li><h4 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过端口号获取服务的信息</span></span><br><span class="line"><span class="comment">* @param port       端口号</span></span><br><span class="line"><span class="comment">* @param protoname  协议名，如：TCP, UDP</span></span><br><span class="line"><span class="comment">* @return 若成功则返回非空指针，若出错则返回NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct servent *<span class="title">getservbyport</span><span class="params">(<span class="keyword">int</span> port, <span class="keyword">const</span> <span class="keyword">char</span> *protoname)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="栗子-2"><a href="#栗子-2" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight c"><figcaption><span><br>&ensp; gsbp.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">servent</span> *<span class="title">sptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> **sptrs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">3</span>)</span><br><span class="line">        err_quit(<span class="string">"usgae: ./gsbn &lt;port&gt; &lt;protoname&gt;"</span>);</span><br><span class="line">    sptr = getservbyport(atoi(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span>(sptr == <span class="literal">NULL</span>)</span><br><span class="line">        err_quit(<span class="string">"get error"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"official name: %s\n"</span>, sptr-&gt;s_name);</span><br><span class="line">    <span class="keyword">for</span>(sptrs = sptr-&gt;s_aliases; *sptrs != <span class="literal">NULL</span>; sptrs++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"alias: %s\n"</span>, *sptrs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"port: %d\n"</span>, sptr-&gt;s_port);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"protocol: %s\n"</span>, sptr-&gt;s_proto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//shell 通常运行在514端口，并且采用的是tcp协议</span></span><br><span class="line">输入： ./gsbp <span class="number">514</span> tcp</span><br><span class="line">输出：</span><br><span class="line">      official name: shell</span><br><span class="line">      alias: cmd</span><br><span class="line">      port: <span class="number">514</span></span><br><span class="line">      protocol: tcp</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="getaddrinfo函数"><a href="#getaddrinfo函数" class="headerlink" title="getaddrinfo函数"></a>getaddrinfo函数</h2><p>这是一个比以上函数更新的函数，<strong>了解即可</strong></p>
+</blockquote>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/06/super_c_h/" rel="next" title="高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）（第八章）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（8）—— UDP套接字编程（UDP Sockets Introduction）（第八章）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/06/super_c_j/" rel="prev" title="高级C与网络编程复习（10）—— 原始套接字（Raw Socket）（第28章）">
+                高级C与网络编程复习（10）—— 原始套接字（Raw Socket）（第28章） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#域名系统（Domain-Name-System，-DNS）"><span class="nav-number">2.</span> <span class="nav-text">域名系统（Domain Name System， DNS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><span class="nav-number">2.1.</span> <span class="nav-text">简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#资源记录"><span class="nav-number">2.2.</span> <span class="nav-text">资源记录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解析器和名字服务器（Resolvers-and-Name-Servers）"><span class="nav-number">2.3.</span> <span class="nav-text">解析器和名字服务器（Resolvers and Name Servers）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyname函数"><span class="nav-number">3.</span> <span class="nav-text">gethostbyname函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型："><span class="nav-number">3.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误：h-errno"><span class="nav-number">3.2.</span> <span class="nav-text">错误：h_errno</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#类型"><span class="nav-number">3.2.1.</span> <span class="nav-text">类型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子："><span class="nav-number">3.3.</span> <span class="nav-text">栗子：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gethostbyaddr函数"><span class="nav-number">4.</span> <span class="nav-text">gethostbyaddr函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型：-1"><span class="nav-number">4.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#栗子"><span class="nav-number">4.2.</span> <span class="nav-text">栗子</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getservbyname和getservbyport"><span class="nav-number">5.</span> <span class="nav-text">getservbyname和getservbyport</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getservbyname"><span class="nav-number">5.1.</span> <span class="nav-text">getservbyname</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型：-2"><span class="nav-number">5.1.1.</span> <span class="nav-text">原型：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子-1"><span class="nav-number">5.1.2.</span> <span class="nav-text">栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试"><span class="nav-number">5.1.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getservbyport"><span class="nav-number">5.2.</span> <span class="nav-text">getservbyport</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#原型"><span class="nav-number">5.2.1.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栗子-2"><span class="nav-number">5.2.2.</span> <span class="nav-text">栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试-1"><span class="nav-number">5.2.3.</span> <span class="nav-text">测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#getaddrinfo函数"><span class="nav-number">6.</span> <span class="nav-text">getaddrinfo函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

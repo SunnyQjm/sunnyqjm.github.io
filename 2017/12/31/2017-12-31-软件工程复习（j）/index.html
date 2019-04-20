@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="要求OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式   面向对象的设计准则  模块化 抽象 信息隐藏 弱耦合 强内聚 可重用   启发规则  设计结果应该清晰易懂 提高软件可维护性和可重用性重要措施 用词一致 使用已有的协议（重载） 减少消息模式的数目 避免模糊的定义   一般—特殊结构的深度应适当 应该使类等级中包含的层次数适当   设计简单的类 尽量设计小而简单的类，便于开发管">
+<meta name="keywords" content="学习,笔记,软件工程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程复习（十）">
+<meta property="og:url" content="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="要求OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式   面向对象的设计准则  模块化 抽象 信息隐藏 弱耦合 强内聚 可重用   启发规则  设计结果应该清晰易懂 提高软件可维护性和可重用性重要措施 用词一致 使用已有的协议（重载） 减少消息模式的数目 避免模糊的定义   一般—特殊结构的深度应适当 应该使类等级中包含的层次数适当   设计简单的类 尽量设计小而简单的类，便于开发管">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/se_91.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_92.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_93.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/se_01.png">
+<meta property="og:image" content="http://qjm253.cn/img/se_02.png">
+<meta property="og:image" content="http://qjm253.cn/img/se_04.png">
+<meta property="og:image" content="http://qjm253.cn/img/se_03.png">
+<meta property="og:image" content="http://qjm253.cn/img/se_05.png">
+<meta property="og:updated_time" content="2019-04-20T02:55:18.288Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程复习（十）">
+<meta name="twitter:description" content="要求OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式   面向对象的设计准则  模块化 抽象 信息隐藏 弱耦合 强内聚 可重用   启发规则  设计结果应该清晰易懂 提高软件可维护性和可重用性重要措施 用词一致 使用已有的协议（重载） 减少消息模式的数目 避免模糊的定义   一般—特殊结构的深度应适当 应该使类等级中包含的层次数适当   设计简单的类 尽量设计小而简单的类，便于开发管">
+<meta name="twitter:image" content="http://qjm253.cn/img/se_91.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>软件工程复习（十） | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/12/31/2017-12-31-软件工程复习（j）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程复习（十）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-12-31 16:00:00" itemprop="dateCreated datePublished" datetime="2017-12-31T16:00:00+08:00">2017-12-31</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a>要求</h2><p>OO设计步骤，结构优化准则，对照架构模式，设计原则和设计模式</p>
+</blockquote>
+<blockquote>
+<h2 id="面向对象的设计准则"><a href="#面向对象的设计准则" class="headerlink" title="面向对象的设计准则"></a>面向对象的设计准则</h2></blockquote>
+<ul>
+<li>模块化</li>
+<li>抽象</li>
+<li>信息隐藏</li>
+<li>弱耦合</li>
+<li>强内聚</li>
+<li>可重用</li>
+</ul>
+<blockquote>
+<h2 id="启发规则"><a href="#启发规则" class="headerlink" title="启发规则"></a>启发规则</h2></blockquote>
+<ul>
+<li><h3 id="设计结果应该清晰易懂"><a href="#设计结果应该清晰易懂" class="headerlink" title="设计结果应该清晰易懂"></a>设计结果应该清晰易懂</h3></li>
+<li><h3 id="提高软件可维护性和可重用性重要措施"><a href="#提高软件可维护性和可重用性重要措施" class="headerlink" title="提高软件可维护性和可重用性重要措施"></a>提高软件可维护性和可重用性重要措施</h3><ul>
+<li>用词一致</li>
+<li>使用已有的协议（重载）</li>
+<li>减少消息模式的数目</li>
+<li>避免模糊的定义</li>
+</ul>
+</li>
+<li><h3 id="一般—特殊结构的深度应适当"><a href="#一般—特殊结构的深度应适当" class="headerlink" title="一般—特殊结构的深度应适当"></a>一般—特殊结构的深度应适当</h3><ul>
+<li>应该使类等级中包含的层次数适当</li>
+</ul>
+</li>
+<li><h3 id="设计简单的类"><a href="#设计简单的类" class="headerlink" title="设计简单的类"></a>设计简单的类</h3><ul>
+<li>尽量设计小而简单的类，便于开发管理<ul>
+<li>避免包含过多的属性</li>
+<li>有明确的定义</li>
+<li>尽量简化对象之间的合作关系</li>
+<li>不要提供太多服务（保持适当内聚的基础上）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="使用简单的协议"><a href="#使用简单的协议" class="headerlink" title="使用简单的协议"></a>使用简单的协议</h3></li>
+<li><h3 id="使用简单的服务"><a href="#使用简单的服务" class="headerlink" title="使用简单的服务"></a>使用简单的服务</h3></li>
+<li><h3 id="把设计变动减至最小（结构稳定）"><a href="#把设计变动减至最小（结构稳定）" class="headerlink" title="把设计变动减至最小（结构稳定）"></a>把设计变动减至最小（结构稳定）</h3></li>
+</ul>
+<blockquote>
+<h2 id="架构模式（Architecture-Patterns）"><a href="#架构模式（Architecture-Patterns）" class="headerlink" title="架构模式（Architecture Patterns）"></a>架构模式（Architecture Patterns）</h2><p>An architectural pattern is a proven structural organization schema for software systems（架构模式是指用于软件系统中经实践证明的机构化的组织格式化） <br><br>层次、CS、MVC、Pipe-Filter、Master-slave</p>
+</blockquote>
+<ul>
+<li><h3 id="层次架构"><a href="#层次架构" class="headerlink" title="层次架构"></a>层次架构</h3><ul>
+<li>eg: 网络协议（OSI/ISO 七层模型）<img src="/img/se_91.jpg"></li>
+<li>每层向上层提供服务</li>
+<li>越低层越稳定</li>
+<li>职责分离，每层可独立开发</li>
+<li>提供给上层高的抽象接口不容易写</li>
+<li>低层可能做一些高层用不到的功能</li>
+</ul>
+</li>
+<li><h3 id="MVC架构"><a href="#MVC架构" class="headerlink" title="MVC架构"></a>MVC架构</h3><ul>
+<li>model: 核心功能和数据（是应用程序中用于处理应用程序数据逻辑的部分。通常模型对象负责在数据库中存取数据）</li>
+<li>view： 向用户展示信息（是应用程序中处理数据显示的部分。通常视图是依据模型数据创建的）</li>
+<li>controller： 处理用户的输入（是应用程序中处理用户交互的部分。通常控制器负责从视图读取数据，控制用户输入，并向模型发送数据）</li>
+<li><strong>用于交互式系统</strong><img src="/img/se_92.jpg"></li>
+<li>控制流程<img src="/img/se_93.jpg">
+</li>
+</ul>
+</li>
+<li><h3 id="CS架构"><a href="#CS架构" class="headerlink" title="CS架构"></a>CS架构</h3><ul>
+<li>Server组件向多个client提供服务</li>
+<li>客户端通过向服务器请求得到服务</li>
+<li>请求是在进程和机器边界上完成的<ul>
+<li>采用进程间通信机制</li>
+<li>而层级架构则是横跨进程和机器边界</li>
+</ul>
+</li>
+<li>Server通常是长期运行的，拥有监听来自Client的请求</li>
+<li><strong>Examples</strong>：<ul>
+<li>Remote DB access （远程数据库接入）</li>
+<li>Remote file systems（远程文件系统）</li>
+<li>Multi-tier information system（多层信息系统）</li>
+<li>Web applications（网页应用）</li>
+</ul>
+</li>
+<li>通常在单独的线程中处理请求</li>
+<li>Server和Client的交互通常包含在一个session（会话）中</li>
+<li>Stateless servers（无状态的服务）<ul>
+<li>会话状态由client保存（例如：cookie机制）</li>
+<li>每个请求都带上client保存的会话状态信息</li>
+</ul>
+</li>
+<li>Stateful servers（有状态服务）<ul>
+<li>会话状态由Server端保存</li>
+<li>所有的Client的请求都关联到其对应的client-id</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Master-slave（主从模式）"><a href="#Master-slave（主从模式）" class="headerlink" title="Master-slave（主从模式）"></a>Master-slave（主从模式）</h3><ul>
+<li>主从模式支持<strong>容错</strong>和<strong>并行计算</strong></li>
+<li><strong>主组件</strong>将工作<strong>分配</strong>给若干个从组件，<strong>从组件</strong>各自<strong>计算</strong>，最后主组件从这些从组件返回的结果中计算最终的结果<img src="/img/se_01.png"></li>
+<li><strong>Examples</strong>:<ul>
+<li>Process control(进程控制)</li>
+<li>Embedded systems(嵌入式系统)</li>
+<li>Large-scale parallel computations（大规模并行计算）</li>
+<li>Fault tolerant systems(容错系统) ==&gt; 比如磁盘阵列（可以用其中一块或多块硬盘做奇偶校验，可以达到容错的效果）</li>
+</ul>
+</li>
+<li>执行流程：<img src="/img/se_02.png"></li>
+<li>分析：<ul>
+<li>一旦Master挂掉，整个系统也就挂了</li>
+<li>从组件之间是独立的，不共享状态</li>
+<li>从组件之间可以并行运行</li>
+<li>对于硬实时系统（对延迟很敏感），主从组件之间的通信延迟可能是一个问题</li>
+<li>要解决的问题必须是可分解的</li>
+</ul>
+</li>
+<li>应用领域：<ul>
+<li>容错</li>
+<li>并行计算</li>
+<li>精确计算</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Pipe-Filter-管道过滤器模式"><a href="#Pipe-Filter-管道过滤器模式" class="headerlink" title="Pipe-Filter(管道过滤器模式)"></a>Pipe-Filter(管道过滤器模式)</h3><ul>
+<li>该架构适用于处理数据流的系统</li>
+<li>每<strong>一个处理</strong>都封装在<strong>一个过滤器组件</strong>当中</li>
+<li>数据通过相邻过滤器之间的管道（pipe）进行传输<ul>
+<li>pipe主要负责处理缓存和同步</li>
+</ul>
+</li>
+<li><strong>Examples</strong>：<ul>
+<li>Compilers（编译器）<img src="/img/se_04.png"></li>
+<li>Unix shell commands<img src="/img/se_03.png"></li>
+</ul>
+</li>
+<li>分析：<ul>
+<li>很容易插入新的过滤器</li>
+<li>过滤器可重用<ul>
+<li>过滤器可以被独立开发</li>
+<li>潜在数据转换开销</li>
+</ul>
+</li>
+<li>输入可以来自不同的数据源，输出也可以输出到不同的地方</li>
+<li>天然的并行处理</li>
+<li>过滤器间不共享状态</li>
+<li><strong>不适用于交互式系统，适用于批处理系统</strong></li>
+</ul>
+</li>
+<li>Java中的管道<ul>
+<li>InputStream in = new BufferedInputStream(new DataInputStream(System.in))<img src="/img/se_05.png"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Broker（代理模式）"><a href="#Broker（代理模式）" class="headerlink" title="Broker（代理模式）"></a>Broker（代理模式）</h3></li>
+<li><h3 id="Peer-to-peer（P2P模式和）"><a href="#Peer-to-peer（P2P模式和）" class="headerlink" title="Peer-to-peer（P2P模式和）"></a>Peer-to-peer（P2P模式和）</h3></li>
+<li><h3 id="Event-bus"><a href="#Event-bus" class="headerlink" title="Event-bus"></a>Event-bus</h3></li>
+<li><h3 id="Blackboard"><a href="#Blackboard" class="headerlink" title="Blackboard"></a>Blackboard</h3></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/软件工程/" rel="tag"># 软件工程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（i）/" rel="next" title="软件工程复习（九）">
+                <i class="fa fa-chevron-left"></i> 软件工程复习（九）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/31/2017-12-31-软件工程复习（k）/" rel="prev" title="软件工程复习（十一）">
+                软件工程复习（十一） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#要求"><span class="nav-number">1.</span> <span class="nav-text">要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面向对象的设计准则"><span class="nav-number">2.</span> <span class="nav-text">面向对象的设计准则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启发规则"><span class="nav-number">3.</span> <span class="nav-text">启发规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设计结果应该清晰易懂"><span class="nav-number">3.1.</span> <span class="nav-text">设计结果应该清晰易懂</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#提高软件可维护性和可重用性重要措施"><span class="nav-number">3.2.</span> <span class="nav-text">提高软件可维护性和可重用性重要措施</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一般—特殊结构的深度应适当"><span class="nav-number">3.3.</span> <span class="nav-text">一般—特殊结构的深度应适当</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设计简单的类"><span class="nav-number">3.4.</span> <span class="nav-text">设计简单的类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用简单的协议"><span class="nav-number">3.5.</span> <span class="nav-text">使用简单的协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用简单的服务"><span class="nav-number">3.6.</span> <span class="nav-text">使用简单的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把设计变动减至最小（结构稳定）"><span class="nav-number">3.7.</span> <span class="nav-text">把设计变动减至最小（结构稳定）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#架构模式（Architecture-Patterns）"><span class="nav-number">4.</span> <span class="nav-text">架构模式（Architecture Patterns）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#层次架构"><span class="nav-number">4.1.</span> <span class="nav-text">层次架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MVC架构"><span class="nav-number">4.2.</span> <span class="nav-text">MVC架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CS架构"><span class="nav-number">4.3.</span> <span class="nav-text">CS架构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Master-slave（主从模式）"><span class="nav-number">4.4.</span> <span class="nav-text">Master-slave（主从模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipe-Filter-管道过滤器模式"><span class="nav-number">4.5.</span> <span class="nav-text">Pipe-Filter(管道过滤器模式)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Broker（代理模式）"><span class="nav-number">4.6.</span> <span class="nav-text">Broker（代理模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Peer-to-peer（P2P模式和）"><span class="nav-number">4.7.</span> <span class="nav-text">Peer-to-peer（P2P模式和）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event-bus"><span class="nav-number">4.8.</span> <span class="nav-text">Event-bus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Blackboard"><span class="nav-number">4.9.</span> <span class="nav-text">Blackboard</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

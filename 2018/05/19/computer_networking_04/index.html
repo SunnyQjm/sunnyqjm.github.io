@@ -1,0 +1,1901 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Introduction 网络层完成主机到主机之间的数据传输 网络层协议存在于所有的主机和路由器当中（二层交换机中没有） 当IP数据报通过路由器时，路由器会检查所有数据报首部字段（Header Checksum）    Forwarding and Routing ( 存储和转发 ) Forwarding（转发）When a packet arrives at a router’s input">
+<meta name="keywords" content="学习,笔记,计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 4 The Network Layer">
+<meta property="og:url" content="http://qjm253.cn/2018/05/19/computer_networking_04/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="Introduction 网络层完成主机到主机之间的数据传输 网络层协议存在于所有的主机和路由器当中（二层交换机中没有） 当IP数据报通过路由器时，路由器会检查所有数据报首部字段（Header Checksum）    Forwarding and Routing ( 存储和转发 ) Forwarding（转发）When a packet arrives at a router’s input">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_43.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_44.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_45.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_46.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_47.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_48.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_49.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_50.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_51.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_52.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_53.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_54.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_55.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_56.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_57.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_59.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_58.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_60.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_61.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_62.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_63.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_64.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_65.png">
+<meta property="og:updated_time" content="2019-04-20T02:55:18.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 The Network Layer">
+<meta name="twitter:description" content="Introduction 网络层完成主机到主机之间的数据传输 网络层协议存在于所有的主机和路由器当中（二层交换机中没有） 当IP数据报通过路由器时，路由器会检查所有数据报首部字段（Header Checksum）    Forwarding and Routing ( 存储和转发 ) Forwarding（转发）When a packet arrives at a router’s input">
+<meta name="twitter:image" content="http://qjm253.cn/img/computer_network/computer_network_43.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2018/05/19/computer_networking_04/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Chapter 4 The Network Layer | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/19/computer_networking_04/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter 4 The Network Layer
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-19 18:00:00" itemprop="dateCreated datePublished" datetime="2018-05-19T18:00:00+08:00">2018-05-19</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><ul>
+<li>网络层完成主机到主机之间的数据传输</li>
+<li>网络层协议存在于所有的主机和路由器当中（二层交换机中没有）</li>
+<li>当IP数据报通过路由器时，路由器会检查所有数据报首部字段（Header Checksum）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Forwarding-and-Routing-存储和转发"><a href="#Forwarding-and-Routing-存储和转发" class="headerlink" title="Forwarding and Routing ( 存储和转发 )"></a>Forwarding and Routing ( 存储和转发 )</h3><ul>
+<li><h4 id="Forwarding（转发）"><a href="#Forwarding（转发）" class="headerlink" title="Forwarding（转发）"></a>Forwarding（转发）</h4><p>When a packet arrives at a router’s input link, the router must move the packet to the appropriate.</p>
+<p>=&gt; 转发指的是路由器将某个入口链路上到来的数据包转移到合适的出口链路的过程。</p>
+</li>
+<li><h4 id="Routing（路由）"><a href="#Routing（路由）" class="headerlink" title="Routing（路由）"></a>Routing（路由）</h4><p>The networklayer must determine the route or path taken by packets as they flow from a sender to a receiver. The algorithms that calculate these paths are reffered to as <strong>routing algorithms</strong>.</p>
+<p>=&gt; 路由是指网络通过运行路由算法，计算出一条从源端到目的端的路径的过程</p>
+</li>
+<li><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><ul>
+<li><strong>转发是路由器内部的事，而路由不是</strong>（路由需要网络里各个路由器的参与）</li>
+<li>网络中的各个路由器，通过运行 <strong>路由算法</strong> (<strong><em>routing algorithms</em></strong>)计算出保存在各个路由器本地的 <strong>本地转发表</strong> (<strong>local forwarding table</strong>)。路由器根据此转发表来进行转发数据包。</li>
+</ul>
+</li>
+<li><h4 id="Connection-Setup（连接建立）"><a href="#Connection-Setup（连接建立）" class="headerlink" title="Connection Setup（连接建立）"></a>Connection Setup（连接建立）</h4><ul>
+<li>这是 <strong>网络</strong> 除转发和路由外 <strong>的第三个重要功能</strong>（互联网没有这个功能）</li>
+<li>在网络层建立连接</li>
+<li>EG.：ATM、frame-relay</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Virtual-Circuit-and-Datagram-Networks"><a href="#Virtual-Circuit-and-Datagram-Networks" class="headerlink" title="Virtual Circuit and Datagram Networks"></a>Virtual Circuit and Datagram Networks</h2><ul>
+<li><strong>虚电路网络</strong>：在网络层建立连接的网络</li>
+<li><strong>数据报网络</strong>：在网络层不建立连接的网络</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Virtual-Circuit-Networks-（虚电路网络）"><a href="#Virtual-Circuit-Networks-（虚电路网络）" class="headerlink" title="Virtual-Circuit Networks （虚电路网络）"></a>Virtual-Circuit Networks （虚电路网络）</h3><ul>
+<li><h4 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h4><ul>
+<li>从源到目的端的路径</li>
+<li>VC number是标识沿路径每条链路上的号码（<strong>在每条链路上唯一即可</strong>）</li>
+<li>沿途路由器中转发表中的项（<strong>由进入端口号的VC Number决定从哪个口出去，以及出去的时候VC Number修改为什么</strong>）</li>
+</ul>
+</li>
+<li><h4 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h4><ul>
+<li>网络结构<img src="/img/computer_network/computer_network_43.png" title="一个简单的路电路网络示例"></li>
+<li>上述网络结构中路由器A的转发表<img src="/img/computer_network/computer_network_44.png" title="路由器A的转发表">
+</li>
+</ul>
+</li>
+<li><p>虚电路网络中连接一旦建立，数据包所走的路径就确定了（而互联网不是）</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Datagram-networks（数据报网络）"><a href="#Datagram-networks（数据报网络）" class="headerlink" title="Datagram networks（数据报网络）"></a>Datagram networks（数据报网络）</h3><ul>
+<li>no call setup at network layer =&gt; <strong>网络层无连接建立</strong></li>
+<li>routers: no state about end-to-end connections =&gt; <strong>路由器不保持端到端的连接状态</strong></li>
+<li>Packets forward using destination host address =&gt; <strong>数据包的转发是根据目的端主机地址来进行转发的</strong></li>
+<li>查询路由表进行转发的时候采用的是 <strong>最长前缀匹配</strong> (<strong><em>longest perfix matching rule</em></strong>)</li>
+<li>IP是数据包网络的寻址方式</li>
+</ul>
+</li>
+<li><h3 id="虚电路网络-VS-数据报网络"><a href="#虚电路网络-VS-数据报网络" class="headerlink" title="虚电路网络 VS 数据报网络"></a>虚电路网络 VS 数据报网络</h3><ul>
+<li>Internet(互联网) =&gt; 数据报网络<ul>
+<li>data exchange among computers</li>
+<li>弹性服务，无严格的定时要求</li>
+<li>“smart” end system =&gt; 终端相对智能</li>
+<li>many link type =&gt; 有多种链路类型</li>
+</ul>
+</li>
+<li>ATM =&gt; 虚电路网络<ul>
+<li>envolved from telephone =&gt; 演化自电话技术</li>
+<li>有严格的定时要求，可靠性要求高</li>
+<li>“dump” end systems =&gt; 端系统简单，网络内部实现复杂</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="What’s-inside-a-Router"><a href="#What’s-inside-a-Router" class="headerlink" title="What’s inside a Router?"></a>What’s inside a Router?</h2></blockquote>
+<ul>
+<li><h3 id="Router的两个功能"><a href="#Router的两个功能" class="headerlink" title="Router的两个功能"></a>Router的两个功能</h3><ul>
+<li>run routing algorithms/protocol (<strong><em>RIP, OSPF, BGP</em></strong>)<br>=&gt; 运行路由算法/协议</li>
+<li>forwarding datagrams from incoming to outgoing link<br>=&gt; 从入链路到出链路转发数据报</li>
+</ul>
+<img src="/img/computer_network/computer_network_45.png" title="路由器架构">
+</li>
+<li><h3 id="Input-ports"><a href="#Input-ports" class="headerlink" title="Input ports"></a>Input ports</h3><img src="/img/computer_network/computer_network_46.png" title="输入端处理流程">
+<ul>
+<li>Line termination =&gt; 物理层</li>
+<li>Lookup =&gt; 根据数据报的目的地址，在输入口内存中使用转发表查找应该从哪个端口输出</li>
+<li>forwarding =&gt; 将数据包转移到对应的出口</li>
+<li>queueing =&gt; 如果数据报到达的速率比交换结构的转发速率要快，则导致排队的发生</li>
+</ul>
+</li>
+<li><h3 id="三种类型的交换"><a href="#三种类型的交换" class="headerlink" title="三种类型的交换"></a>三种类型的交换</h3><img src="/img/computer_network/computer_network_47.png" title="三种交换技术">
+<ul>
+<li>Memory：共享内存 =&gt; 交换速率受内存大小的限制</li>
+<li>Bus：总线型 =&gt; 交换速率受总线带宽的限制</li>
+<li>Crossbar</li>
+</ul>
+</li>
+<li><h3 id="Output-ports"><a href="#Output-ports" class="headerlink" title="Output ports"></a>Output ports</h3><img src="/img/computer_network/computer_network_48.png" title="出口端处理流程">
+</li>
+<li><h3 id="Where-does-Queuing-Occur"><a href="#Where-does-Queuing-Occur" class="headerlink" title="Where does Queuing Occur?"></a>Where does Queuing Occur?</h3><p>路由器中排队的发生可能在入口端的接收缓存或者是出口端的发送缓存</p>
+<ul>
+<li><h4 id="发送排队的时机"><a href="#发送排队的时机" class="headerlink" title="发送排队的时机"></a>发送排队的时机</h4><ul>
+<li>入端口收到数据包的速率大于路由器转移数据包的速率 =&gt; 入口端发生排队</li>
+<li>出口端收到路由器转发过来的数据包的速率大于发送数据包的速率 =&gt; 出口端发生排队</li>
+</ul>
+</li>
+<li><p><strong>网络中所有数据的调度都是非抢占式的</strong></p>
+</li>
+<li><h4 id="缓存溢出时的策略"><a href="#缓存溢出时的策略" class="headerlink" title="缓存溢出时的策略"></a>缓存溢出时的策略</h4><ul>
+<li>drop-tail: 如果缓存已满，则直接将新收到的数据包丢弃</li>
+<li>RED(<strong><em>Random Early Detection</em></strong>) =&gt; 随机早期检测。在缓存将满而未满的时候就主动随机丢弃缓存队列中的数据包 （可以优化网络的拥塞状态）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>路由协议一般是应用层的</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="IP-Internet-Protocol-网际协议"><a href="#IP-Internet-Protocol-网际协议" class="headerlink" title="IP(Internet Protocol, 网际协议)"></a>IP(Internet Protocol, 网际协议)</h2><ul>
+<li>PDU为Datagram</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Datagram-Format-（数据报结构）"><a href="#Datagram-Format-（数据报结构）" class="headerlink" title="Datagram Format （数据报结构）"></a>Datagram Format （数据报结构）</h3><img src="/img/computer_network/computer_network_49.png" title="IPV4数据报结构">
+<ul>
+<li>Version (<strong><em>4bits</em></strong>) : IP协议版本号</li>
+<li>Header Length (<strong><em>4bits</em></strong>) : <strong>IP数据报头的长度，单位为字节</strong> 。包括头部Options</li>
+<li>Type of service (<strong><em>8bits</em></strong>) : TOS，用来标识IP数据报的服务类型</li>
+<li>Datagram length (<strong><em>16bits</em></strong>) : <strong>整个数据报的长度，单位为字节</strong>。包括头部和数据域</li>
+<li>第二行的个字段主要用于分片</li>
+<li>Time-to-live (<strong><em>8bits</em></strong>) : TTL，有效时间 =&gt; 通常指的是跳数</li>
+<li>Upper-layer protocol (<strong><em>8bits</em></strong>) : 上层所使用的协议</li>
+<li><p>Header-checksum (<strong><em>16bits</em></strong>) : 首部校验和</p>
+</li>
+<li><h4 id="网络层只对Datagram首部进行校验"><a href="#网络层只对Datagram首部进行校验" class="headerlink" title="网络层只对Datagram首部进行校验"></a>网络层只对Datagram首部进行校验</h4><ul>
+<li><h5 id="可行性"><a href="#可行性" class="headerlink" title="可行性"></a>可行性</h5><ul>
+<li>data在传输层有checksum，故可以不需要再网络层对data进行校验</li>
+<li>网络层提供的是不可靠的传输，允许出错</li>
+</ul>
+</li>
+<li><h5 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h5><p>只对首部进行校验，可以减少delay，同时减轻路由器的负载 =&gt; <strong>每个路由器都要网络层数据包处理，所以要让处理的开销尽量的小</strong></p>
+</li>
+<li><h5 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h5><ul>
+<li>当某个正在网络中传播的数据包data部分出错，其途经的路由器由于只对其网络层头部进行校验，而不对data进行校验，所以会将这个出错的包继续传递，直到传递到终端才检测出来数据包错误。=&gt; <strong>造成传输资源的浪费</strong></li>
+<li>TCP和UDP之外的其它传输层协议可能本身并不具备校验功能</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="为何每个路由器都要对数据包进行重新打包？"><a href="#为何每个路由器都要对数据包进行重新打包？" class="headerlink" title="为何每个路由器都要对数据包进行重新打包？"></a>为何每个路由器都要对数据包进行重新打包？</h4><p><strong>header中的数据</strong> 每经过一个路由器都 <strong>会改变</strong>，比如TTL每跳减一，因此 <strong>header checksum 需要重新计算</strong></p>
+</li>
+<li><p>IPv4 datagram 首部 <strong>最小、默认</strong> 开销为 <strong>20个字节</strong> =&gt; 严格来讲，由于Options域的存在，首部的开销是不确定的</p>
+</li>
+</ul>
+</li>
+<li><h3 id="IPv4-Datagram-Fragmentation-（IPv4-数据报分片）"><a href="#IPv4-Datagram-Fragmentation-（IPv4-数据报分片）" class="headerlink" title="IPv4 Datagram Fragmentation （IPv4 数据报分片）"></a>IPv4 Datagram Fragmentation （IPv4 数据报分片）</h3><ul>
+<li><h4 id="为什么（何时）要进行分片？"><a href="#为什么（何时）要进行分片？" class="headerlink" title="为什么（何时）要进行分片？"></a>为什么（何时）要进行分片？</h4><p>低层（链路层）网络不同协议所支持的 <strong>MTU</strong> ( <strong><em>maximun transimit unit, 最大传输单元</em></strong> ) 不一致。而互联网中不同链路可以采用不同的协议，就可能导致 <strong>路由器两端链路的MTU不一致</strong>。=&gt; <strong>当路由器两端链路的MTU不一致，且是从MTU大的一端 -&gt; 小的一端的时候，就可能需要分片</strong> (当然，除了分片之外，路由器也可以选择主动丢弃，让发送端去调节数据包的大小)</p>
+</li>
+<li><h4 id="IPv4用于实现分片的头部字段"><a href="#IPv4用于实现分片的头部字段" class="headerlink" title="IPv4用于实现分片的头部字段"></a>IPv4用于实现分片的头部字段</h4><img src="/img/computer_network/computer_network_50.png" title="IPV4用于实现分片的字段">
+<ul>
+<li><strong>Identification</strong> : 属于同一个数据包的分片都有一个相同的Id</li>
+<li><strong>DF</strong> : 若该标识置1，则表示不分片</li>
+<li><strong>MF</strong> : 若该标识置1，则表示不是最后一个分片</li>
+<li><strong>Fragment Offset</strong>: 分片的偏移量<img src="/img/computer_network/computer_network_51.png" title="IPv4分片偏移图示">
+<ul>
+<li><strong>单位是8bits</strong></li>
+<li>一定要注意，<strong>偏移计算的是data部分，每个分片都单独有一个网络层头部</strong></li>
+<li>当 <strong>(MTU - 首部size)</strong> 不是8的倍数时，每个分片data部分的最大size，取不超过但最大的能整除8的数</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="一个示例"><a href="#一个示例" class="headerlink" title="一个示例"></a>一个示例</h4><img src="/img/computer_network/computer_network_52.png" title="一个IP分片的栗子">
+</li>
+<li><h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ul>
+<li><strong>发送主机</strong> 或者 <strong>路由器</strong> 都有 <strong>可能对IP数据报进行分片</strong></li>
+<li>一个 <strong>IP分组可能被多次分段</strong>（分片）</li>
+<li>但 <strong>IP分片重组</strong> (<strong><em>reassembly</em></strong>) 仅在目的主机进行</li>
+</ul>
+</li>
+<li><h4 id="为何IP分片重组只在目的主机进行"><a href="#为何IP分片重组只在目的主机进行" class="headerlink" title="为何IP分片重组只在目的主机进行"></a>为何IP分片重组只在目的主机进行</h4><ol>
+<li>不同的数据包从源端到目的端所走的路径可能不同，这就导致 <strong>不同分片可能经由不同的路由器组到达目的端</strong> ==&gt; 换句话说，途中的某个路由器可能无法收到同一个数据包的所有分片，就无法进行分片重组</li>
+<li>这样可以减少路由器的开销，提高网络核心的效率</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><h3 id="IPv4-Addressing-（IPv4编址）"><a href="#IPv4-Addressing-（IPv4编址）" class="headerlink" title="IPv4 Addressing （IPv4编址）"></a>IPv4 Addressing （IPv4编址）</h3><ul>
+<li><h4 id="IP-address"><a href="#IP-address" class="headerlink" title="IP address"></a>IP address</h4><ul>
+<li><strong>主机</strong> 和 <strong>路由器</strong> 接口长度为32bits的标识</li>
+<li>常采用 <strong>点分十进制</strong> (<strong><em>dotted-decimal notation</em></strong>)进行表示</li>
+</ul>
+</li>
+<li><h4 id="Interface（接口）"><a href="#Interface（接口）" class="headerlink" title="Interface（接口）"></a>Interface（接口）</h4><p>主机或路由器和物理链路的接口</p>
+</li>
+<li><h4 id="Subnets（子网）"><a href="#Subnets（子网）" class="headerlink" title="Subnets（子网）"></a>Subnets（子网）</h4><p>To determine the subnets, detach each interface from its host or router, creating islands of isolated networks, with interfaces terminating the end points of the isolated networks. Each of these isolated networks is called a <strong>subnet</strong></p>
+<ul>
+<li>同一个子网内IP的高位比特位一致</li>
+<li>拔开所有接口后，仍然连砸一起的网络属于同一个子网</li>
+</ul>
+</li>
+<li><h4 id="CIDR-Classless-Interdomain-Routing-无类型域间选路"><a href="#CIDR-Classless-Interdomain-Routing-无类型域间选路" class="headerlink" title="CIDR(Classless Interdomain Routing, 无类型域间选路)"></a>CIDR(Classless Interdomain Routing, 无类型域间选路)</h4><blockquote>
+<ul>
+<li>网络地址（子网地址）部分是长度可变的</li>
+<li>格式：<strong>a.b.c.d/x</strong> =&gt; 其中x表示的是网络地址（子网地址）部分的长度</li>
+</ul>
+</blockquote>
+<img src="/img/computer_network/computer_network_53.png" title="IP地址网络地址和主机地址划分示意图">
+<ul>
+<li><strong>子网地址</strong>（网络地址）：前 <strong>x</strong> 位保留，后 <strong>32-x</strong> 位置0</li>
+<li><strong>主机地址</strong>：前 <strong>x</strong> 位置0，后 <strong>32-x</strong> 位保留</li>
+<li><strong>子网掩码</strong> (<strong><em>subnet mask</em></strong>)：前 <strong>x</strong> 位置1，后 <strong>32-x</strong> 位置0 =&gt; <strong>网络地址部分全置1，主机地址部分全置0</strong></li>
+</ul>
+</li>
+<li><h4 id="Classful-Addressing（分类编址）"><a href="#Classful-Addressing（分类编址）" class="headerlink" title="Classful Addressing（分类编址）"></a>Classful Addressing（分类编址）</h4><blockquote>
+<p>当ip地址表示的时候没有 <strong>/x</strong> 的时候，就可能采用的是这种方式判断网络地址和主机地址</p>
+</blockquote>
+<ul>
+<li>Class A: 0.0.0.0 ~ 127.255.255.255 =&gt; <strong>A类地址前8位为网络地址</strong></li>
+<li>Class B: 128.0.0.0 ~ 191.255.255.255 =&gt; <strong>B类地址前16位为网络地址</strong></li>
+<li>Class C: 192.0.0.0 ~ 223.255.255.255 =&gt; <strong>C类地址前24位为网络地址</strong></li>
+<li>Class D: 224.0.0.0 ~ 239.255.255.255 =&gt; <strong>D类地址为多播地址</strong></li>
+<li>Class E: 240.0.0.0 ~ 255.255.255.255 =&gt; <strong>E类地址预留未用</strong></li>
+</ul>
+</li>
+<li><h4 id="Private-IP（私有IP地址-内网地址）"><a href="#Private-IP（私有IP地址-内网地址）" class="headerlink" title="Private IP（私有IP地址 / 内网地址）"></a>Private IP（私有IP地址 / 内网地址）</h4><p>==&gt; 在很大程度上可以对互联网进行扩容（通过NAT技术）</p>
+<ul>
+<li>10.0.0.0 ~ 10.255.255.255</li>
+<li>172.16.0.0 ~ 172.31.255.255</li>
+<li>192.168.0.0 ~ 192.168.255.255</li>
+</ul>
+</li>
+<li><h4 id="特殊的IP地址"><a href="#特殊的IP地址" class="headerlink" title="特殊的IP地址"></a>特殊的IP地址</h4><ul>
+<li><strong>0.0.0.0</strong> =&gt; 本主机</li>
+<li>0···0 | Host =&gt; 主机地址</li>
+<li>255.255.255.255 =&gt; 全局广播地址</li>
+<li>network | 1···1 =&gt; 子网内广播地址</li>
+<li>127 + Anything =&gt; 回环（Loopback）地址</li>
+</ul>
+</li>
+<li><h4 id="如何辨别IP地址"><a href="#如何辨别IP地址" class="headerlink" title="如何辨别IP地址"></a>如何辨别IP地址</h4><img src="/img/computer_network/computer_network_54.png" title="子网划分以及IP地址范围示意图">
+<ul>
+<li><p><strong>IP地址范围</strong> 是包括了主机地址部分全0和全1的两个地址，但是 <strong>可分配给主机的IP地址范围</strong> 不包括。</p>
+</li>
+<li><p>Explicit（显示）：VLSM =&gt; 通过可变长子网掩码判别网络地址和主机地址</p>
+</li>
+<li>Implicit（隐式）：Classful =&gt; 通过判断ip地址属于哪一类IP地址，进而判断网络地址和主机地址</li>
+</ul>
+</li>
+<li><h4 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Subnet mask is: 255.255.255.224</span><br><span class="line">Host IP: 202.112.41.241</span><br><span class="line">Problems:</span><br><span class="line">  1. network address and host address ?</span><br><span class="line">  2. how many subnets are created at most ?</span><br><span class="line"></span><br><span class="line">解： 首先判断将当前的子网掩码转为2进制：</span><br><span class="line">      255.255.255.224 =&gt; 1···100000 （前27位为1）</span><br><span class="line">      224 =&gt; 11100000</span><br><span class="line">      241 =&gt; 11110001</span><br><span class="line"></span><br><span class="line">  ①.  网络地址：202.112.41.224</span><br><span class="line">      主机地址：0.0.0.17</span><br><span class="line"></span><br><span class="line">  ②.  分析可知该IP属于C类IP，前24位是网络地址</span><br><span class="line">    27 - 24 = 3（位）</span><br><span class="line">    2^3 = 8（个）</span><br><span class="line"></span><br><span class="line">    所以对多可以创建8个子网。</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="DHCP-Dynamic-Host-Configuration-Protocol-动态主机配置协议"><a href="#DHCP-Dynamic-Host-Configuration-Protocol-动态主机配置协议" class="headerlink" title="DHCP (Dynamic Host Configuration Protocol, 动态主机配置协议)"></a>DHCP (Dynamic Host Configuration Protocol, 动态主机配置协议)</h3><ul>
+<li><strong>plug-and-play</strong> =&gt; 即插即用</li>
+<li>基于UDP</li>
+<li>动态自动分配IP地址，可充分利用IP地址资源</li>
+</ul>
+<img src="/img/computer_network/computer_network_55.png" title="DHCP客户端和服务端交互示意图">
+<ul>
+<li><h4 id="为何选用UDP"><a href="#为何选用UDP" class="headerlink" title="为何选用UDP"></a>为何选用UDP</h4><ul>
+<li>TCP延迟大，UDP效率高</li>
+<li>一开始Client并没有IP地址，无法与服务端建立连接，只能通过UDP广播的形式与服务端通信</li>
+<li>分配IP的去求对丢包和可靠传输的要求不高。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="IPv4地址耗尽的解决措施"><a href="#IPv4地址耗尽的解决措施" class="headerlink" title="IPv4地址耗尽的解决措施"></a>IPv4地址耗尽的解决措施</h3><ul>
+<li>VLSM / CIDR IPv4</li>
+<li>DHCP</li>
+<li>NAT</li>
+<li>IPv6</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="NAT-Network-Address-Translation-网络地址转换"><a href="#NAT-Network-Address-Translation-网络地址转换" class="headerlink" title="NAT (Network Address Translation, 网络地址转换)"></a>NAT (Network Address Translation, 网络地址转换)</h2><ul>
+<li>NAT是在共有IP地址和私有IP地址之间进行转换的技术</li>
+<li>NAT中的每个外网端口号对应内网主机当中的一个进程 =&gt; <strong>使得一个IP的资源被充分的利用</strong></li>
+</ul>
+</blockquote>
+<img src="/img/computer_network/computer_network_56.png" title="NAT工作示意图">
+<ul>
+<li><p>对于从 <strong>内网流出的数据包</strong>，将其 <strong>源IP地址和端口号</strong> 从私有的IP地址和端口号 <strong>替换成公网的IP地址和端口号</strong></p>
+</li>
+<li><p>将内网IP、端口与外网IP、端口的 <strong>映射关系</strong>，保存在 <strong>NAT table</strong> 当中</p>
+</li>
+<li><p>对于从 <strong>外网流入的数据包</strong>，参照 <strong>NAT Table</strong>，将 <strong>目的IP地址和端口号</strong> 替换成私有的IP和端口</p>
+</li>
+</ul>
+<blockquote>
+<h2 id="ICPM-Internet-Control-Message-Protocol-互联网控制消息协议"><a href="#ICPM-Internet-Control-Message-Protocol-互联网控制消息协议" class="headerlink" title="ICPM (Internet Control Message Protocol, 互联网控制消息协议)"></a>ICPM (Internet Control Message Protocol, 互联网控制消息协议)</h2></blockquote>
+<img src="/img/computer_network/computer_network_57.png" title="ICMP消息类型">
+<ul>
+<li>报告差错 =&gt; 用于在IP主机路由器之间传递控制消息（主机通否？主机可达否？路由可用否？）</li>
+<li>ping</li>
+</ul>
+<blockquote>
+<h2 id="IPv6"><a href="#IPv6" class="headerlink" title="IPv6"></a>IPv6</h2><ul>
+<li>IP地址扩容</li>
+<li>提供区分服务</li>
+<li>减少路由器的工作，提高效率 =&gt; <strong>IPv6</strong> 有分片机制，但是在基本首部中是不支持的，在扩展首部中可以支持。但 <strong>规定之只能在端系统中进行分片和重组</strong>，路由器不可操作扩展首部（除了逐跳选项）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="制定IPv6协议的动机"><a href="#制定IPv6协议的动机" class="headerlink" title="制定IPv6协议的动机"></a>制定IPv6协议的动机</h3><ul>
+<li><strong>32位的IPv4地址不够用</strong> =&gt; 这是最主要的动机</li>
+<li>IPv6首部的格式有利于提高转发和处理速率</li>
+<li>IPv6首部的变化，提高了Qos</li>
+</ul>
+</li>
+<li><h3 id="IPv6-datagram-format"><a href="#IPv6-datagram-format" class="headerlink" title="IPv6 datagram format"></a>IPv6 datagram format</h3><blockquote>
+<ul>
+<li>首部长度固定为40 bits (基本首部)</li>
+<li>路由器上不允许进行分片</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ol>
+<li>IPv6吧IP地址的长度增加到了16个字节</li>
+<li>IPv6简化了IP Datagram的首部格式 =&gt; 字段数减少了，且基本首部的长度是固定的</li>
+<li>IPv6增强了对进一步扩展的支持 =&gt; 将IPv4首部中Options项移到了扩展首部当中</li>
+<li>IPv6增强了对Qos（Quality of Service）的支持</li>
+<li>IPv6增强了对安全的支持</li>
+<li>IPv6增加了对Anycast通信方式的支持</li>
+</ol>
+</li>
+<li><h4 id="IPv6数据报的一般格式"><a href="#IPv6数据报的一般格式" class="headerlink" title="IPv6数据报的一般格式"></a>IPv6数据报的一般格式</h4><img src="/img/computer_network/computer_network_59.png" title="IPv6数据报的一般格式">
+</li>
+<li><h4 id="IPv6数据报的首部"><a href="#IPv6数据报的首部" class="headerlink" title="IPv6数据报的首部"></a>IPv6数据报的首部</h4><ul>
+<li><strong>长度固定为40个字节</strong>，称为基本首部</li>
+<li><strong>取消不必要的功能</strong>，字段个数减为8</li>
+<li><strong>取消Header checksum</strong> 加快了路由器处理数据报的速度</li>
+<li><strong>支持扩展首部</strong>（分片、逐跳选项、路由选择…） =&gt; <strong>数据报途中经过的路由器都不处理这些扩展首部</strong>（除了逐跳选项），这 <strong>大大提高了路由器的处理效率</strong></li>
+<li>有效载荷（payload）= 扩展首部 + 数据</li>
+<li>地址长度扩展为128位</li>
+</ul>
+</li>
+<li><h4 id="IPv6数据报格式"><a href="#IPv6数据报格式" class="headerlink" title="IPv6数据报格式"></a>IPv6数据报格式</h4><img src="/img/computer_network/computer_network_58.png" title="IPv6数据报格式">
+</li>
+<li><h4 id="补充-1"><a href="#补充-1" class="headerlink" title="补充"></a>补充</h4><ul>
+<li>记法：采 <strong>冒号十六进制记法</strong>，支持零压缩</li>
+<li>IPv6支持：<strong>单播、组播、任播</strong>（目的站是一组计算机，但数据报在交付的时候只交付其中的一个，通常是距离最近的一个）</li>
+</ul>
+</li>
+<li><h4 id="IPv4映射的IPv6地址"><a href="#IPv4映射的IPv6地址" class="headerlink" title="IPv4映射的IPv6地址"></a>IPv4映射的IPv6地址</h4><img src="/img/computer_network/computer_network_60.png" title="IPv4映射的IPv6地址">
+</li>
+</ul>
+</li>
+<li><h3 id="IPv6相较于IPv4的变化"><a href="#IPv6相较于IPv4的变化" class="headerlink" title="IPv6相较于IPv4的变化"></a>IPv6相较于IPv4的变化</h3><ul>
+<li>IPv6首部长度固定为40字节，而IPv4的默认为20，可以由options</li>
+<li>IPv6基本首部中没有分片字段，移动到了扩展首部中（而且IPv6的分片和重组只能在终端上运行）</li>
+<li>IPv6没有首部Checksum =&gt; <strong>简化路由器的工作，提高效率</strong></li>
+<li>IPv6地址长度为128位，而IPv4为32位</li>
+<li>IPv6支持任播，而IPv4不支持</li>
+<li>IPv6首部字段减少，提高了路由器的处理效率</li>
+</ul>
+</li>
+<li><h3 id="ICMPv6"><a href="#ICMPv6" class="headerlink" title="ICMPv6"></a>ICMPv6</h3><ul>
+<li>差错报告报文</li>
+<li>提供信息的报文</li>
+<li>多播听众发现报文</li>
+<li>邻端发现报文</li>
+</ul>
+</li>
+<li><h3 id="IPv4向IPv6过渡的方案"><a href="#IPv4向IPv6过渡的方案" class="headerlink" title="IPv4向IPv6过渡的方案"></a>IPv4向IPv6过渡的方案</h3><ul>
+<li>双协议栈——Dual IP Layer/Dualo Stack =&gt; <strong>在主机和路由器上同时实现IPv4和IPv6两种协议</strong></li>
+<li>隧道技术（<strong><em>Tunneling</em></strong>）：把IPv6分组封装在IPv4分组当中传送 =&gt; <strong>把IPv6 datagram 整体作为数据封装在IPv4 datagram 中进行传送</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Routing-algorithms-（路由算法）"><a href="#Routing-algorithms-（路由算法）" class="headerlink" title="Routing algorithms （路由算法）"></a>Routing algorithms （路由算法）</h2><ul>
+<li><strong>Routing</strong> =&gt; 确定一条从源端到目的端的一条路径的过程（不一定是最短的）</li>
+<li><strong>global routing algorithms</strong> =&gt; 集中式路由算法</li>
+<li><strong>decentralized routing algorithms</strong> =&gt; 分散式路由算法</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="The-Link-State-LS-Routing-Algorithms"><a href="#The-Link-State-LS-Routing-Algorithms" class="headerlink" title="The Link-State (LS) Routing Algorithms"></a>The Link-State (LS) Routing Algorithms</h3><blockquote>
+<ul>
+<li>链路状态路由算法（<strong>集中式</strong>）</li>
+<li>采用Dijstra算法求最短路径</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="伪代码"><a href="#伪代码" class="headerlink" title="伪代码"></a>伪代码</h4><ul>
+<li><strong>u</strong> =&gt; 源端</li>
+<li><strong>N’</strong> =&gt; 一个包含所有到源端最短路径已知的点的集合</li>
+<li><strong>C(x, y)</strong> =&gt; x, y之间的link-cost</li>
+<li><strong>D(v)</strong> =&gt; 节点v到源端的距离，不可达则为∞</li>
+<li><strong>P(v)</strong> =&gt; 节点v到源端路径的前向节点</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Initiazation:</span><br><span class="line">  N' = &#123;u&#125;</span><br><span class="line">  <span class="keyword">for</span> all nodes v</span><br><span class="line">    <span class="keyword">if</span> v adjacent to u</span><br><span class="line">      then D(v) = C(u, v)</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      D(v) = ∞</span><br><span class="line"></span><br><span class="line">Loop</span><br><span class="line">  find w <span class="keyword">not</span> in N' such that D(w) is a minimum, add to N'</span><br><span class="line">  update D(v) <span class="keyword">for</span> all v adjacent to w</span><br><span class="line">    D(v) = min&#123;D(v), D(w) + C(w, v)&#125;</span><br><span class="line">Until all nodes in N'</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h4><img src="/img/computer_network/computer_network_61.png" title="一个链路运行链路状态路由算法的栗子">
+</li>
+<li><h4 id="运行链路状态路由算法得到的结果"><a href="#运行链路状态路由算法得到的结果" class="headerlink" title="运行链路状态路由算法得到的结果"></a>运行链路状态路由算法得到的结果</h4><img src="/img/computer_network/computer_network_62.png" title="运行链路状态路由算法得到的结果">
+<ul>
+<li><strong>得到一颗最小生成树</strong></li>
+<li><strong>得到一张转发表</strong></li>
+</ul>
+</li>
+<li><p>在LS路由算法中，为了获取所有节点的Link-cost，有一个 <strong>链路状态广播</strong>（利用洪泛获取link-cost信息） 的过程，开销相对较大</p>
+</li>
+</ul>
+</li>
+<li><h3 id="The-Distance-Vector-DV-Routing-Algorithms"><a href="#The-Distance-Vector-DV-Routing-Algorithms" class="headerlink" title="The Distance-Vector(DV) Routing Algorithms"></a>The Distance-Vector(DV) Routing Algorithms</h3><blockquote>
+<ul>
+<li>链路状态路由算法（分散式）</li>
+<li>利用的是动态规划的思想</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="伪代码-1"><a href="#伪代码-1" class="headerlink" title="伪代码"></a>伪代码</h4><ul>
+<li><strong>Dx(y)</strong> =&gt; x到y的最短路径的link-cost</li>
+<li><strong>Dx(y) = MINv{C(x, v) + Dv(y)}</strong> =&gt; 其中，v为x的所有邻居</li>
+</ul>
+<p>对于每个节点x，运行如下路由算法</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">Initialization:</span><br><span class="line">  <span class="keyword">for</span> all destinations y in N:</span><br><span class="line">    Dx(y) = C(x, y)   <span class="comment">//如果是x的邻居则有值，否则为 ∞</span></span><br><span class="line">  <span class="keyword">for</span> each neighbor w:</span><br><span class="line">    <span class="comment">//一开始不知道邻居到其它节点的Link-cost</span></span><br><span class="line">    Dx(y) = ? <span class="keyword">for</span> all desrinations y in N</span><br><span class="line">  <span class="keyword">for</span> each neighbor w:</span><br><span class="line">    <span class="comment">//向自己的邻居节点发送自己已知的距离向量</span></span><br><span class="line">    send distance <span class="built_in">vector</span> Dx = [Dx(y): y in N] to w、</span><br><span class="line"></span><br><span class="line">Loop</span><br><span class="line">  <span class="comment">//等待自己到邻居的link-cost改变，或者收到邻居发给自己的距离向量</span></span><br><span class="line">  wait (until I see a link cost change to some neighbor w <span class="keyword">or</span></span><br><span class="line">    until I receive a distance <span class="built_in">vector</span> from some neighbor w)</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> each y in N:</span><br><span class="line">    Dx(y) = MINv&#123;C(x, v) + Dv(y)&#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果自己到任一节点的link-cost发生变化，向所有的邻居发送距离向量</span></span><br><span class="line">  <span class="keyword">if</span> Dx(y) change <span class="keyword">for</span> any destination y:</span><br><span class="line">    send distance <span class="built_in">vector</span> Dx = [Dx(y): y in N] to all neighbors</span><br><span class="line">forever</span><br></pre></td></tr></table></figure>
+</li>
+<li><h4 id="伪代码说明"><a href="#伪代码说明" class="headerlink" title="伪代码说明"></a>伪代码说明</h4><ul>
+<li>每个节点在本地保存自己的距离向量和所有邻居节点的距离向量</li>
+<li>一旦自己到邻居的link-cost变化或者收到邻居发的距离向量，则重新计算自己的距离向量，如果有变化就发给所有的邻居。</li>
+</ul>
+</li>
+<li><h4 id="Link-cost-change"><a href="#Link-cost-change" class="headerlink" title="Link-cost change:"></a>Link-cost change:</h4><ul>
+<li>good news travels fast =&gt; 当某个 link-cost 减小，网络很快趋于稳定（收敛）</li>
+<li>bad news travels slow =&gt; 当某个 link-cost 增大，需要经过很多次迭代才收敛（存在计数到无穷问题）</li>
+</ul>
+</li>
+<li><h4 id="poison-reverse-毒性反转"><a href="#poison-reverse-毒性反转" class="headerlink" title="poison reverse(毒性反转)"></a>poison reverse(毒性反转)</h4><p>当RouterA发现与RouterX的连接断开，并准备向邻居节点发送新的距离向量的时候，并不是忽略它，而是将到他的路径毒化，设置其跳数为最大跳数加1，即不可到达。让其他节点尽快知道RouterX已经不可经由RouterA到达了，加快网络的收敛速度。</p>
+</li>
+</ul>
+</li>
+<li><h3 id="DV-vs-LS"><a href="#DV-vs-LS" class="headerlink" title="DV vs LS"></a>DV vs LS</h3><ul>
+<li>Message Complexity（报文复杂性）<ul>
+<li>LS: n个node，E跳link，需发送O(nE)个messages</li>
+<li>DV: 只在相邻节点间传递消息</li>
+</ul>
+</li>
+<li>收敛速度<ul>
+<li>LS: 固定，要求发送O(nE)个messages =&gt; 可能存在震荡</li>
+<li>DV: 收敛时间变化不定 =&gt; 环路问题，计数到无穷问题</li>
+</ul>
+</li>
+<li>健壮性<ul>
+<li>LS: 节点<strong>可能通告不正确的链路费用</strong> ；每个节点仅计算自己的表</li>
+<li>DV: 节点<strong>可能通告不正确的路径信息</strong> ；每个节点的表都由他人使用 =&gt; 差错通过网络进行传播</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Distance Vector</th>
+<th style="text-align:center">Link State</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">仅与邻居节点交换消息</td>
+<td style="text-align:center">向网络上所有其他节点广播消息</td>
+</tr>
+<tr>
+<td style="text-align:center">消息包括到所有节点的最短距离</td>
+<td style="text-align:center">消息仅包括到邻居节点的距离</td>
+</tr>
+<tr>
+<td style="text-align:center">收敛速度比较慢</td>
+<td style="text-align:center">收敛速度比较快</td>
+</tr>
+<tr>
+<td style="text-align:center">会广播不正确的路径信息</td>
+<td style="text-align:center">会广播不正确的链路信息</td>
+</tr>
+<tr>
+<td style="text-align:center">有计数到无穷（Count to Infinity Problem）问题</td>
+<td style="text-align:center">没有计数到无穷（Count to Infinity Problem）问题</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h3 id="Hierarchical-Routing（分层式路由）"><a href="#Hierarchical-Routing（分层式路由）" class="headerlink" title="Hierarchical Routing（分层式路由）"></a>Hierarchical Routing（分层式路由）</h3><ul>
+<li>Intra-AS routing algorithms =&gt; <strong>自治系统内部路由算法</strong></li>
+<li>Inter-AS routing algorithms =&gt; <strong>自治系统间路由算法</strong>（只传递可达性信息）</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Routing-in-the-Internet"><a href="#Routing-in-the-Internet" class="headerlink" title="Routing in the Internet"></a>Routing in the Internet</h2><ul>
+<li><strong>内部网关协议</strong>(<strong><em>IGP</em></strong>) =&gt; 自治系统内部路由协议的总称<ul>
+<li>RIP</li>
+<li>OSPF</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="RIP"><a href="#RIP" class="headerlink" title="RIP"></a>RIP</h3><ul>
+<li><strong>基于UDP</strong>，且RIP为应用层协议（RIP的报文封装在UDP数据报中发送，故RIP为应用层协议）=&gt; 值得注意的是，<strong>路由器应该有应用层和传输层</strong>，否则无法运行路由协议。但是在转发数据包的时候不使用传输层和应用层的功能</li>
+<li><strong>采用距离向量路由算法</strong>（DV算法）=&gt; 以跳数作为距离指标，并且将跳数限制在15跳以内</li>
+<li><strong>RIP跳数</strong> =&gt; 从当前节点到目的节点所穿越的子网个数，包含目的子网（最小为1）</li>
+<li><strong>RIP协议的最大跳数为15</strong></li>
+<li><strong>每30s更新一次，如果180s未收到某个邻居节点的向量表，则认为其已经断开</strong>（采用毒性反转之后，如果收到某个邻居节点的向量表中包含某个跳数大于RIP的最大跳数，就认为那条路径断开，而不用等待180s）</li>
+<li><h4 id="转发表示例"><a href="#转发表示例" class="headerlink" title="转发表示例"></a>转发表示例</h4><img src="/img/computer_network/computer_network_63.png" title="RIP转发表示例">
+</li>
+</ul>
+</li>
+<li><h3 id="OSPF"><a href="#OSPF" class="headerlink" title="OSPF"></a>OSPF</h3><ul>
+<li>读书路由协议属于应用层，而 <strong>OSPF</strong> 不是，它 <strong>是传输层协议</strong>。它在IP之上却没有使用其他传输层协议</li>
+<li><strong>采用的是链路状态路由算法</strong>（LS算法）</li>
+</ul>
+</li>
+<li><h3 id="BGP-边界网关协议"><a href="#BGP-边界网关协议" class="headerlink" title="BGP(边界网关协议)"></a>BGP(边界网关协议)</h3><ul>
+<li>自治系统间的路由协议</li>
+<li>基于TCP</li>
+<li>主要传递可达性信息</li>
+</ul>
+</li>
+<li><h3 id="静态路由表的计算-（！！！圈重点）"><a href="#静态路由表的计算-（！！！圈重点）" class="headerlink" title="静态路由表的计算 （！！！圈重点）"></a>静态路由表的计算 （！！！圈重点）</h3><ul>
+<li><h4 id="例题："><a href="#例题：" class="headerlink" title="例题："></a>例题：</h4><img src="/img/computer_network/computer_network_64.png" title="静态路由表栗子题目"></li>
+<li><h4 id="解答："><a href="#解答：" class="headerlink" title="解答："></a>解答：</h4><img src="/img/computer_network/computer_network_65.png" title="静态路由表栗子解答"></li>
+</ul>
+</li>
+<li><h3 id="单播、组播、广播、任播"><a href="#单播、组播、广播、任播" class="headerlink" title="单播、组播、广播、任播"></a>单播、组播、广播、任播</h3><ul>
+<li>单播：一对一，只有一个接收端</li>
+<li>组播：一对一组 =&gt; 组内成员可以来自不同的子网，接收端是组内的所有成员</li>
+<li><p>广播：一对所有 =&gt; 默认是在某个子网内部，不能穿越路由器</p>
+</li>
+<li><p>共性：一个发送端</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Brodcast-and-multicast-routing"><a href="#Brodcast-and-multicast-routing" class="headerlink" title="Brodcast and multicast routing"></a>Brodcast and multicast routing</h2><p><strong>实现广播的两种复制数据的方式</strong></p>
+<ul>
+<li>Source-duplication =&gt; <strong>源端复制</strong>（效率很低）</li>
+<li>In-network duplication =&gt; <strong>网内复制</strong>（会有洪泛问题）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="Uncontrolled-Flooding（不可控洪泛）"><a href="#Uncontrolled-Flooding（不可控洪泛）" class="headerlink" title="Uncontrolled Flooding（不可控洪泛）"></a>Uncontrolled Flooding（不可控洪泛）</h3><p>When node receives broadcast packet, sends copy to all neighbors</p>
+<p><strong>当收到某个邻居的广播报文时，无条件地转播给其它所有的邻居</strong></p>
+<p>=&gt; 如果有网络有回路存在，就会导致“广播风暴”</p>
+</li>
+<li><h3 id="Controlled-Flooding（可控洪泛）"><a href="#Controlled-Flooding（可控洪泛）" class="headerlink" title="Controlled Flooding（可控洪泛）"></a>Controlled Flooding（可控洪泛）</h3><ul>
+<li><h4 id="Sequence-number-controlled-flooding-（序列号可控洪泛）"><a href="#Sequence-number-controlled-flooding-（序列号可控洪泛）" class="headerlink" title="Sequence-number-controlled flooding （序列号可控洪泛）"></a>Sequence-number-controlled flooding （序列号可控洪泛）</h4><p>给每个数据包都加上一个序列号，当再次收到一个序列号相同的数据包的时候不再转发给邻居</p>
+<p>=&gt; 可以避免“广播风暴”，但是不能完全解决冗余数据包的问题</p>
+</li>
+<li><h4 id="Reverse-path-forwarding-RPF-反向路径转发"><a href="#Reverse-path-forwarding-RPF-反向路径转发" class="headerlink" title="Reverse path forwarding (RPF, 反向路径转发)"></a>Reverse path forwarding (RPF, 反向路径转发)</h4><ul>
+<li>依赖于路由器知道自己与发送端的一条最短路径</li>
+<li>当收到一个数据包的时候<ul>
+<li><strong>先创建一个从自己到源端的最短路径</strong></li>
+<li>如果发送这个 <strong>数据包的节点在该路径上</strong>，<strong>则将其转发给所有的邻居</strong>，否则不转发</li>
+</ul>
+</li>
+<li>可以避免 <strong>广播风暴</strong>，但是仍然存在冗余数据包问题</li>
+</ul>
+</li>
+<li><h4 id="利用生成树进行广播"><a href="#利用生成树进行广播" class="headerlink" title="利用生成树进行广播"></a>利用生成树进行广播</h4><p>生成树构建好之后，路由器收到一个广播数据包，只转发向包含于生成树的路径转发数据包</p>
+<p>=&gt; 没有冗余数据包，也可以避免广播风暴</p>
+</li>
+</ul>
+</li>
+<li><h3 id="用于组播的协议"><a href="#用于组播的协议" class="headerlink" title="用于组播的协议"></a>用于组播的协议</h3><ul>
+<li>Distance-Vector Multicast Routing Protocol(DVMRP)</li>
+<li>Protocol-Independent Multicast(PIM) routinh protocol</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/09/computer_networking_03/" rel="next" title="Chapter 3 Transport Layer">
+                <i class="fa fa-chevron-left"></i> Chapter 3 Transport Layer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/21/computer_networking_05/" rel="prev" title="Chapter 5 The Data Link Layer">
+                Chapter 5 The Data Link Layer <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Forwarding-and-Routing-存储和转发"><span class="nav-number">1.1.</span> <span class="nav-text">Forwarding and Routing ( 存储和转发 )</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Forwarding（转发）"><span class="nav-number">1.1.1.</span> <span class="nav-text">Forwarding（转发）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Routing（路由）"><span class="nav-number">1.1.2.</span> <span class="nav-text">Routing（路由）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充"><span class="nav-number">1.1.3.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Connection-Setup（连接建立）"><span class="nav-number">1.1.4.</span> <span class="nav-text">Connection Setup（连接建立）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Virtual-Circuit-and-Datagram-Networks"><span class="nav-number">2.</span> <span class="nav-text">Virtual Circuit and Datagram Networks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-Circuit-Networks-（虚电路网络）"><span class="nav-number">2.1.</span> <span class="nav-text">Virtual-Circuit Networks （虚电路网络）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#组成"><span class="nav-number">2.1.1.</span> <span class="nav-text">组成</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#示例"><span class="nav-number">2.1.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Datagram-networks（数据报网络）"><span class="nav-number">2.2.</span> <span class="nav-text">Datagram networks（数据报网络）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#虚电路网络-VS-数据报网络"><span class="nav-number">2.3.</span> <span class="nav-text">虚电路网络 VS 数据报网络</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#What’s-inside-a-Router"><span class="nav-number">3.</span> <span class="nav-text">What’s inside a Router?</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Router的两个功能"><span class="nav-number">3.1.</span> <span class="nav-text">Router的两个功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-ports"><span class="nav-number">3.2.</span> <span class="nav-text">Input ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三种类型的交换"><span class="nav-number">3.3.</span> <span class="nav-text">三种类型的交换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-ports"><span class="nav-number">3.4.</span> <span class="nav-text">Output ports</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Where-does-Queuing-Occur"><span class="nav-number">3.5.</span> <span class="nav-text">Where does Queuing Occur?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送排队的时机"><span class="nav-number">3.5.1.</span> <span class="nav-text">发送排队的时机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#缓存溢出时的策略"><span class="nav-number">3.5.2.</span> <span class="nav-text">缓存溢出时的策略</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-Internet-Protocol-网际协议"><span class="nav-number">4.</span> <span class="nav-text">IP(Internet Protocol, 网际协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Datagram-Format-（数据报结构）"><span class="nav-number">4.1.</span> <span class="nav-text">Datagram Format （数据报结构）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网络层只对Datagram首部进行校验"><span class="nav-number">4.1.1.</span> <span class="nav-text">网络层只对Datagram首部进行校验</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#可行性"><span class="nav-number">4.1.1.1.</span> <span class="nav-text">可行性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优点"><span class="nav-number">4.1.1.2.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#存在的问题"><span class="nav-number">4.1.1.3.</span> <span class="nav-text">存在的问题</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何每个路由器都要对数据包进行重新打包？"><span class="nav-number">4.1.2.</span> <span class="nav-text">为何每个路由器都要对数据包进行重新打包？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4-Datagram-Fragmentation-（IPv4-数据报分片）"><span class="nav-number">4.2.</span> <span class="nav-text">IPv4 Datagram Fragmentation （IPv4 数据报分片）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么（何时）要进行分片？"><span class="nav-number">4.2.1.</span> <span class="nav-text">为什么（何时）要进行分片？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4用于实现分片的头部字段"><span class="nav-number">4.2.2.</span> <span class="nav-text">IPv4用于实现分片的头部字段</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#一个示例"><span class="nav-number">4.2.3.</span> <span class="nav-text">一个示例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注意"><span class="nav-number">4.2.4.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#为何IP分片重组只在目的主机进行"><span class="nav-number">4.2.5.</span> <span class="nav-text">为何IP分片重组只在目的主机进行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4-Addressing-（IPv4编址）"><span class="nav-number">4.3.</span> <span class="nav-text">IPv4 Addressing （IPv4编址）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#IP-address"><span class="nav-number">4.3.1.</span> <span class="nav-text">IP address</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Interface（接口）"><span class="nav-number">4.3.2.</span> <span class="nav-text">Interface（接口）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Subnets（子网）"><span class="nav-number">4.3.3.</span> <span class="nav-text">Subnets（子网）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#CIDR-Classless-Interdomain-Routing-无类型域间选路"><span class="nav-number">4.3.4.</span> <span class="nav-text">CIDR(Classless Interdomain Routing, 无类型域间选路)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Classful-Addressing（分类编址）"><span class="nav-number">4.3.5.</span> <span class="nav-text">Classful Addressing（分类编址）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Private-IP（私有IP地址-内网地址）"><span class="nav-number">4.3.6.</span> <span class="nav-text">Private IP（私有IP地址 / 内网地址）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊的IP地址"><span class="nav-number">4.3.7.</span> <span class="nav-text">特殊的IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#如何辨别IP地址"><span class="nav-number">4.3.8.</span> <span class="nav-text">如何辨别IP地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子"><span class="nav-number">4.3.9.</span> <span class="nav-text">举个栗子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DHCP-Dynamic-Host-Configuration-Protocol-动态主机配置协议"><span class="nav-number">4.4.</span> <span class="nav-text">DHCP (Dynamic Host Configuration Protocol, 动态主机配置协议)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为何选用UDP"><span class="nav-number">4.4.1.</span> <span class="nav-text">为何选用UDP</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4地址耗尽的解决措施"><span class="nav-number">4.5.</span> <span class="nav-text">IPv4地址耗尽的解决措施</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NAT-Network-Address-Translation-网络地址转换"><span class="nav-number">5.</span> <span class="nav-text">NAT (Network Address Translation, 网络地址转换)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ICPM-Internet-Control-Message-Protocol-互联网控制消息协议"><span class="nav-number">6.</span> <span class="nav-text">ICPM (Internet Control Message Protocol, 互联网控制消息协议)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IPv6"><span class="nav-number">7.</span> <span class="nav-text">IPv6</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#制定IPv6协议的动机"><span class="nav-number">7.1.</span> <span class="nav-text">制定IPv6协议的动机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6-datagram-format"><span class="nav-number">7.2.</span> <span class="nav-text">IPv6 datagram format</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">7.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报的一般格式"><span class="nav-number">7.2.2.</span> <span class="nav-text">IPv6数据报的一般格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报的首部"><span class="nav-number">7.2.3.</span> <span class="nav-text">IPv6数据报的首部</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv6数据报格式"><span class="nav-number">7.2.4.</span> <span class="nav-text">IPv6数据报格式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充-1"><span class="nav-number">7.2.5.</span> <span class="nav-text">补充</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IPv4映射的IPv6地址"><span class="nav-number">7.2.6.</span> <span class="nav-text">IPv4映射的IPv6地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv6相较于IPv4的变化"><span class="nav-number">7.3.</span> <span class="nav-text">IPv6相较于IPv4的变化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ICMPv6"><span class="nav-number">7.4.</span> <span class="nav-text">ICMPv6</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IPv4向IPv6过渡的方案"><span class="nav-number">7.5.</span> <span class="nav-text">IPv4向IPv6过渡的方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing-algorithms-（路由算法）"><span class="nav-number">8.</span> <span class="nav-text">Routing algorithms （路由算法）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Link-State-LS-Routing-Algorithms"><span class="nav-number">8.1.</span> <span class="nav-text">The Link-State (LS) Routing Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码"><span class="nav-number">8.1.1.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个栗子-1"><span class="nav-number">8.1.2.</span> <span class="nav-text">举个栗子</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#运行链路状态路由算法得到的结果"><span class="nav-number">8.1.3.</span> <span class="nav-text">运行链路状态路由算法得到的结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-Distance-Vector-DV-Routing-Algorithms"><span class="nav-number">8.2.</span> <span class="nav-text">The Distance-Vector(DV) Routing Algorithms</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码-1"><span class="nav-number">8.2.1.</span> <span class="nav-text">伪代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#伪代码说明"><span class="nav-number">8.2.2.</span> <span class="nav-text">伪代码说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Link-cost-change"><span class="nav-number">8.2.3.</span> <span class="nav-text">Link-cost change:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#poison-reverse-毒性反转"><span class="nav-number">8.2.4.</span> <span class="nav-text">poison reverse(毒性反转)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DV-vs-LS"><span class="nav-number">8.3.</span> <span class="nav-text">DV vs LS</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hierarchical-Routing（分层式路由）"><span class="nav-number">8.4.</span> <span class="nav-text">Hierarchical Routing（分层式路由）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Routing-in-the-Internet"><span class="nav-number">9.</span> <span class="nav-text">Routing in the Internet</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RIP"><span class="nav-number">9.1.</span> <span class="nav-text">RIP</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#转发表示例"><span class="nav-number">9.1.1.</span> <span class="nav-text">转发表示例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OSPF"><span class="nav-number">9.2.</span> <span class="nav-text">OSPF</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BGP-边界网关协议"><span class="nav-number">9.3.</span> <span class="nav-text">BGP(边界网关协议)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#静态路由表的计算-（！！！圈重点）"><span class="nav-number">9.4.</span> <span class="nav-text">静态路由表的计算 （！！！圈重点）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#例题："><span class="nav-number">9.4.1.</span> <span class="nav-text">例题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解答："><span class="nav-number">9.4.2.</span> <span class="nav-text">解答：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单播、组播、广播、任播"><span class="nav-number">9.5.</span> <span class="nav-text">单播、组播、广播、任播</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Brodcast-and-multicast-routing"><span class="nav-number">10.</span> <span class="nav-text">Brodcast and multicast routing</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Uncontrolled-Flooding（不可控洪泛）"><span class="nav-number">10.1.</span> <span class="nav-text">Uncontrolled Flooding（不可控洪泛）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Controlled-Flooding（可控洪泛）"><span class="nav-number">10.2.</span> <span class="nav-text">Controlled Flooding（可控洪泛）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Sequence-number-controlled-flooding-（序列号可控洪泛）"><span class="nav-number">10.2.1.</span> <span class="nav-text">Sequence-number-controlled flooding （序列号可控洪泛）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Reverse-path-forwarding-RPF-反向路径转发"><span class="nav-number">10.2.2.</span> <span class="nav-text">Reverse path forwarding (RPF, 反向路径转发)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#利用生成树进行广播"><span class="nav-number">10.2.3.</span> <span class="nav-text">利用生成树进行广播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用于组播的协议"><span class="nav-number">10.3.</span> <span class="nav-text">用于组播的协议</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

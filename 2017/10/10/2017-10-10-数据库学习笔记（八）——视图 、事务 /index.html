@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试    在开始今天的摸鱼大业之前，让我们继续延用之前用的表(´`)       视图首先还是来谈谈笔者对视图概念的理解吧，在笔者看来视图这个数据库对象在不考虑物化的情况下就是一张虚表，本身没有实际的数据，但是可以利用视图在某个视角下观察">
+<meta name="keywords" content="数据库,学习,笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库笔记（八）——视图 、事务">
+<meta property="og:url" content="http://qjm253.cn/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试    在开始今天的摸鱼大业之前，让我们继续延用之前用的表(´`)       视图首先还是来谈谈笔者对视图概念的理解吧，在笔者看来视图这个数据库对象在不考虑物化的情况下就是一张虚表，本身没有实际的数据，但是可以利用视图在某个视角下观察">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-38a3660b5d475096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-3f0d770579621459.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/7222676-2d5ffd3369ef3630.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2019-04-20T02:55:18.288Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据库笔记（八）——视图 、事务">
+<meta name="twitter:description" content="写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试    在开始今天的摸鱼大业之前，让我们继续延用之前用的表(´`)       视图首先还是来谈谈笔者对视图概念的理解吧，在笔者看来视图这个数据库对象在不考虑物化的情况下就是一张虚表，本身没有实际的数据，但是可以利用视图在某个视角下观察">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>数据库笔记（八）——视图 、事务 | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/10/10/2017-10-10-数据库学习笔记（八）——视图 、事务 /">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数据库笔记（八）——视图 、事务
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-10-10 00:00:00" itemprop="dateCreated datePublished" datetime="2017-10-10T00:00:00+08:00">2017-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
+</blockquote>
+<hr>
+<blockquote>
+<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表(´`)</p>
+</blockquote>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
+<blockquote>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>首先还是来谈谈笔者对视图概念的理解吧，在笔者看来视图这个数据库对象在不考虑物化的情况下就是一张虚表，本身没有实际的数据，但是可以利用视图在某个视角下观察一张或多张表的数据。所有对视图的操作最后都将转成对表的操作</p>
+</blockquote>
+<ul>
+<li><h3 id="视图定义（创建一个视图）"><a href="#视图定义（创建一个视图）" class="headerlink" title="视图定义（创建一个视图）"></a>视图定义（创建一个视图）</h3><ul>
+<li><p>格式：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> 视图名 <span class="keyword">AS</span> 子查询</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举个栗子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句创建了一个简单的视图temp_view，其中包含员工名以及其所在部门名两个字段</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> temp_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>接下来我们对上面创建的视图进行查询操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> temp_view;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-38a3660b5d475096.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
+</li>
+<li><h3 id="数据库只存储视图的定义本身"><a href="#数据库只存储视图的定义本身" class="headerlink" title="数据库只存储视图的定义本身"></a>数据库只存储视图的定义本身</h3><ul>
+<li>视图通常是这样来实现的：当我们定义一个视图的时候，数据库系统就吧<strong><em>这个视图的定义（其实就是一个子查询语句）</em></strong>本身存储下来，一旦我们使用这个视图，数据库系统就会用定义中的查询语句替换视图</li>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们继续沿用上面定义的视图temp_view，它的定义是这样的</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> temp_view <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 则对视图的查询操作可以作下面的等价(下面两个查询语句是等价的)</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> temp_view;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> (<span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO) <span class="keyword">as</span> temp_view;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h3 id="可更新的视图"><a href="#可更新的视图" class="headerlink" title="可更新的视图"></a>可更新的视图</h3><ul>
+<li><h4 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h4><ol>
+<li>FROM子句中只有一个数据库关系（<strong><em>即在定义视图的时候，后面的SELECT语句中只能查询一个表</em></strong>）</li>
+</ol>
+<ul>
+<li>SELECT子句中只包含关系的属性名，不包含任何的表达式，集聚函数或distinct声明</li>
+<li>任何没有出现在SELECT子句中的属性可以取空值（<strong><em>即这些属性既没有not null 约束，也不构成主码的一部分</em></strong>）</li>
+<li>查询中不含有group by 或 having 子句</li>
+</ul>
+</li>
+<li><h4 id="满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作"><a href="#满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作" class="headerlink" title="满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作"></a>满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行<strong>update、insert、delete</strong>操作</h4></li>
+<li><h4 id="视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上"><a href="#视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上" class="headerlink" title="视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上"></a>视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上</h4></li>
+</ul>
+</li>
+<li><h3 id="视图的update、insert、delete"><a href="#视图的update、insert、delete" class="headerlink" title="视图的update、insert、delete"></a>视图的update、insert、delete</h3><ul>
+<li><p>先定义一个视图，值包括员工的职工号、名字和工资</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> emp_info <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> EMPNO, ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP;</span><br></pre></td></tr></table></figure>
+<p>视图查询的结果如下：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-3f0d770579621459.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
+</li>
+<li><h4 id="update"><a href="#update" class="headerlink" title="update"></a>update</h4><ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句更新SMITH的工资</span></span><br><span class="line"><span class="keyword">UPDATE</span> emp_info</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="number">900</span></span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'SMITH'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--接下来查询表中的数据是否受到影响（查询的结果是900，就不贴图了）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'SMITH'</span>;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><h4 id="insert"><a href="#insert" class="headerlink" title="insert"></a>insert</h4><ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 往视图中插入一条数据（下面插入是可以执行成功的，可以自己试试，创建一个视图，只包含员工名字和工资，不包含EMPNO，这样就不能执行插入语句，违反了上面四个条件中的第三个条件）</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> emp_info (EMPNO, ENAME, SAL) <span class="keyword">VALUES</span> (</span><br><span class="line">    <span class="number">8888</span>, <span class="string">'Robbin'</span>, <span class="string">'1000'</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>–查询一下原表中的数据，会发现多了下面这条<br><img src="http://upload-images.jianshu.io/upload_images/7222676-2d5ffd3369ef3630.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
+<ul>
+<li>视图的插入操作，最终作用到表上，并且是给视图中有的字段赋值，没有的字段都赋null值（这就解释了上面可更新视图的四个条件中的条件3）</li>
+</ul>
+</li>
+<li><h4 id="delete"><a href="#delete" class="headerlink" title="delete"></a>delete</h4><ul>
+<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行结果就是原表中的数据也被删除了</span></span><br><span class="line"><span class="keyword">DELETE</span> emp_info</span><br><span class="line"><span class="keyword">WHERE</span> emp_info.EMPNO = <span class="number">8888</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="物化视图"><a href="#物化视图" class="headerlink" title="物化视图"></a>物化视图</h3><ul>
+<li>就是保存视图的结构，再使用时直接用保存的结果表，而不用再去将视图替换成定义，再次执行一遍查询视图的操作。这个在对视图的操作很频繁的时候是对效率很有增益的，但是同时带来的是同步的问题。就是原表中的数据更新了，但是视图物化的数据却没有更新，导致数据不一致。</li>
+<li>一般用的很少，常用于数据仓库</li>
+</ul>
+</li>
+<li><h3 id="视图更新检查（WITH-CHECK-OPTION）"><a href="#视图更新检查（WITH-CHECK-OPTION）" class="headerlink" title="视图更新检查（WITH CHECK OPTION）"></a>视图更新检查（<strong>WITH CHECK OPTION</strong>）</h3><ul>
+<li>默认情况下，如果一个视图满足以上可更新视图的定义，则通常的更新操作是允许被执行的</li>
+<li>但是如果在创建视图的时候，在后面跟上 <strong>WITH CHECK OPTION</strong>,那么对视图的每一个更新操作，都会检查，更改后的结果，是否满足创建视图时WHERE子句中的限定。</li>
+<li><p>举个栗子：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们在上面定义视图的栗子基础上改造一下，并加上WITH CHECK OPTION</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">VIEW</span> emp_info <span class="keyword">AS</span></span><br><span class="line"><span class="keyword">SELECT</span> EMPNO, ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="number">3000</span></span><br><span class="line"><span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>上面视图的定义就是包含了工资超过3000的所有员工的员工号，名字，以及工资</li>
+<li><p>这个时候如果我们执行下面的更新操作</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面这个操作将会被拒绝执行</span></span><br><span class="line"><span class="keyword">UPDATE</span> emp_info</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="number">2000</span></span><br><span class="line"><span class="keyword">WHERE</span> ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于在定义视图的时候添加了 <strong>WITH CHEKC OPTION</strong> 选项，所以在执行更新操作的时候回检查是否符合创建视图时WHERE子句中的条件，显然上面的操作不满足，故被拒绝执行。</p>
+<blockquote>
+<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2></blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>一个事务就是一个原子的，不可分割的任务，里面可能包含多条SQL语句。在事务机制下，一个事务中的多条SQL语句要么都执行，要么都不执行。</p>
+</li>
+<li><h3 id="性质"><a href="#性质" class="headerlink" title="性质"></a>性质</h3><ul>
+<li>原子性<ul>
+<li>事务是原子的，里面包含的一条或多条SQL语句要么都执行，要么都不执行</li>
+</ul>
+</li>
+<li>一致性<ul>
+<li>在隔离的执行多个事务时，用同步锁保证对数据库数据的一致性访问</li>
+</ul>
+</li>
+<li>隔离性<ul>
+<li>多个事务并行执行，若其中一个事务还没有结束，其他事务内是无法观察到这个事务对数据库的影响的</li>
+</ul>
+</li>
+<li>持久性<ul>
+<li>一旦事务正常完成，并提交，则其对数据库的修改就会持久化到数据库内。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="事务的开始和终止"><a href="#事务的开始和终止" class="headerlink" title="事务的开始和终止"></a>事务的开始和终止</h3><ul>
+<li>虽然各种关系型数据库都支持事务，但是不同的数据库的实现不同。具体的事务的开始和终止有隐式和显示之分</li>
+<li><h4 id="事务的开始"><a href="#事务的开始" class="headerlink" title="事务的开始"></a>事务的开始</h4><ul>
+<li>显示：begin transition （例如SQL Server数据库）</li>
+<li>隐式：第一条DML语句（增删改查语句）开始执行就会开启一个事务 （例如Oracle数据库）</li>
+</ul>
+</li>
+<li><h4 id="事物的终止"><a href="#事物的终止" class="headerlink" title="事物的终止"></a>事物的终止</h4><ul>
+<li>显示： end transition  (例如SQL Server数据库)</li>
+<li>隐式：执行 rollback、commit或者一条DDL语句  （例如Oracle数据库）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="数据库加锁的范围不同"><a href="#数据库加锁的范围不同" class="headerlink" title="数据库加锁的范围不同"></a>数据库加锁的范围不同</h3><ul>
+<li>表级锁</li>
+<li>页级锁</li>
+<li>行级锁</li>
+</ul>
+</li>
+<li><h3 id="举个栗子-由于使用SQL-Server做的测试，所以采用显示的事务开启和关闭"><a href="#举个栗子-由于使用SQL-Server做的测试，所以采用显示的事务开启和关闭" class="headerlink" title="举个栗子(由于使用SQL Server做的测试，所以采用显示的事务开启和关闭)"></a>举个栗子(由于使用SQL Server做的测试，所以采用显示的事务开启和关闭)</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 首先查看博客开头ALLEN的工资是1600</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面开启一个事务，并执行一条涨工资的操作（执行会立即完成）</span></span><br><span class="line"><span class="keyword">BEGIN</span> <span class="keyword">TRANSACTION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> EMP <span class="keyword">SET</span> SAL = SAL * <span class="number">2</span></span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'ALLEN'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 与此同时，开启另一个事务，执行一条涨工资的操作（语句没有执行，一直在等待。这是因为上面那个事务对ALLEN的数据进行操作了，并且事务没有结束，由于同步锁的缘故，所以本事务中的修改语句要等上面那个事务执行完才能继续执行）</span></span><br><span class="line"><span class="keyword">BEGIN</span> <span class="keyword">TRANSACTION</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> EMP <span class="keyword">SET</span> SAL = SAL * <span class="number">3</span></span><br><span class="line"><span class="keyword">WHERE</span> ENAME = <span class="string">'ALLEN'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 如果此时结束第一个事务，那么第二个事务的语句就能继续执行，此时提交第二个事务，最后得到的结果是，ALLEN的工资为9600</span></span><br><span class="line"><span class="keyword">COMMIT</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<blockquote>
+<h2 id="完整性约束"><a href="#完整性约束" class="headerlink" title="完整性约束"></a>完整性约束</h2></blockquote>
+<ul>
+<li><h3 id="主键约束"><a href="#主键约束" class="headerlink" title="主键约束"></a>主键约束</h3></li>
+<li><h3 id="外键约束（参照完整性约束）"><a href="#外键约束（参照完整性约束）" class="headerlink" title="外键约束（参照完整性约束）"></a>外键约束（参照完整性约束）</h3></li>
+<li><h3 id="单关系上的约束"><a href="#单关系上的约束" class="headerlink" title="单关系上的约束"></a>单关系上的约束</h3><ul>
+<li>not null</li>
+<li>unique</li>
+<li>check(&lt;谓词&gt;)</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据库/" rel="tag"># 数据库</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/29/2017-09-29-数据库学习笔记（七）/" rel="next" title="数据库笔记（七）">
+                <i class="fa fa-chevron-left"></i> 数据库笔记（七）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/15/2017-10-15-数据库笔记（九）——对违反约束的处理/" rel="prev" title="数据库笔记（九）——对违反约束的处理">
+                数据库笔记（九）——对违反约束的处理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#视图"><span class="nav-number">1.</span> <span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#视图定义（创建一个视图）"><span class="nav-number">1.1.</span> <span class="nav-text">视图定义（创建一个视图）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库只存储视图的定义本身"><span class="nav-number">1.2.</span> <span class="nav-text">数据库只存储视图的定义本身</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可更新的视图"><span class="nav-number">1.3.</span> <span class="nav-text">可更新的视图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#条件"><span class="nav-number">1.3.1.</span> <span class="nav-text">条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作"><span class="nav-number">1.3.2.</span> <span class="nav-text">满足上述条件的视图我们称作可更新的视图，在可更新视图上允许执行update、insert、delete操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上"><span class="nav-number">1.3.3.</span> <span class="nav-text">视图是在表的基础上定义的，所有对视图的操作最后都将作用在表上</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图的update、insert、delete"><span class="nav-number">1.4.</span> <span class="nav-text">视图的update、insert、delete</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#update"><span class="nav-number">1.4.1.</span> <span class="nav-text">update</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#insert"><span class="nav-number">1.4.2.</span> <span class="nav-text">insert</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#delete"><span class="nav-number">1.4.3.</span> <span class="nav-text">delete</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物化视图"><span class="nav-number">1.5.</span> <span class="nav-text">物化视图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视图更新检查（WITH-CHECK-OPTION）"><span class="nav-number">1.6.</span> <span class="nav-text">视图更新检查（WITH CHECK OPTION）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">2.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#性质"><span class="nav-number">2.1.</span> <span class="nav-text">性质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事务的开始和终止"><span class="nav-number">2.2.</span> <span class="nav-text">事务的开始和终止</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#事务的开始"><span class="nav-number">2.2.1.</span> <span class="nav-text">事务的开始</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事物的终止"><span class="nav-number">2.2.2.</span> <span class="nav-text">事物的终止</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库加锁的范围不同"><span class="nav-number">2.3.</span> <span class="nav-text">数据库加锁的范围不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#举个栗子-由于使用SQL-Server做的测试，所以采用显示的事务开启和关闭"><span class="nav-number">2.4.</span> <span class="nav-text">举个栗子(由于使用SQL Server做的测试，所以采用显示的事务开启和关闭)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整性约束"><span class="nav-number">3.</span> <span class="nav-text">完整性约束</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#主键约束"><span class="nav-number">3.1.</span> <span class="nav-text">主键约束</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#外键约束（参照完整性约束）"><span class="nav-number">3.2.</span> <span class="nav-text">外键约束（参照完整性约束）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#单关系上的约束"><span class="nav-number">3.3.</span> <span class="nav-text">单关系上的约束</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

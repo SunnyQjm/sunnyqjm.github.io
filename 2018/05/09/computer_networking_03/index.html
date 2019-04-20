@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Introduction of Transport-Layer Servicers （传输层提供的服务） 传输层将网络层所提供的主机到主机之间的 逻辑通信（logical comminication）扩展为进程到进程间的通信 =&amp;gt; !!最主要的的功能 传输层只在端系统（end systems / hosts）中才有，在路由器和二层交换机上没有 Inetnet的传输层协议：TCP、UDP">
+<meta name="keywords" content="学习,笔记,计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chapter 3 Transport Layer">
+<meta property="og:url" content="http://qjm253.cn/2018/05/09/computer_networking_03/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="Introduction of Transport-Layer Servicers （传输层提供的服务） 传输层将网络层所提供的主机到主机之间的 逻辑通信（logical comminication）扩展为进程到进程间的通信 =&amp;gt; !!最主要的的功能 传输层只在端系统（end systems / hosts）中才有，在路由器和二层交换机上没有 Inetnet的传输层协议：TCP、UDP">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_01.jpg">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_21.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_23.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_24.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_25.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_26.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_27.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_28.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_29.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_30.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_31.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_32.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_33.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_34.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_35.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_36.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_37.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_38.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_39.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_40.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_41.png">
+<meta property="og:image" content="http://qjm253.cn/img/computer_network/computer_network_42.png">
+<meta property="og:updated_time" content="2019-04-20T02:55:18.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Transport Layer">
+<meta name="twitter:description" content="Introduction of Transport-Layer Servicers （传输层提供的服务） 传输层将网络层所提供的主机到主机之间的 逻辑通信（logical comminication）扩展为进程到进程间的通信 =&amp;gt; !!最主要的的功能 传输层只在端系统（end systems / hosts）中才有，在路由器和二层交换机上没有 Inetnet的传输层协议：TCP、UDP">
+<meta name="twitter:image" content="http://qjm253.cn/img/computer_network/computer_network_01.jpg">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2018/05/09/computer_networking_03/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Chapter 3 Transport Layer | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/05/09/computer_networking_03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Chapter 3 Transport Layer
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-05-09 18:00:00" itemprop="dateCreated datePublished" datetime="2018-05-09T18:00:00+08:00">2018-05-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）"><a href="#Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）" class="headerlink" title="Introduction of Transport-Layer Servicers （传输层提供的服务）"></a>Introduction of Transport-Layer Servicers （传输层提供的服务）</h2><ul>
+<li>传输层将网络层所提供的主机到主机之间的 <strong>逻辑通信</strong>（<strong><em>logical comminication</em></strong>）扩展为进程到进程间的通信 =&gt; <strong>!!最主要的的功能</strong></li>
+<li><strong>传输层只在端系统（end systems / hosts）中才有</strong>，在路由器和二层交换机上没有</li>
+<li>Inetnet的传输层协议：<strong>TCP、UDP</strong></li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="传输层-VS-网络层"><a href="#传输层-VS-网络层" class="headerlink" title="传输层 VS 网络层"></a>传输层 VS 网络层</h3><ul>
+<li><p><strong>网络层</strong> 完成的是 <strong>主机到主机</strong> 之间的逻辑通信， <strong>传输层</strong> 完成的是不同主机间 <strong>进程到进程</strong> 的逻辑通信 =&gt; 可以说，<strong>传输层扩展了网络层的配送域</strong></p>
+<p>PS: 并不是说传输层可以单独完成不同主机间进程到进程通信，肯定是要基于网络层及之下各层所提供服务的支持。但是以应用进程的视角来看，确实它只要把通信的消息传给传输层，传输层会帮他把消息投递到目的主机的传输层，目的主机进程就从它的传输层中获取消息。</p>
+</li>
+<li><p><strong>网络层提供的是不可靠的传输</strong>（<strong><em>best-effort delivery service</em></strong>）， 而 <strong>传输层可以</strong> 在网络层不可靠的基础上引入一些可靠数据传输的机制，来向上 <strong>提供可靠的传输</strong>（如：TCP）</p>
+</li>
+<li><p>网络层和传输层都不能提供最短延迟和最小带宽的保障</p>
+</li>
+</ul>
+</li>
+<li><h3 id="Internet-传输层协议"><a href="#Internet-传输层协议" class="headerlink" title="Internet 传输层协议"></a>Internet 传输层协议</h3><ul>
+<li><h4 id="TCP"><a href="#TCP" class="headerlink" title="TCP"></a>TCP</h4><ul>
+<li>可靠数据传输 （<strong><em>reliable data transfer</em></strong>）</li>
+<li>保证数据有序分发</li>
+<li>拥塞控制（<strong><em>congestion control</em></strong>）</li>
+<li>流量控制（<strong><em>flow control</em></strong>）</li>
+</ul>
+</li>
+<li><h4 id="UDP"><a href="#UDP" class="headerlink" title="UDP"></a>UDP</h4><ul>
+<li>不可靠</li>
+<li>无序分发</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Multiplexing-and-DeMultiplexing-（分解与复用）"><a href="#Multiplexing-and-DeMultiplexing-（分解与复用）" class="headerlink" title="Multiplexing and DeMultiplexing （分解与复用）"></a>Multiplexing and DeMultiplexing （分解与复用）</h2><p>传输层通过复用收集各进程的消息，通过分解将消息分发给各个进程</p>
+</blockquote>
+<ul>
+<li>各层的PDU（某一层协议所处理的最小数据单元）<img src="/img/computer_network/computer_network_01.jpg" title="五层网络协议栈模型"></li>
+<li>Socket 是数据穿梭于网络进程和网络之间的大门，同时也就是传输层和进程之间的门户。与传输层直接通信的其实是进程中的Socket（一个进程可以由多个Socket）</li>
+<li><h3 id="Demultiplexing（分解）"><a href="#Demultiplexing（分解）" class="headerlink" title="Demultiplexing（分解）"></a>Demultiplexing（分解）</h3>传输层将收到的网络层投递给它的Segments，去除传输层头部，分发给正确的Socket</li>
+<li><h3 id="Multiplexing（复用）"><a href="#Multiplexing（复用）" class="headerlink" title="Multiplexing（复用）"></a>Multiplexing（复用）</h3><p>传输层收集来自各个Socket的message，并加上传输层头部，生产Segment，再交由网络层</p>
+</li>
+<li><p>每个Socket对应于一个端口号，传输层在分发Segments的时候通过目的端端口号判断应该分发给哪个Socket</p>
+</li>
+<li><h3 id="UDP-的-Multiplexing-and-DeMultiplexing"><a href="#UDP-的-Multiplexing-and-DeMultiplexing" class="headerlink" title="UDP 的 Multiplexing and DeMultiplexing"></a>UDP 的 Multiplexing and DeMultiplexing</h3><ul>
+<li>一个 <strong>UDP Socket</strong> 由一个二元组唯一标识（目的IP，目的端口号）</li>
+<li>UDP协议在分发的时候就根据上面提到的二元组分发Segment给对应的Socket（实际上是去除传输层头部，然后将里面的Message发送给Socket）</li>
+<li><strong>来自不同IP、端口（源IP，源端口），但是目的IP和端口号一致的Segment会被分发给同一个Socket</strong></li>
+</ul>
+</li>
+<li><h3 id="TCP-的-Multiplexing-and-DeMultiplexing"><a href="#TCP-的-Multiplexing-and-DeMultiplexing" class="headerlink" title="TCP 的 Multiplexing and DeMultiplexing"></a>TCP 的 Multiplexing and DeMultiplexing</h3><ul>
+<li>一个 <strong>TCP Socket</strong> 有一个四元组唯一标识（源IP，源端口号，目的IP，目的端口号）</li>
+<li>TCP协议在分发的时候就根据标识TCP Socket的四元组来分发Segments</li>
+<li><strong>来自不同IP、端口（源IP，源端口）的Segment会被分发给不同的Socket</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）"><a href="#Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）" class="headerlink" title="Connectionless Transport: UDP （无连接的传输层协议）——UDP）"></a>Connectionless Transport: UDP （无连接的传输层协议）——UDP）</h2><ul>
+<li>UDP（User Datagram Protocol, 用户数据报协议）</li>
+<li>基于UDP的应用层协议：SNMP、RIP、DNS、NFS</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="为什么需要UDP？"><a href="#为什么需要UDP？" class="headerlink" title="为什么需要UDP？"></a>为什么需要UDP？</h3><ul>
+<li>UDP <strong>不需要建立连接</strong> （少了建立连接的开销以及带来的时延）</li>
+<li><strong>实现简单</strong> =&gt; 发送者与接受者之间由于是无连接的，所以不需要保存连接状态信息</li>
+<li><strong>没有拥塞控制</strong> =&gt; 不限速</li>
+<li><strong>UDP头部较小</strong>（<strong><em>Small packet header overhead</em></strong>）=&gt; UDP由于需要实现的功能较少，头部的字段也比较少，只需要8 byte</li>
+</ul>
+</li>
+<li><h3 id="UDP的应用场景"><a href="#UDP的应用场景" class="headerlink" title="UDP的应用场景"></a>UDP的应用场景</h3><ul>
+<li>多媒体（在线视频）</li>
+<li>具有重复性操作的场合（如：DNS）</li>
+<li>一对多通信的场景</li>
+</ul>
+<img src="/img/computer_network/computer_network_21.png" title="常见应用层协议所用的传输层协议"></li>
+<li><h3 id="UDP所提供的服务"><a href="#UDP所提供的服务" class="headerlink" title="UDP所提供的服务"></a>UDP所提供的服务</h3><ul>
+<li>传输层将网络层所提供的 <strong>主机到主机</strong> 之间的逻辑通信 <strong>扩展到进程到进程</strong> 间的逻辑通信</li>
+<li><strong>校验和</strong>（<strong><em>Checksum</em></strong>）</li>
+</ul>
+</li>
+<li><h3 id="UDP-Segment-Structure"><a href="#UDP-Segment-Structure" class="headerlink" title="UDP Segment Structure"></a>UDP Segment Structure</h3><img src="/img/computer_network/computer_network_23.png" title="UDP Segment Structure">
+<ul>
+<li><strong>首部</strong> 只有四个字段，<strong>只占8 bits</strong> 结构异常简单</li>
+<li><strong>Length指的是整个Segment的长度</strong>，包括数据域，以字节为单位</li>
+<li><strong>UDP的Checksum只能检错，不能纠错</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Principles-of-Reliable-Data-Transfer（可靠数据传输原理）"><a href="#Principles-of-Reliable-Data-Transfer（可靠数据传输原理）" class="headerlink" title="Principles of Reliable Data Transfer（可靠数据传输原理）"></a>Principles of Reliable Data Transfer（可靠数据传输原理）</h2><ul>
+<li><strong>校验和</strong> =&gt; 检验比特差错</li>
+<li><strong>ACK反馈</strong></li>
+<li><strong>序列号</strong> =&gt; 解决冗余数据包问题（冗余数据包指的是接收端会收到一个数据包的多份拷贝）</li>
+<li><strong>定时器超时重传</strong> =&gt; 解决丢包问题</li>
+<li><strong>重传</strong></li>
+</ul>
+</blockquote>
+<img src="/img/computer_network/computer_network_24.png" title="传输层实现可靠数据传输示意图">
+<ul>
+<li><h3 id="rdt1-0"><a href="#rdt1-0" class="headerlink" title="rdt1.0"></a>rdt1.0</h3>=&gt; <strong>假设信道完全可靠，无丢包，无比特差错</strong><img src="/img/computer_network/computer_network_25.png" title="rdt1.0协议有限状态机示意图">
+<ul>
+<li>发送端传输层只要完成从应用层接收message，打包（给message加上传输层头部，构建Segment），并发送给可靠信道进行传输。而接收端传输层只需要从信道获取Segment，解包，然后分发给对应的Socket即可</li>
+</ul>
+</li>
+<li><h3 id="rdt2-0"><a href="#rdt2-0" class="headerlink" title="rdt2.0"></a>rdt2.0</h3><p>=&gt; <strong>假设信道无丢包，但是有可能发生比特差错</strong><br>=&gt; rdt2.0是一个典型的 <strong>ARQ协议</strong>，也是一种<strong>停等协议</strong>（<strong><em>stop-and-wait protocol</em></strong>）</p>
+<img src="/img/computer_network/computer_network_26.png" title="rdt2.0协议有限状态机示意图">
+<ul>
+<li><h4 id="ARQ-Automatic-Repeat-reQuest-protocols"><a href="#ARQ-Automatic-Repeat-reQuest-protocols" class="headerlink" title="ARQ (Automatic Repeat reQuest) protocols"></a>ARQ (Automatic Repeat reQuest) protocols</h4><p><strong><em>In a computer network setting, reliable data transfer protocols based on such retransmission are known as ARQ prorocols</em></strong></p>
+<p>在计算机网络中，<strong>基于重传的可靠数据传输协议</strong>，我们称之为ARQ协议</p>
+<ul>
+<li><strong>ARQ协议的要求：</strong><ul>
+<li>Error detection（错误检测）</li>
+<li>Receiver feedback（接收反馈）</li>
+<li>Retransmission（重传）</li>
+</ul>
+</li>
+<li><strong>rdt2.0 协议就是一种ARQ协议</strong></li>
+</ul>
+</li>
+<li><h4 id="发送端"><a href="#发送端" class="headerlink" title="发送端"></a>发送端</h4><ul>
+<li>从上层应用层获取消息，打包，发送到信道传输。接着进入等待状态，<strong>等待接收端的ACK/NAK</strong>。</li>
+<li>如果收到ACK，则表示接收端收到了正确无误的数据包，状态切换回等待消息的状态，如果有消息就继续发送，如果没有，则等待应用层的消息</li>
+<li>如果收到NAK，则表示接收端收到了数据包，但是数据包 <strong>发生了比特差错，则重传</strong>之前发送的数据包</li>
+</ul>
+</li>
+<li><h4 id="接收端"><a href="#接收端" class="headerlink" title="接收端"></a>接收端</h4><ul>
+<li>接收端从下层接收到数据包之后进行校验，如果 <strong>发生比特差错</strong>，则 <strong>向发送端发送一个NAK并丢弃该数据包</strong></li>
+<li>如果 <strong>没有发生比特差错</strong>，则解包后 <strong>传递给上层</strong>，并<strong>向发送端发送一个ACK</strong></li>
+</ul>
+</li>
+<li><h4 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h4>如果当<strong>接收端返回的ACK/NAK也发生了比特差错</strong>时，发送端并不知道此次发送是否成功，那么它该作何处理？<ul>
+<li><h5 id="思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…"><a href="#思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…" class="headerlink" title="思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …"></a>思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …</h5>简单粗暴，接收端收到一个回复不知道是ACK还是NAK就再次询问客户端到底有没有正确接收。怕不是要打起来一会儿。。。</li>
+<li><h5 id="思路二：引入比特校准机制"><a href="#思路二：引入比特校准机制" class="headerlink" title="思路二：引入比特校准机制"></a>思路二：引入比特校准机制</h5>添加最够的Checksum，让其既具备检错功能，也具备纠错功能。这要求信道传输数据包的时候不能丢失（在rdt2.0的假设中是具备的，但是实际中是会发生丢包的），而且可能因为要兼具纠错功能，Checksum会很长</li>
+<li><h5 id="思路三：瞎几把重传"><a href="#思路三：瞎几把重传" class="headerlink" title="思路三：瞎几把重传"></a>思路三：瞎几把重传</h5>一旦发送端收到的回复发生比特差错，无法判断的时候，就直接重传。这是一个稍微可行的方案，但是由于在无法判断传输是否成功的情况就重传，客户端可能会收到一个数据包的多个拷贝(<strong>产生冗余数据包（duplicate packets）问题</strong>)，这个时候客户端就不知道该如何判断服务器发过来的是一个没有接收过的数据包还是一个冗余的数据包 =&gt;</li>
+</ul>
+</li>
+<li><h4 id="解决冗余数据包问题-gt-引入序列号-sequence-number-机制"><a href="#解决冗余数据包问题-gt-引入序列号-sequence-number-机制" class="headerlink" title="解决冗余数据包问题 =&gt; 引入序列号 (sequence number) 机制"></a>解决冗余数据包问题 =&gt; 引入序列号 (<strong><em>sequence number</em></strong>) 机制</h4>发送端在发送数据包的头部多加一个Sequence number的字段，接收端在接收到一个数据包的时候将其序列号取出，与自己已经接收到的前一个数据包的序列号对比，就可以判断这个数据包是不是冗余的了。因为rdt2.0采用是一种停等协议的工作模式，所以用1 bit的序列号就可以解决这个问题</li>
+</ul>
+</li>
+<li><h3 id="rdt2-1"><a href="#rdt2-1" class="headerlink" title="rdt2.1"></a>rdt2.1</h3><p>=&gt; 在rdt2.0的基础上采用上面思路三 + 引入序列号的方式解决了冗余数据包问题</p>
+<p>=&gt; 还是采用了NAK + ACK的实现方案</p>
+<img src="/img/computer_network/computer_network_27.png" title="rdt2.1 Sender">
+<img src="/img/computer_network/computer_network_28.png" title="rdt2.1 Receiver"></li>
+<li><h3 id="rdt2-2"><a href="#rdt2-2" class="headerlink" title="rdt2.2"></a>rdt2.2</h3><p>=&gt; 在rdt2.1的基础上，去除了NAK，收到错误数据包之后不发送NAK，而将最近一次成功接收到的数据包的ACK发送回去</p>
+<p>=&gt; 这种方案就导致发送端可能接收到同一个数据包的多个ACK (<strong>冗余ACK，duplicate ACKs</strong>)</p>
+<img src="/img/computer_network/computer_network_29.png" title="rdt2.2 Sender">
+<img src="/img/computer_network/computer_network_30.png" title="rdt2.2 Receiver">
+</li>
+<li><h3 id="rdt3-0"><a href="#rdt3-0" class="headerlink" title="rdt3.0"></a>rdt3.0</h3><p>=&gt; <strong>假设信道可能丢包，但是有可能发生比特差错</strong></p>
+<p>=&gt; 在rdt2.2的基础上，考虑丢包问题。</p>
+<p>=&gt; <strong>定时器 + 超时重传 =&gt; 解决丢包问题</strong></p>
+<img src="/img/computer_network/computer_network_31.png" title="rdt3.0 Sender">
+<p>接收端FMS(finite-state machine, 有限状态机)图同rdt2.2</p>
+</li>
+<li><h3 id="Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）"><a href="#Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）" class="headerlink" title="Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）"></a>Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）</h3><img src="/img/computer_network/computer_network_32.png" title="停等协议与流水线型协议的对比">
+rdt3.0其实已经是一个可用的协议了，但是采用停等协议大大限制了网络的传输性能（发送端必须接收到接收端返回的ACK才发送下一个数据包或者重传，增大了传输时延，降低了带宽利用率）。而相比之下，<strong><em>流水线型可靠数据传输协议</em></strong> <strong>允许已发送未确认的数据包可以有多个</strong><ul>
+<li>Go-Back-N (回退N)</li>
+<li>Selective repeat（选择重传）</li>
+</ul>
+</li>
+<li><h3 id="Go-Back-N-GBN"><a href="#Go-Back-N-GBN" class="headerlink" title="Go-Back-N (GBN)"></a>Go-Back-N (GBN)</h3><p>回退N</p>
+<blockquote>
+<ul>
+<li><strong>定时器超时</strong>，所有已发送未被确认的数据包都 <strong>重传</strong></li>
+<li><strong>采用累积确认</strong>：收到ack=10，则表示序列号为10及之前的数据包都已正确接收，接收端下一个期望收到的数据包的序列号为11</li>
+<li>接收端收到乱序的数据包直接丢弃</li>
+</ul>
+</blockquote>
+<ul>
+<li><h4 id="Go-Back-N滑动窗口"><a href="#Go-Back-N滑动窗口" class="headerlink" title="Go-Back-N滑动窗口"></a>Go-Back-N滑动窗口</h4><img src="/img/computer_network/computer_network_33.png" title="发送端视角看回退N的序列号窗口">
+<ul>
+<li><strong>base</strong> : 最早的发送却没有被确认的数据包的序列号</li>
+<li><strong>nextseqnum</strong> : 最小的没有使用的序列号（实际上指的是发送下一个非重传数据包时所使用的序列号）</li>
+<li><strong>N</strong> : 发送端序列号窗口的大小（限制发送端已发送未被确认数据包的数量，在流量控制的时候可以遏制发送端发包的速率）</li>
+<li><strong>[base, nextseqnum - 1]</strong> : 已发送未被确认的数据包的序列号范围</li>
+<li><strong>[0, base - 1]</strong> : 发送且已被确认的数据包的序列号</li>
+<li><strong>[nextseqnum, base + N - 1]</strong> : 剩余可用的序列号范围（指的是该时刻在不溢出发送窗口大小N的情况下，可以继续使用的序列号）<blockquote>
+<p>ps: 如果序列号的取值是以取模的方式循环使用，上面的范围划分就略有变动，但是意思是差不多的</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><h4 id="Go-Back-N-FSM-图"><a href="#Go-Back-N-FSM-图" class="headerlink" title="Go-Back-N FSM 图"></a>Go-Back-N FSM 图</h4><ul>
+<li><h5 id="发送端-1"><a href="#发送端-1" class="headerlink" title="发送端"></a>发送端</h5><img src="/img/computer_network/computer_network_34.png" title="Go-Back-N发送端FSM图">
+<ul>
+<li><strong>上层的调用</strong>（<strong><em>Invocation from above</em></strong>）: 当上层调用rdt_send()发送数据包的时候，<strong>发送端检查发送窗口是否已满</strong>（即检查一发送未确认的数据包的个数是不是已经达到N了），如果满了就通知上层拒绝发送（接着上层肯能会一段时间后重试），没有满则生成一个Segment并发送</li>
+<li><strong>收到一个ACK</strong>（Receipt of an ACK）: 发送端采用 <strong>累积确认</strong>（<strong><em>cumulative acknowledgment</em></strong>）的方式，例如：收到ack=10，则表示序列号为10及之前的数据包都已正确接收，接收端下一个期望收到的数据包的序列号为11</li>
+<li><strong>超时事件</strong>（<strong><em>A timeout event</em></strong>）: 发送端开始发送数据包的时候回启动一个定时器，之后<strong>每收到一个ACK会检查是否还有已发送未确认的数据包</strong>。有则重启定时器，没有则停止定时器。<strong>一旦定时器超时，所有已发送但未确认的数据包都将被重传</strong>（最多重传N个）</li>
+</ul>
+</li>
+<li><h5 id="接收端-1"><a href="#接收端-1" class="headerlink" title="接收端"></a>接收端</h5><img src="/img/computer_network/computer_network_35.png" title="Go-Back-N接收端FSM图">
+<ul>
+<li><strong>接收端收到</strong> 一个序列号为n的 <strong>有序的数据包</strong>（<strong><em>in-order packet</em></strong>, 表示接收端最近一次传递给上层的数据包的序列号为n-1），则给发送端回一个对应序列号的ACK，同时将数据包解包够传递给上层</li>
+<li><strong>接收端收到错误的数据包</strong> 则 <strong>直接丢弃</strong></li>
+<li><strong>接收端收到正确但乱序的数据包</strong>（就比如收到的数据包序列号为n，但是上一次传递给上层的数据包的序列号不是n-1），接收端的处理也是 <strong>直接丢弃</strong>。这虽然看起来很浪费，但却是比较明智的处理方式。试想，如果接收端收到一个序列号为n+1的数据包，但是上一次传递给上层的却是序列号为n-1的数据包，则很可能序列号为n的数据包在传输的过程中丢失了，那么必然导致发送端计时器超时，发送端会重发数据包为n和n+1的数据包，所以接收端完全没有必要缓存序列号为n+1的数据包（这样实现起来简单并且有效）。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><ul>
+<li>发送端既然采用的是累积确认，那么如果发送端收到一个对序列号为n的ACK，但是上次收到的是n-3的，对n-1和n-2的ACK可能丢失了。这个时候发送端不会理会那两个丢失的ACK。因为接收端是有序接收的，所以发送端收到对序列号为n的数据包的ACK就可以认为序列号为n以及比n小的数据包都已经成功被接收了</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Selective-Repeat（SR）"><a href="#Selective-Repeat（SR）" class="headerlink" title="Selective Repeat（SR）"></a>Selective Repeat（SR）</h3><p>选择重传</p>
+<img src="/img/computer_network/computer_network_36.png" title="选择重传（SR）发送方与接收方的序号空间">
+<ul>
+<li><h4 id="发送端-2"><a href="#发送端-2" class="headerlink" title="发送端"></a>发送端</h4><ul>
+<li><strong>从上层收到数据</strong>（<strong><em>Data received from above</em></strong>）：当发送端接收到上层的数据时，<strong>获取下一个可用的序列号</strong>，如果该序列好在发送端序列号窗口内（表示当前窗口未满），则打包发送。如果不在序列号窗口内，则和GBN一样，发回给上层或缓存起来。</li>
+<li><strong>超时</strong>（<strong><em>Timeout</em></strong>）：发送端会为每一个已发送未确认的数据包维护一个逻辑计时器，一旦某个计时器超时，就重发它所负责监视的那个数据包。</li>
+<li><strong>收到ACK</strong>（<strong><em>ACK received</em></strong>）：<ul>
+<li>收到的ACK所确认的数据包的序列号 <strong>落在滑动窗口内，则将其标记为已确认</strong></li>
+<li>收到的ACK所确认的数据包的序列号 <strong>等于send_base</strong>（就是滑动窗口的第一个序列号），则 <strong>将滑动窗口右移至第一个未被确认的序列号处</strong>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h4 id="接收端-2"><a href="#接收端-2" class="headerlink" title="接收端"></a>接收端</h4><ul>
+<li>如果<strong>序列号在[recv_base, recv_base + N - 1]范围内被接收</strong>（也就是说收到的数据包在接收端的滑动窗口内）：向发送端 <strong>回一个对该序列号的ACK</strong>。<ul>
+<li><strong>如果该序列号不等于recv_base</strong>，则将该序列号标记为已接收，将数据包缓存起来</li>
+<li><strong>如果该序列号等于recv_base</strong>，则接收端 <strong>滑动窗口右移</strong>至第一个未标记的序列号处。并将刚才扫过的数据包（就是[old_recv_base, new_recv_base - 1]之间的数据包）一并上交给上层。</li>
+</ul>
+</li>
+<li><p>如果<strong>序列号在[recv_base - N, recv_base - 1]范围内被接收</strong>（也就是说这个刚收到的数据包之前已经接收过并回复ACK了）：向发送端回一个该序列号的ACK</p>
+<p>=&gt; 这个ACK看起来是多余的，其实是必须的。因为接收端将ACK发出之后就可能导致滑动窗口右移的操作。如果发送给发送端的ACK没有到达或者出错了，接收端在计时器超时之后就会重传，而这个时候发送端的窗口已经右移了。如果不再对这个数据包回复一个ACK，则导致发送端该序列号一直没有被确认，发送端就会不断重发这个数据包，而且滑动窗口也会停滞不前。</p>
+</li>
+<li><p><strong>其他情况</strong>（发生比特差错，收到右溢出滑动窗口的包等）：忽略这个数据包，直接丢弃</p>
+</li>
+</ul>
+</li>
+<li><h4 id="滑动窗口大小的问题"><a href="#滑动窗口大小的问题" class="headerlink" title="滑动窗口大小的问题"></a>滑动窗口大小的问题</h4><p>=&gt; <strong>滑动窗口的大小应该小于或等于序列号空间大小的一半</strong></p>
+<p>当序列号范围有限时，如果接收端滑动窗口太大，可能导致接收端无法判断刚接收到的数据包是一个新的未接收过的数据包还是重复的已经接收过的数据包</p>
+<ul>
+<li><p>举个栗子：</p>
+<img src="/img/computer_network/computer_network_37.png" title="采用有限序列号范围时，接收端滑动窗口太大的栗子">
+<ul>
+<li>图中，<strong>1等待接收</strong>（可能由于丢包，比特差错等，等待发送端重传。或者是由于所走路由的问题，比2,3到来的晚），<strong>2,3已经接收</strong>，<strong>4可以接收</strong></li>
+<li>recv_base = 1, N = 4。显然，序列号是采用 mod 6 的方式复用的</li>
+<li>这个时候 <strong>收到一个序列号为4的数据包</strong>，<ul>
+<li>那么它 <strong>可能是一个新到来的落在滑动窗口内的数据包</strong>(<strong><em>[1, 2, 3, 4] =&gt; [recv_base, recv_base + N - 1]</em></strong>)</li>
+<li>也 <strong>可能是上一轮滑动窗口中已经接收并回复ACK</strong>，但是由于发送端没有正确接收到ACK而重发的数据包，因此 <strong>这个数据包可能是之前已经接收过的冗余数据包</strong>（<strong><em>[3, 4, 5, 0] =&gt; [recv_base - N, recv_base - 1]</em></strong>）</li>
+</ul>
+</li>
+<li><strong>对于第一种情况，我们需要缓存该数据包并回复ACK，而对于第二种情况我们只需要回复ACK即可</strong></li>
+</ul>
+</li>
+<li><p>为了避免上述情况，<strong>滑动窗口的大小应该小于或等于序列号空间大小的一半</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Connection-Oriented-Transport-TCP"><a href="#Connection-Oriented-Transport-TCP" class="headerlink" title="Connection-Oriented Transport: TCP"></a>Connection-Oriented Transport: TCP</h2><ul>
+<li>点对点（<strong><em>Point-to-Point</em></strong>）</li>
+<li>传输可靠、有序的字节流 =&gt; 对每个字节进行编号</li>
+<li>流水线型（<strong><em>Pipelined</em></strong>）</li>
+<li>发送端和接收端都有缓存（<strong><em>send &amp; receive buffers</em></strong>）</li>
+<li>全双工通信（<strong><em>full-duplex service</em></strong>）</li>
+<li>面向连接的（<strong><em>connection-oriented</em></strong>）</li>
+<li>拥塞控制（<strong><em>congestion control</em></strong>）</li>
+<li>流量控制（<strong><em>flow control</em></strong>）</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="TCP接收和发送缓存"><a href="#TCP接收和发送缓存" class="headerlink" title="TCP接收和发送缓存"></a>TCP接收和发送缓存</h3><img src="/img/computer_network/computer_network_38.png" title="TCP发送和接收缓存">
+=&gt; <strong>注意：</strong>在TCP连接的两端各自都有自己的发送和接收缓存（因为TCP是全双工的，所以两端的终端都有发送和接收数据的需求）</li>
+<li><h3 id="MSS（Maximum-Segment-Size-最大报文长度）"><a href="#MSS（Maximum-Segment-Size-最大报文长度）" class="headerlink" title="MSS（Maximum Segment Size, 最大报文长度）"></a>MSS（Maximum Segment Size, 最大报文长度）</h3><p><strong><em>MSS is the maximun amount of application-layer data</em></strong></p>
+<p>MSS指的是Segment中应用层数据的最大长度，并不包括传输层头部</p>
+</li>
+<li><h3 id="TCP-Segment-Structure"><a href="#TCP-Segment-Structure" class="headerlink" title="TCP Segment Structure"></a>TCP Segment Structure</h3><img src="/img/computer_network/computer_network_39.png" title="TCP报文结构">
+<ul>
+<li><h4 id="字段说明"><a href="#字段说明" class="headerlink" title="字段说明"></a>字段说明</h4><ul>
+<li><strong><em>Source port</em></strong> : 源端端口号（<strong><em>16 bits</em></strong>）</li>
+<li><strong><em>Dest port</em></strong> : 目的端端口号（<strong><em>16 bits</em></strong>）</li>
+<li><strong><em>Sequence number</em></strong> : 序列号（<strong><em>32 bits</em></strong>）</li>
+<li><strong><em>Acknowledgment number</em></strong> : 确认号（<strong><em>32 bits</em></strong>）</li>
+<li><strong><em>Header length</em></strong> : TCP Segment头部（传输层头部）的长度（<strong><em>4 bits</em></strong>）。<strong>单位是4个字节，一行</strong></li>
+<li><strong><em>Unused</em></strong> : 目前未使用的字段域（<strong><em>6 bits</em></strong>）</li>
+<li><strong><em>Flag filed</em></strong> : 标志域（<strong><em>6 bits</em></strong>）<ul>
+<li><strong><em>URG、PSH</em></strong> : 与urgent data pointer filed 并用，处理紧急数据包（实践中未用到） =&gt; Don’t care now</li>
+<li><strong><em>ACK</em></strong> : 标识这个数据包是不是一个ACK</li>
+<li><strong><em>RST、SYN、FIN</em></strong> : 这三个字段域用于创建TCP连接过程中</li>
+</ul>
+</li>
+<li><strong><em>Receive window</em></strong> : 该字段用于流量控制，指示的是发送数据包一端，接收窗口的剩余可用大小</li>
+<li><strong><em>Internet checksum</em></strong> : 校验和，用于检测数据包是否出错</li>
+<li><strong><em>Urgent data pointer</em></strong> : 指向紧急数据尾的指针（实践中未用）=&gt; Don’t care</li>
+<li><strong><em>Options</em></strong> : TCP Segment头部的可选字段，可以没有</li>
+<li><strong><em>Data</em></strong> : TCP Segment的数据域，包含了上层传递下来的message</li>
+</ul>
+</li>
+<li><h4 id="补充说明"><a href="#补充说明" class="headerlink" title="补充说明"></a>补充说明</h4><ul>
+<li><strong>TCP首部的开销至少是20个字节</strong>，通常默认情况下Options字段域是为空的</li>
+<li><strong>Header length 的单位是4个字节</strong>（一行32bits）</li>
+</ul>
+</li>
+<li><h3 id="TCP的序列号和确认号"><a href="#TCP的序列号和确认号" class="headerlink" title="TCP的序列号和确认号"></a>TCP的序列号和确认号</h3><ul>
+<li>序列号和确认号是TCP提供可靠数据传输最重要的两个重要字段</li>
+<li><strong>TCP</strong> 把data看做有序的字节流。它按字节编号，<strong>给每一个字节分配一个序列号</strong> =&gt; <strong>一个Segment的序列号由其数据域第一个字节的序列号所代表</strong></li>
+<li><p><strong>TCP同样也是使用累积确认的机制</strong>，但是和之前讲的有点不一样：<strong><em>The acknowledgment number that Host A puts in its segment is the sequence number of the next byte Host A is expecting from Host B</em></strong> （主机A在给主机B发送的ACK包的确认号是主机A期望从主机B获取到的下一个数据包的序列号）</p>
+<p>例如：发送端如果收到确认号为536的ACK包，则表示序列号为536之前的所有数据包均已被成功接收，并且接收端期望下一个收到序列号为536的数据包</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="Reliable-Data-Transfer-gt-TCP-的可靠数据传输"><a href="#Reliable-Data-Transfer-gt-TCP-的可靠数据传输" class="headerlink" title="Reliable Data Transfer =&gt; (TCP)的可靠数据传输"></a>Reliable Data Transfer =&gt; (TCP)的可靠数据传输</h3><ul>
+<li>TCP在IP不可靠服务的基础上实现了可靠数据传输</li>
+<li><strong>流水线型协议</strong> =&gt; 带宽利用率高</li>
+<li><strong>采用累积确认</strong></li>
+<li><strong>TCP采用单个重传计时器</strong></li>
+<li><strong>重传的时机</strong>：<ul>
+<li>定时器超时</li>
+<li>收到3次冗余ACK</li>
+</ul>
+</li>
+<li><strong>快速重传</strong> =&gt; 当收到3次冗余ACK时（<strong><em>实际上是收到了4个相同的ACK</em></strong>），就认为定时器超时，重传已发送未确认的编号最小的数据包</li>
+</ul>
+</li>
+<li><h3 id="TCP中使用了哪些机制来实现可靠数据传输"><a href="#TCP中使用了哪些机制来实现可靠数据传输" class="headerlink" title="TCP中使用了哪些机制来实现可靠数据传输"></a>TCP中使用了哪些机制来实现可靠数据传输</h3><ul>
+<li><strong>引入序列号来解决冗余数据包的问题</strong><br>=&gt; 接收端收到序列号与之前收到的数据包序列号相同时，就丢弃该包</li>
+<li><strong>采用累积确认</strong><br>=&gt; 发送端如果收到确认号为536的ACK包，则表示序列号为536之前的所有数据包均已被成功接收，并且接收端期望下一个收到序列号为536的数据包</li>
+<li><strong>TCP采用单个重传计时器+快速重传+累积确认来解决丢包问题</strong><br>=&gt; 当发送端定时器超时或者收到相同数据包的3次冗余ACK时，便重传已发送未被确认的数据包中编号最小的数据包</li>
+<li><strong>Checksum</strong> =&gt; 用来检测数据包是否出现差错</li>
+</ul>
+</li>
+<li><h3 id="TCP交互流程图中ACK和ack"><a href="#TCP交互流程图中ACK和ack" class="headerlink" title="TCP交互流程图中ACK和ack"></a>TCP交互流程图中ACK和ack</h3><ul>
+<li><strong>ACK</strong> =&gt; 表示的是TCP Segment中的ACK标志域，如果ACK=1则表示这是一个ACK包，如果ACK=0则表示这不是一个ACK包</li>
+<li><strong>ack</strong> =&gt; 表示的是TCP Segment中的确认号字段</li>
+</ul>
+</li>
+<li><h3 id="Flow-Control（流量控制）"><a href="#Flow-Control（流量控制）" class="headerlink" title="Flow Control（流量控制）"></a>Flow Control（流量控制）</h3><ul>
+<li><strong>调节发送端发包的速率，防止接收端缓存溢出</strong></li>
+<li><strong>控制已发送未被确认的数据包的数量 ≤ Receive Window size</strong> （接收端剩余缓存空间的大小 =&gt; 接收端通过ACK返回给发送端）</li>
+</ul>
+</li>
+<li><h3 id="TCP-Connection-Management（TCP连接管理）"><a href="#TCP-Connection-Management（TCP连接管理）" class="headerlink" title="TCP Connection Management（TCP连接管理）"></a>TCP Connection Management（TCP连接管理）</h3><ul>
+<li><h4 id="TCP-三路握手"><a href="#TCP-三路握手" class="headerlink" title="TCP 三路握手"></a>TCP 三路握手</h4><img src="/img/computer_network/computer_network_40.png" title="TCP三路握手">
+<ul>
+<li>① 客户端首先向服务端 <strong>发送一个SYN Segment</strong>，其中SYN = 1，并且 <strong>随机生成一个起始的序列号 client_initial = 5 赋给seq</strong>（将随机生成的序列号填入SYN Segment的序列号字段）=&gt; <strong>没有应用层data，但是占用一个序列号</strong></li>
+<li>② 服务端收到客户端发送的TCP SYN Segment后，服务端分配发送和接收buffer以及相关变量。<strong>同时发送一个SYNACK Segment</strong> 给客户端，SYN = 1，ACK=1（表示这是一个ACK包），ack = 6 （client_initial + 1）。同时 <strong>随机生成一个服务端的初始化序列号 server_initial = 17 赋值给seq</strong> （通知客户端我已经接收到你建立连接的请求，并且返回给客户端自己的初始化序列号）。 =&gt; <strong>SYNACK 包也没有应用层data，但也同样占用一个序列号</strong></li>
+<li>③ 第三步客户端给服务端返回一个普通的ACK，普通ACK是 <strong>不占用序列号</strong> 的，但是 <strong>可以捎带数据</strong>（捎带数据指的是，客户端可以在建立连接的最后一个ACK中，放入一部分要发送的数据。则这个数据包即完成了作为ACK的职能，也携带了一部分数据。）</li>
+</ul>
+</li>
+<li><h4 id="TCP-四路挥手"><a href="#TCP-四路挥手" class="headerlink" title="TCP 四路挥手"></a>TCP 四路挥手</h4><img src="/img/computer_network/computer_network_41.png" title="客户端发起的双向关闭TCP连接示意图">
+<ul>
+<li>不含data的正常ACK，序列号可以不写（因为不占用序列号）；</li>
+<li>在非ACK数据包中的ack无含义，不用写。</li>
+</ul>
+</li>
+<li><h4 id="TCP状态转换图-gt-点我"><a href="#TCP状态转换图-gt-点我" class="headerlink" title="TCP状态转换图 =&gt; 点我"></a>TCP状态转换图 =&gt; <a href="http://qjm253.cn/2018/01/04/super_c_d/#%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2">点我</a></h4></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="Principles-of-Congestion-control"><a href="#Principles-of-Congestion-control" class="headerlink" title="Principles of Congestion control"></a>Principles of Congestion control</h2><p>拥塞控制</p>
+</blockquote>
+<p><strong>调节发送端发包的速率，避免路由器缓存溢出</strong></p>
+<blockquote>
+<h2 id="TCP-Congestion-Control（TCP拥塞控制）"><a href="#TCP-Congestion-Control（TCP拥塞控制）" class="headerlink" title="TCP Congestion Control（TCP拥塞控制）"></a>TCP Congestion Control（TCP拥塞控制）</h2></blockquote>
+<img src="/img/computer_network/computer_network_42.png" title="TCP拥塞窗口的演化（Tahoe and Reno）">
+<p>=&gt; TCP Tahoe（代表系统首次启动的情况）： <strong>1~4时刻为慢启动阶段</strong>，cwnd以指数方式增长，其中 <strong>时刻4的时候达到了系统初始设置的慢启动阈值</strong>，系统进入拥塞避免状态，cwnd的增加开始放缓速度，以线性方式增加。到时刻 <strong>8的时候定时器超时</strong>，<strong>ssthesh = cwnd / 2， cwnd = 1 (MSS)</strong>。系统 <strong>进入慢启动阶段</strong>。到时刻12的时候达到了系统初始设置的慢启动阈值，系统进入拥塞避免状态。</p>
+<p>=&gt; TCP Reno（代表系统运行时收到3次冗余ACK的情景）：时刻9系统收到3次冗余ACK，<strong>cwnd = cwnd / 2</strong>，系统 <strong>进入快速恢复阶段</strong></p>
+<ul>
+<li><h3 id="慢启动（slow-start）"><a href="#慢启动（slow-start）" class="headerlink" title="慢启动（slow start）"></a>慢启动（<strong><em>slow start</em></strong>）</h3><p>首次启动时，拥塞窗口（<strong><em>cwnd</em></strong>）的大小置为1 MSS（<strong><em>Maximum Segment Size</em></strong>），接着每收到一个ACK，<strong>cwnd</strong> 的值便翻一番，指数增长。当 <strong>定时器第一次超时时</strong>，<strong>cwnd的值置为1，同时将慢启动阈值</strong> （<strong><em>ssthresh</em></strong>）的值设置为 <strong>cwnd/2</strong>。接下来 <strong>cwnd</strong> 仍然以指数方式增长，但是 <strong>当达到ssthesh时，进入拥塞避免状态</strong>（需要注意的是，初始的时候，ssthesh会设置有一个初始值，当如果第一次启动时在没有超时之前，cwnd达到了预设的ssthesh，也会进入拥塞避免状态）。</p>
+</li>
+<li><h3 id="拥塞避免（Congestion-Avoidance）"><a href="#拥塞避免（Congestion-Avoidance）" class="headerlink" title="拥塞避免（Congestion Avoidance）"></a>拥塞避免（<strong><em>Congestion Avoidance</em></strong>）</h3><p>当<strong>进入拥塞避免状态之后</strong>，<strong>cwnd</strong> 不再以指数方式增长，而是 <strong>以线性方式增长</strong>。</p>
+<ul>
+<li><p>当定时器超时时，<strong>ssthesh = cwnd / 2， cwnd = 1 (MSS)</strong>。系统 <strong>进入慢启动阶段</strong>；</p>
+</li>
+<li><p>当收到3次冗余ACK时，<strong>cwnd = cwnd / 2</strong>，系统 <strong>进入快速恢复阶段</strong></p>
+</li>
+</ul>
+</li>
+<li><h3 id="快速恢复（Fast-Recovery）"><a href="#快速恢复（Fast-Recovery）" class="headerlink" title="快速恢复（Fast Recovery）"></a>快速恢复（<strong><em>Fast Recovery</em></strong>）</h3><p>每收到一个冗余ACK，<strong>cwnd + 1</strong></p>
+<ul>
+<li><p>如果引发TCP进入快速恢复阶段的 <strong>缺失报文段在定时器超时之前到达</strong>，<strong>进入拥塞避免状态</strong>。</p>
+</li>
+<li><p>如果在此期间，<strong>定时器超时，则ssthesh = cwnd / 2, cwnd = 1 (MSS)，进入慢启动状态</strong></p>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/06/computer_networking_02/" rel="next" title="Chapter 2 Applicaiton Layer">
+                <i class="fa fa-chevron-left"></i> Chapter 2 Applicaiton Layer
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/19/computer_networking_04/" rel="prev" title="Chapter 4 The Network Layer">
+                Chapter 4 The Network Layer <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-of-Transport-Layer-Servicers-（传输层提供的服务）"><span class="nav-number">1.</span> <span class="nav-text">Introduction of Transport-Layer Servicers （传输层提供的服务）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传输层-VS-网络层"><span class="nav-number">1.1.</span> <span class="nav-text">传输层 VS 网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Internet-传输层协议"><span class="nav-number">1.2.</span> <span class="nav-text">Internet 传输层协议</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP"><span class="nav-number">1.2.1.</span> <span class="nav-text">TCP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UDP"><span class="nav-number">1.2.2.</span> <span class="nav-text">UDP</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multiplexing-and-DeMultiplexing-（分解与复用）"><span class="nav-number">2.</span> <span class="nav-text">Multiplexing and DeMultiplexing （分解与复用）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Demultiplexing（分解）"><span class="nav-number">2.1.</span> <span class="nav-text">Demultiplexing（分解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Multiplexing（复用）"><span class="nav-number">2.2.</span> <span class="nav-text">Multiplexing（复用）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP-的-Multiplexing-and-DeMultiplexing"><span class="nav-number">2.3.</span> <span class="nav-text">UDP 的 Multiplexing and DeMultiplexing</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-的-Multiplexing-and-DeMultiplexing"><span class="nav-number">2.4.</span> <span class="nav-text">TCP 的 Multiplexing and DeMultiplexing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connectionless-Transport-UDP-（无连接的传输层协议）——UDP）"><span class="nav-number">3.</span> <span class="nav-text">Connectionless Transport: UDP （无连接的传输层协议）——UDP）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么需要UDP？"><span class="nav-number">3.1.</span> <span class="nav-text">为什么需要UDP？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP的应用场景"><span class="nav-number">3.2.</span> <span class="nav-text">UDP的应用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP所提供的服务"><span class="nav-number">3.3.</span> <span class="nav-text">UDP所提供的服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UDP-Segment-Structure"><span class="nav-number">3.4.</span> <span class="nav-text">UDP Segment Structure</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Reliable-Data-Transfer（可靠数据传输原理）"><span class="nav-number">4.</span> <span class="nav-text">Principles of Reliable Data Transfer（可靠数据传输原理）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#rdt1-0"><span class="nav-number">4.1.</span> <span class="nav-text">rdt1.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdt2-0"><span class="nav-number">4.2.</span> <span class="nav-text">rdt2.0</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#ARQ-Automatic-Repeat-reQuest-protocols"><span class="nav-number">4.2.1.</span> <span class="nav-text">ARQ (Automatic Repeat reQuest) protocols</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发送端"><span class="nav-number">4.2.2.</span> <span class="nav-text">发送端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收端"><span class="nav-number">4.2.3.</span> <span class="nav-text">接收端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#存在的问题"><span class="nav-number">4.2.4.</span> <span class="nav-text">存在的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#思路一：xxx-gt-你说什么？-gt-你说什么？-gt-你说什么？-gt-…"><span class="nav-number">4.2.4.1.</span> <span class="nav-text">思路一：xxx -&gt; 你说什么？-&gt; 你说什么？-&gt; 你说什么？-&gt; …</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#思路二：引入比特校准机制"><span class="nav-number">4.2.4.2.</span> <span class="nav-text">思路二：引入比特校准机制</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#思路三：瞎几把重传"><span class="nav-number">4.2.4.3.</span> <span class="nav-text">思路三：瞎几把重传</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解决冗余数据包问题-gt-引入序列号-sequence-number-机制"><span class="nav-number">4.2.5.</span> <span class="nav-text">解决冗余数据包问题 =&gt; 引入序列号 (sequence number) 机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdt2-1"><span class="nav-number">4.3.</span> <span class="nav-text">rdt2.1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdt2-2"><span class="nav-number">4.4.</span> <span class="nav-text">rdt2.2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdt3-0"><span class="nav-number">4.5.</span> <span class="nav-text">rdt3.0</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pipelined-Reliable-Data-Transfer-Protocols（流水线型可靠数据传输协议）"><span class="nav-number">4.6.</span> <span class="nav-text">Pipelined Reliable Data Transfer Protocols（流水线型可靠数据传输协议）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Go-Back-N-GBN"><span class="nav-number">4.7.</span> <span class="nav-text">Go-Back-N (GBN)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-Back-N滑动窗口"><span class="nav-number">4.7.1.</span> <span class="nav-text">Go-Back-N滑动窗口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Go-Back-N-FSM-图"><span class="nav-number">4.7.2.</span> <span class="nav-text">Go-Back-N FSM 图</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#发送端-1"><span class="nav-number">4.7.2.1.</span> <span class="nav-text">发送端</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#接收端-1"><span class="nav-number">4.7.2.2.</span> <span class="nav-text">接收端</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充"><span class="nav-number">4.7.3.</span> <span class="nav-text">补充</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Selective-Repeat（SR）"><span class="nav-number">4.8.</span> <span class="nav-text">Selective Repeat（SR）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#发送端-2"><span class="nav-number">4.8.1.</span> <span class="nav-text">发送端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#接收端-2"><span class="nav-number">4.8.2.</span> <span class="nav-text">接收端</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#滑动窗口大小的问题"><span class="nav-number">4.8.3.</span> <span class="nav-text">滑动窗口大小的问题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Connection-Oriented-Transport-TCP"><span class="nav-number">5.</span> <span class="nav-text">Connection-Oriented Transport: TCP</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP接收和发送缓存"><span class="nav-number">5.1.</span> <span class="nav-text">TCP接收和发送缓存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MSS（Maximum-Segment-Size-最大报文长度）"><span class="nav-number">5.2.</span> <span class="nav-text">MSS（Maximum Segment Size, 最大报文长度）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-Segment-Structure"><span class="nav-number">5.3.</span> <span class="nav-text">TCP Segment Structure</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#字段说明"><span class="nav-number">5.3.1.</span> <span class="nav-text">字段说明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#补充说明"><span class="nav-number">5.3.2.</span> <span class="nav-text">补充说明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP的序列号和确认号"><span class="nav-number">5.4.</span> <span class="nav-text">TCP的序列号和确认号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reliable-Data-Transfer-gt-TCP-的可靠数据传输"><span class="nav-number">5.5.</span> <span class="nav-text">Reliable Data Transfer =&gt; (TCP)的可靠数据传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP中使用了哪些机制来实现可靠数据传输"><span class="nav-number">5.6.</span> <span class="nav-text">TCP中使用了哪些机制来实现可靠数据传输</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP交互流程图中ACK和ack"><span class="nav-number">5.7.</span> <span class="nav-text">TCP交互流程图中ACK和ack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flow-Control（流量控制）"><span class="nav-number">5.8.</span> <span class="nav-text">Flow Control（流量控制）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP-Connection-Management（TCP连接管理）"><span class="nav-number">5.9.</span> <span class="nav-text">TCP Connection Management（TCP连接管理）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-三路握手"><span class="nav-number">5.9.1.</span> <span class="nav-text">TCP 三路握手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP-四路挥手"><span class="nav-number">5.9.2.</span> <span class="nav-text">TCP 四路挥手</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TCP状态转换图-gt-点我"><span class="nav-number">5.9.3.</span> <span class="nav-text">TCP状态转换图 =&gt; 点我</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Principles-of-Congestion-control"><span class="nav-number">6.</span> <span class="nav-text">Principles of Congestion control</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP-Congestion-Control（TCP拥塞控制）"><span class="nav-number">7.</span> <span class="nav-text">TCP Congestion Control（TCP拥塞控制）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#慢启动（slow-start）"><span class="nav-number">7.1.</span> <span class="nav-text">慢启动（slow start）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拥塞避免（Congestion-Avoidance）"><span class="nav-number">7.2.</span> <span class="nav-text">拥塞避免（Congestion Avoidance）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速恢复（Fast-Recovery）"><span class="nav-number">7.3.</span> <span class="nav-text">快速恢复（Fast Recovery）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.1.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.1.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.1.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '7.1.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: true,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: 'ANPOHDJJYB',
+      apiKey: '',
+      indexName: 'Ming.J blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"搜索文章","hits_empty":"没有找到任何结果呦T_T: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用   应用场合 当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用 When a client is handling multiple descriptors (normally">
+<meta name="keywords" content="学习,笔记,C语言,网络编程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="高级C与网络编程复习（6）—— I&#x2F;O复用（I&#x2F;O Multiplexing）（第六章）">
+<meta property="og:url" content="http://qjm253.cn/2018/01/05/super_c_f/index.html">
+<meta property="og:site_name" content="建明 | Ming.J">
+<meta property="og:description" content="I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用   应用场合 当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用 When a client is handling multiple descriptors (normally">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://qjm253.cn/img/unp_24.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_25.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_26.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_27.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_28.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_29.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_30.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_31.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_32.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_33.png">
+<meta property="og:image" content="http://qjm253.cn/img/unp_34.png">
+<meta property="og:updated_time" content="2019-04-20T02:55:18.292Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="高级C与网络编程复习（6）—— I&#x2F;O复用（I&#x2F;O Multiplexing）（第六章）">
+<meta name="twitter:description" content="I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用   应用场合 当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用 When a client is handling multiple descriptors (normally">
+<meta name="twitter:image" content="http://qjm253.cn/img/unp_24.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://qjm253.cn/2018/01/05/super_c_f/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）（第六章） | 建明 | Ming.J</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">建明 | Ming.J</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">至清  至静</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-首页">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-关于">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-标签">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-分类">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-归档">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+    
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+  
+  
+
+  
+
+  <a href="https://github.com/SunnyQjm" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewbox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a>
+
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/01/05/super_c_f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">高级C与网络编程复习（6）—— I/O复用（I/O Multiplexing）（第六章）
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-01-05 10:00:00" itemprop="dateCreated datePublished" datetime="2018-01-05T10:00:00+08:00">2018-01-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<h2 id="I-O复用概述"><a href="#I-O复用概述" class="headerlink" title="I/O复用概述"></a>I/O复用概述</h2><p>进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为<strong>I/O复用</strong></p>
+</blockquote>
+<ul>
+<li><h3 id="应用场合"><a href="#应用场合" class="headerlink" title="应用场合"></a>应用场合</h3><ul>
+<li>当<strong>客户处理多个描述符</strong>（通常是交互式输入和网络套接字）时，必须使用I/O复用<ul>
+<li>When a client is handling multiple descriptors (normally interactive input and a network socket)</li>
+</ul>
+</li>
+<li>一个<strong>客户同时处理多个socket套接字</strong>是可能的，不过比较罕见<ul>
+<li>It is possible, but rare, for a client to handle multiple sockets at the same time</li>
+</ul>
+</li>
+<li>如果一个<strong>TCP服务器既要处理监听套接字，又要处理已连接套接字</strong><ul>
+<li>If a TCP server handles both a listening socket and its connected sockets</li>
+</ul>
+</li>
+<li>如果一个<strong>服务器既要处理TCP，又要处理UDP</strong><ul>
+<li>If a server handles both TCP and UDP</li>
+</ul>
+</li>
+<li>如果一个<strong>服务器要处理多个服务或者多个协议</strong><ul>
+<li>If a server handles multiple services and perhaps multiple protocols (e.g., the inetd daemon)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>I/O复用的引用场景不仅仅局限于网络编程</li>
+</ul>
+<blockquote>
+<h2 id="I-O模型"><a href="#I-O模型" class="headerlink" title="I/O模型"></a>I/O模型</h2><ul>
+<li>blocking I/O                                 ==&gt; 阻塞式I/O</li>
+<li>nonblocking I/O                              ==&gt; 非阻塞式I/O</li>
+<li>I/O multiplexing(select and poll)            ==&gt; I/O复用</li>
+<li>signal driven I/O (SIGIO)                    ==&gt; 信号驱动式I/O</li>
+<li>asynchronous I/O (the POSIX aio_functions)   ==&gt; 异步I/O</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="阻塞式I-O模型"><a href="#阻塞式I-O模型" class="headerlink" title="阻塞式I/O模型"></a>阻塞式I/O模型</h3><img src="/img/unp_24.png" title="阻塞式I/O模型"></li>
+<li><h3 id="非阻塞式I-O模型-gt-轮询（polling）"><a href="#非阻塞式I-O模型-gt-轮询（polling）" class="headerlink" title="非阻塞式I/O模型 ==&gt; 轮询（polling）"></a>非阻塞式I/O模型 ==&gt; 轮询（polling）</h3><img src="/img/unp_25.png" title="非阻塞式I/O模型"></li>
+<li><h3 id="I-O复用模型"><a href="#I-O复用模型" class="headerlink" title="I/O复用模型"></a>I/O复用模型</h3><img src="/img/unp_26.png" title="I/O复用模型"></li>
+<li><h3 id="信号驱动式I-O模型"><a href="#信号驱动式I-O模型" class="headerlink" title="信号驱动式I/O模型"></a>信号驱动式I/O模型</h3><img src="/img/unp_27.png" title="信号驱动式I/O模型"></li>
+<li><h3 id="异步I-O模型"><a href="#异步I-O模型" class="headerlink" title="异步I/O模型"></a>异步I/O模型</h3><img src="/img/unp_28.png" title="异步I/O模型"></li>
+<li><h3 id="各种I-O模型的比较"><a href="#各种I-O模型的比较" class="headerlink" title="各种I/O模型的比较"></a>各种I/O模型的比较</h3><img src="/img/unp_29.png" title="5种I/O模型的比较">
+<ul>
+<li>同步I/O操作（synchronous I/O operation）：导致请求进程阻塞，知道I/O操作完成</li>
+<li>异步I/O操作（asynchronous I/O operation）：不导致请求进程阻塞</li>
+<li>上述5种模型中，前4种是同步的，最后一种是异步的</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="select函数"><a href="#select函数" class="headerlink" title="select函数"></a>select函数</h2><p>select函数允许进程<strong>指示内核等待多个事件中的任何一个发生</strong>，并只在有<strong>一个或多个事件发生或经历一段指定的事件后才唤醒它</strong></p>
+<ul>
+<li>Allows the process to instruct the kernel to wait for any one of multiple events to occur and to wake up the process only when one or more of these events occurs or when a specified amount of time has passed.</li>
+<li>(readable, writable, expired time)</li>
+</ul>
+</blockquote>
+<ul>
+<li><h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用select函数可告知内核对哪些描述符（就读、写或异常条件）感兴趣以及等待多长时间</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param maxfdl      最大文件描述符</span></span><br><span class="line"><span class="comment">* @param readset     读监听集（当监听集内任意描述符可读，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param writeset    写监听集（当监听集内任意描述符可写，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param exceptset   异常监听集（当监听集内任意描述符出现异常，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param timout      最长等待时长（如果该时间过去了，select会跳出）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return     正常返回就绪描述符的总数</span></span><br><span class="line"><span class="comment">*             0 ==&gt; 超时返回</span></span><br><span class="line"><span class="comment">*            -1 ==&gt; 出错</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> maxfdl, fd_set *readset, fd_set *writeset, fd_set *exceptset,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">const</span> struct timeval *timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> &#123;</span></span><br><span class="line">  <span class="keyword">long</span> tv_sec;        <span class="comment">//秒</span></span><br><span class="line">  <span class="keyword">long</span> tv_usec;       <span class="comment">//微秒</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的数据结构，实际上是一long类型的数组，每一个bit都能与一打开的文件句柄</span></span><br><span class="line"><span class="comment">//（不管是socket句柄，还是其他文件或命名管道或设备句柄）建立联系</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line"><span class="comment">/*XPG4.2requiresthismembername.Otherwiseavoidthename</span></span><br><span class="line"><span class="comment">fromtheglobalnamespace.*/</span></span><br><span class="line">#ifdef__USE_XOPEN</span><br><span class="line">__fd_maskfds_bits[__FD_SETSIZE/__NFDBITS];</span><br><span class="line">#define__FDS_BITS(<span class="built_in">set</span>)((<span class="built_in">set</span>)-&gt;fds_bits)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">__fd_mask__fds_bits[__FD_SETSIZE/__NFDBITS];</span><br><span class="line">#define__FDS_BITS(<span class="built_in">set</span>)((<span class="built_in">set</span>)-&gt;__fds_bits)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;fd_set;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><h4 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h4><ul>
+<li>NULL: 忙等</li>
+<li>值为0：立即返回</li>
+<li>不为0：至多等待一段时间后返回</li>
+</ul>
+</li>
+<li><h4 id="fd-set"><a href="#fd-set" class="headerlink" title="fd_set"></a>fd_set</h4><ul>
+<li>fd_set通常是一个整数数组，其中每个元素中的每一bit对应一个文件描述符</li>
+<li><p>四个操作宏</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将监听集清0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个描述符对应的bit置1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个描述符对应的bit置0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断一个描述符对应的bit位是否被置1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>举个栗子：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">假设fd_set 只有<span class="number">8</span>位 ==&gt; fd_set fs</span><br><span class="line"></span><br><span class="line">执行: FD_ZERO(&amp;fs)</span><br><span class="line">结果: <span class="number">00000000</span></span><br><span class="line"></span><br><span class="line">执行: FD_SET(<span class="number">1</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">01000000</span></span><br><span class="line"></span><br><span class="line">执行：FD_SET(<span class="number">3</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">01010000</span></span><br><span class="line"></span><br><span class="line">执行: FD_CLR(<span class="number">1</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">00010000</span></span><br><span class="line"></span><br><span class="line">执行: FD_ISSET(<span class="number">3</span>)</span><br><span class="line">返回: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">执行: FD_ISSET(<span class="number">1</span>)</span><br><span class="line">返回: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>select函数中的三个监听集，如果对哪个不感兴趣，直接设置为NULL就行了</p>
+</li>
+<li>select函数中的三个监听集参数均为<a href="../../04/super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a></li>
+</ul>
+</li>
+<li><h4 id="maxfdpl"><a href="#maxfdpl" class="headerlink" title="maxfdpl"></a>maxfdpl</h4><ul>
+<li><strong>maxfdl</strong>指定待测试后描述符的个数，它的<strong>值是待测试的最大描述符加1</strong>（因为数组的下标是从0开始的）</li>
+<li>FD_SETSIZE 常值是fd_set中描述符的总数，通常是1024，不过一般用不到那么大。指定maxfdp1可以提高select的效率</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><h3 id="描述符就绪条件"><a href="#描述符就绪条件" class="headerlink" title="描述符就绪条件"></a>描述符就绪条件</h3><img src="/img/unp_30.png" title="select返回某个套接字就绪的条件小节">
+</li>
+</ul>
+<blockquote>
+<h2 id="str-cli函数修订版"><a href="#str-cli函数修订版" class="headerlink" title="str_cli函数修订版"></a>str_cli函数修订版</h2></blockquote>
+<ul>
+<li><h3 id="各种条件下的处理"><a href="#各种条件下的处理" class="headerlink" title="各种条件下的处理"></a>各种条件下的处理</h3><img src="/img/unp_31.png" title="str_cli函数中由select处理的各种条件">
+<ul>
+<li>如果对端TCP发送数据，那么该套接字可读，并且read返回一个大于0的值</li>
+<li>如果对端TCP发送一个FIN，那么该套接字可读，并且read返回0（EOF）</li>
+<li>如果对端TCP发送一个RST，那么该套接字可读，并且read返回-1，而errno中含有确切的错误码</li>
+</ul>
+</li>
+<li><h3 id="修订版的str-cli函数"><a href="#修订版的str-cli函数" class="headerlink" title="修订版的str_cli函数"></a>修订版的str_cli函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 改进后的str_cli函数，可以在服务器停止后马上返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_cli</span><span class="params">(FILE* fp, <span class="keyword">int</span> sockfd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>     maxfdpl;</span><br><span class="line">    fd_set  rset;</span><br><span class="line">    <span class="keyword">char</span>    sendline[MAXLINE], recvline[MAXLINE];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//首先清0</span></span><br><span class="line">    FD_ZERO(&amp;rset);</span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        <span class="comment">//在调用select之前，设置监听集，告知select感兴趣的描述符</span></span><br><span class="line">        FD_SET(fileno(fp), &amp;rset);</span><br><span class="line">        FD_SET(sockfd, &amp;rset);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//待测试的描述符数应该比我们要监听的最大描述符要大1（因为c语言数组是从0开始计的）</span></span><br><span class="line">        maxfdpl = max(fileno(fp), sockfd) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//一直阻塞，直至上述两个描述符至少其中一个可读（没有指定超时时间，所以会一直等待）</span></span><br><span class="line">        Select(maxfdpl, &amp;rset, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(sockfd, &amp;rset))&#123;        <span class="comment">//socket 可读</span></span><br><span class="line">            <span class="keyword">if</span>(Readline(sockfd, recvline, MAXLINE) == <span class="number">0</span>)</span><br><span class="line">                err_quit(<span class="string">"str_cli: server terminated prematurely"</span>);</span><br><span class="line">            Fputs(recvline, <span class="built_in">stdout</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fileno(fp), &amp;rset))&#123;    <span class="comment">//用户从控制台输入了数据</span></span><br><span class="line">            <span class="keyword">if</span>(Fgets(sendline, MAXLINE, fp) == <span class="literal">NULL</span>)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            Writen(sockfd, sendline, <span class="built_in">strlen</span>(sendline));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter6" target="_blank" rel="noopener">点我查看示例源码地址</a></li>
+<li>rset作为一个<a href="../../04/super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a>使用<ul>
+<li>在<strong>select调用之前</strong>，将感兴趣的描述符对应的bit<strong>置位</strong>。这样在调用select的时候，<strong>告知Unix内核当哪些描述符准备好时应该通知用户</strong></li>
+<li>在<strong>select调用之后</strong>，Unix内核将哪些描述符准备好了记录<strong>在rset当中</strong>。故在select解除阻塞之后，可以用FD_ISSET<strong>判断是哪些描述符准备好了</strong>。(这样处理即便是多个描述符同时准备好了，也可以处理)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="批量输入和缓存（Batch-Input-and-Buffering）"><a href="#批量输入和缓存（Batch-Input-and-Buffering）" class="headerlink" title="批量输入和缓存（Batch Input and Buffering）"></a>批量输入和缓存（Batch Input and Buffering）</h2></blockquote>
+<ul>
+<li><h3 id="交互式输入："><a href="#交互式输入：" class="headerlink" title="交互式输入："></a>交互式输入：</h3><img src="/img/unp_32.png" title="停等方式的时间线：交互式输入"></li>
+<li><h3 id="批量输入："><a href="#批量输入：" class="headerlink" title="批量输入："></a>批量输入：</h3><img src="/img/unp_33.png" title="填充客户与服务器之间的管道：批量方式">
+<ul>
+<li>以第五章最初的回射函数为例</li>
+<li>TCP是全双工通信的</li>
+<li>我们假设客户以网络能接受的最快速度发送，而服务器以网络能提供的最快速度应答</li>
+<li>在时刻7的时候，网络管道就已经充满了</li>
+<li>如果在时刻8客户输^D(EOF)，则会导致客户端调用close函数关闭连接，而此时仍然还有请求在去的路上，也还有应答在回来的路上，这些消息客户端将无法再收到。</li>
+<li>实际上<strong>这个时候客户只是不发数据了，但是仍然还需要接收数据</strong>。所以我们<strong>需要一个能够关闭TCP连接中其中一半的连接的方法</strong> ==&gt; shutdown函数</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="shutdown函数"><a href="#shutdown函数" class="headerlink" title="shutdown函数"></a>shutdown函数</h2></blockquote>
+<ul>
+<li><h2 id="close函数的两个限制"><a href="#close函数的两个限制" class="headerlink" title="close函数的两个限制"></a>close函数的两个限制</h2><ul>
+<li>close把描述符的引用计数减1，仅在该计数变为0时才关闭套接字。==&gt; 而<strong>shutdown可以不管引用计数就激发TCP的正常终止序列</strong></li>
+<li>clse终止读和写两个方向。==&gt; <strong>shutdown可以有选择的终止读、写或读写均关闭</strong></li>
+</ul>
+</li>
+<li><h2 id="原型-1"><a href="#原型-1" class="headerlink" title="原型"></a>原型</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys.socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* howto = SHUT_RD   ==&gt; 关闭读一半</span></span><br><span class="line"><span class="comment">*         SHUT_WR   ==&gt; 关闭写一半</span></span><br><span class="line"><span class="comment">*         SHUT_RDWR ==&gt; 读写均关闭</span></span><br><span class="line"><span class="comment">* @return 成功返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shutdown</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> howto)</span></span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调用shutdown关闭一半连接的图示：</p>
+<img src="/img/unp_34.png" title="调用shutdown关闭一半TCP连接">
+<ul>
+<li>在调用shutdown关闭读一半以后，四路挥手的前两步已经完成，但此时客户端仍然可以读</li>
+<li>直到服务器发送FIN，完成四路挥手</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<h2 id="pselect函数"><a href="#pselect函数" class="headerlink" title="pselect函数"></a>pselect函数</h2><p>是select新的衍生函数，了解一下用法</p>
+</blockquote>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pselect</span><span class="params">(<span class="keyword">int</span> maxfdpl, fd_set *readset, fd_set *writeset, fd_set *exceptionset,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">const</span> struct timesepc *timeout, <span class="keyword">const</span> <span class="keyword">sigset_t</span> *sigmask)</span></span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>其它参数的功能和select的一致</li>
+<li>最后一个参数是一个信号的掩码集，表示pselect在阻塞期间，禁止掩码集内的信号被递交</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+      <div>
+        <div id="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="reward-button" disable="enable" onclick="var qr = document.getElementById(&quot;qr&quot;); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    Donate
+  </button>
+  <div id="qr" style="display: none;">
+
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/zan_shang.png" alt="建明 | Ming.J WeChat Pay">
+        <p>WeChat Pay</p>
+      </div>
+    
+      
+      
+        
+      
+      <div style="display: inline-block">
+        <img src="/img/alipay.jpg" alt="建明 | Ming.J Alipay">
+        <p>Alipay</p>
+      </div>
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+          
+            <a href="/tags/C语言/" rel="tag"># C语言</a>
+          
+            <a href="/tags/网络编程/" rel="tag"># 网络编程</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/05/super_c_e/" rel="next" title="高级C与网络编程复习（5）—— TCP C/S程序示例（TCP Client/Server Example）（第五章）">
+                <i class="fa fa-chevron-left"></i> 高级C与网络编程复习（5）—— TCP C/S程序示例（TCP Client/Server Example）（第五章）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/05/super_c_g/" rel="prev" title="高级C与网络编程复习（7）—— 套接字选项（Socket Options）（第七章）">
+                高级C与网络编程复习（7）—— 套接字选项（Socket Options）（第七章） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">建明 | Ming.J</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives">
+                
+                    <span class="site-state-item-count">58</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">15</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O复用概述"><span class="nav-number">1.</span> <span class="nav-text">I/O复用概述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用场合"><span class="nav-number">1.1.</span> <span class="nav-text">应用场合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#I-O模型"><span class="nav-number">2.</span> <span class="nav-text">I/O模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞式I-O模型"><span class="nav-number">2.1.</span> <span class="nav-text">阻塞式I/O模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非阻塞式I-O模型-gt-轮询（polling）"><span class="nav-number">2.2.</span> <span class="nav-text">非阻塞式I/O模型 ==&gt; 轮询（polling）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#I-O复用模型"><span class="nav-number">2.3.</span> <span class="nav-text">I/O复用模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#信号驱动式I-O模型"><span class="nav-number">2.4.</span> <span class="nav-text">信号驱动式I/O模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步I-O模型"><span class="nav-number">2.5.</span> <span class="nav-text">异步I/O模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种I-O模型的比较"><span class="nav-number">2.6.</span> <span class="nav-text">各种I/O模型的比较</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select函数"><span class="nav-number">3.</span> <span class="nav-text">select函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原型"><span class="nav-number">3.1.</span> <span class="nav-text">原型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#timeout"><span class="nav-number">3.1.1.</span> <span class="nav-text">timeout</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#fd-set"><span class="nav-number">3.1.2.</span> <span class="nav-text">fd_set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#maxfdpl"><span class="nav-number">3.1.3.</span> <span class="nav-text">maxfdpl</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#描述符就绪条件"><span class="nav-number">3.2.</span> <span class="nav-text">描述符就绪条件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#str-cli函数修订版"><span class="nav-number">4.</span> <span class="nav-text">str_cli函数修订版</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#各种条件下的处理"><span class="nav-number">4.1.</span> <span class="nav-text">各种条件下的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修订版的str-cli函数"><span class="nav-number">4.2.</span> <span class="nav-text">修订版的str_cli函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量输入和缓存（Batch-Input-and-Buffering）"><span class="nav-number">5.</span> <span class="nav-text">批量输入和缓存（Batch Input and Buffering）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#交互式输入："><span class="nav-number">5.1.</span> <span class="nav-text">交互式输入：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量输入："><span class="nav-number">5.2.</span> <span class="nav-text">批量输入：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#shutdown函数"><span class="nav-number">6.</span> <span class="nav-text">shutdown函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#close函数的两个限制"><span class="nav-number">7.</span> <span class="nav-text">close函数的两个限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原型-1"><span class="nav-number">8.</span> <span class="nav-text">原型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pselect函数"><span class="nav-number">9.</span> <span class="nav-text">pselect函数</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">建明 | Ming.J</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> v7.1.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+  <script id="ribbon" size="300" alpha="0.2" zindex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+
+  
+  <script src="/lib/three/three.min.js"></script>
+
+  
+  <script src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.1.0"></script>
+
+  <script src="/js/motion.js?v=7.1.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/schemes/muse.js?v=7.1.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.1.0"></script>
+<script src="/js/post-details.js?v=7.1.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.1.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+if ($('body').find('pre.mermaid').length) {
+  $.ajax({
+    type: 'GET',
+    url: '//cdn.jsdelivr.net/npm/mermaid@8/dist/mermaid.min.js',
+    dataType: 'script',
+    cache: true,
+    success: function() {
+      mermaid.initialize({
+        theme: 'forest',
+        logLevel: 3,
+        flowchart: { curve: 'linear' },
+        gantt: { axisFormat: '%m/%d/%Y' },
+        sequence: { actorMargin: 50 }
+      });
+    }
+  });
+}
+</script>
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
