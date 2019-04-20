@@ -388,169 +388,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/06/08/c++Uva1589/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="建明 | Ming.J">
-      <meta itemprop="description" content>
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="建明 | Ming.J">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/06/08/c++Uva1589/" class="post-title-link" itemprop="url">Uva- 1589 - Xiangqi</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-06-08 18:00:00" itemprop="dateCreated datePublished" datetime="2018-06-08T18:00:00+08:00">2018-06-08</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<h2 id="象棋（Xiangqi-ACM-ICPC-Fuzhou-2011-UVa1589）"><a href="#象棋（Xiangqi-ACM-ICPC-Fuzhou-2011-UVa1589）" class="headerlink" title="象棋（Xiangqi, ACM/ICPC Fuzhou 2011, UVa1589）"></a>象棋（Xiangqi, ACM/ICPC Fuzhou 2011, UVa1589）</h2><p>原题地址：<a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4464" target="_blank" rel="noopener">Uva1589</a></p>
-</blockquote>
-<p>考虑一个象棋残局，其中红方有n（2≤n≤7）个棋子，黑方只有一个将。红方除了有一个帅（G）之外还有3种可能的棋子：车（R），马（H），炮（C），并且需要考虑“蹩马腿”（如图4-4所示）与将和帅不能照面（将、帅如果同在一条直线上，中间又不隔着任何棋子的情况下，走子的一方获胜）的规则。</p>
-<p>输入所有棋子的位置，保证局面合法并且红方已经将军。你的任务是判断红方是否已经把黑方将死。关于中国象棋的相关规则请参见原题。</p>
-<img src="/img/c++/02.png">
-<blockquote>
-<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2></blockquote>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1589 - Xiangqi</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;array&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="keyword">char</span> type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hasPartition</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;p1, <span class="keyword">const</span> Point &amp;p2, <span class="keyword">int</span> redNum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> partitionNum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(p1.x != p2.x &amp;&amp; p1.y != p2.y)    <span class="comment">//都不在同一条线上，肯定没有分隔子</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(p1.x == p2.x)&#123;</span><br><span class="line">        <span class="keyword">int</span> spanY = p1.y - p2.y;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].x == p1.x &amp;&amp; ((spanY &gt; <span class="number">0</span> &amp;&amp; reds[i].y &gt; p2.y &amp;&amp; reds[i].y &lt; p1.y) || (spanY &lt; <span class="number">0</span> &amp;&amp; reds[i].y &gt; p1.y &amp;&amp; reds[i].y &lt; p2.y)))</span><br><span class="line">                ++partitionNum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> spanX = p1.x - p2.x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].y == p1.y &amp;&amp; ((spanX &gt; <span class="number">0</span>&amp;&amp; reds[i].x &gt; p2.x &amp;&amp; reds[i].x &lt; p1.x) || (spanX &lt; <span class="number">0</span> &amp;&amp; reds[i].x &gt; p1.x &amp;&amp; reds[i].x &lt; p2.x)))</span><br><span class="line">                ++partitionNum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> partitionNum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeG</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(reds[pos].y != blackG.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> hasPartition(reds, blackG, reds[pos], redNum) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeR</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(reds[pos].x != blackG.x &amp;&amp; reds[pos].y != blackG.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> hasPartition(reds, reds[pos], blackG, redNum) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeC</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(reds[pos].x != blackG.x &amp;&amp; reds[pos].y != blackG.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> hasPartition(reds, reds[pos], blackG, redNum) == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeH</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> subX = blackG.x - reds[pos].x;</span><br><span class="line">    <span class="keyword">int</span> subY = blackG.y - reds[pos].y;</span><br><span class="line">    <span class="keyword">if</span>(subX == <span class="number">0</span> || subY == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">abs</span>(subX) + <span class="built_in">abs</span>(subY) != <span class="number">3</span>)      <span class="comment">//在不考虑绊马脚的情况下是否可达</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">abs</span>(subX) == <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].x == reds[pos].x + (subX / <span class="number">2</span>) &amp;&amp; reds[i].y == reds[pos].y)   <span class="comment">//检查是否绊马脚</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].y == reds[pos].y + (subY / <span class="number">2</span>) &amp;&amp; reds[i].x == reds[pos].x)   <span class="comment">//检查是否绊马脚</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(reds[i].x == blackG.x &amp;&amp; reds[i].y == blackG.y)      <span class="comment">//被吃掉的子</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">switch</span> (reds[i].type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'G'</span>:       <span class="comment">//将</span></span><br><span class="line">                <span class="keyword">if</span> (judgeG(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'C'</span>:       <span class="comment">//炮</span></span><br><span class="line">                <span class="keyword">if</span> (judgeC(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'H'</span>:       <span class="comment">//马</span></span><br><span class="line">                <span class="keyword">if</span> (judgeH(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'R'</span>:       <span class="comment">//车</span></span><br><span class="line">                <span class="keyword">if</span> (judgeR(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isInBound</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, Point &amp;blackG, <span class="keyword">int</span> redNum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> blackG.y &gt;= <span class="number">4</span> &amp;&amp; blackG.y &lt;= <span class="number">6</span> &amp;&amp; blackG.x &gt;= <span class="number">1</span> &amp;&amp; blackG.x &lt;= <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">doJudge</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum)</span></span>&#123;</span><br><span class="line">    Point a&#123;&#125;;</span><br><span class="line">    a = blackG;</span><br><span class="line">    <span class="keyword">if</span>(!judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.x += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.x -= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.x += <span class="number">1</span>;</span><br><span class="line">    a.y += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.y -= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> !(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> redNum;</span><br><span class="line">    Point blackG&#123;&#125;;</span><br><span class="line">    <span class="built_in">array</span>&lt;Point, 7&gt; reds&#123;&#125;;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; redNum &gt;&gt; blackG.x &gt;&gt; blackG.y) &#123;</span><br><span class="line">        <span class="keyword">if</span> (redNum == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; reds[i].type &gt;&gt; reds[i].x &gt;&gt; reds[i].y;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (doJudge(reds, blackG, redNum) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/06/08/c++Uva201/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -823,6 +660,169 @@
 <blockquote>
 <h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2></blockquote>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * UVa489</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;set&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ERROR_TORRENT = <span class="number">7</span>;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param s</span></span><br><span class="line"><span class="comment"> * @param guess</span></span><br><span class="line"><span class="comment"> * @return  1 -&gt; success  2 -&gt; fail  0 -&gt; give up</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">doGuess</span><span class="params">(<span class="built_in">string</span> &amp;s, <span class="built_in">string</span> &amp;guess)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> errorTime = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">set</span>&lt;<span class="keyword">char</span>&gt; errorSet;</span><br><span class="line">    <span class="keyword">bool</span> isMatch;</span><br><span class="line">    <span class="keyword">bool</span> isFinish;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> g : guess)&#123;</span><br><span class="line">        isMatch = <span class="literal">false</span>;</span><br><span class="line">        isFinish = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">if</span>(errorSet.find(g) != errorSet.end()) <span class="comment">//猜错一次后就不再猜了</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        errorSet.insert(g);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;c : s)&#123;</span><br><span class="line">            <span class="keyword">if</span>(c == <span class="string">' '</span>)</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            isFinish = <span class="literal">false</span>;</span><br><span class="line">            <span class="keyword">if</span>(g == c) &#123;</span><br><span class="line">                c = <span class="string">' '</span>;</span><br><span class="line">                isMatch = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(isFinish)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">if</span>(!isMatch) &#123;</span><br><span class="line">            ++errorTime;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(errorTime &gt;= ERROR_TORRENT)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">auto</span> &amp;g : s)&#123;</span><br><span class="line">        <span class="keyword">if</span>(g != <span class="string">' '</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> round;</span><br><span class="line">    <span class="built_in">string</span> target;</span><br><span class="line">    <span class="built_in">string</span> guess;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span> &gt;&gt; round)&#123;</span><br><span class="line">        <span class="keyword">if</span>(round == <span class="number">-1</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; target &gt;&gt; guess;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"Round "</span> &lt;&lt; round &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">        <span class="keyword">switch</span> (doGuess(target, guess))&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"You chickened out."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">1</span>:</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"You win."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; <span class="string">"You lose."</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2018/06/08/c++Uva1589/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="建明 | Ming.J">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="建明 | Ming.J">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/06/08/c++Uva1589/" class="post-title-link" itemprop="url">Uva- 1589 - Xiangqi</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-06-08 18:00:00" itemprop="dateCreated datePublished" datetime="2018-06-08T18:00:00+08:00">2018-06-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-20 10:55:18" itemprop="dateModified" datetime="2019-04-20T10:55:18+08:00">2019-04-20</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <blockquote>
+<h2 id="象棋（Xiangqi-ACM-ICPC-Fuzhou-2011-UVa1589）"><a href="#象棋（Xiangqi-ACM-ICPC-Fuzhou-2011-UVa1589）" class="headerlink" title="象棋（Xiangqi, ACM/ICPC Fuzhou 2011, UVa1589）"></a>象棋（Xiangqi, ACM/ICPC Fuzhou 2011, UVa1589）</h2><p>原题地址：<a href="https://uva.onlinejudge.org/index.php?option=com_onlinejudge&amp;Itemid=8&amp;page=show_problem&amp;problem=4464" target="_blank" rel="noopener">Uva1589</a></p>
+</blockquote>
+<p>考虑一个象棋残局，其中红方有n（2≤n≤7）个棋子，黑方只有一个将。红方除了有一个帅（G）之外还有3种可能的棋子：车（R），马（H），炮（C），并且需要考虑“蹩马腿”（如图4-4所示）与将和帅不能照面（将、帅如果同在一条直线上，中间又不隔着任何棋子的情况下，走子的一方获胜）的规则。</p>
+<p>输入所有棋子的位置，保证局面合法并且红方已经将军。你的任务是判断红方是否已经把黑方将死。关于中国象棋的相关规则请参见原题。</p>
+<img src="/img/c++/02.png">
+<blockquote>
+<h2 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h2></blockquote>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 1589 - Xiangqi</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;array&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> x, y;</span><br><span class="line">    <span class="keyword">char</span> type;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hasPartition</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;p1, <span class="keyword">const</span> Point &amp;p2, <span class="keyword">int</span> redNum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> partitionNum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span>(p1.x != p2.x &amp;&amp; p1.y != p2.y)    <span class="comment">//都不在同一条线上，肯定没有分隔子</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(p1.x == p2.x)&#123;</span><br><span class="line">        <span class="keyword">int</span> spanY = p1.y - p2.y;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].x == p1.x &amp;&amp; ((spanY &gt; <span class="number">0</span> &amp;&amp; reds[i].y &gt; p2.y &amp;&amp; reds[i].y &lt; p1.y) || (spanY &lt; <span class="number">0</span> &amp;&amp; reds[i].y &gt; p1.y &amp;&amp; reds[i].y &lt; p2.y)))</span><br><span class="line">                ++partitionNum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">int</span> spanX = p1.x - p2.x;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].y == p1.y &amp;&amp; ((spanX &gt; <span class="number">0</span>&amp;&amp; reds[i].x &gt; p2.x &amp;&amp; reds[i].x &lt; p1.x) || (spanX &lt; <span class="number">0</span> &amp;&amp; reds[i].x &gt; p1.x &amp;&amp; reds[i].x &lt; p2.x)))</span><br><span class="line">                ++partitionNum;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> partitionNum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeG</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(reds[pos].y != blackG.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> hasPartition(reds, blackG, reds[pos], redNum) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeR</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(reds[pos].x != blackG.x &amp;&amp; reds[pos].y != blackG.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> hasPartition(reds, reds[pos], blackG, redNum) == <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeC</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(reds[pos].x != blackG.x &amp;&amp; reds[pos].y != blackG.y)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">return</span> hasPartition(reds, reds[pos], blackG, redNum) == <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judgeH</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum, <span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> subX = blackG.x - reds[pos].x;</span><br><span class="line">    <span class="keyword">int</span> subY = blackG.y - reds[pos].y;</span><br><span class="line">    <span class="keyword">if</span>(subX == <span class="number">0</span> || subY == <span class="number">0</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">abs</span>(subX) + <span class="built_in">abs</span>(subY) != <span class="number">3</span>)      <span class="comment">//在不考虑绊马脚的情况下是否可达</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="built_in">abs</span>(subX) == <span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].x == reds[pos].x + (subX / <span class="number">2</span>) &amp;&amp; reds[i].y == reds[pos].y)   <span class="comment">//检查是否绊马脚</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(reds[i].y == reds[pos].y + (subY / <span class="number">2</span>) &amp;&amp; reds[i].x == reds[pos].x)   <span class="comment">//检查是否绊马脚</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">judge</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(reds[i].x == blackG.x &amp;&amp; reds[i].y == blackG.y)      <span class="comment">//被吃掉的子</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        <span class="keyword">switch</span> (reds[i].type) &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'G'</span>:       <span class="comment">//将</span></span><br><span class="line">                <span class="keyword">if</span> (judgeG(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'C'</span>:       <span class="comment">//炮</span></span><br><span class="line">                <span class="keyword">if</span> (judgeC(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'H'</span>:       <span class="comment">//马</span></span><br><span class="line">                <span class="keyword">if</span> (judgeH(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">'R'</span>:       <span class="comment">//车</span></span><br><span class="line">                <span class="keyword">if</span> (judgeR(reds, blackG, redNum, i))</span><br><span class="line">                    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">isInBound</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, Point &amp;blackG, <span class="keyword">int</span> redNum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> blackG.y &gt;= <span class="number">4</span> &amp;&amp; blackG.y &lt;= <span class="number">6</span> &amp;&amp; blackG.x &gt;= <span class="number">1</span> &amp;&amp; blackG.x &lt;= <span class="number">3</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">doJudge</span><span class="params">(<span class="keyword">const</span> <span class="built_in">array</span>&lt;Point, <span class="number">7</span>&gt; &amp;reds, <span class="keyword">const</span> Point &amp;blackG, <span class="keyword">int</span> redNum)</span></span>&#123;</span><br><span class="line">    Point a&#123;&#125;;</span><br><span class="line">    a = blackG;</span><br><span class="line">    <span class="keyword">if</span>(!judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.x += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.x -= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">if</span>(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.x += <span class="number">1</span>;</span><br><span class="line">    a.y += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">if</span>(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    a.y -= <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">return</span> !(isInBound(reds, a, redNum) &amp;&amp; !judge(reds, a, redNum));</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> redNum;</span><br><span class="line">    Point blackG&#123;&#125;;</span><br><span class="line">    <span class="built_in">array</span>&lt;Point, 7&gt; reds&#123;&#125;;</span><br><span class="line">    <span class="keyword">while</span> (<span class="built_in">cin</span> &gt;&gt; redNum &gt;&gt; blackG.x &gt;&gt; blackG.y) &#123;</span><br><span class="line">        <span class="keyword">if</span> (redNum == <span class="number">0</span>)</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; redNum; i++)</span><br><span class="line">            <span class="built_in">cin</span> &gt;&gt; reds[i].type &gt;&gt; reds[i].x &gt;&gt; reds[i].y;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; (doJudge(reds, blackG, redNum) ? <span class="string">"YES"</span> : <span class="string">"NO"</span>) &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
