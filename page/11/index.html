@@ -22,14 +22,24 @@
 <meta name="theme-color" content="#222">
 
 
+  
+  
+    
+  
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.css">
+
 
 
   
   
     
+      
     
-  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-bounce.min.css?v=1.0.2">
+    
+      
+    
+  <script src="//cdn.jsdelivr.net/npm/pace-js@1/pace.min.js"></script>
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/pace-js@1/themes/blue/pace-theme-minimal.css">
 
 
 
@@ -47,7 +57,9 @@
 
   
   
-  <link rel="stylesheet" href="/lib/fancybox/source/jquery.fancybox.css">
+    
+  
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 
@@ -55,7 +67,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
 
 <link rel="stylesheet" href="/css/main.css?v=7.1.0">
 
@@ -88,7 +102,7 @@
     back2top_sidebar: false,
     fancybox: true,
     fastclick: false,
-    lazyload: false,
+    lazyload: true,
     tabs: true,
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     algolia: {
@@ -138,6 +152,16 @@
 
 
 
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?0a9fa95ff997969441c084d8d73eacfb";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
 
 
 
@@ -1075,7 +1099,7 @@ Having 子
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-数据库学习笔记（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1095,7 +1119,7 @@ Having 子
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="post-title-link" itemprop="url">Java环境简单配置+IDEA（小白版）</a>
+                <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" class="post-title-link" itemprop="url">数据库笔记（三）</a>
               
             
           </h1>
@@ -1175,24 +1199,19 @@ Having 子
           
             <p>
               
-JDK配置
-
-首先到官网下载最新版JDK：Oracle官网下载
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)
 
 
-Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）
 
+SELECT * 与 SELECT 全字段 的执    行效率是有差别的
 
-开始安装JDK
-
-
-选择安装路径，可以不安装在C盘，记住安装到哪就行了，
+数据库在具体执行 SELECT * 的时候可以这样理解：首先把 * 替换成对应表的全字
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#more" rel="contents">
+              <a class="btn" href="/2017/09/16/2017-09-16-数据库学习笔记（三）/#more" rel="contents">
                 Read more &raquo;
               </a>
             </div>
@@ -1420,6 +1439,12 @@ Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位
     
 
     
+      <div id="needsharebutton-float">
+        <span class="btn">
+          <i class="fa fa-share-alt" aria-hidden="true"></i>
+        </span>
+      </div>
+    
 
     
 
@@ -1440,6 +1465,8 @@ Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位
 
 
 
+  
+
 
 
 
@@ -1462,25 +1489,33 @@ Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位
 
 
 
+  
+
 
 
   
-  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@2/dist/jquery.min.js"></script>
 
   
-  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery-lazyload@1/jquery.lazyload.min.js"></script>
 
   
-  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.min.js"></script>
 
   
-  <script src="/lib/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/velocity-animate@1/velocity.ui.min.js"></script>
 
   
-  <script src="/lib/three/three.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
 
   
-  <script src="/lib/three/three-waves.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-three@1/three-waves.min.js"></script>
+
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-reading-progress@1/reading_progress.min.js"></script>
 
 
   
@@ -1889,6 +1924,28 @@ if ($('body').find('pre.mermaid').length) {
   
 
   
+  
+  
+    
+  
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-needmoreshare2@1/needsharebutton.min.js"></script>
+  <script>
+    
+    
+      flOptions = {};
+      
+        flOptions.iconStyle = "box";
+      
+        flOptions.boxForm = "horizontal";
+      
+        flOptions.position = "middleRight";
+      
+        flOptions.networks = "Weibo,Wechat,Douban,QQZone,Twitter,Facebook";
+      
+      new needShareButton('#needsharebutton-float', flOptions);
+    
+  </script>
+
 
   
 
