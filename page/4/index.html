@@ -486,64 +486,24 @@
       
         
           
-            <blockquote>
-<h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><p>最近刚入坑web前端，学了一点基础，便准备写个简单的2048小游戏试试手。开发过程中发现，<br>PC端可以直接监听键盘输入，但是移动端就不得不监听屏幕上的滑动事件了。</p>
-</blockquote>
-<ul>
-<li>现有的js库中没有可以直接满足上述要求的封装</li>
-<li>在JQuery Mobile 中 可以通过 .on 的方式监听左右滑动事件，但是没有上下滑动事件（而且我想写一个PC端和移动端都通用的网页的话，就必须引入Jquery，同时引入Jquery和Jquery Mobile 使得Bootstrap中的按钮样式改变了，这显然不是想要的结果）</li>
-<li>所以为了保持PC端和移动端的一致性，决定直接封装一下js的移动端的触摸事件，实现上述需求</li>
-</ul>
-<blockquote>
-<h2 id="2048"><a href="#2048" class="headerlink" title="2048"></a>2048</h2><p>可以在手机上打开，仍然具有不错的交互</p>
-</blockquote>
-<ul>
-<li><a href="../../../../2048">点我体验</a></li>
-<li><a href="https://github.com/SunnyQjm/2048" target="_blank" rel="noopener">源码地址</a></li>
-<li><img src="/img/game_01.png" width="500" height="500" title="2048">
-</li>
-</ul>
-<blockquote>
-<h2 id="JS-触摸事件（event）"><a href="#JS-触摸事件（event）" class="headerlink" title="JS 触摸事件（event）"></a>JS 触摸事件（event）</h2></blockquote>
-<ul>
-<li><h3 id="event的类型"><a href="#event的类型" class="headerlink" title="event的类型"></a>event的类型</h3><ul>
-<li>touchstart: 当<strong>手指触摸屏幕时</strong>触发（相当于Android中的ACTION_DOWN事件）</li>
-<li>touchmove: 当<strong>手指在屏幕上滑动时</strong>连续触发（相当于Android中的ACTION_MOVE事件）— <strong><em>期间调用preventDefault()可以屏蔽事件的默认行为，达到阻止滚动的效果</em></strong></li>
-<li>touchend: 当<strong>手指从屏幕上移开时</strong>触发（相当与Android中的ACTION_UP）</li>
-<li>touchcancel: 当系统停止跟踪触摸时触发。关于此事件的触发时机，文档中没有明确说明（我们在接下来的过程中也用不到）</li>
-</ul>
-</li>
-<li><h3 id="event用于跟踪触摸的属性"><a href="#event用于跟踪触摸的属性" class="headerlink" title="event用于跟踪触摸的属性"></a>event用于跟踪触摸的属性</h3><ul>
-<li>touches: 表示当前跟踪的触摸操作的Touch对象的数组</li>
-<li>targetTouches: 特定于事件目标的Touch对象数组</li>
-<li>changeTouches: 表示子上次触摸以来发生了什么改变的Touch对象的数组<blockquote>
-<p>注意： 在touchend事件发生时，event的touches对象中就没有元素了，需要到changeTouches中去获取触摸离开时的位置信息</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><h3 id="Touch对象包含的数组"><a href="#Touch对象包含的数组" class="headerlink" title="Touch对象包含的数组"></a>Touch对象包含的数组</h3><ul>
-<li>clentX: 触摸目标在窗口中的x坐标</li>
-<li>clientY: 触摸目标在窗口中的y坐标</li>
-<li>identifier: 标识触摸的唯一ID</li>
-<li>pageX： 触摸目标在页面中的x坐标</li>
-<li>pageY： 触摸目标在页面中的y坐标</li>
-<li>screenX： 触摸目标在屏幕中的x坐标</li>
-<li>screenY： 触摸目标在屏幕中的y坐标</li>
-<li>target：触摸的DOM节点目标</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="封装一个操作对象"><a href="#封装一个操作对象" class="headerlink" title="封装一个操作对象"></a>封装一个操作对象</h2><p>该对象的封装，前两个函数参考书籍《JavaScript 高级程序设计》（第三版）</p>
-</blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> EventUtil = &#123;</span><br><span class="line">    addHandler: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (element.addEventListener)</span><br><span class="line">            element.addEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (element.attachEvent)</span><br><span class="line">            element.attachEvent(<span class="string">"on"</span> + type, handler);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            element[<span class="string">"on"</span> + type] = handler;</span><br><span class="line">    &#125;,</span><br><span class="line">    removeHandler: <span class="function"><span class="keyword">function</span> (<span class="params">element, type, handler</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(element.removeEventListener)</span><br><span class="line">            element.removeEventListener(type, handler, <span class="literal">false</span>);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(element.detachEvent)</span><br><span class="line">            element.detachEvent(<span class="string">"on"</span> + type, handler);</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            element[<span class="string">"on"</span> + type] = handler;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 监听触摸的方向</span></span><br><span class="line"><span class="comment">     * @param target            要绑定监听的目标元素</span></span><br><span class="line"><span class="comment">     * @param isPreventDefault  是否屏蔽掉触摸滑动的默认行为（例如页面的上下滚动，缩放等）</span></span><br><span class="line"><span class="comment">     * @param upCallback        向上滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     * @param rightCallback     向右滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     * @param downCallback      向下滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     * @param leftCallback      向左滑动的监听回调（若不关心，可以不传，或传false）</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    listenTouchDirection: <span class="function"><span class="keyword">function</span> (<span class="params">target, isPreventDefault, upCallback, rightCallback, downCallback, leftCallback</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.addHandler(target, <span class="string">"touchstart"</span>, handleTouchEvent);</span><br><span class="line">        <span class="keyword">this</span>.addHandler(target, <span class="string">"touchend"</span>, handleTouchEvent);</span><br><span class="line">        <span class="keyword">this</span>.addHandler(target, <span class="string">"touchmove"</span>, handleTouchEvent);</span><br><span class="line">        <span class="keyword">var</span> startX;</span><br><span class="line">        <span class="keyword">var</span> startY;</span><br><span class="line">        <span class="function"><span class="keyword">function</span> <span class="title">handleTouchEvent</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">switch</span> (event.type)&#123;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"touchstart"</span>:</span><br><span class="line">                    startX = event.touches[<span class="number">0</span>].pageX;</span><br><span class="line">                    startY = event.touches[<span class="number">0</span>].pageY;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"touchend"</span>:</span><br><span class="line">                    <span class="keyword">var</span> spanX = event.changedTouches[<span class="number">0</span>].pageX - startX;</span><br><span class="line">                    <span class="keyword">var</span> spanY = event.changedTouches[<span class="number">0</span>].pageY - startY;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span>(<span class="built_in">Math</span>.abs(spanX) &gt; <span class="built_in">Math</span>.abs(spanY))&#123;      <span class="comment">//认定为水平方向滑动</span></span><br><span class="line">                        <span class="keyword">if</span>(spanX &gt; <span class="number">30</span>)&#123;         <span class="comment">//向右</span></span><br><span class="line">                            <span class="keyword">if</span>(rightCallback)</span><br><span class="line">                                rightCallback();</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(spanX &lt; <span class="number">-30</span>)&#123; <span class="comment">//向左</span></span><br><span class="line">                            <span class="keyword">if</span>(leftCallback)</span><br><span class="line">                                leftCallback();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;                                    <span class="comment">//认定为垂直方向滑动</span></span><br><span class="line">                        <span class="keyword">if</span>(spanY &gt; <span class="number">30</span>)&#123;         <span class="comment">//向下</span></span><br><span class="line">                            <span class="keyword">if</span>(downCallback)</span><br><span class="line">                                downCallback();</span><br><span class="line">                        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (spanY &lt; <span class="number">-30</span>) &#123;<span class="comment">//向上</span></span><br><span class="line">                            <span class="keyword">if</span>(upCallback)</span><br><span class="line">                                upCallback();</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                <span class="keyword">case</span> <span class="string">"touchmove"</span>:</span><br><span class="line">                    <span class="comment">//阻止默认行为</span></span><br><span class="line">                    <span class="keyword">if</span>(isPreventDefault)</span><br><span class="line">                        event.preventDefault();</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用的时候很简单，只需要向下面这样调用即可</span></span><br><span class="line"><span class="comment">//其中下面监听的是整个DOM</span></span><br><span class="line"><span class="comment">//up, right, down, left为四个回调函数，分别处理上下左右的滑动事件</span></span><br><span class="line">EventUtil.listenTouchDirection(<span class="built_in">document</span>, <span class="literal">true</span>, up， right, down, left)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+            <p>
+              
+Introduction最近刚入坑web前端，学了一点基础，便准备写个简单的2048小游戏试试手。开发过程中发现，PC端可以直接监听键盘输入，但是移动端就不得不监听屏幕上的滑动事件了。
 
+
+现有的js库中没有可以直接满足上述要求的封装
+在JQuery Mobile 中 可以通过 .on 的方式监听
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/24/js_01/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -696,38 +656,36 @@
       
         
           
-            <blockquote>
-<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2></blockquote>
-<ul>
-<li>最后一个高C课，老师旁边围了一圈，就有了如下信息</li>
-</ul>
-<blockquote>
-<h2 id="题型"><a href="#题型" class="headerlink" title="题型"></a>题型</h2></blockquote>
-<ul>
-<li>简答：50</li>
-<li>编程：30</li>
-<li>实验：20 （代码分析，分析哪里错了…）</li>
-</ul>
-<blockquote>
-<h2 id="以下不用看"><a href="#以下不用看" class="headerlink" title="以下不用看"></a>以下不用看</h2><p>括号里是我加的，以防万一</p>
-</blockquote>
-<ul>
-<li>timewait不用看</li>
-<li>key managment不用看 （知道怎么创建一个秘钥管理套接字：socket(PF_KEY, SOCK_RAW, 0)）</li>
-<li>ioctl 不用看</li>
-</ul>
-<blockquote>
-<h2 id="老师说会考"><a href="#老师说会考" class="headerlink" title="老师说会考"></a>老师说会考</h2></blockquote>
-<ul>
-<li>前几章重点</li>
-<li>大端小端代码</li>
-<li>traceroute、ping会考（研究生学长说不考，但是今年王老师出卷，其它先复习，有时间看看ping和traceroute的源码）</li>
-<li>HDR_INCL套接字选项（原始套接字设置该选项可以自己构造IP首部）</li>
-<li>BPF、DLPI、SOCK_PACKET（三种提供链路层访问控制的方式）</li>
-<li>掌握netstat怎么用（用于显示各个端口的状态）</li>
-</ul>
+            <p>
+              
+说明
 
+最后一个高C课，老师旁边围了一圈，就有了如下信息
+
+
+题型
+
+简答：50
+编程：30
+实验：20 （代码分析，分析哪里错了…）
+
+
+以下不用看括号里是我加的，以防万一
+
+
+timewait不用看
+key managment不用看 （知道怎么创建一个秘钥管理套接字：socket(PF_KEY
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_n/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -880,41 +838,28 @@
       
         
           
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2></blockquote>
-<ul>
-<li><h3 id="用fork实现并发要求存在的问题"><a href="#用fork实现并发要求存在的问题" class="headerlink" title="用fork实现并发要求存在的问题"></a>用fork实现并发要求存在的问题</h3><ul>
-<li>fork的代价是比较昂贵的</li>
-<li>fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。</li>
-</ul>
-</li>
-<li><h3 id="使用线程可以有效的解决上面的问题"><a href="#使用线程可以有效的解决上面的问题" class="headerlink" title="使用线程可以有效的解决上面的问题"></a>使用线程可以有效的解决上面的问题</h3><ul>
-<li>线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100倍</li>
-<li>同一进程内的所有线程共享全局内存，这使得线程之间易于共享信息，然后随之而来的便是同步(synchronization)问题</li>
-</ul>
-</li>
-<li><h3 id="同一进程内的线程共享："><a href="#同一进程内的线程共享：" class="headerlink" title="同一进程内的线程共享："></a>同一进程内的线程共享：</h3><ul>
-<li>全局变量</li>
-<li>进程指令（process instruction）</li>
-<li>大多数数据（most data）</li>
-<li>打开的文件（open file）==&gt; 即描述符</li>
-<li>信号处理函数和信号处置（Signal handlers and signal disposition）</li>
-<li>当前工作目录（Current working directory）</li>
-<li>用户ID和组ID（User and group ID）</li>
-</ul>
-</li>
-<li><h3 id="线程独享以下内容："><a href="#线程独享以下内容：" class="headerlink" title="线程独享以下内容："></a>线程独享以下内容：</h3><ul>
-<li>线程ID （thread ID）</li>
-<li>寄存器集合，包括程序计数器和栈指针 （Set of registers， including program counter and stack pointer）</li>
-<li>栈（用于存放局部变量和返回地址）  Stack（for local variables and return address）</li>
-<li>errno ==&gt; 全局动态变量（记录最近的一次错误）</li>
-<li>信号掩码(Signal mask)</li>
-<li>优先级(Priority)</li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+概述
 
+用fork实现并发要求存在的问题
+fork的代价是比较昂贵的
+fork返回之后父子进程之间的信息传递需要进程间通信(IPC)机制。
+
+
+使用线程可以有效的解决上面的问题
+线程的创建是轻量级的，线程也被称为轻权进程（lightweight process）。线程的创建可能比进程快10~100
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_m/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1067,37 +1012,25 @@
       
         
           
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>AF_ROUTE domain: <strong>唯一支持的套接字是原始套接字</strong>(raw socket)</p>
-</blockquote>
-<ul>
-<li><h3 id="一个路由套接字上支持以下的三种操作"><a href="#一个路由套接字上支持以下的三种操作" class="headerlink" title="一个路由套接字上支持以下的三种操作"></a>一个路由套接字上支持以下的三种操作</h3><ol>
-<li>通过往路由套接字写数据来<strong>向内核发送消息</strong>（例如: 添加或删除路由）</li>
-<li>通过从路由套接字读数据来<strong>接收内核发送的消息</strong>（例如：内核在接收到一个ICMP重定向消息的时候，就通过这种方式通知进程）</li>
-<li>进程可以使用<strong>sysctl函数倾泻出路由表或列出所有已配置的接口</strong></li>
-</ol>
-</li>
-<li><p>前两种需要超级权限，最后一种操作任何进程都可以执行</p>
-</li>
-<li><p>前两种可以复合起来使用，比如：进程通过写一个路由套接字往内核发送一个消息，请求内核提供关于某个给定路径的所有信息，又通过这个这个路由套接字接收内核的应答</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="数据链路套接字地址结构"><a href="#数据链路套接字地址结构" class="headerlink" title="数据链路套接字地址结构"></a>数据链路套接字地址结构</h2></blockquote>
-<figure class="highlight c"><figcaption><span><br>&ensp; <net if_dl.h></net></span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_dl</span>&#123;</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_len;           <span class="comment">//数据链路层地址是可变长度的，这个成员即为记录地址结构的长度</span></span><br><span class="line">  <span class="keyword">sa_family_t</span>   sdl_family;        <span class="comment">//AF_LINK</span></span><br><span class="line">  <span class="keyword">uint16_t</span>      sdl_index;         <span class="comment">//网络接口的正值索引，if &gt; 0</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_type;          <span class="comment">//IFT_ETHER等</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_nlen;          <span class="comment">//名字的长度</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_alen;          <span class="comment">//链路层地址的长度</span></span><br><span class="line">  <span class="keyword">uint8_t</span>       sdl_slen;          <span class="comment">//链路层选择器的长度</span></span><br><span class="line">  <span class="keyword">char</span>          sdl_data[<span class="number">12</span>];      <span class="comment">//数据域:         0 ~ sdl_nlen - 1  ==&gt;  name</span></span><br><span class="line">                                   <span class="comment">//         sdl_len ~ sdl_alen - 1  ==&gt;  link-layer address</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="创建一个路由套接字"><a href="#创建一个路由套接字" class="headerlink" title="创建一个路由套接字"></a>创建一个路由套接字</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(AF_ROUTE, SOCK_RAW, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="Key-Managment-概述"><a href="#Key-Managment-概述" class="headerlink" title="Key Managment 概述"></a>Key Managment 概述</h2></blockquote>
-<ul>
-<li>PE_KEY domain: <strong>唯一支持的套接字是原始套接字</strong>(raw socket)</li>
-</ul>
-<blockquote>
-<h2 id="创建一个秘钥管理套接字"><a href="#创建一个秘钥管理套接字" class="headerlink" title="创建一个秘钥管理套接字"></a>创建一个秘钥管理套接字</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(PF_KEY, SOCK_RAW, <span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+            <p>
+              
+概述AF_ROUTE domain: 唯一支持的套接字是原始套接字(raw socket)
 
+
+一个路由套接字上支持以下的三种操作
+通过往路由套接字写数据来向内核发送消息（例如: 添加或删除路由）
+通过从路由套接字读数据来接收内核发送的消息（例如：内核在接收到一个ICMP重定向消息的时候，就通过这
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_l/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1250,52 +1183,23 @@
       
         
           
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>目前大多数操作系统都为应用程序提供访问数据链路层的功能，这种功能可提供如下能力</p>
-</blockquote>
-<ul>
-<li><strong>能够监视由数据链路层接收的分组</strong>，使得诸如tcpdump之类的程序能够在普通计算机系统上运行，而<strong>无需使用专门的硬件设备来监视分组</strong>。如果使网络接口进入<strong>混杂模式</strong>(promiscuous mode)，<strong>甚至可以监听</strong>本地电缆上流通的<strong>所有分组</strong><ul>
-<li>The ability to watch the packets received by the datalink layer, allowing programs such as tcpdump to be run on normal computer systems (as opposed to dedicated hardware devices to watch packets). (promiscuous mode)</li>
-</ul>
-</li>
-<li>能够<strong>作为普通应用进程</strong>而不是内核<strong>的一部分运行某些程序</strong>，例如：RARP<ul>
-<li>The ability to run certain programs as normal applications instead of as part of the kernel. For example, most Unix versions of an RARP server are normal applications that read RARP requests from the datalink (RARP requests are not IP datagrams) and then write the reply back to the datalink</li>
-</ul>
-</li>
-<li><strong>实现数据链路层访问的三个常见方法</strong>：<ul>
-<li>BSD的分组过滤器<strong>BPF</strong></li>
-<li>SVR4的数据链路提供者接口<strong>DLPI</strong></li>
-<li>Linux的<strong>SOCK_PACKET</strong>接口</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="BPF"><a href="#BPF" class="headerlink" title="BPF"></a>BPF</h2><p>4.4BSD and many other Berkeley-derived implementations support BPF</p>
-</blockquote>
-<img src="/img/unp_45.png" title="使用BPF截获分组">
-<blockquote>
-<h2 id="DLPI"><a href="#DLPI" class="headerlink" title="DLPI"></a>DLPI</h2><p>SVR4 provides datalink access through DLPI(Datalink Provider Interface)</p>
-</blockquote>
-<img src="/img/unp_46.png" title="使用DLPI、pfmod和bufmod捕获分组">
-<blockquote>
-<h2 id="SOCK-PACKET-and-PF-PACKET"><a href="#SOCK-PACKET-and-PF-PACKET" class="headerlink" title="SOCK_PACKET and PF_PACKET"></a>SOCK_PACKET and PF_PACKET</h2><p>Two methods under Linux:</p>
-<ul>
-<li>SOCK_PACKET: original, widely available but less flexible</li>
-<li>PF_PACKET: newer method</li>
-</ul>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* newer systems*/</span></span><br><span class="line">fd = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ALL));</span><br><span class="line"><span class="comment">/* older systems*/</span></span><br><span class="line">fd = socket(AF_INET, SOCK_PACKET, htons(ETH_P_ALL));</span><br></pre></td></tr></table></figure>
-<blockquote>
-<h2 id="相关库"><a href="#相关库" class="headerlink" title="相关库"></a>相关库</h2></blockquote>
-<ul>
-<li>libpcap: 分组捕获函数和库</li>
-<li>libnet：分组构造与输出库</li>
-</ul>
-<blockquote>
-<h2 id="检查UDP校验和字段的栗子"><a href="#检查UDP校验和字段的栗子" class="headerlink" title="检查UDP校验和字段的栗子"></a>检查UDP校验和字段的栗子</h2><p>见课本 图29-3</p>
-</blockquote>
+            <p>
+              
+概述目前大多数操作系统都为应用程序提供访问数据链路层的功能，这种功能可提供如下能力
 
+
+能够监视由数据链路层接收的分组，使得诸如tcpdump之类的程序能够在普通计算机系统上运行，而无需使用专门的硬件设备来监视分组。如果使网络接口进入混杂模式(promiscuous mode)，甚至可以监听本地电
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_k/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

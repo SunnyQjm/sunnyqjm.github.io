@@ -486,212 +486,24 @@
       
         
           
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)</em></strong></p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
-<blockquote>
-<p>外键约束：即具有外键约束的两张表，在进行操作时会收到一定程度的限制，如果某个操作执行后会破坏这个完整性，就将被拒绝执行。这个在之前的博客中有介绍==&gt;<a href="http://www.jianshu.com/p/6f5032194eab" target="_blank" rel="noopener"> 传送门</a></p>
-</blockquote>
-<hr>
-<blockquote>
-<h2 id="自连接"><a href="#自连接" class="headerlink" title="自连接"></a>自连接</h2><p>一个表与自身相连接的操作，其实与多表连接是一样的，只是连接的两张表用的是同一张表而已</p>
-</blockquote>
-<ul>
-<li><h3 id="举个栗子"><a href="#举个栗子" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询了所有员工的名字以及其经理的名字</span></span><br><span class="line"><span class="keyword">SELECT</span> w.ENAME <span class="keyword">as</span> worker_name, m.ENAME <span class="keyword">as</span> manager_name</span><br><span class="line"><span class="keyword">FROM</span> EMP w</span><br><span class="line">  <span class="keyword">JOIN</span> EMP m <span class="keyword">ON</span> w.MGR = m.EMPNO;</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-6b77b742a7e84c86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-</li>
-<li>上面得到的结果是采用内连接得到的结果，所以对于那些MGR为null（没有经理）的员工，其信息就得不到显示，可以采用左外连接（LEFT OUTER JOIN）</li>
-<li><p>员工表中MGR 和 EMPNO 字段应该有一层限制，MGR的取值应该是某一个EMPNO的取值（话句话说，一个员工的经理号应该也是同一张表中这个经理的职工号）。在定义这张表的时候可以给这两个字段加上一个外键约束。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句模拟了这一操作</span></span><br><span class="line"><span class="comment">--只关注了EMPNO和MGR这两个字段，其他字段的描述省略了</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> EMP(</span><br><span class="line">  EMPNO <span class="built_in">INTEGER</span> PRIMARY <span class="keyword">KEY</span> ,</span><br><span class="line">  MGR <span class="built_in">INTEGER</span>,</span><br><span class="line">  ....</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span>(MGR) <span class="keyword">REFERENCES</span> EMP(EMPNO)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还是那句话：<strong>绝大多数连接条件是建立在外键与外键的参照键之间的</strong>(自连接也不例外)</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="自然连接（NATURAL-JOIN）"><a href="#自然连接（NATURAL-JOIN）" class="headerlink" title="自然连接（NATURAL JOIN）"></a>自然连接（NATURAL JOIN）</h2><p>其实自然连接就是写法更简单的多表连接，无需书写连接条件，让数据库自己判断应该采用什么连接条件（自然连接的语法是SQL的标准语法，但是并不是所有的数据库都支持，SQL Server就不支持自然连接的语法，但是Oracle和MySQL数据库都是支持的。。<strong>所以下面的测试就在MySQL里面测试啦，上次用IDEA连的那个数据库里面我已经建好了和在上面测试用例一样的表和数据，可以直接用</strong>）</p>
-</blockquote>
-<ul>
-<li><h3 id="可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"><a href="#可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致" class="headerlink" title="可采用自然连接的前提条件：两个表中要有同名字段，并且同名字段的数据类型要一致"></a>可采用自然连接的前提条件：<strong><em>两个表中要有同名字段，并且同名字段的数据类型要一致</em></strong></h3><ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就实现了查询所有的员工名字及其所在部门名</span></span><br><span class="line"><span class="comment">-- 相当于内连接</span></span><br><span class="line"><span class="comment">-- 因为两个表中有同名字段DEPTNO，并且数据类型相同，数据库就用这个作为连接条件</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 上面的语句等价于下面的内连接语句</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-c9b92501a39f2897.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-</li>
-<li>如果两个表中有同名字段，但是数据类型不一致，执行自然连接是会失败的，因为此时数据库不知道应该怎么连接两张表</li>
-</ul>
-</li>
-<li><h3 id="当然如果想要执行外连接（左外，右外，全外）也是一样的"><a href="#当然如果想要执行外连接（左外，右外，全外）也是一样的" class="headerlink" title="当然如果想要执行外连接（左外，右外，全外）也是一样的"></a>当然如果想要执行外连接（左外，右外，全外）也是一样的</h3><ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面几个语句是等价的，会得到相同的结果，都采用了左外连接</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">LEFT</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT d <span class="keyword">ON</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-c65af46549b6e705.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-</li>
-</ul>
-</li>
-<li><h3 id="在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"><a href="#在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）" class="headerlink" title="在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）"></a>在使用自然连接时，同名字段（用于连接的字段）不能写限定名（虽然老师上课这么讲，但实际上呢？）</h3><ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们在上面例子的基础上，多显示一个部门号，下面的两条语句如果能执行，执行完的结果都是一样的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句在Oracle数据库执行会报错</span></span><br><span class="line"><span class="comment">-- 但是在MySQL中执行是能过的</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面这种写法在Oracle和MySQL中都是能过的</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>让我们先分析一下，为什么在使用自然连接的时候同名字段可以不写限定名</p>
-<ul>
-<li><p>先看看执行下面的语句有什么结果：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d;</span><br></pre></td></tr></table></figure>
-<p>得到下面结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-24eeb8dd9e7220e0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
-</li>
-<li>可以看出来，采用自然连接以后，原本的同名字段DEPTNO只出现了一次,可以理解为采用自然连接以后FROM子句的结果就是上面那张表，同时原来的同名字段合成了一个。所以在SELECT子句中书写的时候可以不加表限定名（在Oracle数据库中不能加表限定名）</li>
-<li><strong>对比join操作</strong>，如果你直接用内连接或者外连接，而不是自然连接，会发现结果集里面用来连接的字段即便同名，也是会出现两次的（<strong>这也很好的解释了，为什么之前说在进行内外连操作的时候，用来连接的字段是需要用表明来限定的，不然SQL语句会有歧义，导致无法正确被解析</strong>————见数据库笔记（六））<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 你可以试试执行下面的SQL语句，会发现，结果集中名为DEPTNO的列有两列</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT d <span class="keyword">on</span> e.DEPTNO = d.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>让我们对上面的结果小结一下</p>
-<ul>
-<li>在采用自然连接的时候，对于同名字段，可以不写表限定名（<strong>但是在使用非自然连接的时候，同名字段一定要用表名来限定</strong>）</li>
-<li>至于能不能写，得看具体是什么数据库，Oracle此种情况下就不允许在同名字段前写表限定名，而MySQL中则可以</li>
-<li>所以推荐是在<strong>采用自然连接的时候</strong>，<strong>非同名字段都加上限定名，同名字段都不加</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="下面是在多表操作中的一点建议"><a href="#下面是在多表操作中的一点建议" class="headerlink" title="下面是在多表操作中的一点建议"></a>下面是在多表操作中的一点建议</h3><ul>
-<li>在多表连接中，所有的字段前面都建议加上限定名</li>
-<li>特殊的是，在使用自然连接的时候，同名字段不要写限定名</li>
-</ul>
-</li>
-<li><h3 id="有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"><a href="#有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。" class="headerlink" title="有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。"></a>有一个问题就是，由于数据库只分析到数据字典层面，而无法分到数据层，所以就算两个表中的一组同名字段之间没有任何关系，但是数据类型一致，采用自然连接的话，这一组同名字段也会被作为连接条件。</h3><ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面这个栗子没有实际执行，想象一下就好</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 假设我们给部门表的部门名字段更名：DNAME--&gt;ENAME</span></span><br><span class="line"><span class="comment">-- 然后我们仍然执行上面的例子</span></span><br><span class="line"><span class="comment">-- 结果应该是没有数据，除非有一个员工，他的名字和他所在部门的名字是一样的。</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.ENMAE</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">NATURAL</span> <span class="keyword">JOIN</span> DEPT d</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>导致上面结果的原因是采用了自然连接以后，数据库会把所有同名并且类型相同的字段作为连接条件</p>
-</li>
-<li>有时候我们并不希望所有的同名字段都作为条件，这个时候我们就不能用上面的自然连接操作，就应该使用介绍的有关JOIN … USING的用法</li>
-</ul>
-</li>
-<li><h3 id="利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件"><a href="#利用JOIN-…-USING-可以灵活的指定用什么字段做连接条件" class="headerlink" title="利用JOIN … USING 可以灵活的指定用什么字段做连接条件"></a>利用JOIN … USING 可以灵活的指定用什么字段做连接条件</h3><ul>
-<li>JOIN…USING 同样是一种自然连接，且是一种特殊的自然连接，不需要显示写明连接条件，只需要指定用什么字段连接即可</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 用下面的语句同样可以实现查询所有员工名字以及其所在部门名字的需求</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">USING</span> (DEPTNO);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 同样的，如果我们给部门表的部门名字段更名：DNAME--&gt;ENAME</span></span><br><span class="line"><span class="comment">-- 为了避免上面提到的问题，我们可以只指定DEPTNO作为连接条件，就轻松解决上面的问题</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.ENAME</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line">  <span class="keyword">JOIN</span> DEPT d <span class="keyword">USING</span> (DEPTNO);</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-22a77fd9ef19119d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
-</li>
-<li>其中<strong>JOIN 表名 USING (字段序列)</strong>，字段序列可以是一个或多个字段</li>
-</ul>
-</li>
-<li><h3 id="如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"><a href="#如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的" class="headerlink" title="如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的"></a>如果两个表中存在同名字段，但是数据类型不一样，这样执行自然连接是会失败的</h3></li>
-<li><h3 id="连接类型和连接条件-就是老师上课提到的课本上那个图"><a href="#连接类型和连接条件-就是老师上课提到的课本上那个图" class="headerlink" title="连接类型和连接条件(就是老师上课提到的课本上那个图)"></a>连接类型和连接条件(就是老师上课提到的课本上那个图)</h3><ul>
-<li><h4 id="连接类型"><a href="#连接类型" class="headerlink" title="连接类型"></a>连接类型</h4><ul>
-<li>INNER JOIN</li>
-<li>LEFT OUTER JOIN</li>
-<li>RIGHT OUTER JOIN</li>
-<li>FULL OUTER JOIN</li>
-</ul>
-</li>
-<li><h4 id="连接条件"><a href="#连接条件" class="headerlink" title="连接条件"></a>连接条件</h4><ul>
-<li>NATURAL</li>
-<li>ON&lt; predicate></li>
-<li>USING(A1, A2, …, An)</li>
-</ul>
-</li>
-<li>其中上面的连接类型和连接条件可以任意组合使用</li>
-<li>但不是所有数据库都支持NATURAL 和 USING的用法，SQL Server不支持，Oracle和MySQL支持，即便支持，有一些细节还是不一样的（比如上面同名字段前面能不能加限定词的问题）</li>
-<li>ON的话是都支持的，建议用ON，有更好的可读性和灵活性</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="FROM子句中的子查询"><a href="#FROM子句中的子查询" class="headerlink" title="FROM子句中的子查询"></a>FROM子句中的子查询</h2></blockquote>
-<ul>
-<li><h3 id="如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"><a href="#如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表" class="headerlink" title="如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表"></a>如果子查询出现在FROM子句中，我们将子查询的结果当做一个临时的关系（表），奕称之为虚表</h3><ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的例子求出了工资比本部门平均工资高的员工的名字和其工资，以及其所在部门的平均工资</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-7ba5a1d249d51f88.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
-</li>
-<li>分析上面的执行过程的时候，可以先分析一下子查询执行的结果是什么，然后再把它当做一张表放在上面，继续分析整个语句</li>
-</ul>
-</li>
-<li><h3 id="可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"><a href="#可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字" class="headerlink" title="可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字"></a>可以给子查询得到的临时表取一个名字，并给里面的每个字段指定名字</h3><ul>
-<li><p>最常见的是下面这种命名方法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E(DEPTNO, avg_sal)</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>直接在子查询后面用as关系指定表名以及子查询结果中每个字段的别名</li>
-</ul>
-</li>
-<li><p>但是也不是所有数据库都支持上面那种用法，Oracle数据库中就不支持用as关键字指定子查询的表名，也不支持在表名后面加上每个字段的名字，那这个时候怎么办呢？（<strong>可以在子查询里面给每个字段取别名，最后再给子查询得到的虚表用空格分隔取个表名就好了</strong>）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) E</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>下面提几点注意（对于FROM子句中的子查询）</strong>：</p>
-<ul>
-<li>如果子查询中含有聚集函数（组函数）,一定要给它起个别名</li>
-<li>对每个子查询得到的虚表都务必取个表名（虽然有些数据库可以不起表名，但是有些数据库不起表名是会出错的，所以建议还是都起一个表名）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="With-子句"><a href="#With-子句" class="headerlink" title="With 子句"></a>With 子句</h2><p>其实with子句的作用和在FROM子句中使用子查询时一样的，同样是得到了一张虚表，只是把FROM中冗长的子查询移到外面，可读性 更好一点</p>
-</blockquote>
-<ul>
-<li><h3 id="with子句的作用是定义一张临时表"><a href="#with子句的作用是定义一张临时表" class="headerlink" title="with子句的作用是定义一张临时表"></a>with子句的作用是定义一张临时表</h3></li>
-<li><h3 id="WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"><a href="#WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多" class="headerlink" title="WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多"></a>WITH子句相当于把FROM中的子查询提出来，如果FROM子句中的子查询比较复杂的时候，这样做是很有好处的，可读性会好很多</h3></li>
-<li><h3 id="WITH-的基本使用方法"><a href="#WITH-的基本使用方法" class="headerlink" title="WITH 的基本使用方法"></a>WITH 的基本使用方法</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">WITH &lt; 临时表名 &gt; （字段别名序列）AS (子查询)</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="举个栗子-1"><a href="#举个栗子-1" class="headerlink" title="举个栗子"></a>举个栗子</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的例子和上面找大于本部门平均工资的例子是等效的</span></span><br><span class="line"><span class="comment">-- 执行的结果也是相同的</span></span><br><span class="line">WITH avg_tab(DEPTNO, avg_sal)</span><br><span class="line">AS (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">    <span class="keyword">FROM</span> EMP</span><br><span class="line">    <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO)</span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, avg_tab.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, avg_tab</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = avg_tab.DEPTNO <span class="keyword">AND</span> e.SAL &gt; avg_tab.avg_sal;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句和上面的等效</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, E.avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP e, (<span class="keyword">SELECT</span> DEPTNO, <span class="keyword">AVG</span>(SAL)</span><br><span class="line">      <span class="keyword">FROM</span> EMP</span><br><span class="line">      <span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO) <span class="keyword">as</span> E(DEPTNO, avg_sal)</span><br><span class="line"><span class="keyword">WHERE</span> e.DEPTNO = E.DEPTNO <span class="keyword">and</span> e.SAL &gt; avg_sal;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="标量子查询"><a href="#标量子查询" class="headerlink" title="标量子查询"></a>标量子查询</h2></blockquote>
-<ul>
-<li><h3 id="把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING"><a href="#把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT-WHERE-HAVING" class="headerlink" title="把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING"></a>把子查询的结果当做一个值，可以出现在任何可以放值的地方，比如SELECT,WHERE,HAVING</h3></li>
-<li><h3 id="子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"><a href="#子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）" class="headerlink" title="子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）"></a>子查询的结果必须是单个元组的单个属性（即一行一列，只有单个值）</h3><blockquote>
-<h2 id="带子查询的DELETE语句"><a href="#带子查询的DELETE语句" class="headerlink" title="带子查询的DELETE语句"></a>带子查询的DELETE语句</h2></blockquote>
-</li>
-<li><p>举个栗子：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句可以用来删除所有销售部的员工的信息</span></span><br><span class="line"><span class="keyword">DELETE</span></span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> DEPTNO = (</span><br><span class="line">  <span class="keyword">SELECT</span> DEPT.DEPTNO</span><br><span class="line">  <span class="keyword">FROM</span> DEPT</span><br><span class="line">  <span class="keyword">WHERE</span> DNAME = <span class="string">'SALES'</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="带子查询的INSERT语句"><a href="#带子查询的INSERT语句" class="headerlink" title="带子查询的INSERT语句"></a>带子查询的INSERT语句</h2></blockquote>
-<ul>
-<li><p>基本格式</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> &lt; 表名 &gt;（字段序列）</span><br><span class="line">子查询</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 由于SQL Server中是没有dual这张系统表的，而Oracle和MySQL数据库中是有的，所以下面的测试是在MySQL中测试的</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句很巧妙的实现了：</span></span><br><span class="line"><span class="comment">--如果部门表中没有部门号为666的部门的话，就将摸鱼部门的信息插入到部门表中</span></span><br><span class="line"><span class="comment">--如果部门表中有部门号为666的部门，则不执行插入操作</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> DEPT (DEPTNO, DNAME, LOC)</span><br><span class="line"><span class="keyword">SELECT</span> <span class="string">'666'</span>, <span class="string">'MOYU'</span>, <span class="string">'DUT'</span></span><br><span class="line"><span class="keyword">FROM</span> dual</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(<span class="keyword">SELECT</span> *</span><br><span class="line">              <span class="keyword">FROM</span> EMP</span><br><span class="line">              <span class="keyword">WHERE</span> DEPTNO = <span class="string">'666'</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="UPDATE语句的扩展"><a href="#UPDATE语句的扩展" class="headerlink" title="UPDATE语句的扩展"></a>UPDATE语句的扩展</h2></blockquote>
-<ul>
-<li><h3 id="有下面几个扩展"><a href="#有下面几个扩展" class="headerlink" title="有下面几个扩展"></a>有下面几个扩展</h3><ul>
-<li>可以嵌入子查询（这个不在举例，和上面的用法类似）</li>
-<li>case分支结构</li>
-</ul>
-</li>
-<li><h3 id="case分支结构-可以有效的避免更新次序引发的问题"><a href="#case分支结构-可以有效的避免更新次序引发的问题" class="headerlink" title="case分支结构(可以有效的避免更新次序引发的问题)"></a>case分支结构(可以有效的避免更新次序引发的问题)</h3><ul>
-<li><p>第一种用法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">CASE WHEN &lt;条件&gt;</span><br><span class="line">        THEN ...</span><br><span class="line">     WHEN &lt;条件&gt;</span><br><span class="line">        THEN ...</span><br><span class="line">        ...</span><br><span class="line">    ELSE ...</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第二种用法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CASE &lt;条件&gt;</span><br><span class="line">WHEN &lt;值&gt; THEN ...</span><br><span class="line">WHEN &lt;值&gt; THEN ...</span><br><span class="line">...</span><br><span class="line"><span class="keyword">END</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>对比两种方法，可以将第一种方法类比成其他编程语言的if-else分支语句，而将第二种用法类比成switch语句</p>
-</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们的需求是给员工涨工资，工资大于等于3000的涨2%</span></span><br><span class="line"><span class="comment">-- 工资大于等于两千的涨3%</span></span><br><span class="line"><span class="comment">-- 工资小于2000的涨5%</span></span><br><span class="line"></span><br><span class="line"><span class="comment">--第一种尝试</span></span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.02</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt;= <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.03</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt;= <span class="number">2000</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = SAL * <span class="number">1.05</span></span><br><span class="line"><span class="keyword">WHERE</span> SAL &lt; <span class="number">2000</span>;</span><br><span class="line"><span class="comment">--会发现上面执行的次序不一样会导致结果不一样，如果把第三个更新语句先执行，那么可能某个工资低于2000的员工涨了一次工资后工资大于两千了，于是执行第二个更新语句的时候又给他涨了一遍工资</span></span><br><span class="line"></span><br><span class="line"><span class="comment">-- 第二种尝试</span></span><br><span class="line"><span class="comment">--下面就完美的实现了上面的需求，而且没有执行次序导致的问题</span></span><br><span class="line"><span class="keyword">UPDATE</span> EMP</span><br><span class="line"><span class="keyword">SET</span> SAL = <span class="keyword">CASE</span></span><br><span class="line">    <span class="keyword">WHEN</span> SAL &gt;= <span class="number">3000</span> <span class="keyword">THEN</span> SAL * <span class="number">1.02</span></span><br><span class="line">    <span class="keyword">WHEN</span> SAL &gt;= <span class="number">2000</span> <span class="keyword">THEN</span> SAL * <span class="number">1.03</span></span><br><span class="line">    <span class="keyword">ELSE</span> SAL * <span class="number">1.05</span></span><br><span class="line">    <span class="keyword">END</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h4 id="case分支结构不止可以用在update子句中，在select子句中也是有的"><a href="#case分支结构不止可以用在update子句中，在select子句中也是有的" class="headerlink" title="case分支结构不止可以用在update子句中，在select子句中也是有的"></a>case分支结构不止可以用在update子句中，在select子句中也是有的</h4><blockquote>
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>啊啊啊啊啊，这个内容还不是三言两语讲的玩的，下次吧下次吧。&gt;.&lt;</p>
-</blockquote>
-</li>
-</ul>
+            <p>
+              
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试(由于SQL Server 数据库不支持自然连接，所以自然连接部分的将会在MySQL数据库中进行测试)
 
+
+
+在开始今天的摸鱼大业之前，
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/29/2017-09-29-数据库学习笔记（七）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -844,144 +656,24 @@
       
         
           
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在开始今天的摸鱼大业之前，让我们继续延用之前用的表(为了演示方便，我们在EMP表中多插入了一条数据，这个数据的部门号是空值)，用于演示下面的例子(´`)</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-92e8199e3c0a7042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
-<blockquote>
-<h2 id="FROM-中的子查询"><a href="#FROM-中的子查询" class="headerlink" title="FROM 中的子查询"></a>FROM 中的子查询</h2><p>由于FROM中的子查询涉及到多表的操作，所以准备放在后面讲，先在此处做个小提示，等学完多表操作后，会回来提这个，到时候我会在这边贴一个链接</p>
-</blockquote>
-<p><br></p>
-<blockquote>
-<h2 id="多表查询中的笛卡尔积（全匹配问题）"><a href="#多表查询中的笛卡尔积（全匹配问题）" class="headerlink" title="多表查询中的笛卡尔积（全匹配问题）"></a>多表查询中的笛卡尔积（全匹配问题）</h2></blockquote>
-<ul>
-<li><h3 id="如果在进行多表查询操作时没有连接条件-，则会进行全匹配，结果集相当于两个表进行笛卡尔积"><a href="#如果在进行多表查询操作时没有连接条件-，则会进行全匹配，结果集相当于两个表进行笛卡尔积" class="headerlink" title="如果在进行多表查询操作时没有连接条件 ，则会进行全匹配，结果集相当于两个表进行笛卡尔积"></a>如果在进行多表查询操作时没有<strong><em>连接条件</em></strong> ，则会进行全匹配，结果集相当于两个表进行笛卡尔积</h3><ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作本来是想输出所有的员工的姓名以及其所在的部门名</span></span><br><span class="line"><span class="comment">-- 但是由于没有指定连接条件，所以结果将会是每一个员工与每一个部门组合的结果</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>结果如下(结果太多了，总共有52条，下面的图片中只截取了前面的一部分)：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-30a982c8e1c7b36e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></p>
-</li>
-<li><h3 id="在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免-gt-添加连接条件-WHERE-emp-deptno-dept-deptno"><a href="#在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免-gt-添加连接条件-WHERE-emp-deptno-dept-deptno" class="headerlink" title="在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免==&gt;添加连接条件(WHERE emp.deptno = dept.deptno)"></a>在实际开发过程中笛卡尔积得到的结果一般是没有太大意义的，所以应当尽量避免==&gt;添加连接条件(WHERE emp.deptno = dept.deptno)</h3><ul>
-<li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 这个栗子就基本完成了上面的需求</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-a655dbcd9ef3c279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-<ul>
-<li>但是仔细观察会发现，上面的数据只有13条，而员工表里面的数据有14条，其中Sunny所在部门号为空值，在部门表中匹配不到结果，故没有出现在结果集当中。（这是因为采用内连接的缘故，下面将会对内外连接分别做分析）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="在WHERE子句中书写连接条件的内连接"><a href="#在WHERE子句中书写连接条件的内连接" class="headerlink" title="在WHERE子句中书写连接条件的内连接"></a>在WHERE子句中书写连接条件的内连接</h2><p>这种在where子句中写连接条件的实现方式，不是SQL标准中的标准用法，但是大多数数据库都支持这种用法，所以这种用法已经成了一种事实标准。在内连接的范畴中，这种用法与SQL标准的内连接用法是等价的</p>
-</blockquote>
-<ul>
-<li><h3 id="等值内连"><a href="#等值内连" class="headerlink" title="等值内连"></a>等值内连</h3><ul>
-<li><p>上述那个例子就是最常见的等值内连</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>等值内连就是在where中书写多表的连接条件的时候比较两个表中某一个或多个字段的值，值相等的则匹配（常见的就是用一个表的外键与另一个表中对应的外键的参照键进行比较）</p>
-</li>
-<li><p>必须是两张表中能够满足连接条件的数据才会出现在结果集当中（不单是等值连接，下面讲的非等值连接也是，所有内连接都应该瞒住这个）</p>
-<ul>
-<li>再来举个上面举过的栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作得到了所有员工的名字以及其所在部门的名字</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-a655dbcd9ef3c279.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></p>
-<ul>
-<li>我们发现员工名为Sunny的员工数据和部门号为40的部门数据都没有出现在结果集当中。因为Sunny的部门号为空值，不等于部门表中任意一行数据的部门号，故找不到匹配；因为在员工表中没有员工的部门号为40，所以部门号为40的部门也没有出现在结果集当中。（只有满足连接条件，并且成功找到匹配的数据才会出现杂结果集当中）</li>
-</ul>
-</li>
-<li><p>这种用where书写的多表连接语句等价于SQL标准中的内连接（inner join）</p>
-<ul>
-<li>上面的语句也可以写成下面这种形式<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句和上面例子中的语句是等价的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO</span><br><span class="line"></span><br><span class="line"><span class="comment">-- SQL标准中还有下面这种用法（课本上有提到，但是显然SQL Server不支持这种用法）</span></span><br><span class="line"><span class="comment">-- 表示的是利用DEPNOT这个字段来进行两表的连接（前提是这两个表中要有同名字段）</span></span><br><span class="line"><span class="comment">-- 如果支持这种用法的数据库执行下面操作的话得到的结果和上面的是一样的（经验证，MySQL数据库是支持这种用法的）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">INNER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">USING</span>(DEPNOT)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>对于两表中的同名字段，在使用的时候必须用表名或者表别名加以限定，不然SQL语句会有歧义，导致无法正确被解析</p>
-<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 我们想在上面例子的基础上，多显示一个部门号</span></span><br><span class="line"><span class="comment">-- 如果写成下面这样，就会报错，因为SQL解析器不知道DEPTNO指的是EMP表的还是DEPT表的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, DEPNOT</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 正确的写法应该是这样的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, EMP.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">--当然也可以用DEPT来限定</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, DEPT.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP, DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 不过最好用表别名来限定，比较简洁一点</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e, DEPT d</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>如果对一个表起了别名之后就不能再使用原表名了，而要换成其别名</p>
-<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面这个语句执行的话是要报大错滴，因为已经给EMP表起了别名e，就不能再用原表名EMP了</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME, EMP.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e, DEPT d</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>如果再考虑效率问题，在进行多表操作时，最好所有字段都用表名或者表别名限定，这样可以免去SQL解析器帮你分析某个字段属于哪个表的开销，可以在一定程度上提高执行效率</p>
-<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> e.ENAME, d.DNAME, e.DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e, DEPT d</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="不等值连接"><a href="#不等值连接" class="headerlink" title="不等值连接"></a>不等值连接</h3><ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就查处了所有员工的姓名、工资、以及其工资等级</span></span><br><span class="line"><span class="keyword">SELECT</span> e.ENAME, e.SAL, g.GRADE</span><br><span class="line"><span class="keyword">FROM</span> EMP e, SALGRADE g</span><br><span class="line"><span class="keyword">WHERE</span> e.SAL &gt;= g.LOSAL <span class="keyword">AND</span>  e.SAL &lt;= g.HISAL;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-7ab76bf006d64f46.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></p>
-<ul>
-<li>不等值连接就是内连接中除了通过比较值相同来进行连接以外的其他内连接操作</li>
-</ul>
-</li>
-<li><h3 id="n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积"><a href="#n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积" class="headerlink" title="n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积"></a>n个表相连，至少需要n-1个连接条件，要不然就会在连接过程中出现笛卡尔积</h3></li>
-<li><h3 id="多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接"><a href="#多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接" class="headerlink" title="多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接"></a>多表的连接条件一般都是建立在外键和外键的参照键之间，采用等值连接</h3></li>
-</ul>
-<blockquote>
-<h2 id="SQL内连接的标准写法"><a href="#SQL内连接的标准写法" class="headerlink" title="SQL内连接的标准写法"></a>SQL内连接的标准写法</h2></blockquote>
-<ul>
-<li>JOIN … ON …</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就是SQL标准中多表内连接的写法</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> TABLE1 t1</span><br><span class="line">  <span class="keyword">JOIN</span> TABLE2 t2 <span class="keyword">ON</span> ...</span><br><span class="line">  <span class="keyword">JOIN</span> TABLE3 t3 <span class="keyword">ON</span> ...</span><br><span class="line">  <span class="keyword">JOIN</span> TABLE4 t4 <span class="keyword">ON</span> ...</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="外连接"><a href="#外连接" class="headerlink" title="外连接"></a>外连接</h2><p>内连接的结果是外连接结果的一个子集，外连接的结果中还可以包括只在一张表中出现，并且在另一张表种找不到匹配的结果</p>
-</blockquote>
-<ul>
-<li><h3 id="左外连接-LEFT-OUTER-JOIN"><a href="#左外连接-LEFT-OUTER-JOIN" class="headerlink" title="左外连接(LEFT OUTER JOIN)"></a>左外连接(LEFT OUTER JOIN)</h3><ul>
-<li>包含JOIN关键字左表中的所有数据（即便某个数据在右表中找不到匹配）</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句与上面的例子类似</span></span><br><span class="line"><span class="comment">-- 同样是得到所有员工的名字以及其所在部门名</span></span><br><span class="line"><span class="comment">-- 不同的是采用左外连接以后Suuny的数据会出现在结果集中了</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-bae5c059684bb68f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></p>
-</li>
-<li><h3 id="右外连接-RIGHT-OUTER-JOIN"><a href="#右外连接-RIGHT-OUTER-JOIN" class="headerlink" title="右外连接(RIGHT OUTER JOIN)"></a>右外连接(RIGHT OUTER JOIN)</h3><ul>
-<li>包含JOIN关键字右表中的所有数据(即便某个数据在左表中找不到匹配</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 还是这个栗子，但不同的是我们把LEFT改成了RIGHT</span></span><br><span class="line"><span class="comment">-- 会发现，部门号为40的部门信息显示出来了</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">RIGHT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-ed3df5c56aebbad7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="5.png"></p>
-</li>
-<li><h3 id="对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）"><a href="#对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）" class="headerlink" title="对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）"></a>对比可以发现左外连接和右外连接的效用其实是一样的，只要吧JOIN两边表的位置对调一下，两者就可相互转换。（使用时随意，习惯怎么用就怎么用就好）</h3></li>
-<li><h3 id="全外连接"><a href="#全外连接" class="headerlink" title="全外连接"></a>全外连接</h3><ul>
-<li>JOIN关键字两边的表的所有数据都会出现在结果集当中，得到的结果其实就是左外连接和右外连接结果集的并集</li>
-<li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, DNAME</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">FULL</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line">    <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果：<br><br><img src="http://upload-images.jianshu.io/upload_images/7222676-5131fe67e4c64673.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="6.png"></p>
-</li>
-<li><h3 id="在进行多表连接的时候采用WHERE和ON的区别"><a href="#在进行多表连接的时候采用WHERE和ON的区别" class="headerlink" title="在进行多表连接的时候采用WHERE和ON的区别"></a>在进行多表连接的时候采用WHERE和ON的区别</h3><ul>
-<li>其一，在进行外连接的时候，必须用ON</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句做了简单的外连接操作</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT  <span class="keyword">ON</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句执行是会报错的，因为没有加on</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line">  <span class="keyword">LEFT</span> <span class="keyword">OUTER</span> <span class="keyword">JOIN</span> DEPT</span><br><span class="line"><span class="keyword">WHERE</span> EMP.DEPTNO = DEPT.DEPTNO;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其二，如果在on子句中指定连接条件，并在where子句中出现其余条件，这样的SQL插叙通常更容易让人读懂</p>
-</li>
-<li>所以在执行内连接的时候，on和where的使用是没有多大区别的，但是在执行外连接的时候就必须用on了。所以建议就是<strong>在on子句中指定连接条件，并在where子句中出现其余条件</strong></li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第四章(第三章的多表部分会挪到这一部分讲)笔者接下来的代码示例会主要在SQL Server数据库中测试
 
+
+
+在开始今天的摸鱼大业之前，让我们继续延用之前用的表(为了演示方便，我们在EMP表中多插入了一条数据，这个数据的部门号是空值)，用
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/26/2017-09-26-数据库学习笔记（六）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1134,181 +826,31 @@
       
         
           
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)<br><strong><em>笔者接下来的代码示例会主要在SQL Server数据库中测试</em></strong></p>
-</blockquote>
-<hr>
-<blockquote>
-<p>在开始今天的摸鱼大业之前，让我们先构造一组表，用于演示下面的例子(´`)</p>
-</blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-0efdf4c14fc38de4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="BONUS.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-1d0cfd97cfff8f86.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="DEPT.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-bf98c8284e4844ce.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="EMP.png"></p>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-aa04e988d03f7215.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="SALGRADE.png"></p>
-<blockquote>
-<h2 id="Having-子句"><a href="#Having-子句" class="headerlink" title="Having 子句"></a>Having 子句</h2><p>由于where子句中不能用聚合函数（组函数）做条件，故引入having子句</p>
-</blockquote>
-<ul>
-<li>让我们先看一下各个子句的书写顺序（下面的只是我们一般在写SQL语句时候的书写顺序）<ul>
-<li>SELECT</li>
-<li>FROM</li>
-<li>WHERE</li>
-<li>GROUP BY</li>
-<li>HAVING</li>
-<li>ORDER BY</li>
-<li>上面各子句的执行顺序：FROM–&gt;WHERE– &gt; GROUP BY–&gt; HAVING–&gt;SELECT–&gt;ORDER BY<blockquote>
-<p>其中上面除了GROUP BY和HAVING可以互换位置外，其他位置均固定，但最好采用上面的顺序</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>从上面的讨论中可以看出<ul>
-<li>HAVING一般紧随GROUP BY之后，置于ORDER BY之前</li>
-<li>而且当聚集函数（组函数）做条件时，只用用HAVING来处理</li>
-</ul>
-</li>
-<li><p>举个栗子：<strong>求所有平均工资大于2000的部门的部门号以及该部门的平均工资</strong></p>
-<ul>
-<li><p>先来看看每个部门的平均工资</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEPTNO, <span class="keyword">avg</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO</span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-550eb3f89b741be7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="1.png"></li>
-<li><p>接下来开始求题设的问题</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> DEPTNO, <span class="keyword">avg</span>(SAL) <span class="keyword">as</span> avg_sal</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> DEPTNO</span><br><span class="line"><span class="keyword">HAVING</span> <span class="keyword">avg</span>(SAL) &gt; <span class="number">2000</span>;</span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-ae9918c4513b34be.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="2.png"></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="聚合函数的嵌套"><a href="#聚合函数的嵌套" class="headerlink" title="聚合函数的嵌套"></a>聚合函数的嵌套</h2></blockquote>
-<ul>
-<li>不同数据库对聚集函数嵌套的规定不同<ul>
-<li>Oracle数据库规定最多只能有两层嵌套</li>
-<li>SQL Server不允许聚集函数嵌套</li>
-</ul>
-</li>
-<li><p>举个栗子：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句在Oracle数据库中执行是可以的</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">avg</span>(sal))</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno</span><br><span class="line"></span><br><span class="line"><span class="comment">--上面的语句在SQL Server中执行会报下面的错</span></span><br><span class="line">[S0001][<span class="number">130</span>] 不能对包含聚合或子查询的表达式执行聚合函数。</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>┐(´•_•`)┌ 实际上二层以上的嵌套也是毫无意义的（只是瞎哔哔，不是什么重点，有助于理解为什么聚集函数多层嵌套是没有意义的）</p>
-<ul>
-<li>首先回忆一下，聚集函数的操作是多行输入，得到一行输出</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">max</span>(<span class="keyword">max</span>(<span class="keyword">avg</span>(sal)))</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">GROUP</span> <span class="keyword">BY</span> deptno</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>现在来分析上面语句执行的过程</p>
-<ul>
-<li>（avg）首先根据部门号deptno分成若干组，并计算每组的平均工资（返回若干条记录）</li>
-<li>（max）然后取各部门最高的平均工资（返回一条记录）</li>
-<li>（max）这个时候只有一条记录，取最大值也还是那一条记录</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h2><p>这部分是重点也是难点呀٩(๑`^´๑)۶，不用担心，让笔者带你细细解剖(≖_≖ )<br>这部分参考了两份笔记和课本</p>
-</blockquote>
-<ul>
-<li><h3 id="嵌套子查询"><a href="#嵌套子查询" class="headerlink" title="嵌套子查询"></a>嵌套子查询</h3><strong><em>即SQL标准提供嵌套子查询机制，允许将一个完整的select-from-where查询表达式嵌入到另一个查询语句中</em></strong></li>
-<li><h3 id="子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）"><a href="#子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）" class="headerlink" title="子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）"></a>子查询嵌套在where和having子句中的情况（把子查询整体当做一组值，可以是0个，1个，或多个）</h3><ul>
-<li><p>单行子查询</p>
-<ul>
-<li>在单行子查询中，子查询语句只能返回一行数据</li>
-<li>当where子句中用下列逻辑符号连接子查询时，便只能连接单行子查询<ul>
-<li>=</li>
-<li>&lt;</li>
-<li>></li>
-<li>&lt;=</li>
-<li>>=</li>
-<li>&lt;&gt;</li>
-</ul>
-</li>
-<li><p>举个栗子(≖_≖ )</p>
-<ul>
-<li>我们现在要找<strong>所有员工中，拿到最高工资的人的名字以及工资</strong><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL = (<span class="keyword">SELECT</span> <span class="keyword">max</span>(SAL)</span><br><span class="line">             <span class="keyword">FROM</span> EMP);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-d396978f87dd2246.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="3.png"></li>
-</ul>
-</li>
-<li><p>多行子查询</p>
-<ul>
-<li>多行子查询中，子查询语句可以返回多行数据</li>
-<li>当where子句中用下列关键字连接子查询时，便是多行子查询($代表上面提到的=, &gt;等符号)<ul>
-<li>$ any/some</li>
-<li>$ all</li>
-</ul>
-</li>
-<li>举几个简单的栗子<ul>
-<li>&lt; any(…)  表示小于子查询结果集中的最大值</li>
-<li>> any(…) 表示大于子查询结果集中的最小值</li>
-<li>= any(…)  等价于in</li>
-<li>= all(…)  没有语法错误，但是只要子查询结果集的个数大于1，则整体的结果必然为空</li>
-<li>&lt; all(…)  表示小于子查询结果集中的最小值</li>
-<li>> all(…) 表示大于子查询结果集中的最大值</li>
-</ul>
-</li>
-<li><p>来举个正经的栗子</p>
-<ul>
-<li>求<strong>比部门号为20的部门的所有员工的工资都要高的员工的名字和工资</strong><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>得到如下结果</p>
-</li>
-<li><img src="http://upload-images.jianshu.io/upload_images/7222676-0ff8c440bec838bf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="4.png"></li>
-<li><p>还有一个要注意的问题(ㅍ_ㅍ)，就是子查询中SELECT后面的字段要根据主查询语句中的字段来确定（简单的说就是子查询语句前面，where后面，出现了什么字段，子查询语句的SELECT列表中理论上就应该出现这些字段）</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面这个语句是匹配的</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br><span class="line"><span class="comment">--下面这个语句就不匹配的</span></span><br><span class="line"><span class="comment">--因为ENAM并没有出现在主查询语句中</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line"><span class="keyword">FROM</span> EMP</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; <span class="keyword">SOME</span> (<span class="keyword">SELECT</span> ENAME, SAL</span><br><span class="line">                <span class="keyword">FROM</span> EMP</span><br><span class="line">                <span class="keyword">WHERE</span> DEPTNO = <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>其实换个角度想想，具体执行的时候是将where后面的字段与子查询语句的结果集进行比较，如果字段都不一样，就没有可比性了</p>
-</li>
-</ul>
-</li>
-<li>对了，还有一个补充，<strong>not in + 子查询，如果子查询的结果集中包含NULL值，那整体的结果必为空</strong>。因为NULL值是不确定的值，谁也不能保证某个具体的值是否等于NULL。。。</li>
-</ul>
-</li>
-<li><p>子查询中存在性的判别可以用exists关键字</p>
-<ul>
-<li>举个栗子就好<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句就查出了所有手底下管了人的经理的信息</span></span><br><span class="line"><span class="comment">--其实这里已经用到了相关子查询，具体的下面将会讲到</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">exists</span>(<span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> EMP.MGR = e.EMPNO);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>试思考下面两个问题，根据提示理解一下，也可以实际操作验证一下</p>
-<ul>
-<li>=some 等价于 in， 然而 &lt;&gt;some不等价于not in（<strong><em>&lt;&gt;some表示的是只要不等于结果集中的任意元素即可，可想而知，只要结果集中有大于一个元素，这个条件是恒成立的</em></strong>）</li>
-<li>&lt;&gt;all 等价于 not in，然而=all不等价于in</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="相关子查询"><a href="#相关子查询" class="headerlink" title="相关子查询"></a>相关子查询</h3><ul>
-<li>慎用，因为一旦使用相关子查询，子查询语句可能会被执行很多次，很影响效率</li>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句找出了所有比自己部门平均工资高的员工的信息</span></span><br><span class="line"><span class="comment">--检索时，每检索一行数据，子查询语句就要被执行一次</span></span><br><span class="line"><span class="comment">--（因为该子查询语句只有在某个具体的部门号下才会有结果</span></span><br><span class="line"><span class="comment">--而，要获取部门号，就必须依赖于主查询语句中的某行具体数据）</span></span><br><span class="line"><span class="keyword">SELECT</span> ENAME, SAL, DEPTNO</span><br><span class="line"><span class="keyword">FROM</span> EMP e</span><br><span class="line"><span class="keyword">WHERE</span> SAL &gt; (<span class="keyword">SELECT</span> <span class="keyword">avg</span>(EMP.SAL)</span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> e.DEPTNO = EMP.DEPTNO);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>举个上面举过的栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">--下面的语句就查出了所有手底下管了人的经理的信息</span></span><br><span class="line"><span class="comment">--用exists时，只要找到数据即会返回，不会继续向下检索</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> EMP <span class="keyword">as</span> e</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">exists</span>(<span class="keyword">SELECT</span> <span class="number">1</span></span><br><span class="line">             <span class="keyword">FROM</span> EMP</span><br><span class="line">            <span class="keyword">WHERE</span> EMP.MGR = e.EMPNO);</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>由于exists会在找到数据后立即返回，而不是继续向下检索，所以用exists的相关子查询效率会稍微高一丢丢</p>
-<ul>
-<li>可以自己验证一下下面结论<ul>
-<li>not exists 不受空值的影响</li>
-<li>not in 受空值的影响</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)笔者接下来的代码示例会主要在SQL Server数据库中测试
 
+
+
+在开始今天的摸鱼大业之前，让我们先构造一组表，用于演示下面的例子(´`)
+
+
+
+
+
+
+Having 子
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/22/2017-09-22-数据库学习笔记（五）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1461,198 +1003,24 @@
       
         
           
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)<br>下面的例子中的测试都是在MySQL数据库中测试的</p>
-</blockquote>
-<hr>
-<blockquote>
-<h2 id="集合运算"><a href="#集合运算" class="headerlink" title="集合运算"></a>集合运算</h2><p>此处集合运算的概念与数学中集合的概念类似，可以借助文氏图加深理解。故此处对并运算进行展开，其他啊两个自己类比，后面还会对集合运算的几个注意点进提醒。</p>
-</blockquote>
-<ul>
-<li><h3 id="union-集合并运算"><a href="#union-集合并运算" class="headerlink" title="union(集合并运算)"></a>union(集合并运算)</h3><ul>
-<li>union 默认去除重复，并升序排序（因为涉及到排序，故而会有效率上的劣势）</li>
-<li>union all 就可保留重复项，并且保留原序（不进行排序）</li>
-<li><p>举个栗子（现有两张表如下）</p>
-  <img src="/img/database/13.png">
-  <center>Student表</center>
+            <p>
+              
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)下面的例子中的测试都是在MySQL数据库中测试的
 
-  <img src="/img/database/14.png">
-  <center>Teacher表</center>
 
-<ul>
-<li><p>执行以下运算</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果(得到的结果没有重复元素，但是没有排序，说明MySQL数据库在此处没有对其进行排序输出，但是Oracle数据库是会对数据进行升序排序的)</p>
-<img src="/img/database/15.png">
-</li>
-<li><p>执行以下运算</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果(可以知道，UNION ALL 保留了重复元素)</p>
-<img src="/img/database/16.png">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="intersect-集合交运算"><a href="#intersect-集合交运算" class="headerlink" title="intersect(集合交运算)"></a>intersect(集合交运算)</h3></li>
-<li><h3 id="except-集合差运算"><a href="#except-集合差运算" class="headerlink" title="except(集合差运算)"></a>except(集合差运算)</h3></li>
-<li><h3 id="Note"><a href="#Note" class="headerlink" title="Note:"></a>Note:</h3><ul>
-<li><p>参与集合运算的两个视图的列数要一致</p>
-<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句执行就会出错</span></span><br><span class="line"><span class="comment">-- 因为第一个视图有两个字段，而第二个视图只有一个字段，无法进行集合运算</span></span><br><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>参与集合运算的两个视图对应位置的字段的数据类型应该是一致的（数据类型兼容即可，字段名无需一致）</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 按上面的说法下面语句执行是非法的</span></span><br><span class="line"><span class="comment">-- 因为第二个字段的数据类型不兼容，一个是浮点型，一个是字符串类型</span></span><br><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age, tech_name</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>上面的书法在Oracle数据库里得到了证实，确实执行是会报错的，<br>那MySQL数据库呢？我们执行以下，得到以下结果</p>
-<img src="/img/database/17.png">
-<p>说明该写法在Mysql里面竟然是合法的（所以所有的特性都要视不同的数据库，视情况而分析）</p>
-</li>
-</ul>
-</li>
-<li><p>若无字段可加，又需保证列数相同，可控NULL做填充</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span> ALL</span><br><span class="line"><span class="keyword">SELECT</span> age, <span class="literal">NULL</span></span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果哦</p>
-<img src="/img/database/18.png">
-</li>
-</ul>
-</li>
-<li><p>集合运算的结果视图的字段名以第一个结果集的字段名为主</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">UNION</span></span><br><span class="line"><span class="keyword">SELECT</span> tech_name</span><br><span class="line"><span class="keyword">FROM</span> Teacher</span><br></pre></td></tr></table></figure>
-<p>得到如下结果：</p>
-<img src="/img/database/19.png">
-</li>
-</ul>
-</li>
-<li><p>Oracle数据库中，差运算不是except， 而是minus；Oracle数据库union可以后面跟all， 但是interscet和minus后面不可以（不同数据库不同）</p>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="空值NULL"><a href="#空值NULL" class="headerlink" title="空值NULL"></a>空值NULL</h2></blockquote>
-<ul>
-<li>NULL就是不确定的值，参与数值运算和字符串运算时，不同的数据库采取的处理不同；</li>
-<li>Oracle 数据库中，NULL无论参与数值运算还是字符串运算，都会使整体为NULL</li>
-<li><p>获取系统时间</p>
-<ul>
-<li>Oracle数据库的查询语句必须有from</li>
-<li><p>故采用如下方法获取系统时间</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 其中dual是Oracle数据库系统自带的一行一列的表</span></span><br><span class="line"><span class="comment">-- 其他数据库没有这个表</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span></span><br><span class="line"><span class="keyword">FROM</span> dual</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>MySQL就没有这个限制</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 在MySQL和SQL Server中用下面的语句就可获得系统时间</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>日期类型的运算</p>
-<ul>
-<li><p>可与数值类型做加减运算（在Oracle数据库里面单位为天，·.·在MySQL里面竟然是秒）</p>
-<ul>
-<li><p>举个栗子（MySQL里面测试）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SYSDATE</span>() - <span class="number">1</span>, <span class="keyword">SYSDATE</span>(), <span class="keyword">SYSDATE</span>() + <span class="number">1</span></span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-<img src="/img/database/20.png">  
-</li>
-</ul>
-</li>
-<li><p>可与日期类型做减运算，得到连个日期之前的差值</p>
-</li>
-<li>不可与日期类型做加运算（在Oracle数据库执行日期间加运算直接报错，Mysql数据库直接真的返回两个日期加以后的值，不过巨耗时，mmp）</li>
-<li>与NULL值运算得NULL值（在Oracle和MySQL上测试结果都正确）</li>
-</ul>
-</li>
-<li>where 子句，判断是否为空<ul>
-<li>用is NULL 和 is not NULL 判断</li>
-<li>而不用 = NULL 和 != NULL</li>
-</ul>
-</li>
-<li>布尔变量有三个取值：TRUE，FALSE, NULL<ul>
-<li>三种取值以and，or相连时的结果，与并联串联电路的判断类</li>
-<li>TRUE and NULL = NULL</li>
-<li>TRUE OR NULL = TRUE</li>
-<li>FALSE and NULL = FALSE</li>
-<li>FALSE OR NULL = NULL</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句将会返回Student表中的所有信息</span></span><br><span class="line"><span class="comment">-- 因为where子句后面的条件为真</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> <span class="literal">TRUE</span> <span class="keyword">OR</span> <span class="literal">NULL</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="去重关键字-distinct"><a href="#去重关键字-distinct" class="headerlink" title="去重关键字 distinct"></a>去重关键字 distinct</h2></blockquote>
-<ul>
-<li>跟在SELECT的后面，并且置于所有字段的前面</li>
-<li>会将其后的字段都作为判断重复的条件</li>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句就是列出学生表中的数据，并去除stu_name和age都相同的数据重复</span></span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> stu_name, age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<blockquote>
-<h2 id="聚集函数（Aggregate-Functions）"><a href="#聚集函数（Aggregate-Functions）" class="headerlink" title="聚集函数（Aggregate Functions）"></a>聚集函数（Aggregate Functions）</h2><p>多行输入，一行输出</p>
-</blockquote>
-<ul>
-<li>此类函数有MIN，MAX，COUNT，AVG，SUM。其中<strong>AVG和SUM只能参与数值运算</strong></li>
-<li><strong>聚集函数在使用时会忽略空值NULL</strong><ul>
-<li>除了COUNT(*)，COUNT(*)在统计的时候是不忽略空值的</li>
-</ul>
-</li>
-<li><h3 id="Count"><a href="#Count" class="headerlink" title="Count"></a>Count</h3><ul>
-<li>在计数时，忽略空值项</li>
-<li><p>默认是统计重复项的，其中ALL是默认的，顾可以不显示指明</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COUNT(ALL age)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果统计去除重复以后的结果,可如下面写法</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">COUNT(DISTINCT age)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Oracle中用作对null值数据处理的函数nvl</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 下面的语句表示对数据表中的分数做加和，如果遇到为空的项，则取其值为0</span><br><span class="line"><span class="keyword">SELECT</span> <span class="keyword">SUM</span>(NVL(score, <span class="number">0</span>))</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>COUNT(*)==&gt;可返回满足where子句条件的所有数据的数量</p>
-<ul>
-<li><strong>这是COUNT独有的用法，其他聚集函数里面只能放字段或表达式</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="SUM"><a href="#SUM" class="headerlink" title="SUM"></a>SUM</h3><ul>
-<li><strong>SUM(age) + SUM(score) &gt;= SUM(age + score)</strong></li>
-<li>因为聚集函数在使用时会忽略空值，而NULL值直接参与运算可能会导致整体为空，顾有上述结论</li>
-<li>当且仅当数据中没有空值时，上述等号成立</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>分组聚集（Aggregation）</p>
-</blockquote>
-<ul>
-<li>GROUP BY <strong><em>字段序列</em></strong><ul>
-<li>GROUP BY 后面跟的字段序列作为分组条件，值相同的为一组</li>
-<li>可以是多个字段（顺序不影响结果）</li>
-</ul>
-</li>
-<li><strong>当SELECT列表中出现了聚集函数，select中能出现以下字段</strong><ul>
-<li>可以放group by 后面的字段</li>
-<li>可以放聚集函数处理了的字段或表达式<blockquote>
-<p>上面两种情况下的字段在每组的取值都是唯一的，故而可以保证结果集中每一项的行数是一致的</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>having， 解决where子句中不能包含聚集函数的问题</p>
-<ul>
-<li><a href="http://wiki.jikexueyuan.com/project/sql/having-clause.html" target="_blank" rel="noopener">传送门</a></li>
-</ul>
-</blockquote>
 
+集合运算此处集合运算的概念与数学中集合的概念类似，可以借助文氏图加深理解。故此处对并运算进行展开，其他啊两个自己类
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/19/2017-09-19-数据库学习笔记（四）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1707,7 +1075,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-数据库学习笔记（三）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -1727,7 +1095,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" class="post-title-link" itemprop="url">数据库笔记（三）</a>
+                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="post-title-link" itemprop="url">Java环境简单配置+IDEA（小白版）</a>
               
             
           </h1>
@@ -1805,237 +1173,31 @@
       
         
           
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)</p>
-</blockquote>
-<hr>
-<blockquote>
-<h2 id="SELECT-与-SELECT-全字段-的执-行效率是有差别的"><a href="#SELECT-与-SELECT-全字段-的执-行效率是有差别的" class="headerlink" title="SELECT * 与 SELECT 全字段 的执    行效率是有差别的"></a>SELECT * 与 SELECT 全字段 的执    行效率是有差别的</h2></blockquote>
-<ul>
-<li>数据库在具体执行 SELECT * 的时候可以这样理解：首先把 * 替换成对应表的全字段序列，再执行。故在执行的的时候 SELECT * 的效率是会更低的</li>
-<li>事实上 <strong>SELECT *</strong> 也是<strong>典型的低效语句</strong></li>
-<li>故在实际应用过程中应该尽量避免使用 SELECT *</li>
-</ul>
-<blockquote>
-<h2 id="where子句-and、or、not的优先级顺序"><a href="#where子句-and、or、not的优先级顺序" class="headerlink" title="where子句 and、or、not的优先级顺序"></a>where子句 <strong>and</strong>、<strong>or</strong>、<strong>not</strong>的优先级顺序</h2></blockquote>
-<ul>
-<li><p>or &lt; and &lt; not (not的优先级最高)</p>
-<ul>
-<li>例如：我们要实现“年龄小于16或大于18，并且分数不小于60的所有学生”</li>
-<li><p>于是写出了 <br></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">where age &gt; 18</span><br><span class="line">or age &lt; 16</span><br><span class="line">and not score &lt; 60</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面的语句实际表示的是: 分数不小于60并且年龄小于16，或者年龄大于18</p>
-</li>
-</ul>
-</li>
-<li>实际使用的时候<strong>不要依赖</strong>于它们的<strong>优先级顺序</strong>！！<ul>
-<li>上面的需求可用下面的语句实现：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">where (age &gt; 18 or age &lt; 16)</span><br><span class="line">and score &gt;= 60</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="SQL-附加的基本运算"><a href="#SQL-附加的基本运算" class="headerlink" title="SQL 附加的基本运算"></a>SQL 附加的基本运算</h1></blockquote>
-<ul>
-<li><h3 id="更名运算-as"><a href="#更名运算-as" class="headerlink" title="更名运算 as"></a>更名运算 <strong>as</strong></h3><img src="/img/database/01.png">
-<center>首先存在如上表结构</center>
+            <p>
+              
+JDK配置
 
-<ul>
-<li>需要事先申明的是，这里所说的更名并不是实际更改数据库中的表结构，更改只是在执行查询操作的过程中得到的结果视图</li>
-<li><p>as 关键字可用于SELECT语句中给字段更名</p>
-<ul>
-<li><p>执行如下语句：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> stu_name <span class="keyword">as</span> student_name, age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-<img src="/img/database/02.png">
-</li>
-</ul>
-</li>
-<li><p>as 关键字可用于FROM语句中给表更名</p>
-<ul>
-<li>as可以把一个长的关系名替换成短的，这样在查询语句的其他地方用到这个关系名的时候就会方便不少</li>
-<li><p>执行如下语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面两个语句实现的效果是一样的,但是显然第二种比较简洁</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> Student.stu_name, Student.age</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> S.stu_name, S.age</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>还有一种情况需要用as修改表名，就是需要比较同一个关系中的元组的时候，必须要用别名，要不然无法区分</p>
-<img src="/img/database/03.png">
-<p><center>现在表中有如上数据</center></p>
-<ul>
-<li>我们需要查询表中所有比Jane的成绩高的学生的名字</li>
-<li><p>则可以用下面的语句实现：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> T.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> T, Student <span class="keyword">as</span> S</span><br><span class="line"><span class="keyword">WHERE</span> T.score &gt; S.score <span class="keyword">and</span> S.stu_name = <span class="string">'Jane'</span></span><br></pre></td></tr></table></figure>
-<p>得到以下结果</p>
-<img src="/img/database/04.png">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><p>大多数数据库中可以用空格替代as</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面两个语句是等价的（在Mysql数据库上测试）</span></span><br><span class="line"><span class="keyword">SELECT</span> T.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> T, Student <span class="keyword">as</span> S</span><br><span class="line"><span class="keyword">WHERE</span> T.score &gt; S.score <span class="keyword">and</span> S.stu_name = <span class="string">'Jane'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> T.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student T, Student S</span><br><span class="line"><span class="keyword">WHERE</span> T.score &gt; S.score <span class="keyword">and</span> S.stu_name = <span class="string">'Jane'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>注意：</strong>Oracle数据库更改表的别名不能用 as（但是改字段的别名是可以用as的）， 只能用空格，要不然会报错（比如上面的两个语句在大多数数据库执行都是可以通过而且结果一致的，但是在Oracle数据库第一条语句就不会过）**</p>
-</li>
-<li><p>如果别名中带空格，则别名需要用双引号引起来（因为空格也是可以替代as的，所以如果别名中含有空格而不做处理，可能会导致数据库无法解析这条语句）</p>
-<ul>
-<li><p>首先看下面这条语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面这条语句想给Student表起一个别名，叫做 Student Info, 执行是会失败的</span></span><br><span class="line"><span class="keyword">SELECT</span> Student Info.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> Student Info</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>正确的操作应该是这样的</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="string">"Student Info"</span>.stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> <span class="string">"Student Info"</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li><h2 id="字符串的拼接运算"><a href="#字符串的拼接运算" class="headerlink" title="字符串的拼接运算"></a>字符串的拼接运算</h2><ul>
-<li><p>不用数据库采用不同的运算符，常见的有 <strong>||</strong> 和 <strong>+</strong></p>
-  <img src="/img/database/05.png">
-<p>  <center>现在表中有如上数据</center></p>
-<ul>
-<li><p>执行下面的语句(笔者是在Mysql下测试的，Mysql的字符串拼接是用connect函数实现的，所以略有不同)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'name: '</span>, S.stu_name) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-<img src="/img/database/06.png">
-</li>
-</ul>
-</li>
-<li><p>对于null值的处理，不同的数据库采取的处理不同</p>
-<ul>
-<li>Oracle会直接忽略空值，而DB2会使整体为null</li>
-<li><p>下面在Mysql中测试与空值拼接，结果是会使整体为null</p>
-<ul>
-<li><p>执行以下语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'name: '</span>, S.stu_name, <span class="literal">NULL</span> ) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
-<p>结果如下</p>
-<img src="/img/database/07.png">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>可以与字符串常量拼接</p>
-<ul>
-<li>sql里面就用一对单引号包含一个字符串表示字符串常量，如’name: ‘</li>
-<li>上面的例子里面就用到了与字符串常量拼接，这里就不再赘述了</li>
-</ul>
-</li>
-<li><p>如果字符串常量里面需要包含单引号，可以用另一个单引号来转义</p>
-<ul>
-<li><p>比如执行下面的语句</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 下面的字符串常量中出现了四个单引号，其中首位两个是用来标示这个是一个字符串常量，第二个单引号是用来转义第三个单引号</span><br><span class="line"><span class="keyword">SELECT</span> S.stu_name, <span class="keyword">concat</span>(<span class="string">'I''m '</span>, S.stu_name) <span class="keyword">as</span> info</span><br><span class="line"><span class="keyword">FROM</span> Student <span class="keyword">as</span> S</span><br></pre></td></tr></table></figure>
-<p>结果如下：</p>
-<img src="/img/database/08.png">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
-<li>其实函数每个数据库都有各自的实现，种类和功能不尽相同</li>
-<li>比如上面的connect函数是Mysql中的一个函数</li>
-<li>upper(s)和lower（s）函数是用来将字符串全部变成大写/小写的函数</li>
-</ul>
-</li>
-<li><h2 id="模糊匹配（like）"><a href="#模糊匹配（like）" class="headerlink" title="模糊匹配（like）"></a>模糊匹配（like）</h2><ul>
-<li><p>通配符（具体到某个具体的数据库可能还会有功能更强大的通配符，这里只讨论比较通用的两个）</p>
-<ul>
-<li>% ==&gt;匹配任意长度的字符串（字符串的长度也可以是0）</li>
-<li>_ ==&gt;匹配一个字符</li>
-<li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句标示查询条件是第三个字符是A的stu_name</span></span><br><span class="line">WHERE stu_name LIKE '__A%'</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句标示查询条件是第三个字符是A，且长度至少为4的stu_name</span></span><br><span class="line">WHERE stu_name LIKE '__A_%'</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<img src="/img/database/09.png">
-<center>现在表中还是有如上数据</center></li>
-<li><p>执行下面操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句用来查询表中stu_name的值为Ja开头，且至少长度为三的所有学生名字</span></span><br><span class="line"><span class="keyword">SELECT</span> stu_name</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">WHERE</span> stu_name <span class="keyword">LIKE</span> <span class="string">'Ja_%'</span></span><br></pre></td></tr></table></figure>
-<p>得到如下结果</p>
-<img src="/img/database/10.png">
-</li>
-<li><p>如果模式串（我们这里称like后面的串为模式串）中需要包含‘_’或者‘%’等通配符关键字，就需要用到转义，SQL里面用escape来指定转义字符</p>
-<ul>
-<li>举个栗子：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句在最后面定义‘\’为转义字符</span></span><br><span class="line"><span class="comment">-- 所以实际的效果是匹配所有以 Ja_ 开头的 stu_name</span></span><br><span class="line">WHERE stu_name LIKE 'Ja\_%' escape '\'</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h2 id="排序（order-by）"><a href="#排序（order-by）" class="headerlink" title="排序（order by）"></a>排序（order by）</h2><ul>
-<li>如果没有显示指定升序还是降序，则默认是采用升序的</li>
-<li><p>null 值的处理（不同的数据库采取的处理不同）</p>
-<ul>
-<li>Oracle 将null值当做最大</li>
-<li>SQL Server 将null值当做最小</li>
-<li><p>接下来来去测测Mysql数据库</p>
-<img src="/img/database/11.png">
-<p>首先表中的数据是上面酱紫的</p>
-<ul>
-<li><p>然后执行下面操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询学生表中的所有数据，并按成绩排序（因为没有指定</span></span><br><span class="line"><span class="comment">-- 升序还是降序，所以默认是升序的）</span></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> score;</span><br></pre></td></tr></table></figure>
-<p>结果如下（可以看出，Mysql是将null值当做最小值）</p>
-<img src="/img/database/12.png">
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>在排序的时候可以用desc显示指定降序，asc显示指定升序</p>
-<ul>
-<li><p>举个栗子</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的排序条件标示先按score降序排序，如果遇到score相同的，则按age升序排序</span></span><br><span class="line">ORDER BY score desc, age asc</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>order by 后面所跟字段，以在前面的字段为主进行排序</p>
-</li>
-<li>desc、asc 更在字段名或表达式后面，并且只能影响其前面的一个字段<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的排序条件表示，先以score进行升序排序（因为未指定的话默认是升序的），</span></span><br><span class="line"><span class="comment">-- 如果遇到score相同的再按age进行降序排序</span></span><br><span class="line">order by score, age desc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>order by 后面可跟别名，字段名，表达式，字段的顺序号</p>
-<ul>
-<li>别名、字段名</li>
-<li><p>表达式</p>
-<ul>
-<li>举个栗子<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面排序条件标示把sal*12后按结果降序排序</span></span><br><span class="line">order by 12 * sal desc</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>字段的顺序号：</p>
-<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面这条语句标示查询Sudent表中的所有数据，并按age和score进行升序排序（默认是升序排序）</span></span><br><span class="line"><span class="keyword">SELECT</span> student_name, age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="number">2</span>, <span class="number">3</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>如果要查询的结果集是很大的，排序是很耗时的，会影响性能</p>
-</li>
-</ul>
-</li>
-<li><h2 id="where子句beween…and、in"><a href="#where子句beween…and、in" class="headerlink" title="where子句beween…and、in"></a>where子句beween…and、in</h2><ul>
-<li>between…and（表示一个连续的范围）<ul>
-<li>between a and b  &lt;==&gt;  a &lt;= x &lt;= b</li>
-<li>not between a and b &lt;==&gt; x &gt; b | x &lt; a</li>
-<li>写的时候，小数写在前面，大数写在后面</li>
-</ul>
-</li>
-<li>in（表示离散的范围）<ul>
-<li>举个栗子<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 下面的语句表示查询分数为98、99或者100的学生的信息</span><br><span class="line"><span class="keyword">SELECT</span> student_name, age, score</span><br><span class="line"><span class="keyword">FROM</span> Student</span><br><span class="line"><span class="keyword">where</span> score <span class="keyword">in</span> (<span class="number">98</span>, <span class="number">99</span>, <span class="number">100</span>)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+首先到官网下载最新版JDK：Oracle官网下载
 
+
+Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）
+
+
+开始安装JDK
+
+
+选择安装路径，可以不安装在C盘，记住安装到哪就行了，
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

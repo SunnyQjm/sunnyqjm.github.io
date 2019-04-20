@@ -486,133 +486,24 @@
       
         
           
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>原始套接字提供TCP和UDP所不提供的以下3个能力</p>
-</blockquote>
-<ul>
-<li>有了原始套接字，进程可以<strong>读与写ICMPv4、IGMPv4和ICMPv6分组</strong><ul>
-<li>Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrouted)</li>
-</ul>
-</li>
-<li>有了原始套接字，进程<strong>可以读写内核不处理其协议字段的IPv4数据报</strong><ul>
-<li>With a raw socket, a process can read and write IPv4 datagrams with an IPV4 protocol field that is not processed by the kernel.</li>
-</ul>
-</li>
-<li>有了原始套接字，进程还可以<strong>使用IP_HDRINCL套接字选项</strong>（IP header include），<strong>自行构造IPv4首部</strong><ul>
-<li>With a raw socket, a process can build its own IPv4 header using the IP_HDRINCL socket option</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="原始套接字的创建"><a href="#原始套接字的创建" class="headerlink" title="原始套接字的创建"></a>原始套接字的创建</h2></blockquote>
-<ul>
-<li><h3 id="创建"><a href="#创建" class="headerlink" title="创建"></a>创建</h3><ul>
-<li><p>调用<strong>socket函数创建</strong>，而且函数的<strong>第二个参数必须是SOCK_RAW</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面以创建一个IPv4原始套接字为例</span></span><br><span class="line"><span class="keyword">int</span> sockfd;</span><br><span class="line">sockfd = socket(AF_INET, SOCK_RAW, protocol);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>protocol参数</strong>通常不为0，是<strong>形如IPPROTO_xxx</strong>的某个常值</p>
-</li>
-<li>只有<strong>超级用户才能创建原始套接字</strong>（防止普通用户自行构造IP数据报）</li>
-</ul>
-</li>
-<li><p><strong>可</strong>按以下方式<strong>开启IP_HDRINCL选项</strong></p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> on = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">if</span>(setsockopt(sockfd, IPPROTO_IP, IP_HDRINCL, &amp;on, <span class="keyword">sizeof</span>(on)) &lt; <span class="number">0</span>)</span><br><span class="line">  出错处理</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>可在原始套接字上调用bind，但比较少见</p>
-</li>
-<li>可在原始套接字上调用connect，但比较少见</li>
-</ul>
-<blockquote>
-<h2 id="原始套接字输出"><a href="#原始套接字输出" class="headerlink" title="原始套接字输出"></a>原始套接字输出</h2><p>原始套接字的输出遵循以下规则：</p>
-</blockquote>
-<ul>
-<li>普通输出通过<strong>调用sendto或sendmsg并指定IP地址完成</strong>，如果套接字已连接，也可以调用write，writev，send<ul>
-<li>Normal output is performed by calling sendto or sendmsg and specifying the destination IP address</li>
-</ul>
-</li>
-<li>如果<strong>IP_HDRINCL选项未开启</strong>，进程发送数据的<strong>起始地址是IP首部之后的第一个字节</strong>，<strong>IP首部由内核自行构造</strong>，并把<strong>socket中第三个参数</strong>的值<strong>设置进IP首部的协议字段</strong><ul>
-<li>If the IP_HDRINCL option is not set, the starting address of the data for the kernel to send specifies the first byte following the IP header because the kernel will build the IP header and prepend it to the data from the process</li>
-</ul>
-</li>
-<li>如果<strong>IP_HDRINCL选项开启</strong>，进程发送数据的<strong>起始地址是IP首部的第一个字节</strong>，进程调用输出函数输出的数据中必须包括IP首部，<strong>整个IP首部自行构造</strong><ul>
-<li>If the IP_HDRINCL option is set, the starting address of the data for the kernel to send specifies the first byte of the IP header</li>
-<li>IPv4标识字段可置为0，告诉内核设置该值</li>
-<li>IPv4首部校验和字段总是由内核计算并存储</li>
-<li>IPv4选项字段是可选的</li>
-</ul>
-</li>
-<li><strong>内核</strong>会对<strong>超出外出接口MTU的原始分组</strong>进行<strong>分片</strong><ul>
-<li>The kernel fragments raw packets that exceed the outgoing interface MTU</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="原始套接字输入"><a href="#原始套接字输入" class="headerlink" title="原始套接字输入"></a>原始套接字输入</h2><p>内核把哪些接收到的IP数据报传递到原始套接字？遵循一下规则</p>
-</blockquote>
-<ul>
-<li><h3 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h3><ul>
-<li>接收到的<strong>UDP和TCP分组绝不传递到任何原始套接字</strong>(如果一个进程想要读取，必须在数据链路层读取)<ul>
-<li>Received UDP packets and received TCP packets are never passed to a raw socket. (must be read at the datalink layer)</li>
-</ul>
-</li>
-<li><strong>大多数ICMP分组</strong>在<strong>内核处理完</strong>其中的ICMP消息后传递到原始套接字<ul>
-<li>Most ICMP packets are passed to a raw socket after the kernel has finished processing the ICMP message</li>
-</ul>
-</li>
-<li><strong>所有的IGMP分组</strong>在<strong>内核完处理完</strong>其中的IGMP消息后传递到原始套接字<ul>
-<li>All IGMP packets are passed to a raw socket after the kernel has finished processing the IGMP message</li>
-</ul>
-</li>
-<li><strong>内核无法识别其协议字段的所有IP数据报</strong>传递到原始套接字<ul>
-<li>All IP datagrams with a protocol field that the kernel does not understand are passed to a raw socket</li>
-</ul>
-</li>
-<li>如果某个<strong>数据报</strong>是以<strong>片段</strong>的形式到达，那么在它的所有片段均到达且<strong>重组之前</strong>，<strong>不传递任何片段到原始套接字</strong><ul>
-<li>If t`he datagram arrives in fragments, nothing is passed to a raw socket until all fragments have arrived and have been reassembled.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="内核在分配一个IP数据报到raw-socket时的处理"><a href="#内核在分配一个IP数据报到raw-socket时的处理" class="headerlink" title="内核在分配一个IP数据报到raw socket时的处理"></a>内核在分配一个IP数据报到raw socket时的处理</h3><blockquote>
-<ul>
-<li>When the kernel has an IP datagram to pass to the raw sockets, all raw sockets for all processes are examined, looking for all matching sockets. A copy of the IP datagram is delivered to each matching socket. The following tests are performed for each raw socket and only if all three tests are true is the datagram delivered to the socket</li>
-<li>当内核分发IP数据报给原始套接字的时候，所有进程的所有原始套接字都将检查一遍，只要匹配，便获得该IP数据报的一个备份，下面是<strong>三个判断条件</strong>，只有当三个判断条件都为真时，内核才把接收的套接字传递给这个套接字</li>
-</ul>
-</blockquote>
-<ul>
-<li>如果该原始套接字调用socket创建的时候，第三个参数指定了protocol（即不为0），则IP数据报中的协议字段，必须和其匹配   ==&gt; <strong>协议匹配</strong></li>
-<li>如果该原始套接字已经调用了bind绑定到本地的某个IP地址，那么IP数据报中的地址字段，必须和其匹配                    ==&gt; <strong>目的地址匹配</strong></li>
-<li>如果该原始套接字已经调用connec连接了，则IP数据报的源端地址必须是connect所连接的对端设备的地址                  ==&gt; <strong>源端地址匹配</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="ping-Program"><a href="#ping-Program" class="headerlink" title="ping Program"></a>ping Program</h2><p>原理：往目的IP发送一个ICMP回射请求，该节点则以一个ICMP回射应答响应。由于ICMP规则要求回射应答中返回来自回射请求的标识符，序列号，以及可选数据。可以在可选数据中存放时间戳，以便在收到应答的时候就算RTT。（一般系统发送ICMP都有默认的TTL值大小（例如linux/unix 默认是64或255），提取出应答包中的TTL对当前主机和目的主机之间的跳数有一定指导意义）</p>
-</blockquote>
-<ul>
-<li><h3 id="一个没有特性蔓延（creeping-featurism）的ping程序"><a href="#一个没有特性蔓延（creeping-featurism）的ping程序" class="headerlink" title="一个没有特性蔓延（creeping featurism）的ping程序"></a>一个没有特性蔓延（creeping featurism）的ping程序</h3><ul>
-<li>自行阅读书上ping程序的源码</li>
-</ul>
-</li>
-<li><h3 id="ping程序的概貌"><a href="#ping程序的概貌" class="headerlink" title="ping程序的概貌"></a>ping程序的概貌</h3><img src="/img/unp_44.png" title="我们的ping程序汇总各个函数的概貌">
-</li>
-</ul>
-<blockquote>
-<h2 id="traceroute-Program"><a href="#traceroute-Program" class="headerlink" title="traceroute Program"></a>traceroute Program</h2><ul>
-<li>原理：一开始向目的节点发送一个TTL为1的</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>traceroute 可以用来测量本机到一个目的主机的路径</li>
-</ul>
-</blockquote>
-<ul>
-<li>实现的原理是利用了IPv4的TTL字段或IPv6的跳限字段，一开始设置为1，然后中间节点会返回一个ICMP”time exceeded in transmit”（传输中超时）错误，接着逐渐增大TTL，从而逐步确定下一跳路由地址。直至目的节点返回一个ICMP”port unreachable”（端口不可达）错误，则表示到达目的节点（这要求目的节点没有在该端口上开启服务，即发送ICMP包时，目的端口号应该选择一个未被目的主机使用的端口号 ==&gt; traceroute选择了一个大于30000值作为目的端口号，因为UDP协议要求端口号必须小于30000，所以目的主机如果接收到必然会会一个ICMP端口不可达错误）。</li>
-<li>早期用IP_HDRINCL来达到修改TTL的目的，现在多用IP_TTL套接字选项来修改</li>
-</ul>
+            <p>
+              
+概述原始套接字提供TCP和UDP所不提供的以下3个能力
 
+
+有了原始套接字，进程可以读与写ICMPv4、IGMPv4和ICMPv6分组
+Raw sockets let us read and write ICMPv4, IGMPv4, and ICMPv6 packets. (ping, mrou
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_j/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -765,117 +656,25 @@
       
         
           
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生<br><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter11" target="_blank" rel="noopener">点我获取本文源码</a></p>
-</blockquote>
-<ul>
-<li>主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr</li>
-<li>服务名字和端口号之间转换：getservbyname、getservbyport</li>
-<li>两个协议无关的转换函数：getaddrinfo、getnameinfo</li>
-</ul>
-<blockquote>
-<h2 id="域名系统（Domain-Name-System，-DNS）"><a href="#域名系统（Domain-Name-System，-DNS）" class="headerlink" title="域名系统（Domain Name System， DNS）"></a>域名系统（Domain Name System， DNS）</h2><ul>
-<li>主要用于主机名字和和IP地址之间的映射</li>
-<li><strong>基于UDP</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）"><a href="#简单名字（simple-name）和全限定域名（Fully-Qualified-Domain-Name，-FQDN）" class="headerlink" title="简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）"></a>简单名字（simple name）和全限定域名（Fully Qualified Domain Name， FQDN）</h3><ul>
-<li>简单名字：如 solaris或bsdi</li>
-<li>全限定域名：如 qjm253.top<ul>
-<li>严格来说FQDN最后必须以.结尾，但通常用户会省略。例如上面个域名严格来讲为： qjm253.top.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="资源记录"><a href="#资源记录" class="headerlink" title="资源记录"></a>资源记录</h3><ul>
-<li><strong>A</strong>：A记录把一个<strong>主机名映射成一个32位的IPv4地址</strong></li>
-<li><strong>AAAA</strong>：AAAA记录把一个<strong>主机名映射成一个128位的IPv6地址</strong></li>
-<li><strong>PTR</strong>：称为指针记录（pointer record）的PTR记录把<strong>IP地址映射成主机名</strong>（IPv4、IPv6）</li>
-<li><strong>MX</strong>：MX记录<strong>把一个主机指定作为个给定主机的“邮件交换器”（mail exchanger）</strong></li>
-<li><strong>CNAME</strong>：CNAME代表“canonical name”（规范名字），<strong>常用作为常用的服务指派CNAME记录</strong></li>
-</ul>
-</li>
-<li><h3 id="解析器和名字服务器（Resolvers-and-Name-Servers）"><a href="#解析器和名字服务器（Resolvers-and-Name-Servers）" class="headerlink" title="解析器和名字服务器（Resolvers and Name Servers）"></a>解析器和名字服务器（Resolvers and Name Servers）</h3><ul>
-<li>名字服务器：存储了域名和IP地址的对应关系</li>
-<li>解析器：客户端通过调用解析器中的函数来实现与DNS名字服务器的交互（实现名字与IP地址的转换）<img src="/img/unp_42.png" title="客户、解析器和名字服务器的典型关系">
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="gethostbyname函数"><a href="#gethostbyname函数" class="headerlink" title="gethostbyname函数"></a>gethostbyname函数</h2></blockquote>
-<ul>
-<li><h3 id="原型："><a href="#原型：" class="headerlink" title="原型："></a>原型：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 根据名字获取IPv4地址信息</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param 待转换的名字，如：qjm253.top</span></span><br><span class="line"><span class="comment">* @return 成功则返回非空指针，出错则返回NULL，并且设置h_errno</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct hostent *<span class="title">gethostbyname</span><span class="params">(<span class="keyword">const</span> chat *hostname)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* host entry 结构体，该结构中包含了所查找主机的所有IPv4地址信息</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">hostent</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span>   *h_name;             <span class="comment">//正式主机名</span></span><br><span class="line">  <span class="keyword">char</span>  **h_aliases;          <span class="comment">//主机别名</span></span><br><span class="line">  <span class="keyword">int</span>     h_addrtype;         <span class="comment">//地址类型</span></span><br><span class="line">  <span class="keyword">int</span>     h_length;           <span class="comment">//地址长度，单位：byte</span></span><br><span class="line">  <span class="keyword">char</span>  **h_addr_list;        <span class="comment">//主机包含的IPv4地址列表</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>hostent结构和它所包含的信息<img src="/img/unp_43.png" title="hostent结构和它所包含的信息"></li>
-</ul>
-</li>
-<li><h3 id="错误：h-errno"><a href="#错误：h-errno" class="headerlink" title="错误：h_errno"></a>错误：h_errno</h3><ul>
-<li>当调用gethostbyname出错时，便会设置h_errno的值为下列常值之一</li>
-<li><h4 id="类型"><a href="#类型" class="headerlink" title="类型"></a>类型</h4><ul>
-<li>HOST_NOT_FOUND</li>
-<li>TRY_AGAIN</li>
-<li>NO_RECOVERY</li>
-<li>NO_DATA（等同于HOST_NOT_FOUND）</li>
-</ul>
-</li>
-<li>hstrerrno函数接收一个上述常值之一，返回错误的具体描述</li>
-</ul>
-</li>
-<li><h3 id="栗子："><a href="#栗子：" class="headerlink" title="栗子："></a>栗子：</h3><ul>
-<li><p>本程序与课本略有不同，简单的支持一个地址解析以及默认解析IPv4</p>
-<figure class="highlight c"><figcaption><span><br>&ensp; ghbn.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *ptr, **pptr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">hptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> str[INET_ADDRSTRLEN];</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./ghbn &lt;Domain name&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>( (hptr = gethostbyname(argv[<span class="number">1</span>])) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        err_msg(<span class="string">"get hostbyname error for host %s : %s"</span>, argv[<span class="number">1</span>], hstrerror(h_errno));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"official hostname: %s\n"</span>, hptr-&gt;h_name);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_aliases; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\talist: %s\n"</span>, *pptr);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_addr_list; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"address: %s\n"</span>, Inet_ntop(AF_INET, *pptr, str, <span class="keyword">sizeof</span>(str)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>测试：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//我们先来测试一下正常的情况</span></span><br><span class="line"><span class="comment">//可以很容易看出本博客是搭建在github上的，并且使用了一个作者自己的域名指向github上的域名</span></span><br><span class="line">输入：  ./ghbn qjm253.top</span><br><span class="line">输出：</span><br><span class="line">      official hostname: sni.github.<span class="built_in">map</span>.fastly.net</span><br><span class="line">      	alist: qjm253.top</span><br><span class="line">      	alist: sunnyqjm.github.io</span><br><span class="line">      address: <span class="number">151.101</span><span class="number">.77</span><span class="number">.147</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//再来测试一下域名不存在的情况</span></span><br><span class="line">输入： ./ghbn qjm253.top.c</span><br><span class="line">输出：</span><br><span class="line">      get hostbyname error <span class="keyword">for</span> host qjm253.top.c : Unknown host</span><br><span class="line"></span><br><span class="line"><span class="comment">//测试一下域名存在，但是没有映射地址的情况</span></span><br><span class="line"><span class="comment">//qjm253.cn是笔者的一个保留域名，目前还没有解析到任何地址</span></span><br><span class="line">输入： ./ghbn qjm253.cn</span><br><span class="line">输出：</span><br><span class="line">      get hostbyname error <span class="keyword">for</span> host qjm253.cn : No address associated with name</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="gethostbyaddr函数"><a href="#gethostbyaddr函数" class="headerlink" title="gethostbyaddr函数"></a>gethostbyaddr函数</h2></blockquote>
-<ul>
-<li><h3 id="原型：-1"><a href="#原型：-1" class="headerlink" title="原型："></a>原型：</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 本函数试图由一个二进制的IP地址和找到相应的主机名，与gethostbyname的行为相反</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param addr   addr参数实际上不是一个char *类型的指针，而是一个指向in_addr结构的指针</span></span><br><span class="line"><span class="comment">* @param len    len实际上就是in_addr结构体的大小</span></span><br><span class="line"><span class="comment">* @param family 由于本函数只支持IPv4，所以family为AF_INET</span></span><br><span class="line"><span class="comment">* @return 成功则返回非空指针，失败则返回NULL，并且设置h_errno</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">struct hostent *<span class="title">gethostbyaddr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *addr, <span class="keyword">socklen_t</span> len, <span class="keyword">int</span> family)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="栗子"><a href="#栗子" class="headerlink" title="栗子"></a>栗子</h3><figure class="highlight c"><figcaption><span><br>&ensp; ghba.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> *ptr, **pptr;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">hostent</span> *<span class="title">hptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> str[INET_ADDRSTRLEN];</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">ia</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./ghbn &lt;IPAddress&gt;"</span>);</span><br><span class="line"></span><br><span class="line">    Inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;ia.sin_addr);</span><br><span class="line">    <span class="keyword">if</span>( (hptr = gethostbyaddr(&amp;ia.sin_addr, <span class="keyword">sizeof</span>(ia.sin_addr), AF_INET)) == <span class="literal">NULL</span>)&#123;</span><br><span class="line">        err_msg(<span class="string">"get hostbyname error for host %s : %s"</span>, argv[<span class="number">1</span>], hstrerror(h_errno));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"official hostname: %s\n"</span>, hptr-&gt;h_name);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_aliases; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"\talist: %s\n"</span>, *pptr);</span><br><span class="line">        <span class="keyword">for</span>(pptr = hptr-&gt;h_addr_list; *pptr != <span class="literal">NULL</span>; pptr++)</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"address: %s\n"</span>, Inet_ntop(AF_INET, *pptr, str, <span class="keyword">sizeof</span>(str)));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>gethostbyaddr的第一个参数虽然是in_addr的地址结构，但是传的时候不能直接用in_addr，要使用sockaddr_in里面的in_addr。（博主猜想是应用的头文件中可能包含了in_addr结构体的多种实现，而gethostbyaddr函数要求的in_addr地址结构必须时候sockaddr_in里面定义的那种，读者有兴趣可以自行验证）</li>
-<li><p>测试：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">输入： ./ghba <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br><span class="line">输出：</span><br><span class="line">      official hostname: localhost</span><br><span class="line">      address: <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面测试的是本机的回环地址，是成功的。如果要测试其它地址则不成功，具体可<a href="https://www.cnblogs.com/wunaozai/p/3753731.html" target="_blank" rel="noopener">点我查看</a></p>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="getservbyname和getservbyport"><a href="#getservbyname和getservbyport" class="headerlink" title="getservbyname和getservbyport"></a>getservbyname和getservbyport</h2></blockquote>
-<ul>
-<li><h3 id="getservbyname"><a href="#getservbyname" class="headerlink" title="getservbyname"></a>getservbyname</h3><ul>
-<li><h4 id="原型：-2"><a href="#原型：-2" class="headerlink" title="原型："></a>原型：</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过服务名获取服务信息</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param servname   服务名，如：domain, ftp</span></span><br><span class="line"><span class="comment">* @param protoname  协议名，如：TCP, UDP</span></span><br><span class="line"><span class="comment">* @return 若成功则返回非空指针，若出错则返回NULL</span></span><br><span class="line"><span class="comment">**/</span></span><br><span class="line"><span class="function">struct servent *<span class="title">getservbyname</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *servname, <span class="keyword">const</span> <span class="keyword">char</span> *protoname)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">servent</span>&#123;</span></span><br><span class="line">  <span class="keyword">char</span>    *s_name;        <span class="comment">//正式的服务名</span></span><br><span class="line">  <span class="keyword">char</span>   **s_aliases;     <span class="comment">//服务别名列表</span></span><br><span class="line">  <span class="keyword">int</span>      s_port;        <span class="comment">//网络字节序的端口号</span></span><br><span class="line">  <span class="keyword">char</span>    *s_proto;       <span class="comment">//协议名</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="栗子-1"><a href="#栗子-1" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight c"><figcaption><span><br>&ensp; gsbn.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">servent</span> *<span class="title">sptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> **sptrs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">3</span>)</span><br><span class="line">        err_quit(<span class="string">"usgae: ./gsbn &lt;servname&gt; &lt;protoname&gt;"</span>);</span><br><span class="line">    sptr = getservbyname(argv[<span class="number">1</span>], argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span>(sptr == <span class="literal">NULL</span>)</span><br><span class="line">        err_quit(<span class="string">"get error"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"official name: %s\n"</span>, sptr-&gt;s_name);</span><br><span class="line">    <span class="keyword">for</span>(sptrs = sptr-&gt;s_aliases; *sptrs != <span class="literal">NULL</span>; sptrs++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"\t\talias: %s\n"</span>, *sptrs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"port: %d\n"</span>, sptr-&gt;s_port);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"protocol: %s\n"</span>, sptr-&gt;s_proto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">输入： ./gsbn domain udp</span><br><span class="line">输出：</span><br><span class="line">      official name: domain</span><br><span class="line">      port: <span class="number">13568</span></span><br><span class="line">      protocol: udp</span><br><span class="line"></span><br><span class="line">输入： ./gsbn ftp tcp</span><br><span class="line">输出：</span><br><span class="line">      official name: ftp</span><br><span class="line">      port: <span class="number">5376</span></span><br><span class="line">      protocol: tcp</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><h3 id="getservbyport"><a href="#getservbyport" class="headerlink" title="getservbyport"></a>getservbyport</h3><ul>
-<li><h4 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;netdb.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 通过端口号获取服务的信息</span></span><br><span class="line"><span class="comment">* @param port       端口号</span></span><br><span class="line"><span class="comment">* @param protoname  协议名，如：TCP, UDP</span></span><br><span class="line"><span class="comment">* @return 若成功则返回非空指针，若出错则返回NULL</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function">struct servent *<span class="title">getservbyport</span><span class="params">(<span class="keyword">int</span> port, <span class="keyword">const</span> <span class="keyword">char</span> *protoname)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="栗子-2"><a href="#栗子-2" class="headerlink" title="栗子"></a>栗子</h4><figure class="highlight c"><figcaption><span><br>&ensp; gsbp.c</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">servent</span> *<span class="title">sptr</span>;</span></span><br><span class="line">    <span class="keyword">char</span> **sptrs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">3</span>)</span><br><span class="line">        err_quit(<span class="string">"usgae: ./gsbn &lt;port&gt; &lt;protoname&gt;"</span>);</span><br><span class="line">    sptr = getservbyport(atoi(argv[<span class="number">1</span>]), argv[<span class="number">2</span>]);</span><br><span class="line">    <span class="keyword">if</span>(sptr == <span class="literal">NULL</span>)</span><br><span class="line">        err_quit(<span class="string">"get error"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"official name: %s\n"</span>, sptr-&gt;s_name);</span><br><span class="line">    <span class="keyword">for</span>(sptrs = sptr-&gt;s_aliases; *sptrs != <span class="literal">NULL</span>; sptrs++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"alias: %s\n"</span>, *sptrs);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"port: %d\n"</span>, sptr-&gt;s_port);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"protocol: %s\n"</span>, sptr-&gt;s_proto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="测试-1"><a href="#测试-1" class="headerlink" title="测试"></a>测试</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//shell 通常运行在514端口，并且采用的是tcp协议</span></span><br><span class="line">输入： ./gsbp <span class="number">514</span> tcp</span><br><span class="line">输出：</span><br><span class="line">      official name: shell</span><br><span class="line">      alias: cmd</span><br><span class="line">      port: <span class="number">514</span></span><br><span class="line">      protocol: tcp</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="getaddrinfo函数"><a href="#getaddrinfo函数" class="headerlink" title="getaddrinfo函数"></a>getaddrinfo函数</h2><p>这是一个比以上函数更新的函数，<strong>了解即可</strong></p>
-</blockquote>
+            <p>
+              
+概述数值地址长而不容易记，手工键入容易出错。用名字代表数字地址的机制便应运而生点我获取本文源码
 
+
+主机名和IPv4地址之间转换：gethostbyname、gethostbyaddr
+服务名字和端口号之间转换：getservbyname、getservbyport
+两个协议无关的转换函数：get
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_i/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1028,79 +827,33 @@
       
         
           
-            <blockquote>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>UDP编程和TCP编程有着本质的差异：UDP是无连接不可靠的数据报协议，非常不同于TCP提供的面向连接的可靠字节流<br><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter8" target="_blank" rel="noopener">点我获取本文源码</a></p>
-</blockquote>
-<ul>
-<li><h3 id="UDP的适用场景"><a href="#UDP的适用场景" class="headerlink" title="UDP的适用场景"></a>UDP的适用场景</h3><ul>
-<li>DNS（域名系统）</li>
-<li>NFS（网络文件系统）</li>
-<li>SNMP（简单网络管理协议）</li>
-</ul>
-</li>
-<li><h3 id="典型的UDP-C-S-程序的函数调用"><a href="#典型的UDP-C-S-程序的函数调用" class="headerlink" title="典型的UDP C/S 程序的函数调用"></a>典型的UDP C/S 程序的函数调用</h3><img src="/img/unp_35.png" title="UDPC/S程序所用的套接字函数">
-</li>
-</ul>
-<blockquote>
-<h2 id="recvfrom和sendto函数"><a href="#recvfrom和sendto函数" class="headerlink" title="recvfrom和sendto函数"></a>recvfrom和sendto函数</h2></blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 类似read函数，通过sockfd指向的套接字读数据</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    目标描述符</span></span><br><span class="line"><span class="comment">* @param buff      接收缓存，用于存放收到的数据</span></span><br><span class="line"><span class="comment">* @param nbytes    指定接收的字节数</span></span><br><span class="line"><span class="comment">* @param flags     标志位，14章详细讨论，此处都设为0</span></span><br><span class="line"><span class="comment">* @param from      用于存放收到消息的源端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   Value-Result参数，限定from大小，存放from实际大小</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 成功  ==&gt;  返回收到的字节数</span></span><br><span class="line"><span class="comment">*         出错  ==&gt;  返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">ssize_t</span> recvfrom(<span class="keyword">int</span> sockfd, <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags,</span><br><span class="line">                 struct sockaddr *from, <span class="keyword">socklen_t</span> *addrlen);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 类似write函数，通过sockfd指向的套接字写数据</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd    目标描述符</span></span><br><span class="line"><span class="comment">* @param buff      发送缓存，用于存放要发送的数据</span></span><br><span class="line"><span class="comment">* @param nbytes    指定发送的字节数</span></span><br><span class="line"><span class="comment">* @param flags     标志位，14章详细讨论，此处都设为0</span></span><br><span class="line"><span class="comment">* @param to        要发送的目的端地址</span></span><br><span class="line"><span class="comment">* @param addrlen   to结构的大小</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return 成功  ==&gt;  返回发送的字节数</span></span><br><span class="line"><span class="comment">*         出错  ==&gt;  返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">ssize_t</span> sendto(<span class="keyword">int</span> sockfd, <span class="keyword">const</span> <span class="keyword">void</span> *buff, <span class="keyword">size_t</span> nbytes, <span class="keyword">int</span> flags,</span><br><span class="line">               <span class="keyword">const</span> struct sockaddr *to, <span class="keyword">socklen_t</span> addrlen);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>recvfrom返回0是可以接受的（不像read函数返回0代表对端关闭），因为UDP是无连接的</li>
-<li><strong>recvfrom</strong>调用的时候如果<strong>不关心发送端的地址</strong>，则<strong>后两个参数from和addrlen可以置为NULL</strong>。要注意的是，<strong>如果from传的是NULL，addrlen也必须传NULL</strong>（可能是由于recvfrom函数的内部实现导致的）</li>
-<li>recvfrom和sendto都可用于TCP，但通常不这么用</li>
-</ul>
-<blockquote>
-<h2 id="UDP实现简单的回射C-S程序"><a href="#UDP实现简单的回射C-S程序" class="headerlink" title="UDP实现简单的回射C/S程序"></a>UDP实现简单的回射C/S程序</h2></blockquote>
-<img src="/img/unp_36.png" title="使用UDP的简单回射客户/服务器">
-<ul>
-<li><h3 id="服务器程序"><a href="#服务器程序" class="headerlink" title="服务器程序"></a>服务器程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dg_echo</span><span class="params">(<span class="keyword">int</span> sockfd, SA *cliaddr, <span class="keyword">socklen_t</span> clilen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>, <span class="title">cliaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//第二个参数指定为SOCK_DGRAM，标识创建一个UDP套接字</span></span><br><span class="line">    sockfd = Socket(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">9748</span>);</span><br><span class="line">    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//为套接字绑定众所周知的端口号，以及指定接收哪些网络接口的请求</span></span><br><span class="line">    Bind(sockfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line"></span><br><span class="line">    dg_echo(sockfd, (SA *) &amp;cliaddr, <span class="keyword">sizeof</span>(cliaddr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dg_echo</span><span class="params">(<span class="keyword">int</span> sockfd, SA *cliaddr, <span class="keyword">socklen_t</span> clilen)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">socklen_t</span> len;</span><br><span class="line">    <span class="keyword">char</span> mesg[MAXLINE];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        len = clilen;</span><br><span class="line">        <span class="comment">//接收客户号段发送的消息</span></span><br><span class="line">        n = Recvfrom(sockfd, mesg, MAXLINE, <span class="number">0</span>, cliaddr, &amp;len);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//回射</span></span><br><span class="line">        Sendto(sockfd, mesg, n, <span class="number">0</span>, cliaddr, len);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>这段程序和<a href="../../05/super_c_e/#TCP回射服务程序">TCP服务端回射程序</a>的实现逻辑类似，不一样的是收发消息用的是Recvfrom和Sendto</li>
-<li><strong>需要注意的是</strong>：UDP是无连接的，所以如果要给客户回发消息，就必须记录下客户的地址信息，<strong>Recvfrom的后两个参数就是用来记录客户的地址信息的</strong>，回发消息给客户的时候，用这个记录的地址信息即可</li>
-<li>UDP层中隐含排队，所有收到的包都在队列中排队，recvfrom每次从队头取出消息处理，没有消息则阻塞（消息队列长度是有限制的，可通过SO_RCVBUF套接字选项修改）</li>
-</ul>
-</li>
-<li><h3 id="客户端程序"><a href="#客户端程序" class="headerlink" title="客户端程序"></a>客户端程序</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;unp.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dg_cli_my</span><span class="params">(FILE *fp, <span class="keyword">int</span> sockfd, SA *servaddr, <span class="keyword">socklen_t</span> len)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> **argv)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sockfd;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">sockaddr_in</span> <span class="title">servaddr</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(argc != <span class="number">2</span>)</span><br><span class="line">        err_quit(<span class="string">"usage: ./udpcli01 &lt;IPAddress&gt;\n"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建一个UDP套接字</span></span><br><span class="line">    sockfd = Socket(AF_INET, SOCK_DGRAM, <span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">    bzero(&amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line"></span><br><span class="line">    servaddr.sin_family = AF_INET;</span><br><span class="line">    servaddr.sin_port = htons(<span class="number">9748</span>);</span><br><span class="line"></span><br><span class="line">    Inet_pton(AF_INET, argv[<span class="number">1</span>], &amp;servaddr.sin_addr);</span><br><span class="line"></span><br><span class="line">    dg_cli_my(<span class="built_in">stdin</span>, sockfd, (SA *) &amp;servaddr, <span class="keyword">sizeof</span>(servaddr));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dg_cli_my</span><span class="params">(FILE* fp, <span class="keyword">int</span> sockfd, SA *servaddr, <span class="keyword">socklen_t</span> len)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">char</span> sendline[MAXLINE], recvline[MAXLINE];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//从控制台接收用户输入，并发送给服务器</span></span><br><span class="line">    <span class="comment">//接着接收服务器回射的消息，并输出到控制台</span></span><br><span class="line">    <span class="keyword">while</span>( (Fgets(sendline, MAXLINE, fp)) != <span class="literal">NULL</span>)&#123;</span><br><span class="line">        Sendto(sockfd, sendline, <span class="built_in">strlen</span>(sendline), <span class="number">0</span>, servaddr, len);</span><br><span class="line">        n = Recvfrom(sockfd, recvline, MAXLINE, <span class="number">0</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">        recvline[n] = <span class="number">0</span>;</span><br><span class="line">        Fputs(recvline, <span class="built_in">stdout</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>本段程序和<a href="../../05/super_c_e/#TCP回射客户端程序">TCP回射客户端程序</a>的实现逻辑类似，同样的区别就在于对网络数据的读写操作不同</li>
-<li><strong>需注意的是</strong>：UDP是无连接的，所以客户端在调用Sendto的时候并不要求一定要有一个服务器在监听。即<strong>客户端只是负责把数据发出去，不管是否有人收到</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="TCP和UDP回射程序对比"><a href="#TCP和UDP回射程序对比" class="headerlink" title="TCP和UDP回射程序对比"></a>TCP和UDP回射程序对比</h2></blockquote>
-<ul>
-<li><h3 id="两个客户的TCP客户-服务器小节"><a href="#两个客户的TCP客户-服务器小节" class="headerlink" title="两个客户的TCP客户/服务器小节"></a>两个客户的TCP客户/服务器小节</h3><img src="/img/unp_37.png" title="两个客户的TCP客户/服务器小节">
-<ul>
-<li>服务器每收到一个客户端的连接，便派生一个子进程，并将连接交付给子进程维护，父进程接着回去监听客户端的请求。在子进程中处理特定客户端的回射服务</li>
-</ul>
-</li>
-<li><h3 id="两个客户的UDP客户-服务器小节"><a href="#两个客户的UDP客户-服务器小节" class="headerlink" title="两个客户的UDP客户/服务器小节"></a>两个客户的UDP客户/服务器小节</h3><img src="/img/unp_38.png" title="两个客户的UDP客户/服务器小节">
-<ul>
-<li>UDP服务器将收到的多个数据报置于套接字接收缓冲区中，再逐个取出，并根据Datagram报文中的发送端地址分别回复</li>
-</ul>
-</li>
-<li><h3 id="对比"><a href="#对比" class="headerlink" title="对比"></a>对比</h3><ul>
-<li><strong>UDP回射服务程序是永不终止的</strong>，不像TCP中类似EOF的东西。而<strong>TCP回射服务程序</strong>，可以通过客户关闭连接导致服务端子进程中<strong>读到EOF</strong>，进而<strong>子进程退出</strong>。</li>
-<li><strong>大多数TCP服务器是并发</strong>的，而<strong>大多数UDP服务器是迭代的</strong>（TCP需要用连接标识不同的客户，并与之通信，所以一般做成并发。而UDP不需要维持连接，对收到的任何一个包进行处理都可以知道是谁发出的，对应处理即可，所以一个进程里面可以处理所有的请求）</li>
-<li><strong>TCP通信必须要一个长期在线的服务端，并且服务端要先于客户端启动，而UDP通信则不用</strong><ul>
-<li>可以看出，利用<strong>UDP进行通信</strong>的时候，并<strong>不要求服务器在客户端之前启动</strong>（即即便客户端比服务器先启动也是不会报错的，指示发出去的消息没有响应而已），只是服务器在启动之前，客户端无法获取到服务，一旦服务器启动，客户端变可以获取到服务。</li>
-<li>相比之下，<strong>TCP进行进行通信</strong>的的时候，<strong>必须服务端先于客户端启动</strong>。因为TCP是有连接的，其通信依赖于一个已经建立好的连接，一旦连接无法建立，变无法进行通信（虽然可以在连接失败时反复尝试，但服务器没启动之前，客户端的connect函数都是返回错误的）</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="UDP程序栗子小节"><a href="#UDP程序栗子小节" class="headerlink" title="UDP程序栗子小节"></a>UDP程序栗子小节</h2></blockquote>
-<ul>
-<li><h3 id="从客户角度总结UDP客户-服务器程序"><a href="#从客户角度总结UDP客户-服务器程序" class="headerlink" title="从客户角度总结UDP客户/服务器程序"></a>从客户角度总结UDP客户/服务器程序</h3><img src="/img/unp_39.png" title="从客户角度总结UDP客户/服务器程序"></li>
-<li><h3 id="从服务器角度总结UDP客户-服务器程序"><a href="#从服务器角度总结UDP客户-服务器程序" class="headerlink" title="从服务器角度总结UDP客户/服务器程序"></a>从服务器角度总结UDP客户/服务器程序</h3><img src="/img/unp_40.png" title="从服务器角度总结UDP客户/服务器程序"></li>
-<li><h3 id="服务器可从到达的IP数据报中获取的信息"><a href="#服务器可从到达的IP数据报中获取的信息" class="headerlink" title="服务器可从到达的IP数据报中获取的信息"></a>服务器可从到达的IP数据报中获取的信息</h3><img src="/img/unp_41.png" title="服务器可从到达的IP数据报中获取的信息">
-</li>
-</ul>
+            <p>
+              
+概述UDP编程和TCP编程有着本质的差异：UDP是无连接不可靠的数据报协议，非常不同于TCP提供的面向连接的可靠字节流点我获取本文源码
 
+
+UDP的适用场景
+DNS（域名系统）
+NFS（网络文件系统）
+SNMP（简单网络管理协议）
+
+
+典型的UDP C/S 程序的函数调用
+
+
+
+recvfrom和
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/06/super_c_h/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1253,54 +1006,29 @@
       
         
           
-            <blockquote>
-<h2 id="获取和设置影响套接字的三种方式"><a href="#获取和设置影响套接字的三种方式" class="headerlink" title="获取和设置影响套接字的三种方式"></a>获取和设置影响套接字的三种方式</h2></blockquote>
-<ul>
-<li>getsockopt和setsockopt函数和</li>
-<li>fcntl函数 (file control)</li>
-<li>ioctl (IO control)</li>
-</ul>
-<blockquote>
-<h2 id="getsockopt-和-setsockopt-函数"><a href="#getsockopt-和-setsockopt-函数" class="headerlink" title="getsockopt 和 setsockopt 函数"></a>getsockopt 和 setsockopt 函数</h2><p>这两个函数仅用于套接字</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 获取一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于接收函数的结果，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      这是一个Value-Result参数，传入时限定optval的最大长度，防止缓存溢出</span></span><br><span class="line"><span class="comment">*                    函数执行结束时，可以通过这个参数知道内核究竟往optval写了多少数据</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, itn optname, <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> *optlen)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 设置一个打开的套接字的选项</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param sockfd      必须指向一个打开的套接字描述符</span></span><br><span class="line"><span class="comment">* @param level       级别</span></span><br><span class="line"><span class="comment">* @param optname     选项名</span></span><br><span class="line"><span class="comment">* @param optval      指向一个变量的指针，用于向函数传递要设置的值，其长度由最后一个长度限定</span></span><br><span class="line"><span class="comment">* @param optlen      指示了optval的长度</span></span><br><span class="line"><span class="comment">* @return 成返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">setsockopt</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> level, <span class="keyword">int</span> optname, <span class="keyword">const</span> <span class="keyword">void</span> *optval,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">socklen_t</span> optlen)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h3 id="套接字选项汇总-gt-课本图7-1和7-2"><a href="#套接字选项汇总-gt-课本图7-1和7-2" class="headerlink" title="套接字选项汇总 ==&gt; 课本图7-1和7-2"></a>套接字选项汇总 ==&gt; 课本图7-1和7-2</h3><ul>
-<li>标志 ==&gt; 表示这个选项是一个二元选项。0表示关闭，非0表示开启</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="IPv4套接字选项"><a href="#IPv4套接字选项" class="headerlink" title="IPv4套接字选项"></a>IPv4套接字选项</h2><p>下面几个选项的等级（level）均为IPROTO_IP</p>
-</blockquote>
-<ul>
-<li><h3 id="IP-HDRINCL"><a href="#IP-HDRINCL" class="headerlink" title="IP_HDRINCL"></a>IP_HDRINCL</h3><ul>
-<li>可以为一个原始套接字设置该选项，设置以后可以自己构造IP首部（即在往里面写数据的时候是从IP包的首部起始位置开始写）</li>
-</ul>
-</li>
-<li><h3 id="IP-OPTIONS"><a href="#IP-OPTIONS" class="headerlink" title="IP_OPTIONS"></a>IP_OPTIONS</h3><ul>
-<li>该选项允许我们在IPv4中设置IP选项</li>
-</ul>
-</li>
-<li><h3 id="IP-RECVDSTADDR"><a href="#IP-RECVDSTADDR" class="headerlink" title="IP_RECVDSTADDR"></a>IP_RECVDSTADDR</h3><ul>
-<li>该套接字选项导致<strong>所收到的UDP数据报的目的IP地址</strong>由recvmsg函数作为辅助数据返回</li>
-</ul>
-</li>
-<li><h3 id="IP-RECVIF"><a href="#IP-RECVIF" class="headerlink" title="IP_RECVIF"></a>IP_RECVIF</h3><ul>
-<li>该套接字选项导致<strong>所收到的UDP数据包的接收接口索引</strong>有recvmsg函数作为辅助数据返回</li>
-</ul>
-</li>
-<li><h3 id="IP-TOS"><a href="#IP-TOS" class="headerlink" title="IP_TOS"></a>IP_TOS</h3><ul>
-<li>该套接字选项允许我们为TCP、UDP或SCTP套接字<strong>设置IP首部中的服务类型字段</strong></li>
-</ul>
-</li>
-<li><h3 id="IP-TTL"><a href="#IP-TTL" class="headerlink" title="IP_TTL"></a>IP_TTL</h3><ul>
-<li>我们可以使用本选项设置或获取系统改用在从某个给定套接字发送的单薄分组上的默认TTL值</li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+获取和设置影响套接字的三种方式
 
+getsockopt和setsockopt函数和
+fcntl函数 (file control)
+ioctl (IO control)
+
+
+getsockopt 和 setsockopt 函数这两个函数仅用于套接字
+
+#include &lt;sys/socket.
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/05/super_c_g/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1453,161 +1181,25 @@
       
         
           
-            <blockquote>
-<h2 id="I-O复用概述"><a href="#I-O复用概述" class="headerlink" title="I/O复用概述"></a>I/O复用概述</h2><p>进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为<strong>I/O复用</strong></p>
-</blockquote>
-<ul>
-<li><h3 id="应用场合"><a href="#应用场合" class="headerlink" title="应用场合"></a>应用场合</h3><ul>
-<li>当<strong>客户处理多个描述符</strong>（通常是交互式输入和网络套接字）时，必须使用I/O复用<ul>
-<li>When a client is handling multiple descriptors (normally interactive input and a network socket)</li>
-</ul>
-</li>
-<li>一个<strong>客户同时处理多个socket套接字</strong>是可能的，不过比较罕见<ul>
-<li>It is possible, but rare, for a client to handle multiple sockets at the same time</li>
-</ul>
-</li>
-<li>如果一个<strong>TCP服务器既要处理监听套接字，又要处理已连接套接字</strong><ul>
-<li>If a TCP server handles both a listening socket and its connected sockets</li>
-</ul>
-</li>
-<li>如果一个<strong>服务器既要处理TCP，又要处理UDP</strong><ul>
-<li>If a server handles both TCP and UDP</li>
-</ul>
-</li>
-<li>如果一个<strong>服务器要处理多个服务或者多个协议</strong><ul>
-<li>If a server handles multiple services and perhaps multiple protocols (e.g., the inetd daemon)</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>I/O复用的引用场景不仅仅局限于网络编程</li>
-</ul>
-<blockquote>
-<h2 id="I-O模型"><a href="#I-O模型" class="headerlink" title="I/O模型"></a>I/O模型</h2><ul>
-<li>blocking I/O                                 ==&gt; 阻塞式I/O</li>
-<li>nonblocking I/O                              ==&gt; 非阻塞式I/O</li>
-<li>I/O multiplexing(select and poll)            ==&gt; I/O复用</li>
-<li>signal driven I/O (SIGIO)                    ==&gt; 信号驱动式I/O</li>
-<li>asynchronous I/O (the POSIX aio_functions)   ==&gt; 异步I/O</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="阻塞式I-O模型"><a href="#阻塞式I-O模型" class="headerlink" title="阻塞式I/O模型"></a>阻塞式I/O模型</h3><img src="/img/unp_24.png" title="阻塞式I/O模型"></li>
-<li><h3 id="非阻塞式I-O模型-gt-轮询（polling）"><a href="#非阻塞式I-O模型-gt-轮询（polling）" class="headerlink" title="非阻塞式I/O模型 ==&gt; 轮询（polling）"></a>非阻塞式I/O模型 ==&gt; 轮询（polling）</h3><img src="/img/unp_25.png" title="非阻塞式I/O模型"></li>
-<li><h3 id="I-O复用模型"><a href="#I-O复用模型" class="headerlink" title="I/O复用模型"></a>I/O复用模型</h3><img src="/img/unp_26.png" title="I/O复用模型"></li>
-<li><h3 id="信号驱动式I-O模型"><a href="#信号驱动式I-O模型" class="headerlink" title="信号驱动式I/O模型"></a>信号驱动式I/O模型</h3><img src="/img/unp_27.png" title="信号驱动式I/O模型"></li>
-<li><h3 id="异步I-O模型"><a href="#异步I-O模型" class="headerlink" title="异步I/O模型"></a>异步I/O模型</h3><img src="/img/unp_28.png" title="异步I/O模型"></li>
-<li><h3 id="各种I-O模型的比较"><a href="#各种I-O模型的比较" class="headerlink" title="各种I/O模型的比较"></a>各种I/O模型的比较</h3><img src="/img/unp_29.png" title="5种I/O模型的比较">
-<ul>
-<li>同步I/O操作（synchronous I/O operation）：导致请求进程阻塞，知道I/O操作完成</li>
-<li>异步I/O操作（asynchronous I/O operation）：不导致请求进程阻塞</li>
-<li>上述5种模型中，前4种是同步的，最后一种是异步的</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="select函数"><a href="#select函数" class="headerlink" title="select函数"></a>select函数</h2><p>select函数允许进程<strong>指示内核等待多个事件中的任何一个发生</strong>，并只在有<strong>一个或多个事件发生或经历一段指定的事件后才唤醒它</strong></p>
-<ul>
-<li>Allows the process to instruct the kernel to wait for any one of multiple events to occur and to wake up the process only when one or more of these events occurs or when a specified amount of time has passed.</li>
-<li>(readable, writable, expired time)</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 调用select函数可告知内核对哪些描述符（就读、写或异常条件）感兴趣以及等待多长时间</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @param maxfdl      最大文件描述符</span></span><br><span class="line"><span class="comment">* @param readset     读监听集（当监听集内任意描述符可读，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param writeset    写监听集（当监听集内任意描述符可写，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param exceptset   异常监听集（当监听集内任意描述符出现异常，会导致select解除阻塞状态）</span></span><br><span class="line"><span class="comment">* @param timout      最长等待时长（如果该时间过去了，select会跳出）</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* @return     正常返回就绪描述符的总数</span></span><br><span class="line"><span class="comment">*             0 ==&gt; 超时返回</span></span><br><span class="line"><span class="comment">*            -1 ==&gt; 出错</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">select</span><span class="params">(<span class="keyword">int</span> maxfdl, fd_set *readset, fd_set *writeset, fd_set *exceptset,</span></span></span><br><span class="line"><span class="function"><span class="params">           <span class="keyword">const</span> struct timeval *timeout)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">timeval</span> &#123;</span></span><br><span class="line">  <span class="keyword">long</span> tv_sec;        <span class="comment">//秒</span></span><br><span class="line">  <span class="keyword">long</span> tv_usec;       <span class="comment">//微秒</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//fd_set的数据结构，实际上是一long类型的数组，每一个bit都能与一打开的文件句柄</span></span><br><span class="line"><span class="comment">//（不管是socket句柄，还是其他文件或命名管道或设备句柄）建立联系</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></span><br><span class="line"><span class="comment">/*XPG4.2requiresthismembername.Otherwiseavoidthename</span></span><br><span class="line"><span class="comment">fromtheglobalnamespace.*/</span></span><br><span class="line">#ifdef__USE_XOPEN</span><br><span class="line">__fd_maskfds_bits[__FD_SETSIZE/__NFDBITS];</span><br><span class="line">#define__FDS_BITS(<span class="built_in">set</span>)((<span class="built_in">set</span>)-&gt;fds_bits)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">__fd_mask__fds_bits[__FD_SETSIZE/__NFDBITS];</span><br><span class="line">#define__FDS_BITS(<span class="built_in">set</span>)((<span class="built_in">set</span>)-&gt;__fds_bits)</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">&#125;fd_set;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><h4 id="timeout"><a href="#timeout" class="headerlink" title="timeout"></a>timeout</h4><ul>
-<li>NULL: 忙等</li>
-<li>值为0：立即返回</li>
-<li>不为0：至多等待一段时间后返回</li>
-</ul>
-</li>
-<li><h4 id="fd-set"><a href="#fd-set" class="headerlink" title="fd_set"></a>fd_set</h4><ul>
-<li>fd_set通常是一个整数数组，其中每个元素中的每一bit对应一个文件描述符</li>
-<li><p>四个操作宏</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将监听集清0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ZERO</span><span class="params">(fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个描述符对应的bit置1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_SET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将一个描述符对应的bit置0</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_CLR</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断一个描述符对应的bit位是否被置1</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">FD_ISSET</span><span class="params">(<span class="keyword">int</span> fd, fd_set *fdset)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>举个栗子：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">假设fd_set 只有<span class="number">8</span>位 ==&gt; fd_set fs</span><br><span class="line"></span><br><span class="line">执行: FD_ZERO(&amp;fs)</span><br><span class="line">结果: <span class="number">00000000</span></span><br><span class="line"></span><br><span class="line">执行: FD_SET(<span class="number">1</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">01000000</span></span><br><span class="line"></span><br><span class="line">执行：FD_SET(<span class="number">3</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">01010000</span></span><br><span class="line"></span><br><span class="line">执行: FD_CLR(<span class="number">1</span>, &amp;fs)</span><br><span class="line">结果: <span class="number">00010000</span></span><br><span class="line"></span><br><span class="line">执行: FD_ISSET(<span class="number">3</span>)</span><br><span class="line">返回: <span class="number">1</span></span><br><span class="line"></span><br><span class="line">执行: FD_ISSET(<span class="number">1</span>)</span><br><span class="line">返回: <span class="number">0</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>select函数中的三个监听集，如果对哪个不感兴趣，直接设置为NULL就行了</p>
-</li>
-<li>select函数中的三个监听集参数均为<a href="../../04/super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a></li>
-</ul>
-</li>
-<li><h4 id="maxfdpl"><a href="#maxfdpl" class="headerlink" title="maxfdpl"></a>maxfdpl</h4><ul>
-<li><strong>maxfdl</strong>指定待测试后描述符的个数，它的<strong>值是待测试的最大描述符加1</strong>（因为数组的下标是从0开始的）</li>
-<li>FD_SETSIZE 常值是fd_set中描述符的总数，通常是1024，不过一般用不到那么大。指定maxfdp1可以提高select的效率</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="描述符就绪条件"><a href="#描述符就绪条件" class="headerlink" title="描述符就绪条件"></a>描述符就绪条件</h3><img src="/img/unp_30.png" title="select返回某个套接字就绪的条件小节">
-</li>
-</ul>
-<blockquote>
-<h2 id="str-cli函数修订版"><a href="#str-cli函数修订版" class="headerlink" title="str_cli函数修订版"></a>str_cli函数修订版</h2></blockquote>
-<ul>
-<li><h3 id="各种条件下的处理"><a href="#各种条件下的处理" class="headerlink" title="各种条件下的处理"></a>各种条件下的处理</h3><img src="/img/unp_31.png" title="str_cli函数中由select处理的各种条件">
-<ul>
-<li>如果对端TCP发送数据，那么该套接字可读，并且read返回一个大于0的值</li>
-<li>如果对端TCP发送一个FIN，那么该套接字可读，并且read返回0（EOF）</li>
-<li>如果对端TCP发送一个RST，那么该套接字可读，并且read返回-1，而errno中含有确切的错误码</li>
-</ul>
-</li>
-<li><h3 id="修订版的str-cli函数"><a href="#修订版的str-cli函数" class="headerlink" title="修订版的str_cli函数"></a>修订版的str_cli函数</h3><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 改进后的str_cli函数，可以在服务器停止后马上返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">str_cli</span><span class="params">(FILE* fp, <span class="keyword">int</span> sockfd)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span>     maxfdpl;</span><br><span class="line">    fd_set  rset;</span><br><span class="line">    <span class="keyword">char</span>    sendline[MAXLINE], recvline[MAXLINE];</span><br><span class="line"></span><br><span class="line">    <span class="comment">//首先清0</span></span><br><span class="line">    FD_ZERO(&amp;rset);</span><br><span class="line">    <span class="keyword">for</span>( ; ; )&#123;</span><br><span class="line">        <span class="comment">//在调用select之前，设置监听集，告知select感兴趣的描述符</span></span><br><span class="line">        FD_SET(fileno(fp), &amp;rset);</span><br><span class="line">        FD_SET(sockfd, &amp;rset);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//待测试的描述符数应该比我们要监听的最大描述符要大1（因为c语言数组是从0开始计的）</span></span><br><span class="line">        maxfdpl = max(fileno(fp), sockfd) + <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//一直阻塞，直至上述两个描述符至少其中一个可读（没有指定超时时间，所以会一直等待）</span></span><br><span class="line">        Select(maxfdpl, &amp;rset, <span class="literal">NULL</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(sockfd, &amp;rset))&#123;        <span class="comment">//socket 可读</span></span><br><span class="line">            <span class="keyword">if</span>(Readline(sockfd, recvline, MAXLINE) == <span class="number">0</span>)</span><br><span class="line">                err_quit(<span class="string">"str_cli: server terminated prematurely"</span>);</span><br><span class="line">            Fputs(recvline, <span class="built_in">stdout</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(FD_ISSET(fileno(fp), &amp;rset))&#123;    <span class="comment">//用户从控制台输入了数据</span></span><br><span class="line">            <span class="keyword">if</span>(Fgets(sendline, MAXLINE, fp) == <span class="literal">NULL</span>)</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            Writen(sockfd, sendline, <span class="built_in">strlen</span>(sendline));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><a href="https://github.com/SunnyQjm/unpv13e/tree/master/job/chapter6" target="_blank" rel="noopener">点我查看示例源码地址</a></li>
-<li>rset作为一个<a href="../../04/super_c_c#值-结果参数（Value-Result-Argument）">Value-Result参数</a>使用<ul>
-<li>在<strong>select调用之前</strong>，将感兴趣的描述符对应的bit<strong>置位</strong>。这样在调用select的时候，<strong>告知Unix内核当哪些描述符准备好时应该通知用户</strong></li>
-<li>在<strong>select调用之后</strong>，Unix内核将哪些描述符准备好了记录<strong>在rset当中</strong>。故在select解除阻塞之后，可以用FD_ISSET<strong>判断是哪些描述符准备好了</strong>。(这样处理即便是多个描述符同时准备好了，也可以处理)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="批量输入和缓存（Batch-Input-and-Buffering）"><a href="#批量输入和缓存（Batch-Input-and-Buffering）" class="headerlink" title="批量输入和缓存（Batch Input and Buffering）"></a>批量输入和缓存（Batch Input and Buffering）</h2></blockquote>
-<ul>
-<li><h3 id="交互式输入："><a href="#交互式输入：" class="headerlink" title="交互式输入："></a>交互式输入：</h3><img src="/img/unp_32.png" title="停等方式的时间线：交互式输入"></li>
-<li><h3 id="批量输入："><a href="#批量输入：" class="headerlink" title="批量输入："></a>批量输入：</h3><img src="/img/unp_33.png" title="填充客户与服务器之间的管道：批量方式">
-<ul>
-<li>以第五章最初的回射函数为例</li>
-<li>TCP是全双工通信的</li>
-<li>我们假设客户以网络能接受的最快速度发送，而服务器以网络能提供的最快速度应答</li>
-<li>在时刻7的时候，网络管道就已经充满了</li>
-<li>如果在时刻8客户输^D(EOF)，则会导致客户端调用close函数关闭连接，而此时仍然还有请求在去的路上，也还有应答在回来的路上，这些消息客户端将无法再收到。</li>
-<li>实际上<strong>这个时候客户只是不发数据了，但是仍然还需要接收数据</strong>。所以我们<strong>需要一个能够关闭TCP连接中其中一半的连接的方法</strong> ==&gt; shutdown函数</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="shutdown函数"><a href="#shutdown函数" class="headerlink" title="shutdown函数"></a>shutdown函数</h2></blockquote>
-<ul>
-<li><h2 id="close函数的两个限制"><a href="#close函数的两个限制" class="headerlink" title="close函数的两个限制"></a>close函数的两个限制</h2><ul>
-<li>close把描述符的引用计数减1，仅在该计数变为0时才关闭套接字。==&gt; 而<strong>shutdown可以不管引用计数就激发TCP的正常终止序列</strong></li>
-<li>clse终止读和写两个方向。==&gt; <strong>shutdown可以有选择的终止读、写或读写均关闭</strong></li>
-</ul>
-</li>
-<li><h2 id="原型-1"><a href="#原型-1" class="headerlink" title="原型"></a>原型</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys.socket.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* howto = SHUT_RD   ==&gt; 关闭读一半</span></span><br><span class="line"><span class="comment">*         SHUT_WR   ==&gt; 关闭写一半</span></span><br><span class="line"><span class="comment">*         SHUT_RDWR ==&gt; 读写均关闭</span></span><br><span class="line"><span class="comment">* @return 成功返回0，出错返回-1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">shutdown</span><span class="params">(<span class="keyword">int</span> sockfd, <span class="keyword">int</span> howto)</span></span>;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>调用shutdown关闭一半连接的图示：</p>
-<img src="/img/unp_34.png" title="调用shutdown关闭一半TCP连接">
-<ul>
-<li>在调用shutdown关闭读一半以后，四路挥手的前两步已经完成，但此时客户端仍然可以读</li>
-<li>直到服务器发送FIN，完成四路挥手</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="pselect函数"><a href="#pselect函数" class="headerlink" title="pselect函数"></a>pselect函数</h2><p>是select新的衍生函数，了解一下用法</p>
-</blockquote>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sys/select.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;signal.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pselect</span><span class="params">(<span class="keyword">int</span> maxfdpl, fd_set *readset, fd_set *writeset, fd_set *exceptionset,</span></span></span><br><span class="line"><span class="function"><span class="params">            <span class="keyword">const</span> struct timesepc *timeout, <span class="keyword">const</span> <span class="keyword">sigset_t</span> *sigmask)</span></span>;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>其它参数的功能和select的一致</li>
-<li>最后一个参数是一个信号的掩码集，表示pselect在阻塞期间，禁止掩码集内的信号被递交</li>
-</ul>
+            <p>
+              
+I/O复用概述进程需要一种预先告知内核的能力，使得内核一旦发现进程指定的一个或多个I/O条件就绪（也就是说输入已准备好，或这描述符已能过承接更多的输出和），他就通知进程。这种能力称为I/O复用
 
+
+应用场合
+当客户处理多个描述符（通常是交互式输入和网络套接字）时，必须使用I/O复用
+When a 
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/01/05/super_c_f/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

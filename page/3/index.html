@@ -486,256 +486,21 @@
       
         
           
-            <blockquote>
-<h2 id="What-is-the-Internet"><a href="#What-is-the-Internet" class="headerlink" title="What is the Internet?"></a>What is the Internet?</h2><ul>
-<li>There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic hardware and software components that make up the Internet. Second, we can describe the Internet in terms of a networking infrastructure that provides services to distributed applications</li>
-<li>对于什么是因特网，可以从两方面来描述。首先，我们可以描述它的基本原理，即 <strong>构成Internet的基本硬件和软件组件</strong> 。其次，我们可以将其描述为 <strong>一个网络基础设施，它为分布式应用程序提供服务</strong></li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="A-Nuts-and-Bolts-description"><a href="#A-Nuts-and-Bolts-description" class="headerlink" title="A Nuts-and-Bolts description"></a>A Nuts-and-Bolts description</h3><blockquote>
-<p>数以百万计的计算机设备——<strong>主机/终端（host/end systems）</strong> 通过 <strong>通信链路（communication links）</strong> 和 <strong>分组交换机（packet switches）</strong> 相互连接在一起。</p>
-</blockquote>
-<ul>
-<li><h4 id="主机-终端（host-end-systems）"><a href="#主机-终端（host-end-systems）" class="headerlink" title="主机/终端（host/end systems）"></a>主机/终端（host/end systems）</h4>广义所指，除了传统的PC、Linux工作站等还包括手机、TV等一众可以连接到互联网的设备</li>
-<li><h4 id="通信链路（communication-links）"><a href="#通信链路（communication-links）" class="headerlink" title="通信链路（communication links）"></a>通信链路（communication links）</h4><p>通信链路有多种类型，它们基于不同的物理介质，如：同轴电缆（coaxial cable），铜线（copper wire），光纤（fiber optics）等，采用不同的材质，会影响链路的 <strong>传输速率（transmission rate）</strong></p>
-<ul>
-<li>传输速率（transmission rate）<ul>
-<li>transmission rate = bandwidth（传输速率=带宽）==&gt; <strong>发送端发包的速率</strong></li>
-<li>ps: 吞吐量 ==&gt; <strong>接收端收包的速率</strong></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h4 id="分组交换机（packet-switches）"><a href="#分组交换机（packet-switches）" class="headerlink" title="分组交换机（packet switches）"></a>分组交换机（packet switches）</h4><p>A packet switch takes a packet arriving on one of its incoming communication links and forwards the packet on one of its outgoing communication links. (分组交换机的功能就是接收一个链路上发来的数据包，并将其转发给它的另一个出口链路上)目前Internet上的分组交换机主要有两种：<strong>路由器（routers）</strong> 和 <strong>链路层交换机（link-layer switches）</strong></p>
-<ul>
-<li>路由器（routers） ==&gt; 常在网络核心（network core）中使用</li>
-<li>链路层交换机（link-layer switches） ==&gt; 常在接入网（access network）中使用</li>
-</ul>
-</li>
-<li><h4 id="路由（route-path）"><a href="#路由（route-path）" class="headerlink" title="路由（route / path）"></a>路由（route / path）</h4>The sequence of communication links and packet switches traversed by a oacket from the sending end system and to the receiving end system is know as <strong>route</strong> or <strong>path</strong> (数据包从发送端到接收端所途经的通信链路和分组交换机组成所谓的路由) ==&gt; <strong>一个路由其实就是网络上的一条路径</strong>，某些数据包通过这条路径从发送端传输到接收端</li>
-<li><h4 id="互联网服务提供商（Internet-Serveice-Providers，ISPs）"><a href="#互联网服务提供商（Internet-Serveice-Providers，ISPs）" class="headerlink" title="互联网服务提供商（Internet Serveice Providers，ISPs）"></a>互联网服务提供商（Internet Serveice Providers，ISPs）</h4>互联网服务提供商，即向广大用户综合提供互联网接入业务、信息业务、和增值业务的电信运营商</li>
-</ul>
-</li>
-<li><h3 id="A-Sercices-description"><a href="#A-Sercices-description" class="headerlink" title="A Sercices description"></a>A Sercices description</h3><blockquote>
-<p>The Internet is an infrastructure for providing services to distributed applications ==&gt; <strong>Internet一个为分布式应用提供服务的网络基础设置</strong></p>
-</blockquote>
-<p>对于一个分布式的网络应用程序，程序之间要进行通信就需要一个传输媒介，而Internet就很好的扮演了这个角色。</p>
-</li>
-</ul>
-<ul>
-<li><h3 id="What-is-Protocol"><a href="#What-is-Protocol" class="headerlink" title="What is Protocol?"></a>What is Protocol?</h3><p>A <strong>protocol</strong> defines the format and the order of messages exchanged between two or more communicating entities, as well as the actions taken on the transmission and/or receipt of a message or other event.</p>
-<p>一个协议定义了两个通信实体之间交换信息的格式和顺序，以及在消息和其它事件的发送或接收时所采取的响应动作</p>
-</li>
-<li><h3 id="The-topology-structure-拓扑结构"><a href="#The-topology-structure-拓扑结构" class="headerlink" title="The topology structure (拓扑结构)"></a>The topology structure (拓扑结构)</h3><ul>
-<li><h4 id="集中式"><a href="#集中式" class="headerlink" title="集中式"></a>集中式</h4>单点故障；结构，管理简单；中心节点价格昂贵，维护困难；<ul>
-<li>Star =&gt; 星型</li>
-<li>Tree =&gt; 树型</li>
-</ul>
-</li>
-<li><h3 id="分布式"><a href="#分布式" class="headerlink" title="分布式"></a>分布式</h3><ul>
-<li>Bus =&gt; 总线型</li>
-<li>Mesh =&gt; 网状网 （适用于无线通信）</li>
-<li>Ring =&gt; 环形</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="Network-structure-网络结构"><a href="#Network-structure-网络结构" class="headerlink" title="Network structure(网络结构)"></a>Network structure(网络结构)</h3><ul>
-<li>Network edge    （网络边缘）</li>
-<li>Access network  （接入网）</li>
-<li>Physical media  （物理介质）</li>
-<li>Network core    （网络核心）</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="The-Network-Edge-网络边缘"><a href="#The-Network-Edge-网络边缘" class="headerlink" title="The Network Edge (网络边缘)"></a>The Network Edge (网络边缘)</h2><ul>
-<li>end systems     （终端）</li>
-<li>access network  （接入网）</li>
-<li>links           （链接）</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="Client-and-Server-Programs-C-S"><a href="#Client-and-Server-Programs-C-S" class="headerlink" title="Client and Server Programs (C / S)"></a>Client and Server Programs (C / S)</h3><ul>
-<li><p>C/S</p>
-<p>A <strong>client program</strong> is a program running on one end system that requests and receives a service from a <strong>server program</strong> running on another end system.</p>
-<p>客户端程序运行在一个终端上，并且向运行在另一个终端上的服务端程序请求并获取服务。</p>
-</li>
-<li><p>P2P</p>
-<p>同一个终端既可以作为客户端请求服务，也可以作为服务端程序提供服务</p>
-</li>
-</ul>
-</li>
-<li><h3 id="Access-network-（接入网）"><a href="#Access-network-（接入网）" class="headerlink" title="Access network （接入网）"></a>Access network （接入网）</h3><p>=&gt; 主机（终端）与边缘路由器相连的那段网络（Physical link）称之为接入网</p>
-<p>=&gt; <strong>接入网很大程度上决定了用户的所能真正享有的带宽</strong></p>
-</li>
-<li><h3 id="Physical-Media-（物理媒介）"><a href="#Physical-Media-（物理媒介）" class="headerlink" title="Physical Media （物理媒介）"></a>Physical Media （物理媒介）</h3><blockquote>
-<ul>
-<li>传输的是Bits（一系列的比特流）；</li>
-<li>guided media =&gt; 导向型（有线）</li>
-<li>unduided media =&gt; 无导向型（无线）</li>
-</ul>
-</blockquote>
-<ul>
-<li>Twisted Pair(TP) =&gt; 双绞线</li>
-<li>Coaxial Cable =&gt; 同轴电缆</li>
-<li>Fiber Optics =&gt; 光纤（ <strong><em>low bit error rate (比特差错率低)</em></strong> ）</li>
-<li>Terrestrial Radio Channels =&gt; 地面无线信道</li>
-<li>Satellite Radio Channels =&gt; 卫星无线信道</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="The-Network-Core-网络核心"><a href="#The-Network-Core-网络核心" class="headerlink" title="The Network Core (网络核心)"></a>The Network Core (网络核心)</h2><p>=&gt; 分组交换机以及连接分组交换机间的链路</p>
-</blockquote>
-<p>电路交换网络和分组交换网络可以类比为饭馆订餐：电路交换网络就好比一个饭店，需要提前预定座位，并且饭店会在你预定之后再规定时间内一直为你保留预定的座位，你在既定时段的任何一个时间点去都是有位置的，期间有未预定的顾客进入，即便饭店有空位，也无法入座；而分组交换网络则好比不需要预定的饭店，先到先得，如果饭店满座了就需要等待。</p>
-<ul>
-<li><h3 id="Circuit-Switching-电路交换网络"><a href="#Circuit-Switching-电路交换网络" class="headerlink" title="Circuit Switching (电路交换网络)"></a>Circuit Switching (电路交换网络)</h3><blockquote>
-<p>典型的就是电话网络</p>
-</blockquote>
-<ul>
-<li><strong>Dedicated allocation</strong> =&gt; 固定分配，独占独享</li>
-<li><strong>Resource reservation</strong> =&gt; 资源预留（不共享，不允许别的连接使用）</li>
-<li><strong>Multiplexing</strong> =&gt; 多路复用(将网络资源切片)<ul>
-<li>frequency-division multiplexing =&gt; <strong>频分多路复用</strong> (FDM)</li>
-<li>time-division multiplexing =&gt; <strong>时分多路复用</strong> (TDM)<img src="/img/computer_network/computer_network_03.png" title="FDM和TDM图解"></li>
-</ul>
-</li>
-<li>需要呼叫建立</li>
-<li><p>时延小，无资源竞争</p>
-</li>
-<li><p>由于电路交换网络给每个Connection分配固定的带宽，分配的连接越多，意味着每个Conncetion所能享有的带宽就越少</p>
-</li>
-</ul>
-</li>
-<li><h3 id="Packet-Switching-分组交换网络"><a href="#Packet-Switching-分组交换网络" class="headerlink" title="Packet Switching (分组交换网络)"></a>Packet Switching (分组交换网络)</h3><blockquote>
-<p>典型的，Internet网络采用的就是分组交换网络</p>
-</blockquote>
-<ul>
-<li>Share network resources =&gt; 各个分组 <strong>共享网络资源</strong></li>
-<li>each packet uses full link bandwidth =&gt; <strong>每个分组均能使用全部的链路带宽</strong></li>
-<li>resources used as needed =&gt; <strong>资源按需分配</strong></li>
-<li><p>resource contention =&gt; <strong>存在资源竞争</strong> =&gt; 可能会导致丢包，拥塞，延时等一系列问题</p>
-</li>
-<li><p>Statistical Multiplexing =&gt; <strong>统计复用</strong> （异步时分多路复用）</p>
-<ul>
-<li><p>传统的 <strong>TDM</strong>（时分多路复用）是给每一个终端分配一个 <strong>time-slot</strong>（时隙），对于某个具体的终端，不管这个终端有没有在进行通信，分配给它的那部分带宽都将被占用，是同步的</p>
-</li>
-<li><p>而 <strong>统计复用</strong>（异步时分多路复用）是把公共信道的时隙实行“ <strong>按需分配</strong> ”，即只对那些需要传送信息或正在工作的终端分配time-slot，这样就能使所有的时隙都能被充分的利用，可以使服务的终端数大于一个周期内时隙划分的个数，提高了媒质的利用率，从而起到了复用的作用。</p>
-</li>
-</ul>
-</li>
-<li><p><strong>Store-and-forward</strong> （存储转发）</p>
-<p>=&gt; 以太网交换机的控制器先将输入端口到来的数据包缓存起来，先检查数据包是否正确，并过滤掉冲突包错误 （增加了网络的时延，但是使得网络有了一定的检错功能）</p>
-</li>
-<li>与电路交换相比<ul>
-<li>Packet switching allows more users to use network( <strong>分组交换允许更多的用户使用网路</strong> )</li>
-<li>Great forbursty data ( <strong>处理突发数据极为有效</strong> )</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="两种网络的应用场景"><a href="#两种网络的应用场景" class="headerlink" title="两种网络的应用场景"></a>两种网络的应用场景</h3><ul>
-<li>在 <strong>带宽需求相对固定</strong> 的情况下， <strong>电路交换网络</strong> 比较合适<ul>
-<li>资源需求稳定</li>
-<li>固定电话的通信就是，语音要求的带宽非常固定，而且采用电路交换网络也可以保证通话的质量</li>
-</ul>
-</li>
-<li>在 <strong>带宽需求动态变化</strong> 时，<strong>分组交换网络</strong> 比较适用<ul>
-<li>典型的Internet网络的带宽需求就是动态变化的</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Delay-loss-and-throughputin-Packet-Switched-Neworks"><a href="#Delay-loss-and-throughputin-Packet-Switched-Neworks" class="headerlink" title="Delay, loss and throughputin Packet-Switched Neworks"></a>Delay, loss and throughputin Packet-Switched Neworks</h2><p>在分组交换网络中的延迟，丢包和吞吐量</p>
-</blockquote>
-<ul>
-<li><h3 id="Delay（延迟）"><a href="#Delay（延迟）" class="headerlink" title="Delay（延迟）"></a>Delay（延迟）</h3><img src="/img/computer_network/computer_network_01.png" title="路由器A的节点传输延迟">
-<ul>
-<li><p><strong>Nodal procesing delay</strong> =&gt; <strong>节点处理延迟</strong>（一般是很短的）</p>
-<ul>
-<li>差错检测 （check bit error）</li>
-<li>决定从哪个口转发出去 (determine output link)</li>
-</ul>
-</li>
-<li><p><strong>Queueing delay</strong> =&gt; 排队延迟（可以为0，也可以很长，取决于当前网络的状态）</p>
-</li>
-<li><strong>Transimission delay</strong> =&gt; 传输延迟（可以很小，也可以很长，取决于数据包的长度以及网络的带宽）<img src="/img/computer_network/computer_network_02.png" title="传输延迟计算方法">
-=&gt; 所以 <strong>提高网络带宽只能降低传输延迟</strong></li>
-<li><strong>Propagation delay</strong> =&gt; 传播延迟 （延迟的大小由物理介质的长度决定，因为传播的速度很快，所以一般这个延迟也不会很大）<img src="/img/computer_network/computer_network_04.png" title="传播延迟计算方法">
-<ul>
-<li>其中传播的具体速度的大小取决于是用那种物理介质传输的（光纤，双绞线等等）</li>
-<li>取值范围：2*10<sup>8</sup> m/s ~ 3*10<sup>8</sup> m/s (最快接近光速)</li>
-<li><strong>与数据包的长度无关</strong></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>!!! <strong> d<sub>nodal</sub> = d<sub>proc</sub> + d<sub>queue</sub> + d<sub>trans</sub> + d<sub>prop</sub></strong><br>(数据包在一个节点上的时延 = 节点处理延迟 + 排队延迟 + 传输延迟 + 传播延迟)</p>
-</blockquote>
-</li>
-<li><h3 id="Loss（丢包）"><a href="#Loss（丢包）" class="headerlink" title="Loss（丢包）"></a>Loss（丢包）</h3><p>当分组交换机（链路层交换机和路由器）有限缓存溢出的时候就会发生丢包</p>
-<ul>
-<li>可能会由前一个节点或源端节点重传，或者压根不重传</li>
-<li>在端系统的视角看来，就是一个数据包已经被发送到网络核心，当时却没有到达目的节点</li>
-</ul>
-</li>
-<li><h3 id="Throughput（吞吐量）"><a href="#Throughput（吞吐量）" class="headerlink" title="Throughput（吞吐量）"></a>Throughput（吞吐量）</h3><blockquote>
-<p><a href="https://baike.baidu.com/item/%E5%90%9E%E5%90%90%E9%87%8F/157092" target="_blank" rel="noopener">百度百科</a>： 吞吐量是指对网络、设备、端口、虚电路或其他设施，单位时间内成功地传送数据的数量（以比特、字节、分组等测量）</p>
-<ul>
-<li>instantaneous throughput (瞬时吞吐量)</li>
-<li>average throughput (平均吞吐量)</li>
-</ul>
-</blockquote>
-<ul>
-<li>在Internet网络中端到端的<strong>吞吐量</strong> 通常和 <strong>接收端收包的速率</strong> 是一致的</li>
-<li>在Internet网络中的端到端吞吐量取决于网络中的<strong>瓶颈链路（Bottleneck link）</strong><img src="/img/computer_network/computer_network_05.png" title="吞吐量受瓶颈链路的影响">
-</li>
-</ul>
-</li>
-<li><h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><ul>
-<li>所有网络信号在物理介质上的速度近似为光速，可以认为是一样的 =&gt; 即 <strong>网络信号在传输时并无快慢之分</strong></li>
-<li>之所以在 <strong>不同的链路上有带宽差别</strong>，是因为由于协议，技术等原因导致 <strong>两个相邻的数据包之间存在不同大小的时隙</strong></li>
-<li>网络中一条链路上数据的传输永远是串行的（并不会出现类似“多车道”的情况）</li>
-<li>Quality of service, Qos =&gt; 服务质量</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="Protocol-Layers-and-Their-Service-Models（协议分层以及他们的服务模型）"><a href="#Protocol-Layers-and-Their-Service-Models（协议分层以及他们的服务模型）" class="headerlink" title="Protocol Layers and Their Service Models（协议分层以及他们的服务模型）"></a>Protocol Layers and Their Service Models（协议分层以及他们的服务模型）</h2><p>计算机网路的体系结构（architecture）是计算机网络各层及其协议的集合</p>
-</blockquote>
-  <img src="/img/computer_network/computer_network_06.png" title="两种网络协议分层模型">
-<ul>
-<li><h3 id="PDU-Protocol-Data-Unit-网络协议数据单元"><a href="#PDU-Protocol-Data-Unit-网络协议数据单元" class="headerlink" title="PDU (Protocol Data Unit, 网络协议数据单元)"></a>PDU (Protocol Data Unit, 网络协议数据单元)</h3>同一层的所有协议所处理的数据单元</li>
-<li><h3 id="Five-layer-Internet-protocol-stack-五层网络协议栈、TCP-IP协议栈"><a href="#Five-layer-Internet-protocol-stack-五层网络协议栈、TCP-IP协议栈" class="headerlink" title="Five-layer Internet protocol stack (五层网络协议栈、TCP/IP协议栈)"></a>Five-layer Internet protocol stack (五层网络协议栈、TCP/IP协议栈)</h3><img src="/img/computer_network/computer_network_01.jpg" title="五层网络协议栈模型">
-<ul>
-<li><h4 id="各层提供的功能"><a href="#各层提供的功能" class="headerlink" title="各层提供的功能"></a>各层提供的功能</h4><ul>
-<li>Applicaiton（应用层）: 仅为用户提供接口</li>
-<li>Transport（传输层）：实现进程到进程间的通信</li>
-<li>Network（网络层）：实现主机到主机之间的通信</li>
-<li>Link（数据链路层）：实现相邻节点间的数据传输</li>
-<li>Physical（物理层）：在物理介质上传输比特流</li>
-</ul>
-</li>
-<li><h4 id="各层的PDU"><a href="#各层的PDU" class="headerlink" title="各层的PDU"></a>各层的PDU</h4><ul>
-<li>Applicaiton（应用层）: message（报文 / 消息）</li>
-<li>Transport（传输层）：segment（报文段）</li>
-<li>Network（网络层）：datagram（数据报）</li>
-<li>Link（数据链路层）：frame（数据帧）</li>
-<li>Physical（物理层）：bit（比特）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>协议</strong> 是对等实体之间的， <strong>服务</strong> 则是由下层通过向上层提供接口提供的</li>
-<li><h3 id="Seven-layer-ISO-OSI-reference-model"><a href="#Seven-layer-ISO-OSI-reference-model" class="headerlink" title="Seven-layer ISO/OSI reference model"></a>Seven-layer ISO/OSI reference model</h3><img src="/img/computer_network/computer_network_07.png" title="OSI/ISO 七层网络协议栈模型">
-</li>
-</ul>
-
+            <p>
+              
+What is the Internet?
+There are couple of ways to answer this question. First, we can describe the nuts and bolts of the Internet, that is, the basic
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/05/05/computer_networking_01/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -888,79 +653,23 @@
       
         
           
-            <blockquote>
-<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2></blockquote>
-<ul>
-<li><p>先给出构造测试表的初始化代码，有兴趣的小伙伴可以跑一跑试试</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> R;</span><br><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> S;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> R (</span><br><span class="line">  X <span class="built_in">integer</span>,</span><br><span class="line">  Y <span class="built_in">varchar</span>(<span class="number">5</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> S (</span><br><span class="line">  Y <span class="built_in">varchar</span>(<span class="number">5</span>),</span><br><span class="line">  Z <span class="built_in">integer</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">1</span>, <span class="string">'A'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">2</span>, <span class="string">'B'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">3</span>, <span class="string">'C'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">1</span>, <span class="string">'B'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">1</span>, <span class="string">'C'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> R (X, Y) <span class="keyword">values</span> (</span><br><span class="line">  <span class="number">2</span>, <span class="string">'A'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> S (Y, Z) <span class="keyword">values</span> (</span><br><span class="line">  <span class="string">'A'</span>, <span class="number">3</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> S (Y, Z) <span class="keyword">values</span> (</span><br><span class="line">  <span class="string">'B'</span>, <span class="number">3</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> S (Y, Z) <span class="keyword">values</span> (</span><br><span class="line">  <span class="string">'C'</span>, <span class="number">3</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>现在整体的表结构如下</p>
-<ul>
-<li>R<br><img src="http://qjm253.cn/img/database/database_double_exists01.png" alt="R表详情"></li>
-<li>S<br><img src="http://qjm253.cn/img/database/database_double_exists02.png" alt="S表详情"></li>
-</ul>
-</li>
-<li>解释<ul>
-<li>其中X,Y,Z都可以代表一个或多个字段</li>
-<li>Y为两张表中的相同字段</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="关系代数除运算（division）扫盲"><a href="#关系代数除运算（division）扫盲" class="headerlink" title="关系代数除运算（division）扫盲"></a>关系代数除运算（division）扫盲</h2></blockquote>
-<ul>
-<li>R÷S<ul>
-<li>对于某个R关系中的X的某个具体值x映射到Y的集合，如果它包含关系S中Y的集合，那么这个x就会出现在结果集当中</li>
-<li>像上面构造的两张表R和S，R÷S的结果就是’A’了</li>
-</ul>
-</li>
-</ul>
-<p>OK，所以说了和没说差不多，我还是不懂什么是关系代数中的除运算<em>(:з」∠)</em><br>…那下面就来举一个形象一点的栗子ლ(╹◡╹ლ)</p>
-<ul>
-<li>这是栗子<ul>
-<li>R表示学生的选课信息，其中X表示学号，Y表示课程号</li>
-<li>S表示课程的信息，其中Y表示课程号，Z表示学分</li>
-<li>好现在，上面的两种表就变成下面这样了<ul>
-<li>R<br><img src="http://qjm253.cn/img/database/database_double_exists04.png" alt="选课信息"></li>
-<li>S<br><img src="http://qjm253.cn/img/database/database_double_exists03.png" alt="课程信息"></li>
-</ul>
-</li>
-<li>ok，现在我们要找出一部分学生的学号，他们选了所有的课</li>
-<li>R÷S ==&gt; 选了所有课的学生（很显然，上面只有学号为1的学生选了所有的课）</li>
-<li>结果如下：<br><img src="http://qjm253.cn/img/database/database_double_exists05.png" alt="选了所有课的学生"></li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="SQL实现"><a href="#SQL实现" class="headerlink" title="SQL实现"></a>SQL实现</h2><p>网上常见的方式就是用双重not exists来实现，咋一看不是很好理解，笔者这里对其进行稍详尽点的分步分析</p>
-</blockquote>
-<ul>
-<li><h3 id="最终代码"><a href="#最终代码" class="headerlink" title="最终代码"></a>最终代码</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> R1.X</span><br><span class="line"><span class="keyword">FROM</span> R R1</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> S</span><br><span class="line">  <span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> *</span><br><span class="line">    <span class="keyword">FROM</span> R R2</span><br><span class="line">    <span class="keyword">WHERE</span> R2.X = R1.X <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><ul>
-<li><p>我们先来对里面一层的not exists进行分析</p>
-<ul>
-<li><p>执行下面代码：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> R R2</span><br><span class="line">  <span class="keyword">WHERE</span> R2.X = <span class="number">1</span> <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> *</span><br><span class="line"><span class="keyword">FROM</span> S</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> R R2</span><br><span class="line">  <span class="keyword">WHERE</span> R2.X = <span class="number">2</span> <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第一个执行结果为空，第二个执行结果如下<br><img src="http://qjm253.cn/img/database/database_double_exists06.png" alt="学号为2的同学没选的课"></p>
-</li>
-<li>分析一下可以知道，上面的SQL完成的任务是“<strong>对于某个学号的学生，求得该学生未选的课程列表</strong>”</li>
-</ul>
-</li>
-<li><p>OK，我们加上外层的not exists</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> R1.X</span><br><span class="line"><span class="keyword">FROM</span> R R1</span><br><span class="line"><span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">  <span class="keyword">SELECT</span> *</span><br><span class="line">  <span class="keyword">FROM</span> S</span><br><span class="line">  <span class="keyword">WHERE</span> <span class="keyword">NOT</span> <span class="keyword">EXISTS</span>(</span><br><span class="line">    <span class="keyword">SELECT</span> *</span><br><span class="line">    <span class="keyword">FROM</span> R R2</span><br><span class="line">    <span class="keyword">WHERE</span> R2.X = R1.X <span class="keyword">AND</span> R2.Y = S.Y</span><br><span class="line">  )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<ul>
-<li>从上面的分析我们知道，内层的SQL求的是对于一个具体的学生，其未选课程的列表</li>
-<li>那么外层加上一个not exists，整个SQL的含义就是求没有未选课程的学生，换句话说，就是求选了所有课的学生</li>
-<li>当然，第一行的DISTINCT也是很有必要的，去除了重复的X，你可以试试，不加，看一下结果，会发现每一个结果都会出现S表中Y集合的大小那么多次。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+准备工作
 
+先给出构造测试表的初始化代码，有兴趣的小伙伴可以跑一跑试试
+drop table R;drop table S;create table R (  X integer,  Y varchar(5));create table S (  Y varchar(5),  Z integer)
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/05/04/2018-5-4-database-double-not-exists/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1113,44 +822,28 @@
       
         
           
-            <blockquote>
-<h2 id="魔法预览"><a href="#魔法预览" class="headerlink" title="魔法预览"></a>魔法预览</h2></blockquote>
-<ul>
-<li>实现了Closeable接口的对象可调用use函数</li>
-<li>use函数会自动关闭调用者（无论中间是否出现异常）</li>
-<li>Kotlin的File对象和IO流操作变得行云流水</li>
-</ul>
-<blockquote>
-<h2 id="use函数的原型"><a href="#use函数的原型" class="headerlink" title="use函数的原型"></a>use函数的原型</h2></blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Executes the given [block] function on this resource and then closes it down correctly whether an exception</span></span><br><span class="line"><span class="comment"> * is thrown or not.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> block a function to process this [Closeable] resource.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the result of [block] function invoked on this resource.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@InlineOnly</span></span><br><span class="line"><span class="meta">@RequireKotlin(<span class="meta-string">"1.2"</span>, versionKind = RequireKotlinVersionKind.COMPILER_VERSION, message = <span class="meta-string">"Requires newer compiler version to be inlined correctly."</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T : Closeable?, R&gt;</span> T.<span class="title">use</span><span class="params">(block: (<span class="type">T</span>)</span></span> -&gt; R): R &#123;</span><br><span class="line">    <span class="keyword">var</span> exception: Throwable? = <span class="literal">null</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> block(<span class="keyword">this</span>)</span><br><span class="line">    &#125; <span class="keyword">catch</span> (e: Throwable) &#123;</span><br><span class="line">        exception = e</span><br><span class="line">        <span class="keyword">throw</span> e</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">        <span class="keyword">when</span> &#123;</span><br><span class="line">            apiVersionIsAtLeast(<span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span>) -&gt; <span class="keyword">this</span>.closeFinally(exception)</span><br><span class="line">            <span class="keyword">this</span> == <span class="literal">null</span> -&gt; &#123;&#125;</span><br><span class="line">            exception == <span class="literal">null</span> -&gt; close()</span><br><span class="line">            <span class="keyword">else</span> -&gt;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    close()</span><br><span class="line">                &#125; <span class="keyword">catch</span> (closeException: Throwable) &#123;</span><br><span class="line">                    <span class="comment">// cause.addSuppressed(closeException) // ignored here</span></span><br><span class="line">                &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看出，use函数内部实现也是通过try-catch-finally块捕捉的方式，所以不用担心会有异常抛出导致程序退出</li>
-<li>close操作在finally里面执行，所以无论是正常结束还是出现异常，都能正确关闭调用者</li>
-</ul>
-<blockquote>
-<h2 id="来一波对比"><a href="#来一波对比" class="headerlink" title="来一波对比"></a>来一波对比</h2></blockquote>
-<ul>
-<li><h3 id="实现读取一个文件内每一行的功能"><a href="#实现读取一个文件内每一行的功能" class="headerlink" title="实现读取一个文件内每一行的功能"></a>实现读取一个文件内每一行的功能</h3><ul>
-<li><p>java实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">FileInputStream fis = <span class="keyword">null</span>;</span><br><span class="line">DataInputStream dis = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">    fis = <span class="keyword">new</span> FileInputStream(<span class="string">"/home/test.txt"</span>);</span><br><span class="line">    dis = <span class="keyword">new</span> DataInputStream(<span class="keyword">new</span> BufferedInputStream(fis));</span><br><span class="line">    String lines = <span class="string">""</span>;</span><br><span class="line">    <span class="keyword">while</span>((lines = dis.readLine()) != <span class="keyword">null</span>)&#123;</span><br><span class="line">        System.out.println(lines);</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">&#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(dis != <span class="keyword">null</span>)</span><br><span class="line">            dis.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(fis != <span class="keyword">null</span>)</span><br><span class="line">            fis.close();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">        e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>Kotlin实现</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">File(<span class="string">"/home/test.txt"</span>).readLines()</span><br><span class="line">        .forEach &#123; println(it) &#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>对Kotlin就是可以两行实现。</p>
-</li>
-<li>仔细翻阅readLines这个扩展函数的实现你会发现，它也是间接调用了use，这样就省去了捕捉异常和关闭的烦恼</li>
-<li>同样的，经过包装以后你只需要关注读出来的数据本身而不需要care各种异常情况</li>
-</ul>
-</li>
-<li><h3 id="File的一些其它有用的扩展函数"><a href="#File的一些其它有用的扩展函数" class="headerlink" title="File的一些其它有用的扩展函数"></a>File的一些其它有用的扩展函数</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将文件里的所有数据以字节数组的形式读出</span></span><br><span class="line"><span class="comment">* Tip：显然这不适用于大文件，文件过大，会导致创建一个超大数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readBytes</span><span class="params">()</span></span>: ByteArray</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 与上一个函数类似，不过这个是写（如果文件存在，则覆盖）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">writeBytes</span><span class="params">(array: <span class="type">ByteArray</span>)</span></span>： <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将array数组中的数据添加到文件里（如果文件存在则在文件尾部添加）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">appendBytes</span><span class="params">(array: <span class="type">ByteArray</span>)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* 将文件以指定buffer大小，分块读出（适用于大文件，也是最常用的方法）</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">forEachBlock</span><span class="params">(action: (<span class="type">buffer</span>: <span class="type">ByteArray</span>, bytesRead: <span class="type">Int</span>)</span></span> -&gt; <span class="built_in">Unit</span>): <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Gets the entire content of this file as a String using UTF-8 or specified [charset].</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * This method is not recommended on huge files. It has an internal limitation of 2 GB file size.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the entire content of this file as a String.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readText</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: String</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Sets the content of this file as [text] encoded using UTF-8 or specified [charset].</span></span><br><span class="line"><span class="comment"> * If this file exists, it becomes overwritten.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text text to write into file.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">writeText</span><span class="params">(text: <span class="type">String</span>, charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Appends [text] to the content of this file using UTF-8 or the specified [charset].</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> text text to append to file.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">appendText</span><span class="params">(text: <span class="type">String</span>, charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reads this file line by line using the specified [charset] and calls [action] for each line.</span></span><br><span class="line"><span class="comment"> * Default charset is UTF-8.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * You may use this function on huge files.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> action function to process file lines.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">forEachLine</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8, action: (<span class="type">line</span>: <span class="type">String</span>)</span></span> -&gt; <span class="built_in">Unit</span>): <span class="built_in">Unit</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Reads the file content as a list of lines.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * Do not use this function for huge files.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use. By default uses UTF-8 charset.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> list of file lines.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> File.<span class="title">readLines</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8)</span></span>: List&lt;String&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Calls the [block] callback giving it a sequence of all the lines in this file and closes the reader once</span></span><br><span class="line"><span class="comment"> * the processing is complete.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> charset character set to use. By default uses UTF-8 charset.</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> the value returned by [block].</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequireKotlin(<span class="meta-string">"1.2"</span>, versionKind = RequireKotlinVersionKind.COMPILER_VERSION, message = <span class="meta-string">"Requires newer compiler version to be inlined correctly."</span>)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">inline</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> File.<span class="title">useLines</span><span class="params">(charset: <span class="type">Charset</span> = Charsets.UTF_8, block: (<span class="type">Sequence</span>&lt;<span class="type">String</span>&gt;)</span></span> -&gt; T): T</span><br></pre></td></tr></table></figure>
-<ul>
-<li>上面的函数都是基于use实现的，可以放心使用，而不用担心异常的发生，并且会自动关闭IO流</li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+魔法预览
 
+实现了Closeable接口的对象可调用use函数
+use函数会自动关闭调用者（无论中间是否出现异常）
+Kotlin的File对象和IO流操作变得行云流水
+
+
+use函数的原型
+/** * Executes the given [block] function on this reso
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/03/30/kotlin_01/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1303,136 +996,22 @@
       
         
           
-            <blockquote>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2></blockquote>
-<ul>
-<li><p>百度百科：2010年10月，Wi-Fi Alliance（wi-fi联盟）发布Wi-Fi Direct白皮书，白皮书中介绍了有关于这种技术的基本信息、这种技术的特点和这种技术的功能，Wi-Fi Direct标准是指允许无线网络中的设备无需通过无线路由器即可相互连接。与蓝牙技术类似，这种标准允许无线设备以点对点形式互连，而且在传输速度与传输距离方面则比蓝牙有大幅提升</p>
-</li>
-<li><p>与Android开发者而言呢，Google嗅到了WI-FI直连的发展前景，整了一套WI-FI直连的API，在Android4.0+（API &gt;= 14）的设备上均能使用。这给我们进行手机之间的互联操作提供了一个新的实现思路。它可以不需要路由而让两个设备直接相连，但其传输速度可是远远超过蓝牙传输。而且它不需要热点的建立，甚至两个设备不需要在一个局域网下。想象一下，不用建立热点也可以实现像快牙，茄子一类的面对面快传的需求～》《～</p>
-</li>
-</ul>
-<blockquote>
-<h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2></blockquote>
-<ul>
-<li><h3 id="定义一个广播接收器"><a href="#定义一个广播接收器" class="headerlink" title="定义一个广播接收器"></a>定义一个广播接收器</h3><blockquote>
-<ul>
-<li>每当当前设备与Wi-fi直连相关的状态发生改变，系统便会以广播的形式通知我们，所以让我们定义一个Receiver欢迎它</li>
-<li>在下面定义的Receiver里面我们监听了4个Action，这是最常用的4个，还有其它的Action可以看官方文档，或者，来去撸一波源码</li>
-</ul>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectReceiver</span> : <span class="type">BroadcastReceiver</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 写一个便捷的注册方法，动态注册的时候就不用写intentFilter了</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">registerReceiver</span><span class="params">(context: <span class="type">Context</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">val</span> intentFilter = IntentFilter()</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION)</span><br><span class="line">        intentFilter.addAction(WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION)</span><br><span class="line">        context.registerReceiver(<span class="keyword">this</span>, intentFilter)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onReceive</span><span class="params">(context: <span class="type">Context</span>?, intent: <span class="type">Intent</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">when</span> (intent?.action) &#123;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment">         * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment">         * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">            WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="接下来在Activity中动态注册"><a href="#接下来在Activity中动态注册" class="headerlink" title="接下来在Activity中动态注册"></a>接下来在Activity中动态注册</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WifiDirectActivity</span> : <span class="type">AppCompatActivity</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> wifiDirectReceiver = WifiDirectReceiver()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStart</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStart()</span><br><span class="line">        wifiDirectReceiver.registerReceiver(<span class="keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onStop</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onStop()</span><br><span class="line">        unregisterReceiver(wifiDirectReceiver)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onCreate</span><span class="params">(savedInstanceState: <span class="type">Bundle</span>?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState)</span><br><span class="line">        setContentView(R.layout.activity_main)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>没错，直接动态注册了！！！Android8.0的新特性让Android开发喵几乎一夜之间丧失在AndroidManifest中静态注册的技能（所以为了，考虑兼容，我们就直接动态注册了）</li>
-</ul>
-</li>
-<li><h3 id="好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION"><a href="#好，接下来验证一下WIFI-P2P-STATE-CHANGED-ACTION" class="headerlink" title="好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION"></a>好，接下来验证一下WIFI_P2P_STATE_CHANGED_ACTION</h3><ul>
-<li><p>我们在Receiver里面加点输出（实际开发还是用Log，极不推荐直接输出，这里笔者还是决定偷懒♪(^∇^*)）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *当Wifi功能打开或关闭的时候系统会发送 WIFI_P2P_STATE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * Tip: 并不是指是否已经成功连上WI-FI</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//get the state of current device</span></span><br><span class="line">    <span class="keyword">val</span> state = intent.getIntExtra(WifiP2pManager.EXTRA_WIFI_STATE,</span><br><span class="line">            WifiP2pManager.WIFI_P2P_STATE_DISABLED)</span><br><span class="line">    <span class="keyword">if</span> (state == WifiP2pManager.WIFI_P2P_STATE_ENABLED) &#123;</span><br><span class="line">        <span class="comment">//Wifi p2p enable</span></span><br><span class="line">        println(<span class="string">"wifi enable"</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//wifi p2p disEnable</span></span><br><span class="line">        println(<span class="string">"wifi disEnable"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后跑到真机上（万能的模拟器然而并不能模拟wifi功能，只能真机实测一波啦），反复开关Wifi功能</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:26:08.744 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:26:11.098 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi disEnable</span><br><span class="line">03-26 16:32:16.376 29313-29313/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>OK, 得到上面的输出，我们就知道确实，这个ACTION在WI-FI功能开关的时候会触发</p>
-</li>
-</ul>
-</li>
-<li><h3 id="WIFI-P2P-THIS-DEVICE-CHANGED-ACTION"><a href="#WIFI-P2P-THIS-DEVICE-CHANGED-ACTION" class="headerlink" title="WIFI_P2P_THIS_DEVICE_CHANGED_ACTION"></a>WIFI_P2P_THIS_DEVICE_CHANGED_ACTION</h3><ul>
-<li>大新闻：这个ACTION携带了一团神秘数据，^<code></code>^,那就是本设备的设备信息啦～</li>
-<li><p>同样的，我们加一点输出，看一下都包含哪些信息（当然，最直接的是看WifiP2pDevice这个数据）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当前设备的详细信息发生变化的时候，系统会发送 WIFI_P2P_THIS_DEVICE_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="keyword">val</span> device: WifiP2pDevice = intent.getParcelableExtra(WifiP2pManager.EXTRA_WIFI_P2P_DEVICE)</span><br><span class="line">    println(device)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>同样真机测试，来调皮的开关一下WI-FI功能（当然，一开始也会打印出设备信息，那就是在这个Receiver被注册的时候）</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">03-26 16:43:29.420 30294-30294/com.j.ming.eupanwifidirect I/System.out: wifi <span class="built_in">enable</span></span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out: Device: 魅蓝 Note3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  deviceAddress: 2e:57:31:98:45:35</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  primary <span class="built_in">type</span>: 10-0050F204-5</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  secondary <span class="built_in">type</span>: null</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wps: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  grpcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  devcapab: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  status: 3</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  wfdInfo: WFD enabled: falseWFD DeviceInfo: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD CtrlPort: 0</span><br><span class="line">03-26 16:43:29.436 30294-30294/com.j.ming.eupanwifidirect I/System.out:  WFD MaxThroughput: 0</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看到包括设备的名字，本设备的MAC地址，状态balabala</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="后面两种ACTION涉及到连接，我们等下讨论"><a href="#后面两种ACTION涉及到连接，我们等下讨论" class="headerlink" title="后面两种ACTION涉及到连接，我们等下讨论"></a>后面两种ACTION涉及到连接，我们等下讨论</h3></li>
-</ul>
-<blockquote>
-<h2 id="WifiP2pManager-的异种接口"><a href="#WifiP2pManager-的异种接口" class="headerlink" title="WifiP2pManager 的异种接口"></a>WifiP2pManager 的异种接口</h2><ul>
-<li>requestPeers、requestGroupInfo、discoverPeers、createGroup、removeGroup等等</li>
-<li>当然可以直接用，不过为了简介，我们一边用一遍封装出一个管理类</li>
-</ul>
-</blockquote>
-<ul>
-<li><h3 id="获得WifiP2pManager对象"><a href="#获得WifiP2pManager对象" class="headerlink" title="获得WifiP2pManager对象"></a>获得WifiP2pManager对象</h3><ul>
-<li><strong>下面的操作需要添加以下权限</strong><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.ACCESS_WIFI_STATE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"true"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">uses-permission</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:name</span>=<span class="string">"android.permission.CHANGE_WIFI_STATE"</span></span></span><br><span class="line"><span class="tag">    <span class="attr">android:required</span>=<span class="string">"true"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span> WifiDirectManager&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> manager: WifiP2pManager <span class="keyword">by</span> Delegates.notNull()</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> channel: WifiP2pManager.Channel <span class="keyword">by</span> Delegates.notNull()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">init</span><span class="params">(context: <span class="type">Context</span>)</span></span>: WifiDirectManager&#123;</span><br><span class="line">        <span class="comment">//通过获取系统服务的方式获得Manager对象</span></span><br><span class="line">        manager = context.getSystemService(Context.WIFI_P2P_SERVICE) <span class="keyword">as</span> WifiP2pManager</span><br><span class="line">        channel = manager.initialize(context, Looper.getMainLooper())&#123;</span><br><span class="line">            <span class="comment">//初始化操作成功的回调</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>利用Kotlin 的object关键字，快速创建一个单例对象</li>
-<li>channel在后续的操作中要用到，这个是manager初始化成功之后返回的渠道对象</li>
-<li>上述init方法建议在Application的onCreate中调用，至少在使用前调用</li>
-</ul>
-</li>
-<li><h3 id="discoverPeers"><a href="#discoverPeers" class="headerlink" title="discoverPeers"></a>discoverPeers</h3><ul>
-<li><p>在上述的WifiDirectManager类里面添加如下方法</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * discover available peer list</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">discoverPeers</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.discoverPeers(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener&#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"discover Peers success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"discover Peers fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * request the peer list available</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">requestPeers</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.requestPeers(channel) &#123; peers -&gt;</span><br><span class="line">        <span class="comment">//请求对等节点列表操作成功</span></span><br><span class="line">        println(peers)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在Activity里面拖一个button，在点击事件里面调用这个函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">btnSendTestBroadcast.setOnClickListener &#123;</span><br><span class="line">    WifiDirectManager.discoverPeers()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>上面的方法，望文生义，就是用来检索附近的可用对等节点列表，然后后面就是这个整套API最坑的一个回调了</p>
-</li>
-<li><strong>WifiP2pManager.ActionListener</strong> 这个回调里面的success和failure<strong>表示的是一个操作是否执行成功，而并不能反映出这个操作的结果</strong></li>
-<li>所以从上面这个回调里我们只能知道，执行discoverPeers这个操作有没有成功，是无法获取到对等节点列表的</li>
-<li>那怎么获取检索的结果呢，答案是:<ul>
-<li>在Receiver里面直接获取（API &gt;= 18）</li>
-<li>在Receiver里面调用requestPeers()获取<br>-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="两种获取对等节点列表的方式"><a href="#两种获取对等节点列表的方式" class="headerlink" title="两种获取对等节点列表的方式"></a>两种获取对等节点列表的方式</h3><blockquote>
-<p>Tip：在调用discoverPeers之后才能获取到对等节点列表</p>
-</blockquote>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当可连接的对等节点列表发生改变的时候，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播</span></span><br><span class="line"><span class="comment"> * invoke when the list of peers find, register, lost</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">WifiP2pManager.WIFI_P2P_PEERS_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">    <span class="comment">//api &gt; 18 have this extra info,</span></span><br><span class="line">    <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR2) &#123;</span><br><span class="line">        <span class="keyword">val</span> wifiP2pList: WifiP2pDeviceList = intent.getParcelableExtra(WifiP2pManager.EXTRA_P2P_DEVICE_LIST)</span><br><span class="line">        println(wifiP2pList)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//if the sdk version lower than 18</span></span><br><span class="line">        <span class="comment">//get WifiP2pDeviceList by call WifiP2pManager.requestPeers to get</span></span><br><span class="line">        WifiDirectManager.requestPeers()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>可以看到，当可用对等节点列表变化时，系统会发送 WIFI_P2P_PEERS_CHANGED_ACTION 广播，我们有两种方式获取对等节点列表</li>
-<li>API &gt;= 18 的时候可以直接在 intent 携带数据中获取到 WifiP2pDeviceList 对象</li>
-<li>当 API 在[14, 18) 之间的时候，只能调用manager的requestPeers方法，在回调当中获取</li>
-<li><strong>其实</strong>：只要都采用第二种方式，就能保持一致性了</li>
-<li>具体输出结果可以自己试一试</li>
-</ul>
-</li>
-<li><h3 id="connect"><a href="#connect" class="headerlink" title="connect"></a>connect</h3><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * connect by MAC address(hardware address)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">connect</span><span class="params">(deviceAddress: <span class="type">String</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> config = WifiP2pConfig()</span><br><span class="line">    config.deviceAddress = deviceAddress</span><br><span class="line">    config.wps.setup = WpsInfo.PBC</span><br><span class="line">    manager.connect(channel, config, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"connect operator success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"connect operator fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * invoke this method to connect a p2p device</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">connect</span><span class="params">(device: <span class="type">WifiP2pDevice</span>)</span></span>: WifiDirectManager &#123;</span><br><span class="line">    connect(device.deviceAddress)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在前面我们已经获取到对等节点列表了，每个对等节点设备信息里面包含其mac地址，用mac地址就能连接</li>
-<li>连接成功以后 系统就会发送 WIFI_P2P_CONNECTION_CHANGED_ACTION 广播了，你可在里面获取对方设备的信息以及群组的信息</li>
-<li>如果两个对等节点都没有创建群组，则连接之后其中一端设备会自动成为群组，每个组员都能获取到群组的IP</li>
-</ul>
-</li>
-<li><h3 id="WIFI-P2P-CONNECTION-CHANGED-ACTION-包含的信息"><a href="#WIFI-P2P-CONNECTION-CHANGED-ACTION-包含的信息" class="headerlink" title="WIFI_P2P_CONNECTION_CHANGED_ACTION 包含的信息"></a>WIFI_P2P_CONNECTION_CHANGED_ACTION 包含的信息</h3><ul>
-<li><p>给WifiDirectManager类添加几个封装函数</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * request the group info</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">requestGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.requestGroupInfo(channel) &#123; group -&gt;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * create a group</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">createGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.createGroup(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"create group fail: <span class="variable">$reason</span>"</span>)</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"create group success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * remove a group</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">removeGroup</span><span class="params">()</span></span>: WifiDirectManager &#123;</span><br><span class="line">    manager.removeGroup(channel, <span class="keyword">object</span> : WifiP2pManager.ActionListener &#123;</span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onSuccess</span><span class="params">()</span></span> &#123;</span><br><span class="line">            println(<span class="string">"remove group success"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">onFailure</span><span class="params">(reason: <span class="type">Int</span>)</span></span> &#123;</span><br><span class="line">            println(<span class="string">"remove group success: <span class="variable">$reason</span>"</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>看看Receiver里面的代码</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 当一个连接建立或断开的时候，系统会发送该广播</span></span><br><span class="line"><span class="comment"> * This action received when the connection setup or dis-setup</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">    WifiP2pManager.WIFI_P2P_CONNECTION_CHANGED_ACTION -&gt; &#123;</span><br><span class="line">        <span class="keyword">val</span> networkInfo = intent.getParcelableExtra&lt;NetworkInfo&gt;(WifiP2pManager.EXTRA_NETWORK_INFO)</span><br><span class="line">        <span class="keyword">val</span> wifiP2pInfo = intent.getParcelableExtra&lt;WifiP2pInfo&gt;(WifiP2pManager.EXTRA_WIFI_P2P_INFO)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR2) &#123;</span><br><span class="line">            <span class="keyword">val</span> wifiP2pGroupInfo =  intent.getParcelableExtra&lt;WifiP2pGroup&gt;(WifiP2pManager.EXTRA_WIFI_P2P_GROUP)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>从上面可以看出，当收到系统发送的 WIFI_P2P_CONNECTION_CHANGED_ACTION 广播的时候，我们可以获取下面信息</p>
-<ul>
-<li>NetworkInfo</li>
-<li>WifiP2pInfo (对端设备的信息)</li>
-<li>WifiP2pGroup （两种方式获取， 和之前获取对等节点列表的操作类似）</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="应用方式"><a href="#应用方式" class="headerlink" title="应用方式"></a>应用方式</h3><ul>
-<li>可以一个设备主动创建一个Group，然后其它设备检索后连接</li>
-<li>一旦连接成功，这些设备就处于同一自组网下了，组员是可以直接在WifiP2pGroup里面获取到群主的ip。接下来就可以直接用Socket进行各种骚操作了</li>
-<li>至于群主如何获取组员的IP，目前想到的一种方式是群主开一个Socket监听，组员连接成功通过socket向群主发送一个请求，然后群主就可以在请求的socket对象里面获取组员的IP了</li>
-</ul>
-</li>
-</ul>
+            <p>
+              
+简介
 
+百度百科：2010年10月，Wi-Fi Alliance（wi-fi联盟）发布Wi-Fi Direct白皮书，白皮书中介绍了有关于这种技术的基本信息、这种技术的特点和这种技术的功能，Wi-Fi Direct标准是指允许无线网络中的设备无需通过无线路由器即可相互连接。与蓝牙技术类似，这种标准
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/03/26/android_wifi_direct_01/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1585,84 +1164,19 @@
       
         
           
-            <p>实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域网上的服务。</p>
-<blockquote>
-<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2></blockquote>
-<ul>
-<li><h4 id="一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行"><a href="#一个公网服务器（Linux系统）-gt-阿里云，腾讯云之类的都行" class="headerlink" title="一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行"></a>一个公网服务器（Linux系统）==&gt; 阿里云，腾讯云之类的都行</h4><ul>
-<li>这个公网服务器主要用作反向代理，我们在本文中称之为VPS服务器</li>
-</ul>
-</li>
-<li><h4 id="一个独立的域名"><a href="#一个独立的域名" class="headerlink" title="一个独立的域名"></a>一个独立的域名</h4></li>
-<li><h4 id="一个用于提供服务的本地PC"><a href="#一个用于提供服务的本地PC" class="headerlink" title="一个用于提供服务的本地PC"></a>一个用于提供服务的本地PC</h4></li>
-</ul>
-<blockquote>
-<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2></blockquote>
-<ul>
-<li><h3 id="GO语言环境搭建"><a href="#GO语言环境搭建" class="headerlink" title="GO语言环境搭建"></a>GO语言环境搭建</h3>ngrok项目是用GO语言实现的，需要先安装GOLANG开发环境，系统不限，因为GO语言是跨平台的！安装过程很简单，参考<a href="https://golang.org/dl/" target="_blank" rel="noopener">官网的教程</a>即可！</li>
-<li><h3 id="获取ngrok源码"><a href="#获取ngrok源码" class="headerlink" title="获取ngrok源码"></a>获取ngrok源码</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 下面是直接去ngrok的github地址下载（待会儿make的时候还会需要装几个其它的依赖，可能会出现很多问题）</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/inconshreveable/ngrok.git</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面是笔者将代码clone下来，并添加了相应依赖之后的地址，如果用上面的方式出现错误，可以clone下面的地址</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/SunnyQjm/ngrok.git</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h3><p>因为我们自己搭建，需要使用自己的域名（以 test.j.cn ）为例，我们需要做以下解析：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test.j.cn    ------------&gt; A记录到你的VPS服务器的IP</span><br><span class="line"></span><br><span class="line"><span class="comment"># ngrok可以指定子域名，下面的解析方式可以让任意子域名都能得到正确的解析</span></span><br><span class="line">*.test.j.cn  ------------&gt; CNAME记录到 test.j.cn</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="生成签名证书"><a href="#生成签名证书" class="headerlink" title="生成签名证书"></a>生成签名证书</h3><blockquote>
-<ul>
-<li>因为我们是自己搭建，就不能用ngrok官方的SSL证书，需要自己生成</li>
-<li>下面<strong>生成</strong>的<strong>证书</strong>在编译项目的时候要用到，所以<strong>务必要在编译之前生成</strong></li>
-<li>需要注意的是，<strong>客户端和服务器的证书必须是同一份</strong>，这样在程序在认证的时候才能正确解析</li>
-</ul>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先导出环境变量，将下面的值替换成你的域名</span></span><br><span class="line"><span class="built_in">export</span> NGROK_DOMAIN=<span class="string">"test.j.cn"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#先进入到ngrok的根目录，生成证书的操作需要在根目录下进行</span></span><br><span class="line"><span class="built_in">cd</span> ngrok</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令用于生成证书</span></span><br><span class="line">openssl genrsa -out rootCA.key 2048</span><br><span class="line">openssl req -x509 -new -nodes -key rootCA.key -subj <span class="string">"/CN=<span class="variable">$NGROK_DOMAIN</span>"</span> -days 5000 -out rootCA.pem</span><br><span class="line">openssl genrsa -out device.key 2048</span><br><span class="line">openssl req -new -key device.key -subj <span class="string">"/CN=<span class="variable">$NGROK_DOMAIN</span>"</span> -out device.csr</span><br><span class="line">openssl x509 -req -<span class="keyword">in</span> device.csr -CA rootCA.pem -CAkey rootCA.key -CAcreateserial -out device.crt -days 5000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令用于将我们生成的证书替换ngrok默认的证书</span></span><br><span class="line">cp rootCA.pem assets/client/tls/ngrokroot.crt</span><br><span class="line">cp device.crt assets/server/tls/snakeoil.crt</span><br><span class="line">cp device.key assets/server/tls/snakeoil.key</span><br></pre></td></tr></table></figure>
-</li>
-<li><h3 id="编译运行"><a href="#编译运行" class="headerlink" title="编译运行"></a>编译运行</h3><ul>
-<li><h4 id="服务端（VPS服务器一端）"><a href="#服务端（VPS服务器一端）" class="headerlink" title="服务端（VPS服务器一端）"></a>服务端（VPS服务器一端）</h4><ul>
-<li><p>首先指定一下环境变量，在不同的操作系统下需要指定不同的环境变量，才能正确编译(默认是Linux 64位的配置，如果你的服务器是64位的Linux系统，也可以不指定，直接用默认的就行)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">GOOS=linux GOARCH=amd64</span><br><span class="line"><span class="comment">#如果是32位系统，这里 GOARCH=386</span></span><br><span class="line"><span class="comment">#如果是windows系统，GOOS=windows</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>然后make出服务端程序</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make release-server</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果编译成功，你会在bin目录下看到ngrokd程序</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看使用帮助</span></span><br><span class="line">./ngrokd -h</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看使用帮助</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看使用帮助</span></span><br><span class="line">./ngrokd -h</span><br><span class="line">  -domain string</span><br><span class="line">    	Domain <span class="built_in">where</span> the tunnels are hosted (default <span class="string">"ngrok.com"</span>)</span><br><span class="line">  -httpAddr string</span><br><span class="line">    	Public address <span class="keyword">for</span> HTTP connections, empty string to <span class="built_in">disable</span> (default <span class="string">":80"</span>)</span><br><span class="line">  -httpsAddr string</span><br><span class="line">    	Public address listening <span class="keyword">for</span> HTTPS connections, emptry string to <span class="built_in">disable</span> (default <span class="string">":443"</span>)</span><br><span class="line">  -<span class="built_in">log</span> string</span><br><span class="line">    	Write <span class="built_in">log</span> messages to this file. <span class="string">'stdout'</span> and <span class="string">'none'</span> have special meanings (default <span class="string">"stdout"</span>)</span><br><span class="line">  -<span class="built_in">log</span>-level string</span><br><span class="line">    	The level of messages to <span class="built_in">log</span>. One of: DEBUG, INFO, WARNING, ERROR (default <span class="string">"DEBUG"</span>)</span><br><span class="line">  -tlsCrt string</span><br><span class="line">    	Path to a TLS certificate file</span><br><span class="line">  -tlsKey string</span><br><span class="line">    	Path to a TLS key file</span><br><span class="line">  -tunnelAddr string</span><br><span class="line">    	Public address listening <span class="keyword">for</span> ngrok client (default <span class="string">":4443"</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动服务端</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如果不能执行，你可能需要用 sudo chmod +x ngrokd 给它执行权限</span></span><br><span class="line"><span class="comment"># domain域输入之前生成证书时指定的域名</span></span><br><span class="line"><span class="comment"># httpAddr 指定转发http协议的哪个端口</span></span><br><span class="line"><span class="comment"># httpAddrs 指定转发https协议的哪个端口（如果不需要可以省略）</span></span><br><span class="line">./ngrokd  -domain=<span class="string">"<span class="variable">$NGROK_DOMAIN</span>"</span> -httpAddr=<span class="string">":8000"</span> -httpsAddr=<span class="string">":4433"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>如果执行成功，你会看到类似以下界面：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/<span class="built_in">log</span>.(*PrefixLogger).Info:83) [registry] [tun] No affinity cache specified</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> public http connections on [::]:9748</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> public https connections on [::]:443</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/log.Info:112) Listening <span class="keyword">for</span> control and proxy connections on [::]:4443</span><br><span class="line">[16:23:40 CST 2018/03/19] [INFO] (ngrok/<span class="built_in">log</span>.(*PrefixLogger).Info:83) [metrics] Reporting every 30 seconds</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>自此，服务端算是配置好了</p>
-</li>
-</ul>
-</li>
-<li><h4 id="客户端（部署了服务，需要内网穿透访问的主机）"><a href="#客户端（部署了服务，需要内网穿透访问的主机）" class="headerlink" title="客户端（部署了服务，需要内网穿透访问的主机）"></a>客户端（部署了服务，需要内网穿透访问的主机）</h4><blockquote>
-<p>客户端要做的事情就是指定把本机的那个端口暴露给VPS服务器，客户端要在该端口上部署了服务（web服务或者tomcat服务等），这样VPS就能够将请求转发到该端口对应的服务上了</p>
-</blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 因为前面说过，服务端和客户端的证书要是同一份，这样认证才能通过，所以好的解决方案是在服务端上把客户端程序也编译出来，然后通过scp命令拷贝到客户端</span></span><br><span class="line"><span class="comment"># 假设我要在mac上运行客户端，需要在编译命令前加上一些参数(如果客户端服务器也是Linux 64位，则不用指定环境变量)</span></span><br><span class="line">GOOS=darwin GOARCH=amd64 make release-client</span><br><span class="line">make release-client</span><br><span class="line"></span><br><span class="line"><span class="comment"># 编译好后scp到本地</span></span><br><span class="line">scp xxx xxx</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面开始本地配置（下面的配置在客户端进行）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 新建一个配置文件（在ngrok/bin目录下）</span></span><br><span class="line">vim ngrok.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加一下两行</span></span><br><span class="line"><span class="comment"># 第一行是将要绑定的域名+4443端口（因为ngrok服务端默认有一个服务是坚挺在4443端口的，客户端会通过这个端口与之相连）==&gt; 记得将域名换成自己在生成证书时指定的</span></span><br><span class="line">server_addr: <span class="string">"test.j.cn:4443"</span></span><br><span class="line">trust_host_root_certs: <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 帮助信息</span></span><br><span class="line">./ngrok -h</span><br><span class="line">Examples:</span><br><span class="line">    ngrok 80</span><br><span class="line">    ngrok -subdomain=example 8080</span><br><span class="line">    ngrok -proto=tcp 22</span><br><span class="line">    ngrok -hostname=<span class="string">"example.com"</span> -httpauth=<span class="string">"user:password"</span> 10.0.0.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 80就是我们要转发的端口了</span></span><br><span class="line">./ngrok -config=./ngrok.cfg 80</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定协议和端口，不指定默认是 http+https</span></span><br><span class="line">./ngrok -config=./ngrok.cfg -proto=tcp 22</span><br><span class="line"></span><br><span class="line"><span class="comment"># 指定子域名，不指定就会随机生成</span></span><br><span class="line">./ngrok -config=./ngrok.cfg -subdomain=<span class="built_in">test</span> 80</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>连接成功会显示如下状态：</p>
-<ul>
-<li><img src="/img/ngrok_01_1.png" title="连接成功"></li>
-<li>在浏览器中输入<a href="http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！" target="_blank" rel="noopener">http://127.0.0.1:4040，就可以看到请求的具体信息了！是不是很神奇！</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="注意："><a href="#注意：" class="headerlink" title="注意："></a>注意：</h3><ul>
-<li>上文中所有出现域名的地方都要统一，客户端和服务端的证书要是同一份，否则在连接的时候会出现bad certification</li>
-</ul>
-</li>
-<li><h3 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h3><ul>
-<li><a href="https://blog.phpgao.com/ngrok_how_to.html" target="_blank" rel="noopener">自己建立ngrok服务器进行内网穿透</a></li>
-<li><a href="http://zpblog.cn/linux/run-ngrok-on-your-own-server.html" target="_blank" rel="noopener">CentOS上搭建ngrok服务端（内网穿透）</a></li>
-</ul>
-</li>
-</ul>
-
+            <p>
+              实现内网穿透紫ngrok无法通过天墙之后，国内也出现了一批成熟的商业化实现方案，诸如花生壳、net123、Sunny-ngrok等。不过免费的极不稳定还有流量带宽限制，最后还是决定自己搭一个。本文利用ngrok搭建一个用于内网穿透的环境。需求是通过一层反向代理，实现通过一个外网域名访问一个部署在局域
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2018/03/19/ngrok_01/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>

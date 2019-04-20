@@ -388,7 +388,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/">
+    <link itemprop="mainEntityOfPage" href="http://qjm253.cn/2017/09/16/2017-09-16-数据库学习笔记（三）/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="建明 | Ming.J">
@@ -408,7 +408,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2017/09/16/2017-09-16-Java环境简单配置+IDEA（小白版）/" class="post-title-link" itemprop="url">Java环境简单配置+IDEA（小白版）</a>
+                <a href="/2017/09/16/2017-09-16-数据库学习笔记（三）/" class="post-title-link" itemprop="url">数据库笔记（三）</a>
               
             
           </h1>
@@ -486,88 +486,26 @@
       
         
           
-            <blockquote>
-<h3 id="JDK配置"><a href="#JDK配置" class="headerlink" title="JDK配置"></a>JDK配置</h3></blockquote>
-<ol>
-<li>首先到官网下载最新版JDK：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="noopener">Oracle官网下载</a></li>
-</ol>
-<ul>
-<li>Accept License Agreement–&gt;下载适合自己pc版本的jdk（此处以64位windows为例。x86是32位，x64是64位）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-ca323ea2b4e23701?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol start="2">
-<li>开始安装JDK</li>
-</ol>
-<ul>
-<li>选择安装路径，可以不安装在C盘，记住安装到哪就行了，默认也行，我安装在（C:\Program Files\Java\jdk1.8.0_131）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1cce0a29131178f7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>安装过程中会跳出Jre的安装界面，你可以放到和之前JDK在同一个文件夹下，也可默认。然后直接下一步开始安装<br><img src="http://upload-images.jianshu.io/upload_images/7222676-635f197284221792?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol start="3">
-<li>环境变量配置</li>
-</ol>
-<ul>
-<li>右击我的电脑–&gt;属性–&gt;高级系统设置–&gt;环境变量<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4604768f9d934d5c?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-55221959e0b99387?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>新建环境变量，变量名为：JAVA_HOME，变量值为之前JDK的安装路径，此处安装在：C:\Program Files\Java\jdk1.8.0_131<br>（可以在系统变量下新建，这样可以为每个登录该pc的用户都配置，如果在用户变量中新建，则只为当前用户配置，此处以在系统变量下新建为例）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-5b7d4588867615d3?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br><img src="http://upload-images.jianshu.io/upload_images/7222676-74188ad3ac201bf4?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>找到Path变量–&gt;编辑<br><img src="http://upload-images.jianshu.io/upload_images/7222676-1c19877a69c0fd82?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win10系统，则进入后界面如下，选择新建两个环境变量，<br>一个值为：%JAVA_HOME%\bin<br>另一个为：%JAVA_HOME%\jre\bin<br>（此处笔者已经配置好）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-973611350f02138e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>配置好就如下图<br><img src="http://upload-images.jianshu.io/upload_images/7222676-a8f705c862db2a8e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果是win7及之前的系统则进入后界面如下:<br>在变量值最后输入 %JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;<br>（注意原来Path的变量值末尾有没有;号，如果没有，先输入；号再输入上面的代码）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-69eef9d2734855fb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol start="4">
-<li>验证一下^-^</li>
-</ol>
-<ul>
-<li>win + R–&gt;输入cmd，进入cmd命令行<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e7f8063cd28be55b?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入：java -version    就可以查看版本信息，如果显示如下信息，则表示环境配置成功<br><img src="http://upload-images.jianshu.io/upload_images/7222676-8de7930c006834e8?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol start="5">
-<li>到这里我们就可以骚操作一波，用记事本写简单Java程序（纯属骚操作，如果用IDE开发（比如我们接下来的部分要介绍的重头戏，用IDEA实现真正的骚操作）可不看这个hhhhhh，如果不想使用IDE开发的话，建议可以使用NotePad++、sublimeText或Atom进行代码编辑，不过真想用记事本敲也无可厚非）</li>
-</ol>
-<ul>
-<li>新建一个文本文档，并修改后缀为.java<br><img src="http://upload-images.jianshu.io/upload_images/7222676-21b16bc95df09fd0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>修改以后如下：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-165bbc56767b696e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>如果没有显示后缀名，则可通过如下方式修改：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-0d60efd7c97c129e?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>用记事本打开，输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-6e526cb50bf05a01?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
-<ul>
-<li>直接在创建文件的文件夹下按住Shift + 右键，选择在此处打开命令窗口（环境变量的配置使得用户可以在任意目录下调用javac 和java 命令）<br>输入：<br>javac Hello.java    （用于编译java源程序）<br>java Hello（运行java程序）<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63209915519e94a1?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<p><strong>自此JDK的配置就OK了，可以开始Java从入门到放弃的修炼了~~</strong></p>
-<blockquote>
-<h3 id="极其好用的IDE–-gt-IDEA"><a href="#极其好用的IDE–-gt-IDEA" class="headerlink" title="极其好用的IDE–&gt;IDEA"></a><strong>极其好用的IDE–&gt;IDEA</strong></h3><p>ps:如果在打开IDEA之前没有下载好JDK的道友，请先往上看详细步骤</p>
-</blockquote>
-<ol>
-<li>先来一波官网的下载链接：<a href="http://www.jetbrains.com/idea/download/#section=windows" target="_blank" rel="noopener">IDEA官网下载地址</a><br>我们下载社区版（别问为啥，社区版免费，如果下载左边的旗舰版也行，但是需要注册码，之前有个网上长期流传的获取注册码的路子，现在貌似不好用了，如果道友是学生就可以用学校给的邮箱百度“IDEA学生”去注册一个IDEA的学生账号（学生账号有自己的注册码，有效期为1年），如果不是就买或者用社区版吧）：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-63f7b13773e1ad07?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二步我们来开始安装：</li>
-</ol>
-<ul>
-<li>选择安装路径：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4589d7ad3e0e59b7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>上面的是创建桌面图标，选择自己电脑对应的版本就行了；下面的可以全选，表示什么格式的文件可直接关联到IDEA，用IDEA来打开<br><img src="http://upload-images.jianshu.io/upload_images/7222676-41c5494e6f758c95?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>下一步直接install<br><img src="http://upload-images.jianshu.io/upload_images/7222676-090966679c3d6b02?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-</ul>
-<ol start="3">
-<li>启动刚安装好的IDEA</li>
-</ol>
-<ul>
-<li>如果第一次安装，就直接不导入设置，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f9be2375d9247451?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>选个喜欢的主题（此处笔者选这骚气黑），然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-069e6a4cae6f5dfb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c7847826c8c34e87?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>直接start</li>
-</ul>
-<ol start="4">
-<li>接下来新建一个项目练练手</li>
-</ol>
-<ul>
-<li>create a project<br><img src="http://upload-images.jianshu.io/upload_images/7222676-c3e5fbca22639f15?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>如果显示NO SDK， 找到之前安装的JDK所在路径，然后next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-4bc7b5235f11fff0?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>next<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d3424e921c0f88b2?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>第二行选择项目的存放路径，第一行给项目取个名字，然后Finish<br><img src="http://upload-images.jianshu.io/upload_images/7222676-e6a0e2e9b6e7c1cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>右击src文件夹–&gt;new–&gt;java class<br><img src="http://upload-images.jianshu.io/upload_images/7222676-7d0dce6538890d05?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>给类取个名字，ok<br><img src="http://upload-images.jianshu.io/upload_images/7222676-d0d4c59fc0ef35a7?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></li>
-<li>输入以下代码：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">public class Hello&#123;</span><br><span class="line">	public static void main(String[] args)&#123;</span><br><span class="line">		System.out.println(&quot;Oh, balabala&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/7222676-eb4b4e2af4977917?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行程序：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-78ee20269abea933?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"><br>运行成功，开始你的表演：<br><img src="http://upload-images.jianshu.io/upload_images/7222676-f036d4b759dc0643?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="这里写图片描述"></p>
+            <p>
+              
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章(第三章部分的多表操作没有在此处讲，准备挪到第四章再一起讨论)
 
+
+
+SELECT * 与 SELECT 全字段 的执    行效率是有差别的
+
+数据库在具体执行 SELECT * 的时候可以这样理解：首先把 * 替换成对应表的全字
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/16/2017-09-16-数据库学习笔记（三）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -720,175 +658,26 @@
       
         
           
-            <p><a href="http://www.w3school.com.cn/sql/index.asp" target="_blank" rel="noopener">SQL教程</a></p>
-<blockquote>
-<h2 id="DBS（Database-System）"><a href="#DBS（Database-System）" class="headerlink" title="DBS（Database System）"></a>DBS（Database System）</h2></blockquote>
-<ul>
-<li>传统的文件处理系统中存储组织信息的主要弊端<ul>
-<li>数据的冗余和不一致性（data redundancy and inconsistency）</li>
-<li>数据访问困难（dificulty in accessing data）</li>
-<li>数据孤立（data isolation）</li>
-<li>完整性问题（integrity problem）</li>
-<li>原子性问题（atomicity problem）</li>
-<li>并发访问异常（concurrent-access anomaly）</li>
-<li>安全性问题（security problem）</li>
-</ul>
-</li>
-<li>数据库系统的目标：<strong>提供一种可以方便高效地存取数据库信息的途径</strong></li>
-</ul>
-<blockquote>
-<h2 id="数据视图"><a href="#数据视图" class="headerlink" title="数据视图"></a>数据视图</h2><p>数据库系统的一个主要目的是给用户提供数据的抽象视图，也就是说隐藏关于数据存储和维护的某些细节</p>
-</blockquote>
-<ul>
-<li><h3 id="数据抽象"><a href="#数据抽象" class="headerlink" title="数据抽象"></a>数据抽象</h3><p><img src="http://upload-images.jianshu.io/upload_images/7222676-d79e079d68fdf082.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="数据视图"></p>
-<ul>
-<li>物理层（physical level）<ul>
-<li>最低层次的抽象</li>
-<li>描述了数据实际上是怎么存的（比如是都存在一个文件里还是分散在多个文件里）</li>
-</ul>
-</li>
-<li>逻辑层（logical level）<ul>
-<li>比物理层层次稍高的抽象</li>
-<li>描述了数据库中存什么数据以及数据之间的关系</li>
-<li>逻辑层的用户不需要去关系数据具体是怎么存的，这称作<strong>物理数据独立性（physical data independence）</strong><blockquote>
-<p>ps: 对于具有物理数据独立性的设计，即便底层的物理存储改变了，逻辑层也不需要做任何的修改</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li>视图层（view level）<ul>
-<li>最高层次的抽象，<strong>只描述整个数据库的某个部分</strong></li>
-<li>简而言之，对于逻辑层的数据，我们可以通过不同的视图，以不同的视角以及视野去查看它</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="实例和模式"><a href="#实例和模式" class="headerlink" title="实例和模式"></a>实例和模式</h3><blockquote>
-<p>类比：模式类比于变量的声明，实例类比于变量在特定时刻的值</p>
-</blockquote>
-<ul>
-<li>模式： 数据库的总体设计<ul>
-<li>数据库的模式限定了数据库中都有哪些表，表中都有哪些字段以及表与表之间的关系</li>
-</ul>
-</li>
-<li>实例： 特定时刻存储在数据库中的信息的集合<ul>
-<li>数据库的一个实例包含了数据库在一个时刻下的所有表的信息</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><h3 id="数据模型"><a href="#数据模型" class="headerlink" title="数据模型"></a>数据模型</h3><ul>
-<li>关系模型</li>
-<li>实体—联系模型</li>
-<li>基于对象的数据模型</li>
-<li>半结构化的模型</li>
-<li>网状数据模型</li>
-<li>层次数据模型</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="关系型数据库的一些基本术语"><a href="#关系型数据库的一些基本术语" class="headerlink" title="关系型数据库的一些基本术语"></a>关系型数据库的一些基本术语</h2></blockquote>
-<ul>
-<li>relation（关系）==&gt;表</li>
-<li>column（列）==&gt;字段（同一字段内所有数据的数据类型一致）</li>
-<li>row（行）==&gt;对应于数据库表中的一行数据（对应于数学概念中的元组）</li>
-<li>SQL（Structured Query Language）==&gt;结构化的查询语言</li>
-<li>DDL：Data Define Language（数据定义语言）==&gt;执行 该类SQL语句会导致表结构的变化</li>
-<li>DML：Data Manipulation Language（数据操纵（管理）语言）==&gt;执行该类SQL语句对表中的数据进行增删改查</li>
-<li>查询语言（query language）：DML中涉及信息检索的部分称之为查询语言</li>
-<li>tuple（元组）==&gt;对应于数据表中的一行数据</li>
-<li>domain（域）==&gt;字段的取值范围</li>
-<li><a href="https://baike.baidu.com/item/Schema/15286221" target="_blank" rel="noopener">schema</a>（方案/模式）==&gt;数据库中的Schema，为数据库对象的集合，一个用户一般对应一个schema</li>
-<li>Cartesian product（笛卡儿积）<ul>
-<li><a href="https://baike.baidu.com/item/%E7%AC%9B%E5%8D%A1%E5%B0%94%E4%B9%98%E7%A7%AF/6323173?fr=aladdin&amp;fromid=1434391&amp;fromtitle=%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF" target="_blank" rel="noopener">百度百科对笛卡尔积的解释</a></li>
-<li><a href="http://blog.csdn.net/zouxiang2188/article/details/38731949" target="_blank" rel="noopener">一篇介绍笛卡儿积与数据库关联的博客</a><blockquote>
-<p>ps: 应当避免表与表之间相关联的时候采用全匹配（如果采用笛卡尔积的匹配方式即为全匹配）</p>
-</blockquote>
-</li>
-</ul>
-</li>
-</ul>
-<hr>
-<blockquote>
-<p>DDL （数据定义语言）<br><a href="https://baike.baidu.com/item/DDL/21997?fr=aladdin" target="_blank" rel="noopener">数据库模式定义语言DDL(Data Definition Language)</a>，是用于描述数据库中要存储的现实世界实体的语言。一个数据库模式包含该数据库中所有实体的描述定义。<strong>DDL用来定义一个数据库的模式</strong></p>
-</blockquote>
-<ul>
-<li>执行此类语句会导致数据库结构的变化</li>
-<li><p><strong>create</strong>（创建一个表）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句创建了一个用户表，以id为主键，并添加了username和age字段</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="keyword">User</span>(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span> PRIMARY <span class="keyword">KEY</span> AUTO_INCREMENT,</span><br><span class="line">    username <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="string">""</span>,</span><br><span class="line">    age <span class="built_in">INT</span> <span class="keyword">DEFAULT</span> <span class="number">18</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">UNIQUE</span> <span class="keyword">INDEX</span> User_id_uindex <span class="keyword">ON</span> <span class="keyword">User</span> (<span class="keyword">id</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>alter</strong>（修改表的结构）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句修改了user表的id属性</span></span><br><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> <span class="keyword">user</span> <span class="keyword">MODIFY</span> <span class="keyword">id</span> <span class="built_in">INT</span>(<span class="number">11</span>) <span class="keyword">unsigned</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>drop</strong>（删除一张表）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句删除了为user表</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">TABLE</span> demo.user;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>rename</strong>（用于对一张表的名字进行重命名）</p>
-<ul>
-<li>Oracle数据库将其划分到DDL</li>
-<li>SQL server数据库将其归到DML<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句将user表的表名改成new_user</span></span><br><span class="line"><span class="keyword">rename</span> <span class="keyword">table</span> <span class="keyword">user</span> <span class="keyword">to</span> new_user</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p><strong>truncate</strong>（截断==&gt;用于删除数据表中的所有数据，但是保留表结构，不同公司的数据库实现的机制不同）</p>
-<blockquote>
-<p>DML<br><a href="https://zh.wikipedia.org/wiki/%E8%B3%87%E6%96%99%E6%93%8D%E7%B8%B1%E8%AA%9E%E8%A8%80" target="_blank" rel="noopener"><strong>数据操纵语言</strong>（Data Manipulation Language, DML）</a>是<a href="https://zh.wikipedia.org/wiki/SQL" target="_blank" rel="noopener">SQL</a>语言中，负责对数据库对象运行数据访问工作的指令集，以INSERT、UPDATE、DELETE三种指令为核心，分别代表插入、更新与删除，是开发以数据为中心的应用程序必定会使用到的指令，因此有很多开发人员都把加上SQL的SELECT语句的四大指令以“<a href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete" target="_blank" rel="noopener">CRUD</a>”来称呼。</p>
-</blockquote>
-</li>
-<li><p>此类语句对数据进行增删改查（CRUD）</p>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_insert.asp" target="_blank" rel="noopener"><strong>insert</strong></a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句往user用户表中插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">into</span> <span class="keyword">user</span>(username, age) <span class="keyword">VALUES</span>(<span class="string">'Robbin'</span>, <span class="number">18</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_update.asp" target="_blank" rel="noopener"><strong>update</strong></a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句修改了user表中username为Robbin的表项（元组）的数据</span></span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> username = <span class="string">'Robbin2'</span>, age = <span class="number">17</span> <span class="keyword">WHERE</span> username = <span class="string">'Robbin'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_delete.asp" target="_blank" rel="noopener"><strong>delete</strong></a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句删除user表中username为Robbin2的表项（元组）</span></span><br><span class="line"><span class="keyword">DROP</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> username = <span class="string">'Robbin2'</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><a href="http://www.w3school.com.cn/sql/sql_select.asp" target="_blank" rel="noopener"><strong>select</strong></a></p>
-<ul>
-<li>DB2将select归到DML</li>
-<li>Oracle将select单独划为一类（因为select操作只是对数据库进行查询操作，没有实质改变数据库中的数据）<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的语句查询user表中的所有数据</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> <span class="keyword">user</span></span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p> DML和DDL的区别</p>
-<ul>
-<li>DML语句支持回滚，采用事务，可以保证数据的一致性；而DDL语句采用隐式commit，是不支持回滚的（一旦执行就不可撤回）</li>
-<li><a href="http://www.jianshu.com/p/3817c9bf5d01" target="_blank" rel="noopener">四种SQL语句</a></li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<p><strong>Key</strong>（键/码）</p>
-<ul>
-<li>superkey（超码）==&gt;一个或多个字段的集合，可唯一标识一行数据</li>
-<li>candidate keys（候选码）==&gt;最小的超码（即本集合为超码，且集合内除本身外的任何子集都不能作为超码）</li>
-<li>Primary key（主码/主键）==&gt;从候选码中选取一个作为主码（主键），可以由多个字段组成</li>
-</ul>
-</blockquote>
-<blockquote>
-<ul>
-<li>Primary attribute（主属性）==&gt;包含于某个候选码的属性</li>
-<li>Non-Prime attribute（非主属性）==&gt;不包含于某个候选码的属性</li>
-</ul>
-</blockquote>
-<hr>
-<blockquote>
-<p><strong>Note:</strong></p>
-<ul>
-<li>数据表中字段的个数是有限的</li>
-<li>属性在元组中是无序的（但是设计的时候一般把主键放在前面）</li>
-<li>设计字段的时候要保证字段的原子性</li>
-<li>NULL==&gt;空值表示不确定的值，不代表0，也不代表空串</li>
-</ul>
-</blockquote>
+            <p>
+              SQL教程
 
+DBS（Database System）
+
+传统的文件处理系统中存储组织信息的主要弊端
+数据的冗余和不一致性（data redundancy and inconsistency）
+数据访问困难（dificulty in accessing data）
+数据孤立（data isolati
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/12/2017-09-12-数据库笔记（一）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
@@ -1041,252 +830,27 @@
       
         
           
-            <blockquote>
-<p>写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章</p>
-</blockquote>
-<blockquote>
-<h1 id="SQL的组成"><a href="#SQL的组成" class="headerlink" title="SQL的组成"></a>SQL的组成</h1><p>PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧</p>
-</blockquote>
-<ul>
-<li><h3 id="数据定义语言（Data-Definition-Language，-DDL）"><a href="#数据定义语言（Data-Definition-Language，-DDL）" class="headerlink" title="数据定义语言（Data-Definition Language， DDL）"></a>数据定义语言（Data-Definition Language， DDL）</h3><ul>
-<li>提供定义关系模式，删除关系以及修改关系模式的命令</li>
-<li>如create、drop、alter等执行以后会产生、销毁表（定义、删除关系模式）或改变表的结构（修改关系模式）</li>
-</ul>
-</li>
-<li><h3 id="数据操纵语言（Data-Manipulation-Language，DML）"><a href="#数据操纵语言（Data-Manipulation-Language，DML）" class="headerlink" title="数据操纵语言（Data-Manipulation Language，DML）"></a>数据操纵语言（Data-Manipulation Language，DML）</h3><ul>
-<li>SQL DML提供从数据库中查询信息，以及在数据库中插入元组、删除元组、修改元组的能力</li>
-<li>只是对表中数据的增删改查，并没有实际影响表的结构（即关系模式并没有改变，改变的只是表中的数据）</li>
-</ul>
-</li>
-<li><h3 id="完整性约束（integrity）"><a href="#完整性约束（integrity）" class="headerlink" title="完整性约束（integrity）"></a>完整性约束（integrity）</h3><ul>
-<li>SQL DDL 会给每一个关系（每一张表）在定义或者修改的时候定义一定的完整性约束。之后所有的操作都应该满足这些约束，不满足的操作将不被允许执行<blockquote>
-<p>复习注释: 不过如果对违反约束的行为做了处理，有些违反约束的语句也是可以成功执行的。比如在定义外键的时候指定了级联删除，那么一旦删除语句违反了外键约束，数据库不是拒绝执行，而是级联删除相关数据</p>
-</blockquote>
-</li>
-<li>比如<strong>主键约束</strong>表示一个或多个字段唯一标识了一行数据，如果试图插入主键值相同的数据，就不会被允许</li>
-<li>具体的下面会单独说明并举例</li>
-</ul>
-</li>
-<li><h3 id="视图定义（view-definition）"><a href="#视图定义（view-definition）" class="headerlink" title="视图定义（view definition）"></a>视图定义（view definition）</h3><ul>
-<li>SQL DDL 包括定义视图的命令</li>
-</ul>
-</li>
-<li><h3 id="事务控制（transaction-control）"><a href="#事务控制（transaction-control）" class="headerlink" title="事务控制（transaction control）"></a>事务控制（transaction control）</h3><ul>
-<li>SQL包括定义事务的开始和结束的命令</li>
-</ul>
-</li>
-<li><h3 id="嵌入式SQL和动态SQL（embedded-SQL）"><a href="#嵌入式SQL和动态SQL（embedded-SQL）" class="headerlink" title="嵌入式SQL和动态SQL（embedded SQL）"></a>嵌入式SQL和动态SQL（embedded SQL）</h3><ul>
-<li>嵌入式和动态SQL定义SQL语句如何嵌入到通用编程语言，如C、C++、Java</li>
-</ul>
-</li>
-<li><h3 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h3><ul>
-<li>SQL DDL包括定义对关系和视图的访问权限的命令</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h1><p>这些基本数据类型不依赖于某一个具体的数据库，是SQL数据库通用的类型</p>
-</blockquote>
-<ul>
-<li><h3 id="char-n-——全称character"><a href="#char-n-——全称character" class="headerlink" title="char(n)——全称character"></a>char(n)——全称character</h3><ul>
-<li>用户指定长度的字符串，所有取值的长度都固定为长度为n的char</li>
-<li>比如身份证或者电话号码等长度固定的数据可以使用这个</li>
-<li>一般实际用的较少</li>
-</ul>
-</li>
-<li><h3 id="varchar-n-——全称character-varying"><a href="#varchar-n-——全称character-varying" class="headerlink" title="varchar(n)——全称character varying"></a>varchar(n)——全称character varying</h3><ul>
-<li>可变长的字符串，n为串的最大允许长度</li>
-<li>实际存的时候数据多长，就存多长，较省空间</li>
-<li>实际应用中大多用varchar，而不是char</li>
-</ul>
-</li>
-<li><h3 id="int——integer"><a href="#int——integer" class="headerlink" title="int——integer"></a>int——integer</h3><ul>
-<li>整数类型，没啥好讲的，Oj8k</li>
-</ul>
-</li>
-<li><h3 id="smallint"><a href="#smallint" class="headerlink" title="smallint"></a>smallint</h3><ul>
-<li>小整数类型</li>
-</ul>
-</li>
-<li><h3 id="numeric-p-d"><a href="#numeric-p-d" class="headerlink" title="numeric(p, d)"></a>numeric(p, d)</h3><ul>
-<li>定点数，这个数有p位数字，其中小数点右边有d位</li>
-<li>例如，numberic(3, 1)可表示-99.9 ~ 99.9</li>
-<li><p>下面在MySQL数据库上面的测试，举个栗子：(<strong><em>测试结果表明，如果定义numberic(3, 1), 则小数点前面有三位数时是无法插入的，如果小数点后面有多位小数，则通过四舍五入的方法只保留一位小数</em></strong>)</p>
-<ul>
-<li><p>先简单定义一张Student表（没有定义主键，允许插入相同的数据）</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面定义了一张学生表，其中grade的取值范围为-99.9 ~ 99.9（不合理的取值，只是为了测试）</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> Student (</span><br><span class="line">  study_id <span class="built_in">VARCHAR</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  age <span class="built_in">INTEGER</span> <span class="keyword">DEFAULT</span> <span class="number">0</span>,</span><br><span class="line">  grade <span class="built_in">NUMERIC</span>(<span class="number">3</span>, <span class="number">1</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行正常的插入操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">-- 下面两条插入语句都能正常执行，并且结果正确</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590001'</span>, <span class="number">18</span>, <span class="number">92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590002'</span>, <span class="number">18</span>, <span class="number">-92.5</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.6，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590003'</span>, <span class="number">18</span>, <span class="number">-92.56</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 执行下面一条插入操作，最后保存的记录是 -92.5，</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590004'</span>, <span class="number">18</span>, <span class="number">-92.54</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的这条插入操作将会报错</span></span><br><span class="line"><span class="comment">--  [22001][1264] Data truncation: Out of range value for column 'grade' at row 1</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> Student(study_id, age, grade) <span class="keyword">VALUES</span> (</span><br><span class="line">  <span class="string">'201590005'</span>, <span class="number">18</span>, <span class="number">192.5</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行上面操作后的结果</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">study_id</th>
-<th style="text-align:center">age</th>
-<th style="text-align:center">grade</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">201590001</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">92.5</td>
-</tr>
-<tr>
-<td style="text-align:center">201590002</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.5</td>
-</tr>
-<tr>
-<td style="text-align:center">201590003</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.6</td>
-</tr>
-<tr>
-<td style="text-align:center">201590004</td>
-<td style="text-align:center">18</td>
-<td style="text-align:center">-92.5</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="real-double-precision"><a href="#real-double-precision" class="headerlink" title="real,double,precision"></a>real,double,precision</h3><ul>
-<li>浮点数与双精度浮点数</li>
-</ul>
-</li>
-<li><h3 id="float-n"><a href="#float-n" class="headerlink" title="float(n)"></a>float(n)</h3><ul>
-<li>精度至少为n位的浮点数</li>
-</ul>
-</li>
-<li><h3 id="Date-time-timestamp-interval"><a href="#Date-time-timestamp-interval" class="headerlink" title="Date, time, timestamp, interval"></a>Date, time, timestamp, interval</h3><ul>
-<li>日期类型</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h1 id="SQL中的完整性约束"><a href="#SQL中的完整性约束" class="headerlink" title="SQL中的完整性约束"></a>SQL中的完整性约束</h1><p>下文中列举的只是部分简单约束，具体的会在后面的内容中讨论</p>
-</blockquote>
-<p>  先来简单聊一聊我对完整性约束的理解吧，其实数据库中的完整性约束讲起来就是数据库在定义一张表的时候，对其作出了一系列的约束（这些个约束可能影响一个或多个字段，甚至影响整个表结构）。如果后续的操作中（不管是DDL还是很DML），如果违背了之前定义的约束，（<strong>如果没有对违反约束行为做特殊的处理</strong>）这个操作就不会成功</p>
-<ul>
-<li><h3 id="primary-key（A1-A2-…-An）——主键约束"><a href="#primary-key（A1-A2-…-An）——主键约束" class="headerlink" title="primary key（A1, A2, …, An）——主键约束"></a>primary key（A1, A2, …, An）——主键约束</h3><ul>
-<li>该约束主要指定了以属性A1~An构成关系的主键，该主键值必须非空且唯一</li>
-<li>即只要一个表的主键确定，那这个表中就不允许存在一行数据其主键的值为null， 也不允许存在两行数据其主键的值一样。一旦后续操作违反了这个原则（约束），则该操作就不会被执行</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>新定义一张department表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作创建了一张department表，并指定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>下面顺序执行一系列插入操作</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面的操作将成功插入一条记录</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面再执行一次与上面一模一样的操作，会发现报错，因为之前已经有一条</span></span><br><span class="line"><span class="comment">-- 记录的主键值为'Software'，顾无法再插入主键值相同的数据</span></span><br><span class="line"><span class="comment">-- [23000][1062] Duplicate entry 'Software' for key 'PRIMARY'</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'Software'</span>, <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 下面的语句试图插入一条dept_name为空的数据，显然也是报错的</span></span><br><span class="line"><span class="comment">-- 因为作为主键的字段是不允许为空的</span></span><br><span class="line"><span class="comment">-- [23000][1048] Column 'dept_name' cannot be null</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="literal">NULL</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>执行上面操作后的结果</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">dept_name</th>
-<th style="text-align:center">building</th>
-<th style="text-align:center">budget</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Software</td>
-<td style="text-align:center">A</td>
-<td style="text-align:center">100000</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><h3 id="foregin-key-A1-A2-…-An-references-——-外键约束"><a href="#foregin-key-A1-A2-…-An-references-——-外键约束" class="headerlink" title="foregin key(A1, A2, …, An) references —— 外键约束"></a>foregin key(A1, A2, …, An) references —— 外键约束</h3><ul>
-<li>简单来讲如果<strong><em>一个关系（表）A</em></strong>中包含<strong><em>一个外键C</em></strong>，则作为外键的一个或多个字段必然是<strong><em>另一张表B</em></strong>的主键。则由于外键约束这一层关系，对A表和B表都会收一定程度的限制（现在解释的还是比较抽象，看下面的例子会比较直观一点）<ul>
-<li>如果想向A表中插入一条数据，且数据中C的值在B表中找不到对应表项，则这个操作不会成功（就像你如果向运动员表中插入一条数据，国家属性对应的标识在国家表中不存在，则这次插入操作就会失败）</li>
-<li>如果试图删除一个表B的记录，而这条记录的主键只正好是A表中某条数据的外键，则这次删除操作不会成功</li>
-</ul>
-</li>
-<li><p>举个栗子：</p>
-<ul>
-<li><p>先创建两张表</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 创建一张表department，并制定dept_name为主键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> department (</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  building  <span class="built_in">VARCHAR</span>(<span class="number">15</span>),</span><br><span class="line">  budget    <span class="built_in">NUMERIC</span>(<span class="number">12</span>, <span class="number">2</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (dept_name)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">-- 再创建一张couese表，并指定dept_name为本表关于department表的外键</span></span><br><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> course (</span><br><span class="line">  course_id <span class="built_in">VARCHAR</span>(<span class="number">7</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  title     <span class="built_in">VARCHAR</span>(<span class="number">50</span>),</span><br><span class="line">  dept_name <span class="built_in">VARCHAR</span>(<span class="number">20</span>),</span><br><span class="line">  credits   <span class="built_in">NUMERIC</span>(<span class="number">2</span>, <span class="number">0</span>),</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (course_id),</span><br><span class="line">  FOREIGN <span class="keyword">KEY</span> (dept_name) <span class="keyword">REFERENCES</span> department (dept_name)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们先试图插入一条course记录</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 下面试图往course表中插入一条记录，但是department表中并没有</span></span><br><span class="line"><span class="comment">-- dept_name = 'DUT'的记录，故该操作会失败</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>我们先往department表中插入记录，再往course表中插入记录，下面的操作就能成功插入</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> department (dept_name, building, budget) <span class="keyword">VALUES</span> (<span class="string">'DUT'</span> , <span class="string">'A'</span>, <span class="number">100000</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> course (course_id, title, dept_name, credits)</span><br><span class="line"><span class="keyword">VALUES</span> (<span class="string">'08'</span>, <span class="string">'English'</span>, <span class="string">'DUT'</span>, <span class="number">3</span>)</span><br></pre></td></tr></table></figure>
-<ul>
-<li>执行上面操作后的结果</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">dept_name</th>
-<th style="text-align:center">building</th>
-<th style="text-align:center">budget</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">DUT</td>
-<td style="text-align:center">A</td>
-<td style="text-align:center">100000</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">course_id</th>
-<th style="text-align:center">title</th>
-<th style="text-align:center">dept_name</th>
-<th style="text-align:center">credits</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">08</td>
-<td style="text-align:center">Endlish</td>
-<td style="text-align:center">DUT</td>
-<td style="text-align:center">3</td>
-</tr>
-</tbody>
-</table>
-<pre><code>* 此时我们如果试图删除department表中dept_name = DUT的那条数据
-  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- 执行下面的操作就会报错，因为course表中还有一项数据的dept_name的值为DUT，如果删除掉department中的这条数据，就会破坏其完整性，顾执行失败</span></span><br><span class="line"><span class="comment">-- 23000][1451] Cannot delete or update a parent row: a foreign key constraint fails (`db_study`.`course`, CONSTRAINT `course_ibfk_1` FOREIGN KEY (`dept_name`) REFERENCES `department` (`dept_name`))</span></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> department <span class="keyword">WHERE</span> dept_name = <span class="string">'DUT'</span>;</span><br></pre></td></tr></table></figure>
+            <p>
+              
+写在前面：本篇博客大部分内容参考数据库系统概念（本科教学版）第三章
 
-* 同样的如果，我们试图删除department表，则只要course表中还有数据，这个操作就会失败
-</code></pre><ul>
-<li><h3 id="not-null——非空约束"><a href="#not-null——非空约束" class="headerlink" title="not null——非空约束"></a>not null——非空约束</h3><ul>
-<li>理解上面两个约束以后这个就很好理解了，这个约束就是指定某个字段不能为空，试图传入null值的操作都不会成功</li>
-<li>作为主键的字段隐式拥有非空约束</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<h2 id="打赏"><a href="#打赏" class="headerlink" title="打赏"></a>打赏</h2><p>如果你觉得本篇博文写的还过得去，而且乐意随手打赏，将是对博主最大的鼓励～</p>
-</blockquote>
-<img src="/img/zan_shang.png">
 
+SQL的组成PS：其中DDL、DML、integrity有一些补充，剩下的几项都是课本内容，应该后面会讲到。现在就先放在那边吧
+
+
+数据定义语言（Data-Definition Language， DDL）
+提供定义关系模式，
+              ...
+            </p>
+          <!--noindex-->
           
+            <div class="post-button text-center">
+              <a class="btn" href="/2017/09/12/2017-09-12-数据库学习笔记（二）/#more" rel="contents">
+                Read more &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
         
       
     </div>
